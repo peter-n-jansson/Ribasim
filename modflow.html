@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Bach - Modflow</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Bach</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./intro.html">Introduction</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./modflow.html" aria-current="page">Modflow</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#modflow-concepts" id="toc-modflow-concepts" class="nav-link active" data-scroll-target="#modflow-concepts">MODFLOW Concepts</a>
+  <ul class="collapse">
+  <li><a href="#drainage" id="toc-drainage" class="nav-link" data-scroll-target="#drainage">Drainage</a></li>
+  <li><a href="#river" id="toc-river" class="nav-link" data-scroll-target="#river">River</a></li>
+  <li><a href="#numerical-solution-in-modflow" id="toc-numerical-solution-in-modflow" class="nav-link" data-scroll-target="#numerical-solution-in-modflow">Numerical solution in MODFLOW</a></li>
+  <li><a href="#iterative-coupled-solution" id="toc-iterative-coupled-solution" class="nav-link" data-scroll-target="#iterative-coupled-solution">Iterative coupled solution</a>
+  <ul class="collapse">
+  <li><a href="#drainage-1" id="toc-drainage-1" class="nav-link" data-scroll-target="#drainage-1">Drainage</a></li>
+  <li><a href="#river-1" id="toc-river-1" class="nav-link" data-scroll-target="#river-1">River</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#assigning-modflow-water-levels" id="toc-assigning-modflow-water-levels" class="nav-link" data-scroll-target="#assigning-modflow-water-levels">Assigning MODFLOW water levels</a>
+  <ul class="collapse">
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Modflow</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="modflow-concepts" class="level1">
+<h1>MODFLOW Concepts</h1>
+<p>Bach has been designed to provide a computationally efficient representation of surface water for MODFLOW6. It does so by connecting to basic MODFLOW6 boundary conditions: the river and drainage packages.</p>
+<section id="drainage" class="level2">
+<h2 class="anchored" data-anchor-id="drainage">Drainage</h2>
+<p>The drainage package can be simulated to agricultural drains, ditches, or draining streams. The amount of water removed from the aquifer is proportional to the difference between the groundwater head and the drainage elevation. Drainage only occurs when the head is larger than the elevation; this boundary condition does not allow infiltration into the groundwater.</p>
+<p><span class="math display">\[
+Q_{drain} = \left\{
+    \begin{array}{ c l }
+        C_{drain} (\phi - h_{drain}) &amp; \quad \textrm{if } \phi &gt; h_{drain} \\
+        0                            &amp; \quad \textrm{otherwise}
+     \end{array}
+\right.
+\]</span></p>
+</section>
+<section id="river" class="level2">
+<h2 class="anchored" data-anchor-id="river">River</h2>
+<p>The river package can both drain the groundwater, or infiltrate surface water to the groundwater. It limits the amount of water that can infiltrate when the groundwater head falls below the river bottom, in which cases it assumes atmospheric pressure conditions underneath the surface water.</p>
+<p><span class="math display">\[
+Q_{river} = \left\{
+    \begin{array}{ c l }
+        C_{river} (\phi - h_{river}) &amp; \quad \textrm{if } \phi &gt; b_{river} \\
+        C_{river} (h_{river} - b_{river}) &amp; \quad \textrm{if } \phi &lt;= b_{river}
+     \end{array}
+\right.
+\]</span></p>
+<p>In the Netherlands, it is somewhat common to make a distinction between the drainage and infiltration conductance of surface waters. Drainage conductance is often larger than the infiltration conductance due to clogging processes, seepage, different flow patterns, etc.</p>
+<p><span class="math display">\[
+Q_{river} = \left\{
+    \begin{array}{ c l }
+        C_{river,drn} (\phi - h_{river}) &amp; \quad \textrm{if } \phi &gt; h_{river} \\
+        C_{river,inf} (\phi - h_{river}) &amp; \quad \textrm{if } \phi &lt;= h_{river} \\
+        C_{river,inf} (h_{river} - b_{river}) &amp; \quad \textrm{if } \phi &lt;= b_{river}
+     \end{array}
+\right.
+\]</span></p>
+<p>MODFLOW6 does not support this (currently), but an identical effect may be achieved by “stacking” a drainage package on top of a river package with these values:</p>
+<p><span class="math display">\[
+\begin{aligned}
+h_{drain} = h_{river}
+C_{drain} = C_{river,drn} - C{river,inf}
+\end{aligned}
+\]</span></p>
+</section>
+<section id="numerical-solution-in-modflow" class="level2">
+<h2 class="anchored" data-anchor-id="numerical-solution-in-modflow">Numerical solution in MODFLOW</h2>
+<p>MODFLOW uses a backward-in-time implicit solution scheme. This creates a large system of equations (a water balance for every cell), which it solves by repeatedly solving a linearized system of equations instead. In matrix form, this system of equations is expressed by:</p>
+<p><span class="math display">\[
+\mathbf{Ax} = \mathbf{b}
+\]</span></p>
+<p>Where <span class="math inline">\(\mathbf{x}\)</span> is a vector containing the head of every cell.</p>
+<p>For the boundary conditions, this requires linearization of the flow equations. Flow from outside of the aquifer (cell) may be represented by:</p>
+<p><span class="math display">\[
+a = p\phi + q
+\]</span></p>
+<p>(Equation 2-6 in the MODFLOW6 manual.)</p>
+<p>For e.g.&nbsp;a draining boundary condition, the flow is head dependent:</p>
+<p><span class="math display">\[
+a = C(h - \phi) = -C\phi + Ch
+\]</span></p>
+<p>With <span class="math inline">\(C\)</span> the conductance, <span class="math inline">\(h\)</span> the boundary head or elevation, and <span class="math inline">\(\phi\)</span> the groundwater head.</p>
+<p>In MODFLOW’s internal formulation, the term in <span class="math inline">\(\mathbf{A}\)</span> is called “coefficient of head” or hcof. Terms in <span class="math inline">\(\mathbf{b}\)</span> are called “right hand side” or rhs. We can separate the equation above:</p>
+<p><span class="math display">\[
+\begin{aligned}
+p = \text{hcof} = -C \\
+q = \textrm{rhs} = -Ch \\
+a = -C\phi + Ch = \text{hcof} * \phi - \text{rhs}
+\end{aligned}
+\]</span></p>
+<p>For every boundary condition, MODFLOW stores the hcof and rhs values. This makes it quite convenient for us to compute the water budget for every boundary condition: we simply multiply the hcof value by the head of the cell and subtract the rhs.</p>
+<p>Note that hcof may have a value of 0! For example, when for a river boundary the <span class="math inline">\(\phi &lt;= b_{river}\)</span> condition occurs, the flow into the cell is controlled only by <span class="math inline">\(h_{river}\)</span> and <span class="math inline">\(b_{river}\)</span> (equal to recharge for the linear solution).</p>
+</section>
+<section id="iterative-coupled-solution" class="level2">
+<h2 class="anchored" data-anchor-id="iterative-coupled-solution">Iterative coupled solution</h2>
+<p>We can use a linearization to efficiently compute the flow from Bach’s side as well. In the iterative coupled solution, we are solving both MODFLOW6 and Bach repeatedly, until they produce same drainage or infiltration (approximately). One of Bach’s <code>LocalSurfaceWater</code>s contains many MODFLOW cells with boundary conditions. We could add every boundary condition to Bach’s equations, but this is costly and cumbersome.</p>
+<p>Linearization allows us to “stack” (superpose) all the different boundary conditions into a single, simple equation. In linear form, every equation takes the form of:</p>
+<p><span class="math display">\[
+a = ph + q
+\]</span></p>
+<p>Note the <span class="math inline">\(h\)</span> rather than <span class="math inline">\(\phi\)</span>, we are formulating from Bach’s perspective! We can sum all coefficients for p and q to provide a linear groundwater response to Bach.</p>
+<section id="drainage-1" class="level3">
+<h3 class="anchored" data-anchor-id="drainage-1">Drainage</h3>
+<p>From Bach’s perspective, the groundwater head is constant given a timestep, so that:</p>
+<p><span class="math display">\[
+\begin{align}
+p = -C \\
+q = -C\phi
+\end{align}
+\]</span></p>
+<p>When the head falls below the drainage elevation, the coefficients are 0.</p>
+</section>
+<section id="river-1" class="level3">
+<h3 class="anchored" data-anchor-id="river-1">River</h3>
+<p>From Bach’s persective, infiltration is never limited when the head falls below the bottom:</p>
+<p><span class="math display">\[
+\begin{align}
+p = -C \\
+q = -Cb
+\end{align}
+\]</span></p>
+<p>Otherwise, infiltration and drainage occur with the same equation as for the drainage package:</p>
+<p><span class="math display">\[
+\begin{align}
+p = -C \\
+q = -C\phi
+\end{align}
+\]</span></p>
+</section>
+</section>
+</section>
+<section id="assigning-modflow-water-levels" class="level1">
+<h1>Assigning MODFLOW water levels</h1>
+<p>Principally, MODFLOW deals with water levels; Bach deals with water volumes. The translation from a water volume to a water level should be a relatively straightforward one:</p>
+<p><span class="math display">\[
+\Delta d = \frac{\Delta V}{A}
+\]</span></p>
+<p>However, the primary complication is that where Bach has <strong>one</strong> volume, MODFLOW has many levels to adjust. The sum of all these adjustments times their respective areas should result in the LSW volume change:</p>
+<p><span class="math display">\[
+\sum_{i=0}^{i=n} \Delta d_i A_i = \Delta V_{LSW}
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+h = b + d
+\]</span></p>
+<p>It should be obvious that there are many ways to distribute this volume change across the adjustment of every boundary condition of every cell. The main question is when a volume grows or decreases, how should this volume change be distributed across the LSW?</p>
+<p>The best method to find an answer to this question is to run a hydraulic model, extract water heights, and compute the total volume. This can then be used as a lookup table for every cell. These runs can also be used for parametrizing the volume-discharge lookup tables. In coupling to Bach, we need only find the appropriate volume and assign the associated water level. For efficiency, this lookup table can be discretized in a limited number of steps, and in coupling the level will be interpolated.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Great care is required when parametrizing these volume-level relationships. As Bach does not know the properties of the surface water, it can perform very limited validation of the volume-level lookup tables. As the total volume of the LSW is distributed accross <em>all</em> boundary conditions, it should be checked that the change of the water column for every boundary condition matches the total volume change of the LSW.</p>
+</div>
+</div>
+<p>In principle, all (stationary!) hydraulic behavior of the LSW can be described approximately by these lookup tables.</p>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<p>To get a feeling for the simplifications and the errors of the approximation, let’s consider three oversimplified hydraulic models:</p>
+<ol type="1">
+<li>The LSW has a single water level.</li>
+<li>The LSW has a single water depth.</li>
+<li>The LSW has a water depth that linearly decreases with bed elevation.</li>
+</ol>
+<p>To investigate these cases, we will assume a rectangular profile (constant wetted area). This allows to create plots of cumulative wetted area versus height, so that the area between the water level and the bed elevation equals LSW volume.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
