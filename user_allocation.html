@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bach</title>
+<title>Bach - User Allocation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -59,6 +59,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -80,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page">Home</a>
+    <a class="nav-link" href="./index.html">Home</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./intro.html">Introduction</a>
@@ -89,7 +90,7 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./modflow.html">Modflow</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./user_allocation.html">User Allocation</a>
+    <a class="nav-link active" href="./user_allocation.html" aria-current="page">User Allocation</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -106,7 +107,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#status" id="toc-status" class="nav-link active" data-scroll-target="#status">Status</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#general-user" id="toc-general-user" class="nav-link" data-scroll-target="#general-user">General User</a></li>
+  <li><a href="#level-control" id="toc-level-control" class="nav-link" data-scroll-target="#level-control">Level Control</a></li>
+  <li><a href="#flushing-requirement" id="toc-flushing-requirement" class="nav-link" data-scroll-target="#flushing-requirement">Flushing Requirement</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -115,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Bach</h1>
+<h1 class="title">User Allocation</h1>
 </div>
 
 
@@ -129,25 +135,44 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Bach is a water resources model, designed to be the replacement of the regional surface water module Mozart in the Netherlands Hydrological Instrument (NHI). Bach is still a work in progress, it is a prototype that demonstrates all essential functionalities.</p>
-<p>Bach is written in the <a href="https://julialang.org/">Julia programming language</a> and is built on top of the <a href="https://sciml.ai/">SciML: Open Source Software for Scientific Machine Learning</a> libraries, notably <a href="https://mtk.sciml.ai/stable/">ModelingToolkit.jl</a>.</p>
-<section id="status" class="level1">
-<h1>Status</h1>
-<p>The initial focus is on being able to reproduce the Mozart regional surface water reservoir results. Each component is defined by a set of symbolic equations, and can be connected to each other. From this a simplified system of equations is generated automatically. We use solvers with adaptive time stepping from <a href="https://diffeq.sciml.ai/stable/">DifferentialEquations.jl</a> to get results.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/179259333-070dfe18-8f43-4ac4-bb38-013b252e2e4b.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Timeseries of a single reservoir, with the input and output fluxes on the top, and the storage volume (the state) below.</figcaption><p></p>
-</figure>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>Bach has been designed with the functionality to allocate water to different users within each LSW. The volume allocated is determined by the user demand, the available water, and the priority of each user with respect to other users within the same LSW. The water demands for a given LSW can be summarized into three user categories. The handling of the allocation of water for different user categories varies, as explained in more detail below.</p>
+<div class="hidden">
+<p><span class="math display">\[
+\def\qavail{{Q_\mathit{avail\:vol}}}
+\def\demwm{{D_{\mathit{wm}}}}
+\def\demuser{{D_{\mathit{user}}}}
+\]</span></p>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/179259174-0caccd4a-c51b-449e-873c-17d48cfc8870.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Bar plot of the daily waterbalance, comparing Mozart (left) and Bach (right).</figcaption><p></p>
-</figure>
-</div>
+<section id="general-user" class="level2">
+<h2 class="anchored" data-anchor-id="general-user">General User</h2>
+<p>The General User category include the users Agriculture, Industry and Public Water supply. These users extract water from the LSW and the demand (<span class="math inline">\(\demuser\)</span>) is determined externally. The source of water allocated to the General User is dependent on if the LSW is a free-flowing type LSW or a level-controlled LSW.</p>
+<p>If the LSW is free-flowing, the water source will be the available water within the LSW. If the LSW is level-controlled additional water can be sourced from the regional network, should the water available from the LSW be insufficient to satisfy <span class="math inline">\(\demuser\)</span>.</p>
+<p>The availability of water (<span class="math inline">\(\qavail\)</span>) internally in a LSW in a given timestep is calculated by <a href="#eq-q-avail">Equation&nbsp;1</a>. This volume is available to be extracted by the General Users. In the Bach prototype, additional water from the regional network is currently modelled as an unlimited supply.</p>
+<p><span id="eq-q-avail"><span class="math display">\[
+\qavail = \frac{(P - E_{pot}) \cdot \mathit{area}}{\mathrm{Δ}t} - \min(0, \mathit{infiltration} - \mathit{drainage} - \mathit{urban\_runoff})
+\tag{1}\]</span></span></p>
+<p>The <span class="math inline">\(\qavail\)</span> can be assigned to multiple users in the same LSW. Allocation is based upon user priority. For a given user, in the case where <span class="math inline">\(\qavail &gt; \demuser\)</span>, the user demand is satisfied and the remaining <span class="math inline">\(\qavail\)</span> becomes available for the user of next highest priority. For a given user, in the case where <span class="math inline">\(\demuser &gt; \qavail\)</span> then all of the available water is assigned to the user. This results in an allocation shortage and no remaining local water for any users of lower priority.</p>
+<p>However, as discussed, if the LSW is a level-controlled LSW, additional water can then be sourced from the regional network and is allocated to satisfy the allocation shortage of the General User.</p>
+</section>
+<section id="level-control" class="level2">
+<h2 class="anchored" data-anchor-id="level-control">Level Control</h2>
+<p>A level-controlled LSW (<code>local_surface_water_type = "P"</code>) has a user demand referred to as water management (<span class="math inline">\(\demwm\)</span>). The purpose of this demand is to maintain the water levels for each LSW at a target level. This target levels is determined externally. The <span class="math inline">\(\demwm\)</span> is negative if additional water is required to increase the water level in the LSW, or positive if there is surplus water which must be removed to lower the level in the LSW. When <span class="math inline">\(\demwm\)</span> is positive and there is surplus water, Bach is designed to make any surplus water available to General Users within the LSW for abstraction. This is modelled by adding the <span class="math inline">\(\demwm\)</span> to the <span class="math inline">\(\qavail\)</span> in calculated in <a href="#eq-wm">Equation&nbsp;2</a>.</p>
+<p><span id="eq-wm"><span class="math display">\[
+\qavail = \demwm
+\tag{2}\]</span></span></p>
+<p>When the <span class="math inline">\(\demwm\)</span> is negative, the <span class="math inline">\(\demwm\)</span> is allocated first from the LSW <span class="math inline">\(\qavail\)</span>, and then secondly with water from the national network, should the local LSW water not be sufficient to satisfy <span class="math inline">\(\demwm\)</span>. This demand is therefore handled similar to that of a General User. In the case that a General User is allocated water as a higher priority than the Level Control such that the water level of the LSW decreases, the <span class="math inline">\(\demwm\)</span> will increase accordingly. However, in most cases the demand for Level Control is higher than that of the General Users so this does not occur.</p>
+</section>
+<section id="flushing-requirement" class="level2">
+<h2 class="anchored" data-anchor-id="flushing-requirement">Flushing Requirement</h2>
+<p>The flushing requirement for the LSW is a special case of user. Flushing is required to maintain water quality in the LSW. This is determined externally. Water from the national network flows into the LSW, and the same volume gets removed from the LSW back to the national network. This water cannot be allocated to other users and there is no net change to the water level in the LSW or the <span class="math inline">\(\qavail\)</span>, see <a href="#eq-flushing">Equation&nbsp;3</a>.</p>
+<p><span id="eq-flushing"><span class="math display">\[
+\mathit{Q_{in}} = -\mathit{Q_{out}}
+\tag{3}\]</span></span></p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

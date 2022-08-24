@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.1.113">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,34 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: 1;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -65,9 +89,11 @@ ul.task-list{list-style: none;}
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="./index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Bach</span>
-  </a>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -82,6 +108,9 @@ ul.task-list{list-style: none;}
   <li class="nav-item">
     <a class="nav-link active" href="./modflow.html" aria-current="page">Modflow</a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./user_allocation.html">User Allocation</a>
+  </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
@@ -93,7 +122,7 @@ ul.task-list{list-style: none;}
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -110,7 +139,9 @@ ul.task-list{list-style: none;}
   </ul></li>
   <li><a href="#assigning-modflow-water-levels" id="toc-assigning-modflow-water-levels" class="nav-link" data-scroll-target="#assigning-modflow-water-levels">Assigning MODFLOW water levels</a>
   <ul class="collapse">
+  <li><a href="#parametrization" id="toc-parametrization" class="nav-link" data-scroll-target="#parametrization">Parametrization</a></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  <li><a href="#test-cases" id="toc-test-cases" class="nav-link" data-scroll-target="#test-cases">Test cases</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -160,7 +191,7 @@ Q_{river} = \left\{
      \end{array}
 \right.
 \]</span></p>
-<p>In the Netherlands, it is somewhat common to make a distinction between the drainage and infiltration conductance of surface waters. Drainage conductance is often larger than the infiltration conductance due to clogging processes, seepage, different flow patterns, etc.</p>
+<p>In the Netherlands, it is somewhat common to make a distinction between the drainage and infiltration conductance of surface waters. Drainage conductance is often larger than the infiltration conductance due to clogging processes, seepage through sides of the ditches, less contracted flow lines, etc.</p>
 <p><span class="math display">\[
 Q_{river} = \left\{
     \begin{array}{ c l }
@@ -189,7 +220,7 @@ C_{drain} = C_{river,drn} - C{river,inf}
 <p><span class="math display">\[
 a = p\phi + q
 \]</span></p>
-<p>(Equation 2-6 in the MODFLOW6 manual.)</p>
+<p>(Equation 2-6 in the MODFLOW6 documentation <span class="citation" data-cites="langevin2017documentation">(<a href="#ref-langevin2017documentation" role="doc-biblioref">Langevin et al. 2017</a>)</span>.)</p>
 <p>For e.g.&nbsp;a draining boundary condition, the flow is head dependent:</p>
 <p><span class="math display">\[
 a = C(h - \phi) = -C\phi + Ch
@@ -203,7 +234,7 @@ q = \textrm{rhs} = -Ch \\
 a = -C\phi + Ch = \text{hcof} * \phi - \text{rhs}
 \end{aligned}
 \]</span></p>
-<p>For every boundary condition, MODFLOW stores the hcof and rhs values. This makes it quite convenient for us to compute the water budget for every boundary condition: we simply multiply the hcof value by the head of the cell and subtract the rhs.</p>
+<p>For every boundary condition, MODFLOW6 stores the <code>hcof</code> and <code>rhs</code> values. This makes it quite convenient for us to compute the water budget for every boundary condition: we simply multiply the hcof value by the head of the cell and subtract the rhs.</p>
 <p>Note that hcof may have a value of 0! For example, when for a river boundary the <span class="math inline">\(\phi &lt;= b_{river}\)</span> condition occurs, the flow into the cell is controlled only by <span class="math inline">\(h_{river}\)</span> and <span class="math inline">\(b_{river}\)</span> (equal to recharge for the linear solution).</p>
 </section>
 <section id="iterative-coupled-solution" class="level2">
@@ -274,6 +305,10 @@ Note
 </div>
 </div>
 <p>In principle, all (stationary!) hydraulic behavior of the LSW can be described approximately by these lookup tables.</p>
+<section id="parametrization" class="level2">
+<h2 class="anchored" data-anchor-id="parametrization">Parametrization</h2>
+<p>In coupling Bach to MODFLOW6, relations translating the Bach volume must be given for every every cell of every boundary condition.</p>
+</section>
 <section id="examples" class="level2">
 <h2 class="anchored" data-anchor-id="examples">Examples</h2>
 <p>To get a feeling for the simplifications and the errors of the approximation, let’s consider three oversimplified hydraulic models:</p>
@@ -283,12 +318,73 @@ Note
 <li>The LSW has a water depth that linearly decreases with bed elevation.</li>
 </ol>
 <p>To investigate these cases, we will assume a rectangular profile (constant wetted area). This allows to create plots of cumulative wetted area versus height, so that the area between the water level and the bed elevation equals LSW volume.</p>
+</section>
+<section id="test-cases" class="level2">
+<h2 class="anchored" data-anchor-id="test-cases">Test cases</h2>
+<p>In our test cases, we will work with the Dutch national groundwater model (LHM). For testing, we simplify the top boundary conditions to just three surface water “systems”, from large to small:</p>
+<ol type="1">
+<li>Primary</li>
+<li>Secondary</li>
+<li>Tertiary</li>
+</ol>
+<p>(Note: Bach has no knowledge of these systems. Any basin is represented by a single volume.)</p>
+<p>These systems are be separated due to their relatively small size in comparison with relatively coarse cells of the groundwater model: most cells in the LHM contain more than one surface water, and are included via representative parameters which take the physical scaling into account.</p>
+<p>In case of sufficiently small cell sizes, no overlap occurs and all surface waters can be represented in a single grid.</p>
+<p>For the purposes of testing, we have not created empirical volume-level relationships for the surface water of every cell. Instead, we have chosen for an (over)simplified representation over the hydraulic properties, which makes it easy to verify the behavior of Bach and the coupling procedures:</p>
+<ol type="1">
+<li>Primary, secondary, and tertiary systems have a rectangular profile: the area of the surface water does not change with water level or volume.</li>
+<li>Water depth is constant for a system within a basin.</li>
+<li>Water depth increases linearly with volume. (This follows from 1.)</li>
+<li>Water depth is distributed across the systems in a geometric progression: when the tertiary system contains 0.1 m of water, the secondary system contains 0.2 m, and the primary system contains 0.4 m.</li>
+<li>Water depth is 0.0 m for all systems when basin volume is 0.0. (This follows from 4.)</li>
+<li>The distribution of water occurs according to the surface water area (width times length) used for the LHM parametrization of river bed conductance.</li>
+</ol>
+<p>An example of the resulting parameters for a single cell is shown in <a href="#tbl-hupsel-v-h">Table&nbsp;1</a>. The first row shows the water levels when the basin is empty. The level for primary, secondary, and tertiary are equal to the bottom elevation of the surface waters. The second row shows the volume and levels for water depths of 0.4, 0.2, and 0.1 m. The third row shows the volume and levels for a tenfold larger volume. This results in implausible water levels with depths of 4.0, 2.0 and 1.0 m; the water level in the primary system is over two meters higher than in the tertiary system. In reality, the surface waters would overflow and surface ponding would occur; this mechanism is ignored in this case for the sake simplicity.</p>
+<div id="tbl-hupsel-v-h" class="anchored">
+<table class="table">
+<caption>Table&nbsp;1: Volume-level table for a single cell in the Hupsel basin.</caption>
+<thead>
+<tr class="header">
+<th>Volume (m3)</th>
+<th>Primary (m NAP)</th>
+<th>Secondary (m NAP)</th>
+<th>Tertiary (m NAP)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0.0</td>
+<td>25.65</td>
+<td>25.83</td>
+<td>26.60</td>
+</tr>
+<tr class="even">
+<td>6843.1</td>
+<td>26.05</td>
+<td>26.03</td>
+<td>26.70</td>
+</tr>
+<tr class="odd">
+<td>68431.0</td>
+<td>29.65</td>
+<td>27.83</td>
+<td>27.60</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Image … shows the volume of the first row of the cell based input for the primary system. Symbology is set to unique values</p>
+
 
 
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-langevin2017documentation" class="csl-entry" role="doc-biblioentry">
+Langevin, Christian D, Joseph D Hughes, Edward R Banta, Richard G Niswonger, Sorab Panday, and Alden M Provost. 2017. <span>“Documentation for the MODFLOW 6 Groundwater Flow Model.”</span> US Geological Survey.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -358,7 +454,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
