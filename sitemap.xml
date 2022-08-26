@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://Deltares.github.io/bach/demo.html</loc>
+    <lastmod>2022-08-26T17:50:07.107Z</lastmod>
+  </url>
+  <url>
     <loc>https://Deltares.github.io/bach/index.html</loc>
-    <lastmod>2022-08-24T16:57:53.881Z</lastmod>
+    <lastmod>2022-08-26T17:50:07.829Z</lastmod>
   </url>
   <url>
     <loc>https://Deltares.github.io/bach/intro.html</loc>
-    <lastmod>2022-08-24T16:57:54.645Z</lastmod>
+    <lastmod>2022-08-26T17:50:08.770Z</lastmod>
   </url>
   <url>
     <loc>https://Deltares.github.io/bach/modflow.html</loc>
-    <lastmod>2022-08-24T16:57:55.329Z</lastmod>
+    <lastmod>2022-08-26T17:50:09.543Z</lastmod>
   </url>
   <url>
     <loc>https://Deltares.github.io/bach/user_allocation.html</loc>
-    <lastmod>2022-08-24T16:57:55.883Z</lastmod>
+    <lastmod>2022-08-26T17:50:10.169Z</lastmod>
   </url>
 </urlset>

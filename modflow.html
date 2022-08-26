@@ -111,6 +111,9 @@ div.csl-indent {
   <li class="nav-item">
     <a class="nav-link" href="./user_allocation.html">User Allocation</a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./demo.html">Bach Functionality Demonstration</a>
+  </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
@@ -143,6 +146,12 @@ div.csl-indent {
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   <li><a href="#test-cases" id="toc-test-cases" class="nav-link" data-scroll-target="#test-cases">Test cases</a></li>
   </ul></li>
+  <li><a href="#test-case-hupsel" id="toc-test-case-hupsel" class="nav-link" data-scroll-target="#test-case-hupsel">Test case: Hupsel</a>
+  <ul class="collapse">
+  <li><a href="#budgets" id="toc-budgets" class="nav-link" data-scroll-target="#budgets">Budgets</a></li>
+  <li><a href="#zero-volume" id="toc-zero-volume" class="nav-link" data-scroll-target="#zero-volume">Zero volume</a></li>
+  </ul></li>
+  <li><a href="#test-case-de-tol" id="toc-test-case-de-tol" class="nav-link" data-scroll-target="#test-case-de-tol">Test case: de Tol</a></li>
   </ul>
 </nav>
     </div>
@@ -373,11 +382,37 @@ Note
 </tbody>
 </table>
 </div>
-<p>Image … shows the volume of the first row of the cell based input for the primary system. Symbology is set to unique values</p>
-
-
-
+<p>Image … shows the volume of the first row of the cell based input for the primary system. Symbology is set to unique values.</p>
 </section>
+</section>
+<section id="test-case-hupsel" class="level1">
+<h1>Test case: Hupsel</h1>
+<p>To test the coupling, the following simulations have been setup and run:</p>
+<ol type="1">
+<li>A standalone MODFLOW6 run of sequential steady-states (i.e.&nbsp;no storage) with differing groundwater recharge values.</li>
+<li>A coupled run where the MODFLOW6 stages are updated through the</li>
+</ol>
+<p>From these tests, we expect the following behavior:</p>
+<ol type="1">
+<li>Drainage terms should remain largely the same when the water level is lowered in a steady-state: the amount of recharge is fixed, and this is locally drained.</li>
+<li>In case of negative recharge (evapotranspiration), infiltration occurs in the surface waters. Infiltration should be zero when the basin volume is 0.</li>
+</ol>
+<p>Figure … shows the water balance of steady-state for submodel of the LHM that has been by selecting the cells belonging to the district containing the Hupsel catch, the Berkel. The Hupsel basin show the expected behavior: in terms of incoming flows, most is precipitation with a minor part lateral inflow from higher areas. In terms of outgoing flows, most of the precipitation ends up in the surface water, primarily in the many ditches of the tertiary system. Only a relatively small part of the water leaves the basin via the groundwater. Interbasin flows through the groundwater form such a minor role, as the aquifer is thin and transmissivity is limited.</p>
+<section id="budgets" class="level2">
+<h2 class="anchored" data-anchor-id="budgets">Budgets</h2>
+<p>Table … shows the budgets computed by MODFLOW6 per primary, secondary, and tertiary system. These are compared to the budget computed by the coupling procedure, which uses equation …</p>
+<p>As expected, these numbers match exactly.</p>
+</section>
+<section id="zero-volume" class="level2">
+<h2 class="anchored" data-anchor-id="zero-volume">Zero volume</h2>
+</section>
+</section>
+<section id="test-case-de-tol" class="level1">
+<h1>Test case: de Tol</h1>
+<p>Figure … shows the water balance of steady-state for a submodel of the LHM for the Polder de Tol and its surroundings. While groundwater recharge is the dominant in going flow, lateral groundwater flow (over the entire depth of the groundwater model) is a sizable inflow for the area; the larger lateral inflow shows that De Tol is a net receiver of groundwater. In contrast to the Hupsel, the tertiary system is almost entirely absent: drainage occurs not through ephemeral tertiary ditches, but by the permanently water-bearing ditches of the primary and secondary system instead.</p>
+
+
+
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">

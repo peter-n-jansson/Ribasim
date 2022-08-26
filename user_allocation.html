@@ -92,6 +92,9 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link active" href="./user_allocation.html" aria-current="page">User Allocation</a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./demo.html">Bach Functionality Demonstration</a>
+  </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
@@ -107,12 +110,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
-  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#general-user" id="toc-general-user" class="nav-link" data-scroll-target="#general-user">General User</a></li>
   <li><a href="#level-control" id="toc-level-control" class="nav-link" data-scroll-target="#level-control">Level Control</a></li>
   <li><a href="#flushing-requirement" id="toc-flushing-requirement" class="nav-link" data-scroll-target="#flushing-requirement">Flushing Requirement</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -145,8 +146,9 @@ ul.task-list li input[type="checkbox"] {
 \def\demuser{{D_{\mathit{user}}}}
 \]</span></p>
 </div>
-<section id="general-user" class="level2">
-<h2 class="anchored" data-anchor-id="general-user">General User</h2>
+</section>
+<section id="general-user" class="level1">
+<h1>General User</h1>
 <p>The General User category include the users Agriculture, Industry and Public Water supply. These users extract water from the LSW and the demand (<span class="math inline">\(\demuser\)</span>) is determined externally. The source of water allocated to the General User is dependent on if the LSW is a free-flowing type LSW or a level-controlled LSW.</p>
 <p>If the LSW is free-flowing, the water source will be the available water within the LSW. If the LSW is level-controlled additional water can be sourced from the regional network, should the water available from the LSW be insufficient to satisfy <span class="math inline">\(\demuser\)</span>.</p>
 <p>The availability of water (<span class="math inline">\(\qavail\)</span>) internally in a LSW in a given timestep is calculated by <a href="#eq-q-avail">Equation&nbsp;1</a>. This volume is available to be extracted by the General Users. In the Bach prototype, additional water from the regional network is currently modelled as an unlimited supply.</p>
@@ -156,23 +158,22 @@ ul.task-list li input[type="checkbox"] {
 <p>The <span class="math inline">\(\qavail\)</span> can be assigned to multiple users in the same LSW. Allocation is based upon user priority. For a given user, in the case where <span class="math inline">\(\qavail &gt; \demuser\)</span>, the user demand is satisfied and the remaining <span class="math inline">\(\qavail\)</span> becomes available for the user of next highest priority. For a given user, in the case where <span class="math inline">\(\demuser &gt; \qavail\)</span> then all of the available water is assigned to the user. This results in an allocation shortage and no remaining local water for any users of lower priority.</p>
 <p>However, as discussed, if the LSW is a level-controlled LSW, additional water can then be sourced from the regional network and is allocated to satisfy the allocation shortage of the General User.</p>
 </section>
-<section id="level-control" class="level2">
-<h2 class="anchored" data-anchor-id="level-control">Level Control</h2>
+<section id="level-control" class="level1">
+<h1>Level Control</h1>
 <p>A level-controlled LSW (<code>local_surface_water_type = "P"</code>) has a user demand referred to as water management (<span class="math inline">\(\demwm\)</span>). The purpose of this demand is to maintain the water levels for each LSW at a target level. This target levels is determined externally. The <span class="math inline">\(\demwm\)</span> is negative if additional water is required to increase the water level in the LSW, or positive if there is surplus water which must be removed to lower the level in the LSW. When <span class="math inline">\(\demwm\)</span> is positive and there is surplus water, Bach is designed to make any surplus water available to General Users within the LSW for abstraction. This is modelled by adding the <span class="math inline">\(\demwm\)</span> to the <span class="math inline">\(\qavail\)</span> in calculated in <a href="#eq-wm">Equation&nbsp;2</a>.</p>
 <p><span id="eq-wm"><span class="math display">\[
 \qavail = \demwm
 \tag{2}\]</span></span></p>
 <p>When the <span class="math inline">\(\demwm\)</span> is negative, the <span class="math inline">\(\demwm\)</span> is allocated first from the LSW <span class="math inline">\(\qavail\)</span>, and then secondly with water from the national network, should the local LSW water not be sufficient to satisfy <span class="math inline">\(\demwm\)</span>. This demand is therefore handled similar to that of a General User. In the case that a General User is allocated water as a higher priority than the Level Control such that the water level of the LSW decreases, the <span class="math inline">\(\demwm\)</span> will increase accordingly. However, in most cases the demand for Level Control is higher than that of the General Users so this does not occur.</p>
 </section>
-<section id="flushing-requirement" class="level2">
-<h2 class="anchored" data-anchor-id="flushing-requirement">Flushing Requirement</h2>
+<section id="flushing-requirement" class="level1">
+<h1>Flushing Requirement</h1>
 <p>The flushing requirement for the LSW is a special case of user. Flushing is required to maintain water quality in the LSW. This is determined externally. Water from the national network flows into the LSW, and the same volume gets removed from the LSW back to the national network. This water cannot be allocated to other users and there is no net change to the water level in the LSW or the <span class="math inline">\(\qavail\)</span>, see <a href="#eq-flushing">Equation&nbsp;3</a>.</p>
 <p><span id="eq-flushing"><span class="math display">\[
 \mathit{Q_{in}} = -\mathit{Q_{out}}
 \tag{3}\]</span></span></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

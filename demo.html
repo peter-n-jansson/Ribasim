@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.113">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Bach – demo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: 1;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Bach</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./intro.html">Introduction</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./modflow.html">Modflow</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./user_allocation.html">User Allocation</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./demo.html" aria-current="page">Bach Functionality Demonstration</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#bach-functionality-demonstration" id="toc-bach-functionality-demonstration" class="nav-link active" data-scroll-target="#bach-functionality-demonstration">Bach Functionality Demonstration</a>
+  <ul class="collapse">
+  <li><a href="#demonstration-of-free-flowing-lsw" id="toc-demonstration-of-free-flowing-lsw" class="nav-link" data-scroll-target="#demonstration-of-free-flowing-lsw">1. Demonstration of Free Flowing LSW</a></li>
+  <li><a href="#demonstration-of-a-level-controlled-lsw" id="toc-demonstration-of-a-level-controlled-lsw" class="nav-link" data-scroll-target="#demonstration-of-a-level-controlled-lsw">2. Demonstration of a Level Controlled LSW</a></li>
+  <li><a href="#precipitation-forcing" id="toc-precipitation-forcing" class="nav-link" data-scroll-target="#precipitation-forcing">1.2 Precipitation forcing</a></li>
+  <li><a href="#evaporation-forcing" id="toc-evaporation-forcing" class="nav-link" data-scroll-target="#evaporation-forcing">1.3 Evaporation forcing</a></li>
+  <li><a href="#evaporation-and-precipitation-forcings" id="toc-evaporation-and-precipitation-forcings" class="nav-link" data-scroll-target="#evaporation-and-precipitation-forcings">1.4 Evaporation and precipitation forcings</a></li>
+  <li><a href="#allocation-to-a-single-user-agriculture" id="toc-allocation-to-a-single-user-agriculture" class="nav-link" data-scroll-target="#allocation-to-a-single-user-agriculture">1.7 Allocation to a single user (agriculture)</a></li>
+  <li><a href="#allocation-to-multiple-users-agriculture-and-industry" id="toc-allocation-to-multiple-users-agriculture-and-industry" class="nav-link" data-scroll-target="#allocation-to-multiple-users-agriculture-and-industry">1.8 Allocation to multiple users (agriculture and industry)</a></li>
+  <li><a href="#water-balance-of-a-single-lsw-hupsel" id="toc-water-balance-of-a-single-lsw-hupsel" class="nav-link" data-scroll-target="#water-balance-of-a-single-lsw-hupsel">1. 9 Water balance of a single LSW (Hupsel)</a></li>
+  <li><a href="#water-balance-comparison-hupsel" id="toc-water-balance-comparison-hupsel" class="nav-link" data-scroll-target="#water-balance-comparison-hupsel">1.10 Water balance comparison Hupsel</a></li>
+  <li><a href="#single-level-controlled-lsw-tol" id="toc-single-level-controlled-lsw-tol" class="nav-link" data-scroll-target="#single-level-controlled-lsw-tol">2.1 Single Level Controlled LSW (Tol)</a></li>
+  <li><a href="#single-level-controlled-lsw-with-additional-general-users" id="toc-single-level-controlled-lsw-with-additional-general-users" class="nav-link" data-scroll-target="#single-level-controlled-lsw-with-additional-general-users">2.2 Single Level Controlled LSW with additional General Users</a></li>
+  <li><a href="#tol-water-balance-comparison-with-mozart" id="toc-tol-water-balance-comparison-with-mozart" class="nav-link" data-scroll-target="#tol-water-balance-comparison-with-mozart">2.3 Tol water balance comparison with Mozart</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="bach-functionality-demonstration" class="level2">
+<h2 class="anchored" data-anchor-id="bach-functionality-demonstration">Bach Functionality Demonstration</h2>
+<section id="demonstration-of-free-flowing-lsw" class="level3">
+<h3 class="anchored" data-anchor-id="demonstration-of-free-flowing-lsw">1. Demonstration of Free Flowing LSW</h3>
+<p>The following examples demonstrate the impact of forcings and the user allocation functionality for a single free draining LSW. The simulations are simulated with synthetic data to highlight the functionality of Bach, with the exception of example 1.9 and 1.10 which show the Bach prototype simulation of the Hupsel LSW.</p>
+<ul>
+<li>1.1 No external forcing</li>
+<li>1.2 Precipitation</li>
+<li>1.3 Evaporation</li>
+<li>1.4 Precipitation and evaporation</li>
+<li>1.5 Infiltration</li>
+<li>1.6 Urban Runoff</li>
+<li>1.7 Allocation to a single user</li>
+<li>1.8 Allocation to multiple users</li>
+<li>1.9 Hupsel water balance (single LSW)</li>
+<li>1.10 Hupsel water balance comparison with Mozart</li>
+</ul>
+</section>
+<section id="demonstration-of-a-level-controlled-lsw" class="level3">
+<h3 class="anchored" data-anchor-id="demonstration-of-a-level-controlled-lsw">2. Demonstration of a Level Controlled LSW</h3>
+<p>The following examples demonstrate the water management and user allocation functionality for a level controlled LSW. The simulations are simulated with synthetic data to highlight the functionality of Bach, with the exception of example 2.1 and 2.3 which show the Bach prototype simulation of the Tol LSW.</p>
+<ul>
+<li>2.1 Tol water balance (single LSW)</li>
+<li>2.2 Level Control and multiple users</li>
+<li>2.3 Tol water balance comparison with Mozart.</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up for demo simulations</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Julia Libraries</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Bach</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Duet</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Dates</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">TOML</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Arrow</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">BasicModelInterface </span>as BMI</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">SciMLBase</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Graphs</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">GLMakie</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CairoMakie</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrameMacros</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Load TOML</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="bu">TOML</span>.<span class="fu">parsefile</span>(<span class="st">"../run.toml"</span>);</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load LSW Forcings Data</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>lswforcing <span class="op">=</span> <span class="fu">DataFrame</span>(Arrow.<span class="fu">Table</span>(<span class="st">"../data/input/6/forcing.arrow"</span>));</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="no-external-forcing" class="level4">
+<h4 class="anchored" data-anchor-id="no-external-forcing">1.1 No external forcing</h4>
+<p>This fictional free flowing LSW has no input or output forcing flux. The LSW empties according to the Volume-Area_Discharge relationship.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"emptying_sloping_profile"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Code</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>democonfig <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>lsw_id <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"lsw_ids"</span>] <span class="op">=</span> [lsw_id]</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2022-01-01"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2022-02-01"</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(location<span class="op">=</span>lsw_id, volume<span class="op">=</span><span class="fl">1e6</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(location<span class="op">=</span>lsw_id, target_level<span class="op">=</span><span class="cn">NaN</span>, target_volume<span class="op">=</span><span class="cn">NaN</span>, depth_surface_water<span class="op">=</span><span class="cn">NaN</span>, local_surface_water_type<span class="op">=</span><span class="ch">'V'</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(time<span class="op">=</span><span class="dt">DateTime</span>[], variable<span class="op">=</span><span class="dt">Symbol</span>[], location<span class="op">=</span><span class="dt">Int</span>[], value<span class="op">=</span><span class="dt">Float64</span>[])</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"profile"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(location<span class="op">=</span>lsw_id, volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>], discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> BMI.<span class="fu">initialize</span>(Bach.Register, democonfig)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">solve!</span>(reg.integrator);</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># println(reg)</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot Results</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>fig_1a <span class="op">=</span> Duet.<span class="fu">plot_series</span>(reg, lsw_id)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(fig_1a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>structural_simplify</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ODAEProblem 14:01:58.421</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="demo_files/figure-html/cell-4-output-3.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>init</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code></code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="precipitation-forcing" class="level3">
+<h3 class="anchored" data-anchor-id="precipitation-forcing">1.2 Precipitation forcing</h3>
+<p>This fictional free flowing LSW is simulated with only the external forcing of synthetic precipitation data. The storage and the outflow respond to the preciptation as shown below.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"precipitation"</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Code</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2020-01-01"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>dummydata <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span> <span class="fu">Symbol</span>(<span class="st">"precipitation"</span>), <span class="op">:</span>location <span class="op">==</span> <span class="fl">151358</span>, <span class="op">:</span>time <span class="op">&gt;=</span> config[<span class="st">"starttime"</span>], <span class="op">:</span>time <span class="op">&lt;=</span> config[<span class="st">"endtime"</span>])</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>dummydata.location <span class="op">.=</span> lsw_id</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(time<span class="op">=</span>dummydata.time, variable<span class="op">=</span>dummydata.variable, location<span class="op">=</span>dummydata.location, value<span class="op">=</span>dummydata.value <span class="op">*</span> <span class="fl">3</span>) <span class="co"># Exaggerated for demo</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"profile"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(location<span class="op">=</span>lsw_id, volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>], discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate and Plot</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> BMI.<span class="fu">initialize</span>(Bach.Register, democonfig)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">solve!</span>(reg.integrator)  <span class="co"># solve it until the end</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># println(reg)</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>fig_2 <span class="op">=</span> Duet.<span class="fu">plot_series</span>(reg, lsw_id)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(fig_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="demo_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>structural_simplify
+ODAEProblem 10:05:44.249
+init</code></pre>
+</div>
+</div>
+</section>
+<section id="evaporation-forcing" class="level3">
+<h3 class="anchored" data-anchor-id="evaporation-forcing">1.3 Evaporation forcing</h3>
+<p>The LSW loses water from evaporation. Outflow occurs according to the VAD as in example 1.1, but overall volume decline is faster rate due to additional loss from evaporation. Evaporation does not occur in an empty LSW.</p>
+<p>The second example shows the LSW with no simulated discharge, so that the only output is evaporation</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"evaporation"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Code</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>lsw_id <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-06-01"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>dummydata <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span> <span class="fu">Symbol</span>(<span class="st">"evaporation"</span>), <span class="op">:</span>location <span class="op">==</span> <span class="fl">151358</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(time<span class="op">=</span>dummydata.time, variable<span class="op">=</span>dummydata.variable, location<span class="op">=</span>lsw_id, value<span class="op">=</span>dummydata.value <span class="op">*</span> <span class="fl">3</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"profile"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(location<span class="op">=</span>lsw_id, volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>], discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> BMI.<span class="fu">initialize</span>(Bach.Register, democonfig)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="fu">solve!</span>(reg.integrator)  <span class="co"># solve it until the end</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># println(reg)</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>fig_3 <span class="op">=</span> Duet.<span class="fu">plot_series</span>(reg, lsw_id)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(fig_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>structural_simplify
+ODAEProblem 10:14:02.055</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="demo_files/figure-html/cell-6-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+init</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"evaporation2"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Code</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>lsw_id <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"lsw_ids"</span>] <span class="op">=</span> [lsw_id]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># config["saveat"] = 86400.0</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>starttime <span class="op">=</span> <span class="fu">DateTime</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> starttime</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-06-01"</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(location<span class="op">=</span>lsw_id, volume<span class="op">=</span><span class="fl">1e6</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(location<span class="op">=</span>lsw_id, target_level<span class="op">=</span><span class="cn">NaN</span>, target_volume<span class="op">=</span><span class="cn">NaN</span>,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    depth_surface_water<span class="op">=</span><span class="cn">NaN</span>, local_surface_water_type<span class="op">=</span><span class="ch">'V'</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(time<span class="op">=</span>starttime, variable<span class="op">=:</span>evaporation, location<span class="op">=</span>lsw_id,</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    value<span class="op">=</span><span class="fl">1e-6</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(location<span class="op">=</span>lsw_id, volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">0.0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> BMI.<span class="fu">initialize</span>(Bach.Register, config)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="fu">solve!</span>(reg.integrator)  <span class="co"># solve it until the end</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(reg)</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>fig_s <span class="op">=</span> Duet.<span class="fu">plot_series</span>(reg, lsw_id)</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(fig_s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>structural_simplify</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ODAEProblem 17:22:07.211</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+init</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="demo_files/figure-html/cell-7-output-5.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Register(ts: 2159, t: 2019-06-01T00:00:00)
+</code></pre>
+</div>
+</div>
+</section>
+<section id="evaporation-and-precipitation-forcings" class="level3">
+<h3 class="anchored" data-anchor-id="evaporation-and-precipitation-forcings">1.4 Evaporation and precipitation forcings</h3>
+<p>This example shows the evaporation and precipitation flux simulated together</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"evaporation_precipitation"</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Code</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-06-01"</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>dummydata_e <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span> <span class="fu">Symbol</span>(<span class="st">"evaporation"</span>), <span class="op">:</span>location <span class="op">==</span> <span class="fl">151358</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>dummydata_p <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span> <span class="fu">Symbol</span>(<span class="st">"precipitation"</span>), <span class="op">:</span>location <span class="op">==</span> <span class="fl">151358</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>dummydata <span class="op">=</span> <span class="fu">append!</span>(dummydata_e, dummydata_p);</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sort!</span>(dummydata, [<span class="fu">order</span>(<span class="op">:</span>time, rev<span class="op">=</span><span class="cn">false</span>)]);</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(time<span class="op">=</span>dummydata.time, variable<span class="op">=</span>dummydata.variable, location<span class="op">=</span>lsw_id, value<span class="op">=</span>dummydata.value <span class="op">*</span> <span class="fl">3</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> BMI.<span class="fu">initialize</span>(Bach.Register, democonfig)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">solve!</span>(reg.integrator)  <span class="co"># solve it until the end</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co"># println(reg)</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>fig_4 <span class="op">=</span> Duet.<span class="fu">plot_series</span>(reg, lsw_id)</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(fig_4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="demo_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>structural_simplify
+ODAEProblem 10:15:07.005
+init</code></pre>
+</div>
+</div>
+<section id="infiltration" class="level4">
+<h4 class="anchored" data-anchor-id="infiltration">1.5 Infiltration</h4>
+<p>Infiltration is a negative flux of the LSW. This example shows the LSW storage responding to an enhanced forcing of infiltration. There is no outflow simulated of this LSW, so that the only output is the infiltration</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"Infiltration"</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Code</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>lsw_id <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"lsw_ids"</span>] <span class="op">=</span> [lsw_id]</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>starttime <span class="op">=</span> <span class="fu">DateTime</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> starttime</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-02-01"</span>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(location<span class="op">=</span>lsw_id, volume<span class="op">=</span><span class="fl">1e6</span>)</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(location<span class="op">=</span>lsw_id, target_level<span class="op">=</span><span class="cn">NaN</span>, target_volume<span class="op">=</span><span class="cn">NaN</span>,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    depth_surface_water<span class="op">=</span><span class="cn">NaN</span>, local_surface_water_type<span class="op">=</span><span class="ch">'V'</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(time<span class="op">=</span>starttime, variable<span class="op">=:</span>infiltration,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>lsw_id, value<span class="op">=</span><span class="fl">1.5e-6</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(location<span class="op">=</span>lsw_id, volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">0.0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> BMI.<span class="fu">initialize</span>(Bach.Register, config)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="fu">solve!</span>(reg.integrator);  <span class="co"># solve it until the end</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>fig_5 <span class="op">=</span> Duet.<span class="fu">plot_series</span>(reg, lsw_id)</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(fig_5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>structural_simplify</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ODAEProblem 17:26:41.205</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="demo_files/figure-html/cell-9-output-3.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+init</code></pre>
+</div>
+</div>
+</section>
+<section id="urban-runoff" class="level4">
+<h4 class="anchored" data-anchor-id="urban-runoff">1.6 Urban Runoff</h4>
+<p>Urban runoff is a surface water input to the LSW. This example shows the LSW storage responding to the influx forcing of urban runoff.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"Urban Runoff"</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Code</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-06-01"</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>dummydata <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span> <span class="fu">Symbol</span>(<span class="st">"urban_runoff"</span>), <span class="op">:</span>location <span class="op">==</span> <span class="fl">151358</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>dummydata.value <span class="op">*=</span> <span class="fl">3</span> <span class="co"># Emphasised to highlight the functionality</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(time<span class="op">=</span>dummydata.time, variable<span class="op">=</span>dummydata.variable, location<span class="op">=</span>lsw_id, value<span class="op">=</span>dummydata.value <span class="op">*</span> <span class="fl">3</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> BMI.<span class="fu">initialize</span>(Bach.Register, democonfig)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="fu">solve!</span>(reg.integrator)  <span class="co"># solve it until the end</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co">#println(reg)</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>fig_6 <span class="op">=</span> Duet.<span class="fu">plot_series</span>(reg, lsw_id)</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(fig_6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>structural_simplify
+ODAEProblem 18:40:57.283</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="demo_files/figure-html/cell-10-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>init</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="allocation-to-a-single-user-agriculture" class="level3">
+<h3 class="anchored" data-anchor-id="allocation-to-a-single-user-agriculture">1.7 Allocation to a single user (agriculture)</h3>
+<p>In this example, the Hupsel LSW is simulated with synthetic agricultural demand to demonstrate the Bach functionality to allocate to a General User</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"SingleUser"</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Code</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>democonfig <span class="op">=</span> <span class="bu">TOML</span>.<span class="fu">parsefile</span>(<span class="st">"../run.toml"</span>);</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>lsw_id <span class="op">=</span> <span class="fl">151358</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"lsw_id"</span>] <span class="op">=</span> [lsw_id] <span class="co"># Hupsel</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-06-01"</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Clear forcing data for agriculture and replace with synthetic data</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>dummydata <span class="op">=</span> lswforcing</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>dummydata <span class="op">=</span> <span class="pp">@subset</span>(dummydata <span class="op">:</span>variable <span class="op">!=</span> <span class="fu">Symbol</span>(<span class="st">"demand_agriculture"</span>) )</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>dummydata_demagric <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span><span class="fu">Symbol</span>(<span class="st">"demand_agriculture"</span>) ,value<span class="op">:</span> <span class="op">=</span> <span class="fl">0.2</span>, <span class="op">:</span>location <span class="op">==</span> <span class="fl">131183</span>)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>dummydata <span class="op">=</span> <span class="fu">append!</span>(dummydata, dummydata_demagric)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(time<span class="op">=</span>dummydata.time, variable<span class="op">=</span>dummydata.variable, location<span class="op">=</span>lsw_id, value<span class="op">=</span>dummydata.value)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> BMI.<span class="fu">initialize</span>(Bach.Register, democonfig)</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="fu">solve!</span>(reg.integrator);  <span class="co"># solve it until the end</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(reg)</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>fig_6 <span class="op">=</span> Duet.<span class="fu">plot_series</span>(reg, lsw_id)</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(fig_6)</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Duet.plot_genuser_series(reg, lsw_id)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="allocation-to-multiple-users-agriculture-and-industry" class="level3">
+<h3 class="anchored" data-anchor-id="allocation-to-multiple-users-agriculture-and-industry">1.8 Allocation to multiple users (agriculture and industry)</h3>
+<p>The allcoation is based upon demand and prioritisation of the users and the available water in the LSW. In a free flowing LSW only water from the LSW can be abstracted by the users: agriculture and industry. In this example there are two users. Agriculture has higher prioirty than industry, therefore when there is a shortage of available water, agriculture abstracts water before industry as demonstrated.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"MultipleUser"</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-06-01"</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>dummydata_dem_a.value <span class="op">.=</span> <span class="fl">0.2</span> <span class="co"># To emphasise impact of abstraction</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>dummydata_prio_a <span class="op">=</span> <span class="fu">DataFrame</span>(time<span class="op">=</span>democonfig[<span class="st">"starttime"</span>], variable<span class="op">=</span><span class="fu">Symbol</span>(<span class="st">"priority_industry"</span>), location<span class="op">=</span>lsw_id, value<span class="op">=</span><span class="fl">1.0</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>dummydata_dem_i <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span> <span class="fu">Symbol</span>(<span class="st">"demand_industry"</span>), <span class="op">:</span>location <span class="op">==</span> <span class="fl">131183</span>, <span class="op">:</span>time <span class="op">&gt;=</span> democonfig[<span class="st">"starttime"</span>], <span class="op">:</span>time <span class="op">&lt;=</span> democonfig[<span class="st">"endtime"</span>])</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>dummydata_dem_i.value <span class="op">*=</span> dummydata_dem_a.value <span class="op">.*</span> <span class="fl">0.5</span> <span class="co"># Industry demand at 50% of agriculture</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>dummydata_prio_i <span class="op">=</span> <span class="fu">DataFrame</span>(time<span class="op">=</span>democonfig[<span class="st">"starttime"</span>], variable<span class="op">=</span><span class="fu">Symbol</span>(<span class="st">"priority_industry"</span>), location<span class="op">=</span>lsw_id, value<span class="op">=</span><span class="fl">2.0</span>)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>dummydata <span class="op">=</span> <span class="fu">append!</span>(dummydata_dem_a, dummydata_dem_i, dummydata_prio_a, dummydata_prio_i)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(time<span class="op">=</span>dummydata.time, variable<span class="op">=</span>dummydata.variable, location<span class="op">=</span>lsw_id, value<span class="op">=</span>dummydata.value)</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> BMI.<span class="fu">initialize</span>(Bach.Register, democonfig)</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="fu">solve!</span>(reg.integrator)  <span class="co"># solve it until the end</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co"># println(reg)</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="co"># fig_7 = plot_genuser_series(reg, lsw_id, lswusers = ["agric", "indus"]) #need to update allusers function </span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co"># display(fig_7)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="water-balance-of-a-single-lsw-hupsel" class="level3">
+<h3 class="anchored" data-anchor-id="water-balance-of-a-single-lsw-hupsel">1. 9 Water balance of a single LSW (Hupsel)</h3>
+<p>Simulation 1.9 is for the LSW Hupsel. The LSW is a free flowing LSW.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Code</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="bu">TOML</span>.<span class="fu">parsefile</span>(<span class="st">"run.toml"</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"lsw_id"</span>] <span class="op">=</span> [<span class="fl">151358</span>] <span class="co"># Hupsel. Disconnected</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> BMI.<span class="fu">initialize</span>(Bach.Register, config)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"solve! "</span>, <span class="fu">Time</span>(<span class="fu">now</span>()))</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> <span class="fu">solve!</span>(reg.integrator)  <span class="co"># solve it until the end</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(reg)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>fig_9 <span class="op">=</span> Duet.<span class="fu">plot_series</span>(reg, config[<span class="st">"lsw_ids"</span>][<span class="fl">1</span>]; level<span class="op">=</span><span class="cn">true</span>)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(fig_9)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="water-balance-comparison-hupsel" class="level3">
+<h3 class="anchored" data-anchor-id="water-balance-comparison-hupsel">1.10 Water balance comparison Hupsel</h3>
+<p>The following two figures show Hupsel LSW water balance for the Bach prototype compared to the water balance simulated by Mozart, the precursor to Bach. The figures show a good agreement between the two simulations</p>
+<p><img src="https://user-images.githubusercontent.com/4471859/179259174-0caccd4a-c51b-449e-873c-17d48cfc8870.png" alt="Mozart - Bach Water Balance Comparison" title="Mozart - Bach Water Balance Comparison" width="800"></p>
+<p><img src="https://user-images.githubusercontent.com/103200724/186892581-557e2a0a-7b17-47cc-b65c-a2f7e3e30b66.PNG" alt="Mozart - Bach Storage Comparison" title="Mozart - Bach Water Balance Comparison" width="800"></p>
+<p><img src="Mozart_comparison_Hupsel_2.PNG" alt="" title="Mozart - Bach Storage Comparison" width="800"></p>
+</section>
+<section id="single-level-controlled-lsw-tol" class="level3">
+<h3 class="anchored" data-anchor-id="single-level-controlled-lsw-tol">2.1 Single Level Controlled LSW (Tol)</h3>
+<p>Simulation 2.1 is for the LSW Tol. The LSW is a level controlled meaning that water is allocated to maintain water levels at a target level. This simulation demonstrates the LSW with the Bach prototype.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Code</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"tol"</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set Up</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="bu">TOML</span>.<span class="fu">parsefile</span>(<span class="st">"run.toml"</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"lsw_id"</span>] <span class="op">=</span> [<span class="fl">200164</span>] <span class="co"># Tol</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> BMI.<span class="fu">initialize</span>(Bach.Register, config)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="st">"solve! "</span>, <span class="fu">Time</span>(<span class="fu">now</span>()))</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> <span class="fu">solve!</span>(reg.integrator)  <span class="co"># solve it until the end</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(reg)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>fig_12 <span class="op">=</span> Duet.<span class="fu">plot_series</span>(reg, config[<span class="st">"lsw_ids"</span>][<span class="fl">1</span>]; level<span class="op">=</span><span class="cn">true</span>)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(fig12)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co"># fig_13 = Duet.plot_wm_series(reg, config["lsw_ids"][1]; level = true)</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="co"># display(fig_13)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="single-level-controlled-lsw-with-additional-general-users" class="level3">
+<h3 class="anchored" data-anchor-id="single-level-controlled-lsw-with-additional-general-users">2.2 Single Level Controlled LSW with additional General Users</h3>
+<p>Simulation 2.2 is for a hypothetical level controlled LSW situation. This level control LSW has an additional users (agriculture) with a lower priority than the level control. In this scenario water is allocated to the users irder of priority, first based on the level of the LSW with respect to the target level, and additionally with water from the external network when required. The LSW is a level controlled meaning that water is allocated to maintain water levels at a target level.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"LevelControl_MultipleUsers"</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>democonfig <span class="op">=</span> <span class="bu">TOML</span>.<span class="fu">parsefile</span>(<span class="st">"run.toml"</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"lsw_id"</span>] <span class="op">=</span> [<span class="fl">200164</span>] <span class="co"># Take forcings from Tol</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>democonfig[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-06-01"</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add in synthetic data for demand</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>forcings <span class="op">=</span> lswforcing</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co"># TODO create dummy data for water management and agric scenario to include</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co"># democonfig["forcing"] = DataFrame(time=dummydata.time, variable=dummydata.variable, location=lsw_id, value=dummydata.value)</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> BMI.<span class="fu">initialize</span>(Bach.Register, democonfig)</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="fu">solve!</span>(reg.integrator)  <span class="co"># solve it until the end</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co"># println(reg)</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="co"># fig_14 = plot_user_wm_series(reg, lsw_id, lswusers = ["agric", "indus"])</span></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="co"># display(fig_14)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="tol-water-balance-comparison-with-mozart" class="level3">
+<h3 class="anchored" data-anchor-id="tol-water-balance-comparison-with-mozart">2.3 Tol water balance comparison with Mozart</h3>
+<p>The following two figures show Tol LSW water balance for the Bach prototype compared to the water balance simulated by Mozart, the precursor to Bach. The figures show a good agreement between the two simulations</p>
+<p><img src="https://user-images.githubusercontent.com/103200724/186892605-db217b55-13d6-48bb-a78e-3bbf4acc70c1.PNG" alt="Mozart - Bach Water Balance Comparison" title="Mozart - Bach Water Balance Comparison" width="800"></p>
+<p><img src="https://user-images.githubusercontent.com/103200724/186892628-7cb0d3cd-9439-46cb-b6b8-9908d9c7e09a.PNG" alt="Mozart - Bach Water Balance Comparison" title="Mozart - Bach Water Balance Comparison" width="800"></p>
+<p><img src="Mozart_comparison_Tol_2.PNG" alt="" title="Mozart - Bach Storage Comparison" width="800"></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
