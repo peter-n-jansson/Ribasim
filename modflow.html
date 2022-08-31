@@ -2,17 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.132">
+<meta name="generator" content="quarto-1.1.113">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bach - Modflow</title>
+<title>Bach - Modflow Coupling</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.column{flex: 1;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -100,19 +100,16 @@ div.csl-indent {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html">Home</a>
+    <a class="nav-link" href="./equations.html">Water balance</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./intro.html">Introduction</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./modflow.html" aria-current="page">Modflow</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./user_allocation.html">User Allocation</a>
+    <a class="nav-link active" href="./modflow.html" aria-current="page">Modflow Coupling</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./demo.html">Bach Functionality Demonstration</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./coupling-demo.html">Test cases</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -129,29 +126,25 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#modflow-concepts" id="toc-modflow-concepts" class="nav-link active" data-scroll-target="#modflow-concepts">MODFLOW Concepts</a>
+  <li><a href="#modflow-concepts" id="toc-modflow-concepts" class="nav-link active" data-scroll-target="#modflow-concepts"><span class="toc-section-number">1</span>  MODFLOW Concepts</a>
   <ul class="collapse">
-  <li><a href="#drainage" id="toc-drainage" class="nav-link" data-scroll-target="#drainage">Drainage</a></li>
-  <li><a href="#river" id="toc-river" class="nav-link" data-scroll-target="#river">River</a></li>
-  <li><a href="#numerical-solution-in-modflow" id="toc-numerical-solution-in-modflow" class="nav-link" data-scroll-target="#numerical-solution-in-modflow">Numerical solution in MODFLOW</a></li>
-  <li><a href="#iterative-coupled-solution" id="toc-iterative-coupled-solution" class="nav-link" data-scroll-target="#iterative-coupled-solution">Iterative coupled solution</a>
+  <li><a href="#drainage" id="toc-drainage" class="nav-link" data-scroll-target="#drainage"><span class="toc-section-number">1.1</span>  Drainage</a></li>
+  <li><a href="#river" id="toc-river" class="nav-link" data-scroll-target="#river"><span class="toc-section-number">1.2</span>  River</a></li>
+  </ul></li>
+  <li><a href="#coupling" id="toc-coupling" class="nav-link" data-scroll-target="#coupling"><span class="toc-section-number">2</span>  Coupling</a>
   <ul class="collapse">
-  <li><a href="#drainage-1" id="toc-drainage-1" class="nav-link" data-scroll-target="#drainage-1">Drainage</a></li>
-  <li><a href="#river-1" id="toc-river-1" class="nav-link" data-scroll-target="#river-1">River</a></li>
+  <li><a href="#numerical-solution-in-modflow" id="toc-numerical-solution-in-modflow" class="nav-link" data-scroll-target="#numerical-solution-in-modflow"><span class="toc-section-number">2.1</span>  Numerical solution in MODFLOW</a></li>
+  <li><a href="#sequential-coupled-solution" id="toc-sequential-coupled-solution" class="nav-link" data-scroll-target="#sequential-coupled-solution"><span class="toc-section-number">2.2</span>  Sequential coupled solution</a></li>
+  <li><a href="#iterative-coupled-solution" id="toc-iterative-coupled-solution" class="nav-link" data-scroll-target="#iterative-coupled-solution"><span class="toc-section-number">2.3</span>  Iterative coupled solution</a>
+  <ul class="collapse">
+  <li><a href="#drainage-1" id="toc-drainage-1" class="nav-link" data-scroll-target="#drainage-1"><span class="toc-section-number">2.3.1</span>  Drainage</a></li>
+  <li><a href="#river-1" id="toc-river-1" class="nav-link" data-scroll-target="#river-1"><span class="toc-section-number">2.3.2</span>  River</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#assigning-modflow-water-levels" id="toc-assigning-modflow-water-levels" class="nav-link" data-scroll-target="#assigning-modflow-water-levels">Assigning MODFLOW water levels</a>
+  <li><a href="#assigning-modflow-water-levels" id="toc-assigning-modflow-water-levels" class="nav-link" data-scroll-target="#assigning-modflow-water-levels"><span class="toc-section-number">3</span>  Assigning MODFLOW water levels</a>
   <ul class="collapse">
-  <li><a href="#parametrization" id="toc-parametrization" class="nav-link" data-scroll-target="#parametrization">Parametrization</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
-  <li><a href="#test-cases" id="toc-test-cases" class="nav-link" data-scroll-target="#test-cases">Test cases</a></li>
+  <li><a href="#parametrization" id="toc-parametrization" class="nav-link" data-scroll-target="#parametrization"><span class="toc-section-number">3.1</span>  Parametrization</a></li>
   </ul></li>
-  <li><a href="#test-case-hupsel" id="toc-test-case-hupsel" class="nav-link" data-scroll-target="#test-case-hupsel">Test case: Hupsel</a>
-  <ul class="collapse">
-  <li><a href="#budgets" id="toc-budgets" class="nav-link" data-scroll-target="#budgets">Budgets</a></li>
-  <li><a href="#zero-volume" id="toc-zero-volume" class="nav-link" data-scroll-target="#zero-volume">Zero volume</a></li>
-  </ul></li>
-  <li><a href="#test-case-de-tol" id="toc-test-case-de-tol" class="nav-link" data-scroll-target="#test-case-de-tol">Test case: de Tol</a></li>
   </ul>
 </nav>
     </div>
@@ -160,7 +153,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Modflow</h1>
+<h1 class="title">Modflow Coupling</h1>
 </div>
 
 
@@ -174,11 +167,13 @@ div.csl-indent {
 
 </header>
 
-<section id="modflow-concepts" class="level1">
-<h1>MODFLOW Concepts</h1>
 <p>Bach has been designed to provide a computationally efficient representation of surface water for MODFLOW6. It does so by connecting to basic MODFLOW6 boundary conditions: the river and drainage packages.</p>
-<section id="drainage" class="level2">
-<h2 class="anchored" data-anchor-id="drainage">Drainage</h2>
+<p>Bach connects to MODFLOW6 via the Basic Model Interface (BMI) and Extended Model Interface (XMI) <span class="citation" data-cites="hughes2022modflow">(<a href="#ref-hughes2022modflow" role="doc-biblioref">Hughes et al. 2022</a>)</span>. BMI describes the interface to initialize a model, get values from its memory, run a timestep, etc. XMI extends this interface to allow much finer control into MODFLOW6’s solution procedures. We have written a Julia package <span class="citation" data-cites="modflowinterface">(<a href="#ref-modflowinterface" role="doc-biblioref">Deltares 2022</a>)</span> which implements this interface for the Julia programming language. In coupling, Bach uses this interface to get the head values, the boundary condition water levels, and the budgets term of the MODFLOW6 groundwater model while MODFLOW6 is running.</p>
+<p>Additionally, links can be made with other (BMI/XMI-compliant) processes and models. One example of such a link is using the irrigation demand calculated by an unsaturated zone model; in the Netherlands Hydrological Instrument MetaSWAP provides this demand.</p>
+<section id="modflow-concepts" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> MODFLOW Concepts</h1>
+<section id="drainage" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="drainage"><span class="header-section-number">1.1</span> Drainage</h2>
 <p>The drainage package can be simulated to agricultural drains, ditches, or draining streams. The amount of water removed from the aquifer is proportional to the difference between the groundwater head and the drainage elevation. Drainage only occurs when the head is larger than the elevation; this boundary condition does not allow infiltration into the groundwater.</p>
 <p><span class="math display">\[
 Q_{drain} = \left\{
@@ -189,8 +184,8 @@ Q_{drain} = \left\{
 \right.
 \]</span></p>
 </section>
-<section id="river" class="level2">
-<h2 class="anchored" data-anchor-id="river">River</h2>
+<section id="river" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="river"><span class="header-section-number">1.2</span> River</h2>
 <p>The river package can both drain the groundwater, or infiltrate surface water to the groundwater. It limits the amount of water that can infiltrate when the groundwater head falls below the river bottom, in which cases it assumes atmospheric pressure conditions underneath the surface water.</p>
 <p><span class="math display">\[
 Q_{river} = \left\{
@@ -212,14 +207,26 @@ Q_{river} = \left\{
 \]</span></p>
 <p>MODFLOW6 does not support this (currently), but an identical effect may be achieved by “stacking” a drainage package on top of a river package with these values:</p>
 <p><span class="math display">\[
-\begin{aligned}
-h_{drain} = h_{river}
-C_{drain} = C_{river,drn} - C{river,inf}
-\end{aligned}
+\begin{array}{ c l }
+  h_{drain} = h_{river} \\
+  C_{drain} = C_{river,drn} - C_{river,inf}
+\end{array}
 \]</span></p>
 </section>
-<section id="numerical-solution-in-modflow" class="level2">
-<h2 class="anchored" data-anchor-id="numerical-solution-in-modflow">Numerical solution in MODFLOW</h2>
+</section>
+<section id="coupling" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Coupling</h1>
+<p>Broadly speaking, three schemes are commonly considered for coupling hydrological kernels <span class="citation" data-cites="vanwalsum2011integration">(<a href="#ref-vanwalsum2011integration" role="doc-biblioref">Van Walsum and Veldhuizen 2011</a>)</span>, <span class="citation" data-cites="hughes2012documentation">(<a href="#ref-hughes2012documentation" role="doc-biblioref">Hughes et al. 2012</a>)</span>:</p>
+<ol type="1">
+<li>Sequential: the first model computes a timestep and calculates a state or flux. This is passed on to the second model, which then computes its timestep.</li>
+<li>Iterative: the first model computes a timestep and calculates a state or flux. This is passed on to the second models, which computes its timestep. This results in an updated boundary condition for the first model, which recomputes the timestep, then the second model recomputes its timestep, etc. These iterations are repeated until some convergence criteria are met.</li>
+<li>Fully coupled: all equations (e.g.&nbsp;the governing equations of both groundwater flow and surface water flow) are solved at the same time.</li>
+</ol>
+<p>Each scheme has its advantages and disadvantages. Numerically speaking, the fully coupled approach is most robust, but it effectively means a single all-encompassing hydrological kernel. The first scheme is computationally the cheapest, but states and fluxes lag one timestep behind, so that mass conservation is not guaranteed. For example, based on its river levels, MODFLOW6 may compute a infiltration flux. Bach then runs its timestep, and finds that given MODFLOW6’s infiltration flux, no water is present in the surface waters: the infiltration flux has been overestimated by MODFLOW6, and mass is not conserved.</p>
+<p>Such an error is avoided in the second scheme: states and fluxes only lag a single iteration behind, and the iterations are repeated until the difference is negligible. Taking the example from above, the emptying of the surface waters would result in lower water levels and recuded infiltration in the second iteration. Mass is conserved, but at a higher computational cost.</p>
+<p>Currently, we have only implemented the sequential scheme for coupling bach to MODFLOW6. However, the iterative solution is relatively easy to implement: it is in essence a repeated sequential step.</p>
+<section id="numerical-solution-in-modflow" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="numerical-solution-in-modflow"><span class="header-section-number">2.1</span> Numerical solution in MODFLOW</h2>
 <p>MODFLOW uses a backward-in-time implicit solution scheme. This creates a large system of equations (a water balance for every cell), which it solves by repeatedly solving a linearized system of equations instead. In matrix form, this system of equations is expressed by:</p>
 <p><span class="math display">\[
 \mathbf{Ax} = \mathbf{b}
@@ -246,16 +253,48 @@ a = -C\phi + Ch = \text{hcof} * \phi - \text{rhs}
 <p>For every boundary condition, MODFLOW6 stores the <code>hcof</code> and <code>rhs</code> values. This makes it quite convenient for us to compute the water budget for every boundary condition: we simply multiply the hcof value by the head of the cell and subtract the rhs.</p>
 <p>Note that hcof may have a value of 0! For example, when for a river boundary the <span class="math inline">\(\phi &lt;= b_{river}\)</span> condition occurs, the flow into the cell is controlled only by <span class="math inline">\(h_{river}\)</span> and <span class="math inline">\(b_{river}\)</span> (equal to recharge for the linear solution).</p>
 </section>
-<section id="iterative-coupled-solution" class="level2">
-<h2 class="anchored" data-anchor-id="iterative-coupled-solution">Iterative coupled solution</h2>
-<p>We can use a linearization to efficiently compute the flow from Bach’s side as well. In the iterative coupled solution, we are solving both MODFLOW6 and Bach repeatedly, until they produce same drainage or infiltration (approximately). One of Bach’s <code>LocalSurfaceWater</code>s contains many MODFLOW cells with boundary conditions. We could add every boundary condition to Bach’s equations, but this is costly and cumbersome.</p>
-<p>Linearization allows us to “stack” (superpose) all the different boundary conditions into a single, simple equation. In linear form, every equation takes the form of:</p>
+<section id="sequential-coupled-solution" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sequential-coupled-solution"><span class="header-section-number">2.2</span> Sequential coupled solution</h2>
+<p>A coupled run stars by initializing both models and creating the exchange information: which MODFLOW6 boundary condition is connected to which Bach basin. While the model is running, the model proceeds through time as follows:</p>
+<ol type="1">
+<li>Bach solves the equations on a basin level; this occurs with adaptive timestepping via ModelingToolkit.</li>
+<li>At a specified time (in accordance with the MODFLOW6 time discretization), the volumes are converted to MODFLOW6 boundary condition levels.</li>
+<li>MODFLOW6 runs a timestep.</li>
+<li>The drainage and infiltration budgets are computed from MODFLOW6 using the equations described above and aggregated per basin.</li>
+<li>The aggregated values are set as Bach boundary conditions, and Bach solves until the next preset exchange time.</li>
+</ol>
+<p>These steps run until the final timestep is finished.</p>
+</section>
+<section id="iterative-coupled-solution" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="iterative-coupled-solution"><span class="header-section-number">2.3</span> Iterative coupled solution</h2>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We have not implemented an iterative coupled solution yet. The section below describes an approach.</p>
+</div>
+</div>
+<p>The simplest form of a linear solution occurs as follows:</p>
+<ol type="1">
+<li>MODFLOW6 computes drainage and infiltration flows.</li>
+<li>Bach uses these flows to compute a storage volume for the basin.</li>
+<li>The volume is translated to a water level for every MODFLOW6 boundary condition in the basins.</li>
+<li>MODFLOW6 recomputes drainage and infiltration flows with the updated water levels, etc.</li>
+</ol>
+<p>Such a scheme is not maximally efficient: the discharge and infiltration terms are not constant, but are driven by a head difference. This head difference depends on the level of the boundary conditions and head of every cell of the groundwater model. If the surface waters of a basin empty, the water level will decrease and drainage and infiltration flows will change. Ideally, we can provide Bach with sufficient information, so that it make a a better estimate of drainage and infiltration terms.</p>
+<p>As groundwater flow is often (approximately linear), we can use a linearization to more efficiently compute the flow from Bach’s side as well. In the iterative coupled solution, we are solving both MODFLOW6 and Bach repeatedly, until they produce same drainage or infiltration (approximately). One of Bach’s basins contains many MODFLOW cells with boundary conditions. We could add every boundary condition to Bach’s equations, but this is costly and cumbersome. Fortunately, linearization allows us to “stack” (superpose) all the different boundary conditions into a single, simple equation. In linear form, every equation takes the form of:</p>
 <p><span class="math display">\[
 a = ph + q
 \]</span></p>
 <p>Note the <span class="math inline">\(h\)</span> rather than <span class="math inline">\(\phi\)</span>, we are formulating from Bach’s perspective! We can sum all coefficients for p and q to provide a linear groundwater response to Bach.</p>
-<section id="drainage-1" class="level3">
-<h3 class="anchored" data-anchor-id="drainage-1">Drainage</h3>
+<section id="drainage-1" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="drainage-1"><span class="header-section-number">2.3.1</span> Drainage</h3>
 <p>From Bach’s perspective, the groundwater head is constant given a timestep, so that:</p>
 <p><span class="math display">\[
 \begin{align}
@@ -265,8 +304,8 @@ q = -C\phi
 \]</span></p>
 <p>When the head falls below the drainage elevation, the coefficients are 0.</p>
 </section>
-<section id="river-1" class="level3">
-<h3 class="anchored" data-anchor-id="river-1">River</h3>
+<section id="river-1" class="level3" data-number="2.3.2">
+<h3 data-number="2.3.2" class="anchored" data-anchor-id="river-1"><span class="header-section-number">2.3.2</span> River</h3>
 <p>From Bach’s persective, infiltration is never limited when the head falls below the bottom:</p>
 <p><span class="math display">\[
 \begin{align}
@@ -284,8 +323,8 @@ q = -C\phi
 </section>
 </section>
 </section>
-<section id="assigning-modflow-water-levels" class="level1">
-<h1>Assigning MODFLOW water levels</h1>
+<section id="assigning-modflow-water-levels" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Assigning MODFLOW water levels</h1>
 <p>Principally, MODFLOW deals with water levels; Bach deals with water volumes. The translation from a water volume to a water level should be a relatively straightforward one:</p>
 <p><span class="math display">\[
 \Delta d = \frac{\Delta V}{A}
@@ -298,7 +337,8 @@ q = -C\phi
 <p><span class="math display">\[
 h = b + d
 \]</span></p>
-<p>It should be obvious that there are many ways to distribute this volume change across the adjustment of every boundary condition of every cell. The main question is when a volume grows or decreases, how should this volume change be distributed across the LSW?</p>
+<p>Where <span class="math inline">\(h\)</span> is water level, <span class="math inline">\(b\)</span> is the bed elevation, and <span class="math inline">\(d\)</span> is water depth.</p>
+<p>It should be obvious that there are many ways to distribute this volume change across the adjustment of every boundary condition of every cell. The main question is when a volume grows or decreases, how should this volume change be distributed across the basin?</p>
 <p>The best method to find an answer to this question is to run a hydraulic model, extract water heights, and compute the total volume. This can then be used as a lookup table for every cell. These runs can also be used for parametrizing the volume-discharge lookup tables. In coupling to Bach, we need only find the appropriate volume and assign the associated water level. For efficiency, this lookup table can be discretized in a limited number of steps, and in coupling the level will be interpolated.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -310,114 +350,34 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Great care is required when parametrizing these volume-level relationships. As Bach does not know the properties of the surface water, it can perform very limited validation of the volume-level lookup tables. As the total volume of the LSW is distributed accross <em>all</em> boundary conditions, it should be checked that the change of the water column for every boundary condition matches the total volume change of the LSW.</p>
+<p>Great care is required when parametrizing these volume-level relationships. As Bach does not know the properties of the surface water, it can perform very limited validation of the volume-level lookup tables. As the total volume of the basin is distributed accross <strong>all</strong> boundary conditions, it should be checked that the change of the water column for every boundary condition matches the total volume change of the basin.</p>
 </div>
 </div>
-<p>In principle, all (stationary!) hydraulic behavior of the LSW can be described approximately by these lookup tables.</p>
-<section id="parametrization" class="level2">
-<h2 class="anchored" data-anchor-id="parametrization">Parametrization</h2>
-<p>In coupling Bach to MODFLOW6, relations translating the Bach volume must be given for every every cell of every boundary condition.</p>
-</section>
-<section id="examples" class="level2">
-<h2 class="anchored" data-anchor-id="examples">Examples</h2>
-<p>To get a feeling for the simplifications and the errors of the approximation, let’s consider three oversimplified hydraulic models:</p>
-<ol type="1">
-<li>The LSW has a single water level.</li>
-<li>The LSW has a single water depth.</li>
-<li>The LSW has a water depth that linearly decreases with bed elevation.</li>
-</ol>
-<p>To investigate these cases, we will assume a rectangular profile (constant wetted area). This allows to create plots of cumulative wetted area versus height, so that the area between the water level and the bed elevation equals LSW volume.</p>
-</section>
-<section id="test-cases" class="level2">
-<h2 class="anchored" data-anchor-id="test-cases">Test cases</h2>
-<p>In our test cases, we will work with the Dutch national groundwater model (LHM). For testing, we simplify the top boundary conditions to just three surface water “systems”, from large to small:</p>
-<ol type="1">
-<li>Primary</li>
-<li>Secondary</li>
-<li>Tertiary</li>
-</ol>
-<p>(Note: Bach has no knowledge of these systems. Any basin is represented by a single volume.)</p>
-<p>These systems are be separated due to their relatively small size in comparison with relatively coarse cells of the groundwater model: most cells in the LHM contain more than one surface water, and are included via representative parameters which take the physical scaling into account.</p>
-<p>In case of sufficiently small cell sizes, no overlap occurs and all surface waters can be represented in a single grid.</p>
-<p>For the purposes of testing, we have not created empirical volume-level relationships for the surface water of every cell. Instead, we have chosen for an (over)simplified representation over the hydraulic properties, which makes it easy to verify the behavior of Bach and the coupling procedures:</p>
-<ol type="1">
-<li>Primary, secondary, and tertiary systems have a rectangular profile: the area of the surface water does not change with water level or volume.</li>
-<li>Water depth is constant for a system within a basin.</li>
-<li>Water depth increases linearly with volume. (This follows from 1.)</li>
-<li>Water depth is distributed across the systems in a geometric progression: when the tertiary system contains 0.1 m of water, the secondary system contains 0.2 m, and the primary system contains 0.4 m.</li>
-<li>Water depth is 0.0 m for all systems when basin volume is 0.0. (This follows from 4.)</li>
-<li>The distribution of water occurs according to the surface water area (width times length) used for the LHM parametrization of river bed conductance.</li>
-</ol>
-<p>An example of the resulting parameters for a single cell is shown in <a href="#tbl-hupsel-v-h">Table&nbsp;1</a>. The first row shows the water levels when the basin is empty. The level for primary, secondary, and tertiary are equal to the bottom elevation of the surface waters. The second row shows the volume and levels for water depths of 0.4, 0.2, and 0.1 m. The third row shows the volume and levels for a tenfold larger volume. This results in implausible water levels with depths of 4.0, 2.0 and 1.0 m; the water level in the primary system is over two meters higher than in the tertiary system. In reality, the surface waters would overflow and surface ponding would occur; this mechanism is ignored in this case for the sake simplicity.</p>
-<div id="tbl-hupsel-v-h" class="anchored">
-<table class="table">
-<caption>Table&nbsp;1: Volume-level table for a single cell in the Hupsel basin.</caption>
-<thead>
-<tr class="header">
-<th>Volume (m3)</th>
-<th>Primary (m NAP)</th>
-<th>Secondary (m NAP)</th>
-<th>Tertiary (m NAP)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0.0</td>
-<td>25.65</td>
-<td>25.83</td>
-<td>26.60</td>
-</tr>
-<tr class="even">
-<td>6843.1</td>
-<td>26.05</td>
-<td>26.03</td>
-<td>26.70</td>
-</tr>
-<tr class="odd">
-<td>68431.0</td>
-<td>29.65</td>
-<td>27.83</td>
-<td>27.60</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Image … shows the volume of the first row of the cell based input for the primary system. Symbology is set to unique values.</p>
-</section>
-</section>
-<section id="test-case-hupsel" class="level1">
-<h1>Test case: Hupsel</h1>
-<p>To test the coupling, the following simulations have been setup and run:</p>
-<ol type="1">
-<li>A standalone MODFLOW6 run of sequential steady-states (i.e.&nbsp;no storage) with differing groundwater recharge values.</li>
-<li>A coupled run where the MODFLOW6 stages are updated through the</li>
-</ol>
-<p>From these tests, we expect the following behavior:</p>
-<ol type="1">
-<li>Drainage terms should remain largely the same when the water level is lowered in a steady-state: the amount of recharge is fixed, and this is locally drained.</li>
-<li>In case of negative recharge (evapotranspiration), infiltration occurs in the surface waters. Infiltration should be zero when the basin volume is 0.</li>
-</ol>
-<p>Figure … shows the water balance of steady-state for submodel of the LHM that has been by selecting the cells belonging to the district containing the Hupsel catch, the Berkel. The Hupsel basin show the expected behavior: in terms of incoming flows, most is precipitation with a minor part lateral inflow from higher areas. In terms of outgoing flows, most of the precipitation ends up in the surface water, primarily in the many ditches of the tertiary system. Only a relatively small part of the water leaves the basin via the groundwater. Interbasin flows through the groundwater form such a minor role, as the aquifer is thin and transmissivity is limited.</p>
-<section id="budgets" class="level2">
-<h2 class="anchored" data-anchor-id="budgets">Budgets</h2>
-<p>Table … shows the budgets computed by MODFLOW6 per primary, secondary, and tertiary system. These are compared to the budget computed by the coupling procedure, which uses equation …</p>
-<p>As expected, these numbers match exactly.</p>
-</section>
-<section id="zero-volume" class="level2">
-<h2 class="anchored" data-anchor-id="zero-volume">Zero volume</h2>
-</section>
-</section>
-<section id="test-case-de-tol" class="level1">
-<h1>Test case: de Tol</h1>
-<p>Figure … shows the water balance of steady-state for a submodel of the LHM for the Polder de Tol and its surroundings. While groundwater recharge is the dominant in going flow, lateral groundwater flow (over the entire depth of the groundwater model) is a sizable inflow for the area; the larger lateral inflow shows that De Tol is a net receiver of groundwater. In contrast to the Hupsel, the tertiary system is almost entirely absent: drainage occurs not through ephemeral tertiary ditches, but by the permanently water-bearing ditches of the primary and secondary system instead.</p>
+<p>In principle, all (stationary!) hydraulic behavior of the basin can be described approximately by these lookup tables.</p>
+<section id="parametrization" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="parametrization"><span class="header-section-number">3.1</span> Parametrization</h2>
+<p>In coupling Bach to MODFLOW6, relations translating the Bach volume must be given for every every cell (!) of every boundary condition. These consist of piecewise linear relationships between the basin volume and its associated water level for the boundary condition in the cell. The MODFLOW6 example cases show examples of such a parametrization.</p>
 
 
 
+</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-modflowinterface" class="csl-entry" role="doc-biblioentry">
+Deltares. 2022. <span>“ModflowInterface.jl.”</span> <a href="https://github.com/Deltares/ModflowInterface.jl">https://github.com/Deltares/ModflowInterface.jl</a>.
+</div>
+<div id="ref-hughes2012documentation" class="csl-entry" role="doc-biblioentry">
+Hughes, Joseph D, Christian D Langevin, Kevin L Chartier, and Jeremy T White. 2012. <em>Documentation of the Surface-Water Routing (SWR1) Process for Modeling Surface-Water Flow with the US Geological Survey Modular Groundwater Model (MODFLOW-2005)</em>. US Department of the Interior, US Geological Survey.
+</div>
+<div id="ref-hughes2022modflow" class="csl-entry" role="doc-biblioentry">
+Hughes, Joseph D, Martijn J Russcher, Christian D Langevin, Eric D Morway, and Richard R McDonald. 2022. <span>“The MODFLOW Application Programming Interface for Simulation Control and Software Interoperability.”</span> <em>Environmental Modelling &amp; Software</em> 148: 105257.
+</div>
 <div id="ref-langevin2017documentation" class="csl-entry" role="doc-biblioentry">
 Langevin, Christian D, Joseph D Hughes, Edward R Banta, Richard G Niswonger, Sorab Panday, and Alden M Provost. 2017. <span>“Documentation for the MODFLOW 6 Groundwater Flow Model.”</span> US Geological Survey.
+</div>
+<div id="ref-vanwalsum2011integration" class="csl-entry" role="doc-biblioentry">
+Van Walsum, PEV, and AA Veldhuizen. 2011. <span>“Integration of Models Using Shared State Variables: Implementation in the Regional Hydrologic Modelling System SIMGRO.”</span> <em>Journal of Hydrology</em> 409 (1-2): 363–70.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
