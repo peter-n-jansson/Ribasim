@@ -146,6 +146,7 @@ div.csl-indent {
   <li><a href="#flushing" id="toc-flushing" class="nav-link" data-scroll-target="#flushing"><span class="toc-section-number">2.3</span>  Flushing</a></li>
   </ul></li>
   <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="toc-section-number">3</span>  Numerical solution</a></li>
+  <li><a href="#performance" id="toc-performance" class="nav-link" data-scroll-target="#performance"><span class="toc-section-number">4</span>  Performance</a></li>
   </ul>
 </nav>
     </div>
@@ -310,6 +311,16 @@ Q_{user} = Q_{alloc} * (0.5 \tanh(S - 50.0) / 10.0) + 0.5
 <section id="numerical-solution" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Numerical solution</h1>
 <p>Bach uses ModelingToolkit.jl to provide a numerical solution to the water balance equations. Changes to forcings or parameters such as precipitation, but also the allocated water abstraction is managed through the use of CallBack functions <span class="citation" data-cites="mtkevents">(<a href="#ref-mtkevents" role="doc-biblioref">ModelingToolkit.jl Development Team 2022</a>)</span>. In a coupled run, the exchanges with MODFLOW6 are also managed via the use of a callback function.</p>
+</section>
+<section id="performance" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Performance</h1>
+<p>Bach needs to be sufficiently fast to make application on the national scale, with ~10000 basins, practical. Therefore, whilst developing, we need to be mindful that our approach can scale to such a size. To start with a number, currently we can simulate a set of 40 connected free-flowing basins for a period of 2 years in about 10 seconds.</p>
+<p>There are many things that can influence the calculations times, for instance:</p>
+<ul>
+<li><a href="https://diffeq.sciml.ai/stable/basics/faq/#What-does-tolerance-mean-and-how-much-error-should-I-expect">Solver tolerance</a> we currently use a very conservative tolerance of <code>1e-10</code>, whereas with larger tolerances step sizes can easily be 3x longer, leading to a 3x speedup.</li>
+<li><a href="https://diffeq.sciml.ai/stable/solvers/ode_solve/">ODE solvers</a>: The <code>Rosenbrock23</code> method we use is robust to oscillations and massive stiffness, however other solvers should be tried as well.</li>
+<li>Forcing: Every time new forcing data is injected into the model, it needs to pause. Moreover, the larger the forcing fluxes are, the bigger the shock to the system, leading to smaller timesteps and thus longer simulation times.</li>
+</ul>
 
 
 

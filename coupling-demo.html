@@ -129,10 +129,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Secondary</li>
 <li>Tertiary</li>
 </ol>
-<p>(Note: Bach has no knowledge of these systems. Any basin is represented by a single volume.)</p>
-<p>These systems are be separated due to their relatively small size in comparison with relatively coarse cells of the groundwater model: most cells in the LHM contain more than one surface water, and are included via representative parameters which take the physical scaling into account.</p>
-<p>In case of sufficiently small cell sizes, no overlap occurs and all surface waters can be represented in a single grid.</p>
-<p>For the purposes of testing, we have not created empirical volume-level relationships for the surface water of every cell. Instead, we have chosen an (over)simplified representation over the hydraulic properties, which makes it easy to verify the behavior of Bach and the coupling procedures:</p>
+<p>These systems are separated in the groundwater model schematization due to the relatively small size of the surface waters (several meters in width) in comparison with relatively coarse cells of the groundwater model (250 m): most cells in the LHM contain more than one surface water, and are included via representative parameters which take the physical scaling into account. In case of sufficiently small cell sizes, no overlap occurs and all surface waters can be represented in a single grid.</p>
+<p>Bach has no knowledge of these systems unless explicitly separated into different (sub-)basins. In the examples below, these three systems are represented by one basin with a single volume. For the purposes of testing, we have not yet created empirical volume-level relationships for the surface water of every cell extracted from a hydraulic model. Instead, we have chosen an (over)simplified parametrization of the hydraulic properties, which makes it easy to verify the behavior of Bach and the coupling procedures:</p>
 <ol type="1">
 <li>Primary, secondary, and tertiary systems have a rectangular profile: the area of the surface water does not change with water level or volume.</li>
 <li>Water depth is constant for a system within a basin.</li>
@@ -141,6 +139,38 @@ ul.task-list li input[type="checkbox"] {
 <li>Water depth is 0.0 m for all systems when basin volume is 0.0. (This follows from 4.)</li>
 <li>The distribution of water occurs according to the surface water area (width times length) used for the LHM parametrization of river bed conductance.</li>
 </ol>
+<p>For freely draining basins, a simplified storage-discharge relationship has been derived as follows:</p>
+<ol type="1">
+<li>The area of the basin polygon has been multiplied by 1 mm/d (roughly the average precipitation excess in the Netherlands). This yields a “normative discharge”.</li>
+<li>A corresponding normative volume has been chosen, corresponding with water depths of 0.4, 0.2, and 0.1 m for the primary, secondary, and tertiary surface waters respectively.</li>
+<li>A dead storage volume has been chosen, corresponding with water depths of 0.2, 0.1, and 0.05 m for the primary, secondary, and tertiary surface waters respectively. The basin only starts discharging when the storage volume exceeds this value.</li>
+</ol>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Bach is not limited to such oversimplified parametrization! Bach uses tabulations and therefore supports arbitrary (piecewise linear) volume-depth and volume-discharge relationships.</p>
+</div>
+</div>
+<p>A visual representation of this simplified conceptual schematization is given in <a href="#fig-volume-depth">Figure&nbsp;1</a> and <a href="#fig-volume-discharge">Figure&nbsp;2</a>.</p>
+<div id="fig-volume-depth" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="https://user-images.githubusercontent.com/13662783/187665858-d01fd60f-f3c2-4662-af82-cf8acfbe169b.PNG" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Distribution of water depths over the primary, secondary, and tertiary system.</figcaption><p></p>
+</figure>
+</div>
+<div id="fig-volume-discharge" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="https://user-images.githubusercontent.com/13662783/187668931-c04d4126-9208-44f5-bafa-4c5f74a96dc9.PNG" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Discharge as a function of basin storage volume.</figcaption><p></p>
+</figure>
+</div>
 <p>An example of the resulting parameters for a single cell is shown in <a href="#tbl-hupsel-v-h">Table&nbsp;1</a>. The first row shows the water levels when the basin is empty. The level for primary, secondary, and tertiary are equal to the bottom elevation of the surface waters. The second row shows the volume and levels for water depths of 0.4, 0.2, and 0.1 m. The third row shows the volume and levels for a tenfold larger volume. This results in implausible water levels with depths of 4.0, 2.0 and 1.0 m; the water level in the primary system is over two meters higher than in the tertiary system. In reality, the surface waters would overflow and surface ponding would occur; this mechanism is ignored in the test cases for the sake of simplicity.</p>
 <div id="tbl-hupsel-v-h" class="anchored">
 <table class="table">
@@ -175,7 +205,20 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </div>
-<p>Image … shows the volume of the first row of the cell based input for the primary system. Symbology is set to unique values.</p>
+<p><a href="#fig-grid-volume">Figure&nbsp;3</a> shows the volume of the first row of the cell based input for the primary system. Symbology is set to unique values. While water levels differ per cell in this parametrization, the “normative volume” defined above is shared by all cells in a basin.</p>
+<div id="fig-grid-volume" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="https://user-images.githubusercontent.com/13662783/187672671-20d22031-3b50-474a-9ee1-4408c25a4f30.PNG" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: Basin normative volume.</figcaption><p></p>
+</figure>
+</div>
+<p><a href="#fig-grid-volume">Figure&nbsp;3</a> shows the water level corresponding to the normative storage volume based input for the primary system (it corresponds to the value shown in the first row of the primary colum in <a href="#tbl-hupsel-v-h">Table&nbsp;1</a>). We see a clear gradient from west to east: as our simplified parametrization assumes a constant water depth for all cells in a single system, water levels spatially fall and rise with the bottom elevation.</p>
+<div id="fig-grid-level" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="https://user-images.githubusercontent.com/13662783/187672663-99b9efd3-5e09-4d6f-bd3a-4180ff5b2ce4.PNG" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4: Water level corresponding to normative basin volume.</figcaption><p></p>
+</figure>
+</div>
 </section>
 <section id="test-case-hupsel" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Test case: Hupsel</h1>
