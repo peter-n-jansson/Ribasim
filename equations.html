@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.113">
+<meta name="generator" content="quarto-1.0.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,15 +11,10 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: 1;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
-  vertical-align: middle;
-}
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
@@ -89,11 +84,9 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+      <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Bach</span>
-    </a>
-  </div>
+  </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -109,7 +102,7 @@ div.csl-indent {
     <a class="nav-link" href="./demo.html">Bach Functionality Demonstration</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./coupling-demo.html">Test cases</a>
+    <a class="nav-link" href="./coupling-demo.html">Bach-Modflow Demonstration</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -122,31 +115,31 @@ div.csl-indent {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#natural-water-balance-terms" id="toc-natural-water-balance-terms" class="nav-link active" data-scroll-target="#natural-water-balance-terms"><span class="toc-section-number">1</span>  Natural water balance terms</a>
+  <li><a href="#natural-water-balance-terms" id="toc-natural-water-balance-terms" class="nav-link active" data-scroll-target="#natural-water-balance-terms"> <span class="header-section-number">1</span> Natural water balance terms</a>
   <ul class="collapse">
-  <li><a href="#precipitation" id="toc-precipitation" class="nav-link" data-scroll-target="#precipitation"><span class="toc-section-number">1.1</span>  Precipitation</a></li>
-  <li><a href="#evaporation" id="toc-evaporation" class="nav-link" data-scroll-target="#evaporation"><span class="toc-section-number">1.2</span>  Evaporation</a></li>
-  <li><a href="#infiltration-and-drainage" id="toc-infiltration-and-drainage" class="nav-link" data-scroll-target="#infiltration-and-drainage"><span class="toc-section-number">1.3</span>  Infiltration and Drainage</a></li>
-  <li><a href="#upstream-and-downstream-flow" id="toc-upstream-and-downstream-flow" class="nav-link" data-scroll-target="#upstream-and-downstream-flow"><span class="toc-section-number">1.4</span>  Upstream and downstream flow</a>
+  <li><a href="#precipitation" id="toc-precipitation" class="nav-link" data-scroll-target="#precipitation"> <span class="header-section-number">1.1</span> Precipitation</a></li>
+  <li><a href="#evaporation" id="toc-evaporation" class="nav-link" data-scroll-target="#evaporation"> <span class="header-section-number">1.2</span> Evaporation</a></li>
+  <li><a href="#infiltration-and-drainage" id="toc-infiltration-and-drainage" class="nav-link" data-scroll-target="#infiltration-and-drainage"> <span class="header-section-number">1.3</span> Infiltration and Drainage</a></li>
+  <li><a href="#upstream-and-downstream-flow" id="toc-upstream-and-downstream-flow" class="nav-link" data-scroll-target="#upstream-and-downstream-flow"> <span class="header-section-number">1.4</span> Upstream and downstream flow</a>
   <ul class="collapse">
-  <li><a href="#outflowtable" id="toc-outflowtable" class="nav-link" data-scroll-target="#outflowtable"><span class="toc-section-number">1.4.1</span>  OutflowTable</a></li>
-  <li><a href="#levellink" id="toc-levellink" class="nav-link" data-scroll-target="#levellink"><span class="toc-section-number">1.4.2</span>  LevelLink</a></li>
-  <li><a href="#noflowboundary" id="toc-noflowboundary" class="nav-link" data-scroll-target="#noflowboundary"><span class="toc-section-number">1.4.3</span>  NoFlowBoundary</a></li>
-  <li><a href="#headboundary" id="toc-headboundary" class="nav-link" data-scroll-target="#headboundary"><span class="toc-section-number">1.4.4</span>  HeadBoundary</a></li>
+  <li><a href="#outflowtable" id="toc-outflowtable" class="nav-link" data-scroll-target="#outflowtable"> <span class="header-section-number">1.4.1</span> OutflowTable</a></li>
+  <li><a href="#levellink" id="toc-levellink" class="nav-link" data-scroll-target="#levellink"> <span class="header-section-number">1.4.2</span> LevelLink</a></li>
+  <li><a href="#noflowboundary" id="toc-noflowboundary" class="nav-link" data-scroll-target="#noflowboundary"> <span class="header-section-number">1.4.3</span> NoFlowBoundary</a></li>
+  <li><a href="#headboundary" id="toc-headboundary" class="nav-link" data-scroll-target="#headboundary"> <span class="header-section-number">1.4.4</span> HeadBoundary</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#allocated-water-balance-terms" id="toc-allocated-water-balance-terms" class="nav-link" data-scroll-target="#allocated-water-balance-terms"><span class="toc-section-number">2</span>  Allocated water balance terms</a>
+  <li><a href="#allocated-water-balance-terms" id="toc-allocated-water-balance-terms" class="nav-link" data-scroll-target="#allocated-water-balance-terms"> <span class="header-section-number">2</span> Allocated water balance terms</a>
   <ul class="collapse">
-  <li><a href="#general-user" id="toc-general-user" class="nav-link" data-scroll-target="#general-user"><span class="toc-section-number">2.1</span>  General User</a></li>
-  <li><a href="#level-control" id="toc-level-control" class="nav-link" data-scroll-target="#level-control"><span class="toc-section-number">2.2</span>  Level Control</a></li>
-  <li><a href="#flushing" id="toc-flushing" class="nav-link" data-scroll-target="#flushing"><span class="toc-section-number">2.3</span>  Flushing</a></li>
+  <li><a href="#general-user" id="toc-general-user" class="nav-link" data-scroll-target="#general-user"> <span class="header-section-number">2.1</span> General User</a></li>
+  <li><a href="#level-control" id="toc-level-control" class="nav-link" data-scroll-target="#level-control"> <span class="header-section-number">2.2</span> Level Control</a></li>
+  <li><a href="#flushing" id="toc-flushing" class="nav-link" data-scroll-target="#flushing"> <span class="header-section-number">2.3</span> Flushing</a></li>
   </ul></li>
-  <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="toc-section-number">3</span>  Numerical solution</a></li>
-  <li><a href="#performance" id="toc-performance" class="nav-link" data-scroll-target="#performance"><span class="toc-section-number">4</span>  Performance</a></li>
+  <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"> <span class="header-section-number">3</span> Numerical solution</a></li>
+  <li><a href="#performance" id="toc-performance" class="nav-link" data-scroll-target="#performance"> <span class="header-section-number">4</span> Performance</a></li>
   </ul>
 </nav>
     </div>
@@ -314,13 +307,16 @@ Q_{user} = Q_{alloc} * (0.5 \tanh(S - 50.0) / 10.0) + 0.5
 </section>
 <section id="performance" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Performance</h1>
-<p>Bach needs to be sufficiently fast to make application on the national scale, with ~10000 basins, practical. Therefore, whilst developing, we need to be mindful that our approach can scale to such a size. To start with a number, currently we can simulate a set of 40 connected free-flowing basins for a period of 2 years in about 10 seconds.</p>
+<p>Bach needs to be sufficiently fast to make application on the national scale, with ~10000 basins, practical. Therefore, whilst developing, we need to be mindful that our approach can scale to such a size. We currently simulate a set of 40 connected free-flowing basins for a period of 2 years in about 10 seconds.</p>
+<p>For a real scaling test we would need to do a national simulation, but we expect these computation times not to be problematic, considering that simulating those same 40 basins in MODFLOW6 takes minutes.</p>
 <p>There are many things that can influence the calculations times, for instance:</p>
 <ul>
 <li><a href="https://diffeq.sciml.ai/stable/basics/faq/#What-does-tolerance-mean-and-how-much-error-should-I-expect">Solver tolerance</a> we currently use a very conservative tolerance of <code>1e-10</code>, whereas with larger tolerances step sizes can easily be 3x longer, leading to a 3x speedup.</li>
 <li><a href="https://diffeq.sciml.ai/stable/solvers/ode_solve/">ODE solvers</a>: The <code>Rosenbrock23</code> method we use is robust to oscillations and massive stiffness, however other solvers should be tried as well.</li>
 <li>Forcing: Every time new forcing data is injected into the model, it needs to pause. Moreover, the larger the forcing fluxes are, the bigger the shock to the system, leading to smaller timesteps and thus longer simulation times.</li>
 </ul>
+<p>Similarly to other models that solve using a system of equations, like MODFLOW6, if one basin takes longer to converge due to extreme forcing, or bad schematization, the system as a whole need to iterate longer. It is important to be mindful of this, as poor schematization choices can slow down the model.</p>
+<p>When scaling up the model, we will need spend some time to strike the right balance between error tolerance, schematization and forcing. The SciML software we use has many <a href="https://sciml.ai/showcase/">showcases</a> of large scale applications, as well as documentation on how to achieve the optimal performance for your system.</p>
 
 
 
@@ -403,8 +399,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      let href = ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);

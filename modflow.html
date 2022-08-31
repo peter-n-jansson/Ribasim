@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.113">
+<meta name="generator" content="quarto-1.0.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,15 +11,10 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: 1;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
-  vertical-align: middle;
-}
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
@@ -89,11 +84,9 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+      <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Bach</span>
-    </a>
-  </div>
+  </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -109,7 +102,7 @@ div.csl-indent {
     <a class="nav-link" href="./demo.html">Bach Functionality Demonstration</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./coupling-demo.html">Test cases</a>
+    <a class="nav-link" href="./coupling-demo.html">Bach-Modflow Demonstration</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -122,28 +115,28 @@ div.csl-indent {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#modflow-concepts" id="toc-modflow-concepts" class="nav-link active" data-scroll-target="#modflow-concepts"><span class="toc-section-number">1</span>  MODFLOW Concepts</a>
+  <li><a href="#modflow-concepts" id="toc-modflow-concepts" class="nav-link active" data-scroll-target="#modflow-concepts"> <span class="header-section-number">1</span> MODFLOW Concepts</a>
   <ul class="collapse">
-  <li><a href="#drainage" id="toc-drainage" class="nav-link" data-scroll-target="#drainage"><span class="toc-section-number">1.1</span>  Drainage</a></li>
-  <li><a href="#river" id="toc-river" class="nav-link" data-scroll-target="#river"><span class="toc-section-number">1.2</span>  River</a></li>
+  <li><a href="#drainage" id="toc-drainage" class="nav-link" data-scroll-target="#drainage"> <span class="header-section-number">1.1</span> Drainage</a></li>
+  <li><a href="#river" id="toc-river" class="nav-link" data-scroll-target="#river"> <span class="header-section-number">1.2</span> River</a></li>
   </ul></li>
-  <li><a href="#coupling" id="toc-coupling" class="nav-link" data-scroll-target="#coupling"><span class="toc-section-number">2</span>  Coupling</a>
+  <li><a href="#coupling" id="toc-coupling" class="nav-link" data-scroll-target="#coupling"> <span class="header-section-number">2</span> Coupling</a>
   <ul class="collapse">
-  <li><a href="#numerical-solution-in-modflow" id="toc-numerical-solution-in-modflow" class="nav-link" data-scroll-target="#numerical-solution-in-modflow"><span class="toc-section-number">2.1</span>  Numerical solution in MODFLOW</a></li>
-  <li><a href="#sequential-coupled-solution" id="toc-sequential-coupled-solution" class="nav-link" data-scroll-target="#sequential-coupled-solution"><span class="toc-section-number">2.2</span>  Sequential coupled solution</a></li>
-  <li><a href="#iterative-coupled-solution" id="toc-iterative-coupled-solution" class="nav-link" data-scroll-target="#iterative-coupled-solution"><span class="toc-section-number">2.3</span>  Iterative coupled solution</a>
+  <li><a href="#numerical-solution-in-modflow" id="toc-numerical-solution-in-modflow" class="nav-link" data-scroll-target="#numerical-solution-in-modflow"> <span class="header-section-number">2.1</span> Numerical solution in MODFLOW</a></li>
+  <li><a href="#sequential-coupled-solution" id="toc-sequential-coupled-solution" class="nav-link" data-scroll-target="#sequential-coupled-solution"> <span class="header-section-number">2.2</span> Sequential coupled solution</a></li>
+  <li><a href="#iterative-coupled-solution" id="toc-iterative-coupled-solution" class="nav-link" data-scroll-target="#iterative-coupled-solution"> <span class="header-section-number">2.3</span> Iterative coupled solution</a>
   <ul class="collapse">
-  <li><a href="#drainage-1" id="toc-drainage-1" class="nav-link" data-scroll-target="#drainage-1"><span class="toc-section-number">2.3.1</span>  Drainage</a></li>
-  <li><a href="#river-1" id="toc-river-1" class="nav-link" data-scroll-target="#river-1"><span class="toc-section-number">2.3.2</span>  River</a></li>
+  <li><a href="#drainage-1" id="toc-drainage-1" class="nav-link" data-scroll-target="#drainage-1"> <span class="header-section-number">2.3.1</span> Drainage</a></li>
+  <li><a href="#river-1" id="toc-river-1" class="nav-link" data-scroll-target="#river-1"> <span class="header-section-number">2.3.2</span> River</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#assigning-modflow-water-levels" id="toc-assigning-modflow-water-levels" class="nav-link" data-scroll-target="#assigning-modflow-water-levels"><span class="toc-section-number">3</span>  Assigning MODFLOW water levels</a>
+  <li><a href="#assigning-modflow-water-levels" id="toc-assigning-modflow-water-levels" class="nav-link" data-scroll-target="#assigning-modflow-water-levels"> <span class="header-section-number">3</span> Assigning MODFLOW water levels</a>
   <ul class="collapse">
-  <li><a href="#parametrization" id="toc-parametrization" class="nav-link" data-scroll-target="#parametrization"><span class="toc-section-number">3.1</span>  Parametrization</a></li>
+  <li><a href="#parametrization" id="toc-parametrization" class="nav-link" data-scroll-target="#parametrization"> <span class="header-section-number">3.1</span> Parametrization</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -356,7 +349,27 @@ Note
 <p>In principle, all (stationary!) hydraulic behavior of the basin can be described approximately by these lookup tables.</p>
 <section id="parametrization" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="parametrization"><span class="header-section-number">3.1</span> Parametrization</h2>
-<p>In coupling Bach to MODFLOW6, relations translating the Bach volume must be given <strong>for every every cell</strong> of every boundary condition. These consist of piecewise linear relationships between the basin volume and its associated water level for the boundary condition in the cell. The MODFLOW6 coupling example cases show examples of such a parametrization.</p>
+<p>In coupling Bach to MODFLOW6, relations translating the Bach volume must be given <strong>for every every cell</strong> of every boundary condition. These consist of piecewise linear relationships between the basin volume and its associated water level for the boundary condition in the cell.</p>
+<p>These values are stored in a netCDF dataset. This dataset must meet the following requirements:</p>
+<ol type="1">
+<li>It must contain a <code>x</code> and <code>y</code> coordinate. The extent and cell size of these coordinates must match the domain of the coupled MODFLOW6 model exactly.</li>
+<li>It must contain a variable (x, y) denoting the basin IDs.</li>
+<li>It must contain a volume-level variable (x, y, row, column) for every coupled MODFLOW6 boundary condition, describing the volume-level lookup table per cell.</li>
+</ol>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>x</code> and <code>y</code> coordinates are valid for structured MODFLOW6 models (DIS). Discretized-by-vertices (DISV) and fully unstructured discretization (DISU). are not yet supported, but require no fundamental changes: one basin is connected to multiple MODFLOW6 cells, and the coupling parameters must match the (structured, unstructured) grid of the MODFLOW6 model exactly.</p>
+</div>
+</div>
+<p>The MODFLOW6 coupling example cases show examples of such a parametrization.</p>
 
 
 
@@ -368,7 +381,7 @@ Note
 Deltares. 2022. <span>“ModflowInterface.jl.”</span> <a href="https://github.com/Deltares/ModflowInterface.jl">https://github.com/Deltares/ModflowInterface.jl</a>.
 </div>
 <div id="ref-hughes2012documentation" class="csl-entry" role="doc-biblioentry">
-Hughes, Joseph D, Christian D Langevin, Kevin L Chartier, and Jeremy T White. 2012. <em>Documentation of the Surface-Water Routing (SWR1) Process for Modeling Surface-Water Flow with the US Geological Survey Modular Groundwater Model (MODFLOW-2005)</em>. US Department of the Interior, US Geological Survey.
+Hughes, Joseph D, Christian D Langevin, Kevin L Chartier, and Jeremy T White. 2012. <em>Documentation of the Surface-Water Routing (Swr1) Process for Modeling Surface-Water Flow with the US Geological Survey Modular Groundwater Model (MODFLOW-2005)</em>. US Department of the Interior, US Geological Survey.
 </div>
 <div id="ref-hughes2022modflow" class="csl-entry" role="doc-biblioentry">
 Hughes, Joseph D, Martijn J Russcher, Christian D Langevin, Eric D Morway, and Richard R McDonald. 2022. <span>“The MODFLOW Application Programming Interface for Simulation Control and Software Interoperability.”</span> <em>Environmental Modelling &amp; Software</em> 148: 105257.
@@ -449,8 +462,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      let href = ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
