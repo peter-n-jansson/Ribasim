@@ -172,15 +172,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#bach-functionality-demonstration" id="toc-bach-functionality-demonstration" class="nav-link active" data-scroll-target="#bach-functionality-demonstration"><span class="toc-section-number">1</span>  Bach Functionality Demonstration</a></li>
   <li><a href="#sec-free" id="toc-sec-free" class="nav-link" data-scroll-target="#sec-free"><span class="toc-section-number">2</span>  Demonstration of Free Flowing LSW</a>
   <ul class="collapse">
-  <li><a href="#no-external-forcing" id="toc-no-external-forcing" class="nav-link" data-scroll-target="#no-external-forcing"><span class="toc-section-number">2.1</span>  No external forcing</a></li>
+  <li><a href="#sec-free-no" id="toc-sec-free-no" class="nav-link" data-scroll-target="#sec-free-no"><span class="toc-section-number">2.1</span>  No external forcing</a></li>
   <li><a href="#precipitation-forcing" id="toc-precipitation-forcing" class="nav-link" data-scroll-target="#precipitation-forcing"><span class="toc-section-number">2.2</span>  Precipitation forcing</a></li>
   <li><a href="#evaporation-forcing" id="toc-evaporation-forcing" class="nav-link" data-scroll-target="#evaporation-forcing"><span class="toc-section-number">2.3</span>  Evaporation forcing</a></li>
   <li><a href="#evaporation-and-precipitation-forcings" id="toc-evaporation-and-precipitation-forcings" class="nav-link" data-scroll-target="#evaporation-and-precipitation-forcings"><span class="toc-section-number">2.4</span>  Evaporation and precipitation forcings</a></li>
   <li><a href="#infiltration" id="toc-infiltration" class="nav-link" data-scroll-target="#infiltration"><span class="toc-section-number">2.5</span>  Infiltration</a></li>
   <li><a href="#urban-runoff" id="toc-urban-runoff" class="nav-link" data-scroll-target="#urban-runoff"><span class="toc-section-number">2.6</span>  Urban Runoff</a></li>
   <li><a href="#allocation-to-multiple-users-agriculture-and-industry" id="toc-allocation-to-multiple-users-agriculture-and-industry" class="nav-link" data-scroll-target="#allocation-to-multiple-users-agriculture-and-industry"><span class="toc-section-number">2.7</span>  Allocation to multiple users (agriculture and industry)</a></li>
-  <li><a href="#water-balance-of-a-single-lsw-hupsel" id="toc-water-balance-of-a-single-lsw-hupsel" class="nav-link" data-scroll-target="#water-balance-of-a-single-lsw-hupsel"><span class="toc-section-number">2.8</span>  Water balance of a single LSW (Hupsel)</a></li>
-  <li><a href="#water-balance-comparison-hupsel" id="toc-water-balance-comparison-hupsel" class="nav-link" data-scroll-target="#water-balance-comparison-hupsel"><span class="toc-section-number">2.9</span>  Water balance comparison Hupsel</a></li>
+  <li><a href="#sec-free-balance" id="toc-sec-free-balance" class="nav-link" data-scroll-target="#sec-free-balance"><span class="toc-section-number">2.8</span>  Water balance of a single LSW (Hupsel)</a></li>
+  <li><a href="#sec-free-comparison" id="toc-sec-free-comparison" class="nav-link" data-scroll-target="#sec-free-comparison"><span class="toc-section-number">2.9</span>  Water balance comparison Hupsel</a></li>
   </ul></li>
   <li><a href="#sec-level" id="toc-sec-level" class="nav-link" data-scroll-target="#sec-level"><span class="toc-section-number">3</span>  Demonstration of a Level Controlled LSW</a>
   <ul class="collapse">
@@ -198,34 +198,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="bach-functionality-demonstration" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Bach Functionality Demonstration</h1>
-<p>In <a href="#sec-free">Section&nbsp;2</a> you can be free and in <a href="#sec-level">Section&nbsp;3</a> you can be level.</p>
-<p>Demonstration of a Level Controlled LSW</p>
-<p>The following examples demonstrate the water management and user allocation functionality for a level controlled LSW. Polder de Tol is used as the example for these demonstrations.</p>
+<p>On this page we present a range of mostly synthetic models, set up to highlight individual functionalities of Bach. The demonstrations are divided across two sections, in <a href="#sec-free">Section&nbsp;2</a> free-flowing basins are used, which can drain freely to a downstream basin. In <a href="#sec-level">Section&nbsp;3</a> level controlled basins are used. Here there is no free drainage, but water levels are controlled by water management, such as pumping.</p>
 </section>
 <section id="sec-free" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Demonstration of Free Flowing LSW</h1>
-<p>The following examples demonstrate the impact of forcings and the user allocation functionality for a single free draining LSW. The examples are simulated with synthetic data to highlight the functionality of Bach, with the exception of example 1.8 and 1.9 which shows the Bach prototype simulation of the Hupsel LSW.</p>
+<p>The following examples demonstrate the impact of forcings and the user allocation functionality for a single free draining LSW. The examples are simulated with synthetic data to highlight the functionality of Bach, with the exception of example <a href="#sec-free-balance">Section&nbsp;2.8</a> and <a href="#sec-free-comparison">Section&nbsp;2.9</a>, which show the Bach prototype simulation of the Hupsel LSW.</p>
 <div class="cell" data-execution_count="15">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up for demo simulations</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Pkg</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">activate</span>(<span class="st">".."</span>);</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Julia Libraries</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">AbbreviatedStackTraces</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Bach</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Duet</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Dates</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">TOML</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Arrow</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">BasicModelInterface </span>as BMI</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">SciMLBase</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Graphs</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">GLMakie</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CairoMakie</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Plots</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrameMacros</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Bach</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Duet</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Dates</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">TOML</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Arrow</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">BasicModelInterface </span>as BMI</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">SciMLBase</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Graphs</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CairoMakie</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrameMacros</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
 <pre><code>  Activating project at `d:\repo\bach`</code></pre>
@@ -241,9 +232,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>lswforcing <span class="op">=</span> <span class="fu">DataFrame</span>(Arrow.<span class="fu">Table</span>(<span class="st">"../data/input/6/forcing.arrow"</span>));</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="no-external-forcing" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="no-external-forcing"><span class="header-section-number">2.1</span> No external forcing</h2>
-<p>This fictional free flowing LSW has no input or output forcing flux. The LSW empties according to the Volume-Area_Discharge relationship. The two examples below show the impact the profile has on the LSW drainage.</p>
+<section id="sec-free-no" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-free-no"><span class="header-section-number">2.1</span> No external forcing</h2>
+<p>This fictional free flowing LSW has no input or output forcing flux. The LSW empties according to the Volume-Area-Discharge relationship. The two examples below show the impact the profile has on the LSW drainage.</p>
 <div class="cell" data-execution_count="17">
 <details>
 <summary>Code</summary>
@@ -266,9 +257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">solve!</span>(reg.integrator)</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>fig_1a <span class="op">=</span> Duet.<span class="fu">plot_series</span>(reg, lsw_id)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="fu">display</span>(fig_1a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>Duet.<span class="fu">plot_series</span>(reg, lsw_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <p><img src="demo_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
@@ -334,7 +323,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="evaporation-forcing" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="evaporation-forcing"><span class="header-section-number">2.3</span> Evaporation forcing</h2>
-<p>The LSW loses water from evaporation. Outflow occurs according to the VAD as in example 1.1, but overall volume decline is faster rate due to additional loss from evaporation. Evaporation does not occur in an empty LSW.</p>
+<p>The LSW loses water from evaporation. Outflow occurs according to the relation as in <a href="#sec-free-no">Section&nbsp;2.1</a>, but overall volume decline is faster rate due to additional loss from evaporation. Evaporation does not occur in an empty LSW.</p>
 <p>The second example shows the LSW with no simulated discharge, so that the only output is evaporation</p>
 <div class="cell" data-execution_count="20">
 <details>
@@ -395,7 +384,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="evaporation-and-precipitation-forcings" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="evaporation-and-precipitation-forcings"><span class="header-section-number">2.4</span> Evaporation and precipitation forcings</h2>
-<p>This example shows the evaporation and precipitation flux simulated together</p>
+<p>This example shows the evaporation and precipitation flux simulated together.</p>
 <div class="cell" data-execution_count="22">
 <details>
 <summary>Code</summary>
@@ -491,14 +480,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>When water supply is limited, the model follows “de verdringingsreeks” (water prioritization rules in times of water shortage in the Netherlands).</p>
 <p><img src="https://user-images.githubusercontent.com/103200724/187085506-0ee79dd0-8023-42e8-9b05-4b9f433ae73e.jpg" alt="Multi user" title="Bach multi user allocation" width="800"></p>
 </section>
-<section id="water-balance-of-a-single-lsw-hupsel" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="water-balance-of-a-single-lsw-hupsel"><span class="header-section-number">2.8</span> Water balance of a single LSW (Hupsel)</h2>
-<p>Simulation 1.8 is for the LSW Hupsel. The LSW is a free flowing LSW.</p>
+<section id="sec-free-balance" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="sec-free-balance"><span class="header-section-number">2.8</span> Water balance of a single LSW (Hupsel)</h2>
+<p>This simulation is for the LSW Hupsel. The LSW is a free flowing LSW.</p>
 <p><img src="https://user-images.githubusercontent.com/103200724/187200598-edae91ad-8140-466a-b06e-3289babeee27.png" alt="Hupsel" title="Hupsel Water Balance" width="800"></p>
 </section>
-<section id="water-balance-comparison-hupsel" class="level2" data-number="2.9">
-<h2 data-number="2.9" class="anchored" data-anchor-id="water-balance-comparison-hupsel"><span class="header-section-number">2.9</span> Water balance comparison Hupsel</h2>
-<p>The following two figures show Hupsel LSW water balance for the Bach prototype compared to the water balance simulated by Mozart, the precursor to Bach. The figures show a good agreement between the two simulations</p>
+<section id="sec-free-comparison" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="sec-free-comparison"><span class="header-section-number">2.9</span> Water balance comparison Hupsel</h2>
+<p>The following two figures show Hupsel LSW water balance for the Bach prototype compared to the water balance simulated by Mozart, the precursor to Bach. The figures show a good agreement between the two simulations.</p>
 <p><img src="https://user-images.githubusercontent.com/4471859/179259174-0caccd4a-c51b-449e-873c-17d48cfc8870.png" alt="Mozart - Bach Water Balance Comparison" title="Mozart - Bach Water Balance Comparison" width="800"></p>
 <p><img src="https://user-images.githubusercontent.com/103200724/186892581-557e2a0a-7b17-47cc-b65c-a2f7e3e30b66.PNG" alt="Mozart - Bach Storage Comparison" title="Mozart - Bach Water Balance Comparison" width="800"></p>
 <p><img src="https://user-images.githubusercontent.com/103200724/186892581-557e2a0a-7b17-47cc-b65c-a2f7e3e30b66.PNG" alt="" title="Mozart - Bach Storage Comparison" width="800"></p>
