@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.113">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,7 +12,7 @@
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: 1;}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -177,6 +177,9 @@ div.csl-indent {
   <li class="nav-item">
     <a class="nav-link" href="./coupling-demo.html">Bach-Modflow Demonstration</a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./developer.html">Dev docs</a>
+  </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
@@ -197,7 +200,23 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#water-balance-equations" id="toc-water-balance-equations" class="nav-link" data-scroll-target="#water-balance-equations"><span class="toc-section-number">2.1</span>  Water balance equations</a></li>
   <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="toc-section-number">2.2</span>  Time</a></li>
-  <li><a href="#space" id="toc-space" class="nav-link" data-scroll-target="#space"><span class="toc-section-number">2.3</span>  Space</a></li>
+  <li><a href="#sec-space" id="toc-sec-space" class="nav-link" data-scroll-target="#sec-space"><span class="toc-section-number">2.3</span>  Space</a></li>
+  </ul></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage"><span class="toc-section-number">3</span>  Usage</a>
+  <ul class="collapse">
+  <li><a href="#installing-the-compiled-executable" id="toc-installing-the-compiled-executable" class="nav-link" data-scroll-target="#installing-the-compiled-executable"><span class="toc-section-number">3.1</span>  Installing the compiled executable</a></li>
+  <li><a href="#installing-as-a-julia-package" id="toc-installing-as-a-julia-package" class="nav-link" data-scroll-target="#installing-as-a-julia-package"><span class="toc-section-number">3.2</span>  Installing as a Julia package</a></li>
+  <li><a href="#input-and-output-files" id="toc-input-and-output-files" class="nav-link" data-scroll-target="#input-and-output-files"><span class="toc-section-number">3.3</span>  Input and output files</a>
+  <ul class="collapse">
+  <li><a href="#configuration-file" id="toc-configuration-file" class="nav-link" data-scroll-target="#configuration-file"><span class="toc-section-number">3.3.1</span>  Configuration file</a></li>
+  <li><a href="#network" id="toc-network" class="nav-link" data-scroll-target="#network"><span class="toc-section-number">3.3.2</span>  Network</a></li>
+  <li><a href="#arrow-files" id="toc-arrow-files" class="nav-link" data-scroll-target="#arrow-files"><span class="toc-section-number">3.3.3</span>  Arrow files</a></li>
+  <li><a href="#state" id="toc-state" class="nav-link" data-scroll-target="#state"><span class="toc-section-number">3.3.4</span>  State</a></li>
+  <li><a href="#static" id="toc-static" class="nav-link" data-scroll-target="#static"><span class="toc-section-number">3.3.5</span>  Static</a></li>
+  <li><a href="#profile" id="toc-profile" class="nav-link" data-scroll-target="#profile"><span class="toc-section-number">3.3.6</span>  Profile</a></li>
+  <li><a href="#forcing" id="toc-forcing" class="nav-link" data-scroll-target="#forcing"><span class="toc-section-number">3.3.7</span>  Forcing</a></li>
+  <li><a href="#water-balance" id="toc-water-balance" class="nav-link" data-scroll-target="#water-balance"><span class="toc-section-number">3.3.8</span>  Water balance</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -275,10 +294,10 @@ div.csl-indent {
 <h2 data-number="2.2" class="anchored" data-anchor-id="time"><span class="header-section-number">2.2</span> Time</h2>
 <p>The water balance equation can be applied on many timescales; years, weeks, days or hours. Depending on the application and available data any of these can be the best choice. In Bach, we make use of DifferentialEquations.jl and can use any of its <a href="https://diffeq.sciml.ai/stable/solvers/ode_solve/">ODE solvers</a>. Many of these solvers make use of adaptive time stepping, which means the solver will decide how large the time steps can be depending on the state of the system.</p>
 <p>The forcing, like precipitation, is generally provided as a time series. Bach is set up to support unevenly spaced timeseries. The solver will stop on timestamps where new forcing values are available, so they can be loaded as the new value.</p>
-<p>Bach is essentially a continuous model, rather than daily or hourly. If you want to use hourly forcing, you only need to make sure that your forcing data contains hourly updates. The output frequency can be configured independently. To be able to write a closed water balance on e.g.&nbsp;a daily basis, we integrate the timeseries over the days. This way any variation inside of the days is also included, and we can output in <code>m³</code> rather than <code>m³s⁻¹</code>.</p>
+<p>Bach is essentially a continuous model, rather than daily or hourly. If you want to use hourly forcing, you only need to make sure that your forcing data contains hourly updates. The output frequency can be configured independently. To be able to write a closed water balance, we accumulate the fluxes. This way any variations in between timesteps are also included, and we can output in <code>m³</code> rather than <code>m³s⁻¹</code>.</p>
 </section>
-<section id="space" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="space"><span class="header-section-number">2.3</span> Space</h2>
+<section id="sec-space" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-space"><span class="header-section-number">2.3</span> Space</h2>
 <p>The water balance equation can be applied on different spatial scales. Besides modelling a single lumped watershed, it allows you to divide the area into a network of connected representative elementary watersheds (REWs) <span class="citation" data-cites="REGGIANI1998367">(<a href="#ref-REGGIANI1998367" role="doc-biblioref">Reggiani, Sivapalan, and Majid Hassanizadeh 1998</a>)</span>. At this scale global water balance laws can be formulated by means of integration of point-scale conservation equations over control volumes. Such an approach makes Bach a semi-distributed model. In this document we typically use the term “basin” to refer to the REW. (In Mozart the spatial unit was called Local Surface Water (LSW)). Each basin has an associated polygon, and the set of basins is connected to each other as described by a graph, which we call the network. Below is a representation of both on the map.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -357,9 +376,453 @@ div.csl-indent {
 </div>
 </div>
 <p>As each (sub)basin has its own volume, low throughput (high volume, low discharge, long residence time) and high throughput (low volume, high discharge, short residence time) systems can be represented in a lumped manner; of course, more detail requires more parameters.</p>
+</section>
+</section>
+<section id="usage" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Usage</h1>
+<section id="installing-the-compiled-executable" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="installing-the-compiled-executable"><span class="header-section-number">3.1</span> Installing the compiled executable</h2>
+<p>Binaries of <code>bach_cli</code> can be downloaded from <a href="https://github.com/visr/bach-artifacts/releases">bach-artifacts</a>, and are currently available for Windows only. Download and unpack the <code>.zip</code> file. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The <code>bach_cli</code> executable is in the <code>bin</code> directory.</p>
+<p>To check whether the installation was performed successfully, run <code>bach_cli</code> with no arguments in the command line will give the following message:</p>
+<pre><code>Usage: bach_cli 'path/to/config.toml'</code></pre>
+</section>
+<section id="installing-as-a-julia-package" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="installing-as-a-julia-package"><span class="header-section-number">3.2</span> Installing as a Julia package</h2>
+<p>Bach is a <a href="https://julialang.org/">Julia</a> package, that can be installed using Julia’s built in package manager, <code>Pkg</code>. For more information on how to use <code>Pkg</code>, see the <a href="https://pkgdocs.julialang.org/v1/getting-started/">Getting Started</a> page in its documentation.</p>
+<p>Since Bach is not yet registered in the General registry, you have to install it using the full url. Note that here suggest <code>dev</code> to do a development install.</p>
+<pre class="julia-repl"><code>pkg&gt; dev https://github.com/Deltares/Bach.jl</code></pre>
+<p>This will clone the git repository, put it under your home directory in <code>.julia/dev/Bach</code>, and add the Bach package to your project environment. Note that to receive updates, you have to pull in the latest changes yourself using <code>git pull</code>.</p>
+<p>Installation may take a while since Pkg is also installing and pre-compiling the dependencies of Bach.</p>
+<p>Once it is done, you can go back the Julia REPL and try to load Bach:</p>
+<pre class="julia-repl"><code>julia&gt; using Bach</code></pre>
+<p>If you already have a simulation prepared, you can run it using:</p>
+<pre class="julia-repl"><code>julia&gt; Bach.run("path/to/config.toml")</code></pre>
+<p>Again, there will be considerable latency. For this reason, if you expect to run Bach a lot, we recommend to:</p>
+<ul>
+<li>Use <code>bach_cli</code> if you only need <code>Bach.run</code> and don’t need to do developments.</li>
+<li>Adapt a workflow that keeps you session active; the first <code>Bach.run("model.toml")</code> will take considerably more time than the second one, since more code needs to be compiled.</li>
+<li>Use a system image, explained in the <a href="#developer.qmd">developer documentation</a>, to reduce latency further</li>
+</ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip: Visual Studio Code
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is a section on editors and IDEs for Julia on <a href="https://julialang.org/" class="uri">https://julialang.org/</a>, scroll down to see it. We use and recommend Microsoft’s free and open source <a href="https://code.visualstudio.com/">Visual Studio Code</a>. When combined with the <a href="https://www.julia-vscode.org/">Julia extension</a> it provides a powerful and interactive development experience.</p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip: Revise.jl
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you plan to make changes to the code of Bach, we recommend installing the <code>Revise.jl</code> package. This package allows you to modify code and use the changes without restarting Julia. Install it with <code>add Revise</code> from the Pkg REPL. Then create a file called <code>.julia/config/startup.jl</code>, and put <code>using Revise</code> there. This will load Revise every time you start a Julia session.</p>
+</div>
+</div>
+</section>
+<section id="input-and-output-files" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="input-and-output-files"><span class="header-section-number">3.3</span> Input and output files</h2>
+<section id="configuration-file" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="configuration-file"><span class="header-section-number">3.3.1</span> Configuration file</h3>
+<p>Bach has a single configuration file, which is written in the <a href="https://toml.io/">TOML</a> format. It contains settings, as well as paths to other input and output files.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start- and endtime of the simulation</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># can also be set to a date-time like 1979-05-27T07:32:00</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">starttime</span> <span class="op">=</span> <span class="bn">2019-01-01</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dt">endtime</span> <span class="op">=</span> <span class="bn">2021-01-01</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># maintain target waterlevel in level controlled basins</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="dt">add_levelcontrol</span> <span class="op">=</span> <span class="cn">true</span>  <span class="co"># default is true</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># run a coupled Bach - Modflow simulation</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="dt">run_modflow</span> <span class="op">=</span> <span class="cn">false</span>  <span class="co"># default is false</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># all timesteps are in seconds</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># do water allocation for this time horizon</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="dt">update_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># save output at this interval</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="dt">output_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># default is 86400.0</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># save timesteps at this interval</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># note that this is internal, and is forwarded to the DiffEq solver options</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co"># https://diffeq.sciml.ai/stable/basics/common_solver_opts/#Output-Control</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="dt">saveat</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># default is to save every step</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co"># location IDs that will be included in the simulation</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co"># these location IDs are referenced in the input files below</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="dt">lsw_ids</span> <span class="op">=</span> <span class="op">[</span><span class="dv">151358</span><span class="op">,</span> <span class="dv">151371</span><span class="op">,</span> <span class="dv">151309</span><span class="op">]</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co"># input files</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="dt">forcing</span> <span class="op">=</span> <span class="st">"../data/input/6/forcing.arrow"</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="dt">state</span> <span class="op">=</span> <span class="st">"../data/input/6/state.arrow"</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="op">=</span> <span class="st">"../data/input/6/static.arrow"</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="dt">profile</span> <span class="op">=</span> <span class="st">"../data/input/6/profile.arrow"</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="dt">network_path</span> <span class="op">=</span> <span class="st">"../data/input/6/network.ply"</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co"># output file</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="dt">waterbalance</span> <span class="op">=</span> <span class="st">"../data/output/waterbalance.arrow"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Additionally, if <code>run_modflow = true</code>, a Modflow specific section needs to be added to the configuration file. This part is documented in <a href="#coupling-demo.qmd">the Modflow coupling demo</a>.</p>
+</section>
+<section id="network" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="network"><span class="header-section-number">3.3.2</span> Network</h3>
+<p>The network, as set with <code>network_path</code> in the configuration file, is the path to a <a href="https://en.wikipedia.org/wiki/PLY_(file_format)">PLY file</a>. This network is a directed graph, that links the different basins to each other, as described in <a href="#sec-space">Section&nbsp;2.3</a>.</p>
+<p>The PLY format is a relatively simple file format that comes in binary and ASCII flavors, both of which are supported. To support viewing the network as a mesh layer in <a href="https://docs.qgis.org/latest/en/docs/user_manual/working_with_mesh/mesh_properties.html">QGIS</a>, we recommend adding a comment specifying the coordinate reference system (CRS) as documented by <a href="https://www.mdal.xyz/drivers/ply.html">MDAL</a> and shown below. In this example, only the first and last two vertices are shown, just like for the edges.</p>
+<pre><code>ply
+format ascii 1.0
+comment crs: EPSG:28992
+element vertex 8531
+property float64 x
+property float64 y
+property float64 location
+element edge 6318
+property int32 vertex1
+property int32 vertex2
+property float32 fractions
+end_header
+140702.897 414305.632 10020.0
+157416.633 424082.847 10037.0
+⋮
+47343.505 371868.984 991896.0
+45651.526 372390.837 991908.0
+0 11 1.0
+1 25 1.0
+⋮
+8512 7572 1.0
+8516 7677 1.0</code></pre>
+<p>For each vertex, the x and y coordinates are given, followed by the location ID. For each edge, the source and destination vertex are given, followed by the fraction. The vertex here refers not to the location ID, but to the zero-based index of the vertices as ordered in the file. The fraction is typically 1.0, but can be divided into smaller parts if there is a bifurcation from one basin to two downstream basins. This then represents the fraction of water flowing from the source along this edge.</p>
+<p>The network file is allowed to be a superset of the locations IDs that you simulate (the <code>lsw_ids</code> configuration). A sub-network will be derived automatically.</p>
+</section>
+<section id="arrow-files" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="arrow-files"><span class="header-section-number">3.3.3</span> Arrow files</h3>
+<p>The input and output files described below all share that they are tabular files, stored in the <a href="https://arrow.apache.org/">Apache Arrow</a> IPC file format, also known as Feather files. This format has been chosen since it is standardized, fast, simple and flexible. It can be read and written by many different software packages and libraries in different languages. In Bach we use <a href="https://arrow.juliadata.org/dev/">Arrow.jl</a>.</p>
+<p>Below we give details per file, in which we describe the schema of the table using a syntax like this:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>location</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>volume</td>
+<td>Float64</td>
+<td>non-negative</td>
+</tr>
+</tbody>
+</table>
+<p>This means that two columns are required, one named <code>location</code>, that contained elements of type <code>Int</code>, and a column named <code>volume</code> that contains elements of type <code>Float64</code>. The order of the columns does not matter, and the files are also allowed to have extra columns, which will be ignored. In some cases there may be restrictions on the values or the ordering of the rows. This is indicated under <code>restriction</code>.</p>
+<p>Tables are also allowed to have rows for locations, variables or times that are not part of the simulation, these will be ignored. That makes it easy to prepare data for a larger region once, and test models on a subset of the basins.</p>
+<p>The Arrow input files can be compressed with LZ4 or Zstd compression. Furthermore, in some of the columns, a small amount of different values are repeated many times. To reduce file sizes it may be a good idea to apply <a href="https://arrow.apache.org/docs/format/Columnar.html#dictionary-encoded-layout">dictionary encoding</a> to those columns.</p>
+</section>
+<section id="state" class="level3" data-number="3.3.4">
+<h3 data-number="3.3.4" class="anchored" data-anchor-id="state"><span class="header-section-number">3.3.4</span> State</h3>
+<p>The state table aims to capture the full state of the system, such that it can be used as an initial condition, that is potentially the outcome of an earlier simulation. Currently the only state is the volume of storage.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>location</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>volume</td>
+<td>Float64</td>
+<td>non-negative</td>
+</tr>
+</tbody>
+</table>
+<p>Each location specified in <code>lsw_ids</code> needs to be in the table.</p>
+</section>
+<section id="static" class="level3" data-number="3.3.5">
+<h3 data-number="3.3.5" class="anchored" data-anchor-id="static"><span class="header-section-number">3.3.5</span> Static</h3>
+<p>The static table provides data that is fixed per location. The <code>local_surface_water_type</code> can be either <code>V</code> for free draining basins or <code>P</code> for level controlled basins.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>location</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>target_level</td>
+<td>Float64</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>target_volume</td>
+<td>Float64</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>local_surface_water_type</td>
+<td>Char</td>
+<td>‘V’ or ‘P’</td>
+</tr>
+</tbody>
+</table>
+<p>Each location specified in <code>lsw_ids</code> needs to be in the table.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Of <code>target_level</code> and <code>target_volume</code>, currently only <code>target_volume</code> is used, and only for level controlled basins. This variable should be moved to the forcing table to allow dynamic targets.</p>
+</div>
+</div>
+</section>
+<section id="profile" class="level3" data-number="3.3.6">
+<h3 data-number="3.3.6" class="anchored" data-anchor-id="profile"><span class="header-section-number">3.3.6</span> Profile</h3>
+<p>The profile table defines the physical dimensions of the storage reservoir of each basin. Depending on the basin type, the columns are used differently. For free draining basins, the level is not used in the calculation, but may be used to convert calculated volumes to levels for output. For level controlled basins, the discharge is not used.</p>
+<table class="table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 17%">
+<col style="width: 30%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>location</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>volume</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
+<td>sorted per location and start at 0</td>
+</tr>
+<tr class="odd">
+<td>area</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^2\)</span></td>
+<td>sorted per location and non-negative</td>
+</tr>
+<tr class="even">
+<td>discharge</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>sorted per location and non-negative</td>
+</tr>
+<tr class="odd">
+<td>level</td>
+<td>Float64</td>
+<td><span class="math inline">\(m\)</span></td>
+<td>sorted per location</td>
+</tr>
+</tbody>
+</table>
+<p>The level is in meters above a datum that is the same for the entire model. An example of the first 5 rows of such a table is given below. The first 4 rows define the profile of location <code>10020</code>. The number of rows can vary per location. Using a very large number of rows may impact performance.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>location</th>
+<th>volume</th>
+<th>area</th>
+<th>discharge</th>
+<th>level</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10020</td>
+<td>0.0</td>
+<td>1.36404e5</td>
+<td>0.0</td>
+<td>-0.105</td>
+</tr>
+<tr class="even">
+<td>10020</td>
+<td>24726.2</td>
+<td>1.36404e5</td>
+<td>0.0</td>
+<td>0.095</td>
+</tr>
+<tr class="odd">
+<td>10020</td>
+<td>49452.5</td>
+<td>1.36404e5</td>
+<td>0.00942702</td>
+<td>0.295</td>
+</tr>
+<tr class="even">
+<td>10020</td>
+<td>2.49735e6</td>
+<td>1.36404e5</td>
+<td>0.942702</td>
+<td>20.095</td>
+</tr>
+<tr class="odd">
+<td>10037</td>
+<td>0.0</td>
+<td>50663.3</td>
+<td>0.0</td>
+<td>2.129</td>
+</tr>
+</tbody>
+</table>
+<p>Each location specified in <code>lsw_ids</code> needs to be in the table at least once.</p>
+</section>
+<section id="forcing" class="level3" data-number="3.3.7">
+<h3 data-number="3.3.7" class="anchored" data-anchor-id="forcing"><span class="header-section-number">3.3.7</span> Forcing</h3>
+<p>All dynamic data can be added to the forcing table.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>time</td>
+<td>DateTime</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>variable</td>
+<td>String</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>location</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>value</td>
+<td>Float64</td>
+<td>depending on variable</td>
+</tr>
+</tbody>
+</table>
+<p>Here is an example of the first and last two rows of a forcing table:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>time</th>
+<th>variable</th>
+<th>location</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2019-01-01T00:00:00</td>
+<td>precipitation</td>
+<td>150006</td>
+<td>2.89352e-10</td>
+</tr>
+<tr class="even">
+<td>2019-01-01T00:00:00</td>
+<td>precipitation</td>
+<td>150016</td>
+<td>2.89352e-10</td>
+</tr>
+<tr class="odd">
+<td>⋮</td>
+<td>⋮</td>
+<td>⋮</td>
+<td>⋮</td>
+</tr>
+<tr class="even">
+<td>2020-12-31T00:00:00</td>
+<td>evaporation</td>
+<td>151690</td>
+<td>1.15741e-9</td>
+</tr>
+<tr class="odd">
+<td>2020-12-31T00:00:00</td>
+<td>evaporation</td>
+<td>151707</td>
+<td>1.15741e-9</td>
+</tr>
+</tbody>
+</table>
+<p>The forcing table is a <a href="https://en.wikipedia.org/wiki/Wide_and_narrow_data#Narrow">narrow table</a>. When the simulation arrives at a time given in the forcing data, it will update all the values given for that time. These values then stay constant until the next update, there is no interpolation in between. This format give maximum flexibility to update different variables at different times.</p>
+</section>
+<section id="water-balance" class="level3" data-number="3.3.8">
+<h3 data-number="3.3.8" class="anchored" data-anchor-id="water-balance"><span class="header-section-number">3.3.8</span> Water balance</h3>
+<p>The water balance table outputs all water balance terms at a regular output frequency, as defined by <code>output_timestep</code> in the configuration file. The units are <span class="math inline">\(m^3\)</span>, which is the total volume of flow into the basin since the previous output timestep. The inital timestep of the simulation, with all values set to zero, is also written to the file. Since flow out of the basin is given a negative value, and the storage change is included, you can sum all components to verify the closure of the water balance.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>time</td>
+<td>DateTime</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>variable</td>
+<td>String</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>location</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>value</td>
+<td>Float64</td>
+<td>non-negative volume (<span class="math inline">\(m^3\)</span>)</td>
+</tr>
+</tbody>
+</table>
+<p>The water balance table has the same schema as the forcing table. Since the output frequency is constant, and equal for all variables, you can pivot this table from <a href="https://en.wikipedia.org/wiki/Wide_and_narrow_data">narrow</a> to wide data to get the different water balance components as columns. Having them as a narrow table can make it easier to process, since for a given model you may not know the water balance components ahead of time.</p>
 
 
 
+</section>
 </section>
 </section>
 
