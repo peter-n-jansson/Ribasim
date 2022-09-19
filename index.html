@@ -217,6 +217,7 @@ div.csl-indent {
   <li><a href="#forcing" id="toc-forcing" class="nav-link" data-scroll-target="#forcing"><span class="toc-section-number">3.3.7</span>  Forcing</a></li>
   <li><a href="#water-balance" id="toc-water-balance" class="nav-link" data-scroll-target="#water-balance"><span class="toc-section-number">3.3.8</span>  Water balance</a></li>
   </ul></li>
+  <li><a href="#example-input-files" id="toc-example-input-files" class="nav-link" data-scroll-target="#example-input-files"><span class="toc-section-number">3.4</span>  Example input files</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -819,10 +820,14 @@ Note
 </tbody>
 </table>
 <p>The water balance table has the same schema as the forcing table. Since the output frequency is constant, and equal for all variables, you can pivot this table from <a href="https://en.wikipedia.org/wiki/Wide_and_narrow_data">narrow</a> to wide data to get the different water balance components as columns. Having them as a narrow table can make it easier to process, since for a given model you may not know the water balance components ahead of time.</p>
-
-
-
 </section>
+</section>
+<section id="example-input-files" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="example-input-files"><span class="header-section-number">3.4</span> Example input files</h2>
+<p>From <a href="https://github.com/visr/bach-artifacts/releases/download/v0.1.0/schematization.zip">this link</a> you can download an existing schematization for the Netherlands that was used for testing purposes during development. It is provided here as an example to help people get started. Based on the description of the input files above, you can also generate your own schematization using your tools of choice. We have used <a href="https://github.com/JuliaData/DataFrames.jl">DataFrames.jl</a> and <a href="https://github.com/JuliaData/Arrow.jl">Arrow.jl</a> to prepare the tables, but one can equally use for instance Python’s <a href="https://arrow.apache.org/docs/python/pandas.html">pandas</a>.</p>
+
+
+
 </section>
 </section>
 
