@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://Deltares.github.io/bach/coupling-demo.html</loc>
-    <lastmod>2022-09-19T09:24:27.664Z</lastmod>
+    <loc>https://Deltares.github.io/Ribasim.jl/coupling-demo.html</loc>
+    <lastmod>2022-11-05T21:21:32.582Z</lastmod>
   </url>
   <url>
-    <loc>https://Deltares.github.io/bach/demo.html</loc>
-    <lastmod>2022-09-19T09:24:28.955Z</lastmod>
+    <loc>https://Deltares.github.io/Ribasim.jl/demo.html</loc>
+    <lastmod>2022-11-05T21:21:33.786Z</lastmod>
   </url>
   <url>
-    <loc>https://Deltares.github.io/bach/developer.html</loc>
-    <lastmod>2022-09-19T09:24:29.465Z</lastmod>
+    <loc>https://Deltares.github.io/Ribasim.jl/developer.html</loc>
+    <lastmod>2022-11-05T21:21:34.311Z</lastmod>
   </url>
   <url>
-    <loc>https://Deltares.github.io/bach/equations.html</loc>
-    <lastmod>2022-09-19T09:24:30.161Z</lastmod>
+    <loc>https://Deltares.github.io/Ribasim.jl/equations.html</loc>
+    <lastmod>2022-11-05T21:21:35.071Z</lastmod>
   </url>
   <url>
-    <loc>https://Deltares.github.io/bach/index.html</loc>
-    <lastmod>2022-09-19T09:24:31.264Z</lastmod>
+    <loc>https://Deltares.github.io/Ribasim.jl/index.html</loc>
+    <lastmod>2022-11-05T21:21:36.671Z</lastmod>
   </url>
   <url>
-    <loc>https://Deltares.github.io/bach/modflow.html</loc>
-    <lastmod>2022-09-19T09:24:31.880Z</lastmod>
+    <loc>https://Deltares.github.io/Ribasim.jl/modflow.html</loc>
+    <lastmod>2022-11-05T21:21:37.453Z</lastmod>
   </url>
 </urlset>

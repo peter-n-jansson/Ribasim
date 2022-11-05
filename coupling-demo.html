@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.2.262">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bach - Bach-Modflow Demonstration</title>
+<title>Ribasim - Ribasim-Modflow Demonstration</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -134,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Bach</span>
+    <span class="navbar-title">Ribasim</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -143,19 +143,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./equations.html">Water balance</a>
+    <a class="nav-link" href="./equations.html">
+ <span class="menu-text">Water balance</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./modflow.html">Modflow Coupling</a>
+    <a class="nav-link" href="./modflow.html">
+ <span class="menu-text">Modflow Coupling</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./demo.html">Bach Functionality Demonstration</a>
+    <a class="nav-link" href="./demo.html">
+ <span class="menu-text">Ribasim Functionality Demonstration</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./coupling-demo.html" aria-current="page">Bach-Modflow Demonstration</a>
+    <a class="nav-link active" href="./coupling-demo.html" aria-current="page">
+ <span class="menu-text">Ribasim-Modflow Demonstration</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./developer.html">Dev docs</a>
+    <a class="nav-link" href="./developer.html">
+ <span class="menu-text">Dev docs</span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -184,7 +189,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Bach-Modflow Demonstration</h1>
+<h1 class="title">Ribasim-Modflow Demonstration</h1>
 </div>
 
 
@@ -192,6 +197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
@@ -207,7 +213,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Tertiary</li>
 </ol>
 <p>These systems are separated in the groundwater model schematization due to the relatively small size of the surface waters (several meters in width) in comparison with relatively coarse cells of the groundwater model (250 m): most cells in the LHM contain more than one surface water, and are included via representative parameters which take the physical scaling into account. In case of sufficiently small cell sizes, no overlap occurs and all surface waters can be represented in a single grid.</p>
-<p>Bach has no knowledge of these systems unless explicitly separated into different (sub-)basins. In the examples below, these three systems are represented by one basin with a single volume. For the purposes of testing, we have not yet created empirical volume-level relationships for the surface water of every cell extracted from a hydraulic model. Instead, we have chosen an (over)simplified parametrization of the hydraulic properties, which makes it easy to verify the behavior of Bach and the coupling procedures:</p>
+<p>Ribasim has no knowledge of these systems unless explicitly separated into different (sub-)basins. In the examples below, these three systems are represented by one basin with a single volume. For the purposes of testing, we have not yet created empirical volume-level relationships for the surface water of every cell extracted from a hydraulic model. Instead, we have chosen an (over)simplified parametrization of the hydraulic properties, which makes it easy to verify the behavior of Ribasim and the coupling procedures:</p>
 <ol type="1">
 <li>Primary, secondary, and tertiary systems have a rectangular profile: the area of the surface water does not change with water level or volume.</li>
 <li>Water depth is constant for a system within a basin.</li>
@@ -232,7 +238,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Bach is not limited to such oversimplified parametrization! Bach uses tabulations and therefore supports arbitrary (piecewise linear) volume-depth and volume-discharge relationships.</p>
+<p>Ribasim is not limited to such oversimplified parametrization! Ribasim uses tabulations and therefore supports arbitrary (piecewise linear) volume-depth and volume-discharge relationships.</p>
 </div>
 </div>
 <p>A visual representation of this simplified conceptual schematization is given in <a href="#fig-volume-depth">Figure&nbsp;1</a> and <a href="#fig-volume-discharge">Figure&nbsp;2</a>.</p>
@@ -325,7 +331,7 @@ Note
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="kw">[[</span><span class="dt">modflow</span><span class="kw">.</span><span class="dt">models</span><span class="kw">.</span><span class="dt">gwf</span><span class="kw">.</span><span class="dt">bounds</span><span class="kw">]]</span></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="dt">drain</span> <span class="op">=</span> <span class="st">"DRN_T"</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="dt">profile</span> <span class="op">=</span> <span class="st">"profile_tertiary"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The section starts by stating the path to the MODFLOW6 simulation name file (<code>simulation</code>). The next section contains the information regarding the MODFLOW6 model(s) to couple to Bach’s basins. Per model, a path to the coupling parameter dataset is provided (<code>dataset</code>), along with the variable to use as the basin identification number (<code>basins</code>). Next, for every boundary condition that should be coupled to Bach, the package names (<code>river</code>, <code>drain</code>) used by MODFLOW6 must be specified (as we look for these names in the MODFLOW6 memory), along with the name of the variable in the coupling dataset which provides the volume-level relationship (<code>profile</code>).</p>
+<p>The section starts by stating the path to the MODFLOW6 simulation name file (<code>simulation</code>). The next section contains the information regarding the MODFLOW6 model(s) to couple to Ribasim’s basins. Per model, a path to the coupling parameter dataset is provided (<code>dataset</code>), along with the variable to use as the basin identification number (<code>basins</code>). Next, for every boundary condition that should be coupled to Ribasim, the package names (<code>river</code>, <code>drain</code>) used by MODFLOW6 must be specified (as we look for these names in the MODFLOW6 memory), along with the name of the variable in the coupling dataset which provides the volume-level relationship (<code>profile</code>).</p>
 <p>As can be seen in the example, the coupling mechanism supports coupling of:</p>
 <ol type="1">
 <li>A single drainage package (<code>drain</code> entry).</li>
@@ -338,8 +344,8 @@ Note
 <p>To test the coupling, the following simulations have been setup and run:</p>
 <ol type="1">
 <li>A standalone MODFLOW6 run of sequential steady-states (i.e.&nbsp;no storage) with differing groundwater recharge values.</li>
-<li>A coupled run where the MODFLOW6 stages are updated by the Bach coupler process, but without Bach. This results in volumes of 0.0, so all MODFLOW6 water levels are set equal to bed elevation.</li>
-<li>A coupled run where the water levels are updated by Bach.</li>
+<li>A coupled run where the MODFLOW6 stages are updated by the Ribasim coupler process, but without Ribasim. This results in volumes of 0.0, so all MODFLOW6 water levels are set equal to bed elevation.</li>
+<li>A coupled run where the water levels are updated by Ribasim.</li>
 </ol>
 <p>From these tests, we expect the following behavior:</p>
 <ol type="1">
@@ -369,8 +375,8 @@ Note
 <p>To test the coupling, the following simulations have been setup and run:</p>
 <ol type="1">
 <li>A standalone MODFLOW6 run of sequential steady-states (i.e.&nbsp;no storage) with differing groundwater recharge values.</li>
-<li>A coupled run where the MODFLOW6 stages are updated by the Bach coupler process, but without Bach. This results in volumes of 0.0, so all MODFLOW6 water levels are set equal to bed elevation.</li>
-<li>A coupled run where the water levels are updated by Bach.</li>
+<li>A coupled run where the MODFLOW6 stages are updated by the Ribasim coupler process, but without Ribasim. This results in volumes of 0.0, so all MODFLOW6 water levels are set equal to bed elevation.</li>
+<li>A coupled run where the water levels are updated by Ribasim.</li>
 </ol>
 <div id="fig-tol-gwb-steady" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -432,7 +438,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -468,24 +491,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

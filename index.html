@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.2.262">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bach</title>
+<title>Ribasim</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -157,7 +157,7 @@ div.csl-indent {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Bach</span>
+    <span class="navbar-title">Ribasim</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -166,19 +166,24 @@ div.csl-indent {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./equations.html">Water balance</a>
+    <a class="nav-link" href="./equations.html">
+ <span class="menu-text">Water balance</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./modflow.html">Modflow Coupling</a>
+    <a class="nav-link" href="./modflow.html">
+ <span class="menu-text">Modflow Coupling</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./demo.html">Bach Functionality Demonstration</a>
+    <a class="nav-link" href="./demo.html">
+ <span class="menu-text">Ribasim Functionality Demonstration</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./coupling-demo.html">Bach-Modflow Demonstration</a>
+    <a class="nav-link" href="./coupling-demo.html">
+ <span class="menu-text">Ribasim-Modflow Demonstration</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./developer.html">Dev docs</a>
+    <a class="nav-link" href="./developer.html">
+ <span class="menu-text">Dev docs</span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -227,7 +232,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Bach</h1>
+<h1 class="title">Ribasim</h1>
 </div>
 
 
@@ -235,14 +240,15 @@ div.csl-indent {
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
 
 </header>
 
-<p>Bach is a water resources model, designed to be the replacement of the regional surface water modules Mozart and SIMRES in the Netherlands Hydrological Instrument (NHI). Bach is a work in progress, it is a prototype that demonstrates all essential functionalities. Further development of the prototype in a software release is planned in 2022 and 2023.</p>
-<p>Bach is written in the <a href="https://julialang.org/">Julia programming language</a> and is built on top of the <a href="https://sciml.ai/">SciML: Open Source Software for Scientific Machine Learning</a> libraries, notably <a href="https://mtk.sciml.ai/stable/">ModelingToolkit.jl</a>.</p>
+<p>Ribasim is a water resources model, designed to be the replacement of the regional surface water modules Mozart and SIMRES in the Netherlands Hydrological Instrument (NHI). Ribasim is a work in progress, it is a prototype that demonstrates all essential functionalities. Further development of the prototype in a software release is planned in 2022 and 2023.</p>
+<p>Ribasim is written in the <a href="https://julialang.org/">Julia programming language</a> and is built on top of the <a href="https://sciml.ai/">SciML: Open Source Software for Scientific Machine Learning</a> libraries, notably <a href="https://mtk.sciml.ai/stable/">ModelingToolkit.jl</a>.</p>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-bottom">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -265,7 +271,7 @@ div.csl-indent {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://user-images.githubusercontent.com/4471859/179259174-0caccd4a-c51b-449e-873c-17d48cfc8870.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Example bar plot of the daily waterbalance for the Hupselse Beek, comparing results of Mozart (left) and Bach (right).</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Example bar plot of the daily waterbalance for the Hupselse Beek, comparing results of Mozart (left) and Ribasim (right).</figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -289,17 +295,17 @@ div.csl-indent {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>sys <span class="op">=</span> <span class="fu">ODESystem</span>([<span class="fu">D</span>(S) <span class="op">~</span> R <span class="op">+</span> P <span class="op">+</span> ET <span class="op">+</span> Q_rest])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>On the last line, an <code>ODESystem</code> is created that consists of a single equation. Before we can solve this, we need to create an <code>ODEProblem</code>, that provides information about the timespan of the simulation, as well as the initial conditions.</p>
-<p>Bach can be used as a Julia package running in a Julia session or as an application initialized via TOML configuration files. Both uses are demonstrated in the demonstrations.</p>
+<p>Ribasim can be used as a Julia package running in a Julia session or as an application initialized via TOML configuration files. Both uses are demonstrated in the demonstrations.</p>
 </section>
 <section id="time" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="time"><span class="header-section-number">2.2</span> Time</h2>
-<p>The water balance equation can be applied on many timescales; years, weeks, days or hours. Depending on the application and available data any of these can be the best choice. In Bach, we make use of DifferentialEquations.jl and can use any of its <a href="https://diffeq.sciml.ai/stable/solvers/ode_solve/">ODE solvers</a>. Many of these solvers make use of adaptive time stepping, which means the solver will decide how large the time steps can be depending on the state of the system.</p>
-<p>The forcing, like precipitation, is generally provided as a time series. Bach is set up to support unevenly spaced timeseries. The solver will stop on timestamps where new forcing values are available, so they can be loaded as the new value.</p>
-<p>Bach is essentially a continuous model, rather than daily or hourly. If you want to use hourly forcing, you only need to make sure that your forcing data contains hourly updates. The output frequency can be configured independently. To be able to write a closed water balance, we accumulate the fluxes. This way any variations in between timesteps are also included, and we can output in <code>m³</code> rather than <code>m³s⁻¹</code>.</p>
+<p>The water balance equation can be applied on many timescales; years, weeks, days or hours. Depending on the application and available data any of these can be the best choice. In Ribasim, we make use of DifferentialEquations.jl and can use any of its <a href="https://diffeq.sciml.ai/stable/solvers/ode_solve/">ODE solvers</a>. Many of these solvers make use of adaptive time stepping, which means the solver will decide how large the time steps can be depending on the state of the system.</p>
+<p>The forcing, like precipitation, is generally provided as a time series. Ribasim is set up to support unevenly spaced timeseries. The solver will stop on timestamps where new forcing values are available, so they can be loaded as the new value.</p>
+<p>Ribasim is essentially a continuous model, rather than daily or hourly. If you want to use hourly forcing, you only need to make sure that your forcing data contains hourly updates. The output frequency can be configured independently. To be able to write a closed water balance, we accumulate the fluxes. This way any variations in between timesteps are also included, and we can output in <code>m³</code> rather than <code>m³s⁻¹</code>.</p>
 </section>
 <section id="sec-space" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="sec-space"><span class="header-section-number">2.3</span> Space</h2>
-<p>The water balance equation can be applied on different spatial scales. Besides modelling a single lumped watershed, it allows you to divide the area into a network of connected representative elementary watersheds (REWs) <span class="citation" data-cites="REGGIANI1998367">(<a href="#ref-REGGIANI1998367" role="doc-biblioref">Reggiani, Sivapalan, and Majid Hassanizadeh 1998</a>)</span>. At this scale global water balance laws can be formulated by means of integration of point-scale conservation equations over control volumes. Such an approach makes Bach a semi-distributed model. In this document we typically use the term “basin” to refer to the REW. (In Mozart the spatial unit was called Local Surface Water (LSW)). Each basin has an associated polygon, and the set of basins is connected to each other as described by a graph, which we call the network. Below is a representation of both on the map.</p>
+<p>The water balance equation can be applied on different spatial scales. Besides modelling a single lumped watershed, it allows you to divide the area into a network of connected representative elementary watersheds (REWs) <span class="citation" data-cites="REGGIANI1998367">(<a href="#ref-REGGIANI1998367" role="doc-biblioref">Reggiani, Sivapalan, and Majid Hassanizadeh 1998</a>)</span>. At this scale global water balance laws can be formulated by means of integration of point-scale conservation equations over control volumes. Such an approach makes Ribasim a semi-distributed model. In this document we typically use the term “basin” to refer to the REW. (In Mozart the spatial unit was called Local Surface Water (LSW)). Each basin has an associated polygon, and the set of basins is connected to each other as described by a graph, which we call the network. Below is a representation of both on the map.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://user-images.githubusercontent.com/4471859/185932183-62c305e6-bc14-4f3c-a74c-437f831c9145.png" class="img-fluid figure-img"></p>
@@ -311,7 +317,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div>
 <p>
-</p><pre class="mermaid" data-tooltip-selector="#mermaid-tooltip-1">graph LR;
+</p><pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-1">graph LR;
     A["basin A"] --- B["basin B"];
     A --- C["basin C"];
     B --- D["basin D"];
@@ -349,7 +355,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div>
 <p>
-</p><pre class="mermaid" data-tooltip-selector="#mermaid-tooltip-2">graph LR;
+</p><pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-2">graph LR;
     A["basin A"] --&gt; B["basin B"];
 </pre>
 <div id="mermaid-tooltip-2" class="mermaidTooltip">
@@ -364,7 +370,7 @@ div.csl-indent {
 <div class="cell-output-display">
 <div>
 <p>
-</p><pre class="mermaid" data-tooltip-selector="#mermaid-tooltip-3">graph LR;
+</p><pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-3">graph LR;
     T["basin T"] --&gt; S["basin S"];
     S --&gt; P["basin P"]; 
     P --&gt; B["basin B"];
@@ -383,25 +389,25 @@ div.csl-indent {
 <h1 data-number="3"><span class="header-section-number">3</span> Usage</h1>
 <section id="installing-the-compiled-executable" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="installing-the-compiled-executable"><span class="header-section-number">3.1</span> Installing the compiled executable</h2>
-<p>Binaries of <code>bach_cli</code> can be downloaded from <a href="https://github.com/visr/bach-artifacts/releases">bach-artifacts</a>, and are currently available for Windows only. Download and unpack the <code>.zip</code> file. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The <code>bach_cli</code> executable is in the <code>bin</code> directory.</p>
-<p>To check whether the installation was performed successfully, run <code>bach_cli</code> with no arguments in the command line will give the following message:</p>
-<pre><code>Usage: bach_cli 'path/to/config.toml'</code></pre>
+<p>Binaries of <code>ribasim_cli</code> can be downloaded from <a href="https://github.com/visr/ribasim-artifacts/releases">ribasim-artifacts</a>, and are currently available for Windows only. Download and unpack the <code>.zip</code> file. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The <code>ribasim_cli</code> executable is in the <code>bin</code> directory.</p>
+<p>To check whether the installation was performed successfully, run <code>ribasim_cli</code> with no arguments in the command line will give the following message:</p>
+<pre><code>Usage: ribasim_cli 'path/to/config.toml'</code></pre>
 </section>
 <section id="installing-as-a-julia-package" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="installing-as-a-julia-package"><span class="header-section-number">3.2</span> Installing as a Julia package</h2>
-<p>Bach is a <a href="https://julialang.org/">Julia</a> package, that can be installed using Julia’s built in package manager, <code>Pkg</code>. For more information on how to use <code>Pkg</code>, see the <a href="https://pkgdocs.julialang.org/v1/getting-started/">Getting Started</a> page in its documentation.</p>
-<p>Since Bach is not yet registered in the General registry, you have to install it using the full url. Note that here suggest <code>dev</code> to do a development install.</p>
-<pre class="julia-repl"><code>pkg&gt; dev https://github.com/Deltares/Bach.jl</code></pre>
-<p>This will clone the git repository, put it under your home directory in <code>.julia/dev/Bach</code>, and add the Bach package to your project environment. Note that to receive updates, you have to pull in the latest changes yourself using <code>git pull</code>.</p>
-<p>Installation may take a while since Pkg is also installing and pre-compiling the dependencies of Bach.</p>
-<p>Once it is done, you can go back the Julia REPL and try to load Bach:</p>
-<pre class="julia-repl"><code>julia&gt; using Bach</code></pre>
+<p>Ribasim is a <a href="https://julialang.org/">Julia</a> package, that can be installed using Julia’s built in package manager, <code>Pkg</code>. For more information on how to use <code>Pkg</code>, see the <a href="https://pkgdocs.julialang.org/v1/getting-started/">Getting Started</a> page in its documentation.</p>
+<p>Since Ribasim is not yet registered in the General registry, you have to install it using the full url. Note that here suggest <code>dev</code> to do a development install.</p>
+<pre class="julia-repl"><code>pkg&gt; dev https://github.com/Deltares/Ribasim.jl</code></pre>
+<p>This will clone the git repository, put it under your home directory in <code>.julia/dev/Ribasim</code>, and add the Ribasim package to your project environment. Note that to receive updates, you have to pull in the latest changes yourself using <code>git pull</code>.</p>
+<p>Installation may take a while since Pkg is also installing and pre-compiling the dependencies of Ribasim.</p>
+<p>Once it is done, you can go back the Julia REPL and try to load Ribasim:</p>
+<pre class="julia-repl"><code>julia&gt; using Ribasim</code></pre>
 <p>If you already have a simulation prepared, you can run it using:</p>
-<pre class="julia-repl"><code>julia&gt; Bach.run("path/to/config.toml")</code></pre>
-<p>Again, there will be considerable latency. For this reason, if you expect to run Bach a lot, we recommend to:</p>
+<pre class="julia-repl"><code>julia&gt; Ribasim.run("path/to/config.toml")</code></pre>
+<p>Again, there will be considerable latency. For this reason, if you expect to run Ribasim a lot, we recommend to:</p>
 <ul>
-<li>Use <code>bach_cli</code> if you only need <code>Bach.run</code> and don’t need to do developments.</li>
-<li>Adapt a workflow that keeps you session active; the first <code>Bach.run("model.toml")</code> will take considerably more time than the second one, since more code needs to be compiled.</li>
+<li>Use <code>ribasim_cli</code> if you only need <code>Ribasim.run</code> and don’t need to do developments.</li>
+<li>Adapt a workflow that keeps you session active; the first <code>Ribasim.run("model.toml")</code> will take considerably more time than the second one, since more code needs to be compiled.</li>
 <li>Use a system image, explained in the <a href="#developer.qmd">developer documentation</a>, to reduce latency further</li>
 </ul>
 <div class="callout-tip callout callout-style-default callout-captioned">
@@ -427,7 +433,7 @@ Tip: Revise.jl
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you plan to make changes to the code of Bach, we recommend installing the <code>Revise.jl</code> package. This package allows you to modify code and use the changes without restarting Julia. Install it with <code>add Revise</code> from the Pkg REPL. Then create a file called <code>.julia/config/startup.jl</code>, and put <code>using Revise</code> there. This will load Revise every time you start a Julia session.</p>
+<p>If you plan to make changes to the code of Ribasim, we recommend installing the <code>Revise.jl</code> package. This package allows you to modify code and use the changes without restarting Julia. Install it with <code>add Revise</code> from the Pkg REPL. Then create a file called <code>.julia/config/startup.jl</code>, and put <code>using Revise</code> there. This will load Revise every time you start a Julia session.</p>
 </div>
 </div>
 </section>
@@ -435,7 +441,7 @@ Tip: Revise.jl
 <h2 data-number="3.3" class="anchored" data-anchor-id="input-and-output-files"><span class="header-section-number">3.3</span> Input and output files</h2>
 <section id="configuration-file" class="level3" data-number="3.3.1">
 <h3 data-number="3.3.1" class="anchored" data-anchor-id="configuration-file"><span class="header-section-number">3.3.1</span> Configuration file</h3>
-<p>Bach has a single configuration file, which is written in the <a href="https://toml.io/">TOML</a> format. It contains settings, as well as paths to other input and output files.</p>
+<p>Ribasim has a single configuration file, which is written in the <a href="https://toml.io/">TOML</a> format. It contains settings, as well as paths to other input and output files.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start- and endtime of the simulation</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># can also be set to a date-time like 1979-05-27T07:32:00</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">starttime</span> <span class="op">=</span> <span class="bn">2019-01-01</span></span>
@@ -443,7 +449,7 @@ Tip: Revise.jl
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># maintain target waterlevel in level controlled basins</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="dt">add_levelcontrol</span> <span class="op">=</span> <span class="cn">true</span>  <span class="co"># default is true</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># run a coupled Bach - Modflow simulation</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># run a coupled Ribasim - Modflow simulation</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="dt">run_modflow</span> <span class="op">=</span> <span class="cn">false</span>  <span class="co"># default is false</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># all timesteps are in seconds</span></span>
@@ -502,7 +508,7 @@ end_header
 </section>
 <section id="arrow-files" class="level3" data-number="3.3.3">
 <h3 data-number="3.3.3" class="anchored" data-anchor-id="arrow-files"><span class="header-section-number">3.3.3</span> Arrow files</h3>
-<p>The input and output files described below all share that they are tabular files, stored in the <a href="https://arrow.apache.org/">Apache Arrow</a> IPC file format, also known as Feather files. This format has been chosen since it is standardized, fast, simple and flexible. It can be read and written by many different software packages and libraries in different languages. In Bach we use <a href="https://arrow.juliadata.org/dev/">Arrow.jl</a>.</p>
+<p>The input and output files described below all share that they are tabular files, stored in the <a href="https://arrow.apache.org/">Apache Arrow</a> IPC file format, also known as Feather files. This format has been chosen since it is standardized, fast, simple and flexible. It can be read and written by many different software packages and libraries in different languages. In Ribasim we use <a href="https://arrow.juliadata.org/dev/">Arrow.jl</a>.</p>
 <p>Below we give details per file, in which we describe the schema of the table using a syntax like this:</p>
 <table class="table">
 <thead>
@@ -531,7 +537,7 @@ end_header
 </section>
 <section id="state" class="level3" data-number="3.3.4">
 <h3 data-number="3.3.4" class="anchored" data-anchor-id="state"><span class="header-section-number">3.3.4</span> State</h3>
-<p>The state table aims to capture the full state of the system, such that it can be used as an initial condition, that is potentially the outcome of an earlier simulation. Currently the only state is the volume of storage.</p>
+<p>The state table aims to capture the full state of the system, such that it can be used as an initial condition, that is potentially the outcome of an earlier simulation. Currently the only states are the volume and salinity of storage.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -548,6 +554,11 @@ end_header
 </tr>
 <tr class="even">
 <td>volume</td>
+<td>Float64</td>
+<td>non-negative</td>
+</tr>
+<tr class="odd">
+<td>salinity</td>
 <td>Float64</td>
 <td>non-negative</td>
 </tr>
@@ -824,7 +835,7 @@ Note
 </section>
 <section id="example-input-files" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="example-input-files"><span class="header-section-number">3.4</span> Example input files</h2>
-<p>From <a href="https://github.com/visr/bach-artifacts/releases/download/v0.1.0/schematization.zip">this link</a> you can download an existing schematization for the Netherlands that was used for testing purposes during development. It is provided here as an example to help people get started. Based on the description of the input files above, you can also generate your own schematization using your tools of choice. We have used <a href="https://github.com/JuliaData/DataFrames.jl">DataFrames.jl</a> and <a href="https://github.com/JuliaData/Arrow.jl">Arrow.jl</a> to prepare the tables, but one can equally use for instance Python’s <a href="https://arrow.apache.org/docs/python/pandas.html">pandas</a>.</p>
+<p>From <a href="https://github.com/visr/ribasim-artifacts/releases/download/v0.1.0/schematization.zip">this link</a> you can download an existing schematization for the Netherlands that was used for testing purposes during development. It is provided here as an example to help people get started. Based on the description of the input files above, you can also generate your own schematization using your tools of choice. We have used <a href="https://github.com/JuliaData/DataFrames.jl">DataFrames.jl</a> and <a href="https://github.com/JuliaData/Arrow.jl">Arrow.jl</a> to prepare the tables, but one can equally use for instance Python’s <a href="https://arrow.apache.org/docs/python/pandas.html">pandas</a>.</p>
 
 
 
@@ -883,7 +894,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -919,24 +947,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

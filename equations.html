@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.2.262">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bach - Water balance</title>
+<title>Ribasim - Water balance</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -91,7 +91,7 @@ div.csl-indent {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Bach</span>
+    <span class="navbar-title">Ribasim</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -100,19 +100,24 @@ div.csl-indent {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./equations.html" aria-current="page">Water balance</a>
+    <a class="nav-link active" href="./equations.html" aria-current="page">
+ <span class="menu-text">Water balance</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./modflow.html">Modflow Coupling</a>
+    <a class="nav-link" href="./modflow.html">
+ <span class="menu-text">Modflow Coupling</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./demo.html">Bach Functionality Demonstration</a>
+    <a class="nav-link" href="./demo.html">
+ <span class="menu-text">Ribasim Functionality Demonstration</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./coupling-demo.html">Bach-Modflow Demonstration</a>
+    <a class="nav-link" href="./coupling-demo.html">
+ <span class="menu-text">Ribasim-Modflow Demonstration</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./developer.html">Dev docs</a>
+    <a class="nav-link" href="./developer.html">
+ <span class="menu-text">Dev docs</span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -166,13 +171,14 @@ div.csl-indent {
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
 
 </header>
 
-<p>Bach currently simulates the following “natural” water balance terms:</p>
+<p>Ribasim currently simulates the following “natural” water balance terms:</p>
 <ol type="1">
 <li>Precipitation</li>
 <li>Evaporation</li>
@@ -181,13 +187,13 @@ div.csl-indent {
 <li>Urban runoff</li>
 <li>Upstream and downstream flow</li>
 </ol>
-<p>Additionally, Bach simulates the following “allocated” water balance terms:</p>
+<p>Additionally, Ribasim simulates the following “allocated” water balance terms:</p>
 <ol type="1">
 <li>General user</li>
 <li>Level Control</li>
 <li>Flushing</li>
 </ol>
-<p>Depending on the type of boundary conditions, Bach requires relation between storage volume and wetted area (<span class="math inline">\(A\)</span>), and between the storage volume and the water level (<span class="math inline">\(h\)</span>). These are (currently) represented by piecewise linear relationships.</p>
+<p>Depending on the type of boundary conditions, Ribasim requires relation between storage volume and wetted area (<span class="math inline">\(A\)</span>), and between the storage volume and the water level (<span class="math inline">\(h\)</span>). These are (currently) represented by piecewise linear relationships.</p>
 <section id="natural-water-balance-terms" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Natural water balance terms</h1>
 <section id="precipitation" class="level2" data-number="1.1">
@@ -210,7 +216,7 @@ Q_E = E_{pot} A(S) * (0.5 \tanh(S - 50.0) / 10.0) + 0.5
 </section>
 <section id="infiltration-and-drainage" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="infiltration-and-drainage"><span class="header-section-number">1.3</span> Infiltration and Drainage</h2>
-<p>Infiltration is provided as a lump sum for the basin. If Bach is coupled with MODFLOW6, the infiltration is computed as the sum of all <strong>positive</strong> flows of the MODFLOW6 boundary conditions in the basin:</p>
+<p>Infiltration is provided as a lump sum for the basin. If Ribasim is coupled with MODFLOW6, the infiltration is computed as the sum of all <strong>positive</strong> flows of the MODFLOW6 boundary conditions in the basin:</p>
 <p><span class="math display">\[
 Q_{inf} = \sum_{i=1}^{n} \sum_{j=1}^{m} \max(Q_{\mathrm{mf6}_{i,j}}, 0.0)
 \]</span></p>
@@ -223,7 +229,7 @@ Q_{drn} = \sum_{i=1}^{n} \sum_{j=1}^{m} \left| \min(Q_{\mathrm{mf6}_{i,j}}, 0.0)
 </section>
 <section id="upstream-and-downstream-flow" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="upstream-and-downstream-flow"><span class="header-section-number">1.4</span> Upstream and downstream flow</h2>
-<p>Bach’s basins can be connected to each other, and each basin expects an explicit connection. Two connections are currently available for inter-basin flows:</p>
+<p>Ribasim’s basins can be connected to each other, and each basin expects an explicit connection. Two connections are currently available for inter-basin flows:</p>
 <ol type="1">
 <li><code>OutflowTable</code></li>
 <li><code>LevelLink</code></li>
@@ -272,7 +278,7 @@ Q = C (h_a - h_b)
 </section>
 <section id="allocated-water-balance-terms" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Allocated water balance terms</h1>
-<p>Bach has been designed with the functionality to allocate water to different users within each basin. The volume allocated is determined by the user demand, the available water, and the priority of each user with respect to other users within the same basin. The water demands for a given basin can be summarized into three user categories. The handling of the allocation of water for different user categories varies, as explained in more detail below.</p>
+<p>Ribasim has been designed with the functionality to allocate water to different users within each basin. The volume allocated is determined by the user demand, the available water, and the priority of each user with respect to other users within the same basin. The water demands for a given basin can be summarized into three user categories. The handling of the allocation of water for different user categories varies, as explained in more detail below.</p>
 <div class="hidden">
 <p><span class="math display">\[
 \def\qavail{{Q_\mathit{avail\:vol}}}
@@ -284,7 +290,7 @@ Q = C (h_a - h_b)
 <h2 data-number="2.1" class="anchored" data-anchor-id="general-user"><span class="header-section-number">2.1</span> General User</h2>
 <p>The General User category include the users Agriculture, Industry and Public Water supply. These users extract water from the basin and the demand (<span class="math inline">\(\demuser\)</span>) is determined externally. The source of water allocated to the General User is dependent on if the basin is a free-flowing type basin or a level-controlled basin.</p>
 <p>If the basin is free-flowing, the water source will be the available water within the basin. If the basin is level-controlled additional water can be sourced from the regional network, should the water available from the basin be insufficient to satisfy <span class="math inline">\(\demuser\)</span>.</p>
-<p>The availability of water (<span class="math inline">\(\qavail\)</span>) internally in a basin in a given timestep is calculated by <a href="#eq-q-avail">Equation&nbsp;1</a>. This volume is available to be extracted by the General Users. In the Bach prototype, additional water from the regional network is currently modelled as an unlimited supply.</p>
+<p>The availability of water (<span class="math inline">\(\qavail\)</span>) internally in a basin in a given timestep is calculated by <a href="#eq-q-avail">Equation&nbsp;1</a>. This volume is available to be extracted by the General Users. In the Ribasim prototype, additional water from the regional network is currently modelled as an unlimited supply.</p>
 <p><span id="eq-q-avail"><span class="math display">\[
 \qavail = \frac{(P - E_{pot}) \cdot \mathit{area}}{\mathrm{Δ}t} - \min(0, Q_{infil} - Q_{drain} - Q_{runoff})
 \tag{1}\]</span></span></p>
@@ -297,7 +303,7 @@ Q_{user} = Q_{alloc} * (0.5 \tanh(S - 50.0) / 10.0) + 0.5
 </section>
 <section id="level-control" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="level-control"><span class="header-section-number">2.2</span> Level Control</h2>
-<p>A level-controlled basin (<code>local_surface_water_type = "P"</code>) has a user demand referred to as water management (<span class="math inline">\(\demwm\)</span>). The purpose of this demand is to maintain the water levels for each basin at a target level. This target levels is determined externally. The <span class="math inline">\(\demwm\)</span> is negative if additional water is required to increase the water level in the basin, or positive if there is surplus water which must be removed to lower the level in the basin. When <span class="math inline">\(\demwm\)</span> is positive and there is surplus water, Bach is designed to make any surplus water available to General Users within the basin for abstraction. This is modelled by adding the <span class="math inline">\(\demwm\)</span> to the <span class="math inline">\(\qavail\)</span> in calculated in <a href="#eq-wm">Equation&nbsp;2</a>.</p>
+<p>A level-controlled basin (<code>local_surface_water_type = "P"</code>) has a user demand referred to as water management (<span class="math inline">\(\demwm\)</span>). The purpose of this demand is to maintain the water levels for each basin at a target level. This target levels is determined externally. The <span class="math inline">\(\demwm\)</span> is negative if additional water is required to increase the water level in the basin, or positive if there is surplus water which must be removed to lower the level in the basin. When <span class="math inline">\(\demwm\)</span> is positive and there is surplus water, Ribasim is designed to make any surplus water available to General Users within the basin for abstraction. This is modelled by adding the <span class="math inline">\(\demwm\)</span> to the <span class="math inline">\(\qavail\)</span> in calculated in <a href="#eq-wm">Equation&nbsp;2</a>.</p>
 <p><span id="eq-wm"><span class="math display">\[
 \qavail = \demwm
 \tag{2}\]</span></span></p>
@@ -313,11 +319,11 @@ Q_{user} = Q_{alloc} * (0.5 \tanh(S - 50.0) / 10.0) + 0.5
 </section>
 <section id="numerical-solution" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Numerical solution</h1>
-<p>Bach uses ModelingToolkit.jl to provide a numerical solution to the water balance equations. Changes to forcings or parameters such as precipitation, but also the allocated water abstraction is managed through the use of CallBack functions <span class="citation" data-cites="mtkevents">(<a href="#ref-mtkevents" role="doc-biblioref">ModelingToolkit.jl Development Team 2022</a>)</span>. In a coupled run, the exchanges with MODFLOW6 are also managed via the use of a callback function.</p>
+<p>Ribasim uses ModelingToolkit.jl to provide a numerical solution to the water balance equations. Changes to forcings or parameters such as precipitation, but also the allocated water abstraction is managed through the use of CallBack functions <span class="citation" data-cites="mtkevents">(<a href="#ref-mtkevents" role="doc-biblioref">ModelingToolkit.jl Development Team 2022</a>)</span>. In a coupled run, the exchanges with MODFLOW6 are also managed via the use of a callback function.</p>
 </section>
 <section id="performance" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Performance</h1>
-<p>Bach needs to be sufficiently fast to make application on the national scale, with ~10000 basins, practical. Therefore, whilst developing, we need to be mindful that our approach can scale to such a size. We currently simulate a set of 40 connected free-flowing basins for a period of 2 years in about 10 seconds.</p>
+<p>Ribasim needs to be sufficiently fast to make application on the national scale, with ~10000 basins, practical. Therefore, whilst developing, we need to be mindful that our approach can scale to such a size. We currently simulate a set of 40 connected free-flowing basins for a period of 2 years in about 10 seconds.</p>
 <p>For a real scaling test we would need to do a national simulation, but we expect these computation times not to be problematic, considering that simulating those same 40 basins in MODFLOW6 takes minutes.</p>
 <p>There are many things that can influence the calculations times, for instance:</p>
 <ul>
@@ -381,7 +387,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -417,24 +440,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

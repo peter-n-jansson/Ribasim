@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.2.262">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bach - Dev docs</title>
+<title>Ribasim - Dev docs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -71,7 +71,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Bach</span>
+    <span class="navbar-title">Ribasim</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -80,19 +80,24 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./equations.html">Water balance</a>
+    <a class="nav-link" href="./equations.html">
+ <span class="menu-text">Water balance</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./modflow.html">Modflow Coupling</a>
+    <a class="nav-link" href="./modflow.html">
+ <span class="menu-text">Modflow Coupling</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./demo.html">Bach Functionality Demonstration</a>
+    <a class="nav-link" href="./demo.html">
+ <span class="menu-text">Ribasim Functionality Demonstration</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./coupling-demo.html">Bach-Modflow Demonstration</a>
+    <a class="nav-link" href="./coupling-demo.html">
+ <span class="menu-text">Ribasim-Modflow Demonstration</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./developer.html" aria-current="page">Dev docs</a>
+    <a class="nav-link active" href="./developer.html" aria-current="page">
+ <span class="menu-text">Dev docs</span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -126,6 +131,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
@@ -134,12 +140,12 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="system-image" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> System image</h1>
-<p>The <code>bach_cli</code> is an executable that can be used without needing to install julia itself. If you want to work from julia, but want to reduce the latency when working with Bach.jl, an effective option is to work with system images. Like <code>bach_cli</code>, they can also be created by PackageCompiler, see the <a href="https://julialang.github.io/PackageCompiler.jl/dev/sysimages.html">sysimage docs</a>.</p>
-<p>In the Bach repository under <code>compile/sysimage</code> is a project prepared that allows you to create a system image. This project contains many package that are not only used for running Bach, but also to do post-processing such as plotting using <a href="https://docs.makie.org/stable/">Makie</a>.</p>
+<p>The <code>ribasim_cli</code> is an executable that can be used without needing to install julia itself. If you want to work from julia, but want to reduce the latency when working with Ribasim.jl, an effective option is to work with system images. Like <code>ribasim_cli</code>, they can also be created by PackageCompiler, see the <a href="https://julialang.github.io/PackageCompiler.jl/dev/sysimages.html">sysimage docs</a>.</p>
+<p>In the Ribasim repository under <code>compile/sysimage</code> is a project prepared that allows you to create a system image. This project contains many package that are not only used for running Ribasim, but also to do post-processing such as plotting using <a href="https://docs.makie.org/stable/">Makie</a>.</p>
 <p>PackageCompiler can be used directly, but for these instructions we will show you how to create such a system image from Visual Studio Code. For details see the <a href="https://www.julia-vscode.org/docs/dev/userguide/compilesysimage/">julia-vscode docs</a>.</p>
-<p>First, open the Bach repository in VS Code. Run the “Julia: Start REPL” command, which you can find using Ctrl+Shift+P. In the REPL, assuming <code>pwd()</code> returns the root of the repository, run <code>] activate compile/sysimage</code>. Bach is a part of this project, but the package manager needs to be told that it resides at the root of the repository. This only needs to be done once, because then the path is contained in the <code>Manifest.toml</code>. Run <code>] rm Bach</code> to remove it, and add it back using <code>] dev .</code> Now run <code>] up</code> to make sure you build a system image using the latest versions of the dependencies.</p>
-<p>Then, click “Julia env” in the bottom bar and select the <code>compile/sysimage</code> directory. Now use Ctrl+Shift+P and run “Tasks: Run Build Task”, followed by “Julia: Build custom sysimage for current environment”. This will take a while, as it will not only include the dependencies, but it will also run the code in <code>compile/sysimage/precompile.jl</code>, which includes a Bach run and plotting commands.</p>
-<p>If successful, this will create a “JuliaSysimage” shared library file under <code>compile/sysimage</code>. Move this file to the root of the project. When opening the Bach repository in VS Code, it will use this system image based on the conditions described <a href="https://www.julia-vscode.org/docs/dev/userguide/compilesysimage/#Using-custom-sysimages">here</a>.</p>
+<p>First, open the Ribasim repository in VS Code. Run the “Julia: Start REPL” command, which you can find using Ctrl+Shift+P. In the REPL, assuming <code>pwd()</code> returns the root of the repository, run <code>] activate compile/sysimage</code>. Ribasim is a part of this project, but the package manager needs to be told that it resides at the root of the repository. This only needs to be done once, because then the path is contained in the <code>Manifest.toml</code>. Run <code>] rm Ribasim</code> to remove it, and add it back using <code>] dev .</code> Now run <code>] up</code> to make sure you build a system image using the latest versions of the dependencies.</p>
+<p>Then, click “Julia env” in the bottom bar and select the <code>compile/sysimage</code> directory. Now use Ctrl+Shift+P and run “Tasks: Run Build Task”, followed by “Julia: Build custom sysimage for current environment”. This will take a while, as it will not only include the dependencies, but it will also run the code in <code>compile/sysimage/precompile.jl</code>, which includes a Ribasim run and plotting commands.</p>
+<p>If successful, this will create a “JuliaSysimage” shared library file under <code>compile/sysimage</code>. Move this file to the root of the project. When opening the Ribasim repository in VS Code, it will use this system image based on the conditions described <a href="https://www.julia-vscode.org/docs/dev/userguide/compilesysimage/#Using-custom-sysimages">here</a>.</p>
 <p>If you want to use this system image when starting julia from the command line, use <code>-J, --sysimage &lt;file&gt;</code> to start up with the given system image file. See all julia command-line switches <a href="https://docs.julialang.org/en/v1/manual/command-line-options/#Command-line-switches-for-Julia">here</a>.</p>
 
 
@@ -187,7 +193,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -223,24 +246,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

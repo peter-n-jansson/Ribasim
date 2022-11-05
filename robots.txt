@@ -1,1 +1,1 @@
-Sitemap: https://Deltares.github.io/bach/sitemap.xml
+Sitemap: https://Deltares.github.io/Ribasim.jl/sitemap.xml
