@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim - Modflow Coupling</title>
+<title>Ribasim - MODFLOW 6 Coupling</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -105,7 +105,7 @@ div.csl-indent {
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./modflow.html" aria-current="page">
- <span class="menu-text">Modflow Coupling</span></a>
+ <span class="menu-text">MODFLOW 6 Coupling</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./demo.html">
@@ -113,7 +113,7 @@ div.csl-indent {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./coupling-demo.html">
- <span class="menu-text">Ribasim-Modflow Demonstration</span></a>
+ <span class="menu-text">Ribasim-MODFLOW 6 Demonstration</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./developer.html">
@@ -161,7 +161,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Modflow Coupling</h1>
+<h1 class="title">MODFLOW 6 Coupling</h1>
 </div>
 
 
@@ -176,8 +176,8 @@ div.csl-indent {
 
 </header>
 
-<p>Ribasim has been designed to provide a computationally efficient representation of surface water for MODFLOW6. It does so by connecting to basic MODFLOW6 boundary conditions: the river and drainage packages.</p>
-<p>Ribasim connects to MODFLOW6 via the Basic Model Interface (BMI) and Extended Model Interface (XMI) <span class="citation" data-cites="hughes2022modflow">(<a href="#ref-hughes2022modflow" role="doc-biblioref">Hughes et al. 2022</a>)</span>. BMI describes the interface to initialize a model, get values from its memory, run a timestep, etc. XMI extends this interface to allow much finer control into MODFLOW6’s solution procedures. We have written a Julia package <span class="citation" data-cites="modflowinterface">(<a href="#ref-modflowinterface" role="doc-biblioref">Deltares 2022</a>)</span> which implements this interface for the Julia programming language. In coupling, Ribasim uses this interface to get the head values, the boundary condition water levels, and the budgets term of the MODFLOW6 groundwater model while MODFLOW6 is running.</p>
+<p>Ribasim has been designed to provide a computationally efficient representation of surface water for MODFLOW 6. It does so by connecting to basic MODFLOW 6 boundary conditions: the river and drainage packages.</p>
+<p>Ribasim connects to MODFLOW 6 via the Basic Model Interface (BMI) and Extended Model Interface (XMI) <span class="citation" data-cites="hughes2022modflow">(<a href="#ref-hughes2022modflow" role="doc-biblioref">Hughes et al. 2022</a>)</span>. BMI describes the interface to initialize a model, get values from its memory, run a timestep, etc. XMI extends this interface to allow much finer control into MODFLOW 6’s solution procedures. We have written a Julia package <span class="citation" data-cites="modflowinterface">(<a href="#ref-modflowinterface" role="doc-biblioref">Deltares 2022</a>)</span> which implements this interface for the Julia programming language. In coupling, Ribasim uses this interface to get the head values, the boundary condition water levels, and the budgets term of the MODFLOW 6 groundwater model while MODFLOW 6 is running.</p>
 <p>Additionally, links can be made with other (BMI/XMI-compliant) processes and models. One example of such a link is using the surface runoff and the agricultural irrigation demand calculated by an unsaturated zone model; in the Netherlands Hydrological Instrument MetaSWAP provides this demand.</p>
 <section id="modflow-concepts" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> MODFLOW Concepts</h1>
@@ -214,7 +214,7 @@ Q_{river} = \left\{
      \end{array}
 \right.
 \]</span></p>
-<p>MODFLOW6 does not support this (currently), but an identical effect may be achieved by “stacking” a drainage package on top of a river package with these values:</p>
+<p>MODFLOW 6 does not support this (currently), but an identical effect may be achieved by “stacking” a drainage package on top of a river package with these values:</p>
 <p><span class="math display">\[
 \begin{array}{ c l }
   h_{drain} = h_{river} \\
@@ -231,9 +231,9 @@ Q_{river} = \left\{
 <li>Iterative: the first model computes a timestep and calculates a state or flux. This is passed on to the second models, which computes its timestep. This results in an updated boundary condition for the first model, which recomputes the timestep, then the second model recomputes its timestep, etc. These iterations are repeated until some convergence criteria are met.</li>
 <li>Fully coupled: all equations (e.g.&nbsp;the governing equations of both groundwater flow and surface water flow) are solved at the same time.</li>
 </ol>
-<p>Each scheme has its advantages and disadvantages. Numerically speaking, the fully coupled approach is most robust, but it effectively means a single all-encompassing hydrological kernel. The first scheme is computationally the cheapest, but states and fluxes lag one timestep behind, so that mass conservation is not guaranteed. For example, based on its river levels, MODFLOW6 may compute a infiltration flux. Ribasim then runs its timestep, and finds that given MODFLOW6’s infiltration flux, no water is present in the surface waters: the infiltration flux has been overestimated by MODFLOW6, and mass is not conserved.</p>
+<p>Each scheme has its advantages and disadvantages. Numerically speaking, the fully coupled approach is most robust, but it effectively means a single all-encompassing hydrological kernel. The first scheme is computationally the cheapest, but states and fluxes lag one timestep behind, so that mass conservation is not guaranteed. For example, based on its river levels, MODFLOW 6 may compute a infiltration flux. Ribasim then runs its timestep, and finds that given MODFLOW 6’s infiltration flux, no water is present in the surface waters: the infiltration flux has been overestimated by MODFLOW 6, and mass is not conserved.</p>
 <p>Such an error is avoided in the second scheme: states and fluxes only lag a single iteration behind, and the iterations are repeated until the difference is negligible. Taking the example from above, the emptying of the surface waters would result in lower water levels and recuded infiltration in the second iteration. Mass is conserved, but at a higher computational cost.</p>
-<p>Currently, we have only implemented the sequential scheme for coupling Ribasim to MODFLOW6. However, the iterative solution is relatively easy to implement: it is in essence a repeated sequential step.</p>
+<p>Currently, we have only implemented the sequential scheme for coupling Ribasim to MODFLOW 6. However, the iterative solution is relatively easy to implement: it is in essence a repeated sequential step.</p>
 <section id="numerical-solution-in-modflow" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="numerical-solution-in-modflow"><span class="header-section-number">2.1</span> Numerical solution in MODFLOW</h2>
 <p>MODFLOW uses a backward-in-time implicit solution scheme. This creates a large system of equations (a water balance for every cell), which it solves by repeatedly solving a linearized system of equations instead. In matrix form, this system of equations is expressed by:</p>
@@ -245,7 +245,7 @@ Q_{river} = \left\{
 <p><span class="math display">\[
 a = p\phi + q
 \]</span></p>
-<p>(Equation 2-6 in the MODFLOW6 documentation <span class="citation" data-cites="langevin2017documentation">(<a href="#ref-langevin2017documentation" role="doc-biblioref">Langevin et al. 2017</a>)</span>.)</p>
+<p>(Equation 2-6 in the MODFLOW 6 documentation <span class="citation" data-cites="langevin2017documentation">(<a href="#ref-langevin2017documentation" role="doc-biblioref">Langevin et al. 2017</a>)</span>.)</p>
 <p>For e.g.&nbsp;a draining boundary condition, the flow is head dependent:</p>
 <p><span class="math display">\[
 a = C(h - \phi) = -C\phi + Ch
@@ -259,17 +259,17 @@ q = \textrm{rhs} = -Ch \\
 a = -C\phi + Ch = \text{hcof} * \phi - \text{rhs}
 \end{aligned}
 \]</span></p>
-<p>For every boundary condition, MODFLOW6 stores the <code>hcof</code> and <code>rhs</code> values. This makes it quite convenient for us to compute the water budget for every boundary condition: we simply multiply the hcof value by the head of the cell and subtract the rhs.</p>
+<p>For every boundary condition, MODFLOW 6 stores the <code>hcof</code> and <code>rhs</code> values. This makes it quite convenient for us to compute the water budget for every boundary condition: we simply multiply the hcof value by the head of the cell and subtract the rhs.</p>
 <p>Note that hcof may have a value of 0! For example, when for a river boundary the <span class="math inline">\(\phi &lt;= b_{river}\)</span> condition occurs, the flow into the cell is controlled only by <span class="math inline">\(h_{river}\)</span> and <span class="math inline">\(b_{river}\)</span> (equal to recharge for the linear solution).</p>
 </section>
 <section id="sequential-coupled-solution" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="sequential-coupled-solution"><span class="header-section-number">2.2</span> Sequential coupled solution</h2>
-<p>A coupled run stars by initializing both models and creating the exchange information: which MODFLOW6 boundary condition is connected to which Ribasim basin. While the model is running, the model proceeds through time as follows:</p>
+<p>A coupled run stars by initializing both models and creating the exchange information: which MODFLOW 6 boundary condition is connected to which Ribasim basin. While the model is running, the model proceeds through time as follows:</p>
 <ol type="1">
 <li>Ribasim solves the equations on a basin level; this occurs with adaptive timestepping via ModelingToolkit.</li>
-<li>At a specified time (in accordance with the MODFLOW6 time discretization), the volumes are converted to MODFLOW6 boundary condition levels using a Callback function.</li>
-<li>MODFLOW6 runs a timestep.</li>
-<li>The drainage and infiltration budgets are computed from MODFLOW6 using the equations described above and aggregated per basin.</li>
+<li>At a specified time (in accordance with the MODFLOW 6 time discretization), the volumes are converted to MODFLOW 6 boundary condition levels using a Callback function.</li>
+<li>MODFLOW 6 runs a timestep.</li>
+<li>The drainage and infiltration budgets are computed from MODFLOW 6 using the equations described above and aggregated per basin.</li>
 <li>The aggregated values are set as Ribasim boundary conditions, and Ribasim solves until the next preset exchange time.</li>
 </ol>
 <p>These steps run until the final timestep is finished.</p>
@@ -291,13 +291,13 @@ Note
 </div>
 <p>The simplest form of a iterative solution occurs as follows:</p>
 <ol type="1">
-<li>MODFLOW6 computes drainage and infiltration flows.</li>
+<li>MODFLOW 6 computes drainage and infiltration flows.</li>
 <li>Ribasim uses these flows to compute a storage volume for the basin.</li>
-<li>The volume is translated to a water level for every MODFLOW6 boundary condition in the basins.</li>
-<li>MODFLOW6 recomputes drainage and infiltration flows with the updated water levels, etc.</li>
+<li>The volume is translated to a water level for every MODFLOW 6 boundary condition in the basins.</li>
+<li>MODFLOW 6 recomputes drainage and infiltration flows with the updated water levels, etc.</li>
 </ol>
 <p>Such a scheme is not maximally efficient: the discharge and infiltration terms are not constant, but are driven by a head difference. This head difference depends on the level of the boundary conditions and head of every cell of the groundwater model. If the surface waters of a basin empty, the water level will decrease and drainage and infiltration flows will change. Ideally, we can provide Ribasim with more information, so that it may estimate drainage and infiltration terms better.</p>
-<p>As groundwater flow is often (approximately) linear, we can use linearization to more efficiently compute the flow from Ribasim’s side as well. In the iterative coupled solution, we are solving both MODFLOW6 and Ribasim repeatedly, until they produce same drainage or infiltration (approximately). One of Ribasim’s basins contains many MODFLOW cells with boundary conditions. We could add every boundary condition to Ribasim’s equations, but this is costly and cumbersome. Fortunately, linearization allows us to “stack” (superpose) all the different boundary conditions into a single, simple equation. In linear form, every equation takes the form of:</p>
+<p>As groundwater flow is often (approximately) linear, we can use linearization to more efficiently compute the flow from Ribasim’s side as well. In the iterative coupled solution, we are solving both MODFLOW 6 and Ribasim repeatedly, until they produce same drainage or infiltration (approximately). One of Ribasim’s basins contains many MODFLOW cells with boundary conditions. We could add every boundary condition to Ribasim’s equations, but this is costly and cumbersome. Fortunately, linearization allows us to “stack” (superpose) all the different boundary conditions into a single, simple equation. In linear form, every equation takes the form of:</p>
 <p><span class="math display">\[
 a = ph + q
 \]</span></p>
@@ -365,12 +365,12 @@ Note
 <p>In principle, all (stationary!) hydraulic behavior of the basin can be described approximately by these lookup tables.</p>
 <section id="parametrization" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="parametrization"><span class="header-section-number">3.1</span> Parametrization</h2>
-<p>In coupling Ribasim to MODFLOW6, relations translating the Ribasim volume must be given <strong>for every every cell</strong> of every boundary condition. These consist of piecewise linear relationships between the basin volume and its associated water level for the boundary condition in the cell.</p>
+<p>In coupling Ribasim to MODFLOW 6, relations translating the Ribasim volume must be given <strong>for every every cell</strong> of every boundary condition. These consist of piecewise linear relationships between the basin volume and its associated water level for the boundary condition in the cell.</p>
 <p>These values are stored in a netCDF dataset. This dataset must meet the following requirements:</p>
 <ol type="1">
-<li>It must contain a <code>x</code> and <code>y</code> coordinate. The extent and cell size of these coordinates must match the domain of the coupled MODFLOW6 model exactly.</li>
+<li>It must contain a <code>x</code> and <code>y</code> coordinate. The extent and cell size of these coordinates must match the domain of the coupled MODFLOW 6 model exactly.</li>
 <li>It must contain a variable (x, y) denoting the basin IDs.</li>
-<li>It must contain a volume-level variable (x, y, row, column) for every coupled MODFLOW6 boundary condition, describing the volume-level lookup table per cell.</li>
+<li>It must contain a volume-level variable (x, y, row, column) for every coupled MODFLOW 6 boundary condition, describing the volume-level lookup table per cell.</li>
 </ol>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -382,10 +382,10 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <code>x</code> and <code>y</code> coordinates are valid for structured MODFLOW6 models (DIS). Discretized-by-vertices (DISV) and fully unstructured discretization (DISU). are not yet supported, but require no fundamental changes: one basin is connected to multiple MODFLOW6 cells, and the coupling parameters must match the (structured, unstructured) grid of the MODFLOW6 model exactly.</p>
+<p>The <code>x</code> and <code>y</code> coordinates are valid for structured MODFLOW 6 models (DIS). Discretized-by-vertices (DISV) and fully unstructured discretization (DISU). are not yet supported, but require no fundamental changes: one basin is connected to multiple MODFLOW 6 cells, and the coupling parameters must match the (structured, unstructured) grid of the MODFLOW 6 model exactly.</p>
 </div>
 </div>
-<p>The MODFLOW6 coupling example cases show examples of such a parametrization.</p>
+<p>The MODFLOW 6 coupling example cases show examples of such a parametrization.</p>
 
 
 

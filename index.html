@@ -171,7 +171,7 @@ div.csl-indent {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./modflow.html">
- <span class="menu-text">Modflow Coupling</span></a>
+ <span class="menu-text">MODFLOW 6 Coupling</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./demo.html">
@@ -179,7 +179,7 @@ div.csl-indent {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./coupling-demo.html">
- <span class="menu-text">Ribasim-Modflow Demonstration</span></a>
+ <span class="menu-text">Ribasim-MODFLOW 6 Demonstration</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./developer.html">
@@ -280,11 +280,11 @@ div.csl-indent {
 <h1 data-number="2"><span class="header-section-number">2</span> Introduction</h1>
 <section id="water-balance-equations" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="water-balance-equations"><span class="header-section-number">2.1</span> Water balance equations</h2>
-<p>The water balance equation for a drainage basin <span class="citation" data-cites="enwiki:1099736933">(<a href="#ref-enwiki:1099736933" role="doc-biblioref">Wikipedia contributors 2022</a>)</span> can be defined a first-order ordinary differential equation (ODE), where the change of the storage <span class="math inline">\(S\)</span> over time is determined by the inflow fluxes minus the outflow fluxes.</p>
+<p>The water balance equation for a drainage basin <span class="citation" data-cites="enwiki:1099736933">(<a href="#ref-enwiki:1099736933" role="doc-biblioref">Wikipedia contributors 2022</a>)</span> can be defined by a first-order ordinary differential equation (ODE), where the change of the storage <span class="math inline">\(S\)</span> over time is determined by the inflow fluxes minus the outflow fluxes.</p>
 <p><span class="math display">\[
 \frac{\mathrm{d}S}{\mathrm{d}t} = Q_{in} - Q_{out}
 \]</span></p>
-<p>We can split out the fluxes into separate terms, such as precipitation <span class="math inline">\(P\)</span>, evapotranspiration <span class="math inline">\(ET\)</span> and runoff <span class="math inline">\(R\)</span>. For now other fluxes are combined into <span class="math inline">\(Q_{rest}\)</span>. If define all fluxes entering our reservoir as positive, and those leaving the system to be negative, all fluxes can be summed up.</p>
+<p>We can split out the fluxes into separate terms, such as precipitation <span class="math inline">\(P\)</span>, evapotranspiration <span class="math inline">\(ET\)</span> and runoff <span class="math inline">\(R\)</span>. For now other fluxes are combined into <span class="math inline">\(Q_{rest}\)</span>. If we define all fluxes entering our reservoir as positive, and those leaving the system as negative, all fluxes can be summed up.</p>
 <p><span class="math display">\[
 \frac{\mathrm{d}S}{\mathrm{d}t} = R + P + ET + Q_{rest}
 \]</span></p>
@@ -296,11 +296,11 @@ div.csl-indent {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>sys <span class="op">=</span> <span class="fu">ODESystem</span>([<span class="fu">D</span>(S) <span class="op">~</span> R <span class="op">+</span> P <span class="op">+</span> ET <span class="op">+</span> Q_rest])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>On the last line, an <code>ODESystem</code> is created that consists of a single equation. Before we can solve this, we need to create an <code>ODEProblem</code>, that provides information about the timespan of the simulation, as well as the initial conditions.</p>
-<p>Ribasim can be used as a Julia package running in a Julia session or as an application initialized via TOML configuration files. Both uses are demonstrated in the demonstrations.</p>
+<p>Ribasim can be used as a Julia package running in a Julia session or as an application initialized via a TOML configuration file. Both use cases are shown in the demonstrations.</p>
 </section>
 <section id="time" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="time"><span class="header-section-number">2.2</span> Time</h2>
-<p>The water balance equation can be applied on many timescales; years, weeks, days or hours. Depending on the application and available data any of these can be the best choice. In Ribasim, we make use of DifferentialEquations.jl and can use any of its <a href="https://diffeq.sciml.ai/stable/solvers/ode_solve/">ODE solvers</a>. Many of these solvers make use of adaptive time stepping, which means the solver will decide how large the time steps can be depending on the state of the system.</p>
+<p>The water balance equation can be applied on many timescales; years, weeks, days or hours. Depending on the application and available data any of these can be the best choice. In Ribasim, we make use of DifferentialEquations.jl and its <a href="https://diffeq.sciml.ai/stable/solvers/ode_solve/">ODE solvers</a>. Many of these solvers are based on adaptive time stepping, which means the solver will decide how large the time steps can be depending on the state of the system.</p>
 <p>The forcing, like precipitation, is generally provided as a time series. Ribasim is set up to support unevenly spaced timeseries. The solver will stop on timestamps where new forcing values are available, so they can be loaded as the new value.</p>
 <p>Ribasim is essentially a continuous model, rather than daily or hourly. If you want to use hourly forcing, you only need to make sure that your forcing data contains hourly updates. The output frequency can be configured independently. To be able to write a closed water balance, we accumulate the fluxes. This way any variations in between timesteps are also included, and we can output in <code>m³</code> rather than <code>m³s⁻¹</code>.</p>
 </section>
@@ -331,7 +331,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Internally a directed graph is used. The direction is defined to be the positive flow direction, and is generally set in the dominant flow direction. The basins are the nodes of the network graph. Basin states and properties such storage volume, wetted area are associated with the nodes (A, B, C, D), as are most forcing data such as precipitation, evaporation, or water demand. Basin connection properties and interbasin flows are associated with the edges (the lines between A, B, C, and D) instead.</p>
+<p>Internally a directed graph is used. The direction is defined to be the positive flow direction, and is generally set in the dominant flow direction. The basins are the nodes of the network graph. Basin states and properties such storage volume and wetted area are associated with the nodes (A, B, C, D), as are most forcing data such as precipitation, evaporation, or water demand. Basin connection properties and interbasin flows are associated with the edges (the lines between A, B, C, and D) instead.</p>
 <p>Multiple basins may exist within the same spatial polygon, representing different aspects of the surface water system (perennial ditches, ephemeral ditches, or even surface ponding). <a href="#fig-p">Figure&nbsp;1</a>, <a href="#fig-s">Figure&nbsp;2</a>, <a href="#fig-t">Figure&nbsp;3</a> show the 25.0 m rasterized primary, secondary, and tertiary surface waters as identified by BRT TOP10NL <span class="citation" data-cites="pdoktopnl">(<a href="#ref-pdoktopnl" role="doc-biblioref">PDOK 2022</a>)</span> in the Hupsel basin (as defined in the Mozart LSW’s). These systems may represented in multiple ways.</p>
 <div id="fig-p" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -390,9 +390,9 @@ div.csl-indent {
 <h1 data-number="3"><span class="header-section-number">3</span> Usage</h1>
 <section id="installing-the-compiled-executable" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="installing-the-compiled-executable"><span class="header-section-number">3.1</span> Installing the compiled executable</h2>
-<p>Binaries of <code>ribasim_cli</code> can be downloaded from <a href="https://github.com/visr/ribasim-artifacts/releases">ribasim-artifacts</a>, and are currently available for Windows only. Download and unpack the <code>.zip</code> file. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The <code>ribasim_cli</code> executable is in the <code>bin</code> directory.</p>
-<p>To check whether the installation was performed successfully, run <code>ribasim_cli</code> with no arguments in the command line will give the following message:</p>
-<pre><code>Usage: ribasim_cli 'path/to/config.toml'</code></pre>
+<p>Binaries of Ribasim CLI (command-line interface) can be downloaded from <a href="https://github.com/visr/ribasim-artifacts/releases">ribasim-artifacts</a>, and are currently available for Windows only. Download and unpack the <code>.zip</code> file. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The Ribasim CLI executable is in the <code>bin</code> directory.</p>
+<p>To check whether the installation was performed successfully, run <code>ribasim</code> with no arguments in the command line. This will give the following message:</p>
+<pre><code>Usage: ribasim 'path/to/config.toml'</code></pre>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -410,19 +410,19 @@ Note
 <section id="installing-as-a-julia-package" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="installing-as-a-julia-package"><span class="header-section-number">3.2</span> Installing as a Julia package</h2>
 <p>Ribasim is a <a href="https://julialang.org/">Julia</a> package, that can be installed using Julia’s built in package manager, <code>Pkg</code>. For more information on how to use <code>Pkg</code>, see the <a href="https://pkgdocs.julialang.org/v1/getting-started/">Getting Started</a> page in its documentation.</p>
-<p>Since Ribasim is not yet registered in the General registry, you have to install it using the full url. Note that here suggest <code>dev</code> to do a development install.</p>
-<pre class="julia-repl"><code>pkg&gt; dev https://github.com/Deltares/Ribasim.jl</code></pre>
-<p>This will clone the git repository, put it under your home directory in <code>.julia/dev/Ribasim</code>, and add the Ribasim package to your project environment. Note that to receive updates, you have to pull in the latest changes yourself using <code>git pull</code>.</p>
+<p>Since Ribasim is not yet registered in the General registry, you have to install it using the full url. Note that we here use <code>dev</code> to do a development install.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pkg<span class="op">&gt;</span> dev https<span class="op">://</span>github.com<span class="op">/</span>Deltares<span class="op">/</span>Ribasim.jl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will clone the git repository, put it under your home directory in <code>.julia/dev/Ribasim</code>, and add the Ribasim package to your project environment. In order to receive updates, you have to pull in the latest changes yourself using <code>git pull</code>.</p>
 <p>Installation may take a while since Pkg is also installing and pre-compiling the dependencies of Ribasim.</p>
 <p>Once it is done, you can go back the Julia REPL and try to load Ribasim:</p>
-<pre class="julia-repl"><code>julia&gt; using Ribasim</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="im">using</span> <span class="bu">Ribasim</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If you already have a simulation prepared, you can run it using:</p>
-<pre class="julia-repl"><code>julia&gt; Ribasim.run("path/to/config.toml")</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> Ribasim.<span class="fu">run</span>(<span class="st">"path/to/config.toml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Again, there will be considerable latency. For this reason, if you expect to run Ribasim a lot, we recommend to:</p>
 <ul>
-<li>Use <code>ribasim_cli</code> if you only need <code>Ribasim.run</code> and don’t need to do developments.</li>
-<li>Adapt a workflow that keeps you session active; the first <code>Ribasim.run("model.toml")</code> will take considerably more time than the second one, since more code needs to be compiled.</li>
-<li>Use a system image, explained in the <a href="#developer.qmd">developer documentation</a>, to reduce latency further</li>
+<li>Use Ribasim CLI if you only need <code>Ribasim.run</code> and don’t need to do developments.</li>
+<li>Adapt a workflow that keeps your session active; the first <code>Ribasim.run("model.toml")</code> will take considerably more time than the second one, since more code needs to be compiled.</li>
+<li>Use a system image as explained in the <a href="#developer.qmd">developer documentation</a> to reduce latency further</li>
 </ul>
 <div class="callout-tip callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -434,7 +434,7 @@ Tip: Visual Studio Code
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>There is a section on editors and IDEs for Julia on <a href="https://julialang.org/" class="uri">https://julialang.org/</a>, scroll down to see it. We use and recommend Microsoft’s free and open source <a href="https://code.visualstudio.com/">Visual Studio Code</a>. When combined with the <a href="https://www.julia-vscode.org/">Julia extension</a> it provides a powerful and interactive development experience.</p>
+<p>There is a section on editors and IDEs for Julia on <a href="https://julialang.org/" class="uri">https://julialang.org/</a>, scroll down to see it. We use and recommend Microsoft’s free editor <a href="https://code.visualstudio.com/">Visual Studio Code</a>. When combined with the <a href="https://www.julia-vscode.org/">Julia extension</a> it provides a powerful and interactive development experience.</p>
 </div>
 </div>
 <div class="callout-tip callout callout-style-default callout-captioned">
@@ -461,7 +461,7 @@ Tip: Revise.jl
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">starttime</span> <span class="op">=</span> <span class="bn">2019-01-01</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dt">endtime</span> <span class="op">=</span> <span class="bn">2021-01-01</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># run a coupled Ribasim - Modflow simulation</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># run a coupled Ribasim - MODFLOW 6 simulation</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="dt">run_modflow</span> <span class="op">=</span> <span class="cn">false</span>  <span class="co"># default is false</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># all timesteps are in seconds</span></span>
@@ -488,11 +488,11 @@ Tip: Revise.jl
 <span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co"># output file</span></span>
 <span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="dt">waterbalance</span> <span class="op">=</span> <span class="st">"output/waterbalance.arrow"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Additionally, if <code>run_modflow = true</code>, a Modflow specific section needs to be added to the configuration file. This part is documented in <a href="#coupling-demo.qmd">the Modflow coupling demo</a>.</p>
+<p>Additionally, if <code>run_modflow = true</code>, a MODFLOW 6 specific section needs to be added to the configuration file. This part is documented in <a href="./coupling-demo.html">the MODFLOW 6 coupling demo</a>.</p>
 </section>
 <section id="arrow-files" class="level3" data-number="3.3.2">
 <h3 data-number="3.3.2" class="anchored" data-anchor-id="arrow-files"><span class="header-section-number">3.3.2</span> Arrow files</h3>
-<p>The input and output files described below all share that they are tabular files, stored in the <a href="https://arrow.apache.org/">Apache Arrow</a> IPC file format, also known as Feather files. This format has been chosen since it is standardized, fast, simple and flexible. It can be read and written by many different software packages and libraries in different languages. In Ribasim we use <a href="https://arrow.juliadata.org/dev/">Arrow.jl</a>.</p>
+<p>The input and output files described below all share that they are tabular files, stored in the <a href="https://arrow.apache.org/">Apache Arrow</a> file format, also known as Feather files. This format has been chosen since it is standardized, fast, simple and flexible. It can be read and written by many different software packages. In Ribasim we use <a href="https://arrow.juliadata.org/dev/">Arrow.jl</a>.</p>
 <p>Below we give details per file, in which we describe the schema of the table using a syntax like this:</p>
 <table class="table">
 <thead>

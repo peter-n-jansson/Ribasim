@@ -105,7 +105,7 @@ div.csl-indent {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./modflow.html">
- <span class="menu-text">Modflow Coupling</span></a>
+ <span class="menu-text">MODFLOW 6 Coupling</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./demo.html">
@@ -113,7 +113,7 @@ div.csl-indent {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./coupling-demo.html">
- <span class="menu-text">Ribasim-Modflow Demonstration</span></a>
+ <span class="menu-text">Ribasim-MODFLOW 6 Demonstration</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./developer.html">
@@ -208,24 +208,24 @@ Q_P = P A(S)
 <h2 data-number="1.2" class="anchored" data-anchor-id="evaporation"><span class="header-section-number">1.2</span> Evaporation</h2>
 <p>The evaporation term is given by:</p>
 <p><span class="math display">\[
-Q_E = E_{pot} A(S) * (0.5 \tanh(S - 50.0) / 10.0) + 0.5
+Q_E = E_{pot} \cdot A(S) \cdot (0.5 \cdot \tanh(S - 50.0) / 10.0) + 0.5
 \]</span></p>
-<p>Where <span class="math inline">\(E_{pot}\)</span> is the potential evaporation rate and <span class="math inline">\(A\)</span> is the wetted area. The <span class="math inline">\((0.5 \tanh(S - 50.0) / 10.0) + 0.5\)</span> term ensures no evaporation occurs when <span class="math inline">\(S &lt;= 0\)</span> and is a sigmoid function which provides a smooth gradient as <span class="math inline">\(S \rightarrow 0\)</span>.</p>
-<p>A straightforward formulation <span class="math inline">\(Q_E = \mathrm{max}(E_{pot} A(S), 0)\)</span> is unsuitable, as <span class="math inline">\(\frac{\mathrm{d}Q_E}{\mathrm{d}S}\)</span> is <span class="math inline">\(\infty\)</span> at <span class="math inline">\(S = 0\)</span>. A hyperbolic tangent is a commonly used activation function <span class="citation" data-cites="enwiki:1106669904">(<a href="#ref-enwiki:1106669904" role="doc-biblioref">Wikipedia contributors 2022</a>)</span> to approximate on-off behavior while preserving a smooth derivative.</p>
+<p>Where <span class="math inline">\(E_{pot}\)</span> is the potential evaporation rate and <span class="math inline">\(A\)</span> is the wetted area. The <span class="math inline">\((0.5 \cdot \tanh(S - 50.0) / 10.0) + 0.5\)</span> term ensures no evaporation occurs when <span class="math inline">\(S &lt;= 0\)</span> and is a sigmoid function which provides a smooth gradient as <span class="math inline">\(S \rightarrow 0\)</span>.</p>
+<p>A straightforward formulation <span class="math inline">\(Q_E = \mathrm{max}(E_{pot} A(S), 0)\)</span> is unsuitable, as <span class="math inline">\(\frac{\mathrm{d}Q_E}{\mathrm{d}S}(S=0)\)</span> is <span class="math inline">\(\infty\)</span>. A hyperbolic tangent is a commonly used activation function <span class="citation" data-cites="enwiki:1106669904">(<a href="#ref-enwiki:1106669904" role="doc-biblioref">Wikipedia contributors 2022</a>)</span> to approximate on-off behavior while preserving a smooth derivative.</p>
 <p>A non-smooth derivative results in extremely small timesteps and long computation time: ModelingToolkit identifies the singular behavior and adjusts it timestepping. In a physical interpretation, evaporation is switched on or off per individual droplet of water. In general, the effect of the sigmoid term is negligible, or not even necessary. As a surface water dries, its wetted area decreases and so does the evaporative flux. However, for (simplified) cases with constant wetted surface (a rectangular profile), evaporation only stops at <span class="math inline">\(S = 0\)</span>.</p>
 </section>
 <section id="infiltration-and-drainage" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="infiltration-and-drainage"><span class="header-section-number">1.3</span> Infiltration and Drainage</h2>
-<p>Infiltration is provided as a lump sum for the basin. If Ribasim is coupled with MODFLOW6, the infiltration is computed as the sum of all <strong>positive</strong> flows of the MODFLOW6 boundary conditions in the basin:</p>
+<p>Infiltration is provided as a lump sum for the basin. If Ribasim is coupled with MODFLOW 6, the infiltration is computed as the sum of all <strong>positive</strong> flows of the MODFLOW 6 boundary conditions in the basin:</p>
 <p><span class="math display">\[
 Q_{inf} = \sum_{i=1}^{n} \sum_{j=1}^{m} \max(Q_{\mathrm{mf6}_{i,j}}, 0.0)
 \]</span></p>
-<p>Where <span class="math inline">\(i\)</span> is the index of the boundary condition, <span class="math inline">\(j\)</span> the MODFLOW6 cell index, <span class="math inline">\(n\)</span> the number of boundary conditions, and <span class="math inline">\(m\)</span> the number of MODFLOW6 cells in the basin. <span class="math inline">\(Q_{\mathrm{mf6}_{i,j}}\)</span> is the flow computed by MODFLOW6 for cell <span class="math inline">\(j\)</span> for boundary condition <span class="math inline">\(i\)</span>.</p>
-<p>Drainage is a lump sump for the basin, and consists of the sum of the absolute value of all <strong>negative</strong> flows of the MODFLOW6 boundary conditions in the basin.</p>
+<p>Where <span class="math inline">\(i\)</span> is the index of the boundary condition, <span class="math inline">\(j\)</span> the MODFLOW 6 cell index, <span class="math inline">\(n\)</span> the number of boundary conditions, and <span class="math inline">\(m\)</span> the number of MODFLOW 6 cells in the basin. <span class="math inline">\(Q_{\mathrm{mf6}_{i,j}}\)</span> is the flow computed by MODFLOW 6 for cell <span class="math inline">\(j\)</span> for boundary condition <span class="math inline">\(i\)</span>.</p>
+<p>Drainage is a lump sump for the basin, and consists of the sum of the absolute value of all <strong>negative</strong> flows of the MODFLOW 6 boundary conditions in the basin.</p>
 <p><span class="math display">\[
 Q_{drn} = \sum_{i=1}^{n} \sum_{j=1}^{m} \left| \min(Q_{\mathrm{mf6}_{i,j}}, 0.0) \right|
 \]</span></p>
-<p>The interaction with MODFLOW6 boundary conditions is explained in greater detail in the MODFLOW Coupling section of this documentation.</p>
+<p>The interaction with MODFLOW 6 boundary conditions is explained in greater detail in the <a href="./coupling-demo.html">the MODFLOW coupling section</a> of this documentation.</p>
 </section>
 <section id="upstream-and-downstream-flow" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="upstream-and-downstream-flow"><span class="header-section-number">1.4</span> Upstream and downstream flow</h2>
@@ -298,7 +298,7 @@ Q = C (h_a - h_b)
 <p>However, as discussed, if the basin is a level-controlled basin, additional water can then be sourced from the regional network and is allocated to satisfy the allocation shortage of the General User.</p>
 <p>The allocation of water is decided intermittently by a separate process. This separate process is not all-knowing and it may overextract. Like other water balance sinks, negative storage is avoided and smooth numerical behavior is ensured via an activation function:</p>
 <p><span class="math display">\[
-Q_{user} = Q_{alloc} * (0.5 \tanh(S - 50.0) / 10.0) + 0.5
+Q_{user} = Q_{alloc} \cdot (0.5 \cdot \tanh(S - 50.0) / 10.0) + 0.5
 \]</span></p>
 </section>
 <section id="level-control" class="level2" data-number="2.2">
@@ -319,19 +319,19 @@ Q_{user} = Q_{alloc} * (0.5 \tanh(S - 50.0) / 10.0) + 0.5
 </section>
 <section id="numerical-solution" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Numerical solution</h1>
-<p>Ribasim uses ModelingToolkit.jl to provide a numerical solution to the water balance equations. Changes to forcings or parameters such as precipitation, but also the allocated water abstraction is managed through the use of CallBack functions <span class="citation" data-cites="mtkevents">(<a href="#ref-mtkevents" role="doc-biblioref">ModelingToolkit.jl Development Team 2022</a>)</span>. In a coupled run, the exchanges with MODFLOW6 are also managed via the use of a callback function.</p>
+<p>Ribasim uses ModelingToolkit.jl to provide a numerical solution to the water balance equations. Changes to forcings or parameters such as precipitation, but also the allocated water abstraction is managed through the use of CallBack functions <span class="citation" data-cites="mtkevents">(<a href="#ref-mtkevents" role="doc-biblioref">ModelingToolkit.jl Development Team 2022</a>)</span>. In a coupled run, the exchanges with MODFLOW 6 are also managed via the use of a callback function.</p>
 </section>
 <section id="performance" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Performance</h1>
 <p>Ribasim needs to be sufficiently fast to make application on the national scale, with ~10000 basins, practical. Therefore, whilst developing, we need to be mindful that our approach can scale to such a size. We currently simulate a set of 40 connected free-flowing basins for a period of 2 years in about 10 seconds.</p>
-<p>For a real scaling test we would need to do a national simulation, but we expect these computation times not to be problematic, considering that simulating those same 40 basins in MODFLOW6 takes minutes.</p>
+<p>For a real scaling test we would need to do a national simulation, but we expect these computation times not to be problematic, considering that simulating those same 40 basins in MODFLOW 6 takes minutes.</p>
 <p>There are many things that can influence the calculations times, for instance:</p>
 <ul>
 <li><a href="https://diffeq.sciml.ai/stable/basics/faq/#What-does-tolerance-mean-and-how-much-error-should-I-expect">Solver tolerance</a> we currently use a very conservative tolerance of <code>1e-10</code>, whereas with larger tolerances step sizes can easily be 3x longer, leading to a 3x speedup.</li>
 <li><a href="https://diffeq.sciml.ai/stable/solvers/ode_solve/">ODE solvers</a>: The <code>Rosenbrock23</code> method we use is robust to oscillations and massive stiffness, however other solvers should be tried as well.</li>
 <li>Forcing: Every time new forcing data is injected into the model, it needs to pause. Moreover, the larger the forcing fluxes are, the bigger the shock to the system, leading to smaller timesteps and thus longer simulation times.</li>
 </ul>
-<p>Similarly to other models that solve using a system of equations, like MODFLOW6, if one basin takes longer to converge due to extreme forcing, or bad schematization, the system as a whole need to iterate longer. It is important to be mindful of this, as poor schematization choices can slow down the model.</p>
+<p>Similarly to other models that solve using a system of equations, like MODFLOW 6, if one basin takes longer to converge due to extreme forcing, or bad schematization, the system as a whole need to iterate longer. It is important to be mindful of this, as poor schematization choices can slow down the model.</p>
 <p>When scaling up the model, we will need spend some time to strike the right balance between error tolerance, schematization and forcing. The SciML software we use has many <a href="https://sciml.ai/showcase/">showcases</a> of large scale applications, as well as documentation on how to achieve the optimal performance for your system.</p>
 
 
