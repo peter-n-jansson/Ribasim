@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.262">
+<meta name="generator" content="quarto-1.2.313">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -211,124 +211,1619 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="sec-free" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Demonstration of Free Flowing LSW</h1>
 <p>The following examples demonstrate the impact of forcings and the user allocation functionality for a single free draining LSW. The examples are simulated with synthetic data to highlight the functionality of Ribasim, with the exception of example <a href="#sec-free-balance">Section&nbsp;2.8</a> and <a href="#sec-free-comparison">Section&nbsp;2.9</a>, which show the Ribasim prototype simulation of the Hupsel LSW.</p>
-<div class="cell" data-execution_count="32">
+<div class="cell" data-execution_count="1">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">Pkg</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">activate</span>(<span class="st">"../run"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cn">VERSION</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">instantiate</span>()</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cn">VERSION</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
-<pre><code>  Activating project at `d:\visser_mn\.julia\dev\Ribasim\run`</code></pre>
+<pre><code>  Activating project at `~/work/Ribasim.jl/Ribasim.jl/run`</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<pre><code>v"1.9.0-alpha1"</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed JpegTurbo_jll ──────────────── v2.1.2+0
+   Installed x265_jll ───────────────────── v3.5.0+0
+   Installed libfdk_aac_jll ─────────────── v2.0.2+0
+   Installed ImageIO ────────────────────── v0.6.6</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed TiffImages ─────────────────── v0.6.3
+   Installed JpegTurbo ──────────────────── v0.1.1
+   Installed AxisArrays ─────────────────── v0.4.6
+   Installed DifferentialEquations ──────── v7.6.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Libmount_jll ───────────────── v2.35.0+0
+   Installed GR_jll ─────────────────────── v0.71.3+0
+   Installed LERC_jll ───────────────────── v3.0.0+1
+   Installed FFTW ───────────────────────── v1.5.0
+   Installed PNGFiles ───────────────────── v0.3.17</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Opus_jll ───────────────────── v1.3.2+0
+   Installed Xorg_xkbcomp_jll ───────────── v1.4.2+4
+   Installed StableHashTraits ───────────── v0.3.1
+   Installed RelocatableFolders ─────────── v1.0.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed GraphMakie ─────────────────── v0.5.1
+   Installed DomainSets ─────────────────── v0.5.14</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed NetworkLayout ──────────────── v0.4.4
+   Installed Sixel ──────────────────────── v0.1.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed EarCut_jll ─────────────────── v2.2.4+0
+   Installed Measures ───────────────────── v0.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed GLMakie ────────────────────── v0.8.1
+   Installed ColorSchemes ───────────────── v3.20.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Grisu ──────────────────────── v1.0.2
+   Installed ProgressMeter ──────────────── v1.7.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Xorg_xcb_util_wm_jll ───────── v0.4.1+1
+   Installed Qhull_jll ──────────────────── v8.0.1001+0
+   Installed Xorg_xcb_util_image_jll ────── v0.4.0+1
+   Installed OpenEXR ────────────────────── v0.3.2
+   Installed Contour ────────────────────── v0.6.2
+   Installed PlotUtils ──────────────────── v1.3.2
+   Installed ModernGL ───────────────────── v1.1.6</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Sundials_jll ───────────────── v5.2.1+0
+   Installed MiniQhull ──────────────────── v0.4.0
+   Installed RecipesPipeline ────────────── v0.6.11
+   Installed Xorg_libpthread_stubs_jll ──── v0.1.0+3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed OpenSSL ────────────────────── v1.3.3
+   Installed FileIO ─────────────────────── v1.16.0
+   Installed HTTP ───────────────────────── v1.7.3
+   Installed Cairo_jll ──────────────────── v1.16.1+1
+   Installed Xorg_xcb_util_jll ──────────── v0.4.0+1
+   Installed Fontconfig_jll ─────────────── v2.13.93+0
+   Installed CodeTracking ───────────────── v1.2.0
+   Installed Libgpg_error_jll ───────────── v1.42.0+0
+   Installed DBFTables ──────────────────── v1.1.0
+   Installed GLM ────────────────────────── v1.8.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Xorg_libxkbfile_jll ────────── v1.1.0+4
+   Installed Xorg_libXinerama_jll ───────── v1.1.4+4
+   Installed Netpbm ─────────────────────── v1.1.0
+   Installed IntelOpenMP_jll ────────────── v2018.0.3+2
+   Installed SignedDistanceFields ───────── v0.4.0
+   Installed Xorg_libXau_jll ────────────── v1.0.9+4
+   Installed QhullMiniWrapper_jll ───────── v1.0.0+1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed BoundaryValueDiffEq ────────── v2.11.0
+   Installed TriplotBase ────────────────── v0.1.0
+   Installed TupleTools ─────────────────── v1.3.0
+   Installed SteadyStateDiffEq ──────────── v1.11.0
+   Installed FFMPEG ─────────────────────── v0.4.1
+   Installed SIMD ───────────────────────── v3.4.4</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Showoff ────────────────────── v1.0.3
+   Installed ScanByte ───────────────────── v0.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed GR ─────────────────────────── v0.71.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed ComponentArrays ────────────── v0.13.6
+   Installed DiffEqBase ─────────────────── v6.114.0
+   Installed Pango_jll ──────────────────── v1.50.9+0
+   Installed Qt5Base_jll ────────────────── v5.15.3+2
+   Installed BandedMatrices ─────────────── v0.17.9
+   Installed Revise ─────────────────────── v3.5.0
+   Installed PolygonOps ─────────────────── v0.1.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed xkbcommon_jll ──────────────── v1.4.1+0
+   Installed Xorg_xcb_util_keysyms_jll ──── v0.4.0+1
+   Installed Bzip2_jll ──────────────────── v1.0.8+0
+   Installed Pipe ───────────────────────── v1.3.0
+   Installed LoweredCodeUtils ───────────── v2.3.0
+   Installed ProgressLogging ────────────── v0.1.4
+   Installed BenchmarkTools ─────────────── v1.3.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed SimpleBufferStream ─────────── v1.1.0
+   Installed MathTeXEngine ──────────────── v0.5.4
+   Installed HarfBuzz_jll ───────────────── v2.8.1+1
+   Installed isoband_jll ────────────────── v0.2.3+0
+   Installed SimpleNonlinearSolve ───────── v0.1.7
+   Installed QOI ────────────────────────── v1.0.0
+   Installed PkgVersion ─────────────────── v0.3.2
+   Installed PlotThemes ─────────────────── v3.1.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed FriBidi_jll ────────────────── v1.0.10+0
+   Installed LZO_jll ────────────────────── v2.10.1+0
+   Installed fzf_jll ────────────────────── v0.29.0+0
+   Installed DiffEqNoiseProcess ─────────── v5.15.2
+   Installed AbbreviatedStackTraces ─────── v0.1.6
+   Installed Loess ──────────────────────── v0.5.4
+   Installed Random123 ──────────────────── v1.6.0
+   Installed CommonMark ─────────────────── v0.8.8</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed UnicodeFun ─────────────────── v0.4.1
+   Installed LevyArea ───────────────────── v1.0.0
+   Installed GLFW_jll ───────────────────── v3.3.8+0
+   Installed ImageMetadata ──────────────── v0.9.8
+   Installed WeakRefStrings ─────────────── v1.4.2
+   Installed Graphics ───────────────────── v1.1.2
+   Installed Ratios ─────────────────────── v0.4.3
+   Installed StatsModels ────────────────── v0.6.33
+   Installed x264_jll ───────────────────── v2021.5.5+0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed MappedArrays ───────────────── v0.4.1
+   Installed FreeType ───────────────────── v4.0.0
+   Installed FreeType2_jll ──────────────── v2.10.4+0
+   Installed LeftChildRightSiblingTrees ─── v0.2.0
+   Installed PaddedViews ────────────────── v0.5.11
+   Installed JLFzf ──────────────────────── v0.1.5
+   Installed Colors ─────────────────────── v0.12.10
+   Installed GridLayoutBase ─────────────── v0.9.1
+   Installed CodecZlib ──────────────────── v0.7.0
+   Installed Xorg_libxcb_jll ────────────── v1.13.0+3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed libpng_jll ─────────────────── v1.6.38+0
+   Installed MosaicViews ────────────────── v0.3.4
+   Installed libaom_jll ─────────────────── v3.4.0+0
+   Installed LazyModules ────────────────── v0.3.1
+   Installed ArrayLayouts ───────────────── v0.8.18
+   Installed Automa ─────────────────────── v0.8.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Match ──────────────────────── v1.2.0
+   Installed ColorTypes ─────────────────── v0.11.4
+   Installed ImageCore ──────────────────── v0.9.4
+   Installed Sundials ───────────────────── v4.12.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed ModelingToolkit ────────────── v8.41.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Xorg_libXext_jll ───────────── v1.3.4+4
+   Installed StochasticDiffEq ───────────── v6.57.4
+   Installed TensorCore ─────────────────── v0.1.1
+   Installed Plots ──────────────────────── v1.38.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Isoband ────────────────────── v0.1.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Expat_jll ──────────────────── v2.4.8+0
+   Installed Imath_jll ──────────────────── v3.1.2+0
+   Installed FreeTypeAbstraction ────────── v0.10.0
+   Installed Extents ────────────────────── v0.1.1
+   Installed JuliaInterpreter ───────────── v0.9.20
+   Installed MKL_jll ────────────────────── v2022.2.0+0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Libtiff_jll ────────────────── v4.4.0+0
+   Installed Packing ────────────────────── v0.5.0
+   Installed Libffi_jll ─────────────────── v3.2.2+1
+   Installed AbstractFFTs ───────────────── v1.2.1
+   Installed ColorVectorSpace ───────────── v0.9.10
+   Installed DelayDiffEq ────────────────── v5.40.5</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Xorg_libXrender_jll ────────── v0.9.10+4
+   Installed Animations ─────────────────── v0.4.1
+   Installed Ogg_jll ────────────────────── v1.3.5+1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Xorg_libXi_jll ─────────────── v1.7.10+4
+   Installed KernelDensity ──────────────── v0.6.5
+   Installed MeshIO ─────────────────────── v0.4.10</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed CSV ────────────────────────── v0.10.9
+   Installed XSLT_jll ───────────────────── v1.1.34+0
+   Installed StackViews ─────────────────── v0.1.1
+   Installed TerminalLoggers ────────────── v0.1.6</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Xorg_libXcursor_jll ────────── v1.2.0+4
+   Installed RangeArrays ────────────────── v0.3.2
+   Installed FFTW_jll ───────────────────── v3.3.10+0
+   Installed Libuuid_jll ────────────────── v2.36.0+0
+   Installed GeoFormatTypes ─────────────── v0.4.1
+   Installed OpenEXR_jll ────────────────── v3.1.1+0
+   Installed ColorBrewer ────────────────── v0.4.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Graphite2_jll ──────────────── v1.3.14+0
+   Installed Wayland_protocols_jll ──────── v1.25.0+0
+   Installed GPUArraysCore ──────────────── v0.1.2
+   Installed libass_jll ─────────────────── v0.15.1+0
+   Installed Xorg_xcb_util_renderutil_jll ─ v0.3.9+1
+   Installed Pixman_jll ─────────────────── v0.40.1+0
+   Installed ImageBase ──────────────────── v0.1.5</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Wayland_jll ────────────────── v1.21.0+0
+   Installed Gettext_jll ────────────────── v0.21.0+0
+   Installed IntervalSets ───────────────── v0.7.4
+   Installed Xorg_xtrans_jll ────────────── v1.4.0+3
+   Installed GLFW ───────────────────────── v3.4.1
+   Installed IterTools ──────────────────── v1.4.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed BitFlags ───────────────────── v0.1.7
+   Installed FFMPEG_jll ─────────────────── v4.4.2+2
+   Installed Libgcrypt_jll ──────────────── v1.8.7+0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed MakieCore ──────────────────── v0.6.1
+   Installed IndirectArrays ─────────────── v1.0.0
+   Installed Cairo ──────────────────────── v1.0.5
+   Installed GeometryBasics ─────────────── v0.4.5
+   Installed Interpolations ─────────────── v0.14.7
+   Installed Xorg_xkeyboard_config_jll ──── v2.27.0+4</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed CairoMakie ─────────────────── v0.10.1
+   Installed Xorg_libXfixes_jll ─────────── v5.0.3+4
+   Installed FixedPointNumbers ──────────── v0.8.4
+   Installed ShaderAbstractions ─────────── v0.2.9
+   Installed Xorg_libXrandr_jll ─────────── v1.5.2+4
+   Installed LAME_jll ───────────────────── v3.100.1+0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed DataFrameMacros ────────────── v0.4.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed libsixel_jll ───────────────── v1.10.3+0
+   Installed libvorbis_jll ──────────────── v1.3.7+1
+   Installed IniFile ────────────────────── v0.5.1
+   Installed Libglvnd_jll ───────────────── v1.6.0+0
+   Installed Glib_jll ───────────────────── v2.74.0+2
+   Installed StructArrays ───────────────── v0.6.14</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed FilePathsBase ──────────────── v0.9.20</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Xorg_libXdmcp_jll ──────────── v1.1.3+4
+   Installed QuadGK ─────────────────────── v2.6.0
+   Installed AxisAlgorithms ─────────────── v1.0.1
+   Installed ResettableStacks ───────────── v1.1.1
+   Installed ShiftedArrays ──────────────── v2.0.0
+   Installed ImageAxes ──────────────────── v0.6.10</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Xorg_libX11_jll ────────────── v1.6.9+4</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed WoodburyMatrices ───────────── v0.5.5
+   Installed RecursiveFactorization ─────── v0.2.16
+   Installed Observables ────────────────── v0.5.4</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Unzip ──────────────────────── v0.2.0
+   Installed GeoInterface ───────────────── v1.1.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed AlgebraOfGraphics ──────────── v0.6.13</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>   Installed Makie ──────────────────────── v0.19.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>    Building ModernGL → `~/.julia/scratchspaces/44cfe95a-1eb2-52ea-b672-e2afdf69b78f/cb7f10a4e69af6d022747ff181e3976f3de34408/build.log`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Precompiling project...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LaTeXStrings</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FunctionWrappers</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Calculus
+  ✓ Glob</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ IteratorInterfaceExtensions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Tricks</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ GeoFormatTypes</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StatsAPI</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Contour</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Match</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ InitialValues</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Pipe</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ OpenLibm_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Measures</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ InverseFunctions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CompilerSupportLibraries_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Grisu</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Observables</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StringManipulation</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DataValueInterfaces</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DocStringExtensions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ AbstractTrees</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ MutableArithmetics</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ IntervalSets</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ URIs</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SimpleBufferStream
+  ✓ Tokenize</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ProgressMeter
+  ✓ Extents</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ UnicodeFun</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CpuId</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ChainRulesCore
+  ✓ InvertedIndices</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Adapt</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ BasicModelInterface</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ProgressLogging
+  ✓ PolygonOps</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ UnPack</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ IntegerMathUtils</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LambertW</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CommonSolve</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ IterTools</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FilePathsBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Underscores</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ShiftedArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ AutoHashEquals
+  ✓ PoissonRandom</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ BitIntegers
+  ✓ IrrationalConstants</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Krylov</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Formatting</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArrayInterfaceCore
+  ✓ DefineSingletons</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LazyModules</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArrowTypes</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DataAPI</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CFTime</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ MappedArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Crayons</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Combinatorics</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FastLapackInterface
+  ✓ RangeArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SignedDistanceFields</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ IndirectArrays
+  ✓ PDMats</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArgCheck</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ WorkerUtilities
+  ✓ TriplotBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ManualMemory</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CompositeTypes</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Requires</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ OrderedCollections</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ EnumX
+  ✓ Reexport</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ IniFile
+  ✓ TreeViews</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ RandomExtensions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ RuntimeGeneratedFunctions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ TranscodingStreams</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Inflate</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ IfElse</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FastClosures
+  ✓ ConstructionBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ TermInterface
+  ✓ BitFlags</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StaticArraysCore</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CodeTracking</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ TupleTools</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Bijections</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ MuladdMacro</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ GroupsCore
+  ✓ SentinelArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PositiveFactorizations</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ TensorCore</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CEnum</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ModernGL</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FixedPointNumbers</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FillArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ GenericSchur</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ WoodburyMatrices</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PkgVersion</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Unzip</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SIMDTypes</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CompositionsBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PCRE2_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ MacroTools</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ RelocatableFolders</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LoggingExtras</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Indexing</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ TimerOutputs</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PlyIO</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ OpenSSL_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Baselet</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ isoband_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Libffi_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Wayland_protocols_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Libuuid_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ MLStyle</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Qhull_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Imath_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ IntelOpenMP_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ fzf_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ JpegTurbo_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Ogg_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ x265_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ x264_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Libiconv_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FriBidi_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Graphite2_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_libXau_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Lz4_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ libpng_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LAME_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Pixman_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ EarCut_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_libXdmcp_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ libaom_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Zstd_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Expat_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LZO_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Opus_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_xtrans_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Libmount_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Bzip2_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ libfdk_aac_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Rmath_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LERC_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Libgpg_error_jll
+  ✓ Xorg_libpthread_stubs_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FFTW_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ BenchmarkTools</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ IterativeSolvers
+  ✓ FunctionWrappersWrappers</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ TableTraits</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ NaNMath</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Distances</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ OpenBLAS_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DensityInterface</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Modflow6_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ OpenSpecFun_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Showoff</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SymbolicIndexingInterface</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ MakieCore</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LeftChildRightSiblingTrees</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ GeoInterface</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ChangesOfVariables</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ AbstractFFTs</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ OffsetArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CSTParser</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ GPUArraysCore</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Referenceables</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Primes</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ WeakRefStrings</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PooledArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Missings</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SIMD</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ AxisArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ThreadingUtilities</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CommonMark
+  ✓ RandomNumbers</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Ratios</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Parameters</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CodecZlib</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FileIO</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Static</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArrayInterfaceStaticArraysCore</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DataStructures</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DiffResults</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StaticArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ JuliaInterpreter</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ColorTypes</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ AxisAlgorithms</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CommonSubexpressions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Lazy</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArrayLayouts</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ZygoteRules</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Memoize</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SimpleTraits</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Setfield</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Latexify</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Dictionaries</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ OpenSSL</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ HDF5_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Isoband</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ QhullMiniWrapper_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ OpenEXR_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ MKL_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ JLFzf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ libvorbis_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ XML2_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CodecLz4</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ libsixel_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CodecZstd</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FreeType2_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Rmath</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Libtiff_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Libgcrypt_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Unitful</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ AbstractAlgebra</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Loess</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ libblastrampoline_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Tables</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ModflowInterface</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ TerminalLoggers</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PaddedViews</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StackViews</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Sparspak</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LogExpFunctions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArrayInterfaceGPUArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ScanByte</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Random123</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ BitTwiddlingConvenienceFunctions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ KrylovKit</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CPUSummary</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArrayInterface</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SortingAlgorithms</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ QuadGK</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ MultivariatePolynomials</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArnoldiMethod</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ResettableStacks</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ JuliaFormatter</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DomainSets</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ QOI</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LoweredCodeUtils</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Colors</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Interpolations</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SplittablesBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ BandedMatrices</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FiniteDiff</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ MiniQhull</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ HTTP</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ NetCDF_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Wayland_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Gettext_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FreeType</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FFTW</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Fontconfig_jll
+  ✓ XSLT_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SuiteSparse_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StableHashTraits</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DBFTables</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StructArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PrettyTables</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ BangBang</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ RecursiveArrayTools</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CSV</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ MosaicViews</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Arrow</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ExponentialUtilities</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Automa</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ HostCPUFeatures</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PolyesterWeave</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SpecialFunctions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CloseOpenIntervals</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ComponentArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArrayInterfaceOffsetArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ TiffImages</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ArrayInterfaceStaticArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StatsBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DynamicPolynomials</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Groebner</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Graphics</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Animations</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Graphs</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ColorBrewer</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ OpenEXR</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Glib_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Revise</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_libxcb_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ KLU</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Sundials_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ NCDatasets</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ MicroCollections</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ GeometryBasics</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DualNumbers</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SciMLBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LevyArea</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DiffRules</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LayoutPointers</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ColorVectorSpace</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_xcb_util_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_libX11_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ VertexSafeGraphs</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Packing</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Transducers</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ NetworkLayout</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ GridLayoutBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ MeshIO</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ HypergeometricFunctions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ShaderAbstractions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StrideArraysCore</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ForwardDiff</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DataFrames</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ColorSchemes</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FreeTypeAbstraction</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_xcb_util_keysyms_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_xcb_util_renderutil_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_xcb_util_image_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ VectorizationBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_xcb_util_wm_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_libXrender_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_libXext_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_libXfixes_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_libxkbfile_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ThreadsX</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StatsFuns</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Polyester</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SparseDiffTools</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PreallocationTools</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ NLSolversBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DataFrameMacros</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ImageCore</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SLEEFPirates</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_libXinerama_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Libglvnd_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_libXrandr_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Cairo_jll
+  ✓ PlotUtils</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_libXcursor_jll
+  ✓ Xorg_libXi_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_xkbcomp_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ MathTeXEngine</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Metatheory</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StatsModels</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FastBroadcast</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Distributions</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LabelledArrays</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LineSearches</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ImageBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PNGFiles</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Sixel</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ HarfBuzz_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ JpegTurbo</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SIMDDualNumbers</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ GLFW_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Xorg_xkeyboard_config_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ PlotThemes</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ KernelDensity</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ RecipesPipeline</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ GLM</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ NLsolve</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DiffEqBase</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Optim</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ImageAxes</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ libass_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Pango_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ GLFW</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ xkbcommon_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SymbolicUtils</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ JumpProcesses</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Sundials</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SimpleNonlinearSolve</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LoopVectorization</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DiffEqCallbacks</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SciMLNLSolve</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ BoundaryValueDiffEq</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LeastSquaresOptim</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FFMPEG_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Cairo</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Qt5Base_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ImageMetadata</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DiffEqNoiseProcess</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ SteadyStateDiffEq</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ RegularizationTools</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ FFMPEG</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ GR_jll</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Netpbm</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ GR</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ImageIO</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ TriangularSolve</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Symbolics</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ RecursiveFactorization</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DataInterpolations</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Plots</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ModelingToolkit</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ LinearSolve</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ ModelingToolkitStandardLibrary</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ NonlinearSolve</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Makie</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ GraphMakie</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✗ GLMakie</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ CairoMakie</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ AlgebraOfGraphics</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ OrdinaryDiffEq</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DelayDiffEq</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ StochasticDiffEq</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ DifferentialEquations</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  ✓ Ribasim</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  407 dependencies successfully precompiled in 861 seconds. 16 already precompiled.
+  1 dependency errored. To see a full report either run `import Pkg; Pkg.precompile()` or load the package</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>v"1.8.5"</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="33">
+<div class="cell" data-execution_count="2">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Dates</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">TOML</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Arrow</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">BasicModelInterface </span>as BMI</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">SciMLBase</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Graphs</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CairoMakie</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrameMacros</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Revise</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">includet</span>(<span class="st">"../run/plot.jl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb440"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb440-1"><a href="#cb440-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
+<span id="cb440-2"><a href="#cb440-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Dates</span></span>
+<span id="cb440-3"><a href="#cb440-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">TOML</span></span>
+<span id="cb440-4"><a href="#cb440-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Arrow</span></span>
+<span id="cb440-5"><a href="#cb440-5" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb440-6"><a href="#cb440-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">BasicModelInterface </span>as BMI</span>
+<span id="cb440-7"><a href="#cb440-7" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">SciMLBase</span></span>
+<span id="cb440-8"><a href="#cb440-8" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Graphs</span></span>
+<span id="cb440-9"><a href="#cb440-9" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CairoMakie</span></span>
+<span id="cb440-10"><a href="#cb440-10" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrameMacros</span></span>
+<span id="cb440-11"><a href="#cb440-11" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Revise</span></span>
+<span id="cb440-12"><a href="#cb440-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb440-13"><a href="#cb440-13" aria-hidden="true" tabindex="-1"></a><span class="fu">includet</span>(<span class="st">"../run/plot.jl"</span>)</span>
+<span id="cb440-14"><a href="#cb440-14" aria-hidden="true" tabindex="-1"></a><span class="fu">includet</span>(<span class="st">"../utils/testdata.jl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="34">
+<div class="cell" data-execution_count="3">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load LSW forcings data, used in several examples below</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>lswforcing <span class="op">=</span> <span class="fu">DataFrame</span>(Arrow.<span class="fu">Table</span>(<span class="st">"../test/data/lhm/forcing.arrow"</span>));</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb441"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb441-1"><a href="#cb441-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load LSW forcings data, used in several examples below</span></span>
+<span id="cb441-2"><a href="#cb441-2" aria-hidden="true" tabindex="-1"></a><span class="fu">testdata</span>(<span class="st">"forcing.arrow"</span>, <span class="st">"lhm/forcing.arrow"</span>)</span>
+<span id="cb441-3"><a href="#cb441-3" aria-hidden="true" tabindex="-1"></a>lswforcing <span class="op">=</span> <span class="fu">DataFrame</span>(Arrow.<span class="fu">Table</span>(<span class="st">"../data/lhm/forcing.arrow"</span>));</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="sec-free-no" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="sec-free-no"><span class="header-section-number">2.1</span> No external forcing</h2>
 <p>This fictional free flowing LSW has no input or output forcing flux. The LSW empties according to the Volume-Area-Discharge relationship. The two examples below show the impact the profile has on the LSW drainage.</p>
-<div class="cell" data-execution_count="35">
+<div class="cell" data-execution_count="4">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"emptying_sloping_profile"</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>id_out <span class="op">=</span> <span class="fl">2</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>id_lsw_end <span class="op">=</span> <span class="fl">3</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_out, id_lsw_end]</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2022-01-01"</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2022-02-01"</span>)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[], variable<span class="op">=</span>[], value<span class="op">=</span>[])</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; time<span class="op">=</span><span class="dt">DateTime</span>[], variable<span class="op">=</span><span class="dt">Symbol</span>[], id<span class="op">=</span><span class="dt">Int</span>[], value<span class="op">=</span><span class="dt">Float64</span>[])</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"OutflowTable"</span>, <span class="st">"LSW"</span>])</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"a"</span>),</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"s"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"s"</span>),</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"b"</span>) <span class="op">=&gt;</span> (id_lsw_end, <span class="st">"LSW"</span>, <span class="st">"x"</span>),</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    ids, volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb442"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb442-1"><a href="#cb442-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"emptying_sloping_profile"</span></span>
+<span id="cb442-2"><a href="#cb442-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb442-3"><a href="#cb442-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb442-4"><a href="#cb442-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
+<span id="cb442-5"><a href="#cb442-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb442-6"><a href="#cb442-6" aria-hidden="true" tabindex="-1"></a>id_out <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb442-7"><a href="#cb442-7" aria-hidden="true" tabindex="-1"></a>id_lsw_end <span class="op">=</span> <span class="fl">3</span></span>
+<span id="cb442-8"><a href="#cb442-8" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_out, id_lsw_end]</span>
+<span id="cb442-9"><a href="#cb442-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
+<span id="cb442-10"><a href="#cb442-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
+<span id="cb442-11"><a href="#cb442-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2022-01-01"</span>)</span>
+<span id="cb442-12"><a href="#cb442-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2022-02-01"</span>)</span>
+<span id="cb442-13"><a href="#cb442-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb442-14"><a href="#cb442-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[], variable<span class="op">=</span>[], value<span class="op">=</span>[])</span>
+<span id="cb442-15"><a href="#cb442-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; time<span class="op">=</span><span class="dt">DateTime</span>[], variable<span class="op">=</span><span class="dt">Symbol</span>[], id<span class="op">=</span><span class="dt">Int</span>[], value<span class="op">=</span><span class="dt">Float64</span>[])</span>
+<span id="cb442-16"><a href="#cb442-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"OutflowTable"</span>, <span class="st">"LSW"</span>])</span>
+<span id="cb442-17"><a href="#cb442-17" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
+<span id="cb442-18"><a href="#cb442-18" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"a"</span>),</span>
+<span id="cb442-19"><a href="#cb442-19" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"s"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"s"</span>),</span>
+<span id="cb442-20"><a href="#cb442-20" aria-hidden="true" tabindex="-1"></a>    (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"b"</span>) <span class="op">=&gt;</span> (id_lsw_end, <span class="st">"LSW"</span>, <span class="st">"x"</span>),</span>
+<span id="cb442-21"><a href="#cb442-21" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb442-22"><a href="#cb442-22" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
+<span id="cb442-23"><a href="#cb442-23" aria-hidden="true" tabindex="-1"></a>    ids, volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
+<span id="cb442-24"><a href="#cb442-24" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
+<span id="cb442-25"><a href="#cb442-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb442-26"><a href="#cb442-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb442-27"><a href="#cb442-27" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
+<span id="cb442-28"><a href="#cb442-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb442-29"><a href="#cb442-29" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
+<span id="cb442-30"><a href="#cb442-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <p><img src="demo_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="36">
+<div class="cell" data-execution_count="5">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"emptying_steep_profile_Hupsel"</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>id_out <span class="op">=</span> <span class="fl">2</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>id_lsw_end <span class="op">=</span> <span class="fl">3</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_out, id_lsw_end]</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2022-01-01"</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2022-02-01"</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[], variable<span class="op">=</span>[], value<span class="op">=</span>[])</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; time<span class="op">=</span><span class="dt">DateTime</span>[], variable<span class="op">=</span><span class="dt">Symbol</span>[], id<span class="op">=</span><span class="dt">Int</span>[], value<span class="op">=</span><span class="dt">Float64</span>[])</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"OutflowTable"</span>, <span class="st">"LSW"</span>])</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"a"</span>),</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"s"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"s"</span>),</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"b"</span>) <span class="op">=&gt;</span> (id_lsw_end, <span class="st">"LSW"</span>, <span class="st">"x"</span>),</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    ids,</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">7427.69</span>, <span class="fl">14855.39</span>, <span class="fl">750197.37</span>],</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    area<span class="op">=</span>[<span class="fl">92152.28</span>, <span class="fl">92152.28</span>, <span class="fl">92152.28</span>, <span class="fl">92152.28</span>],</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.096</span>, <span class="fl">9.60</span>],</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    level<span class="op">=</span>[<span class="fl">18.90</span>, <span class="fl">19.10</span>, <span class="fl">19.30</span>, <span class="fl">39.10</span>])</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb443"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb443-1"><a href="#cb443-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"emptying_steep_profile_Hupsel"</span></span>
+<span id="cb443-2"><a href="#cb443-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb443-3"><a href="#cb443-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb443-4"><a href="#cb443-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
+<span id="cb443-5"><a href="#cb443-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb443-6"><a href="#cb443-6" aria-hidden="true" tabindex="-1"></a>id_out <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb443-7"><a href="#cb443-7" aria-hidden="true" tabindex="-1"></a>id_lsw_end <span class="op">=</span> <span class="fl">3</span></span>
+<span id="cb443-8"><a href="#cb443-8" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_out, id_lsw_end]</span>
+<span id="cb443-9"><a href="#cb443-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
+<span id="cb443-10"><a href="#cb443-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
+<span id="cb443-11"><a href="#cb443-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2022-01-01"</span>)</span>
+<span id="cb443-12"><a href="#cb443-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2022-02-01"</span>)</span>
+<span id="cb443-13"><a href="#cb443-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb443-14"><a href="#cb443-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[], variable<span class="op">=</span>[], value<span class="op">=</span>[])</span>
+<span id="cb443-15"><a href="#cb443-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; time<span class="op">=</span><span class="dt">DateTime</span>[], variable<span class="op">=</span><span class="dt">Symbol</span>[], id<span class="op">=</span><span class="dt">Int</span>[], value<span class="op">=</span><span class="dt">Float64</span>[])</span>
+<span id="cb443-16"><a href="#cb443-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"OutflowTable"</span>, <span class="st">"LSW"</span>])</span>
+<span id="cb443-17"><a href="#cb443-17" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
+<span id="cb443-18"><a href="#cb443-18" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"a"</span>),</span>
+<span id="cb443-19"><a href="#cb443-19" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"s"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"s"</span>),</span>
+<span id="cb443-20"><a href="#cb443-20" aria-hidden="true" tabindex="-1"></a>    (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"b"</span>) <span class="op">=&gt;</span> (id_lsw_end, <span class="st">"LSW"</span>, <span class="st">"x"</span>),</span>
+<span id="cb443-21"><a href="#cb443-21" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb443-22"><a href="#cb443-22" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
+<span id="cb443-23"><a href="#cb443-23" aria-hidden="true" tabindex="-1"></a>    ids,</span>
+<span id="cb443-24"><a href="#cb443-24" aria-hidden="true" tabindex="-1"></a>    volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">7427.69</span>, <span class="fl">14855.39</span>, <span class="fl">750197.37</span>],</span>
+<span id="cb443-25"><a href="#cb443-25" aria-hidden="true" tabindex="-1"></a>    area<span class="op">=</span>[<span class="fl">92152.28</span>, <span class="fl">92152.28</span>, <span class="fl">92152.28</span>, <span class="fl">92152.28</span>],</span>
+<span id="cb443-26"><a href="#cb443-26" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.096</span>, <span class="fl">9.60</span>],</span>
+<span id="cb443-27"><a href="#cb443-27" aria-hidden="true" tabindex="-1"></a>    level<span class="op">=</span>[<span class="fl">18.90</span>, <span class="fl">19.10</span>, <span class="fl">19.30</span>, <span class="fl">39.10</span>])</span>
+<span id="cb443-28"><a href="#cb443-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb443-29"><a href="#cb443-29" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb443-30"><a href="#cb443-30" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
+<span id="cb443-31"><a href="#cb443-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb443-32"><a href="#cb443-32" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
+<span id="cb443-33"><a href="#cb443-33" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <p><img src="demo_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
 </div>
 </div>
@@ -336,41 +1831,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="precipitation-forcing" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="precipitation-forcing"><span class="header-section-number">2.2</span> Precipitation forcing</h2>
 <p>This fictional free flowing LSW is simulated with only the external forcing of synthetic precipitation data. The storage and the outflow respond to the preciptation as shown below.</p>
-<div class="cell" data-execution_count="37">
+<div class="cell" data-execution_count="6">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"precipitation"</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>id_out <span class="op">=</span> <span class="fl">2</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>id_lsw_end <span class="op">=</span> <span class="fl">3</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_out, id_lsw_end]</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2020-01-01"</span>)</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[], variable<span class="op">=</span>[], value<span class="op">=</span>[])</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span> <span class="st">"P"</span>, <span class="op">:</span>id <span class="op">==</span> <span class="fl">1</span>)</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"OutflowTable"</span>, <span class="st">"LSW"</span>])</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"a"</span>),</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"s"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"s"</span>),</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"b"</span>) <span class="op">=&gt;</span> (id_lsw_end, <span class="st">"LSW"</span>, <span class="st">"x"</span>),</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    ids, volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot results</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb444"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb444-1"><a href="#cb444-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"precipitation"</span></span>
+<span id="cb444-2"><a href="#cb444-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb444-3"><a href="#cb444-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb444-4"><a href="#cb444-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
+<span id="cb444-5"><a href="#cb444-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb444-6"><a href="#cb444-6" aria-hidden="true" tabindex="-1"></a>id_out <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb444-7"><a href="#cb444-7" aria-hidden="true" tabindex="-1"></a>id_lsw_end <span class="op">=</span> <span class="fl">3</span></span>
+<span id="cb444-8"><a href="#cb444-8" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_out, id_lsw_end]</span>
+<span id="cb444-9"><a href="#cb444-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
+<span id="cb444-10"><a href="#cb444-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
+<span id="cb444-11"><a href="#cb444-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb444-12"><a href="#cb444-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2020-01-01"</span>)</span>
+<span id="cb444-13"><a href="#cb444-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb444-14"><a href="#cb444-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[], variable<span class="op">=</span>[], value<span class="op">=</span>[])</span>
+<span id="cb444-15"><a href="#cb444-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span> <span class="st">"P"</span>, <span class="op">:</span>id <span class="op">==</span> <span class="fl">1</span>)</span>
+<span id="cb444-16"><a href="#cb444-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"OutflowTable"</span>, <span class="st">"LSW"</span>])</span>
+<span id="cb444-17"><a href="#cb444-17" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
+<span id="cb444-18"><a href="#cb444-18" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"a"</span>),</span>
+<span id="cb444-19"><a href="#cb444-19" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"s"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"s"</span>),</span>
+<span id="cb444-20"><a href="#cb444-20" aria-hidden="true" tabindex="-1"></a>    (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"b"</span>) <span class="op">=&gt;</span> (id_lsw_end, <span class="st">"LSW"</span>, <span class="st">"x"</span>),</span>
+<span id="cb444-21"><a href="#cb444-21" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb444-22"><a href="#cb444-22" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
+<span id="cb444-23"><a href="#cb444-23" aria-hidden="true" tabindex="-1"></a>    ids, volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
+<span id="cb444-24"><a href="#cb444-24" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
+<span id="cb444-25"><a href="#cb444-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb444-26"><a href="#cb444-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate</span></span>
+<span id="cb444-27"><a href="#cb444-27" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
+<span id="cb444-28"><a href="#cb444-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb444-29"><a href="#cb444-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot results</span></span>
+<span id="cb444-30"><a href="#cb444-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <p><img src="demo_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
 </div>
 </div>
@@ -379,76 +1874,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 data-number="2.3" class="anchored" data-anchor-id="evaporation-forcing"><span class="header-section-number">2.3</span> Evaporation forcing</h2>
 <p>The LSW loses water from evaporation. Outflow occurs according to the relation as in <a href="#sec-free-no">Section&nbsp;2.1</a>, but overall volume decline is faster rate due to additional loss from evaporation. Evaporation does not occur in an empty LSW.</p>
 <p>The second example shows the LSW with no simulated discharge, so that the only output is evaporation</p>
-<div class="cell" data-execution_count="38">
+<div class="cell" data-execution_count="7">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"evaporation"</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>id_out <span class="op">=</span> <span class="fl">2</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>id_lsw_end <span class="op">=</span> <span class="fl">3</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_out, id_lsw_end]</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-06-01"</span>)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[], variable<span class="op">=</span>[], value<span class="op">=</span>[])</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span> <span class="st">"E_pot"</span>, <span class="op">:</span>id <span class="op">==</span> <span class="fl">1</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"OutflowTable"</span>, <span class="st">"LSW"</span>])</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"a"</span>),</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"s"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"s"</span>),</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"b"</span>) <span class="op">=&gt;</span> (id_lsw_end, <span class="st">"LSW"</span>, <span class="st">"x"</span>),</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    ids, volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb445"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb445-1"><a href="#cb445-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"evaporation"</span></span>
+<span id="cb445-2"><a href="#cb445-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb445-3"><a href="#cb445-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb445-4"><a href="#cb445-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
+<span id="cb445-5"><a href="#cb445-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb445-6"><a href="#cb445-6" aria-hidden="true" tabindex="-1"></a>id_out <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb445-7"><a href="#cb445-7" aria-hidden="true" tabindex="-1"></a>id_lsw_end <span class="op">=</span> <span class="fl">3</span></span>
+<span id="cb445-8"><a href="#cb445-8" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_out, id_lsw_end]</span>
+<span id="cb445-9"><a href="#cb445-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
+<span id="cb445-10"><a href="#cb445-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
+<span id="cb445-11"><a href="#cb445-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb445-12"><a href="#cb445-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-06-01"</span>)</span>
+<span id="cb445-13"><a href="#cb445-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb445-14"><a href="#cb445-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[], variable<span class="op">=</span>[], value<span class="op">=</span>[])</span>
+<span id="cb445-15"><a href="#cb445-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span> <span class="st">"E_pot"</span>, <span class="op">:</span>id <span class="op">==</span> <span class="fl">1</span>)</span>
+<span id="cb445-16"><a href="#cb445-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"OutflowTable"</span>, <span class="st">"LSW"</span>])</span>
+<span id="cb445-17"><a href="#cb445-17" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
+<span id="cb445-18"><a href="#cb445-18" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"a"</span>),</span>
+<span id="cb445-19"><a href="#cb445-19" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"s"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"s"</span>),</span>
+<span id="cb445-20"><a href="#cb445-20" aria-hidden="true" tabindex="-1"></a>    (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"b"</span>) <span class="op">=&gt;</span> (id_lsw_end, <span class="st">"LSW"</span>, <span class="st">"x"</span>),</span>
+<span id="cb445-21"><a href="#cb445-21" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb445-22"><a href="#cb445-22" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
+<span id="cb445-23"><a href="#cb445-23" aria-hidden="true" tabindex="-1"></a>    ids, volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
+<span id="cb445-24"><a href="#cb445-24" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
+<span id="cb445-25"><a href="#cb445-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb445-26"><a href="#cb445-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb445-27"><a href="#cb445-27" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
+<span id="cb445-28"><a href="#cb445-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb445-29"><a href="#cb445-29" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
+<span id="cb445-30"><a href="#cb445-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <p><img src="demo_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell" data-execution_count="39">
+<div class="cell" data-execution_count="8">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"evaporation2"</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>id_bnd <span class="op">=</span> <span class="fl">2</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_bnd]</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2020-01-01"</span>)</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[], variable<span class="op">=</span>[], value<span class="op">=</span>[])</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span> <span class="st">"E_pot"</span>, <span class="op">:</span>id <span class="op">==</span> <span class="fl">1</span>)</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"NoFlowBoundary"</span>])</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_bnd, <span class="st">"NoFlowBoundary"</span>, <span class="st">"x"</span>),</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    ids<span class="op">=</span>[<span class="fl">1</span>], volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb446"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb446-1"><a href="#cb446-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"evaporation2"</span></span>
+<span id="cb446-2"><a href="#cb446-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb446-3"><a href="#cb446-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb446-4"><a href="#cb446-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
+<span id="cb446-5"><a href="#cb446-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb446-6"><a href="#cb446-6" aria-hidden="true" tabindex="-1"></a>id_bnd <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb446-7"><a href="#cb446-7" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_bnd]</span>
+<span id="cb446-8"><a href="#cb446-8" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
+<span id="cb446-9"><a href="#cb446-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
+<span id="cb446-10"><a href="#cb446-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb446-11"><a href="#cb446-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2020-01-01"</span>)</span>
+<span id="cb446-12"><a href="#cb446-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb446-13"><a href="#cb446-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[], variable<span class="op">=</span>[], value<span class="op">=</span>[])</span>
+<span id="cb446-14"><a href="#cb446-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span> <span class="st">"E_pot"</span>, <span class="op">:</span>id <span class="op">==</span> <span class="fl">1</span>)</span>
+<span id="cb446-15"><a href="#cb446-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"NoFlowBoundary"</span>])</span>
+<span id="cb446-16"><a href="#cb446-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
+<span id="cb446-17"><a href="#cb446-17" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_bnd, <span class="st">"NoFlowBoundary"</span>, <span class="st">"x"</span>),</span>
+<span id="cb446-18"><a href="#cb446-18" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb446-19"><a href="#cb446-19" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
+<span id="cb446-20"><a href="#cb446-20" aria-hidden="true" tabindex="-1"></a>    ids<span class="op">=</span>[<span class="fl">1</span>], volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
+<span id="cb446-21"><a href="#cb446-21" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
+<span id="cb446-22"><a href="#cb446-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb446-23"><a href="#cb446-23" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb446-24"><a href="#cb446-24" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
+<span id="cb446-25"><a href="#cb446-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb446-26"><a href="#cb446-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
+<span id="cb446-27"><a href="#cb446-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <p><img src="demo_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
 </div>
 </div>
@@ -456,38 +1951,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="evaporation-and-precipitation-forcings" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="evaporation-and-precipitation-forcings"><span class="header-section-number">2.4</span> Evaporation and precipitation forcings</h2>
 <p>This example shows the evaporation and precipitation flux simulated together.</p>
-<div class="cell" data-execution_count="40">
+<div class="cell" data-execution_count="9">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"evaporation_precipitation"</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>id_bnd <span class="op">=</span> <span class="fl">2</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_bnd]</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2020-01-01"</span>)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[], variable<span class="op">=</span>[], value<span class="op">=</span>[])</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="kw">in</span> [<span class="st">"P"</span>, <span class="st">"E_pot"</span>], <span class="op">:</span>id <span class="op">==</span> <span class="fl">1</span>)</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"NoFlowBoundary"</span>])</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_bnd, <span class="st">"NoFlowBoundary"</span>, <span class="st">"x"</span>),</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    ids<span class="op">=</span>[<span class="fl">1</span>], volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb447"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb447-1"><a href="#cb447-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"evaporation_precipitation"</span></span>
+<span id="cb447-2"><a href="#cb447-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb447-3"><a href="#cb447-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb447-4"><a href="#cb447-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
+<span id="cb447-5"><a href="#cb447-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb447-6"><a href="#cb447-6" aria-hidden="true" tabindex="-1"></a>id_bnd <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb447-7"><a href="#cb447-7" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_bnd]</span>
+<span id="cb447-8"><a href="#cb447-8" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
+<span id="cb447-9"><a href="#cb447-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
+<span id="cb447-10"><a href="#cb447-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb447-11"><a href="#cb447-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2020-01-01"</span>)</span>
+<span id="cb447-12"><a href="#cb447-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb447-13"><a href="#cb447-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[], variable<span class="op">=</span>[], value<span class="op">=</span>[])</span>
+<span id="cb447-14"><a href="#cb447-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="kw">in</span> [<span class="st">"P"</span>, <span class="st">"E_pot"</span>], <span class="op">:</span>id <span class="op">==</span> <span class="fl">1</span>)</span>
+<span id="cb447-15"><a href="#cb447-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"NoFlowBoundary"</span>])</span>
+<span id="cb447-16"><a href="#cb447-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
+<span id="cb447-17"><a href="#cb447-17" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_bnd, <span class="st">"NoFlowBoundary"</span>, <span class="st">"x"</span>),</span>
+<span id="cb447-18"><a href="#cb447-18" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb447-19"><a href="#cb447-19" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
+<span id="cb447-20"><a href="#cb447-20" aria-hidden="true" tabindex="-1"></a>    ids<span class="op">=</span>[<span class="fl">1</span>], volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
+<span id="cb447-21"><a href="#cb447-21" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
+<span id="cb447-22"><a href="#cb447-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb447-23"><a href="#cb447-23" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb447-24"><a href="#cb447-24" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
+<span id="cb447-25"><a href="#cb447-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb447-26"><a href="#cb447-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
+<span id="cb447-27"><a href="#cb447-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <p><img src="demo_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
 </div>
 </div>
@@ -495,38 +1990,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="infiltration" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="infiltration"><span class="header-section-number">2.5</span> Infiltration</h2>
 <p>Infiltration is an out flux of the LSW. This example shows the LSW storage responding to an enhanced forcing of infiltration. There is no outflow simulated of this LSW, so that the only output is the infiltration.</p>
-<div class="cell" data-execution_count="41">
+<div class="cell" data-execution_count="10">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"Infiltration"</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>id_bnd <span class="op">=</span> <span class="fl">2</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_bnd]</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-02-01"</span>)</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[id_lsw], variable<span class="op">=</span>[<span class="st">"infiltration"</span>], value<span class="op">=</span>[<span class="fl">1.5e-1</span>])</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> lswforcing[<span class="fl">1</span><span class="op">:</span><span class="fl">0</span>, <span class="op">:</span>]  <span class="co"># no forcing</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"NoFlowBoundary"</span>])</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_bnd, <span class="st">"NoFlowBoundary"</span>, <span class="st">"x"</span>),</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    ids<span class="op">=</span>[id_lsw], volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb448"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb448-1"><a href="#cb448-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"Infiltration"</span></span>
+<span id="cb448-2"><a href="#cb448-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb448-3"><a href="#cb448-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb448-4"><a href="#cb448-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
+<span id="cb448-5"><a href="#cb448-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb448-6"><a href="#cb448-6" aria-hidden="true" tabindex="-1"></a>id_bnd <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb448-7"><a href="#cb448-7" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_bnd]</span>
+<span id="cb448-8"><a href="#cb448-8" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
+<span id="cb448-9"><a href="#cb448-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
+<span id="cb448-10"><a href="#cb448-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb448-11"><a href="#cb448-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-02-01"</span>)</span>
+<span id="cb448-12"><a href="#cb448-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb448-13"><a href="#cb448-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[id_lsw], variable<span class="op">=</span>[<span class="st">"infiltration"</span>], value<span class="op">=</span>[<span class="fl">1.5e-1</span>])</span>
+<span id="cb448-14"><a href="#cb448-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> lswforcing[<span class="fl">1</span><span class="op">:</span><span class="fl">0</span>, <span class="op">:</span>]  <span class="co"># no forcing</span></span>
+<span id="cb448-15"><a href="#cb448-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"NoFlowBoundary"</span>])</span>
+<span id="cb448-16"><a href="#cb448-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
+<span id="cb448-17"><a href="#cb448-17" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_bnd, <span class="st">"NoFlowBoundary"</span>, <span class="st">"x"</span>),</span>
+<span id="cb448-18"><a href="#cb448-18" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb448-19"><a href="#cb448-19" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
+<span id="cb448-20"><a href="#cb448-20" aria-hidden="true" tabindex="-1"></a>    ids<span class="op">=</span>[id_lsw], volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
+<span id="cb448-21"><a href="#cb448-21" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
+<span id="cb448-22"><a href="#cb448-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb448-23"><a href="#cb448-23" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb448-24"><a href="#cb448-24" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
+<span id="cb448-25"><a href="#cb448-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb448-26"><a href="#cb448-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
+<span id="cb448-27"><a href="#cb448-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <p><img src="demo_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
 </div>
 </div>
@@ -534,38 +2029,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="urban-runoff" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="urban-runoff"><span class="header-section-number">2.6</span> Urban Runoff</h2>
 <p>Urban runoff is a surface water input to the LSW. In case of the Netherlands, this is not calculated by MODFLOW but by the unsaturated zone model MetaSWAP. This example shows the LSW storage responding to the influx forcing of urban runoff.</p>
-<div class="cell" data-execution_count="42">
+<div class="cell" data-execution_count="11">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"Urban Runoff"</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>id_bnd <span class="op">=</span> <span class="fl">2</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_bnd]</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-06-01"</span>)</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[], variable<span class="op">=</span>[], value<span class="op">=</span>[])</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span> <span class="st">"urban_runoff"</span>, <span class="op">:</span>id <span class="op">==</span> <span class="fl">1</span>)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"NoFlowBoundary"</span>])</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_bnd, <span class="st">"NoFlowBoundary"</span>, <span class="st">"x"</span>),</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    ids<span class="op">=</span>[id_lsw], volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb449"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb449-1"><a href="#cb449-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"Urban Runoff"</span></span>
+<span id="cb449-2"><a href="#cb449-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-3"><a href="#cb449-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb449-4"><a href="#cb449-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
+<span id="cb449-5"><a href="#cb449-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb449-6"><a href="#cb449-6" aria-hidden="true" tabindex="-1"></a>id_bnd <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb449-7"><a href="#cb449-7" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_bnd]</span>
+<span id="cb449-8"><a href="#cb449-8" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
+<span id="cb449-9"><a href="#cb449-9" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
+<span id="cb449-10"><a href="#cb449-10" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-01-01"</span>)</span>
+<span id="cb449-11"><a href="#cb449-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">Date</span>(<span class="st">"2019-06-01"</span>)</span>
+<span id="cb449-12"><a href="#cb449-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb449-13"><a href="#cb449-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>[], variable<span class="op">=</span>[], value<span class="op">=</span>[])</span>
+<span id="cb449-14"><a href="#cb449-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="pp">@subset</span>(lswforcing, <span class="op">:</span>variable <span class="op">==</span> <span class="st">"urban_runoff"</span>, <span class="op">:</span>id <span class="op">==</span> <span class="fl">1</span>)</span>
+<span id="cb449-15"><a href="#cb449-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"NoFlowBoundary"</span>])</span>
+<span id="cb449-16"><a href="#cb449-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
+<span id="cb449-17"><a href="#cb449-17" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_bnd, <span class="st">"NoFlowBoundary"</span>, <span class="st">"x"</span>),</span>
+<span id="cb449-18"><a href="#cb449-18" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb449-19"><a href="#cb449-19" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
+<span id="cb449-20"><a href="#cb449-20" aria-hidden="true" tabindex="-1"></a>    ids<span class="op">=</span>[id_lsw], volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
+<span id="cb449-21"><a href="#cb449-21" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
+<span id="cb449-22"><a href="#cb449-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-23"><a href="#cb449-23" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb449-24"><a href="#cb449-24" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
+<span id="cb449-25"><a href="#cb449-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-26"><a href="#cb449-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
+<span id="cb449-27"><a href="#cb449-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <p><img src="demo_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
 </div>
 </div>
@@ -591,56 +2086,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="bifurcation" class="level2" data-number="2.10">
 <h2 data-number="2.10" class="anchored" data-anchor-id="bifurcation"><span class="header-section-number">2.10</span> Bifurcation</h2>
 <p>To handle bifurcations, we want to be able to model them using an adjustable fraction. To implement this we use a separate <code>Bifurcation</code> node, that has an inflow <code>src</code>, and outflows <code>dst_1</code> and <code>dst_2</code>. In this example <code>dst_1</code> will receive 33% of the flow, and <code>dst_2</code> will receive <code>67%</code>. An error is raised if the fractions do not add up to 100%.</p>
-<div class="cell" data-execution_count="43">
+<div class="cell" data-execution_count="12">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"Bifurcation"</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>id_out <span class="op">=</span> <span class="fl">2</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>id_bif <span class="op">=</span> <span class="fl">3</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>id_end1 <span class="op">=</span> <span class="fl">4</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>id_end2 <span class="op">=</span> <span class="fl">5</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_out, id_bif, id_end1, id_end2]</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">DateTime</span>(<span class="st">"2022-01-01"</span>)</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">DateTime</span>(<span class="st">"2022-02-01"</span>)</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>id_bif, variable<span class="op">=</span>[<span class="st">"fraction_1"</span>, <span class="st">"fraction_2"</span>], value<span class="op">=</span>[<span class="fl">0.33</span>, <span class="fl">0.67</span>])</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; time<span class="op">=</span><span class="dt">DateTime</span>[], variable<span class="op">=</span><span class="dt">Symbol</span>[], id<span class="op">=</span><span class="dt">Int</span>[], value<span class="op">=</span><span class="dt">Float64</span>[])</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"OutflowTable"</span>, <span class="st">"Bifurcation"</span>, <span class="st">"LSW"</span>, <span class="st">"LSW"</span>])</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"a"</span>),</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"s"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"s"</span>),</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"b"</span>) <span class="op">=&gt;</span> (id_bif, <span class="st">"Bifurcation"</span>, <span class="st">"src"</span>),</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    (id_bif, <span class="st">"Bifurcation"</span>, <span class="st">"dst_1"</span>) <span class="op">=&gt;</span> (id_end1, <span class="st">"LSW"</span>, <span class="st">"x"</span>),</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    (id_bif, <span class="st">"Bifurcation"</span>, <span class="st">"dst_2"</span>) <span class="op">=&gt;</span> (id_end2, <span class="st">"LSW"</span>, <span class="st">"x"</span>),</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    ids, volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> <span class="fu">Figure</span>()</span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>ylabel <span class="op">=</span> <span class="st">"flow rate / m³ s⁻¹"</span></span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>timespan <span class="op">=</span> <span class="fu">datetime2unix</span>(config[<span class="st">"starttime"</span>]) <span class="op">..</span> <span class="fu">datetime2unix</span>(config[<span class="st">"endtime"</span>])</span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> <span class="fu">time!</span>(<span class="fu">Axis</span>(fig[<span class="fl">1</span>, <span class="fl">1</span>]; ylabel), timespan.left, timespan.right)</span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="fu">Symbol</span>(<span class="op">:</span>bifurcation_, <span class="fl">3</span>)</span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a><span class="fu">lines!</span>(ax, timespan, <span class="fu">interpolator</span>(reg, <span class="fu">Symbol</span>(name, <span class="op">:</span>₊src₊Q)), label<span class="op">=</span><span class="st">"bifurcation inflow"</span>)</span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a><span class="fu">lines!</span>(ax, timespan, <span class="fu">interpolator</span>(reg, <span class="fu">Symbol</span>(name, <span class="op">:</span>₊dst_1₊Q)), label<span class="op">=</span><span class="st">"bifurcation outflow 1"</span>)</span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a><span class="fu">lines!</span>(ax, timespan, <span class="fu">interpolator</span>(reg, <span class="fu">Symbol</span>(name, <span class="op">:</span>₊dst_2₊Q)), label<span class="op">=</span><span class="st">"bifurcation outflow 2"</span>)</span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>fig[<span class="fl">1</span>, <span class="fl">2</span>] <span class="op">=</span> <span class="fu">Legend</span>(fig, ax, <span class="st">""</span>, framevisible<span class="op">=</span><span class="cn">true</span>)</span>
-<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a><span class="fu">hidexdecorations!</span>(ax, grid<span class="op">=</span><span class="cn">false</span>)</span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb450"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb450-1"><a href="#cb450-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"Bifurcation"</span></span>
+<span id="cb450-2"><a href="#cb450-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb450-3"><a href="#cb450-3" aria-hidden="true" tabindex="-1"></a><span class="co">## Set up</span></span>
+<span id="cb450-4"><a href="#cb450-4" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> <span class="fu">Dict</span><span class="dt">{String,Any}</span>()</span>
+<span id="cb450-5"><a href="#cb450-5" aria-hidden="true" tabindex="-1"></a>id_lsw <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb450-6"><a href="#cb450-6" aria-hidden="true" tabindex="-1"></a>id_out <span class="op">=</span> <span class="fl">2</span></span>
+<span id="cb450-7"><a href="#cb450-7" aria-hidden="true" tabindex="-1"></a>id_bif <span class="op">=</span> <span class="fl">3</span></span>
+<span id="cb450-8"><a href="#cb450-8" aria-hidden="true" tabindex="-1"></a>id_end1 <span class="op">=</span> <span class="fl">4</span></span>
+<span id="cb450-9"><a href="#cb450-9" aria-hidden="true" tabindex="-1"></a>id_end2 <span class="op">=</span> <span class="fl">5</span></span>
+<span id="cb450-10"><a href="#cb450-10" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> [id_lsw, id_out, id_bif, id_end1, id_end2]</span>
+<span id="cb450-11"><a href="#cb450-11" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"ids"</span>] <span class="op">=</span> ids</span>
+<span id="cb450-12"><a href="#cb450-12" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"update_timestep"</span>] <span class="op">=</span> <span class="fl">86400.0</span></span>
+<span id="cb450-13"><a href="#cb450-13" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"starttime"</span>] <span class="op">=</span> <span class="fu">DateTime</span>(<span class="st">"2022-01-01"</span>)</span>
+<span id="cb450-14"><a href="#cb450-14" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"endtime"</span>] <span class="op">=</span> <span class="fu">DateTime</span>(<span class="st">"2022-02-01"</span>)</span>
+<span id="cb450-15"><a href="#cb450-15" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"state"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(id<span class="op">=</span>ids, S<span class="op">=</span><span class="fl">1e6</span>, C<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb450-16"><a href="#cb450-16" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"static"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>id_bif, variable<span class="op">=</span>[<span class="st">"fraction_1"</span>, <span class="st">"fraction_2"</span>], value<span class="op">=</span>[<span class="fl">0.33</span>, <span class="fl">0.67</span>])</span>
+<span id="cb450-17"><a href="#cb450-17" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"forcing"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; time<span class="op">=</span><span class="dt">DateTime</span>[], variable<span class="op">=</span><span class="dt">Symbol</span>[], id<span class="op">=</span><span class="dt">Int</span>[], value<span class="op">=</span><span class="dt">Float64</span>[])</span>
+<span id="cb450-18"><a href="#cb450-18" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"node"</span>] <span class="op">=</span> <span class="fu">DataFrame</span>(; id<span class="op">=</span>ids, node<span class="op">=</span>[<span class="st">"LSW"</span>, <span class="st">"OutflowTable"</span>, <span class="st">"Bifurcation"</span>, <span class="st">"LSW"</span>, <span class="st">"LSW"</span>])</span>
+<span id="cb450-19"><a href="#cb450-19" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"edge"</span>] <span class="op">=</span> Ribasim.<span class="fu">edgepairs</span>([</span>
+<span id="cb450-20"><a href="#cb450-20" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"x"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"a"</span>),</span>
+<span id="cb450-21"><a href="#cb450-21" aria-hidden="true" tabindex="-1"></a>    (id_lsw, <span class="st">"LSW"</span>, <span class="st">"s"</span>) <span class="op">=&gt;</span> (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"s"</span>),</span>
+<span id="cb450-22"><a href="#cb450-22" aria-hidden="true" tabindex="-1"></a>    (id_out, <span class="st">"OutflowTable"</span>, <span class="st">"b"</span>) <span class="op">=&gt;</span> (id_bif, <span class="st">"Bifurcation"</span>, <span class="st">"src"</span>),</span>
+<span id="cb450-23"><a href="#cb450-23" aria-hidden="true" tabindex="-1"></a>    (id_bif, <span class="st">"Bifurcation"</span>, <span class="st">"dst_1"</span>) <span class="op">=&gt;</span> (id_end1, <span class="st">"LSW"</span>, <span class="st">"x"</span>),</span>
+<span id="cb450-24"><a href="#cb450-24" aria-hidden="true" tabindex="-1"></a>    (id_bif, <span class="st">"Bifurcation"</span>, <span class="st">"dst_2"</span>) <span class="op">=&gt;</span> (id_end2, <span class="st">"LSW"</span>, <span class="st">"x"</span>),</span>
+<span id="cb450-25"><a href="#cb450-25" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb450-26"><a href="#cb450-26" aria-hidden="true" tabindex="-1"></a>config[<span class="st">"profile"</span>] <span class="op">=</span> Ribasim.<span class="fu">profilesets</span>(;</span>
+<span id="cb450-27"><a href="#cb450-27" aria-hidden="true" tabindex="-1"></a>    ids, volume<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e6</span>], area<span class="op">=</span>[<span class="fl">1e6</span>, <span class="fl">1e6</span>],</span>
+<span id="cb450-28"><a href="#cb450-28" aria-hidden="true" tabindex="-1"></a>    discharge<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1e0</span>], level<span class="op">=</span>[<span class="fl">10.0</span>, <span class="fl">11.0</span>])</span>
+<span id="cb450-29"><a href="#cb450-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb450-30"><a href="#cb450-30" aria-hidden="true" tabindex="-1"></a><span class="co">## Simulate</span></span>
+<span id="cb450-31"><a href="#cb450-31" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> Ribasim.<span class="fu">run</span>(config)</span>
+<span id="cb450-32"><a href="#cb450-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb450-33"><a href="#cb450-33" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
+<span id="cb450-34"><a href="#cb450-34" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> <span class="fu">Figure</span>()</span>
+<span id="cb450-35"><a href="#cb450-35" aria-hidden="true" tabindex="-1"></a>ylabel <span class="op">=</span> <span class="st">"flow rate / m³ s⁻¹"</span></span>
+<span id="cb450-36"><a href="#cb450-36" aria-hidden="true" tabindex="-1"></a>timespan <span class="op">=</span> <span class="fu">datetime2unix</span>(config[<span class="st">"starttime"</span>]) <span class="op">..</span> <span class="fu">datetime2unix</span>(config[<span class="st">"endtime"</span>])</span>
+<span id="cb450-37"><a href="#cb450-37" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> <span class="fu">time!</span>(<span class="fu">Axis</span>(fig[<span class="fl">1</span>, <span class="fl">1</span>]; ylabel), timespan.left, timespan.right)</span>
+<span id="cb450-38"><a href="#cb450-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb450-39"><a href="#cb450-39" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="fu">Symbol</span>(<span class="op">:</span>bifurcation_, <span class="fl">3</span>)</span>
+<span id="cb450-40"><a href="#cb450-40" aria-hidden="true" tabindex="-1"></a><span class="fu">lines!</span>(ax, timespan, <span class="fu">interpolator</span>(reg, <span class="fu">Symbol</span>(name, <span class="op">:</span>₊src₊Q)), label<span class="op">=</span><span class="st">"bifurcation inflow"</span>)</span>
+<span id="cb450-41"><a href="#cb450-41" aria-hidden="true" tabindex="-1"></a><span class="fu">lines!</span>(ax, timespan, <span class="fu">interpolator</span>(reg, <span class="fu">Symbol</span>(name, <span class="op">:</span>₊dst_1₊Q)), label<span class="op">=</span><span class="st">"bifurcation outflow 1"</span>)</span>
+<span id="cb450-42"><a href="#cb450-42" aria-hidden="true" tabindex="-1"></a><span class="fu">lines!</span>(ax, timespan, <span class="fu">interpolator</span>(reg, <span class="fu">Symbol</span>(name, <span class="op">:</span>₊dst_2₊Q)), label<span class="op">=</span><span class="st">"bifurcation outflow 2"</span>)</span>
+<span id="cb450-43"><a href="#cb450-43" aria-hidden="true" tabindex="-1"></a>fig[<span class="fl">1</span>, <span class="fl">2</span>] <span class="op">=</span> <span class="fu">Legend</span>(fig, ax, <span class="st">""</span>, framevisible<span class="op">=</span><span class="cn">true</span>)</span>
+<span id="cb450-44"><a href="#cb450-44" aria-hidden="true" tabindex="-1"></a><span class="fu">hidexdecorations!</span>(ax, grid<span class="op">=</span><span class="cn">false</span>)</span>
+<span id="cb450-45"><a href="#cb450-45" aria-hidden="true" tabindex="-1"></a>fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <p><img src="demo_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
 </div>
 </div>
