@@ -209,21 +209,19 @@ div.csl-indent {
   </ul></li>
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage"><span class="toc-section-number">3</span>  Usage</a>
   <ul class="collapse">
-  <li><a href="#installing-the-compiled-executable" id="toc-installing-the-compiled-executable" class="nav-link" data-scroll-target="#installing-the-compiled-executable"><span class="toc-section-number">3.1</span>  Installing the compiled executable</a></li>
-  <li><a href="#installing-as-a-julia-package" id="toc-installing-as-a-julia-package" class="nav-link" data-scroll-target="#installing-as-a-julia-package"><span class="toc-section-number">3.2</span>  Installing as a Julia package</a></li>
-  <li><a href="#input-and-output-files" id="toc-input-and-output-files" class="nav-link" data-scroll-target="#input-and-output-files"><span class="toc-section-number">3.3</span>  Input and output files</a>
+  <li><a href="#input-and-output-files" id="toc-input-and-output-files" class="nav-link" data-scroll-target="#input-and-output-files"><span class="toc-section-number">3.1</span>  Input and output files</a>
   <ul class="collapse">
-  <li><a href="#configuration-file" id="toc-configuration-file" class="nav-link" data-scroll-target="#configuration-file"><span class="toc-section-number">3.3.1</span>  Configuration file</a></li>
-  <li><a href="#arrow-files" id="toc-arrow-files" class="nav-link" data-scroll-target="#arrow-files"><span class="toc-section-number">3.3.2</span>  Arrow files</a></li>
-  <li><a href="#node" id="toc-node" class="nav-link" data-scroll-target="#node"><span class="toc-section-number">3.3.3</span>  Node</a></li>
-  <li><a href="#edge" id="toc-edge" class="nav-link" data-scroll-target="#edge"><span class="toc-section-number">3.3.4</span>  Edge</a></li>
-  <li><a href="#state" id="toc-state" class="nav-link" data-scroll-target="#state"><span class="toc-section-number">3.3.5</span>  State</a></li>
-  <li><a href="#static" id="toc-static" class="nav-link" data-scroll-target="#static"><span class="toc-section-number">3.3.6</span>  Static</a></li>
-  <li><a href="#forcing" id="toc-forcing" class="nav-link" data-scroll-target="#forcing"><span class="toc-section-number">3.3.7</span>  Forcing</a></li>
-  <li><a href="#profile" id="toc-profile" class="nav-link" data-scroll-target="#profile"><span class="toc-section-number">3.3.8</span>  Profile</a></li>
-  <li><a href="#water-balance" id="toc-water-balance" class="nav-link" data-scroll-target="#water-balance"><span class="toc-section-number">3.3.9</span>  Water balance</a></li>
+  <li><a href="#configuration-file" id="toc-configuration-file" class="nav-link" data-scroll-target="#configuration-file"><span class="toc-section-number">3.1.1</span>  Configuration file</a></li>
+  <li><a href="#arrow-files" id="toc-arrow-files" class="nav-link" data-scroll-target="#arrow-files"><span class="toc-section-number">3.1.2</span>  Arrow files</a></li>
+  <li><a href="#node" id="toc-node" class="nav-link" data-scroll-target="#node"><span class="toc-section-number">3.1.3</span>  Node</a></li>
+  <li><a href="#edge" id="toc-edge" class="nav-link" data-scroll-target="#edge"><span class="toc-section-number">3.1.4</span>  Edge</a></li>
+  <li><a href="#state" id="toc-state" class="nav-link" data-scroll-target="#state"><span class="toc-section-number">3.1.5</span>  State</a></li>
+  <li><a href="#static" id="toc-static" class="nav-link" data-scroll-target="#static"><span class="toc-section-number">3.1.6</span>  Static</a></li>
+  <li><a href="#forcing" id="toc-forcing" class="nav-link" data-scroll-target="#forcing"><span class="toc-section-number">3.1.7</span>  Forcing</a></li>
+  <li><a href="#profile" id="toc-profile" class="nav-link" data-scroll-target="#profile"><span class="toc-section-number">3.1.8</span>  Profile</a></li>
+  <li><a href="#water-balance" id="toc-water-balance" class="nav-link" data-scroll-target="#water-balance"><span class="toc-section-number">3.1.9</span>  Water balance</a></li>
   </ul></li>
-  <li><a href="#example-input-files" id="toc-example-input-files" class="nav-link" data-scroll-target="#example-input-files"><span class="toc-section-number">3.4</span>  Example input files</a></li>
+  <li><a href="#example-input-files" id="toc-example-input-files" class="nav-link" data-scroll-target="#example-input-files"><span class="toc-section-number">3.2</span>  Example input files</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -388,110 +386,50 @@ div.csl-indent {
 </section>
 <section id="usage" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Usage</h1>
-<section id="installing-the-compiled-executable" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="installing-the-compiled-executable"><span class="header-section-number">3.1</span> Installing the compiled executable</h2>
 <p>Binaries of Ribasim CLI (command-line interface) can be downloaded from <a href="https://github.com/visr/ribasim-artifacts/releases">ribasim-artifacts</a>, and are currently available for Windows only. Download and unpack the <code>.zip</code> file. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The Ribasim CLI executable is in the <code>bin</code> directory.</p>
 <p>To check whether the installation was performed successfully, run <code>ribasim</code> with no arguments in the command line. This will give the following message:</p>
 <pre><code>Usage: ribasim 'path/to/config.toml'</code></pre>
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The binaries are currently not up to date with the latest developments; we suggest installing as a Julia package instead.</p>
-</div>
-</div>
-</section>
-<section id="installing-as-a-julia-package" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="installing-as-a-julia-package"><span class="header-section-number">3.2</span> Installing as a Julia package</h2>
-<p>Ribasim is a <a href="https://julialang.org/">Julia</a> package, that can be installed using Julia’s built in package manager, <code>Pkg</code>. For more information on how to use <code>Pkg</code>, see the <a href="https://pkgdocs.julialang.org/v1/getting-started/">Getting Started</a> page in its documentation.</p>
-<p>Since Ribasim is not yet registered in the General registry, you have to install it using the full url. Note that we here use <code>dev</code> to do a development install.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pkg<span class="op">&gt;</span> dev https<span class="op">://</span>github.com<span class="op">/</span>Deltares<span class="op">/</span>Ribasim.jl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will clone the git repository, put it under your home directory in <code>.julia/dev/Ribasim</code>, and add the Ribasim package to your project environment. In order to receive updates, you have to pull in the latest changes yourself using <code>git pull</code>.</p>
-<p>Installation may take a while since Pkg is also installing and pre-compiling the dependencies of Ribasim.</p>
-<p>Once it is done, you can go back the Julia REPL and try to load Ribasim:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="im">using</span> <span class="bu">Ribasim</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If you already have a simulation prepared, you can run it using:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> Ribasim.<span class="fu">run</span>(<span class="st">"path/to/config.toml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Again, there will be considerable latency. For this reason, if you expect to run Ribasim a lot, we recommend to:</p>
-<ul>
-<li>Use Ribasim CLI if you only need <code>Ribasim.run</code> and don’t need to do developments.</li>
-<li>Adapt a workflow that keeps your session active; the first <code>Ribasim.run("model.toml")</code> will take considerably more time than the second one, since more code needs to be compiled.</li>
-<li>Use a system image as explained in the <a href="#developer.qmd">developer documentation</a> to reduce latency further</li>
-</ul>
-<div class="callout-tip callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Tip: Visual Studio Code
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>There is a section on editors and IDEs for Julia on <a href="https://julialang.org/" class="uri">https://julialang.org/</a>, scroll down to see it. We use and recommend Microsoft’s free editor <a href="https://code.visualstudio.com/">Visual Studio Code</a>. When combined with the <a href="https://www.julia-vscode.org/">Julia extension</a> it provides a powerful and interactive development experience.</p>
-</div>
-</div>
-<div class="callout-tip callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Tip: Revise.jl
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If you plan to make changes to the code of Ribasim, we recommend installing the <code>Revise.jl</code> package. This package allows you to modify code and use the changes without restarting Julia. Install it with <code>add Revise</code> from the Pkg REPL. Then create a file called <code>.julia/config/startup.jl</code>, and put <code>using Revise</code> there. This will load Revise every time you start a Julia session.</p>
-</div>
-</div>
-</section>
-<section id="input-and-output-files" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="input-and-output-files"><span class="header-section-number">3.3</span> Input and output files</h2>
-<section id="configuration-file" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="configuration-file"><span class="header-section-number">3.3.1</span> Configuration file</h3>
+<section id="input-and-output-files" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="input-and-output-files"><span class="header-section-number">3.1</span> Input and output files</h2>
+<section id="configuration-file" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="configuration-file"><span class="header-section-number">3.1.1</span> Configuration file</h3>
 <p>Ribasim has a single configuration file, which is written in the <a href="https://toml.io/">TOML</a> format. It contains settings, as well as paths to other input and output files.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start- and endtime of the simulation</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># can also be set to a date-time like 1979-05-27T07:32:00</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">starttime</span> <span class="op">=</span> <span class="bn">2019-01-01</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dt">endtime</span> <span class="op">=</span> <span class="bn">2021-01-01</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># run a coupled Ribasim - MODFLOW 6 simulation</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="dt">run_modflow</span> <span class="op">=</span> <span class="cn">false</span>  <span class="co"># default is false</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># all timesteps are in seconds</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># do water allocation for this time horizon</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="dt">update_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># save output at this interval</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="dt">output_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># default is 86400.0</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># save timesteps at this interval</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># note that this is internal, and is forwarded to the DiffEq solver options</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># https://diffeq.sciml.ai/stable/basics/common_solver_opts/#Output-Control</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="dt">saveat</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># default is to save every step</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co"># node IDs that will be included in the simulation</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># these node IDs are referenced in the input files below</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="dt">ids</span> <span class="op">=</span> <span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">]</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># input files</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="dt">forcing</span> <span class="op">=</span> <span class="st">"input/forcing.arrow"</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="dt">state</span> <span class="op">=</span> <span class="st">"input/state.arrow"</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="op">=</span> <span class="st">"input/static.arrow"</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="dt">profile</span> <span class="op">=</span> <span class="st">"input/profile.arrow"</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="dt">node</span> <span class="op">=</span> <span class="st">"input/node.arrow"</span></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="dt">edge</span> <span class="op">=</span> <span class="st">"input/edge.arrow"</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="co"># output file</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="dt">waterbalance</span> <span class="op">=</span> <span class="st">"output/waterbalance.arrow"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start- and endtime of the simulation</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># can also be set to a date-time like 1979-05-27T07:32:00</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">starttime</span> <span class="op">=</span> <span class="bn">2019-01-01</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">endtime</span> <span class="op">=</span> <span class="bn">2021-01-01</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># run a coupled Ribasim - MODFLOW 6 simulation</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="dt">run_modflow</span> <span class="op">=</span> <span class="cn">false</span>  <span class="co"># default is false</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># all timesteps are in seconds</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># do water allocation for this time horizon</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="dt">update_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># save output at this interval</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="dt">output_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># default is 86400.0</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># save timesteps at this interval</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># note that this is internal, and is forwarded to the DiffEq solver options</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># https://diffeq.sciml.ai/stable/basics/common_solver_opts/#Output-Control</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="dt">saveat</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># default is to save every step</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># node IDs that will be included in the simulation</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># these node IDs are referenced in the input files below</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="dt">ids</span> <span class="op">=</span> <span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">]</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># input files</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="dt">forcing</span> <span class="op">=</span> <span class="st">"input/forcing.arrow"</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="dt">state</span> <span class="op">=</span> <span class="st">"input/state.arrow"</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="op">=</span> <span class="st">"input/static.arrow"</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="dt">profile</span> <span class="op">=</span> <span class="st">"input/profile.arrow"</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="dt">node</span> <span class="op">=</span> <span class="st">"input/node.arrow"</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="dt">edge</span> <span class="op">=</span> <span class="st">"input/edge.arrow"</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co"># output file</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="dt">waterbalance</span> <span class="op">=</span> <span class="st">"output/waterbalance.arrow"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Additionally, if <code>run_modflow = true</code>, a MODFLOW 6 specific section needs to be added to the configuration file. This part is documented in <a href="./coupling-demo.html">the MODFLOW 6 coupling demo</a>.</p>
 </section>
-<section id="arrow-files" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="arrow-files"><span class="header-section-number">3.3.2</span> Arrow files</h3>
+<section id="arrow-files" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="arrow-files"><span class="header-section-number">3.1.2</span> Arrow files</h3>
 <p>The input and output files described below all share that they are tabular files, stored in the <a href="https://arrow.apache.org/">Apache Arrow</a> file format, also known as Feather files. This format has been chosen since it is standardized, fast, simple and flexible. It can be read and written by many different software packages. In Ribasim we use <a href="https://arrow.juliadata.org/dev/">Arrow.jl</a>.</p>
 <p>Below we give details per file, in which we describe the schema of the table using a syntax like this:</p>
 <table class="table">
@@ -519,8 +457,8 @@ Tip: Revise.jl
 <p>Tables are also allowed to have rows for IDs, variables or times that are not part of the simulation, these will be ignored. That makes it easy to prepare data for a larger region once, and test models on a subset of the basins.</p>
 <p>The Arrow input files can be compressed with LZ4 or Zstd compression. Furthermore, in some of the columns, a small amount of different values are repeated many times. To reduce file sizes it may be a good idea to apply <a href="https://arrow.apache.org/docs/format/Columnar.html#dictionary-encoded-layout">dictionary encoding</a> to those columns.</p>
 </section>
-<section id="node" class="level3" data-number="3.3.3">
-<h3 data-number="3.3.3" class="anchored" data-anchor-id="node"><span class="header-section-number">3.3.3</span> Node</h3>
+<section id="node" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="node"><span class="header-section-number">3.1.3</span> Node</h3>
 <p>Since we build Ribasim on top of ModelingToolkit, we can do <a href="https://docs.sciml.ai/ModelingToolkit/stable/tutorials/spring_mass/">component-based modeling</a>. The components here are <a href="https://docs.sciml.ai/ModelingToolkit/stable/basics/AbstractSystem/">systems</a>, typically <code>ODESystem</code>. These components are connected together to form a larger system. This is similar to the way a network has <strong>nodes</strong> that are connected along <strong>edges</strong>. We mostly use the terms node and edge in this text.</p>
 <p>Useful nodes can be water body storages that keep their own water balance, weirs, pumps, users or suppliers of water. Counter intuitively, even systems you may think of as edges, such as a canal, are nodes in Ribasim. This is because edges only define direct instantaneous couplings between nodes, and never have storage of their own.</p>
 <table class="table">
@@ -562,8 +500,8 @@ Tip: Revise.jl
 </ul>
 <p>Adding a geometry to the node table can be helpful to examine models in <a href="https://qgis.org/en/site/">QGIS</a>, as it will show the location of the nodes on the map. Geometries can be encoded in Arrow files according to the <a href="https://github.com/geoarrow/geoarrow">geoarrow specifications</a> (still in flux). The geometry is not used by Ribasim.</p>
 </section>
-<section id="edge" class="level3" data-number="3.3.4">
-<h3 data-number="3.3.4" class="anchored" data-anchor-id="edge"><span class="header-section-number">3.3.4</span> Edge</h3>
+<section id="edge" class="level3" data-number="3.1.4">
+<h3 data-number="3.1.4" class="anchored" data-anchor-id="edge"><span class="header-section-number">3.1.4</span> Edge</h3>
 <p>Edges define so called connections, created in ModelingToolkit using the <code>connect</code> function. If defined between two flow connectors, they equate the level <span class="math inline">\(h\)</span>, conserve the flux <span class="math inline">\(Q\)</span>, and carry the salinity <span class="math inline">\(C\)</span> in the flow direction. When defined between storage connectors, they can function simply as a way to share available storage <span class="math inline">\(S\)</span> information from a reservoir to a water user, such that it can avoid overextraction.</p>
 <table class="table">
 <thead>
@@ -655,8 +593,8 @@ Tip: Revise.jl
 </ul>
 <p>Similarly to the node table, you can use a geometry to visualize the connections between the nodes in QGIS. For instance, you can draw a line connecting the two node coordinates.</p>
 </section>
-<section id="state" class="level3" data-number="3.3.5">
-<h3 data-number="3.3.5" class="anchored" data-anchor-id="state"><span class="header-section-number">3.3.5</span> State</h3>
+<section id="state" class="level3" data-number="3.1.5">
+<h3 data-number="3.1.5" class="anchored" data-anchor-id="state"><span class="header-section-number">3.1.5</span> State</h3>
 <p>The state table aims to capture the full state of the system, such that it can be used as an initial condition, that is potentially the outcome of an earlier simulation. Currently the only states are the volume <span class="math inline">\(S\)</span> and salinity <span class="math inline">\(C\)</span> of the LSW node.</p>
 <table class="table">
 <thead>
@@ -686,8 +624,8 @@ Tip: Revise.jl
 </table>
 <p>Each used ID needs to be in the table.</p>
 </section>
-<section id="static" class="level3" data-number="3.3.6">
-<h3 data-number="3.3.6" class="anchored" data-anchor-id="static"><span class="header-section-number">3.3.6</span> Static</h3>
+<section id="static" class="level3" data-number="3.1.6">
+<h3 data-number="3.1.6" class="anchored" data-anchor-id="static"><span class="header-section-number">3.1.6</span> Static</h3>
 <p>The static table can be used to set the <strong>initial</strong> value of variables. The forcing table has a similar schema, with the time column added. If a variable is in the static table, it can still be added to the forcing as well, which will update the inital value when the given timestamp is reached.</p>
 <table class="table">
 <thead>
@@ -717,8 +655,8 @@ Tip: Revise.jl
 </table>
 <p>Note that if variables are not set in the static table, default values are used when possible. These are generally zero, e.g.&nbsp;no precipitation, no inflow. If it is not possible to have a reasonable and safe default, a value must be provided in the static table. An example of this is the <code>target_volume</code> from the LevelLink node.</p>
 </section>
-<section id="forcing" class="level3" data-number="3.3.7">
-<h3 data-number="3.3.7" class="anchored" data-anchor-id="forcing"><span class="header-section-number">3.3.7</span> Forcing</h3>
+<section id="forcing" class="level3" data-number="3.1.7">
+<h3 data-number="3.1.7" class="anchored" data-anchor-id="forcing"><span class="header-section-number">3.1.7</span> Forcing</h3>
 <p>All dynamic data can be added to the forcing table.</p>
 <table class="table">
 <thead>
@@ -796,8 +734,8 @@ Tip: Revise.jl
 </table>
 <p>The forcing table is a <a href="https://en.wikipedia.org/wiki/Wide_and_narrow_data#Narrow">narrow table</a>. When the simulation arrives at a time given in the forcing data, it will update all the values given for that time. These values then stay constant until the next update, there is no interpolation in between. This also means that if a value is defined before the start of the simulation, it is completely ignored. This format give maximum flexibility to update different variables at different times.</p>
 </section>
-<section id="profile" class="level3" data-number="3.3.8">
-<h3 data-number="3.3.8" class="anchored" data-anchor-id="profile"><span class="header-section-number">3.3.8</span> Profile</h3>
+<section id="profile" class="level3" data-number="3.1.8">
+<h3 data-number="3.1.8" class="anchored" data-anchor-id="profile"><span class="header-section-number">3.1.8</span> Profile</h3>
 <p>The profile table defines the physical dimensions of the storage reservoir of each basin. Depending on the basin type, the columns are used differently. For free draining basins, the level is not used in the calculation, but may be used to convert calculated volumes to levels for output. For level controlled basins, the discharge is not used.</p>
 <table class="table">
 <thead>
@@ -904,8 +842,8 @@ Note
 </div>
 </div>
 </section>
-<section id="water-balance" class="level3" data-number="3.3.9">
-<h3 data-number="3.3.9" class="anchored" data-anchor-id="water-balance"><span class="header-section-number">3.3.9</span> Water balance</h3>
+<section id="water-balance" class="level3" data-number="3.1.9">
+<h3 data-number="3.1.9" class="anchored" data-anchor-id="water-balance"><span class="header-section-number">3.1.9</span> Water balance</h3>
 <p>The water balance table outputs all water balance terms at a regular output frequency, as defined by <code>output_timestep</code> in the configuration file. The units are <span class="math inline">\(m^3\)</span>, which is the total volume of flow into the basin since the previous output timestep. The inital timestep of the simulation, with all values set to zero, is also written to the file. Since flow out of the basin is given a negative value, and the storage change is included, you can sum all components to verify the closure of the water balance.</p>
 <table class="table">
 <thead>
@@ -941,8 +879,8 @@ Note
 <p>The water balance table has the same schema as the forcing table. Since the output frequency is constant, and equal for all variables, you can pivot this table from <a href="https://en.wikipedia.org/wiki/Wide_and_narrow_data">narrow</a> to wide data to get the different water balance components as columns. Having them as a narrow table can make it easier to process, since for a given model you may not know the water balance components ahead of time.</p>
 </section>
 </section>
-<section id="example-input-files" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="example-input-files"><span class="header-section-number">3.4</span> Example input files</h2>
+<section id="example-input-files" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="example-input-files"><span class="header-section-number">3.2</span> Example input files</h2>
 <p>From <a href="https://github.com/visr/ribasim-artifacts/releases">this link</a> you can download an existing schematization for the Netherlands that was used for testing purposes during development. It is provided here as an example to help people get started. Based on the description of the input files above, you can also generate your own schematization using your tools of choice. We have used <a href="https://github.com/JuliaData/DataFrames.jl">DataFrames.jl</a> and <a href="https://github.com/JuliaData/Arrow.jl">Arrow.jl</a> to prepare the tables, but one can equally use for instance Python’s <a href="https://arrow.apache.org/docs/python/pandas.html">pandas</a>.</p>
 
 
