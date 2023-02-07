@@ -211,7 +211,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="sec-free" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Demonstration of Free Flowing LSW</h1>
 <p>The following examples demonstrate the impact of forcings and the user allocation functionality for a single free draining LSW. The examples are simulated with synthetic data to highlight the functionality of Ribasim, with the exception of example <a href="#sec-free-balance">Section&nbsp;2.8</a> and <a href="#sec-free-comparison">Section&nbsp;2.9</a>, which show the Ribasim prototype simulation of the Hupsel LSW.</p>
-<div class="cell" data-execution_count="1">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">Pkg</span></span>
@@ -219,7 +219,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Pkg</span>.<span class="fu">instantiate</span>(; io<span class="op">=</span><span class="cn">devnull</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="2">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -238,7 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">includet</span>(<span class="st">"../utils/testdata.jl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="3">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load LSW forcings data, used in several examples below</span></span>
@@ -249,7 +249,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="sec-free-no" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="sec-free-no"><span class="header-section-number">2.1</span> No external forcing</h2>
 <p>This fictional free flowing LSW has no input or output forcing flux. The LSW empties according to the Volume-Area-Discharge relationship. The two examples below show the impact the profile has on the LSW drainage.</p>
-<div class="cell" data-execution_count="4">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"emptying_sloping_profile"</span></span>
@@ -283,11 +283,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
 <span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="5">
-<p><img src="demo_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
 </div>
-</div>
-<div class="cell" data-execution_count="5">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"emptying_steep_profile_Hupsel"</span></span>
@@ -324,15 +321,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
 <span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<p><img src="demo_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
-</div>
 </div>
 </section>
 <section id="precipitation-forcing" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="precipitation-forcing"><span class="header-section-number">2.2</span> Precipitation forcing</h2>
 <p>This fictional free flowing LSW is simulated with only the external forcing of synthetic precipitation data. The storage and the outflow respond to the preciptation as shown below.</p>
-<div class="cell" data-execution_count="6">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"precipitation"</span></span>
@@ -366,16 +360,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot results</span></span>
 <span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<p><img src="demo_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
-</div>
 </div>
 </section>
 <section id="evaporation-forcing" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="evaporation-forcing"><span class="header-section-number">2.3</span> Evaporation forcing</h2>
 <p>The LSW loses water from evaporation. Outflow occurs according to the relation as in <a href="#sec-free-no">Section&nbsp;2.1</a>, but overall volume decline is faster rate due to additional loss from evaporation. Evaporation does not occur in an empty LSW.</p>
 <p>The second example shows the LSW with no simulated discharge, so that the only output is evaporation</p>
-<div class="cell" data-execution_count="7">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"evaporation"</span></span>
@@ -409,11 +400,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
 <span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<p><img src="demo_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
 </div>
-</div>
-<div class="cell" data-execution_count="8">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"evaporation2"</span></span>
@@ -444,15 +432,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
 <span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<p><img src="demo_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
-</div>
 </div>
 </section>
 <section id="evaporation-and-precipitation-forcings" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="evaporation-and-precipitation-forcings"><span class="header-section-number">2.4</span> Evaporation and precipitation forcings</h2>
 <p>This example shows the evaporation and precipitation flux simulated together.</p>
-<div class="cell" data-execution_count="9">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"evaporation_precipitation"</span></span>
@@ -483,15 +468,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
 <span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<p><img src="demo_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
-</div>
 </div>
 </section>
 <section id="infiltration" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="infiltration"><span class="header-section-number">2.5</span> Infiltration</h2>
 <p>Infiltration is an out flux of the LSW. This example shows the LSW storage responding to an enhanced forcing of infiltration. There is no outflow simulated of this LSW, so that the only output is the infiltration.</p>
-<div class="cell" data-execution_count="10">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"Infiltration"</span></span>
@@ -522,15 +504,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
 <span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="11">
-<p><img src="demo_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
-</div>
 </div>
 </section>
 <section id="urban-runoff" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="urban-runoff"><span class="header-section-number">2.6</span> Urban Runoff</h2>
 <p>Urban runoff is a surface water input to the LSW. In case of the Netherlands, this is not calculated by MODFLOW but by the unsaturated zone model MetaSWAP. This example shows the LSW storage responding to the influx forcing of urban runoff.</p>
-<div class="cell" data-execution_count="11">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"Urban Runoff"</span></span>
@@ -561,9 +540,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
 <span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_series</span>(reg, id_lsw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="12">
-<p><img src="demo_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
-</div>
 </div>
 </section>
 <section id="allocation-to-multiple-users-agriculture-and-industry" class="level2" data-number="2.7">
@@ -587,7 +563,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="bifurcation" class="level2" data-number="2.10">
 <h2 data-number="2.10" class="anchored" data-anchor-id="bifurcation"><span class="header-section-number">2.10</span> Bifurcation</h2>
 <p>To handle bifurcations, we want to be able to model them using an adjustable fraction. To implement this we use a separate <code>Bifurcation</code> node, that has an inflow <code>src</code>, and outflows <code>dst_1</code> and <code>dst_2</code>. In this example <code>dst_1</code> will receive 33% of the flow, and <code>dst_2</code> will receive <code>67%</code>. An error is raised if the fractions do not add up to 100%.</p>
-<div class="cell" data-execution_count="12">
+<div class="cell">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>case <span class="op">=</span> <span class="st">"Bifurcation"</span></span>
@@ -636,9 +612,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="fu">hidexdecorations!</span>(ax, grid<span class="op">=</span><span class="cn">false</span>)</span>
 <span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>fig</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="13">
-<p><img src="demo_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
-</div>
 </div>
 </section>
 </section>
