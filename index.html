@@ -489,7 +489,7 @@ div.csl-indent {
 </table>
 <p>The schema of the node table shows that only a unique ID and known node type need to be given. The known node types as of this writing are:</p>
 <ul>
-<li>LSW</li>
+<li>Basin</li>
 <li>GeneralUser_P</li>
 <li>LevelControl</li>
 <li>GeneralUser</li>
@@ -513,12 +513,12 @@ div.csl-indent {
 </thead>
 <tbody>
 <tr class="odd">
-<td>from_id</td>
+<td>from_node_id</td>
 <td>Int</td>
 <td>-</td>
 </tr>
 <tr class="even">
-<td>from_node</td>
+<td>from_node_type</td>
 <td>String</td>
 <td>known type</td>
 </tr>
@@ -528,12 +528,12 @@ div.csl-indent {
 <td>exists for node</td>
 </tr>
 <tr class="even">
-<td>to_id</td>
+<td>to_node_id</td>
 <td>Int</td>
 <td>-</td>
 </tr>
 <tr class="odd">
-<td>to_node</td>
+<td>to_node_type</td>
 <td>String</td>
 <td>known type</td>
 </tr>
@@ -551,51 +551,51 @@ div.csl-indent {
 </table>
 <p>The names of the connectors need to match the available connectors per node type, which are outlined below.</p>
 <ul>
-<li>LSW
+<li>Basin
 <ul>
-<li>x: flow</li>
-<li>s: storage</li>
+<li>flow</li>
+<li>storage</li>
 </ul></li>
 <li>GeneralUser_P
 <ul>
-<li>a: flow</li>
-<li>s_a: storage</li>
+<li>flow</li>
+<li>storage</li>
 </ul></li>
 <li>LevelControl
 <ul>
-<li>a: flow</li>
+<li>flow</li>
 </ul></li>
 <li>GeneralUser
 <ul>
-<li>x: flow</li>
-<li>s: storage</li>
+<li>flow</li>
+<li>storage</li>
 </ul></li>
 <li>OutflowTable
 <ul>
-<li>a: upstream flow</li>
-<li>b: downstream flow</li>
-<li>s: storage</li>
+<li>upstream: flow</li>
+<li>downstream: flow</li>
+<li>storage: upstream storage</li>
 </ul></li>
 <li>HeadBoundary
 <ul>
-<li>x: flow</li>
+<li>flow</li>
 </ul></li>
 <li>Bifurcation
 <ul>
-<li>src: inflow</li>
-<li>dst_{i}: split outflow in n parts</li>
+<li>upstream: flow</li>
+<li>downstream_{i}: split flow in n parts</li>
 </ul></li>
 <li>LevelLink
 <ul>
-<li>a: flow on one side</li>
-<li>b: flow on other side</li>
+<li>a-side: flow on one side</li>
+<li>b-side: flow on other side</li>
 </ul></li>
 </ul>
 <p>Similarly to the node table, you can use a geometry to visualize the connections between the nodes in QGIS. For instance, you can draw a line connecting the two node coordinates.</p>
 </section>
 <section id="state" class="level3" data-number="3.1.5">
 <h3 data-number="3.1.5" class="anchored" data-anchor-id="state"><span class="header-section-number">3.1.5</span> State</h3>
-<p>The state table aims to capture the full state of the system, such that it can be used as an initial condition, that is potentially the outcome of an earlier simulation. Currently the only states are the volume <span class="math inline">\(S\)</span> and salinity <span class="math inline">\(C\)</span> of the LSW node.</p>
+<p>The state table aims to capture the full state of the system, such that it can be used as an initial condition, that is potentially the outcome of an earlier simulation. Currently the only states are the volume <span class="math inline">\(S\)</span> and salinity <span class="math inline">\(C\)</span> of the Basin node.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -838,7 +838,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Profiles need to be defined for all LSW and OutflowTable node. OutflowTable uses only volume and discharge, whereas LSW uses volume, area and level. These may be split up in the future.</p>
+<p>Profiles need to be defined for all Basin and OutflowTable node. OutflowTable uses only volume and discharge, whereas Basin uses volume, area and level. These may be split up in the future.</p>
 </div>
 </div>
 </section>
