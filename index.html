@@ -490,11 +490,11 @@ div.csl-indent {
 <p>The schema of the node table shows that only a unique ID and known node type need to be given. The known node types as of this writing are:</p>
 <ul>
 <li>Basin</li>
+<li>FractionalFlow</li>
 <li>LevelControl</li>
-<li>WaterUser</li>
-<li>TabulatedRatingCurve</li>
-<li>Bifurcation</li>
 <li>LinearLevelConnection</li>
+<li>TabulatedRatingCurve</li>
+<li>WaterUser</li>
 </ul>
 <p>Adding a geometry to the node table can be helpful to examine models in <a href="https://qgis.org/en/site/">QGIS</a>, as it will show the location of the nodes on the map. Geometries can be encoded in Arrow files according to the <a href="https://github.com/geoarrow/geoarrow">geoarrow specifications</a> (still in flux). The geometry is not used by Ribasim.</p>
 </section>
@@ -516,79 +516,17 @@ div.csl-indent {
 <td>-</td>
 </tr>
 <tr class="even">
-<td>from_node_type</td>
-<td>String</td>
-<td>known type</td>
-</tr>
-<tr class="odd">
-<td>from_connector</td>
-<td>String</td>
-<td>exists for node</td>
-</tr>
-<tr class="even">
 <td>to_node_id</td>
 <td>Int</td>
 <td>-</td>
 </tr>
 <tr class="odd">
-<td>to_node_type</td>
-<td>String</td>
-<td>known type</td>
-</tr>
-<tr class="even">
-<td>to_connector</td>
-<td>String</td>
-<td>exists for node</td>
-</tr>
-<tr class="odd">
+<td>geom</td>
 <td>geometry</td>
-<td>geoarrow</td>
 <td>(optional)</td>
 </tr>
 </tbody>
 </table>
-<p>The names of the connectors need to match the available connectors per node type, which are outlined below.</p>
-<ul>
-<li>Basin
-<ul>
-<li>flow</li>
-<li>storage</li>
-</ul></li>
-<li>GeneralUser_P
-<ul>
-<li>flow</li>
-<li>storage</li>
-</ul></li>
-<li>LevelControl
-<ul>
-<li>flow</li>
-</ul></li>
-<li>GeneralUser
-<ul>
-<li>flow</li>
-<li>storage</li>
-</ul></li>
-<li>OutflowTable
-<ul>
-<li>upstream: flow</li>
-<li>downstream: flow</li>
-<li>storage: upstream storage</li>
-</ul></li>
-<li>HeadBoundary
-<ul>
-<li>flow</li>
-</ul></li>
-<li>Bifurcation
-<ul>
-<li>upstream: flow</li>
-<li>downstream_{i}: split flow in n parts</li>
-</ul></li>
-<li>LevelLink
-<ul>
-<li>a-side: flow on one side</li>
-<li>b-side: flow on other side</li>
-</ul></li>
-</ul>
 <p>Similarly to the node table, you can use a geometry to visualize the connections between the nodes in QGIS. For instance, you can draw a line connecting the two node coordinates.</p>
 </section>
 <section id="state" class="level3" data-number="3.1.5">
