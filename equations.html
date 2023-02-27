@@ -319,7 +319,7 @@ Q_{user} = Q_{alloc} \cdot (0.5 \cdot \tanh(S - 50.0) / 10.0) + 0.5
 </section>
 <section id="numerical-solution" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Numerical solution</h1>
-<p>Ribasim uses ModelingToolkit.jl to provide a numerical solution to the water balance equations. Changes to forcings or parameters such as precipitation, but also the allocated water abstraction is managed through the use of CallBack functions <span class="citation" data-cites="mtkevents">(<a href="#ref-mtkevents" role="doc-biblioref">ModelingToolkit.jl Development Team 2022</a>)</span>. In a coupled run, the exchanges with MODFLOW 6 are also managed via the use of a callback function.</p>
+<p>Ribasim uses OrdinaryDiffEq.jl to provide a numerical solution to the water balance equations. Changes to forcings or parameters such as precipitation, but also the allocated water abstraction is managed through the use of CallBack functions <span class="citation" data-cites="callbacks">(<a href="#ref-callbacks" role="doc-biblioref">SciML Development Team 2022</a>)</span>. In a coupled run, the exchanges with MODFLOW 6 are also managed via the use of a callback function.</p>
 </section>
 <section id="performance" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Performance</h1>
@@ -339,8 +339,8 @@ Q_{user} = Q_{alloc} \cdot (0.5 \cdot \tanh(S - 50.0) / 10.0) + 0.5
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-mtkevents" class="csl-entry" role="doc-biblioentry">
-ModelingToolkit.jl Development Team. 2022. <span>“Event Handling and Callback Functions.”</span> <a href="https://mtk.sciml.ai/dev/basics/Events/">https://mtk.sciml.ai/dev/basics/Events/</a>.
+<div id="ref-callbacks" class="csl-entry" role="doc-biblioentry">
+SciML Development Team. 2022. <span>“Event Handling and Callback Functions.”</span> <a href="https://docs.sciml.ai/DiffEqDocs/latest/features/callback_functions/">https://docs.sciml.ai/DiffEqDocs/latest/features/callback_functions/</a>.
 </div>
 <div id="ref-enwiki:1106669904" class="csl-entry" role="doc-biblioentry">
 Wikipedia contributors. 2022. <span>“Activation Function — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=Activation_function&amp;oldid=1106669904">https://en.wikipedia.org/w/index.php?title=Activation_function&amp;oldid=1106669904</a>.

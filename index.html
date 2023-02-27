@@ -212,14 +212,16 @@ div.csl-indent {
   <li><a href="#input-and-output-files" id="toc-input-and-output-files" class="nav-link" data-scroll-target="#input-and-output-files"><span class="toc-section-number">3.1</span>  Input and output files</a>
   <ul class="collapse">
   <li><a href="#configuration-file" id="toc-configuration-file" class="nav-link" data-scroll-target="#configuration-file"><span class="toc-section-number">3.1.1</span>  Configuration file</a></li>
-  <li><a href="#arrow-files" id="toc-arrow-files" class="nav-link" data-scroll-target="#arrow-files"><span class="toc-section-number">3.1.2</span>  Arrow files</a></li>
+  <li><a href="#geopackage-and-arrow-tables" id="toc-geopackage-and-arrow-tables" class="nav-link" data-scroll-target="#geopackage-and-arrow-tables"><span class="toc-section-number">3.1.2</span>  GeoPackage and Arrow tables</a></li>
   <li><a href="#node" id="toc-node" class="nav-link" data-scroll-target="#node"><span class="toc-section-number">3.1.3</span>  Node</a></li>
   <li><a href="#edge" id="toc-edge" class="nav-link" data-scroll-target="#edge"><span class="toc-section-number">3.1.4</span>  Edge</a></li>
-  <li><a href="#state" id="toc-state" class="nav-link" data-scroll-target="#state"><span class="toc-section-number">3.1.5</span>  State</a></li>
-  <li><a href="#static" id="toc-static" class="nav-link" data-scroll-target="#static"><span class="toc-section-number">3.1.6</span>  Static</a></li>
-  <li><a href="#forcing" id="toc-forcing" class="nav-link" data-scroll-target="#forcing"><span class="toc-section-number">3.1.7</span>  Forcing</a></li>
-  <li><a href="#profile" id="toc-profile" class="nav-link" data-scroll-target="#profile"><span class="toc-section-number">3.1.8</span>  Profile</a></li>
-  <li><a href="#water-balance" id="toc-water-balance" class="nav-link" data-scroll-target="#water-balance"><span class="toc-section-number">3.1.9</span>  Water balance</a></li>
+  <li><a href="#basin-state" id="toc-basin-state" class="nav-link" data-scroll-target="#basin-state"><span class="toc-section-number">3.1.5</span>  Basin / state</a></li>
+  <li><a href="#basin" id="toc-basin" class="nav-link" data-scroll-target="#basin"><span class="toc-section-number">3.1.6</span>  Basin</a></li>
+  <li><a href="#basin-forcing" id="toc-basin-forcing" class="nav-link" data-scroll-target="#basin-forcing"><span class="toc-section-number">3.1.7</span>  Basin / forcing</a></li>
+  <li><a href="#basin-profile" id="toc-basin-profile" class="nav-link" data-scroll-target="#basin-profile"><span class="toc-section-number">3.1.8</span>  Basin / profile</a></li>
+  <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="toc-section-number">3.1.9</span>  TabulatedRatingCurve</a></li>
+  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="toc-section-number">3.1.10</span>  Basin output</a></li>
+  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="toc-section-number">3.1.11</span>  Flow output</a></li>
   </ul></li>
   <li><a href="#example-input-files" id="toc-example-input-files" class="nav-link" data-scroll-target="#example-input-files"><span class="toc-section-number">3.2</span>  Example input files</a></li>
   </ul></li>
@@ -247,7 +249,7 @@ div.csl-indent {
 </header>
 
 <p>Ribasim is a water resources model, designed to be the replacement of the regional surface water modules Mozart and SIMRES in the Netherlands Hydrological Instrument (NHI). Ribasim is a work in progress, it is a prototype that demonstrates all essential functionalities. Further development of the prototype in a software release is planned in 2022 and 2023.</p>
-<p>Ribasim is written in the <a href="https://julialang.org/">Julia programming language</a> and is built on top of the <a href="https://sciml.ai/">SciML: Open Source Software for Scientific Machine Learning</a> libraries, notably <a href="https://mtk.sciml.ai/stable/">ModelingToolkit.jl</a>.</p>
+<p>Ribasim is written in the <a href="https://julialang.org/">Julia programming language</a> and is built on top of the <a href="https://sciml.ai/">SciML: Open Source Software for Scientific Machine Learning</a> libraries, notably <a href="https://docs.sciml.ai/DiffEqDocs/stable/">DifferentialEquations.jl</a>.</p>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-bottom">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -371,7 +373,7 @@ div.csl-indent {
 <p>
 </p><pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-3">graph LR;
     T["basin T"] --&gt; S["basin S"];
-    S --&gt; P["basin P"]; 
+    S --&gt; P["basin P"];
     P --&gt; B["basin B"];
 </pre>
 <div id="mermaid-tooltip-3" class="mermaidTooltip">
@@ -386,7 +388,7 @@ div.csl-indent {
 </section>
 <section id="usage" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Usage</h1>
-<p>Binaries of Ribasim CLI (command-line interface) can be downloaded from <a href="https://github.com/visr/ribasim-artifacts/releases">ribasim-artifacts</a>, and are currently available for Windows only. Download and unpack the <code>.zip</code> file. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The Ribasim CLI executable is in the <code>bin</code> directory.</p>
+<p>Ribasim is typically used as a command-line interface (CLI). It is distributed as a <code>.zip</code> archive, that must be downloaded and unpacked. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The Ribasim CLI executable is in the <code>bin</code> directory.</p>
 <p>To check whether the installation was performed successfully, run <code>ribasim</code> with no arguments in the command line. This will give the following message:</p>
 <pre><code>Usage: ribasim 'path/to/config.toml'</code></pre>
 <section id="input-and-output-files" class="level2" data-number="3.1">
@@ -396,71 +398,64 @@ div.csl-indent {
 <p>Ribasim has a single configuration file, which is written in the <a href="https://toml.io/">TOML</a> format. It contains settings, as well as paths to other input and output files.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start- and endtime of the simulation</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># can also be set to a date-time like 1979-05-27T07:32:00</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">starttime</span> <span class="op">=</span> <span class="bn">2019-01-01</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">endtime</span> <span class="op">=</span> <span class="bn">2021-01-01</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">starttime</span> <span class="op">=</span> <span class="bn">2019-01-01</span>  <span class="co"># required</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">endtime</span> <span class="op">=</span> <span class="bn">2021-01-01</span>    <span class="co"># required</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># run a coupled Ribasim - MODFLOW 6 simulation</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="dt">run_modflow</span> <span class="op">=</span> <span class="cn">false</span>  <span class="co"># default is false</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># all timesteps are in seconds</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># do water allocation for this time horizon</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="dt">update_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># save output at this interval</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="dt">output_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># default is 86400.0</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># save timesteps at this interval</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># note that this is internal, and is forwarded to the DiffEq solver options</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># https://diffeq.sciml.ai/stable/basics/common_solver_opts/#Output-Control</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="dt">saveat</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># default is to save every step</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># node IDs that will be included in the simulation</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># these node IDs are referenced in the input files below</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="dt">ids</span> <span class="op">=</span> <span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">]</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># input files</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="dt">forcing</span> <span class="op">=</span> <span class="st">"input/forcing.arrow"</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="dt">state</span> <span class="op">=</span> <span class="st">"input/state.arrow"</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="dt">static</span> <span class="op">=</span> <span class="st">"input/static.arrow"</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="dt">profile</span> <span class="op">=</span> <span class="st">"input/profile.arrow"</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="dt">node</span> <span class="op">=</span> <span class="st">"input/node.arrow"</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="dt">edge</span> <span class="op">=</span> <span class="st">"input/edge.arrow"</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co"># output file</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="dt">waterbalance</span> <span class="op">=</span> <span class="st">"output/waterbalance.arrow"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Additionally, if <code>run_modflow = true</code>, a MODFLOW 6 specific section needs to be added to the configuration file. This part is documented in <a href="./coupling-demo.html">the MODFLOW 6 coupling demo</a>.</p>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># all timesteps are in seconds</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="dt">update_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># optional, default 1 day</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># save timesteps at this interval</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="dt">saveat</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># optional, default is the value of update_timestep</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># input files</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="dt">geopackage</span> <span class="op">=</span> <span class="st">"model.gpkg"</span>  <span class="co"># required</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Specic tables can also go into Arrow files rather than the GeoPackage.</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># For large tables this can benefit from better compressed file sizes.</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># This is optional, tables are retrieved from the GeoPackage if not specified in the TOML.</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">forcing</span><span class="kw">]</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="dt">Basin</span> <span class="op">=</span> <span class="st">"forcing.arrow"</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># These output files are always written</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="dt">flow</span> <span class="op">=</span> <span class="st">"output/flow.arrow"</span>    <span class="co"># optional, default "output/flow.arrow"</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="dt">basin</span> <span class="op">=</span> <span class="st">"output/basin.arrow"</span>  <span class="co"># optional, default "output/basin.arrow"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="arrow-files" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="arrow-files"><span class="header-section-number">3.1.2</span> Arrow files</h3>
-<p>The input and output files described below all share that they are tabular files, stored in the <a href="https://arrow.apache.org/">Apache Arrow</a> file format, also known as Feather files. This format has been chosen since it is standardized, fast, simple and flexible. It can be read and written by many different software packages. In Ribasim we use <a href="https://arrow.juliadata.org/dev/">Arrow.jl</a>.</p>
+<section id="geopackage-and-arrow-tables" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="geopackage-and-arrow-tables"><span class="header-section-number">3.1.2</span> GeoPackage and Arrow tables</h3>
+<p>The input and output tables described below all share that they are tabular files. The Node and Edge tables always have to be in the <a href="https://www.geopackage.org/">GeoPackage</a> file, and output is always written to <a href="https://arrow.apache.org/">Apache Arrow</a> files, sometimes also known as Feather files. All other tables can either be in the GeoPackage or in separate Arrow files that are listed in the TOML as described above.</p>
+<p>For visualization, the Node and Edge tables typically have associated geometries. GeoPackage was used since it provides a standardized way to store tables with (and without) geometry columns in a SQLite database. If, like Ribasim, you can ignore the geometries, a GeoPackage is easy to read using SQLite libraries, which are commonly available. Furthermore GeoPackage can be updated in place when working on a model.</p>
+<p>Arrow was chosen since it is standardized, fast, simple and flexible. It can be read and written by many different software packages. In Ribasim we use <a href="https://arrow.juliadata.org/dev/">Arrow.jl</a>. Output is written to Arrow, since for long runs output can producs tables with many rows. Arrow is well suited for large tabular datasets, and file size is kept small by using compression. The Arrow input files can be compressed with LZ4 or Zstd compression. Furthermore, in some of the columns, a small amount of different values are repeated many times. To reduce file sizes it may be a good idea to apply <a href="https://arrow.apache.org/docs/format/Columnar.html#dictionary-encoded-layout">dictionary encoding</a> to those columns.</p>
 <p>Below we give details per file, in which we describe the schema of the table using a syntax like this:</p>
 <table class="table">
 <thead>
 <tr class="header">
 <th>column</th>
 <th>type</th>
+<th>unit</th>
 <th>restriction</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>id</td>
+<td>node_id</td>
 <td>Int</td>
 <td>-</td>
+<td>sorted</td>
 </tr>
 <tr class="even">
-<td>volume</td>
+<td>storage</td>
 <td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
 <td>non-negative</td>
 </tr>
 </tbody>
 </table>
-<p>This means that two columns are required, one named <code>id</code>, that contained elements of type <code>Int</code>, and a column named <code>volume</code> that contains elements of type <code>Float64</code>. The order of the columns does not matter, and the files are also allowed to have extra columns, which will be ignored. In some cases there may be restrictions on the values or the ordering of the rows. This is indicated under <code>restriction</code>.</p>
-<p>Tables are also allowed to have rows for IDs, variables or times that are not part of the simulation, these will be ignored. That makes it easy to prepare data for a larger region once, and test models on a subset of the basins.</p>
-<p>The Arrow input files can be compressed with LZ4 or Zstd compression. Furthermore, in some of the columns, a small amount of different values are repeated many times. To reduce file sizes it may be a good idea to apply <a href="https://arrow.apache.org/docs/format/Columnar.html#dictionary-encoded-layout">dictionary encoding</a> to those columns.</p>
+<p>This means that two columns are required, one named <code>node_id</code>, that contained elements of type <code>Int</code>, and a column named <code>storage</code> that contains elements of type <code>Float64</code>. The order of the columns does not matter. In some cases there may be restrictions on the values. This is indicated under <code>restriction</code>.</p>
+<p>Tables are also allowed to have rows for timestamps that are not part of the simulation, these will be ignored. That makes it easy to prepare data for a larger period, and test models on a shorted period.</p>
 </section>
 <section id="node" class="level3" data-number="3.1.3">
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="node"><span class="header-section-number">3.1.3</span> Node</h3>
-<p>Since we build Ribasim on top of ModelingToolkit, we can do <a href="https://docs.sciml.ai/ModelingToolkit/stable/tutorials/spring_mass/">component-based modeling</a>. The components here are <a href="https://docs.sciml.ai/ModelingToolkit/stable/basics/AbstractSystem/">systems</a>, typically <code>ODESystem</code>. These components are connected together to form a larger system. This is similar to the way a network has <strong>nodes</strong> that are connected along <strong>edges</strong>. We mostly use the terms node and edge in this text.</p>
-<p>Useful nodes can be water body storages that keep their own water balance, weirs, pumps, users or suppliers of water. Counter intuitively, even systems you may think of as edges, such as a canal, are nodes in Ribasim. This is because edges only define direct instantaneous couplings between nodes, and never have storage of their own.</p>
+<p>Node is a table that specifies the ID and type of each node of a model. The ID must be unique among all nodes, and the type must be one of the available node types listed below.</p>
+<p>Nodes are components that are connected together to form a larger system. The Basin is a central node type that stores water. The other node types influence the flow between Basins in some way. Counter intuitively, even systems you may think of as edges, such as a canal, are nodes in Ribasim. This is because edges only define direct instantaneous couplings between nodes, and never have storage of their own.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -471,14 +466,14 @@ div.csl-indent {
 </thead>
 <tbody>
 <tr class="odd">
-<td>id</td>
+<td>fid</td>
 <td>Int</td>
 <td>unique</td>
 </tr>
 <tr class="even">
-<td>node</td>
+<td>type</td>
 <td>String</td>
-<td>known type</td>
+<td>known node type</td>
 </tr>
 <tr class="odd">
 <td>geometry</td>
@@ -487,20 +482,38 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>The schema of the node table shows that only a unique ID and known node type need to be given. The known node types as of this writing are:</p>
+<p>The available node types as of this writing are listed as the top level bullets below. The sub-bullets indicate which tables are associated to the node type. The table name is the name it must have in the GeoPackage if it is stored there.</p>
 <ul>
-<li>Basin</li>
-<li>FractionalFlow</li>
-<li>LevelControl</li>
-<li>LinearLevelConnection</li>
-<li>TabulatedRatingCurve</li>
-<li>WaterUser</li>
+<li>Basin: stores water
+<ul>
+<li><code>Basin</code>: default forcing values, used if no dynamic data given in the forcing table</li>
+<li><code>Basin / profile</code>: geometries of the basins</li>
+<li><code>Basin / forcing</code>: time series of the forcing values</li>
+<li><code>Basin / state</code>: used as initial condition of the basins</li>
+</ul></li>
+<li>FractionalFlow: connect two of these from a Basin to get a fixed ratio bifurcation
+<ul>
+<li><code>FractionalFlow</code>: fractions</li>
+</ul></li>
+<li>LevelControl: tries to keep a target water level in a connected Basin
+<ul>
+<li><code>LevelControl</code>: target levels</li>
+</ul></li>
+<li>LinearLevelConnection: bidirectional flow based on water level difference between Basins
+<ul>
+<li><code>LinearLevelConnection</code>: conductances</li>
+</ul></li>
+<li>TabulatedRatingCurve: Basin outflow relation
+<ul>
+<li><code>TabulatedRatingCurve</code>: rating curve</li>
+</ul></li>
 </ul>
-<p>Adding a geometry to the node table can be helpful to examine models in <a href="https://qgis.org/en/site/">QGIS</a>, as it will show the location of the nodes on the map. Geometries can be encoded in Arrow files according to the <a href="https://github.com/geoarrow/geoarrow">geoarrow specifications</a> (still in flux). The geometry is not used by Ribasim.</p>
+<p>Adding a geometry to the node table can be helpful to examine models in <a href="https://qgis.org/en/site/">QGIS</a>, as it will show the location of the nodes on the map. The geometry is not used by Ribasim.</p>
 </section>
 <section id="edge" class="level3" data-number="3.1.4">
 <h3 data-number="3.1.4" class="anchored" data-anchor-id="edge"><span class="header-section-number">3.1.4</span> Edge</h3>
-<p>Edges define so called connections, created in ModelingToolkit using the <code>connect</code> function. If defined between two flow connectors, they equate the level <span class="math inline">\(h\)</span>, conserve the flux <span class="math inline">\(Q\)</span>, and carry the salinity <span class="math inline">\(C\)</span> in the flow direction. When defined between storage connectors, they can function simply as a way to share available storage <span class="math inline">\(S\)</span> information from a reservoir to a water user, such that it can avoid overextraction.</p>
+<p>Edges define connections between nodes. Flows between nodes are stored on edges. The only thing that defines an edge is the nodes it connects, and in what direction. The effect of the edge direction depends on the node type, Node types that have a notion of an upstream and downstream side use the incoming edge as the upstream side, and the outgoing edge as the downstream side. This means that edges should generally be drawn in the main flow direction. But for instance between two <code>LinearLevelConnections</code> the edge direction does not affect anything, other than the sign of the flow on the edge. The sign of the flow follows the edge direction; a positive flow flows along the edge direction, a negative flow in the opposite way.</p>
+<p>Note that an edge does not only convey flow, but sometimes also information. For instance, a LevelControl node needs to be connected to a Basin node, and will get access to the current water level in the Basin to be able to determine the amount of water that needs to be added or removed.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -529,150 +542,9 @@ div.csl-indent {
 </table>
 <p>Similarly to the node table, you can use a geometry to visualize the connections between the nodes in QGIS. For instance, you can draw a line connecting the two node coordinates.</p>
 </section>
-<section id="state" class="level3" data-number="3.1.5">
-<h3 data-number="3.1.5" class="anchored" data-anchor-id="state"><span class="header-section-number">3.1.5</span> State</h3>
-<p>The state table aims to capture the full state of the system, such that it can be used as an initial condition, that is potentially the outcome of an earlier simulation. Currently the only states are the volume <span class="math inline">\(S\)</span> and salinity <span class="math inline">\(C\)</span> of the Basin node.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>id</td>
-<td>Int</td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>S</td>
-<td>Float64</td>
-<td>non-negative</td>
-</tr>
-<tr class="odd">
-<td>C</td>
-<td>Float64</td>
-<td>non-negative</td>
-</tr>
-</tbody>
-</table>
-<p>Each used ID needs to be in the table.</p>
-</section>
-<section id="static" class="level3" data-number="3.1.6">
-<h3 data-number="3.1.6" class="anchored" data-anchor-id="static"><span class="header-section-number">3.1.6</span> Static</h3>
-<p>The static table can be used to set the <strong>initial</strong> value of variables. The forcing table has a similar schema, with the time column added. If a variable is in the static table, it can still be added to the forcing as well, which will update the inital value when the given timestamp is reached.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>id</td>
-<td>Int</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>variable</td>
-<td>String</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>value</td>
-<td>Float64</td>
-<td>depending on variable</td>
-</tr>
-</tbody>
-</table>
-<p>Note that if variables are not set in the static table, default values are used when possible. These are generally zero, e.g.&nbsp;no precipitation, no inflow. If it is not possible to have a reasonable and safe default, a value must be provided in the static table. An example of this is the <code>target_volume</code> from the LevelLink node.</p>
-</section>
-<section id="forcing" class="level3" data-number="3.1.7">
-<h3 data-number="3.1.7" class="anchored" data-anchor-id="forcing"><span class="header-section-number">3.1.7</span> Forcing</h3>
-<p>All dynamic data can be added to the forcing table.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>time</td>
-<td>DateTime</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>id</td>
-<td>Int</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>variable</td>
-<td>String</td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>value</td>
-<td>Float64</td>
-<td>depending on variable</td>
-</tr>
-</tbody>
-</table>
-<p>Here is an example of the first and last two rows of a forcing table:</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>time</th>
-<th>id</th>
-<th>variable</th>
-<th>value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2019-01-01T00:00:00</td>
-<td>6</td>
-<td>P</td>
-<td>2.89352e-10</td>
-</tr>
-<tr class="even">
-<td>2019-01-01T00:00:00</td>
-<td>16</td>
-<td>P</td>
-<td>2.89352e-10</td>
-</tr>
-<tr class="odd">
-<td>⋮</td>
-<td>⋮</td>
-<td>⋮</td>
-<td>⋮</td>
-</tr>
-<tr class="even">
-<td>2020-12-31T00:00:00</td>
-<td>90</td>
-<td>E_pot</td>
-<td>1.15741e-9</td>
-</tr>
-<tr class="odd">
-<td>2020-12-31T00:00:00</td>
-<td>7</td>
-<td>E_pot</td>
-<td>1.15741e-9</td>
-</tr>
-</tbody>
-</table>
-<p>The forcing table is a <a href="https://en.wikipedia.org/wiki/Wide_and_narrow_data#Narrow">narrow table</a>. When the simulation arrives at a time given in the forcing data, it will update all the values given for that time. These values then stay constant until the next update, there is no interpolation in between. This also means that if a value is defined before the start of the simulation, it is completely ignored. This format give maximum flexibility to update different variables at different times.</p>
-</section>
-<section id="profile" class="level3" data-number="3.1.8">
-<h3 data-number="3.1.8" class="anchored" data-anchor-id="profile"><span class="header-section-number">3.1.8</span> Profile</h3>
-<p>The profile table defines the physical dimensions of the storage reservoir of each basin. Depending on the basin type, the columns are used differently. For free draining basins, the level is not used in the calculation, but may be used to convert calculated volumes to levels for output. For level controlled basins, the discharge is not used.</p>
+<section id="basin-state" class="level3" data-number="3.1.5">
+<h3 data-number="3.1.5" class="anchored" data-anchor-id="basin-state"><span class="header-section-number">3.1.5</span> Basin / state</h3>
+<p>The state table aims to capture the full state of the Basin, such that it can be used as an initial condition, potentially the outcome of an earlier simulation. Currently only the Basin node types have state.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -684,43 +556,123 @@ div.csl-indent {
 </thead>
 <tbody>
 <tr class="odd">
-<td>id</td>
+<td>node_id</td>
 <td>Int</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
 <tr class="even">
-<td>volume</td>
+<td>storage</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3\)</span></td>
-<td>sorted per ID and start at 0</td>
+<td>non-negative</td>
+</tr>
+</tbody>
+</table>
+<p>Each Basin ID needs to be in the table.</p>
+</section>
+<section id="basin" class="level3" data-number="3.1.6">
+<h3 data-number="3.1.6" class="anchored" data-anchor-id="basin"><span class="header-section-number">3.1.6</span> Basin</h3>
+<p>The Basin table can be used to set the static value of variables. The forcing table has a similar schema, with the time column added. A static value for a variable is only used if there is no dynamic forcing data for that variable. Specifically, if there is either no forcing table, it is empty, or all timestamps of that variable are missing.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>precipitation</td>
+<td>Float64</td>
+<td><span class="math inline">\(m s^{-1}\)</span></td>
+<td>non-negative</td>
+</tr>
+<tr class="odd">
+<td>potential_evaporation</td>
+<td>Float64</td>
+<td><span class="math inline">\(m s^{-1}\)</span></td>
+<td>non-negative</td>
+</tr>
+<tr class="even">
+<td>drainage</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>non-negative</td>
+</tr>
+<tr class="odd">
+<td>infiltration</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>non-negative</td>
+</tr>
+<tr class="even">
+<td>urban_runoff</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>non-negative</td>
+</tr>
+</tbody>
+</table>
+<p>Note that if variables are not set in the static table, default values are used when possible. These are generally zero, e.g.&nbsp;no precipitation, no inflow. If it is not possible to have a reasonable and safe default, a value must be provided in the static table. An example of this is the <code>target_volume</code> from the LevelLink node.</p>
+</section>
+<section id="basin-forcing" class="level3" data-number="3.1.7">
+<h3 data-number="3.1.7" class="anchored" data-anchor-id="basin-forcing"><span class="header-section-number">3.1.7</span> Basin / forcing</h3>
+<p>This table is the transient form of the <code>Basin</code> table. The only difference is that a time column is added. A linear interpolation between the given timesteps is currently done if the solver takes timesteps between the given data points. More options will be avaiable later.</p>
+</section>
+<section id="basin-profile" class="level3" data-number="3.1.8">
+<h3 data-number="3.1.8" class="anchored" data-anchor-id="basin-profile"><span class="header-section-number">3.1.8</span> Basin / profile</h3>
+<p>The profile table defines the physical dimensions of the storage reservoir of each basin.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>storage</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
+<td>non-negative, start at 0</td>
 </tr>
 <tr class="odd">
 <td>area</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^2\)</span></td>
-<td>sorted per ID and non-negative</td>
+<td>non-negative</td>
 </tr>
 <tr class="even">
-<td>discharge</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>sorted per ID and non-negative</td>
-</tr>
-<tr class="odd">
 <td>level</td>
 <td>Float64</td>
 <td><span class="math inline">\(m\)</span></td>
-<td>sorted per ID</td>
+<td>-</td>
 </tr>
 </tbody>
 </table>
-<p>The level is in meters above a datum that is the same for the entire model. An example of the first 5 rows of such a table is given below. The first 4 rows define the profile of ID <code>10020</code>. The number of rows can vary per ID. Using a very large number of rows may impact performance.</p>
+<p>The level is in meters above a datum that is the same for the entire model. An example of the first 5 rows of such a table is given below. The first 4 rows define the profile of ID <code>2</code>. The number of rows can vary per ID. Using a very large number of rows may impact performance.</p>
 <table class="table">
 <thead>
 <tr class="header">
-<th>id</th>
-<th>volume</th>
+<th>node_id</th>
+<th>storage</th>
 <th>area</th>
 <th>discharge</th>
 <th>level</th>
@@ -728,35 +680,35 @@ div.csl-indent {
 </thead>
 <tbody>
 <tr class="odd">
-<td>10020</td>
+<td>2</td>
 <td>0.0</td>
 <td>1.36404e5</td>
 <td>0.0</td>
 <td>-0.105</td>
 </tr>
 <tr class="even">
-<td>10020</td>
+<td>2</td>
 <td>24726.2</td>
 <td>1.36404e5</td>
 <td>0.0</td>
 <td>0.095</td>
 </tr>
 <tr class="odd">
-<td>10020</td>
+<td>2</td>
 <td>49452.5</td>
 <td>1.36404e5</td>
 <td>0.00942702</td>
 <td>0.295</td>
 </tr>
 <tr class="even">
-<td>10020</td>
+<td>2</td>
 <td>2.49735e6</td>
 <td>1.36404e5</td>
 <td>0.942702</td>
 <td>20.095</td>
 </tr>
 <tr class="odd">
-<td>10037</td>
+<td>3</td>
 <td>0.0</td>
 <td>50663.3</td>
 <td>0.0</td>
@@ -764,60 +716,115 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Profiles need to be defined for all Basin and OutflowTable node. OutflowTable uses only volume and discharge, whereas Basin uses volume, area and level. These may be split up in the future.</p>
-</div>
-</div>
 </section>
-<section id="water-balance" class="level3" data-number="3.1.9">
-<h3 data-number="3.1.9" class="anchored" data-anchor-id="water-balance"><span class="header-section-number">3.1.9</span> Water balance</h3>
-<p>The water balance table outputs all water balance terms at a regular output frequency, as defined by <code>output_timestep</code> in the configuration file. The units are <span class="math inline">\(m^3\)</span>, which is the total volume of flow into the basin since the previous output timestep. The inital timestep of the simulation, with all values set to zero, is also written to the file. Since flow out of the basin is given a negative value, and the storage change is included, you can sum all components to verify the closure of the water balance.</p>
+<section id="tabulatedratingcurve" class="level3" data-number="3.1.9">
+<h3 data-number="3.1.9" class="anchored" data-anchor-id="tabulatedratingcurve"><span class="header-section-number">3.1.9</span> TabulatedRatingCurve</h3>
+<p>This table is similar in structure to the Basin profile. The TabulatedRatingCurve gives a relation between the storage of a connected Basin and its outflow.</p>
 <table class="table">
 <thead>
 <tr class="header">
 <th>column</th>
 <th>type</th>
+<th>unit</th>
 <th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>storage</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
+<td>non-negative, start at 0</td>
+</tr>
+<tr class="odd">
+<td>discharge</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>non-negative</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="basin-output" class="level3" data-number="3.1.10">
+<h3 data-number="3.1.10" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">3.1.10</span> Basin output</h3>
+<p>The basin table contains outputs of the storage and level of each basin at every solver timestep. The inital condition is also written to the file.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>time</td>
 <td>DateTime</td>
-<td>sorted</td>
+<td>-</td>
 </tr>
 <tr class="even">
-<td>id</td>
+<td>node_id</td>
 <td>Int</td>
 <td>-</td>
 </tr>
 <tr class="odd">
-<td>variable</td>
-<td>String</td>
-<td>-</td>
+<td>storage</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
 </tr>
 <tr class="even">
-<td>value</td>
+<td>level</td>
 <td>Float64</td>
-<td>non-negative volume (<span class="math inline">\(m^3\)</span>)</td>
+<td><span class="math inline">\(m\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>The water balance table has the same schema as the forcing table. Since the output frequency is constant, and equal for all variables, you can pivot this table from <a href="https://en.wikipedia.org/wiki/Wide_and_narrow_data">narrow</a> to wide data to get the different water balance components as columns. Having them as a narrow table can make it easier to process, since for a given model you may not know the water balance components ahead of time.</p>
+</section>
+<section id="flow-output" class="level3" data-number="3.1.11">
+<h3 data-number="3.1.11" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">3.1.11</span> Flow output</h3>
+<p>The flow tables contains outputs of the flow on every edge in the model, for each solver timestep.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>time</td>
+<td>DateTime</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>from_node_id</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>to_node_id</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>flow</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 <section id="example-input-files" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="example-input-files"><span class="header-section-number">3.2</span> Example input files</h2>
-<p>From <a href="https://github.com/visr/ribasim-artifacts/releases">this link</a> you can download an existing schematization for the Netherlands that was used for testing purposes during development. It is provided here as an example to help people get started. Based on the description of the input files above, you can also generate your own schematization using your tools of choice. We have used <a href="https://github.com/JuliaData/DataFrames.jl">DataFrames.jl</a> and <a href="https://github.com/JuliaData/Arrow.jl">Arrow.jl</a> to prepare the tables, but one can equally use for instance Python’s <a href="https://arrow.apache.org/docs/python/pandas.html">pandas</a>.</p>
+<p>From <a href="https://github.com/visr/ribasim-artifacts/releases">this link</a> you can download an existing schematization for the Netherlands that was used for testing purposes during development. It is provided here as an example to help people get started. Based on the description of the input files above, you can also generate your own schematization using your tools of choice. For Python users <a href="https://github.com/Deltares/ribasim-python">ribasim-python</a> was created to make it easy to do pre- and postprocessing.</p>
 
 
 
