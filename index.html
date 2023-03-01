@@ -288,15 +288,6 @@ div.csl-indent {
 <p><span class="math display">\[
 \frac{\mathrm{d}S}{\mathrm{d}t} = R + P + ET + Q_{rest}
 \]</span></p>
-<p>Such a water balance ODE can be represented in ModelingToolkit.jl as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ModelingToolkit</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">@variables</span> t <span class="fu">S</span>(t) <span class="fu">R</span>(t) <span class="fu">P</span>(t) <span class="fu">ET</span>(t) <span class="fu">Q_rest</span>(t)  <span class="co"># independent and dependent variables</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> <span class="fu">Differential</span>(t)       <span class="co"># define an operator for the differentiation w.r.t. time</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>sys <span class="op">=</span> <span class="fu">ODESystem</span>([<span class="fu">D</span>(S) <span class="op">~</span> R <span class="op">+</span> P <span class="op">+</span> ET <span class="op">+</span> Q_rest])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>On the last line, an <code>ODESystem</code> is created that consists of a single equation. Before we can solve this, we need to create an <code>ODEProblem</code>, that provides information about the timespan of the simulation, as well as the initial conditions.</p>
-<p>Ribasim can be used as a Julia package running in a Julia session or as an application initialized via a TOML configuration file. Both use cases are shown in the demonstrations.</p>
 </section>
 <section id="time" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="time"><span class="header-section-number">2.2</span> Time</h2>
@@ -396,28 +387,28 @@ div.csl-indent {
 <section id="configuration-file" class="level3" data-number="3.1.1">
 <h3 data-number="3.1.1" class="anchored" data-anchor-id="configuration-file"><span class="header-section-number">3.1.1</span> Configuration file</h3>
 <p>Ribasim has a single configuration file, which is written in the <a href="https://toml.io/">TOML</a> format. It contains settings, as well as paths to other input and output files.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start- and endtime of the simulation</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># can also be set to a date-time like 1979-05-27T07:32:00</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">starttime</span> <span class="op">=</span> <span class="bn">2019-01-01</span>  <span class="co"># required</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">endtime</span> <span class="op">=</span> <span class="bn">2021-01-01</span>    <span class="co"># required</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># all timesteps are in seconds</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="dt">update_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># optional, default 1 day</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># save timesteps at this interval</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="dt">saveat</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># optional, default is the value of update_timestep</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># input files</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="dt">geopackage</span> <span class="op">=</span> <span class="st">"model.gpkg"</span>  <span class="co"># required</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Specic tables can also go into Arrow files rather than the GeoPackage.</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># For large tables this can benefit from better compressed file sizes.</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># This is optional, tables are retrieved from the GeoPackage if not specified in the TOML.</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">forcing</span><span class="kw">]</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="dt">Basin</span> <span class="op">=</span> <span class="st">"forcing.arrow"</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># These output files are always written</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="dt">flow</span> <span class="op">=</span> <span class="st">"output/flow.arrow"</span>    <span class="co"># optional, default "output/flow.arrow"</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="dt">basin</span> <span class="op">=</span> <span class="st">"output/basin.arrow"</span>  <span class="co"># optional, default "output/basin.arrow"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start- and endtime of the simulation</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># can also be set to a date-time like 1979-05-27T07:32:00</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">starttime</span> <span class="op">=</span> <span class="bn">2019-01-01</span>  <span class="co"># required</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">endtime</span> <span class="op">=</span> <span class="bn">2021-01-01</span>    <span class="co"># required</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># all timesteps are in seconds</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">update_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># optional, default 1 day</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># save timesteps at this interval</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="dt">saveat</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># optional, default is the value of update_timestep</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># input files</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="dt">geopackage</span> <span class="op">=</span> <span class="st">"model.gpkg"</span>  <span class="co"># required</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Specic tables can also go into Arrow files rather than the GeoPackage.</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># For large tables this can benefit from better compressed file sizes.</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># This is optional, tables are retrieved from the GeoPackage if not specified in the TOML.</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">forcing</span><span class="kw">]</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="dt">Basin</span> <span class="op">=</span> <span class="st">"forcing.arrow"</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># These output files are always written</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="dt">flow</span> <span class="op">=</span> <span class="st">"output/flow.arrow"</span>    <span class="co"># optional, default "output/flow.arrow"</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="dt">basin</span> <span class="op">=</span> <span class="st">"output/basin.arrow"</span>  <span class="co"># optional, default "output/basin.arrow"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="geopackage-and-arrow-tables" class="level3" data-number="3.1.2">
 <h3 data-number="3.1.2" class="anchored" data-anchor-id="geopackage-and-arrow-tables"><span class="header-section-number">3.1.2</span> GeoPackage and Arrow tables</h3>
