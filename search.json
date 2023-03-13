@@ -56,97 +56,6 @@
     "text": "2.3 Flushing\nThe flushing requirement for the basin is a special case of user. Flushing is required to maintain water quality in the basin. This is determined externally. Water from the national network flows into the basin, and the same volume gets removed from the basin back to the national network. This water cannot be allocated to other users and there is no net change to the water level in the basin or the \\(\\qavail\\), see Equation 3.\n\\[\n\\mathit{Q_{in}} = -\\mathit{Q_{out}}\n\\tag{3}\\]"
   },
   {
-    "objectID": "demo.html",
-    "href": "demo.html",
-    "title": "Ribasim",
-    "section": "",
-    "text": "On this page we present a range of mostly synthetic models, set up to highlight individual functionalities of Ribasim. The demonstrations are divided across two sections, in Section 2 free-flowing basins are used, which can drain freely to a downstream basin. In Section 3 level controlled basins are used. Here there is no free drainage, but water levels are controlled by water management, such as pumping. Note that this is the only difference between both, so all other functionality equally applies to free draining and level controlled basins."
-  },
-  {
-    "objectID": "demo.html#sec-free-no",
-    "href": "demo.html#sec-free-no",
-    "title": "Ribasim",
-    "section": "2.1 No external forcing",
-    "text": "2.1 No external forcing\nThis fictional free flowing LSW has no input or output forcing flux. The LSW empties according to the Volume-Area-Discharge relationship. The two examples below show the impact the profile has on the LSW drainage.\n\n\nCode\ncase = \"emptying_sloping_profile\"\n\n## Set up\nconfig = Dict{String,Any}()\nid_lsw = 1\nid_out = 2\nid_lsw_end = 3\nids = [id_lsw, id_out, id_lsw_end]\nconfig[\"ids\"] = ids\nconfig[\"update_timestep\"] = 86400.0\nconfig[\"starttime\"] = Date(\"2022-01-01\")\nconfig[\"endtime\"] = Date(\"2022-02-01\")\nconfig[\"state\"] = DataFrame(; id=ids, S=1e6, C=0.1)\nconfig[\"static\"] = DataFrame(; id=Int[], variable=String[], value=Float64[])\nconfig[\"forcing\"] = DataFrame(; time=DateTime[], variable=String[], id=Int[], value=Float64[])\nconfig[\"node\"] = DataFrame(; id=ids, node=[\"LSW\", \"OutflowTable\", \"LSW\"])\nconfig[\"edge\"] = Ribasim.edgepairs([\n    (id_lsw, \"LSW\", \"x\") => (id_out, \"OutflowTable\", \"a\"),\n    (id_lsw, \"LSW\", \"s\") => (id_out, \"OutflowTable\", \"s\"),\n    (id_out, \"OutflowTable\", \"b\") => (id_lsw_end, \"LSW\", \"x\"),\n])\nconfig[\"profile\"] = Ribasim.profilesets(;\n    ids, volume=[0.0, 1e6], area=[1e6, 1e6],\n    discharge=[0.0, 1e0], level=[10.0, 11.0])\n\n## Simulate\nreg = Ribasim.run(config)\n\n## Plot results\nplot_series(reg, id_lsw)\n\n\n\n\nCode\ncase = \"emptying_steep_profile_Hupsel\"\n\n## Set up\nconfig = Dict{String,Any}()\nid_lsw = 1\nid_out = 2\nid_lsw_end = 3\nids = [id_lsw, id_out, id_lsw_end]\nconfig[\"ids\"] = ids\nconfig[\"update_timestep\"] = 86400.0\nconfig[\"starttime\"] = Date(\"2022-01-01\")\nconfig[\"endtime\"] = Date(\"2022-02-01\")\nconfig[\"state\"] = DataFrame(; id=ids, S=1e6, C=0.1)\nconfig[\"static\"] = DataFrame(; id=Int[], variable=String[], value=Float64[])\nconfig[\"forcing\"] = DataFrame(; time=DateTime[], variable=String[], id=Int[], value=Float64[])\nconfig[\"node\"] = DataFrame(; id=ids, node=[\"LSW\", \"OutflowTable\", \"LSW\"])\nconfig[\"edge\"] = Ribasim.edgepairs([\n    (id_lsw, \"LSW\", \"x\") => (id_out, \"OutflowTable\", \"a\"),\n    (id_lsw, \"LSW\", \"s\") => (id_out, \"OutflowTable\", \"s\"),\n    (id_out, \"OutflowTable\", \"b\") => (id_lsw_end, \"LSW\", \"x\"),\n])\nconfig[\"profile\"] = Ribasim.profilesets(;\n    ids,\n    volume=[0.0, 7427.69, 14855.39, 750197.37],\n    area=[92152.28, 92152.28, 92152.28, 92152.28],\n    discharge=[0.0, 0.0, 0.096, 9.60],\n    level=[18.90, 19.10, 19.30, 39.10])\n\n## Simulate\nreg = Ribasim.run(config)\n\n## Plot results\nplot_series(reg, id_lsw)"
-  },
-  {
-    "objectID": "demo.html#precipitation-forcing",
-    "href": "demo.html#precipitation-forcing",
-    "title": "Ribasim",
-    "section": "2.2 Precipitation forcing",
-    "text": "2.2 Precipitation forcing\nThis fictional free flowing LSW is simulated with only the external forcing of synthetic precipitation data. The storage and the outflow respond to the preciptation as shown below.\n\n\nCode\ncase = \"precipitation\"\n\n## Set up\nconfig = Dict{String,Any}()\nid_lsw = 1\nid_out = 2\nid_lsw_end = 3\nids = [id_lsw, id_out, id_lsw_end]\nconfig[\"ids\"] = ids\nconfig[\"update_timestep\"] = 86400.0\nconfig[\"starttime\"] = Date(\"2019-01-01\")\nconfig[\"endtime\"] = Date(\"2020-01-01\")\nconfig[\"state\"] = DataFrame(; id=ids, S=1e6, C=0.1)\nconfig[\"static\"] = DataFrame(; id=Int[], variable=String[], value=Float64[])\nconfig[\"forcing\"] = @subset(lswforcing, :variable == \"P\", :id == 1)\nconfig[\"node\"] = DataFrame(; id=ids, node=[\"LSW\", \"OutflowTable\", \"LSW\"])\nconfig[\"edge\"] = Ribasim.edgepairs([\n    (id_lsw, \"LSW\", \"x\") => (id_out, \"OutflowTable\", \"a\"),\n    (id_lsw, \"LSW\", \"s\") => (id_out, \"OutflowTable\", \"s\"),\n    (id_out, \"OutflowTable\", \"b\") => (id_lsw_end, \"LSW\", \"x\"),\n])\nconfig[\"profile\"] = Ribasim.profilesets(;\n    ids, volume=[0.0, 1e6], area=[1e6, 1e6],\n    discharge=[0.0, 1e0], level=[10.0, 11.0])\n\n# Simulate\nreg = Ribasim.run(config)\n\n# Plot results\nplot_series(reg, id_lsw)"
-  },
-  {
-    "objectID": "demo.html#evaporation-forcing",
-    "href": "demo.html#evaporation-forcing",
-    "title": "Ribasim",
-    "section": "2.3 Evaporation forcing",
-    "text": "2.3 Evaporation forcing\nThe LSW loses water from evaporation. Outflow occurs according to the relation as in Section 2.1, but overall volume decline is faster rate due to additional loss from evaporation. Evaporation does not occur in an empty LSW.\nThe second example shows the LSW with no simulated discharge, so that the only output is evaporation\n\n\nCode\ncase = \"evaporation\"\n\n## Set up\nconfig = Dict{String,Any}()\nid_lsw = 1\nid_out = 2\nid_lsw_end = 3\nids = [id_lsw, id_out, id_lsw_end]\nconfig[\"ids\"] = ids\nconfig[\"update_timestep\"] = 86400.0\nconfig[\"starttime\"] = Date(\"2019-01-01\")\nconfig[\"endtime\"] = Date(\"2019-06-01\")\nconfig[\"state\"] = DataFrame(; id=ids, S=1e6, C=0.1)\nconfig[\"static\"] = DataFrame(; id=Int[], variable=String[], value=Float64[])\nconfig[\"forcing\"] = @subset(lswforcing, :variable == \"E_pot\", :id == 1)\nconfig[\"node\"] = DataFrame(; id=ids, node=[\"LSW\", \"OutflowTable\", \"LSW\"])\nconfig[\"edge\"] = Ribasim.edgepairs([\n    (id_lsw, \"LSW\", \"x\") => (id_out, \"OutflowTable\", \"a\"),\n    (id_lsw, \"LSW\", \"s\") => (id_out, \"OutflowTable\", \"s\"),\n    (id_out, \"OutflowTable\", \"b\") => (id_lsw_end, \"LSW\", \"x\"),\n])\nconfig[\"profile\"] = Ribasim.profilesets(;\n    ids, volume=[0.0, 1e6], area=[1e6, 1e6],\n    discharge=[0.0, 1e0], level=[10.0, 11.0])\n\n## Simulate\nreg = Ribasim.run(config)\n\n## Plot results\nplot_series(reg, id_lsw)\n\n\n\n\nCode\ncase = \"evaporation2\"\n\n## Set up\nconfig = Dict{String,Any}()\nid_lsw = 1\nid_bnd = 2\nids = [id_lsw, id_bnd]\nconfig[\"ids\"] = ids\nconfig[\"update_timestep\"] = 86400.0\nconfig[\"starttime\"] = Date(\"2019-01-01\")\nconfig[\"endtime\"] = Date(\"2020-01-01\")\nconfig[\"state\"] = DataFrame(; id=ids, S=1e6, C=0.1)\nconfig[\"static\"] = DataFrame(; id=Int[], variable=String[], value=Float64[])\nconfig[\"forcing\"] = @subset(lswforcing, :variable == \"E_pot\", :id == 1)\nconfig[\"node\"] = DataFrame(; id=ids, node=[\"LSW\", \"NoFlowBoundary\"])\nconfig[\"edge\"] = Ribasim.edgepairs([\n    (id_lsw, \"LSW\", \"x\") => (id_bnd, \"NoFlowBoundary\", \"x\"),\n])\nconfig[\"profile\"] = Ribasim.profilesets(;\n    ids=[1], volume=[0.0, 1e6], area=[1e6, 1e6],\n    discharge=[0.0, 1e0], level=[10.0, 11.0])\n\n## Simulate\nreg = Ribasim.run(config)\n\n## Plot results\nplot_series(reg, id_lsw)"
-  },
-  {
-    "objectID": "demo.html#evaporation-and-precipitation-forcings",
-    "href": "demo.html#evaporation-and-precipitation-forcings",
-    "title": "Ribasim",
-    "section": "2.4 Evaporation and precipitation forcings",
-    "text": "2.4 Evaporation and precipitation forcings\nThis example shows the evaporation and precipitation flux simulated together.\n\n\nCode\ncase = \"evaporation_precipitation\"\n\n## Set up\nconfig = Dict{String,Any}()\nid_lsw = 1\nid_bnd = 2\nids = [id_lsw, id_bnd]\nconfig[\"ids\"] = ids\nconfig[\"update_timestep\"] = 86400.0\nconfig[\"starttime\"] = Date(\"2019-01-01\")\nconfig[\"endtime\"] = Date(\"2020-01-01\")\nconfig[\"state\"] = DataFrame(; id=ids, S=1e6, C=0.1)\nconfig[\"static\"] = DataFrame(; id=Int[], variable=String[], value=Float64[])\nconfig[\"forcing\"] = @subset(lswforcing, :variable in [\"P\", \"E_pot\"], :id == 1)\nconfig[\"node\"] = DataFrame(; id=ids, node=[\"LSW\", \"NoFlowBoundary\"])\nconfig[\"edge\"] = Ribasim.edgepairs([\n    (id_lsw, \"LSW\", \"x\") => (id_bnd, \"NoFlowBoundary\", \"x\"),\n])\nconfig[\"profile\"] = Ribasim.profilesets(;\n    ids=[1], volume=[0.0, 1e6], area=[1e6, 1e6],\n    discharge=[0.0, 1e0], level=[10.0, 11.0])\n\n## Simulate\nreg = Ribasim.run(config)\n\n## Plot\nplot_series(reg, id_lsw)"
-  },
-  {
-    "objectID": "demo.html#infiltration",
-    "href": "demo.html#infiltration",
-    "title": "Ribasim",
-    "section": "2.5 Infiltration",
-    "text": "2.5 Infiltration\nInfiltration is an out flux of the LSW. This example shows the LSW storage responding to an enhanced forcing of infiltration. There is no outflow simulated of this LSW, so that the only output is the infiltration.\n\n\nCode\ncase = \"Infiltration\"\n\n## Set up\nconfig = Dict{String,Any}()\nid_lsw = 1\nid_bnd = 2\nids = [id_lsw, id_bnd]\nconfig[\"ids\"] = ids\nconfig[\"update_timestep\"] = 86400.0\nconfig[\"starttime\"] = Date(\"2019-01-01\")\nconfig[\"endtime\"] = Date(\"2019-02-01\")\nconfig[\"state\"] = DataFrame(; id=ids, S=1e6, C=0.1)\nconfig[\"static\"] = DataFrame(; id=[id_lsw], variable=[\"infiltration\"], value=[1.5e-1])\nconfig[\"forcing\"] = lswforcing[1:0, :]  # no forcing\nconfig[\"node\"] = DataFrame(; id=ids, node=[\"LSW\", \"NoFlowBoundary\"])\nconfig[\"edge\"] = Ribasim.edgepairs([\n    (id_lsw, \"LSW\", \"x\") => (id_bnd, \"NoFlowBoundary\", \"x\"),\n])\nconfig[\"profile\"] = Ribasim.profilesets(;\n    ids=[id_lsw], volume=[0.0, 1e6], area=[1e6, 1e6],\n    discharge=[0.0, 1e0], level=[10.0, 11.0])\n\n## Simulate\nreg = Ribasim.run(config)\n\n## Plot results\nplot_series(reg, id_lsw)"
-  },
-  {
-    "objectID": "demo.html#urban-runoff",
-    "href": "demo.html#urban-runoff",
-    "title": "Ribasim",
-    "section": "2.6 Urban Runoff",
-    "text": "2.6 Urban Runoff\nUrban runoff is a surface water input to the LSW. In case of the Netherlands, this is not calculated by MODFLOW but by the unsaturated zone model MetaSWAP. This example shows the LSW storage responding to the influx forcing of urban runoff.\n\n\nCode\ncase = \"Urban Runoff\"\n\n## Set up\nconfig = Dict{String,Any}()\nid_lsw = 1\nid_bnd = 2\nids = [id_lsw, id_bnd]\nconfig[\"ids\"] = ids\nconfig[\"update_timestep\"] = 86400.0\nconfig[\"starttime\"] = Date(\"2019-01-01\")\nconfig[\"endtime\"] = Date(\"2019-06-01\")\nconfig[\"state\"] = DataFrame(; id=ids, S=1e6, C=0.1)\nconfig[\"static\"] = DataFrame(; id=Int[], variable=String[], value=Float64[])\nconfig[\"forcing\"] = @subset(lswforcing, :variable == \"urban_runoff\", :id == 1)\nconfig[\"node\"] = DataFrame(; id=ids, node=[\"LSW\", \"NoFlowBoundary\"])\nconfig[\"edge\"] = Ribasim.edgepairs([\n    (id_lsw, \"LSW\", \"x\") => (id_bnd, \"NoFlowBoundary\", \"x\"),\n])\nconfig[\"profile\"] = Ribasim.profilesets(;\n    ids=[id_lsw], volume=[0.0, 1e6], area=[1e6, 1e6],\n    discharge=[0.0, 1e0], level=[10.0, 11.0])\n\n## Simulate\nreg = Ribasim.run(config)\n\n## Plot\nplot_series(reg, id_lsw)"
-  },
-  {
-    "objectID": "demo.html#allocation-to-multiple-users-agriculture-and-industry",
-    "href": "demo.html#allocation-to-multiple-users-agriculture-and-industry",
-    "title": "Ribasim",
-    "section": "2.7 Allocation to multiple users (agriculture and industry)",
-    "text": "2.7 Allocation to multiple users (agriculture and industry)\nThe allocation is based upon demand and prioritisation of the users and the available water in the LSW. In a free flowing LSW only water from the LSW can be abstracted by the users: agriculture and industry. In this example there are two users. Agriculture has higher prioirty than industry, therefore when there is a shortage of available water, agriculture abstracts water before industry as demonstrated.\nWhen water supply is limited, the model follows “de verdringingsreeks” (water prioritization rules in times of water shortage in the Netherlands)."
-  },
-  {
-    "objectID": "demo.html#sec-free-balance",
-    "href": "demo.html#sec-free-balance",
-    "title": "Ribasim",
-    "section": "2.8 Water balance of a single LSW (Hupsel)",
-    "text": "2.8 Water balance of a single LSW (Hupsel)\nThis simulation is for the LSW Hupsel. The LSW is a free flowing LSW."
-  },
-  {
-    "objectID": "demo.html#sec-free-comparison",
-    "href": "demo.html#sec-free-comparison",
-    "title": "Ribasim",
-    "section": "2.9 Water balance comparison Hupsel",
-    "text": "2.9 Water balance comparison Hupsel\nThe following two figures show Hupsel LSW water balance for the Ribasim prototype compared to the water balance simulated by Mozart, the precursor to Ribasim. The figures show a good agreement between the two simulations."
-  },
-  {
-    "objectID": "demo.html#bifurcation",
-    "href": "demo.html#bifurcation",
-    "title": "Ribasim",
-    "section": "2.10 Bifurcation",
-    "text": "2.10 Bifurcation\nTo handle bifurcations, we want to be able to model them using an adjustable fraction. To implement this we use a separate Bifurcation node, that has an inflow src, and outflows dst_1 and dst_2. In this example dst_1 will receive 33% of the flow, and dst_2 will receive 67%. An error is raised if the fractions do not add up to 100%.\n\n\nCode\ncase = \"Bifurcation\"\n\n## Set up\nconfig = Dict{String,Any}()\nid_lsw = 1\nid_out = 2\nid_bif = 3\nid_end1 = 4\nid_end2 = 5\nids = [id_lsw, id_out, id_bif, id_end1, id_end2]\nconfig[\"ids\"] = ids\nconfig[\"update_timestep\"] = 86400.0\nconfig[\"starttime\"] = DateTime(\"2022-01-01\")\nconfig[\"endtime\"] = DateTime(\"2022-02-01\")\nconfig[\"state\"] = DataFrame(id=ids, S=1e6, C=0.1)\nconfig[\"static\"] = DataFrame(; id=id_bif, variable=[\"fraction_1\", \"fraction_2\"], value=[0.33, 0.67])\nconfig[\"forcing\"] = DataFrame(; time=DateTime[], variable=String[], id=Int[], value=Float64[])\nconfig[\"node\"] = DataFrame(; id=ids, node=[\"LSW\", \"OutflowTable\", \"Bifurcation\", \"LSW\", \"LSW\"])\nconfig[\"edge\"] = Ribasim.edgepairs([\n    (id_lsw, \"LSW\", \"x\") => (id_out, \"OutflowTable\", \"a\"),\n    (id_lsw, \"LSW\", \"s\") => (id_out, \"OutflowTable\", \"s\"),\n    (id_out, \"OutflowTable\", \"b\") => (id_bif, \"Bifurcation\", \"src\"),\n    (id_bif, \"Bifurcation\", \"dst_1\") => (id_end1, \"LSW\", \"x\"),\n    (id_bif, \"Bifurcation\", \"dst_2\") => (id_end2, \"LSW\", \"x\"),\n])\nconfig[\"profile\"] = Ribasim.profilesets(;\n    ids, volume=[0.0, 1e6], area=[1e6, 1e6],\n    discharge=[0.0, 1e0], level=[10.0, 11.0])\n\n## Simulate\nreg = Ribasim.run(config)\n\n## Plot results\nfig = Figure()\nylabel = \"flow rate / m³ s⁻¹\"\ntimespan = datetime2unix(config[\"starttime\"]) .. datetime2unix(config[\"endtime\"])\nax = time!(Axis(fig[1, 1]; ylabel), timespan.left, timespan.right)\n\nname = Symbol(:bifurcation_, 3)\nlines!(ax, timespan, interpolator(reg, Symbol(name, :₊src₊Q)), label=\"bifurcation inflow\")\nlines!(ax, timespan, interpolator(reg, Symbol(name, :₊dst_1₊Q)), label=\"bifurcation outflow 1\")\nlines!(ax, timespan, interpolator(reg, Symbol(name, :₊dst_2₊Q)), label=\"bifurcation outflow 2\")\nfig[1, 2] = Legend(fig, ax, \"\", framevisible=true)\nhidexdecorations!(ax, grid=false)\nfig"
-  },
-  {
-    "objectID": "demo.html#single-level-controlled-lsw-tol",
-    "href": "demo.html#single-level-controlled-lsw-tol",
-    "title": "Ribasim",
-    "section": "3.1 Single Level Controlled LSW (Tol)",
-    "text": "3.1 Single Level Controlled LSW (Tol)\nThis simulation is for the LSW De Tol. The LSW is a level controlled meaning that water is allocated to maintain water levels at a target level."
-  },
-  {
-    "objectID": "demo.html#de-tol-water-balance-comparison-with-mozart",
-    "href": "demo.html#de-tol-water-balance-comparison-with-mozart",
-    "title": "Ribasim",
-    "section": "3.2 De Tol water balance comparison with Mozart",
-    "text": "3.2 De Tol water balance comparison with Mozart\nThe following two figures show De Tol LSW water balance for the Ribasim prototype compared to the water balance simulated by Mozart, the precursor to Ribasim. The figures show a good agreement between the two simulations"
-  },
-  {
     "objectID": "modflow.html",
     "href": "modflow.html",
     "title": "MODFLOW 6 Coupling",
@@ -222,6 +131,97 @@
     "title": "Ribasim-MODFLOW 6 Demonstration",
     "section": "4 Test case: de Tol",
     "text": "4 Test case: de Tol\nTo test the coupling, the following simulations have been setup and run:\n\nA standalone MODFLOW 6 run of sequential steady-states (i.e. no storage) with differing groundwater recharge values.\nA coupled run where the MODFLOW 6 stages are updated by the Ribasim coupler process, but without Ribasim. This results in volumes of 0.0, so all MODFLOW 6 water levels are set equal to bed elevation.\nA coupled run where the water levels are updated by Ribasim.\n\n\n\n\nFigure 7: Water balance of the MODFLOW 6 boundary conditions for De Tol basin for a standalone MODFLOW 6 run. The four sequential steady states (01, 02, 03, 04) use net groundwater recharge values of 1.0, 0.5, -0.05 and -0.1 mm/d.\n\n\nFigure 7 shows the water balance of steady-state for a submodel of the LHM for the Polder de Tol and its surroundings. While groundwater recharge is the dominant ingoing flow, lateral groundwater flow (over the entire depth of the groundwater model) is a sizable inflow for the area; the larger lateral inflow shows that De Tol is a net receiver of groundwater which is mostly discharged through the secondary system. In contrast to the Hupsel, the tertiary system is almost entirely absent: drainage occurs not through ephemeral tertiary ditches, but by the permanently water-bearing ditches of the primary and secondary system. Unlike the Hupsel, the water balance does not shrink to very small discharges, as there is sizable regional groundwater flow.\n\n\n\nFigure 8: Water balance of the MODFLOW 6 boundary conditions for De Tol basin for a zero volume run. The four sequential steady states (01, 02, 03, 04) use net groundwater recharge values of 1.0, 0.5, -0.05 and -0.1 mm/d.\n\n\nFigure 8 shows the same model, with 0-basin volume which causes water levels to be set equal to bed elevation. The total discharge is larger: the primary and secondary systems are set to lower levels, and so the head difference is larger. While De Tol’s evapotranspiration excess can be fed by the regional groundwater, the primary and secondary ditches also provide some part; as expected, they do not feed when the coupling mechanism adjusts MODFLOW 6’s water levels."
+  },
+  {
+    "objectID": "python/reference/geometry_from_connectivity.html",
+    "href": "python/reference/geometry_from_connectivity.html",
+    "title": "Ribasim",
+    "section": "",
+    "text": "geometry_from_connectivity(node, from_id, to_id)\nCreate edge shapely geometries from connectivities.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nnode\nribasim.node.Node\n\nrequired\n\n\nfrom_id\nSequence[int]\nFirst node of every edge.\nrequired\n\n\nto_id\nSequence[int]\nSecond node of every edge.\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nnp.ndarray\nArray of shapely LineStrings."
+  },
+  {
+    "objectID": "python/reference/FractionalFlow.html",
+    "href": "python/reference/FractionalFlow.html",
+    "title": "Ribasim",
+    "section": "",
+    "text": "FractionalFlow(self, static, forcing=None)\nReceives a fraction of the flow. The fractions must sum to 1.0 for a furcation.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * node_id * fraction\nrequired\n\n\n\nforcing: pandas.DataFrame, optional\nWith columns:\n\n* node_id\n* time\n* fraction"
+  },
+  {
+    "objectID": "python/reference/LinearLevelConnection.html",
+    "href": "python/reference/LinearLevelConnection.html",
+    "title": "Ribasim",
+    "section": "",
+    "text": "LinearLevelConnection(self, static)\nFlow through this connection linearly depends on the level difference between the two connected basins.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * node_id * conductance\nrequired"
+  },
+  {
+    "objectID": "python/reference/Node.html",
+    "href": "python/reference/Node.html",
+    "title": "Ribasim",
+    "section": "",
+    "text": "Node(self, static)\nThe Ribasim nodes as Point geometries.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * type * geometry\nrequired"
+  },
+  {
+    "objectID": "python/reference/LevelControl.html",
+    "href": "python/reference/LevelControl.html",
+    "title": "Ribasim",
+    "section": "",
+    "text": "LevelControl(self, static)\nControls the level in a basin.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * node_id * target_level\nrequired"
+  },
+  {
+    "objectID": "python/reference/TabulatedRatingCurve.html",
+    "href": "python/reference/TabulatedRatingCurve.html",
+    "title": "Ribasim",
+    "section": "",
+    "text": "TabulatedRatingCurve(self, static)\nLinearly interpolates discharge between a tabulation of storage and discharge.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTabulation with columns: * node_id * storage * discharge\nrequired"
+  },
+  {
+    "objectID": "python/reference/Edge.html",
+    "href": "python/reference/Edge.html",
+    "title": "Ribasim",
+    "section": "",
+    "text": "Edge(self, static)\nDefines the connections between nodes.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * from_node_id * to_node_id * geometry\nrequired"
+  },
+  {
+    "objectID": "python/reference/index.html",
+    "href": "python/reference/index.html",
+    "title": "Ribasim",
+    "section": "",
+    "text": "The Model class represents an entire Ribasim model.\n\n\n\nModel\nRibasim model containing the location of the nodes, the edges between the\n\n\n\n\n\n\nThe Node and Edge GeoPackage layers define the network layout.\n\n\n\nNode\nThe Ribasim nodes as Point geometries.\n\n\nEdge\nDefines the connections between nodes.\n\n\n\n\n\n\nAvailable node types to model different situations.\n\n\n\nBasin\nInput for a (sub-)basin: an area of land where all flowing surface water\n\n\nTabulatedRatingCurve\nLinearly interpolates discharge between a tabulation of storage and\n\n\nLinearLevelConnection\nFlow through this connection linearly depends on the level difference\n\n\nFractionalFlow\nReceives a fraction of the flow. The fractions must sum to 1.0 for a\n\n\nLevelControl\nControls the level in a basin.\n\n\n\n\n\n\nCollection of utility functions.\n\n\n\ngeometry_from_connectivity\nCreate edge shapely geometries from connectivities.\n\n\nconnectivity_from_geometry\nDerive from_node_id and to_node_id for every edge in lines. LineStrings"
+  },
+  {
+    "objectID": "python/reference/Model.html",
+    "href": "python/reference/Model.html",
+    "title": "Ribasim",
+    "section": "",
+    "text": "Model(self, modelname, starttime, endtime, node, edge, basin, fractional_flow=None, level_control=None, linear_level_connection=None, tabulated_rating_curve=None)\nRibasim model containing the location of the nodes, the edges between the nodes, and the node parametrization.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmodelname\nstr\n\nrequired\n\n\nnode\nribasim.node.Node\n\nrequired\n\n\nedge\nribasim.edge.Edge\n\nrequired\n\n\nbasin\nribasim.basin.Basin\n\nrequired\n\n\nfractional_flow\nOptional[FractionalFlow]\n\nNone\n\n\nlevel_control\nOptional[LevelControl]\n\nNone\n\n\nlinear_level_connection\nOptional[LinearLevelConnection]\n\nNone\n\n\ntabulated_rating_curve\nOptional[TabulatedRatingCurve]\n\nNone\n\n\nstarttime\nUnion[str, datetime.datetime]\n\nrequired\n\n\nendtime\nUnion[str, datetime.datetime]\n\nrequired"
+  },
+  {
+    "objectID": "python/reference/connectivity_from_geometry.html",
+    "href": "python/reference/connectivity_from_geometry.html",
+    "title": "Ribasim",
+    "section": "",
+    "text": "connectivity_from_geometry(node, lines)\nDerive from_node_id and to_node_id for every edge in lines. LineStrings may be used to connect multiple nodes in a sequence, but every linestring vertex must also a node.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nnode\nribasim.node.Node\n\nrequired\n\n\nlines\nnp.ndarray\nArray of shapely linestrings.\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nnp.ndarray of int\n\n\n\nnp.ndarray of int"
+  },
+  {
+    "objectID": "python/reference/Basin.html",
+    "href": "python/reference/Basin.html",
+    "title": "Ribasim",
+    "section": "",
+    "text": "Basin(self, profile, static=None, forcing=None, state=None)\nInput for a (sub-)basin: an area of land where all flowing surface water converges to a single point.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nprofile\npd.DataFrame\nA tabulation with the columns: * storage * area * water level\nrequired\n\n\n\nstatic: pandas.DataFrame, optional\nStatic forcing with columns:\n\n* potential evaporation\n* precipitation\n* groundwater drainage\n* groundwater infiltration\n* urban runoff\nforcing: pandas.DataFrame, optional\nTime varying forcing with columns:\n\n* time\n* potential evaporation\n* precipitation\n* groundwater drainage\n* groundwater infiltration\n* urban runoff\nstate: pandas.DataFrame, optional\nInitial state with columns:\n\n* storage\n* concentration"
+  },
+  {
+    "objectID": "python/examples.html",
+    "href": "python/examples.html",
+    "title": "Examples",
+    "section": "",
+    "text": "1 Basic model with static forcing\n\nimport geopandas as gpd\nimport numpy as np\nimport pandas as pd\nimport tempfile\nfrom pathlib import Path\n\nimport ribasim\n\nSet up the nodes:\n\nxy = np.array(\n    [\n        (0.0, 0.0),  # 1: Basin,\n        (1.0, 0.0),  # 2: LinearLevelConnection\n        (2.0, 0.0),  # 3: Basin\n        (3.0, 0.0),  # 4: TabulatedRatingCurve\n        (3.0, 1.0),  # 5: FractionalFlow\n        (3.0, 2.0),  # 6: Basin\n        (3.0, 3.0),  # 7: TabulatedRatingCurve\n        (4.0, 0.0),  # 8: FractionalFlow\n        (5.0, 0.0),  # 9: Basin\n        (6.0, 0.0),  # 10: LevelControl\n    ]\n)\nnode_xy = gpd.points_from_xy(x=xy[:, 0], y=xy[:, 1])\n\nnode_type = [\n    \"Basin\",\n    \"LinearLevelConnection\",\n    \"Basin\",\n    \"TabulatedRatingCurve\",\n    \"FractionalFlow\",\n    \"Basin\",\n    \"TabulatedRatingCurve\",\n    \"FractionalFlow\",\n    \"Basin\",\n    \"LevelControl\",\n]\n\n# Make sure the feature id starts at 1: explicitly give an index.\nnode = ribasim.Node(\n    static=gpd.GeoDataFrame(\n        data={\"type\": node_type},\n        index=np.arange(len(xy)) + 1,\n        geometry=node_xy,\n        crs=\"EPSG:28992\",\n    )\n)\n\nSetup the edges:\n\nfrom_id = np.array([1, 2, 3, 4, 4, 5, 6, 8, 9], dtype=np.int64)\nto_id = np.array([2, 3, 4, 5, 8, 6, 7, 9, 10], dtype=np.int64)\nlines = ribasim.utils.geometry_from_connectivity(node, from_id, to_id)\nedge = ribasim.Edge(\n    static=gpd.GeoDataFrame(\n        data={\"from_node_id\": from_id, \"to_node_id\": to_id},\n        geometry=lines,\n        crs=\"EPSG:28992\",\n    )\n)\n\nSetup the basins:\n\nprofile = pd.DataFrame(\n    data={\n        \"node_id\": [0, 0],\n        \"storage\": [0.0, 1000.0],\n        \"area\": [0.0, 1000.0],\n        \"level\": [0.0, 1.0],\n    }\n)\nrepeat = np.tile([0, 1], 4)\nprofile = profile.iloc[repeat]\nprofile[\"node_id\"] = [1, 1, 3, 3, 6, 6, 9, 9]\n\n\n# Convert steady forcing to m/s\n# 2 mm/d precipitation, 1 mm/d evaporation\nseconds_in_day = 24 * 3600\nprecipitation = 0.002 / seconds_in_day\nevaporation = 0.001 / seconds_in_day\n\n\nstatic = pd.DataFrame(\n    data={\n        \"node_id\": [0],\n        \"drainage\": [0.0],\n        \"potential_evaporation\": [evaporation],\n        \"infiltration\": [0.0],\n        \"precipitation\": [precipitation],\n        \"urban_runoff\": [0.0],\n    }\n)\nstatic = static.iloc[[0, 0, 0, 0]]\nstatic[\"node_id\"] = [1, 3, 6, 9]\n\nbasin = ribasim.Basin(profile=profile, static=static)\n\nSetup linear level connection:\n\nlinear_connection = ribasim.LinearLevelConnection(\n    static=pd.DataFrame(data={\"node_id\": [2], \"conductance\": [1.5e-4]})\n)\n\nSet up a rating curve node:\n\n# Discharge: lose 1% of storage volume per day at storage = 1000.0.\nq1000 = 1000.0 * 0.01 / seconds_in_day\n\nrating_curve = ribasim.TabulatedRatingCurve(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [4, 4, 7, 7],\n            \"storage\": [0.0, 1000.0, 0.0, 1000.0],\n            \"discharge\": [0.0, q1000, 0.0, q1000],\n        }\n    )\n)\n\nSetup fractional flows:\n\nfractional_flow = ribasim.FractionalFlow(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [5, 8],\n            \"fraction\": [0.3, 0.7],\n        }\n    )\n)\n\nSetup level control:\n\nlevel_control = ribasim.LevelControl(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [10],\n            \"target_level\": [1.5],\n        }\n    )\n)\n\nSetup a model:\n\nmodel = ribasim.Model(\n    modelname=\"basic\",\n    node=node,\n    edge=edge,\n    basin=basin,\n    level_control=level_control,\n    linear_level_connection=linear_connection,\n    tabulated_rating_curve=rating_curve,\n    fractional_flow=fractional_flow,\n    starttime=\"2020-01-01 00:00:00\",\n    endtime=\"2021-01-01 00:00:00\",\n)\n\nWrite the model to a TOML and GeoPackage:\n\ntempdir = Path(tempfile.mkdtemp(prefix = \"ribasim_\"))\nmodel.write(tempdir / \"basic\")\n\n\n\n2 Update the basic model with transient forcing\nThis assumes you have already created the basic model with static forcing.\n\nimport numpy as np\nimport pandas as pd\nimport xarray as xr\n\nimport ribasim\n\n\nmodel = ribasim.Model.from_toml(tempdir / \"basic/basic.toml\")\n\n\ntime = pd.date_range(model.starttime, model.endtime)\nday_of_year = time.day_of_year.values\nseconds_per_day = 24 * 60 * 60\nevaporation = (\n    (-1.0 * np.cos(day_of_year / 365.0 * 2 * np.pi) + 1.0) * 0.0025 / seconds_per_day\n)\nrng = np.random.default_rng()\nprecipitation = (\n    rng.lognormal(mean=-1.0, sigma=1.7, size=time.size) * 0.001 / seconds_per_day\n)\n\nWe’ll use xarray to easily broadcast the values.\n\ntimeseries = (\n    pd.DataFrame(\n        data={\n            \"node_id\": 1,\n            \"time\": time,\n            \"drainage\": 0.0,\n            \"potential_evaporation\": evaporation,\n            \"infiltration\": 0.0,\n            \"precipitation\": precipitation,\n            \"urban_runoff\": 0.0,\n        }\n    )\n    .set_index(\"time\")\n    .to_xarray()\n)\n\nbasin_ids = model.basin.static[\"node_id\"].unique()\nbasin_nodes = xr.DataArray(\n    np.ones(len(basin_ids)), coords={\"node_id\": basin_ids}, dims=[\"node_id\"]\n)\nforcing = (timeseries * basin_nodes).to_dataframe().reset_index()\n\n\nstate = pd.DataFrame(\n    data={\n        \"node_id\": basin_ids,\n        \"storage\": 1000.0,\n        \"concentration\": 0.0,\n    }\n)\n\n\nmodel.basin.forcing = forcing\nmodel.basin.state = state\n\n\nmodel.write(tempdir / \"basic-transient\")\n\nNow run the model with ribasim basic-transient/basic.toml. After running the model, read back the input:\n\ndf = pd.read_feather(tempdir / \"basic-transient/output/basin.arrow\")\noutput = df.set_index([\"time\", \"node_id\"]).to_xarray()\noutput[\"level\"].plot(hue=\"node_id\")"
+  },
+  {
+    "objectID": "python/index.html",
+    "href": "python/index.html",
+    "title": "Python package",
+    "section": "",
+    "text": "The Ribasim Python package aims to make it easy to build, update and analyze Ribasim models programmatically.\nThe Ribasim QGIS plugin allows users to construct a model from scratch without programming. For specific tasks, like adding observed rainfall timeseries, it can be faster to use Python instead.\nOne can also use Ribasim Python to build entire models from base data, such that your model setup is fully reproducible.\n\nExamples\nAPI reference\n\nThe package is registered in PyPI and can therefore be installed with pip install ribasim."
   },
   {
     "objectID": "index.html",
