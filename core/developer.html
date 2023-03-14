@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Ribasim - For developers</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../core/equations.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="https://user-images.githubusercontent.com/4471859/224825908-bee7e044-bc6b-4561-8b08-5d330cce3ed5.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Ribasim</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../core/index.html" aria-current="page">
+ <span class="menu-text">Julia core</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../python/index.html">
+ <span class="menu-text">Python tooling</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../qgis/index.html">
+ <span class="menu-text">QGIS plugin</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../couple/index.html">
+ <span class="menu-text">Coupled models</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Deltares/Ribasim"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">For developers</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/index.html" class="sidebar-item-text sidebar-link">Julia core</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/usage.html" class="sidebar-item-text sidebar-link">Usage</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/equations.html" class="sidebar-item-text sidebar-link">Equations</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/developer.html" class="sidebar-item-text sidebar-link active">For developers</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#set-up-the-developer-environment" id="toc-set-up-the-developer-environment" class="nav-link active" data-scroll-target="#set-up-the-developer-environment"><span class="toc-section-number">1</span>  Set up the developer environment</a>
+  <ul class="collapse">
+  <li><a href="#install-julia-via-juliaup" id="toc-install-julia-via-juliaup" class="nav-link" data-scroll-target="#install-julia-via-juliaup"><span class="toc-section-number">1.1</span>  Install Julia via Juliaup</a></li>
+  <li><a href="#install-julia-libraries" id="toc-install-julia-libraries" class="nav-link" data-scroll-target="#install-julia-libraries"><span class="toc-section-number">1.2</span>  Install Julia libraries</a></li>
+  <li><a href="#setup-revise.jl" id="toc-setup-revise.jl" class="nav-link" data-scroll-target="#setup-revise.jl"><span class="toc-section-number">1.3</span>  Setup Revise.jl</a></li>
+  <li><a href="#install-quarto" id="toc-install-quarto" class="nav-link" data-scroll-target="#install-quarto"><span class="toc-section-number">1.4</span>  Install Quarto</a></li>
+  <li><a href="#clone-ribasim" id="toc-clone-ribasim" class="nav-link" data-scroll-target="#clone-ribasim"><span class="toc-section-number">1.5</span>  Clone Ribasim</a></li>
+  <li><a href="#install-visual-studio-code-optional" id="toc-install-visual-studio-code-optional" class="nav-link" data-scroll-target="#install-visual-studio-code-optional"><span class="toc-section-number">1.6</span>  Install Visual Studio Code (optional)</a></li>
+  </ul></li>
+  <li><a href="#developing-on-ribasim" id="toc-developing-on-ribasim" class="nav-link" data-scroll-target="#developing-on-ribasim"><span class="toc-section-number">2</span>  Developing on Ribasim</a>
+  <ul class="collapse">
+  <li><a href="#running-tests" id="toc-running-tests" class="nav-link" data-scroll-target="#running-tests"><span class="toc-section-number">2.1</span>  Running tests</a></li>
+  <li><a href="#render-documentation" id="toc-render-documentation" class="nav-link" data-scroll-target="#render-documentation"><span class="toc-section-number">2.2</span>  Render documentation</a></li>
+  <li><a href="#run-ribasim-simulations" id="toc-run-ribasim-simulations" class="nav-link" data-scroll-target="#run-ribasim-simulations"><span class="toc-section-number">2.3</span>  Run Ribasim simulations</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">For developers</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="set-up-the-developer-environment" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Set up the developer environment</h1>
+<section id="install-julia-via-juliaup" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="install-julia-via-juliaup"><span class="header-section-number">1.1</span> Install Julia via Juliaup</h2>
+<p>Install Julia via Juliaup as described in its <a href="https://github.com/JuliaLang/juliaup#installation">README</a>.</p>
+</section>
+<section id="install-julia-libraries" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="install-julia-libraries"><span class="header-section-number">1.2</span> Install Julia libraries</h2>
+<p>Start the Julia <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a> by executing <code>julia</code> in your terminal. Within the REPL type <code>]</code> to enter the Pkg REPL. For more information on how to use <code>Pkg</code>, see the <a href="https://pkgdocs.julialang.org/v1/getting-started/">Getting Started</a> page in its documentation. There you can add <code>Revise</code> to your global environment.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pkg<span class="op">&gt;</span> add Revise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="setup-revise.jl" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="setup-revise.jl"><span class="header-section-number">1.3</span> Setup Revise.jl</h2>
+<p>Revise.jl is a library that allows you to modify code and use the changes without restarting Julia. You can let it start automatically by following these <a href="https://timholy.github.io/Revise.jl/stable/config/#Using-Revise-by-default-1">instructions</a>.</p>
+</section>
+<section id="install-quarto" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="install-quarto"><span class="header-section-number">1.4</span> Install Quarto</h2>
+<p>Quarto is the publishing system that builds our documentation. The installation instructions can be found on their <a href="https://quarto.org/docs/get-started/">web page</a>.</p>
+</section>
+<section id="clone-ribasim" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="clone-ribasim"><span class="header-section-number">1.5</span> Clone Ribasim</h2>
+<p>In order to have the Ribasim repository locally available, run the following command at a directory of your choice:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/Deltares/Ribasim.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="install-visual-studio-code-optional" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="install-visual-studio-code-optional"><span class="header-section-number">1.6</span> Install Visual Studio Code (optional)</h2>
+<p>There is a section on editors and IDEs for Julia on <a href="https://julialang.org/" class="uri">https://julialang.org/</a>, scroll down to see it. We use and recommend Microsoft’s free editor <a href="https://code.visualstudio.com/">Visual Studio Code</a>. When combined with the <a href="https://www.julia-vscode.org/">Julia extension</a> it provides a powerful and interactive development experience.</p>
+</section>
+</section>
+<section id="developing-on-ribasim" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Developing on Ribasim</h1>
+<section id="running-tests" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="running-tests"><span class="header-section-number">2.1</span> Running tests</h2>
+<p>You will want to run the testsuite on a regular basis to check if your changes had unexpected side effects. It is also a good way to find out if your development environment is set up correctly. While not technically required, it is advised to import Ribasim first to catch installation issues early on.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="im">using</span> <span class="bu">Ribasim</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then open the Pkg REPL by typing <code>]</code> and execute:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pkg<span class="op">&gt;</span> test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you are in a different environment that depends on Ribasim, you can test Ribasim with the following command:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pkg<span class="op">&gt;</span> test Ribasim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Julia VS Code extension allows you to <a href="https://www.julia-vscode.org/docs/stable/userguide/runningcode/#The-Julia-REPL">open a REPL</a> with the Ribasim environment already activated: <code>"julia.environmentPath": "Ribasim/core"</code>. That way you don’t have to type <code>activate core</code> every time you open the REPL.</p>
+</div>
+</div>
+</section>
+<section id="render-documentation" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="render-documentation"><span class="header-section-number">2.2</span> Render documentation</h2>
+<p>Example models are created and simulated as part of the rendering of the documentation. Therefore you need to have both the <code>ribasim</code> Python package and the Julia <code>Ribasim</code> package installed. Furthermore you need these 3 Python packages installed: <code>jupyter quartodoc xarray</code>.</p>
+<p>The Python API reference is created using quartodoc by running this command from the <code>docs/</code> folder:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> quartodoc build</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You typically only have to run this once, or if you want to check out how it looks after changing Python docstrings.</p>
+<p>In order to preview documentation you can run the following command from the <code>docs/</code> folder. Afterwards, a browser tab will open with the rendered documentation, updating it as you make changes.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The documentation also includes <a href="https://jupyter.org/">Jupyter notebooks</a>. Note that they are stored in the repository without any output, and this should stay this way to keep the repository small. The documentation rendering process adds the output by running the notebooks.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Jupyter VS Code <a href="https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter">extension</a> allows you to run Jupyter notebooks directly in VS Code.</p>
+</div>
+</div>
+</section>
+<section id="run-ribasim-simulations" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="run-ribasim-simulations"><span class="header-section-number">2.3</span> Run Ribasim simulations</h2>
+<p>Assuming your working directory is the root of the repository, you can activate this project by entering the Pkg mode of the REPL with <code>]</code> and execute:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pkg<span class="op">&gt;</span> activate core</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pkg<span class="op">&gt;</span> instantiate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Press backspace to go back to the Julia REPL. There you can run a model with:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> Ribasim.<span class="fu">run</span>(<span class="st">"path/to/model.toml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Julia VS Code extension allows you to <a href="https://www.julia-vscode.org/docs/stable/userguide/runningcode/#Running-code-in-the-Julia-REPL">execute code cells in REPL</a>. This is a very convenient way of executing only parts of your source file.</p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../core/equations.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Equations</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

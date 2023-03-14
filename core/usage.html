@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Ribasim - Usage</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../core/equations.html" rel="next">
+<link href="../core/index.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="https://user-images.githubusercontent.com/4471859/224825908-bee7e044-bc6b-4561-8b08-5d330cce3ed5.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Ribasim</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../core/index.html" aria-current="page">
+ <span class="menu-text">Julia core</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../python/index.html">
+ <span class="menu-text">Python tooling</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../qgis/index.html">
+ <span class="menu-text">QGIS plugin</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../couple/index.html">
+ <span class="menu-text">Coupled models</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Deltares/Ribasim"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Usage</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/index.html" class="sidebar-item-text sidebar-link">Julia core</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/usage.html" class="sidebar-item-text sidebar-link active">Usage</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/equations.html" class="sidebar-item-text sidebar-link">Equations</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/developer.html" class="sidebar-item-text sidebar-link">For developers</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#input-and-output-files" id="toc-input-and-output-files" class="nav-link active" data-scroll-target="#input-and-output-files"><span class="toc-section-number">1</span>  Input and output files</a>
+  <ul class="collapse">
+  <li><a href="#configuration-file" id="toc-configuration-file" class="nav-link" data-scroll-target="#configuration-file"><span class="toc-section-number">1.1</span>  Configuration file</a></li>
+  <li><a href="#geopackage-and-arrow-tables" id="toc-geopackage-and-arrow-tables" class="nav-link" data-scroll-target="#geopackage-and-arrow-tables"><span class="toc-section-number">1.2</span>  GeoPackage and Arrow tables</a></li>
+  <li><a href="#node" id="toc-node" class="nav-link" data-scroll-target="#node"><span class="toc-section-number">1.3</span>  Node</a></li>
+  <li><a href="#edge" id="toc-edge" class="nav-link" data-scroll-target="#edge"><span class="toc-section-number">1.4</span>  Edge</a></li>
+  <li><a href="#basin-state" id="toc-basin-state" class="nav-link" data-scroll-target="#basin-state"><span class="toc-section-number">1.5</span>  Basin / state</a></li>
+  <li><a href="#basin" id="toc-basin" class="nav-link" data-scroll-target="#basin"><span class="toc-section-number">1.6</span>  Basin</a></li>
+  <li><a href="#basin-forcing" id="toc-basin-forcing" class="nav-link" data-scroll-target="#basin-forcing"><span class="toc-section-number">1.7</span>  Basin / forcing</a></li>
+  <li><a href="#basin-profile" id="toc-basin-profile" class="nav-link" data-scroll-target="#basin-profile"><span class="toc-section-number">1.8</span>  Basin / profile</a></li>
+  <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="toc-section-number">1.9</span>  TabulatedRatingCurve</a></li>
+  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="toc-section-number">1.10</span>  Basin output</a></li>
+  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="toc-section-number">1.11</span>  Flow output</a></li>
+  </ul></li>
+  <li><a href="#example-input-files" id="toc-example-input-files" class="nav-link" data-scroll-target="#example-input-files"><span class="toc-section-number">2</span>  Example input files</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Usage</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Ribasim is typically used as a command-line interface (CLI). It is distributed as a <code>.zip</code> archive, that must be downloaded and unpacked. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The Ribasim CLI executable is in the <code>bin</code> directory.</p>
+<p>To check whether the installation was performed successfully, run <code>ribasim</code> with no arguments in the command line. This will give the following message:</p>
+<pre><code>Usage: ribasim 'path/to/config.toml'</code></pre>
+<section id="input-and-output-files" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="input-and-output-files"><span class="header-section-number">1</span> Input and output files</h2>
+<section id="configuration-file" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="configuration-file"><span class="header-section-number">1.1</span> Configuration file</h3>
+<p>Ribasim has a single configuration file, which is written in the <a href="https://toml.io/">TOML</a> format. It contains settings, as well as paths to other input and output files.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start- and endtime of the simulation</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># can also be set to a date-time like 1979-05-27T07:32:00</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">starttime</span> <span class="op">=</span> <span class="bn">2019-01-01</span>  <span class="co"># required</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">endtime</span> <span class="op">=</span> <span class="bn">2021-01-01</span>    <span class="co"># required</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># all timesteps are in seconds</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">update_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># optional, default 1 day</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># save timesteps at this interval</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="dt">saveat</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># optional, default is the value of update_timestep</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># input files</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="dt">geopackage</span> <span class="op">=</span> <span class="st">"model.gpkg"</span>  <span class="co"># required</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Specific tables can also go into Arrow files rather than the GeoPackage.</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># For large tables this can benefit from better compressed file sizes.</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># This is optional, tables are retrieved from the GeoPackage if not specified in the TOML.</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">forcing</span><span class="kw">]</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="dt">Basin</span> <span class="op">=</span> <span class="st">"forcing.arrow"</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># These output files are always written</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="dt">flow</span> <span class="op">=</span> <span class="st">"output/flow.arrow"</span>    <span class="co"># optional, default "output/flow.arrow"</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="dt">basin</span> <span class="op">=</span> <span class="st">"output/basin.arrow"</span>  <span class="co"># optional, default "output/basin.arrow"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="geopackage-and-arrow-tables" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="geopackage-and-arrow-tables"><span class="header-section-number">1.2</span> GeoPackage and Arrow tables</h3>
+<p>The input and output tables described below all share that they are tabular files. The Node and Edge tables always have to be in the <a href="https://www.geopackage.org/">GeoPackage</a> file, and output is always written to <a href="https://arrow.apache.org/">Apache Arrow</a> files, sometimes also known as Feather files. All other tables can either be in the GeoPackage or in separate Arrow files that are listed in the TOML as described above.</p>
+<p>For visualization, the Node and Edge tables typically have associated geometries. GeoPackage was used since it provides a standardized way to store tables with (and without) geometry columns in a SQLite database. If, like Ribasim, you can ignore the geometries, a GeoPackage is easy to read using SQLite libraries, which are commonly available. Furthermore GeoPackage can be updated in place when working on a model.</p>
+<p>Arrow was chosen since it is standardized, fast, simple and flexible. It can be read and written by many different software packages. In Ribasim we use <a href="https://arrow.juliadata.org/dev/">Arrow.jl</a>. Output is written to Arrow, since for long runs output can producs tables with many rows. Arrow is well suited for large tabular datasets, and file size is kept small by using compression. The Arrow input files can be compressed with LZ4 or Zstd compression. Furthermore, in some of the columns, a small amount of different values are repeated many times. To reduce file sizes it may be a good idea to apply <a href="https://arrow.apache.org/docs/format/Columnar.html#dictionary-encoded-layout">dictionary encoding</a> to those columns.</p>
+<p>Below we give details per file, in which we describe the schema of the table using a syntax like this:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>storage</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
+<td>non-negative</td>
+</tr>
+</tbody>
+</table>
+<p>This means that two columns are required, one named <code>node_id</code>, that contained elements of type <code>Int</code>, and a column named <code>storage</code> that contains elements of type <code>Float64</code>. The order of the columns does not matter. In some cases there may be restrictions on the values. This is indicated under <code>restriction</code>.</p>
+<p>Tables are also allowed to have rows for timestamps that are not part of the simulation, these will be ignored. That makes it easy to prepare data for a larger period, and test models on a shorted period.</p>
+</section>
+<section id="node" class="level3" data-number="1.3">
+<h3 data-number="1.3" class="anchored" data-anchor-id="node"><span class="header-section-number">1.3</span> Node</h3>
+<p>Node is a table that specifies the ID and type of each node of a model. The ID must be unique among all nodes, and the type must be one of the available node types listed below.</p>
+<p>Nodes are components that are connected together to form a larger system. The Basin is a central node type that stores water. The other node types influence the flow between Basins in some way. Counter intuitively, even systems you may think of as edges, such as a canal, are nodes in Ribasim. This is because edges only define direct instantaneous couplings between nodes, and never have storage of their own.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>fid</td>
+<td>Int</td>
+<td>unique</td>
+</tr>
+<tr class="even">
+<td>type</td>
+<td>String</td>
+<td>known node type</td>
+</tr>
+<tr class="odd">
+<td>geometry</td>
+<td>geoarrow</td>
+<td>(optional)</td>
+</tr>
+</tbody>
+</table>
+<p>The available node types as of this writing are listed as the top level bullets below. The sub-bullets indicate which tables are associated to the node type. The table name is the name it must have in the GeoPackage if it is stored there.</p>
+<ul>
+<li>Basin: stores water
+<ul>
+<li><code>Basin</code>: default forcing values, used if no dynamic data given in the forcing table</li>
+<li><code>Basin / profile</code>: geometries of the basins</li>
+<li><code>Basin / forcing</code>: time series of the forcing values</li>
+<li><code>Basin / state</code>: used as initial condition of the basins</li>
+</ul></li>
+<li>FractionalFlow: connect two of these from a Basin to get a fixed ratio bifurcation
+<ul>
+<li><code>FractionalFlow</code>: fractions</li>
+</ul></li>
+<li>LevelControl: tries to keep a target water level in a connected Basin
+<ul>
+<li><code>LevelControl</code>: target levels</li>
+</ul></li>
+<li>LinearLevelConnection: bidirectional flow based on water level difference between Basins
+<ul>
+<li><code>LinearLevelConnection</code>: conductances</li>
+</ul></li>
+<li>TabulatedRatingCurve: Basin outflow relation
+<ul>
+<li><code>TabulatedRatingCurve</code>: rating curve</li>
+</ul></li>
+</ul>
+<p>Adding a geometry to the node table can be helpful to examine models in <a href="https://qgis.org/en/site/">QGIS</a>, as it will show the location of the nodes on the map. The geometry is not used by Ribasim.</p>
+</section>
+<section id="edge" class="level3" data-number="1.4">
+<h3 data-number="1.4" class="anchored" data-anchor-id="edge"><span class="header-section-number">1.4</span> Edge</h3>
+<p>Edges define connections between nodes. Flows between nodes are stored on edges. The only thing that defines an edge is the nodes it connects, and in what direction. The effect of the edge direction depends on the node type, Node types that have a notion of an upstream and downstream side use the incoming edge as the upstream side, and the outgoing edge as the downstream side. This means that edges should generally be drawn in the main flow direction. But for instance between two <code>LinearLevelConnections</code> the edge direction does not affect anything, other than the sign of the flow on the edge. The sign of the flow follows the edge direction; a positive flow flows along the edge direction, a negative flow in the opposite way.</p>
+<p>Note that an edge does not only convey flow, but sometimes also information. For instance, a LevelControl node needs to be connected to a Basin node, and will get access to the current water level in the Basin to be able to determine the amount of water that needs to be added or removed.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>from_node_id</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>to_node_id</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>geom</td>
+<td>geometry</td>
+<td>(optional)</td>
+</tr>
+</tbody>
+</table>
+<p>Similarly to the node table, you can use a geometry to visualize the connections between the nodes in QGIS. For instance, you can draw a line connecting the two node coordinates.</p>
+</section>
+<section id="basin-state" class="level3" data-number="1.5">
+<h3 data-number="1.5" class="anchored" data-anchor-id="basin-state"><span class="header-section-number">1.5</span> Basin / state</h3>
+<p>The state table aims to capture the full state of the Basin, such that it can be used as an initial condition, potentially the outcome of an earlier simulation. Currently only the Basin node types have state.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>storage</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
+<td>non-negative</td>
+</tr>
+</tbody>
+</table>
+<p>Each Basin ID needs to be in the table.</p>
+</section>
+<section id="basin" class="level3" data-number="1.6">
+<h3 data-number="1.6" class="anchored" data-anchor-id="basin"><span class="header-section-number">1.6</span> Basin</h3>
+<p>The Basin table can be used to set the static value of variables. The forcing table has a similar schema, with the time column added. A static value for a variable is only used if there is no dynamic forcing data for that variable. Specifically, if there is either no forcing table, it is empty, or all timestamps of that variable are missing.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>precipitation</td>
+<td>Float64</td>
+<td><span class="math inline">\(m s^{-1}\)</span></td>
+<td>non-negative</td>
+</tr>
+<tr class="odd">
+<td>potential_evaporation</td>
+<td>Float64</td>
+<td><span class="math inline">\(m s^{-1}\)</span></td>
+<td>non-negative</td>
+</tr>
+<tr class="even">
+<td>drainage</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>non-negative</td>
+</tr>
+<tr class="odd">
+<td>infiltration</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>non-negative</td>
+</tr>
+<tr class="even">
+<td>urban_runoff</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>non-negative</td>
+</tr>
+</tbody>
+</table>
+<p>Note that if variables are not set in the static table, default values are used when possible. These are generally zero, e.g.&nbsp;no precipitation, no inflow. If it is not possible to have a reasonable and safe default, a value must be provided in the static table. An example of this is the <code>target_volume</code> from the LevelLink node.</p>
+</section>
+<section id="basin-forcing" class="level3" data-number="1.7">
+<h3 data-number="1.7" class="anchored" data-anchor-id="basin-forcing"><span class="header-section-number">1.7</span> Basin / forcing</h3>
+<p>This table is the transient form of the <code>Basin</code> table. The only difference is that a time column is added. A linear interpolation between the given timesteps is currently done if the solver takes timesteps between the given data points. More options will be available later.</p>
+</section>
+<section id="basin-profile" class="level3" data-number="1.8">
+<h3 data-number="1.8" class="anchored" data-anchor-id="basin-profile"><span class="header-section-number">1.8</span> Basin / profile</h3>
+<p>The profile table defines the physical dimensions of the storage reservoir of each basin.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>storage</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
+<td>non-negative, start at 0</td>
+</tr>
+<tr class="odd">
+<td>area</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^2\)</span></td>
+<td>non-negative</td>
+</tr>
+<tr class="even">
+<td>level</td>
+<td>Float64</td>
+<td><span class="math inline">\(m\)</span></td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>The level is in meters above a datum that is the same for the entire model. An example of the first 5 rows of such a table is given below. The first 4 rows define the profile of ID <code>2</code>. The number of rows can vary per ID. Using a very large number of rows may impact performance.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>node_id</th>
+<th>storage</th>
+<th>area</th>
+<th>discharge</th>
+<th>level</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>0.0</td>
+<td>1.36404e5</td>
+<td>0.0</td>
+<td>-0.105</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>24726.2</td>
+<td>1.36404e5</td>
+<td>0.0</td>
+<td>0.095</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>49452.5</td>
+<td>1.36404e5</td>
+<td>0.00942702</td>
+<td>0.295</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>2.49735e6</td>
+<td>1.36404e5</td>
+<td>0.942702</td>
+<td>20.095</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>0.0</td>
+<td>50663.3</td>
+<td>0.0</td>
+<td>2.129</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabulatedratingcurve" class="level3" data-number="1.9">
+<h3 data-number="1.9" class="anchored" data-anchor-id="tabulatedratingcurve"><span class="header-section-number">1.9</span> TabulatedRatingCurve</h3>
+<p>This table is similar in structure to the Basin profile. The TabulatedRatingCurve gives a relation between the storage of a connected Basin and its outflow.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>storage</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
+<td>non-negative, start at 0</td>
+</tr>
+<tr class="odd">
+<td>discharge</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>non-negative</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="basin-output" class="level3" data-number="1.10">
+<h3 data-number="1.10" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">1.10</span> Basin output</h3>
+<p>The basin table contains outputs of the storage and level of each basin at every solver timestep. The initial condition is also written to the file.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>time</td>
+<td>DateTime</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>storage</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
+</tr>
+<tr class="even">
+<td>level</td>
+<td>Float64</td>
+<td><span class="math inline">\(m\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="flow-output" class="level3" data-number="1.11">
+<h3 data-number="1.11" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">1.11</span> Flow output</h3>
+<p>The flow tables contains outputs of the flow on every edge in the model, for each solver timestep.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>time</td>
+<td>DateTime</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>from_node_id</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>to_node_id</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>flow</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="example-input-files" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="example-input-files"><span class="header-section-number">2</span> Example input files</h2>
+<p>From <a href="https://github.com/visr/ribasim-artifacts/releases">this link</a> you can download an existing schematization for the Netherlands that was used for testing purposes during development. It is provided here as an example to help people get started. Based on the description of the input files above, you can also generate your own schematization using your tools of choice. For Python users <a href="https://github.com/Deltares/ribasim-python">ribasim-python</a> was created to make it easy to do pre- and postprocessing.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../core/index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Julia core</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../core/equations.html" class="pagination-link">
+        <span class="nav-page-text">Equations</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
