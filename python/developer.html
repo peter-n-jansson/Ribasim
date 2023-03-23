@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.2.475">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -267,10 +267,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="creating-or-updating-the-environment" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="creating-or-updating-the-environment"><span class="header-section-number">1.2</span> Creating (or updating) the environment</h2>
 <ul>
-<li>Change your current working directory to <code>python</code></li>
-</ul>
-<pre><code>cd python</code></pre>
-<ul>
 <li>Create (or update) the environment by executing the following in your terminal:</li>
 </ul>
 <pre><code>conda env create --file=environment.yml --force</code></pre>
@@ -282,14 +278,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <pre><code>conda activate ribasim</code></pre>
 <p>In order to develop on <code>ribasim</code> locally, execute the following line inside your virtual environment</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-e</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-e</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="running-the-tests" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="running-the-tests"><span class="header-section-number">1.4</span> Running the tests</h2>
 <p>If no already done, activate the environment</p>
 <pre><code>conda activate ribasim</code></pre>
 <p>To run the tests execute:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span> tests</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span> tests</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="setup-visual-studio-code-optional" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="setup-visual-studio-code-optional"><span class="header-section-number">1.5</span> Setup Visual Studio Code (optional)</h2>
