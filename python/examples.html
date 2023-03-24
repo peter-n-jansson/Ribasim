@@ -395,7 +395,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    static<span class="op">=</span>pd.DataFrame(</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_id"</span>: [<span class="dv">7</span>],</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"flow_rate"</span>: [<span class="fl">0.5</span><span class="op">/</span><span class="dv">3600</span>],</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"flow_rate"</span>: [<span class="fl">0.5</span> <span class="op">/</span> <span class="dv">3600</span>],</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        }</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -418,7 +418,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Write the model to a TOML and GeoPackage:</p>
 <div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tempdir <span class="op">=</span> Path(tempfile.mkdtemp(prefix <span class="op">=</span> <span class="st">"ribasim_"</span>))</span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tempdir <span class="op">=</span> Path(tempfile.mkdtemp(prefix<span class="op">=</span><span class="st">"ribasim_"</span>))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>model.write(tempdir <span class="op">/</span> <span class="st">"basic"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -493,14 +493,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ds_basin <span class="op">=</span> df_basin.set_index([<span class="st">"time"</span>, <span class="st">"node_id"</span>]).to_xarray()</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>ds_basin[<span class="st">"level"</span>].plot(hue<span class="op">=</span><span class="st">"node_id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="examples_files/figure-html/cell-22-output-1.png" width="597" height="456"></p>
+<p><img src="examples_files/figure-html/cell-22-output-1.png" width="597" height="457"></p>
 </div>
 </div>
 <div class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df_flow <span class="op">=</span> pd.read_feather(tempdir <span class="op">/</span> <span class="st">"basic-transient/output/flow.arrow"</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"edge"</span>] <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(df_flow.from_node_id, df_flow.to_node_id))</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"flow_m3d"</span>] <span class="op">=</span> df_flow.flow <span class="op">*</span> <span class="dv">86400</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>df_flow.pivot_table(index<span class="op">=</span><span class="st">'time'</span>,columns<span class="op">=</span><span class="st">'edge'</span>,values<span class="op">=</span><span class="st">'flow_m3d'</span>).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>df_flow.pivot_table(index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"edge"</span>, values<span class="op">=</span><span class="st">"flow_m3d"</span>).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>&lt;Axes: xlabel='time'&gt;</code></pre>
 </div>
