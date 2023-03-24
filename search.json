@@ -109,7 +109,7 @@
     "href": "core/usage.html",
     "title": "Usage",
     "section": "",
-    "text": "Ribasim is typically used as a command-line interface (CLI). It is distributed as a .zip archive, that must be downloaded and unpacked. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The Ribasim CLI executable is in the bin directory.\nTo check whether the installation was performed successfully, run ribasim with no arguments in the command line. This will give the following message:"
+    "text": "Ribasim is typically used as a command-line interface (CLI). It is distributed as a .zip archive, that must be downloaded and unpacked. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The Ribasim CLI executable is in the bin directory.\nThe latest build can be downloaded here: ribasim_cli.zip. Currently only Windows builds are available.\nTo check whether the installation was performed successfully, run ribasim with no arguments in the command line. This will give the following message:"
   },
   {
     "objectID": "core/usage.html#input-and-output-files",
