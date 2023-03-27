@@ -227,6 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#building-the-documentation" id="toc-building-the-documentation" class="nav-link" data-scroll-target="#building-the-documentation"><span class="toc-section-number">1.5</span>  Building the documentation</a></li>
   <li><a href="#updating-example-notebooks" id="toc-updating-example-notebooks" class="nav-link" data-scroll-target="#updating-example-notebooks"><span class="toc-section-number">1.6</span>  Updating example notebooks</a></li>
   <li><a href="#setup-visual-studio-code-optional" id="toc-setup-visual-studio-code-optional" class="nav-link" data-scroll-target="#setup-visual-studio-code-optional"><span class="toc-section-number">1.7</span>  Setup Visual Studio Code (optional)</a></li>
+  <li><a href="#how-to-publish-to-pypi" id="toc-how-to-publish-to-pypi" class="nav-link" data-scroll-target="#how-to-publish-to-pypi"><span class="toc-section-number">1.8</span>  How to publish to PyPI</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -305,6 +306,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Install the <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python">Python</a>, <a href="https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff">ruff</a> and <a href="https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring">autoDocstring</a> extensions.</p></li>
 <li><p>Copy <code>.vscode/settings_template.json</code> into <code>.vscode/settings.json</code></p></li>
 </ol>
+</section>
+<section id="how-to-publish-to-pypi" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="how-to-publish-to-pypi"><span class="header-section-number">1.8</span> How to publish to PyPI</h2>
+<ol type="1">
+<li><p>Update <code>__version__</code> in <code>ribasim/__init__.py</code></p></li>
+<li><p>Open a terminal and run <code>cd python/ribasim</code></p></li>
+<li><p>Activate the ribasim environment with <code>conda activate ribasim</code></p></li>
+<li><p>If present remove dist folder</p></li>
+<li><p>Re-create the wheels:</p></li>
+</ol>
+<pre><code>python -m build</code></pre>
+<ol start="6" type="1">
+<li>Check the package files:</li>
+</ol>
+<pre><code>twine check dist/*</code></pre>
+<ol start="7" type="1">
+<li><p>Make a new commit with the updated version number, and push to remote</p></li>
+<li><p>Re-upload the new files:</p></li>
+</ol>
+<pre><code>twine upload dist/*</code></pre>
 
 
 </section>
