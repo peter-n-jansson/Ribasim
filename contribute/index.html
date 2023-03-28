@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim – geometry_from_connectivity</title>
+<title>Ribasim - Contributing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +23,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../contribute/core.html" rel="next">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -60,20 +61,20 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../../assets/styles.css">
+<link rel="stylesheet" href="../assets/styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     <img src="https://user-images.githubusercontent.com/4471859/224825908-bee7e044-bc6b-4561-8b08-5d330cce3ed5.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Ribasim</span>
     </a>
   </div>
@@ -83,23 +84,23 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../core/index.html">
+    <a class="nav-link" href="../core/index.html">
  <span class="menu-text">Julia core</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../python/index.html">
+    <a class="nav-link" href="../python/index.html">
  <span class="menu-text">Python tooling</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../qgis/index.html">
+    <a class="nav-link" href="../qgis/index.html">
  <span class="menu-text">QGIS plugin</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../couple/index.html">
+    <a class="nav-link" href="../couple/index.html">
  <span class="menu-text">Coupled models</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../contribute/index.html">
+    <a class="nav-link active" href="../contribute/index.html" aria-current="page">
  <span class="menu-text">Contributing</span></a>
   </li>  
 </ul>
@@ -114,92 +115,67 @@ ul.task-list li input[type="checkbox"] {
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Contributing</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../contribute/index.html" class="sidebar-item-text sidebar-link active">Contributing</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../contribute/core.html" class="sidebar-item-text sidebar-link">Julia core development</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../contribute/python.html" class="sidebar-item-text sidebar-link">Python tooling development</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#geometry_from_connectivity" id="toc-geometry_from_connectivity" class="nav-link active" data-scroll-target="#geometry_from_connectivity"><span class="toc-section-number">1</span>  geometry_from_connectivity</a>
-  <ul class="collapse">
-  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters"><span class="toc-section-number">1.1</span>  Parameters</a></li>
-  <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns"><span class="toc-section-number">1.2</span>  Returns</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Contributing</h1>
+</div>
 
 
-<section id="geometry_from_connectivity" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="geometry_from_connectivity"><span class="header-section-number">1</span> geometry_from_connectivity</h2>
-<p><code>geometry_from_connectivity(node, from_id, to_id)</code></p>
-<p>Create edge shapely geometries from connectivities.</p>
-<section id="parameters" class="level3" data-number="1.1">
-<h3 data-number="1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.1</span> Parameters</h3>
-<table class="table">
-<colgroup>
-<col style="width: 15%">
-<col style="width: 27%">
-<col style="width: 40%">
-<col style="width: 15%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>node</code></td>
-<td>ribasim.node.Node</td>
-<td></td>
-<td>required</td>
-</tr>
-<tr class="even">
-<td><code>from_id</code></td>
-<td>Sequence[int]</td>
-<td>First node of every edge.</td>
-<td>required</td>
-</tr>
-<tr class="odd">
-<td><code>to_id</code></td>
-<td>Sequence[int]</td>
-<td>Second node of every edge.</td>
-<td>required</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="returns" class="level3" data-number="1.2">
-<h3 data-number="1.2" class="anchored" data-anchor-id="returns"><span class="header-section-number">1.2</span> Returns</h3>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>np.ndarray</td>
-<td>Array of shapely LineStrings.</td>
-</tr>
-</tbody>
-</table>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Ribasim welcomes contributions. Information on how to contribute will be added here.</p>
+<p>There is already specific developer documentation on the <a href="../contribute/core.html">Julia core</a>, and the <a href="../contribute/python.html">Python tooling</a>.</p>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -335,6 +311,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../contribute/core.html" class="pagination-link">
+        <span class="nav-page-text">Julia core development</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

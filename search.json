@@ -7,6 +7,48 @@
     "text": "Plugins menu > Manage and Install Plugins…\n\n\n\n\n\nSelect “Install from ZIP”:\n\nBrowse to the ribasim_qgis.zip file that contains the plugin\nClick “Install Plugin”\nRepeat for the iMOD plugin, imodqgis.zip\n\n\n\n\n\n\nStart the Ribasim plugin.\n\n\n\n\n\n\n\n\nOpen example model basic.gpkg or create a new model.\n\n\n\n\n\nCheck if your coordinate reference system (CRS) is set correctly.\n\n\n\n\n\nIf you are working with an unknown CRS, right click the model GeoPackage group in Layers, and click “Set Group CRS…”.\n\n\n\n\n\nIf you are modeling the Netherlands, select “Amersfoort / RD New” (EPSG:28992).\n\n\n\n\n\n\n\n\n\n\n\nSelect the Node layer.\n\n\n\n\n\nTurn on the edit mode to be able to add nodes on the map.\n\n\n\n\n\nAdd nodes to the map with a left click and select the node type.\n\n\n\n\n\nTurn the edit mode off and save the edits to the Nodes layer.\n\n\n\n\n\n\n\n\nRight click a layer and select “Open Attribute Table”.\n\n\n\n\n\nClick the yellow pencil icon on the top left to enable editing, and copy and paste a record. A record can be selected by clicking on the row number.\n\n\n\n\n\nAdjust the content. If you prefer, it also works to copy data with the same columns from Excel. Turn off edit mode and save changes to the layer.\n\n\n\n\n\n\n\n\n\n\n\nMake sure the Snapping Toolbar is visible, by going to the View > Toolbars menu. Turn on snapping mode by clicking the magnet and set the snapping distance to 25 pixels.\n\n\n\n\n\n\n\n\nSelect the Edge layer and turn on the edit mode.\n\n\n\n\n\nSelect “Add line feature”.\n\n\n\n\n\nCreate a connection by left clicking a source node and right clicking the destination node.\n\n\n\n\n\nNow leave the edit mode and save the results to the layer.\n\n\n\n\n\nOpen a text editor and create an empty file next to your GeoPackage, with the .toml extension.\nAdd the following content to the TOML file:\n\n\n\nbasic.toml\n\nstarttime = 2020-01-01 00:00:00\nendtime = 2021-01-01 00:00:00\ngeopackage = \"basic.gpkg\"\n\n\nUnzip the Ribasim command line interface, ribasim_cli.zip\nOpen your terminal and go to the directory where your TOML is stored. Now run path/to/ribasim_cli/ribasim basic.toml. Adjust the path to the ribasim_cli folder to where you placed it. This runs the model.\nIn your model directory there is now an output/ folder with basin.arrow and flow.arrow output files.\n\n\n\n\n\n\nIn QGIS select the model group.\n\n\n\n\n\nIn the Ribasim plugin widget, select the Output tab and click “Associate Output”.\n\n\n\n\n\nSelect output/basin.arrow.\n\n\n\n\n\nThis adds metadata to the model that the iMOD plugin can use to find the timeseries data that is associated to the model nodes.\n\n\n\nClick the “Time Series” button of the iMOD plugin.\n\n\n\n\n\nSelect the variables that you want to plot.\n\n\n\n\n\nClick “Select points” and select a node by dragging a rectangle around it on the map. Hold the Ctrl key to select multiple nodes. Currently only the Basin nodes can be plotted.\n\n\n\n\n\nThe associated time series are shown the the graph."
   },
   {
+    "objectID": "contribute/core.html",
+    "href": "contribute/core.html",
+    "title": "Julia core development",
+    "section": "",
+    "text": "Install Julia via Juliaup as described in its README.\n\n\n\nStart the Julia REPL by executing julia in your terminal. Within the REPL type ] to enter the Pkg REPL. For more information on how to use Pkg, see the Getting Started page in its documentation. There you can add Revise to your global environment.\npkg> add Revise\n\n\n\nRevise.jl is a library that allows you to modify code and use the changes without restarting Julia. You can let it start automatically by following these instructions.\n\n\n\nQuarto is the publishing system that builds our documentation. The installation instructions can be found on their web page.\n\n\n\nIn order to have the Ribasim repository locally available, run the following command at a directory of your choice:\ngit clone https://github.com/Deltares/Ribasim.git\n\n\n\nThere is a section on editors and IDEs for Julia on https://julialang.org/, scroll down to see it. We use and recommend Microsoft’s free editor Visual Studio Code. When combined with the Julia extension it provides a powerful and interactive development experience."
+  },
+  {
+    "objectID": "contribute/core.html#running-tests",
+    "href": "contribute/core.html#running-tests",
+    "title": "Julia core development",
+    "section": "2.1 Running tests",
+    "text": "2.1 Running tests\nYou will want to run the testsuite on a regular basis to check if your changes had unexpected side effects. It is also a good way to find out if your development environment is set up correctly. While not technically required, it is advised to import Ribasim first to catch installation issues early on.\njulia> using Ribasim\nThen open the Pkg REPL by typing ] and execute:\npkg> test\nIf you are in a different environment that depends on Ribasim, you can test Ribasim with the following command:\npkg> test Ribasim\n\n\n\n\n\n\nTip\n\n\n\nThe Julia VS Code extension allows you to open a REPL with the Ribasim environment already activated: \"julia.environmentPath\": \"Ribasim/core\". That way you don’t have to type activate core every time you open the REPL."
+  },
+  {
+    "objectID": "contribute/core.html#render-documentation",
+    "href": "contribute/core.html#render-documentation",
+    "title": "Julia core development",
+    "section": "2.2 Render documentation",
+    "text": "2.2 Render documentation\nExample models are created and simulated as part of the rendering of the documentation. Therefore you need to have both the ribasim Python package and the Julia Ribasim package installed. Furthermore you need these 3 Python packages installed: jupyter quartodoc xarray.\nThe Python API reference is created using quartodoc by running this command from the docs/ folder:\npython -m quartodoc build\nYou typically only have to run this once, or if you want to check out how it looks after changing Python docstrings.\nIn order to preview documentation you can run the following command from the docs/ folder. Afterwards, a browser tab will open with the rendered documentation, updating it as you make changes.\nquarto preview\nThe documentation also includes Jupyter notebooks. Note that they are stored in the repository without any output, and this should stay this way to keep the repository small. The documentation rendering process adds the output by running the notebooks.\n\n\n\n\n\n\nTip\n\n\n\nThe Jupyter VS Code extension allows you to run Jupyter notebooks directly in VS Code."
+  },
+  {
+    "objectID": "contribute/core.html#run-ribasim-simulations",
+    "href": "contribute/core.html#run-ribasim-simulations",
+    "title": "Julia core development",
+    "section": "2.3 Run Ribasim simulations",
+    "text": "2.3 Run Ribasim simulations\nAssuming your working directory is the root of the repository, you can activate this project by entering the Pkg mode of the REPL with ] and execute:\npkg> activate core\npkg> instantiate\nPress backspace to go back to the Julia REPL. There you can run a model with:\njulia> Ribasim.run(\"path/to/model.toml\")\n\n\n\n\n\n\nTip\n\n\n\nThe Julia VS Code extension allows you to execute code cells in REPL. This is a very convenient way of executing only parts of your source file."
+  },
+  {
+    "objectID": "contribute/python.html",
+    "href": "contribute/python.html",
+    "title": "Python tooling development",
+    "section": "",
+    "text": "In order to develop on ribasim locally, please follow the following steps:\n\nDownload and install miniconda.\nInitialize conda by running the following in the Miniconda prompt:\n\nconda init\n\nDepending on your company settings, you might also have to run the following in a Powershell terminal as administrator:\n\nSet-ExecutionPolicy -ExecutionPolicy RemoteSigned\n\n\n\n\nCreate (or update) the environment by executing the following in your terminal:\n\nconda env create --file=environment.yml --force\n\n\n\n\nActivate the environment\n\nconda activate ribasim\nIn order to develop on ribasim locally, execute the following line inside your virtual environment\npip install -e .\n\n\n\nIf not already done, activate the environment:\nconda activate ribasim\nTo run the tests execute:\npytest tests\n\n\n\nRun in the docs folder:\npython -m quartodoc build\nThis will generate the .qmd files in docs/python/reference for inspection.\n\n\n\nMake sure to run Clear All Outputs on the notebook before committing.\n\n\n\n\nInstall the Python, ruff and autoDocstring extensions.\nCopy .vscode/settings_template.json into .vscode/settings.json\n\n\n\n\n\nUpdate __version__ in ribasim/__init__.py\nOpen a terminal and run cd python/ribasim\nActivate the ribasim environment with conda activate ribasim\nIf present remove dist folder\nRe-create the wheels:\n\npython -m build\n\nCheck the package files:\n\ntwine check dist/*\n\nMake a new commit with the updated version number, and push to remote\nRe-upload the new files:\n\ntwine upload dist/*"
+  },
+  {
+    "objectID": "contribute/index.html",
+    "href": "contribute/index.html",
+    "title": "Contributing",
+    "section": "",
+    "text": "Ribasim welcomes contributions. Information on how to contribute will be added here.\nThere is already specific developer documentation on the Julia core, and the Python tooling."
+  },
+  {
     "objectID": "python/examples.html",
     "href": "python/examples.html",
     "title": "Examples",
@@ -119,13 +161,6 @@
     "text": "The Ribasim Python package (named ribasim) aims to make it easy to build, update and analyze Ribasim models programmatically.\nThe Ribasim QGIS plugin allows users to construct a model from scratch without programming. For specific tasks, like adding observed rainfall timeseries, it can be faster to use Python instead.\nOne can also use Ribasim Python to build entire models from base data, such that your model setup is fully reproducible.\nThe package is registered in PyPI and can therefore be installed with pip install ribasim.\nFor documentation please see the examples and API reference."
   },
   {
-    "objectID": "python/developer.html",
-    "href": "python/developer.html",
-    "title": "For developers",
-    "section": "",
-    "text": "In order to develop on ribasim locally, please follow the following steps:\n\nDownload and install miniconda.\nInitialize conda by running the following in the Miniconda prompt:\n\nconda init\n\nDepending on your company settings, you might also have to run the following in a Powershell terminal as administrator:\n\nSet-ExecutionPolicy -ExecutionPolicy RemoteSigned\n\n\n\n\nCreate (or update) the environment by executing the following in your terminal:\n\nconda env create --file=environment.yml --force\n\n\n\n\nActivate the environment\n\nconda activate ribasim\nIn order to develop on ribasim locally, execute the following line inside your virtual environment\npip install -e .\n\n\n\nIf not already done, activate the environment:\nconda activate ribasim\nTo run the tests execute:\npytest tests\n\n\n\nRun in the docs folder:\npython -m quartodoc build\nThis will generate the .qmd files in docs/python/reference for inspection.\n\n\n\nMake sure to run Clear All Outputs on the notebook before committing.\n\n\n\n\nInstall the Python, ruff and autoDocstring extensions.\nCopy .vscode/settings_template.json into .vscode/settings.json\n\n\n\n\n\nUpdate __version__ in ribasim/__init__.py\nOpen a terminal and run cd python/ribasim\nActivate the ribasim environment with conda activate ribasim\nIf present remove dist folder\nRe-create the wheels:\n\npython -m build\n\nCheck the package files:\n\ntwine check dist/*\n\nMake a new commit with the updated version number, and push to remote\nRe-upload the new files:\n\ntwine upload dist/*"
-  },
-  {
     "objectID": "core/usage.html",
     "href": "core/usage.html",
     "title": "Usage",
@@ -208,34 +243,6 @@
     "title": "Julia core",
     "section": "",
     "text": "With the term “core”, we mean the computational engine of Ribasim. As detailed in the usage documentation, it is generally used as a command line tool.\nThe theory is described on the equations page.\nThe core is implemented in the Julia programming language, and can be found in the Ribasim repository under the core/ folder. For developers we also advise to read the developer documentation."
-  },
-  {
-    "objectID": "core/developer.html",
-    "href": "core/developer.html",
-    "title": "For developers",
-    "section": "",
-    "text": "Install Julia via Juliaup as described in its README.\n\n\n\nStart the Julia REPL by executing julia in your terminal. Within the REPL type ] to enter the Pkg REPL. For more information on how to use Pkg, see the Getting Started page in its documentation. There you can add Revise to your global environment.\npkg> add Revise\n\n\n\nRevise.jl is a library that allows you to modify code and use the changes without restarting Julia. You can let it start automatically by following these instructions.\n\n\n\nQuarto is the publishing system that builds our documentation. The installation instructions can be found on their web page.\n\n\n\nIn order to have the Ribasim repository locally available, run the following command at a directory of your choice:\ngit clone https://github.com/Deltares/Ribasim.git\n\n\n\nThere is a section on editors and IDEs for Julia on https://julialang.org/, scroll down to see it. We use and recommend Microsoft’s free editor Visual Studio Code. When combined with the Julia extension it provides a powerful and interactive development experience."
-  },
-  {
-    "objectID": "core/developer.html#running-tests",
-    "href": "core/developer.html#running-tests",
-    "title": "For developers",
-    "section": "2.1 Running tests",
-    "text": "2.1 Running tests\nYou will want to run the testsuite on a regular basis to check if your changes had unexpected side effects. It is also a good way to find out if your development environment is set up correctly. While not technically required, it is advised to import Ribasim first to catch installation issues early on.\njulia> using Ribasim\nThen open the Pkg REPL by typing ] and execute:\npkg> test\nIf you are in a different environment that depends on Ribasim, you can test Ribasim with the following command:\npkg> test Ribasim\n\n\n\n\n\n\nTip\n\n\n\nThe Julia VS Code extension allows you to open a REPL with the Ribasim environment already activated: \"julia.environmentPath\": \"Ribasim/core\". That way you don’t have to type activate core every time you open the REPL."
-  },
-  {
-    "objectID": "core/developer.html#render-documentation",
-    "href": "core/developer.html#render-documentation",
-    "title": "For developers",
-    "section": "2.2 Render documentation",
-    "text": "2.2 Render documentation\nExample models are created and simulated as part of the rendering of the documentation. Therefore you need to have both the ribasim Python package and the Julia Ribasim package installed. Furthermore you need these 3 Python packages installed: jupyter quartodoc xarray.\nThe Python API reference is created using quartodoc by running this command from the docs/ folder:\npython -m quartodoc build\nYou typically only have to run this once, or if you want to check out how it looks after changing Python docstrings.\nIn order to preview documentation you can run the following command from the docs/ folder. Afterwards, a browser tab will open with the rendered documentation, updating it as you make changes.\nquarto preview\nThe documentation also includes Jupyter notebooks. Note that they are stored in the repository without any output, and this should stay this way to keep the repository small. The documentation rendering process adds the output by running the notebooks.\n\n\n\n\n\n\nTip\n\n\n\nThe Jupyter VS Code extension allows you to run Jupyter notebooks directly in VS Code."
-  },
-  {
-    "objectID": "core/developer.html#run-ribasim-simulations",
-    "href": "core/developer.html#run-ribasim-simulations",
-    "title": "For developers",
-    "section": "2.3 Run Ribasim simulations",
-    "text": "2.3 Run Ribasim simulations\nAssuming your working directory is the root of the repository, you can activate this project by entering the Pkg mode of the REPL with ] and execute:\npkg> activate core\npkg> instantiate\nPress backspace to go back to the Julia REPL. There you can run a model with:\njulia> Ribasim.run(\"path/to/model.toml\")\n\n\n\n\n\n\nTip\n\n\n\nThe Julia VS Code extension allows you to execute code cells in REPL. This is a very convenient way of executing only parts of your source file."
   },
   {
     "objectID": "couple/modflow.html",
