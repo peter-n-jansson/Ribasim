@@ -289,7 +289,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 data-number="2"><span class="header-section-number">2</span> Developing on Ribasim</h1>
 <section id="running-tests" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="running-tests"><span class="header-section-number">2.1</span> Running tests</h2>
-<p>You will want to run the testsuite on a regular basis to check if your changes had unexpected side effects. It is also a good way to find out if your development environment is set up correctly. While not technically required, it is advised to import Ribasim first to catch installation issues early on.</p>
+<p>You will want to run the testsuite on a regular basis to check if your changes had unexpected side effects. It is also a good way to find out if your development environment is set up correctly.</p>
+<p>Before the tests can run, you need to <a href="../contribute/python.html#prepare-model-input">prepare model input</a>.</p>
+<p>While not technically required, it is advised to import Ribasim first to catch installation issues early on.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="im">using</span> <span class="bu">Ribasim</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Then open the Pkg REPL by typing <code>]</code> and execute:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pkg<span class="op">&gt;</span> test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
