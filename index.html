@@ -147,7 +147,7 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#status" id="toc-status" class="nav-link active" data-scroll-target="#status"><span class="toc-section-number">1</span>  Status</a></li>
+  <li><a href="#sec-usage" id="toc-sec-usage" class="nav-link active" data-scroll-target="#sec-usage"><span class="toc-section-number">1</span>  Status</a></li>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="toc-section-number">2</span>  Introduction</a>
   <ul class="collapse">
   <li><a href="#water-balance-equations" id="toc-water-balance-equations" class="nav-link" data-scroll-target="#water-balance-equations"><span class="toc-section-number">2.1</span>  Water balance equations</a></li>
@@ -179,6 +179,7 @@ div.csl-indent {
 
 <p>Ribasim is a water resources model, designed to be the replacement of the regional surface water modules Mozart and SIMRES in the Netherlands Hydrological Instrument (NHI). Ribasim is a work in progress, it is a prototype that demonstrates all essential functionalities. Further development of the prototype in a software release is planned in 2022 and 2023.</p>
 <p>Ribasim is written in the <a href="https://julialang.org/">Julia programming language</a> and is built on top of the <a href="https://sciml.ai/">SciML: Open Source Software for Scientific Machine Learning</a> libraries, notably <a href="https://docs.sciml.ai/DiffEqDocs/stable/">DifferentialEquations.jl</a>.</p>
+<p>The latest build can be downloaded here: <a href="https://ribasim.s3.eu-west-3.amazonaws.com/teamcity/Ribasim_Ribasim/BuildRibasimCliWindows/latest/ribasim_cli.zip">ribasim_cli.zip</a>. Currently only Windows builds are available. See <a href="./core/usage.html">Usage</a> for more information.</p>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-bottom">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -189,7 +190,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<section id="status" class="level1" data-number="1">
+<section id="sec-usage" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Status</h1>
 <p>The initial focus is on being able to reproduce the Mozart regional surface water reservoir results. Each component is defined by a set of symbolic equations, and can be connected to each other. From this a simplified system of equations is generated automatically. We use solvers with adaptive time stepping from <a href="https://diffeq.sciml.ai/stable/">DifferentialEquations.jl</a> to get results.</p>
 <div class="quarto-figure quarto-figure-center">
