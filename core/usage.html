@@ -407,16 +407,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
+<td>fid</td>
+<td>Int</td>
+<td>unique</td>
+</tr>
+<tr class="even">
 <td>from_node_id</td>
 <td>Int</td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>to_node_id</td>
 <td>Int</td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>geom</td>
 <td>geometry</td>
 <td>(optional)</td>
@@ -715,16 +720,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td>-</td>
 </tr>
 <tr class="even">
-<td>from_node_id</td>
+<td>edge_id</td>
 <td>Int</td>
 <td>-</td>
 </tr>
 <tr class="odd">
-<td>to_node_id</td>
+<td>from_node_id</td>
 <td>Int</td>
 <td>-</td>
 </tr>
 <tr class="even">
+<td>to_node_id</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="odd">
 <td>flow</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
