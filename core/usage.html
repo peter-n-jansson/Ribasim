@@ -230,9 +230,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#basin-forcing" id="toc-basin-forcing" class="nav-link" data-scroll-target="#basin-forcing"><span class="toc-section-number">1.7</span>  Basin / forcing</a></li>
   <li><a href="#basin-profile" id="toc-basin-profile" class="nav-link" data-scroll-target="#basin-profile"><span class="toc-section-number">1.8</span>  Basin / profile</a></li>
   <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="toc-section-number">1.9</span>  TabulatedRatingCurve</a></li>
-  <li><a href="#pump" id="toc-pump" class="nav-link" data-scroll-target="#pump"><span class="toc-section-number">1.10</span>  Pump</a></li>
-  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="toc-section-number">1.11</span>  Basin output</a></li>
-  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="toc-section-number">1.12</span>  Flow output</a></li>
+  <li><a href="#tabulatedratingcurve-time" id="toc-tabulatedratingcurve-time" class="nav-link" data-scroll-target="#tabulatedratingcurve-time"><span class="toc-section-number">1.10</span>  TabulatedRatingCurve / time</a></li>
+  <li><a href="#pump" id="toc-pump" class="nav-link" data-scroll-target="#pump"><span class="toc-section-number">1.11</span>  Pump</a></li>
+  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="toc-section-number">1.12</span>  Basin output</a></li>
+  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="toc-section-number">1.13</span>  Flow output</a></li>
   </ul></li>
   <li><a href="#example-input-files" id="toc-example-input-files" class="nav-link" data-scroll-target="#example-input-files"><span class="toc-section-number">2</span>  Example input files</a></li>
   </ul>
@@ -639,8 +640,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </section>
-<section id="pump" class="level3" data-number="1.10">
-<h3 data-number="1.10" class="anchored" data-anchor-id="pump"><span class="header-section-number">1.10</span> Pump</h3>
+<section id="tabulatedratingcurve-time" class="level3" data-number="1.10">
+<h3 data-number="1.10" class="anchored" data-anchor-id="tabulatedratingcurve-time"><span class="header-section-number">1.10</span> TabulatedRatingCurve / time</h3>
+<p>This table is the transient form of the <code>TabulatedRatingCurve</code> table. The only difference is that a time column is added, which must be sorted. With this the rating curves can be updated over time. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
+</section>
+<section id="pump" class="level3" data-number="1.11">
+<h3 data-number="1.11" class="anchored" data-anchor-id="pump"><span class="header-section-number">1.11</span> Pump</h3>
 <p>Pump water from a source node to a destination node. The set flow rate will be pumped unless the intake storage is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. A negative flow rate means pumping against the edge direction. Note that the intake must always be a Basin.</p>
 <table class="table">
 <thead>
@@ -667,8 +672,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </section>
-<section id="basin-output" class="level3" data-number="1.11">
-<h3 data-number="1.11" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">1.11</span> Basin output</h3>
+<section id="basin-output" class="level3" data-number="1.12">
+<h3 data-number="1.12" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">1.12</span> Basin output</h3>
 <p>The basin table contains outputs of the storage and level of each basin at every solver timestep. The initial condition is also written to the file.</p>
 <table class="table">
 <thead>
@@ -702,8 +707,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </section>
-<section id="flow-output" class="level3" data-number="1.12">
-<h3 data-number="1.12" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">1.12</span> Flow output</h3>
+<section id="flow-output" class="level3" data-number="1.13">
+<h3 data-number="1.13" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">1.13</span> Flow output</h3>
 <p>The flow tables contains outputs of the flow on every edge in the model, for each solver timestep.</p>
 <table class="table">
 <thead>

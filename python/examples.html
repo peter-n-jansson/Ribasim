@@ -496,10 +496,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now run the model with <code>ribasim basic-transient/basic.toml</code>. After running the model, read back the output:</p>
 <div class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df_basin <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"basic-transient/output/basin.arrow"</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ds_basin <span class="op">=</span> df_basin.set_index([<span class="st">"time"</span>, <span class="st">"node_id"</span>]).to_xarray()</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>ds_basin[<span class="st">"level"</span>].plot(hue<span class="op">=</span><span class="st">"node_id"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df_basin_wide <span class="op">=</span> df_basin.pivot_table(index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"node_id"</span>, values<span class="op">=</span>[<span class="st">"storage"</span>, <span class="st">"level"</span>])</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>df_basin_wide[<span class="st">"level"</span>].plot()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="examples_files/figure-html/cell-23-output-1.png" width="597" height="460"></p>
+<p><img src="examples_files/figure-html/cell-23-output-1.png" width="579" height="417"></p>
 </div>
 </div>
 <div class="cell" data-execution_count="23">
