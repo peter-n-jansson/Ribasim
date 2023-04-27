@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,14 +17,15 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -38,8 +39,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -81,6 +81,7 @@ div.csl-indent {
 <script src="site_libs/quarto-diagram/mermaid-init.js"></script>
 <link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="assets/styles.css">
@@ -100,40 +101,42 @@ div.csl-indent {
     <span class="navbar-title">Ribasim</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./core/index.html">
+    <a class="nav-link" href="./core/index.html" rel="" target="">
  <span class="menu-text">Julia core</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./python/index.html">
+    <a class="nav-link" href="./python/index.html" rel="" target="">
  <span class="menu-text">Python tooling</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./qgis/index.html">
+    <a class="nav-link" href="./qgis/index.html" rel="" target="">
  <span class="menu-text">QGIS plugin</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./couple/index.html">
+    <a class="nav-link" href="./couple/index.html" rel="" target="">
  <span class="menu-text">Coupled models</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./contribute/index.html">
+    <a class="nav-link" href="./contribute/index.html" rel="" target="">
  <span class="menu-text">Contributing</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/Deltares/Ribasim"><i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/Deltares/Ribasim" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools">
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -147,12 +150,12 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#sec-usage" id="toc-sec-usage" class="nav-link active" data-scroll-target="#sec-usage"><span class="toc-section-number">1</span>  Status</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="toc-section-number">2</span>  Introduction</a>
+  <li><a href="#sec-usage" id="toc-sec-usage" class="nav-link active" data-scroll-target="#sec-usage"><span class="header-section-number">1</span> Status</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">2</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#water-balance-equations" id="toc-water-balance-equations" class="nav-link" data-scroll-target="#water-balance-equations"><span class="toc-section-number">2.1</span>  Water balance equations</a></li>
-  <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="toc-section-number">2.2</span>  Time</a></li>
-  <li><a href="#sec-space" id="toc-sec-space" class="nav-link" data-scroll-target="#sec-space"><span class="toc-section-number">2.3</span>  Space</a></li>
+  <li><a href="#water-balance-equations" id="toc-water-balance-equations" class="nav-link" data-scroll-target="#water-balance-equations"><span class="header-section-number">2.1</span> Water balance equations</a></li>
+  <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="header-section-number">2.2</span> Time</a></li>
+  <li><a href="#sec-space" id="toc-sec-space" class="nav-link" data-scroll-target="#sec-space"><span class="header-section-number">2.3</span> Space</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -196,13 +199,13 @@ div.csl-indent {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://user-images.githubusercontent.com/4471859/179259333-070dfe18-8f43-4ac4-bb38-013b252e2e4b.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Example timeseries of a single basin, the Hupselse Beek, with the input and output fluxes on the top, and the storage volume (the state) below.</figcaption><p></p>
+<figcaption class="figure-caption">Example timeseries of a single basin, the Hupselse Beek, with the input and output fluxes on the top, and the storage volume (the state) below.</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://user-images.githubusercontent.com/4471859/179259174-0caccd4a-c51b-449e-873c-17d48cfc8870.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Example bar plot of the daily waterbalance for the Hupselse Beek, comparing results of Mozart (left) and Ribasim (right).</figcaption><p></p>
+<figcaption class="figure-caption">Example bar plot of the daily waterbalance for the Hupselse Beek, comparing results of Mozart (left) and Ribasim (right).</figcaption>
 </figure>
 </div>
 </section>
@@ -231,24 +234,21 @@ div.csl-indent {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://user-images.githubusercontent.com/4471859/185932183-62c305e6-bc14-4f3c-a74c-437f831c9145.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Mozart Local Surface Water polygons and their drainage.</figcaption><p></p>
+<figcaption class="figure-caption">Mozart Local Surface Water polygons and their drainage.</figcaption>
 </figure>
 </div>
 <p>The network is described as graph. Flow can be bi-directional, and the graph does not have to be acyclic.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<p>
-</p><pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-1">graph LR;
+<div>
+<pre class="mermaid mermaid-js">graph LR;
     A["basin A"] --- B["basin B"];
     A --- C["basin C"];
     B --- D["basin D"];
     C --- D;
 </pre>
-<div id="mermaid-tooltip-1" class="mermaidTooltip">
-
 </div>
-<p></p>
 </div>
 </div>
 </div>
@@ -257,33 +257,30 @@ div.csl-indent {
 <div id="fig-p" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="https://user-images.githubusercontent.com/13662783/187625163-d0a81bb6-7f55-4ad1-83e2-90ec1ee79740.PNG" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: Hupsel: primary surface water.</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Hupsel: primary surface water.</figcaption>
 </figure>
 </div>
 <div id="fig-s" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="https://user-images.githubusercontent.com/13662783/187625170-1acdfb41-7077-443f-b140-ae18cbf21e53.PNG" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;2: Hupsel: secondary surface water.</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;2: Hupsel: secondary surface water.</figcaption>
 </figure>
 </div>
 <div id="fig-t" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="https://user-images.githubusercontent.com/13662783/187625174-3eec28b5-ddbb-4870-94c3-d9e9a43f8eb4.PNG" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;3: Hupsel: tertiary surface water.</figcaption><p></p>
+<figcaption class="figure-caption">Figure&nbsp;3: Hupsel: tertiary surface water.</figcaption>
 </figure>
 </div>
 <p>As a single basin (A) containing all surface water, discharging to its downstream basin to the west (B):</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<p>
-</p><pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-2">graph LR;
+<div>
+<pre class="mermaid mermaid-js">graph LR;
     A["basin A"] --&gt; B["basin B"];
 </pre>
-<div id="mermaid-tooltip-2" class="mermaidTooltip">
-
 </div>
-<p></p>
 </div>
 </div>
 </div>
@@ -291,16 +288,13 @@ div.csl-indent {
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<p>
-</p><pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-3">graph LR;
+<div>
+<pre class="mermaid mermaid-js">graph LR;
     T["basin T"] --&gt; S["basin S"];
     S --&gt; P["basin P"];
     P --&gt; B["basin B"];
 </pre>
-<div id="mermaid-tooltip-3" class="mermaidTooltip">
-
 </div>
-<p></p>
 </div>
 </div>
 </div>
@@ -311,14 +305,14 @@ div.csl-indent {
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-pdoktopnl" class="csl-entry" role="doc-biblioentry">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-pdoktopnl" class="csl-entry" role="listitem">
 PDOK. 2022. <span>“Dataset: Basisregistratie Topografie (BRT) TOPNL.”</span> <a href="https://www.pdok.nl/downloads/-/article/basisregistratie-topografie-brt-topnl">https://www.pdok.nl/downloads/-/article/basisregistratie-topografie-brt-topnl</a>.
 </div>
-<div id="ref-REGGIANI1998367" class="csl-entry" role="doc-biblioentry">
+<div id="ref-REGGIANI1998367" class="csl-entry" role="listitem">
 Reggiani, Paolo, Murugesu Sivapalan, and S. Majid Hassanizadeh. 1998. <span>“A Unifying Framework for Watershed Thermodynamics: Balance Equations for Mass, Momentum, Energy and Entropy, and the Second Law of Thermodynamics.”</span> <em>Advances in Water Resources</em> 22 (4): 367–98. https://doi.org/<a href="https://doi.org/10.1016/S0309-1708(98)00012-8">https://doi.org/10.1016/S0309-1708(98)00012-8</a>.
 </div>
-<div id="ref-enwiki:1099736933" class="csl-entry" role="doc-biblioentry">
+<div id="ref-enwiki:1099736933" class="csl-entry" role="listitem">
 Wikipedia contributors. 2022. <span>“Drainage Basin — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=Drainage_basin&amp;oldid=1099736933">https://en.wikipedia.org/w/index.php?title=Drainage_basin&amp;oldid=1099736933</a>.
 </div>
 </div></section></div></main> <!-- /main -->
@@ -349,9 +343,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -416,6 +424,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
