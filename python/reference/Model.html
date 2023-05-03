@@ -126,9 +126,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#Model" id="toc-Model" class="nav-link active" data-scroll-target="#Model"><span class="header-section-number">1</span> Model</a>
+  <li><a href="#ribasim.Model" id="toc-ribasim.Model" class="nav-link active" data-scroll-target="#ribasim.Model"><span class="header-section-number">1</span> Model</a>
   <ul class="collapse">
   <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters"><span class="header-section-number">1.1</span> Parameters</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="header-section-number">1.2</span> Methods</a>
+  <ul class="collapse">
+  <li><a href="#ribasim.Model.fields" id="toc-ribasim.Model.fields" class="nav-link" data-scroll-target="#ribasim.Model.fields"><span class="header-section-number">1.2.1</span> fields</a></li>
+  <li><a href="#ribasim.Model.from_toml" id="toc-ribasim.Model.from_toml" class="nav-link" data-scroll-target="#ribasim.Model.from_toml"><span class="header-section-number">1.2.2</span> from_toml</a></li>
+  <li><a href="#ribasim.Model.plot" id="toc-ribasim.Model.plot" class="nav-link" data-scroll-target="#ribasim.Model.plot"><span class="header-section-number">1.2.3</span> plot</a></li>
+  <li><a href="#ribasim.Model.sort" id="toc-ribasim.Model.sort" class="nav-link" data-scroll-target="#ribasim.Model.sort"><span class="header-section-number">1.2.4</span> sort</a></li>
+  <li><a href="#ribasim.Model.write" id="toc-ribasim.Model.write" class="nav-link" data-scroll-target="#ribasim.Model.write"><span class="header-section-number">1.2.5</span> write</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -138,16 +146,16 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="Model" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="Model"><span class="header-section-number">1</span> Model</h2>
+<section id="ribasim.Model" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Model</h1>
 <p><code>Model(self, modelname, starttime, endtime, node, edge, basin, fractional_flow=None, level_control=None, linear_level_connection=None, tabulated_rating_curve=None, pump=None, solver=None)</code></p>
 <p>Ribasim model containing the location of the nodes, the edges between the nodes, and the node parametrization.</p>
-<section id="parameters" class="level3" data-number="1.1">
-<h3 data-number="1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.1</span> Parameters</h3>
+<section id="parameters" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.1</span> Parameters</h2>
 <table class="table">
 <colgroup>
-<col style="width: 31%">
-<col style="width: 38%">
+<col style="width: 30%">
+<col style="width: 39%">
 <col style="width: 17%">
 <col style="width: 12%">
 </colgroup>
@@ -168,19 +176,19 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td><code>node</code></td>
-<td>ribasim.node.Node</td>
+<td>Node</td>
 <td></td>
 <td>required</td>
 </tr>
 <tr class="odd">
 <td><code>edge</code></td>
-<td>ribasim.edge.Edge</td>
+<td>Edge</td>
 <td></td>
 <td>required</td>
 </tr>
 <tr class="even">
 <td><code>basin</code></td>
-<td>ribasim.basin.Basin</td>
+<td>Basin</td>
 <td></td>
 <td>required</td>
 </tr>
@@ -228,8 +236,164 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+</section>
+<section id="methods" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="methods"><span class="header-section-number">1.2</span> Methods</h2>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#ribasim.Model.fields">fields</a></td>
+<td>Returns the names of the fields contained in the Model.</td>
+</tr>
+<tr class="even">
+<td><a href="#ribasim.Model.from_toml">from_toml</a></td>
+<td>Initialize a model from the TOML configuration file.</td>
+</tr>
+<tr class="odd">
+<td><a href="#ribasim.Model.plot">plot</a></td>
+<td>Plot the nodes and edges of the model.</td>
+</tr>
+<tr class="even">
+<td><a href="#ribasim.Model.sort">sort</a></td>
+<td>Sort all input tables as required.</td>
+</tr>
+<tr class="odd">
+<td><a href="#ribasim.Model.write">write</a></td>
+<td>Write the contents of the model to a GeoPackage and a TOML</td>
+</tr>
+</tbody>
+</table>
+<section id="ribasim.Model.fields" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="ribasim.Model.fields"><span class="header-section-number">1.2.1</span> fields</h3>
+<p><code>Model.fields(cls)</code></p>
+<p>Returns the names of the fields contained in the Model.</p>
+</section>
+<section id="ribasim.Model.from_toml" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="ribasim.Model.from_toml"><span class="header-section-number">1.2.2</span> from_toml</h3>
+<p><code>Model.from_toml(path)</code></p>
+<p>Initialize a model from the TOML configuration file.</p>
+<section id="parameters-1" class="level4" data-number="1.2.2.1">
+<h4 data-number="1.2.2.1" class="anchored" data-anchor-id="parameters-1"><span class="header-section-number">1.2.2.1</span> Parameters</h4>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>path</code></td>
+<td>FilePath</td>
+<td>Path to the configuration TOML file.</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns" class="level4" data-number="1.2.2.2">
+<h4 data-number="1.2.2.2" class="anchored" data-anchor-id="returns"><span class="header-section-number">1.2.2.2</span> Returns</h4>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Model</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="ribasim.Model.plot" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="ribasim.Model.plot"><span class="header-section-number">1.2.3</span> plot</h3>
+<p><code>Model.plot(self, ax=None)</code></p>
+<p>Plot the nodes and edges of the model.</p>
+<section id="parameters-2" class="level4" data-number="1.2.3.1">
+<h4 data-number="1.2.3.1" class="anchored" data-anchor-id="parameters-2"><span class="header-section-number">1.2.3.1</span> Parameters</h4>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ax</code></td>
+<td></td>
+<td>axes on which to draw the plot</td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns-1" class="level4" data-number="1.2.3.2">
+<h4 data-number="1.2.3.2" class="anchored" data-anchor-id="returns-1"><span class="header-section-number">1.2.3.2</span> Returns</h4>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>matplotlib.pyplot.Artist</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="ribasim.Model.sort" class="level3" data-number="1.2.4">
+<h3 data-number="1.2.4" class="anchored" data-anchor-id="ribasim.Model.sort"><span class="header-section-number">1.2.4</span> sort</h3>
+<p><code>Model.sort(self)</code></p>
+<p>Sort all input tables as required. Tables are sorted by “node_id”, unless otherwise specified. Sorting is done automatically before writing the table.</p>
+</section>
+<section id="ribasim.Model.write" class="level3" data-number="1.2.5">
+<h3 data-number="1.2.5" class="anchored" data-anchor-id="ribasim.Model.write"><span class="header-section-number">1.2.5</span> write</h3>
+<p><code>Model.write(self, directory)</code></p>
+<p>Write the contents of the model to a GeoPackage and a TOML configuration file.</p>
+<p>If <code>directory</code> does not exist, it is created before writing. The GeoPackage and TOML file will be called <code>{modelname}.gpkg</code> and <code>{modelname}.toml</code> respectively.</p>
+<section id="parameters-3" class="level4" data-number="1.2.5.1">
+<h4 data-number="1.2.5.1" class="anchored" data-anchor-id="parameters-3"><span class="header-section-number">1.2.5.1</span> Parameters</h4>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>directory</code></td>
+<td>FilePath</td>
+<td></td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
+</section>
 </section>
 </section>
 
