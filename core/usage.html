@@ -629,6 +629,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="tabulatedratingcurve-time" class="level3" data-number="1.10">
 <h3 data-number="1.10" class="anchored" data-anchor-id="tabulatedratingcurve-time"><span class="header-section-number">1.10</span> TabulatedRatingCurve / time</h3>
 <p>This table is the transient form of the <code>TabulatedRatingCurve</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by node_id. With this the rating curves can be updated over time. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>time</td>
+<td>DateTime</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted per time</td>
+</tr>
+<tr class="odd">
+<td>level</td>
+<td>Float64</td>
+<td><span class="math inline">\(m\)</span></td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>discharge</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>non-negative</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="pump" class="level3" data-number="1.11">
 <h3 data-number="1.11" class="anchored" data-anchor-id="pump"><span class="header-section-number">1.11</span> Pump</h3>
