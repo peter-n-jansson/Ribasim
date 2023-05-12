@@ -192,9 +192,10 @@ div.csl-indent {
   <li><a href="#upstream-and-downstream-flow" id="toc-upstream-and-downstream-flow" class="nav-link" data-scroll-target="#upstream-and-downstream-flow"><span class="header-section-number">2.4</span> Upstream and downstream flow</a>
   <ul class="collapse">
   <li><a href="#outflowtable" id="toc-outflowtable" class="nav-link" data-scroll-target="#outflowtable"><span class="header-section-number">2.4.1</span> OutflowTable</a></li>
-  <li><a href="#levellink" id="toc-levellink" class="nav-link" data-scroll-target="#levellink"><span class="header-section-number">2.4.2</span> LevelLink</a></li>
+  <li><a href="#linearlevelconnection" id="toc-linearlevelconnection" class="nav-link" data-scroll-target="#linearlevelconnection"><span class="header-section-number">2.4.2</span> LinearLevelConnection</a></li>
   <li><a href="#noflowboundary" id="toc-noflowboundary" class="nav-link" data-scroll-target="#noflowboundary"><span class="header-section-number">2.4.3</span> NoFlowBoundary</a></li>
   <li><a href="#headboundary" id="toc-headboundary" class="nav-link" data-scroll-target="#headboundary"><span class="header-section-number">2.4.4</span> HeadBoundary</a></li>
+  <li><a href="#manning-connection" id="toc-manning-connection" class="nav-link" data-scroll-target="#manning-connection"><span class="header-section-number">2.4.5</span> Manning connection</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#allocated-water-balance-terms" id="toc-allocated-water-balance-terms" class="nav-link" data-scroll-target="#allocated-water-balance-terms"><span class="header-section-number">3</span> Allocated water balance terms</a>
@@ -332,8 +333,8 @@ Note
 </div>
 </div>
 </section>
-<section id="levellink" class="level3" data-number="2.4.2">
-<h3 data-number="2.4.2" class="anchored" data-anchor-id="levellink"><span class="header-section-number">2.4.2</span> LevelLink</h3>
+<section id="linearlevelconnection" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="linearlevelconnection"><span class="header-section-number">2.4.2</span> LinearLevelConnection</h3>
 <p>A <code>LevelLink</code> connects two basins together. The flow between the two basins is determined by a linear relationship:</p>
 <p><span id="eq-basinflow"><span class="math display">\[
     Q = C (h_a - h_b).
@@ -347,6 +348,112 @@ Note
 <section id="headboundary" class="level3" data-number="2.4.4">
 <h3 data-number="2.4.4" class="anchored" data-anchor-id="headboundary"><span class="header-section-number">2.4.4</span> HeadBoundary</h3>
 <p>This sets the water level in the basin to a fixed level; lower or higher level result in instantaneous corrective fluxes.</p>
+</section>
+<section id="manning-connection" class="level3" data-number="2.4.5">
+<h3 data-number="2.4.5" class="anchored" data-anchor-id="manning-connection"><span class="header-section-number">2.4.5</span> Manning connection</h3>
+<p>Ribasim is capable of simulating steady flow between basins through a reach described by a trapezoidal profile and a Manning roughness coefficient.</p>
+<p>We describe the discharge from basin <span class="math inline">\(a\)</span> to basin <span class="math inline">\(b\)</span> solely as a function of the water levels in <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[
+Q = f(h_a, h_b)
+\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(_a\)</span> is the subscript denoting basin <span class="math inline">\(a\)</span></li>
+<li><span class="math inline">\(_b\)</span> is the subscript denoting basin <span class="math inline">\(b\)</span></li>
+<li><span class="math inline">\(h\)</span> is the hydraulic head, or water level</li>
+</ul>
+<p>The energy equation for open channel flow is:</p>
+<p><span class="math display">\[
+H = h + \frac{v^2}{2g}
+\]</span></p>
+<p>Where</p>
+<ul>
+<li><span class="math inline">\(H\)</span> is total head</li>
+<li><span class="math inline">\(v\)</span> is average water velocity</li>
+<li><span class="math inline">\(g\)</span> is gravitational acceleration</li>
+</ul>
+<p>The discharge <span class="math inline">\(Q\)</span> is defined as:</p>
+<p><span class="math display">\[
+Q = Av
+\]</span></p>
+<p>where <span class="math inline">\(A\)</span> is cross-sectional area.</p>
+<p>We use conservation of energy to relate the total head at <span class="math inline">\(a\)</span> to <span class="math inline">\(b\)</span>, with <span class="math inline">\(H_a &gt; H_b\)</span> as follows:</p>
+<p><span class="math display">\[
+H_a = H_b + h_{\text{loss}}
+\]</span></p>
+<p>Or:</p>
+<p><span class="math display">\[
+h_a + \frac{v_a^2}{2g} = h_b + \frac{v_b^2}{2g} + h_{\text{loss}}
+\]</span></p>
+<p>Where <span class="math inline">\(v\)</span> is the average water velocity. <span class="math inline">\(h_{\text{loss}}\)</span> is a combination of friction and contraction/expansion losses:</p>
+<p><span class="math display">\[
+h_{\text{loss}} = S_f L + \frac{C}{2g} (v_b^2 - v_a^2)
+\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(L\)</span> is the reach length</li>
+<li><span class="math inline">\(S_f\)</span> is the representative friction slope</li>
+<li><span class="math inline">\(C\)</span> is the expansion or contraction coefficient, <span class="math inline">\(0 &lt;= C &lt;=1\)</span></li>
+</ul>
+<p>We assume velocity differences in a connection are negligible (<span class="math inline">\(v_a = v_b\)</span>):</p>
+<p><span class="math display">\[
+h_a = h_b + S_f L
+\]</span></p>
+<p>Friction losses are computed with the Gauckler-Manning formula:</p>
+<p><span class="math display">\[
+Q = \frac{A}{n} R_h^\frac{2}{3} \sqrt{S_f}
+\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(A\)</span> is the <strong>representative</strong> area.</li>
+<li><span class="math inline">\(R_h\)</span> is the <strong>representative</strong> wetted radius.</li>
+<li><span class="math inline">\(S_f\)</span> is the <strong>representative</strong> friction slope.</li>
+<li><span class="math inline">\(n\)</span> is Manning’s roughness coefficient.</li>
+</ul>
+<p>We can rewrite to express <span class="math inline">\(S_f\)</span> in terms of Q:</p>
+<p><span class="math display">\[
+S_f = Q^2 \frac{n^2}{A^2 R_h^{4/3}}
+\]</span></p>
+<p>No water is added or removed in a connection:</p>
+<p><span class="math display">\[
+Q_a = Q_b = Q
+\]</span></p>
+<p>Filling in:</p>
+<p><span class="math display">\[
+h_a = h_b + Q^2 \frac{n^2}{A^2 R_h^{4/3}} L
+\]</span></p>
+<p>We can then express <span class="math inline">\(Q\)</span> as a function of head difference:</p>
+<p><span class="math display">\[
+Q = \textrm{sign}(h_a - h_b) \frac{A}{n} R_h^{2/3}\sqrt{\frac{|h_a - h_b|}{L} }
+\]</span></p>
+<p>The <span class="math inline">\(\textrm{sign}(h_a - h_b)\)</span> term causes the direction of the flow to reverse if the head in basin <span class="math inline">\(b\)</span> is larger than in basin <span class="math inline">\(a\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The computation of <span class="math inline">\(S_f\)</span> is not exact: we base it on a representative area and hydraulic radius, rather than integrating <span class="math inline">\(S_f\)</span> along the length of a reach. Direct analytic solutions exist for e.g.&nbsp;parabolic profiles (Tolkmitt), but other profiles requires relatively complicated approaches (such as approximating the profile with a polynomial).</p>
+<p>Instead, we choose a representative radius and area at the upstream node. This ensures that a basin will still receive water after it has gone dry. The size of the resulting error will depend on the water depth difference between the upstream and downstream basin.</p>
+</div>
+</div>
+<p>The cross sectional area for a trapezoidal or rectangular profile:</p>
+<p><span class="math display">\[
+A = w d + \frac{\Delta y}{\Delta z} d^2
+\]</span></p>
+<p>Where</p>
+<ul>
+<li><span class="math inline">\(w\)</span> is the width at <span class="math inline">\(d = 0\)</span> (A triangular profile has <span class="math inline">\(w = 0\)</span>)</li>
+<li><span class="math inline">\(\frac{\Delta y}{\Delta z}\)</span> is the slope of the profile expressed as the horizontal length for one unit in the vertical (A slope of 45 degrees has <span class="math inline">\(\frac{\Delta y}{\Delta z} = 1\)</span>; a rectangular profile 0).</li>
+</ul>
+<p>Accordingly, the wetted perimeter is:</p>
+<p><span class="math display">\[
+B = w + 2 d \sqrt{\left(\frac{\Delta y}{\Delta z}\right)^2 + 1}
+\]</span></p>
 </section>
 </section>
 </section>
