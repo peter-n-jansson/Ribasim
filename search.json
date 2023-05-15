@@ -263,14 +263,14 @@
     "href": "python/reference/Basin.html",
     "title": "1 Basin",
     "section": "",
-    "text": "Basin(self, profile, static=None, forcing=None, state=None)\nInput for a (sub-)basin: an area of land where all flowing surface water converges to a single point.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nprofile\npd.DataFrame\nA tabulation with the columns: * node_id * storage * area * water level\nrequired\n\n\n\nstatic: pandas.DataFrame, optional\nStatic forcing with columns:\n\n* node_id\n* potential evaporation\n* precipitation\n* groundwater drainage\n* groundwater infiltration\n* urban runoff\nforcing: pandas.DataFrame, optional\nTime varying forcing with columns:\n\n* node_id\n* time\n* potential evaporation\n* precipitation\n* groundwater drainage\n* groundwater infiltration\n* urban runoff\nstate: pandas.DataFrame, optional\nInitial state with columns:\n\n* node_id\n* storage\n* concentration\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nBasin.sort(self)"
+    "text": "Basin()\nInput for a (sub-)basin: an area of land where all flowing surface water converges to a single point.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nprofile\n\nA tabulation with the columns: * node_id * storage * area * water level\nrequired\n\n\n\nstatic: pandas.DataFrame, optional\nStatic forcing with columns:\n\n* node_id\n* potential evaporation\n* precipitation\n* groundwater drainage\n* groundwater infiltration\n* urban runoff\nforcing: pandas.DataFrame, optional\nTime varying forcing with columns:\n\n* node_id\n* time\n* potential evaporation\n* precipitation\n* groundwater drainage\n* groundwater infiltration\n* urban runoff\nstate: pandas.DataFrame, optional\nInitial state with columns:\n\n* node_id\n* storage\n* concentration\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nBasin.sort(self)"
   },
   {
     "objectID": "python/reference/Basin.html#parameters",
     "href": "python/reference/Basin.html#parameters",
     "title": "1 Basin",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nprofile\npd.DataFrame\nA tabulation with the columns: * node_id * storage * area * water level\nrequired\n\n\n\nstatic: pandas.DataFrame, optional\nStatic forcing with columns:\n\n* node_id\n* potential evaporation\n* precipitation\n* groundwater drainage\n* groundwater infiltration\n* urban runoff\nforcing: pandas.DataFrame, optional\nTime varying forcing with columns:\n\n* node_id\n* time\n* potential evaporation\n* precipitation\n* groundwater drainage\n* groundwater infiltration\n* urban runoff\nstate: pandas.DataFrame, optional\nInitial state with columns:\n\n* node_id\n* storage\n* concentration"
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nprofile\n\nA tabulation with the columns: * node_id * storage * area * water level\nrequired\n\n\n\nstatic: pandas.DataFrame, optional\nStatic forcing with columns:\n\n* node_id\n* potential evaporation\n* precipitation\n* groundwater drainage\n* groundwater infiltration\n* urban runoff\nforcing: pandas.DataFrame, optional\nTime varying forcing with columns:\n\n* node_id\n* time\n* potential evaporation\n* precipitation\n* groundwater drainage\n* groundwater infiltration\n* urban runoff\nstate: pandas.DataFrame, optional\nInitial state with columns:\n\n* node_id\n* storage\n* concentration"
   },
   {
     "objectID": "python/reference/Basin.html#methods",
@@ -284,14 +284,14 @@
     "href": "python/reference/TabulatedRatingCurve.html",
     "title": "1 TabulatedRatingCurve",
     "section": "",
-    "text": "TabulatedRatingCurve(self, static, time=None)\nLinearly interpolates discharge between a tabulation of level and discharge.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTabulation with columns: * node_id * level * discharge\nrequired\n\n\n\ntime: pandas.DataFrame, optional\nTime varying rating curves with columns:\n\n* node_id\n* time\n* level\n* discharge\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nTabulatedRatingCurve.sort(self)"
+    "text": "TabulatedRatingCurve()\nLinearly interpolates discharge between a tabulation of level and discharge.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\n\nTabulation with columns: * node_id * level * discharge\nrequired\n\n\n\ntime: pandas.DataFrame, optional\nTime varying rating curves with columns:\n\n* node_id\n* time\n* level\n* discharge\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nTabulatedRatingCurve.sort(self)"
   },
   {
     "objectID": "python/reference/TabulatedRatingCurve.html#parameters",
     "href": "python/reference/TabulatedRatingCurve.html#parameters",
     "title": "1 TabulatedRatingCurve",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTabulation with columns: * node_id * level * discharge\nrequired\n\n\n\ntime: pandas.DataFrame, optional\nTime varying rating curves with columns:\n\n* node_id\n* time\n* level\n* discharge"
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\n\nTabulation with columns: * node_id * level * discharge\nrequired\n\n\n\ntime: pandas.DataFrame, optional\nTime varying rating curves with columns:\n\n* node_id\n* time\n* level\n* discharge"
   },
   {
     "objectID": "python/reference/TabulatedRatingCurve.html#methods",
@@ -305,14 +305,14 @@
     "href": "python/reference/LinearLevelConnection.html",
     "title": "1 LinearLevelConnection",
     "section": "",
-    "text": "LinearLevelConnection(self, static)\nFlow through this connection linearly depends on the level difference between the two connected basins.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * node_id * conductance\nrequired"
+    "text": "LinearLevelConnection()\nFlow through this connection linearly depends on the level difference between the two connected basins.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\n\nWith columns: * node_id * conductance\nrequired"
   },
   {
     "objectID": "python/reference/LinearLevelConnection.html#parameters",
     "href": "python/reference/LinearLevelConnection.html#parameters",
     "title": "1 LinearLevelConnection",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * node_id * conductance\nrequired"
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\n\nWith columns: * node_id * conductance\nrequired"
   },
   {
     "objectID": "python/reference/utils.geometry_from_connectivity.html",
@@ -361,14 +361,14 @@
     "href": "python/reference/FractionalFlow.html",
     "title": "1 FractionalFlow",
     "section": "",
-    "text": "FractionalFlow(self, static, forcing=None)\nReceives a fraction of the flow. The fractions must sum to 1.0 for a furcation.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * node_id * fraction\nrequired\n\n\n\nforcing: pandas.DataFrame, optional\nWith columns:\n\n* node_id\n* time\n* fraction\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nFractionalFlow.sort(self)"
+    "text": "FractionalFlow()\nReceives a fraction of the flow. The fractions must sum to 1.0 for a furcation.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\n\nWith columns: * node_id * fraction\nrequired\n\n\n\nforcing: pandas.DataFrame, optional\nWith columns:\n\n* node_id\n* time\n* fraction\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nFractionalFlow.sort(self)"
   },
   {
     "objectID": "python/reference/FractionalFlow.html#parameters",
     "href": "python/reference/FractionalFlow.html#parameters",
     "title": "1 FractionalFlow",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * node_id * fraction\nrequired\n\n\n\nforcing: pandas.DataFrame, optional\nWith columns:\n\n* node_id\n* time\n* fraction"
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\n\nWith columns: * node_id * fraction\nrequired\n\n\n\nforcing: pandas.DataFrame, optional\nWith columns:\n\n* node_id\n* time\n* fraction"
   },
   {
     "objectID": "python/reference/FractionalFlow.html#methods",
@@ -382,14 +382,14 @@
     "href": "python/reference/LevelControl.html",
     "title": "1 LevelControl",
     "section": "",
-    "text": "LevelControl(self, static)\nControls the level in a basin.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * node_id * target_level * conductance\nrequired"
+    "text": "LevelControl()\nControls the level in a basin.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\n\nWith columns: * node_id * target_level * conductance\nrequired"
   },
   {
     "objectID": "python/reference/LevelControl.html#parameters",
     "href": "python/reference/LevelControl.html#parameters",
     "title": "1 LevelControl",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * node_id * target_level * conductance\nrequired"
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\n\nWith columns: * node_id * target_level * conductance\nrequired"
   },
   {
     "objectID": "python/reference/index.html",
@@ -431,35 +431,35 @@
     "href": "python/reference/Node.html",
     "title": "1 Node",
     "section": "",
-    "text": "Node(self, static)\nThe Ribasim nodes as Point geometries.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * type * geometry\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nplot\nPlot the nodes. Each node type is given a separate marker.\n\n\nsort\n\n\n\nwrite\nWrite the contents of the input to a GeoPackage.\n\n\n\n\n\nNode.plot(self, **kwargs)\nPlot the nodes. Each node type is given a separate marker.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\n**kwargs\n\nKeyword arguments forwarded to GeoDataFrame.plot.\n{}\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nNone\n\n\n\n\n\n\n\n\nNode.sort(self)\n\n\n\nNode.write(self, directory, modelname)\nWrite the contents of the input to a GeoPackage.\nThe Geopackage will be written in directory and will be be named {modelname}.gpkg.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired\n\n\nmodelname\nstr\n\nrequired"
+    "text": "Node()\nThe Ribasim nodes as Point geometries.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\n\nWith columns: * type * geometry\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nhasfid\n\n\n\nplot\nPlot the nodes. Each node type is given a separate marker.\n\n\nsort\n\n\n\nwrite\nWrite the contents of the input to a GeoPackage.\n\n\n\n\n\nNode.hasfid(cls)\n\n\n\nNode.plot(self, **kwargs)\nPlot the nodes. Each node type is given a separate marker.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\n**kwargs\n\nKeyword arguments forwarded to GeoDataFrame.plot.\n{}\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nNone\n\n\n\n\n\n\n\n\nNode.sort(self)\n\n\n\nNode.write(self, directory, modelname)\nWrite the contents of the input to a GeoPackage.\nThe Geopackage will be written in directory and will be be named {modelname}.gpkg.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired\n\n\nmodelname\nstr\n\nrequired"
   },
   {
     "objectID": "python/reference/Node.html#parameters",
     "href": "python/reference/Node.html#parameters",
     "title": "1 Node",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * type * geometry\nrequired"
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\n\nWith columns: * type * geometry\nrequired"
   },
   {
     "objectID": "python/reference/Node.html#methods",
     "href": "python/reference/Node.html#methods",
     "title": "1 Node",
     "section": "",
-    "text": "Name\nDescription\n\n\n\n\nplot\nPlot the nodes. Each node type is given a separate marker.\n\n\nsort\n\n\n\nwrite\nWrite the contents of the input to a GeoPackage.\n\n\n\n\n\nNode.plot(self, **kwargs)\nPlot the nodes. Each node type is given a separate marker.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\n**kwargs\n\nKeyword arguments forwarded to GeoDataFrame.plot.\n{}\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nNone\n\n\n\n\n\n\n\n\nNode.sort(self)\n\n\n\nNode.write(self, directory, modelname)\nWrite the contents of the input to a GeoPackage.\nThe Geopackage will be written in directory and will be be named {modelname}.gpkg.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired\n\n\nmodelname\nstr\n\nrequired"
+    "text": "Name\nDescription\n\n\n\n\nhasfid\n\n\n\nplot\nPlot the nodes. Each node type is given a separate marker.\n\n\nsort\n\n\n\nwrite\nWrite the contents of the input to a GeoPackage.\n\n\n\n\n\nNode.hasfid(cls)\n\n\n\nNode.plot(self, **kwargs)\nPlot the nodes. Each node type is given a separate marker.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\n**kwargs\n\nKeyword arguments forwarded to GeoDataFrame.plot.\n{}\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nNone\n\n\n\n\n\n\n\n\nNode.sort(self)\n\n\n\nNode.write(self, directory, modelname)\nWrite the contents of the input to a GeoPackage.\nThe Geopackage will be written in directory and will be be named {modelname}.gpkg.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired\n\n\nmodelname\nstr\n\nrequired"
   },
   {
     "objectID": "python/reference/Edge.html",
     "href": "python/reference/Edge.html",
     "title": "1 Edge",
     "section": "",
-    "text": "Edge(self, static)\nDefines the connections between nodes.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * from_node_id * to_node_id * geometry\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nplot\n\n\n\nsort\n\n\n\nwrite\nWrite the contents of the input to a GeoPackage.\n\n\n\n\n\nEdge.plot(self, **kwargs)\n\n\n\nEdge.sort(self)\n\n\n\nEdge.write(self, directory, modelname)\nWrite the contents of the input to a GeoPackage.\nThe Geopackage will be written in directory and will be be named {modelname}.gpkg.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired\n\n\nmodelname\nstr\n\nrequired"
+    "text": "Edge()\nDefines the connections between nodes.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\n\nWith columns: * from_node_id * to_node_id * geometry\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nplot\n\n\n\nsort\n\n\n\nwrite\nWrite the contents of the input to a GeoPackage.\n\n\n\n\n\nEdge.plot(self, **kwargs)\n\n\n\nEdge.sort(self)\n\n\n\nEdge.write(self, directory, modelname)\nWrite the contents of the input to a GeoPackage.\nThe Geopackage will be written in directory and will be be named {modelname}.gpkg.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired\n\n\nmodelname\nstr\n\nrequired"
   },
   {
     "objectID": "python/reference/Edge.html#parameters",
     "href": "python/reference/Edge.html#parameters",
     "title": "1 Edge",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nWith columns: * from_node_id * to_node_id * geometry\nrequired"
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\n\nWith columns: * from_node_id * to_node_id * geometry\nrequired"
   },
   {
     "objectID": "python/reference/Edge.html#methods",
@@ -473,14 +473,14 @@
     "href": "python/reference/Model.html",
     "title": "1 Model",
     "section": "",
-    "text": "Model(self, modelname, starttime, endtime, node, edge, basin, fractional_flow=None, level_control=None, linear_level_connection=None, manning_resistance=None, tabulated_rating_curve=None, pump=None, solver=None)\nRibasim model containing the location of the nodes, the edges between the nodes, and the node parametrization.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmodelname\nstr\n\nrequired\n\n\nnode\nNode\n\nrequired\n\n\nedge\nEdge\n\nrequired\n\n\nbasin\nBasin\n\nrequired\n\n\nfractional_flow\nOptional[FractionalFlow]\n\nNone\n\n\nlevel_control\nOptional[LevelControl]\n\nNone\n\n\nlinear_level_connection\nOptional[LinearLevelConnection]\n\nNone\n\n\ntabulated_rating_curve\nOptional[TabulatedRatingCurve]\n\nNone\n\n\nstarttime\nUnion[str, datetime.datetime]\n\nrequired\n\n\nendtime\nUnion[str, datetime.datetime]\n\nrequired\n\n\nsolver\nOptional[Solver]\n\nNone\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nfields\nReturns the names of the fields contained in the Model.\n\n\nfrom_toml\nInitialize a model from the TOML configuration file.\n\n\nplot\nPlot the nodes and edges of the model.\n\n\nsort\nSort all input tables as required.\n\n\nwrite\nWrite the contents of the model to a GeoPackage and a TOML\n\n\n\n\n\nModel.fields(cls)\nReturns the names of the fields contained in the Model.\n\n\n\nModel.from_toml(path)\nInitialize a model from the TOML configuration file.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npath\nFilePath\nPath to the configuration TOML file.\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nModel\n\n\n\n\n\n\n\n\nModel.plot(self, ax=None)\nPlot the nodes and edges of the model.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nax\n\naxes on which to draw the plot\nNone\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nmatplotlib.pyplot.Artist\n\n\n\n\n\n\n\n\nModel.sort(self)\nSort all input tables as required. Tables are sorted by “node_id”, unless otherwise specified. Sorting is done automatically before writing the table.\n\n\n\nModel.write(self, directory)\nWrite the contents of the model to a GeoPackage and a TOML configuration file.\nIf directory does not exist, it is created before writing. The GeoPackage and TOML file will be called {modelname}.gpkg and {modelname}.toml respectively.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired"
+    "text": "Model()\nRibasim model containing the location of the nodes, the edges between the nodes, and the node parametrization.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmodelname\n\n\nrequired\n\n\nnode\n\n\nrequired\n\n\nedge\n\n\nrequired\n\n\nbasin\n\n\nrequired\n\n\nfractional_flow\n\n\nrequired\n\n\nlevel_control\n\n\nrequired\n\n\nlinear_level_connection\n\n\nrequired\n\n\ntabulated_rating_curve\n\n\nrequired\n\n\nstarttime\n\n\nrequired\n\n\nendtime\n\n\nrequired\n\n\nsolver\n\n\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nfields\nReturns the names of the fields contained in the Model.\n\n\nfrom_toml\nInitialize a model from the TOML configuration file.\n\n\nplot\nPlot the nodes and edges of the model.\n\n\nsort\nSort all input tables as required.\n\n\nwrite\nWrite the contents of the model to a GeoPackage and a TOML\n\n\n\n\n\nModel.fields(cls)\nReturns the names of the fields contained in the Model.\n\n\n\nModel.from_toml(path)\nInitialize a model from the TOML configuration file.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npath\nFilePath\nPath to the configuration TOML file.\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nModel\n\n\n\n\n\n\n\n\nModel.plot(self, ax=None)\nPlot the nodes and edges of the model.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nax\n\naxes on which to draw the plot\nNone\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nmatplotlib.pyplot.Artist\n\n\n\n\n\n\n\n\nModel.sort(self)\nSort all input tables as required. Tables are sorted by “node_id”, unless otherwise specified. Sorting is done automatically before writing the table.\n\n\n\nModel.write(self, directory)\nWrite the contents of the model to a GeoPackage and a TOML configuration file.\nIf directory does not exist, it is created before writing. The GeoPackage and TOML file will be called {modelname}.gpkg and {modelname}.toml respectively.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired"
   },
   {
     "objectID": "python/reference/Model.html#parameters",
     "href": "python/reference/Model.html#parameters",
     "title": "1 Model",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nmodelname\nstr\n\nrequired\n\n\nnode\nNode\n\nrequired\n\n\nedge\nEdge\n\nrequired\n\n\nbasin\nBasin\n\nrequired\n\n\nfractional_flow\nOptional[FractionalFlow]\n\nNone\n\n\nlevel_control\nOptional[LevelControl]\n\nNone\n\n\nlinear_level_connection\nOptional[LinearLevelConnection]\n\nNone\n\n\ntabulated_rating_curve\nOptional[TabulatedRatingCurve]\n\nNone\n\n\nstarttime\nUnion[str, datetime.datetime]\n\nrequired\n\n\nendtime\nUnion[str, datetime.datetime]\n\nrequired\n\n\nsolver\nOptional[Solver]\n\nNone"
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nmodelname\n\n\nrequired\n\n\nnode\n\n\nrequired\n\n\nedge\n\n\nrequired\n\n\nbasin\n\n\nrequired\n\n\nfractional_flow\n\n\nrequired\n\n\nlevel_control\n\n\nrequired\n\n\nlinear_level_connection\n\n\nrequired\n\n\ntabulated_rating_curve\n\n\nrequired\n\n\nstarttime\n\n\nrequired\n\n\nendtime\n\n\nrequired\n\n\nsolver\n\n\nrequired"
   },
   {
     "objectID": "python/reference/Model.html#methods",
