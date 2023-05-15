@@ -350,26 +350,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Basin: stores water
 <ul>
-<li><code>Basin</code>: default forcing values, used if no dynamic data given in the forcing table</li>
+<li><code>Basin / static</code>: default forcing values, used if no dynamic data given in the forcing table</li>
 <li><code>Basin / profile</code>: geometries of the basins</li>
 <li><code>Basin / forcing</code>: time series of the forcing values</li>
 <li><code>Basin / state</code>: used as initial condition of the basins</li>
 </ul></li>
 <li>FractionalFlow: connect two of these from a Basin to get a fixed ratio bifurcation
 <ul>
-<li><code>FractionalFlow</code>: fractions</li>
+<li><code>FractionalFlow / static</code>: fractions</li>
 </ul></li>
 <li>LevelControl: tries to keep a target water level in a connected Basin
 <ul>
-<li><code>LevelControl</code>: target levels</li>
+<li><code>LevelControl / static</code>: target levels</li>
+</ul></li>
+<li>LevelBoundary: stores water at a given level unaffected by flow, like an infinitely large basin
+<ul>
+<li><code>LevelBoundary / static</code>: levels</li>
 </ul></li>
 <li>LinearLevelConnection: bidirectional flow based on water level difference between Basins
 <ul>
-<li><code>LinearLevelConnection</code>: conductances</li>
+<li><code>LinearLevelConnection / static</code>: conductances</li>
 </ul></li>
 <li>TabulatedRatingCurve: Basin outflow relation
 <ul>
-<li><code>TabulatedRatingCurve</code>: rating curve</li>
+<li><code>TabulatedRatingCurve / static</code>: rating curve</li>
+<li><code>TabulatedRatingCurve / time</code>: dynamic rating curve</li>
 </ul></li>
 </ul>
 <p>Adding a geometry to the node table can be helpful to examine models in <a href="https://qgis.org/en/site/">QGIS</a>, as it will show the location of the nodes on the map. The geometry is not used by Ribasim.</p>
