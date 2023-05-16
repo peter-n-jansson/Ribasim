@@ -150,10 +150,10 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.1</span> Parameters</h2>
 <table class="table">
 <colgroup>
-<col style="width: 10%">
-<col style="width: 7%">
-<col style="width: 71%">
-<col style="width: 10%">
+<col style="width: 11%">
+<col style="width: 30%">
+<col style="width: 46%">
+<col style="width: 11%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -166,37 +166,30 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><code>profile</code></td>
-<td></td>
-<td>A tabulation with the columns: * node_id * storage * area * water level</td>
+<td>pandas.DataFrame</td>
+<td>Table describing the geometry.</td>
+<td>required</td>
+</tr>
+<tr class="even">
+<td><code>static</code></td>
+<td>pandas.DataFrame, optional</td>
+<td>Table describing the constant fluxes.</td>
+<td>required</td>
+</tr>
+<tr class="odd">
+<td><code>forcing</code></td>
+<td>pandas.DataFrame, optional</td>
+<td>Table describing the time-varying fluxes.</td>
+<td>required</td>
+</tr>
+<tr class="even">
+<td><code>state</code></td>
+<td>pandas.DataFrame, optional</td>
+<td>Table describing the initial condition.</td>
 <td>required</td>
 </tr>
 </tbody>
 </table>
-<p>static: pandas.DataFrame, optional</p>
-<pre><code>Static forcing with columns:
-
-* node_id
-* potential evaporation
-* precipitation
-* groundwater drainage
-* groundwater infiltration
-* urban runoff</code></pre>
-<p>forcing: pandas.DataFrame, optional</p>
-<pre><code>Time varying forcing with columns:
-
-* node_id
-* time
-* potential evaporation
-* precipitation
-* groundwater drainage
-* groundwater infiltration
-* urban runoff</code></pre>
-<p>state: pandas.DataFrame, optional</p>
-<pre><code>Initial state with columns:
-
-* node_id
-* storage
-* concentration</code></pre>
 </section>
 <section id="methods" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="methods"><span class="header-section-number">1.2</span> Methods</h2>

@@ -186,19 +186,7 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><a href="../../python/reference/Model.html#ribasim.Model">Model</a></td>
-<td>Ribasim model containing the location of the nodes, the edges between the</td>
-</tr>
-<tr class="even">
-<td><a href="../../python/reference/Model.write.html#ribasim.Model.write">Model.write</a></td>
-<td>Write the contents of the model to a GeoPackage and a TOML</td>
-</tr>
-<tr class="odd">
-<td><a href="../../python/reference/Model.from_toml.html#ribasim.Model.from_toml">Model.from_toml</a></td>
-<td>Initialize a model from the TOML configuration file.</td>
-</tr>
-<tr class="even">
-<td><a href="../../python/reference/Model.plot.html#ribasim.Model.plot">Model.plot</a></td>
-<td>Plot the nodes and edges of the model.</td>
+<td>A full Ribasim model schematisation with all input.</td>
 </tr>
 </tbody>
 </table>
@@ -229,20 +217,32 @@ ul.task-list li input[type="checkbox"] {
 <td>Input for a (sub-)basin: an area of land where all flowing surface water</td>
 </tr>
 <tr class="even">
-<td><a href="../../python/reference/TabulatedRatingCurve.html#ribasim.TabulatedRatingCurve">TabulatedRatingCurve</a></td>
-<td>Linearly interpolates discharge between a tabulation of level and discharge.</td>
+<td><a href="../../python/reference/FractionalFlow.html#ribasim.FractionalFlow">FractionalFlow</a></td>
+<td>Receives a fraction of the flow. The fractions must sum to 1.0 for a furcation.</td>
+</tr>
+<tr class="odd">
+<td><a href="../../python/reference/LevelBoundary.html#ribasim.LevelBoundary">LevelBoundary</a></td>
+<td>Stores water at a given level unaffected by flow, like an infinitely large basin.</td>
+</tr>
+<tr class="even">
+<td><a href="../../python/reference/LevelControl.html#ribasim.LevelControl">LevelControl</a></td>
+<td>Controls the level in a basin.</td>
 </tr>
 <tr class="odd">
 <td><a href="../../python/reference/LinearResistance.html#ribasim.LinearResistance">LinearResistance</a></td>
 <td>Flow through this connection linearly depends on the level difference</td>
 </tr>
 <tr class="even">
-<td><a href="../../python/reference/FractionalFlow.html#ribasim.FractionalFlow">FractionalFlow</a></td>
-<td>Receives a fraction of the flow. The fractions must sum to 1.0 for a</td>
+<td><a href="../../python/reference/ManningResistance.html#ribasim.ManningResistance">ManningResistance</a></td>
+<td>Flow through this connection is estimated by conservation of energy and the</td>
 </tr>
 <tr class="odd">
-<td><a href="../../python/reference/LevelControl.html#ribasim.LevelControl">LevelControl</a></td>
-<td>Controls the level in a basin.</td>
+<td><a href="../../python/reference/Pump.html#ribasim.Pump">Pump</a></td>
+<td>Pump water from a source node to a destination node.</td>
+</tr>
+<tr class="even">
+<td><a href="../../python/reference/TabulatedRatingCurve.html#ribasim.TabulatedRatingCurve">TabulatedRatingCurve</a></td>
+<td>Linearly interpolates discharge between a tabulation of level and discharge.</td>
 </tr>
 </tbody>
 </table>

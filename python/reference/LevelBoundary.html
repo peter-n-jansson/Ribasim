@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim – model.write</title>
+<title>Ribasim – levelboundary</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -126,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#ribasim.Model.write" id="toc-ribasim.Model.write" class="nav-link active" data-scroll-target="#ribasim.Model.write"><span class="header-section-number">1</span> Model.write</a>
+  <li><a href="#ribasim.LevelBoundary" id="toc-ribasim.LevelBoundary" class="nav-link active" data-scroll-target="#ribasim.LevelBoundary"><span class="header-section-number">1</span> LevelBoundary</a>
   <ul class="collapse">
   <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters"><span class="header-section-number">1.1</span> Parameters</a></li>
   </ul></li>
@@ -138,14 +138,19 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="ribasim.Model.write" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Model.write</h1>
-<p><code>Model.write(self, directory)</code></p>
-<p>Write the contents of the model to a GeoPackage and a TOML configuration file.</p>
-<p>If <code>directory</code> does not exist, it is created before writing. The GeoPackage and TOML file will be called <code>{modelname}.gpkg</code> and <code>{modelname}.toml</code> respectively.</p>
+<section id="ribasim.LevelBoundary" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> LevelBoundary</h1>
+<p><code>LevelBoundary(self, static)</code></p>
+<p>Stores water at a given level unaffected by flow, like an infinitely large basin.</p>
 <section id="parameters" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.1</span> Parameters</h2>
 <table class="table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 23%">
+<col style="width: 50%">
+<col style="width: 14%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
@@ -156,9 +161,9 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>directory</code></td>
-<td>FilePath</td>
-<td></td>
+<td><code>static</code></td>
+<td>pandas.DataFrame</td>
+<td>Table with the constant water levels.</td>
 <td>required</td>
 </tr>
 </tbody>
