@@ -200,7 +200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#setting-up-conda" id="toc-setting-up-conda" class="nav-link" data-scroll-target="#setting-up-conda"><span class="header-section-number">1.1</span> Setting up conda</a></li>
   <li><a href="#creating-or-updating-the-environment" id="toc-creating-or-updating-the-environment" class="nav-link" data-scroll-target="#creating-or-updating-the-environment"><span class="header-section-number">1.2</span> Creating (or updating) the environment</a></li>
-  <li><a href="#installing-ribasim-python" id="toc-installing-ribasim-python" class="nav-link" data-scroll-target="#installing-ribasim-python"><span class="header-section-number">1.3</span> Installing Ribasim Python</a></li>
+  <li><a href="#installing-python-packages" id="toc-installing-python-packages" class="nav-link" data-scroll-target="#installing-python-packages"><span class="header-section-number">1.3</span> Installing Python packages</a></li>
   <li><a href="#running-the-tests" id="toc-running-the-tests" class="nav-link" data-scroll-target="#running-the-tests"><span class="header-section-number">1.4</span> Running the tests</a></li>
   <li><a href="#building-the-documentation" id="toc-building-the-documentation" class="nav-link" data-scroll-target="#building-the-documentation"><span class="header-section-number">1.5</span> Building the documentation</a></li>
   <li><a href="#updating-example-notebooks" id="toc-updating-example-notebooks" class="nav-link" data-scroll-target="#updating-example-notebooks"><span class="header-section-number">1.6</span> Updating example notebooks</a></li>
@@ -253,14 +253,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <pre><code>conda env create --file=environment.yml --force</code></pre>
 </section>
-<section id="installing-ribasim-python" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="installing-ribasim-python"><span class="header-section-number">1.3</span> Installing Ribasim Python</h2>
+<section id="installing-python-packages" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="installing-python-packages"><span class="header-section-number">1.3</span> Installing Python packages</h2>
 <ul>
 <li>Activate the environment</li>
 </ul>
 <pre><code>conda activate ribasim</code></pre>
-<p>In order to develop on <code>ribasim</code> locally, execute the following line inside your virtual environment with <code>python/ribasim</code> as your working directory:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--editable</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In order to develop on <code>ribasim</code> locally, execute the following line inside your virtual environment with the repo root as your working directory:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--editable</span> python/ribasim</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--editable</span> python/ribasim_testmodels</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="running-the-tests" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="running-the-tests"><span class="header-section-number">1.4</span> Running the tests</h2>
