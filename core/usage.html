@@ -547,14 +547,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>The level is in meters above a datum that is the same for the entire model. An example of the first 5 rows of such a table is given below. The first 4 rows define the profile of ID <code>2</code>. The number of rows can vary per ID. Using a very large number of rows may impact performance.</p>
+<p>The level is the level at the basin outlet. All levels are defined in meters above a datum that is the same for the entire model. An example of the first 5 rows of such a table is given below. The first 4 rows define the profile of ID <code>2</code>. The number of rows can vary per ID. Using a very large number of rows may impact performance.</p>
 <table class="table">
 <thead>
 <tr class="header">
 <th>node_id</th>
 <th>storage</th>
 <th>area</th>
-<th>discharge</th>
 <th>level</th>
 </tr>
 </thead>
@@ -563,35 +562,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2</td>
 <td>0.0</td>
 <td>1.36404e5</td>
-<td>0.0</td>
 <td>-0.105</td>
 </tr>
 <tr class="even">
 <td>2</td>
 <td>24726.2</td>
 <td>1.36404e5</td>
-<td>0.0</td>
 <td>0.095</td>
 </tr>
 <tr class="odd">
 <td>2</td>
 <td>49452.5</td>
 <td>1.36404e5</td>
-<td>0.00942702</td>
 <td>0.295</td>
 </tr>
 <tr class="even">
 <td>2</td>
 <td>2.49735e6</td>
 <td>1.36404e5</td>
-<td>0.942702</td>
 <td>20.095</td>
 </tr>
 <tr class="odd">
 <td>3</td>
 <td>0.0</td>
 <td>50663.3</td>
-<td>0.0</td>
 <td>2.129</td>
 </tr>
 </tbody>
@@ -599,7 +593,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="tabulatedratingcurve" class="level3" data-number="1.9">
 <h3 data-number="1.9" class="anchored" data-anchor-id="tabulatedratingcurve"><span class="header-section-number">1.9</span> TabulatedRatingCurve</h3>
-<p>This table is similar in structure to the Basin profile. The TabulatedRatingCurve gives a relation between the storage of a connected Basin and its outflow.</p>
+<p>This table is similar in structure to the Basin profile. The TabulatedRatingCurve gives a relation between the storage of a connected Basin (via the outlet level) and its outflow.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -627,6 +621,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 <td>non-negative</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<thead>
+<tr class="header">
+<th>node_id</th>
+<th>discharge</th>
+<th>level</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>0.0</td>
+<td>-0.105</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0.0</td>
+<td>0.095</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>0.00942702</td>
+<td>0.295</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0.942702</td>
+<td>20.095</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>0.0</td>
+<td>2.129</td>
 </tr>
 </tbody>
 </table>
