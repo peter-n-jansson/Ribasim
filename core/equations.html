@@ -192,9 +192,9 @@ div.csl-indent {
   <li><a href="#upstream-and-downstream-flow" id="toc-upstream-and-downstream-flow" class="nav-link" data-scroll-target="#upstream-and-downstream-flow"><span class="header-section-number">2.4</span> Upstream and downstream flow</a>
   <ul class="collapse">
   <li><a href="#outflowtable" id="toc-outflowtable" class="nav-link" data-scroll-target="#outflowtable"><span class="header-section-number">2.4.1</span> OutflowTable</a></li>
-  <li><a href="#linearlevelconnection" id="toc-linearlevelconnection" class="nav-link" data-scroll-target="#linearlevelconnection"><span class="header-section-number">2.4.2</span> LinearLevelConnection</a></li>
-  <li><a href="#noflowboundary" id="toc-noflowboundary" class="nav-link" data-scroll-target="#noflowboundary"><span class="header-section-number">2.4.3</span> NoFlowBoundary</a></li>
-  <li><a href="#headboundary" id="toc-headboundary" class="nav-link" data-scroll-target="#headboundary"><span class="header-section-number">2.4.4</span> HeadBoundary</a></li>
+  <li><a href="#linearresistance" id="toc-linearresistance" class="nav-link" data-scroll-target="#linearresistance"><span class="header-section-number">2.4.2</span> LinearResistance</a></li>
+  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">2.4.3</span> Terminal</a></li>
+  <li><a href="#levelboundary" id="toc-levelboundary" class="nav-link" data-scroll-target="#levelboundary"><span class="header-section-number">2.4.4</span> LevelBoundary</a></li>
   <li><a href="#manning-connection" id="toc-manning-connection" class="nav-link" data-scroll-target="#manning-connection"><span class="header-section-number">2.4.5</span> Manning connection</a></li>
   </ul></li>
   </ul></li>
@@ -307,13 +307,13 @@ derivative.
 <p>Ribasim’s basins can be connected to each other, and each basin expects an explicit connection. Two connections are currently available for inter-basin flows:</p>
 <ol type="1">
 <li><code>OutflowTable</code></li>
-<li><code>LevelLink</code></li>
+<li><code>LinearResistance</code></li>
 </ol>
-<p>The flow direction of the basin is not pre-determined: flow directions may freely reverse, provided the connection allows it. Currently, a <code>LevelLink</code> allows bidirectional flow, but the</p>
+<p>The flow direction of the basin is not pre-determined: flow directions may freely reverse, provided the connection allows it. Currently, a <code>LinearResistance</code> allows bidirectional flow, but the</p>
 <p>Additionally, two additional “connections” area available for the “outmost” basins (external nodes) in a network.</p>
 <ol type="1">
-<li><code>NoFlowBoundary</code></li>
-<li><code>HeadBoundary</code></li>
+<li><code>Terminal</code></li>
+<li><code>LevelBoundary</code></li>
 </ol>
 <section id="outflowtable" class="level3" data-number="2.4.1">
 <h3 data-number="2.4.1" class="anchored" data-anchor-id="outflowtable"><span class="header-section-number">2.4.1</span> OutflowTable</h3>
@@ -333,21 +333,21 @@ Note
 </div>
 </div>
 </section>
-<section id="linearlevelconnection" class="level3" data-number="2.4.2">
-<h3 data-number="2.4.2" class="anchored" data-anchor-id="linearlevelconnection"><span class="header-section-number">2.4.2</span> LinearLevelConnection</h3>
-<p>A <code>LevelLink</code> connects two basins together. The flow between the two basins is determined by a linear relationship:</p>
+<section id="linearresistance" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="linearresistance"><span class="header-section-number">2.4.2</span> LinearResistance</h3>
+<p>A <code>LinearResistance</code> connects two basins together. The flow between the two basins is determined by a linear relationship:</p>
 <p><span id="eq-basinflow"><span class="math display">\[
-    Q = C (h_a - h_b).
+    Q = \frac{h_a - h_b}{R}
 \tag{5}\]</span></span></p>
-<p>Here <span class="math inline">\(h_a\)</span> is the water level in the first basin, <span class="math inline">\(h_b\)</span> is the water level in the second basin, and <span class="math inline">\(C\)</span> is the conductance of the link. A <code>LevelLink</code> makes no assumptions about the direction of the flow: water flows from high to low.</p>
+<p>Here <span class="math inline">\(h_a\)</span> is the water level in the first basin, <span class="math inline">\(h_b\)</span> is the water level in the second basin, and <span class="math inline">\(R\)</span> is the resistance of the link. A <code>LinearResistance</code> makes no assumptions about the direction of the flow: water flows from high to low.</p>
 </section>
-<section id="noflowboundary" class="level3" data-number="2.4.3">
-<h3 data-number="2.4.3" class="anchored" data-anchor-id="noflowboundary"><span class="header-section-number">2.4.3</span> NoFlowBoundary</h3>
-<p>This sets the exchange flow to 0.</p>
+<section id="terminal" class="level3" data-number="2.4.3">
+<h3 data-number="2.4.3" class="anchored" data-anchor-id="terminal"><span class="header-section-number">2.4.3</span> Terminal</h3>
+<p>This only allows outflow from a basin into a terminal node.</p>
 </section>
-<section id="headboundary" class="level3" data-number="2.4.4">
-<h3 data-number="2.4.4" class="anchored" data-anchor-id="headboundary"><span class="header-section-number">2.4.4</span> HeadBoundary</h3>
-<p>This sets the water level in the basin to a fixed level; lower or higher level result in instantaneous corrective fluxes.</p>
+<section id="levelboundary" class="level3" data-number="2.4.4">
+<h3 data-number="2.4.4" class="anchored" data-anchor-id="levelboundary"><span class="header-section-number">2.4.4</span> LevelBoundary</h3>
+<p>This can be connected to a basin via a <code>LinearResistance</code>. This boundary node will then exchange water with the basin based on the difference in water level between the two.</p>
 </section>
 <section id="manning-connection" class="level3" data-number="2.4.5">
 <h3 data-number="2.4.5" class="anchored" data-anchor-id="manning-connection"><span class="header-section-number">2.4.5</span> Manning connection</h3>

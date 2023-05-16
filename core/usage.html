@@ -367,9 +367,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><code>LevelBoundary / static</code>: levels</li>
 </ul></li>
-<li>LinearLevelConnection: bidirectional flow based on water level difference between Basins
+<li>LinearResistance: bidirectional flow based on water level difference between Basins
 <ul>
-<li><code>LinearLevelConnection / static</code>: conductances</li>
+<li><code>LinearResistance / static</code>: conductances</li>
 </ul></li>
 <li>TabulatedRatingCurve: Basin outflow relation
 <ul>
@@ -381,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="edge" class="level3" data-number="1.4">
 <h3 data-number="1.4" class="anchored" data-anchor-id="edge"><span class="header-section-number">1.4</span> Edge</h3>
-<p>Edges define connections between nodes. Flows between nodes are stored on edges. The only thing that defines an edge is the nodes it connects, and in what direction. The effect of the edge direction depends on the node type, Node types that have a notion of an upstream and downstream side use the incoming edge as the upstream side, and the outgoing edge as the downstream side. This means that edges should generally be drawn in the main flow direction. But for instance between two <code>LinearLevelConnections</code> the edge direction does not affect anything, other than the sign of the flow on the edge. The sign of the flow follows the edge direction; a positive flow flows along the edge direction, a negative flow in the opposite way.</p>
+<p>Edges define connections between nodes. Flows between nodes are stored on edges. The only thing that defines an edge is the nodes it connects, and in what direction. The effect of the edge direction depends on the node type, Node types that have a notion of an upstream and downstream side use the incoming edge as the upstream side, and the outgoing edge as the downstream side. This means that edges should generally be drawn in the main flow direction. But for instance between two <code>LinearResistances</code> the edge direction does not affect anything, other than the sign of the flow on the edge. The sign of the flow follows the edge direction; a positive flow flows along the edge direction, a negative flow in the opposite way.</p>
 <p>Note that an edge does not only convey flow, but sometimes also information. For instance, a LevelControl node needs to be connected to a Basin node, and will get access to the current water level in the Basin to be able to determine the amount of water that needs to be added or removed.</p>
 <table class="table">
 <thead>
@@ -496,7 +496,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>Note that if variables are not set in the static table, default values are used when possible. These are generally zero, e.g.&nbsp;no precipitation, no inflow. If it is not possible to have a reasonable and safe default, a value must be provided in the static table. An example of this is the <code>target_volume</code> from the LevelLink node.</p>
+<p>Note that if variables are not set in the static table, default values are used when possible. These are generally zero, e.g.&nbsp;no precipitation, no inflow. If it is not possible to have a reasonable and safe default, a value must be provided in the static table.</p>
 </section>
 <section id="basin-forcing" class="level3" data-number="1.7">
 <h3 data-number="1.7" class="anchored" data-anchor-id="basin-forcing"><span class="header-section-number">1.7</span> Basin / forcing</h3>
