@@ -212,8 +212,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="header-section-number">1.9</span> TabulatedRatingCurve</a></li>
   <li><a href="#tabulatedratingcurve-time" id="toc-tabulatedratingcurve-time" class="nav-link" data-scroll-target="#tabulatedratingcurve-time"><span class="header-section-number">1.10</span> TabulatedRatingCurve / time</a></li>
   <li><a href="#pump" id="toc-pump" class="nav-link" data-scroll-target="#pump"><span class="header-section-number">1.11</span> Pump</a></li>
-  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="header-section-number">1.12</span> Basin output</a></li>
-  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="header-section-number">1.13</span> Flow output</a></li>
+  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">1.12</span> Terminal</a></li>
+  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="header-section-number">1.13</span> Basin output</a></li>
+  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="header-section-number">1.14</span> Flow output</a></li>
   </ul></li>
   <li><a href="#example-input-files" id="toc-example-input-files" class="nav-link" data-scroll-target="#example-input-files"><span class="header-section-number">2</span> Example input files</a></li>
   </ul>
@@ -375,6 +376,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><code>TabulatedRatingCurve / static</code>: rating curve</li>
 <li><code>TabulatedRatingCurve / time</code>: dynamic rating curve</li>
+</ul></li>
+<li>Pump: pump water from a source node to a destination node
+<ul>
+<li><code>Pump / static</code>: flow rate</li>
+</ul></li>
+<li>Terminal: Water sink without state or properties
+<ul>
+<li><code>Terminal / static</code>: - (only node IDs)</li>
 </ul></li>
 </ul>
 <p>Adding a geometry to the node table can be helpful to examine models in <a href="https://qgis.org/en/site/">QGIS</a>, as it will show the location of the nodes on the map. The geometry is not used by Ribasim.</p>
@@ -729,8 +738,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="basin-output" class="level3" data-number="1.12">
-<h3 data-number="1.12" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">1.12</span> Basin output</h3>
+<section id="terminal" class="level3" data-number="1.12">
+<h3 data-number="1.12" class="anchored" data-anchor-id="terminal"><span class="header-section-number">1.12</span> Terminal</h3>
+<p>A terminal is a water sink without state or properties. Any water that flows into a terminal node is removed from the model. No water can come into the model from a terminal node. For example, terminal nodes can be used as a downstream boundary.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="basin-output" class="level3" data-number="1.13">
+<h3 data-number="1.13" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">1.13</span> Basin output</h3>
 <p>The basin table contains outputs of the storage and level of each basin at every solver timestep. The initial condition is also written to the file.</p>
 <table class="table">
 <thead>
@@ -765,8 +796,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>The table is sorted by time, and per time it is sorted by node_id.</p>
 </section>
-<section id="flow-output" class="level3" data-number="1.13">
-<h3 data-number="1.13" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">1.13</span> Flow output</h3>
+<section id="flow-output" class="level3" data-number="1.14">
+<h3 data-number="1.14" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">1.14</span> Flow output</h3>
 <p>The flow tables contains outputs of the flow on every edge in the model, for each solver timestep.</p>
 <table class="table">
 <thead>
