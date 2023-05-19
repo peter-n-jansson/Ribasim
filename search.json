@@ -49,8 +49,8 @@
     "text": "There is a section on editors and IDEs for Julia on https://julialang.org/, scroll down to see it. We use and recommend Microsoft’s free editor Visual Studio Code. When combined with the Julia extension it provides a powerful and interactive development experience."
   },
   {
-    "objectID": "contribute/core.html#running-tests",
-    "href": "contribute/core.html#running-tests",
+    "objectID": "contribute/core.html#sec-test",
+    "href": "contribute/core.html#sec-test",
     "title": "Julia core development",
     "section": "2.1 Running tests",
     "text": "2.1 Running tests\nYou will want to run the testsuite on a regular basis to check if your changes had unexpected side effects. It is also a good way to find out if your development environment is set up correctly.\nBefore the tests can run, you need to prepare model input.\nWith the root of the repository as your working directory you can activate the Julia project by running the following:\njulia --project=core\nWhile not technically required, it is advised to import Ribasim first to catch installation issues early on.\njulia&gt; using Ribasim\nThen open the Pkg REPL by typing ] and execute:\npkg&gt; test\nIf you are in a different environment that depends on Ribasim, you can test Ribasim with the following command:\npkg&gt; test Ribasim\n\n\n\n\n\n\nTip\n\n\n\nThe Julia VS Code extension allows you to open a REPL with the Ribasim environment already activated: \"julia.environmentPath\": \"Ribasim/core\". That way you don’t have to type activate core every time you open the REPL."
@@ -70,18 +70,53 @@
     "text": "2.3 Run Ribasim simulations\nAssuming your working directory is the root of the repository, you can activate this project by entering the Pkg mode of the REPL with ] and execute:\npkg&gt; activate core\npkg&gt; instantiate\nPress backspace to go back to the Julia REPL. There you can run a model with:\njulia&gt; Ribasim.run(\"path/to/model.toml\")\n\n\n\n\n\n\nTip\n\n\n\nThe Julia VS Code extension allows you to execute code cells in REPL. This is a very convenient way of executing only parts of your source file."
   },
   {
+    "objectID": "contribute/addnode.html",
+    "href": "contribute/addnode.html",
+    "title": "Adding node types",
+    "section": "",
+    "text": "Several parts of the code have to be made aware of the new node type. In the rest of this page we shall call our new node type NewNodeType."
+  },
+  {
+    "objectID": "contribute/addnode.html#parameters",
+    "href": "contribute/addnode.html#parameters",
+    "title": "Adding node types",
+    "section": "1.1 Parameters",
+    "text": "1.1 Parameters\nThe parameters object (defined in solve.jl) passed to the ODE solver must be made aware of the new node type. Therefore define a struct in solve.jl which holds the data for each node of the new node type:\nstruct NewNodeType\n    node_id::Vector{Int}\n    # Other fields\nend\nThese fields do not have to correspond 1:1 with the input tables (see below). The vector with all node IDs that are of the new type in a given model are a mandatory field. Now you can:\n\nAdd new_node_type::NewNodeType to the Parameters object;\nAdd new_node_type = NewNodeType(db,config) to the function Parameters in create.jl and add new_node_type add the proper location in the Parameters constructor call."
+  },
+  {
+    "objectID": "contribute/addnode.html#reading-from-configuration",
+    "href": "contribute/addnode.html#reading-from-configuration",
+    "title": "Adding node types",
+    "section": "1.2 Reading from configuration",
+    "text": "1.2 Reading from configuration\nThere can be several schemas associated with a single node type. To define a schema for the new node type, add the following to validation.jl:\n@schema \"ribasim.newnodetype.static\" NewNodeTypeStatic\n\n@version NewNodeTypeStaticV1 begin\n    node_id::Int\n    # Other fields\nend\nHere Static refers to data that does not change over time. For naming conventions of these schemas see Node usage.\nvalidation.jl also deals with checking and applying a specific sorting order for the tabular data (default is sorting by node ID only), see sort_by_function and sorted_table!.\nNow we define the function that is called in the second bullet above, in create.jl:\nfunction NewNodeType(db::DB, config::Config)::NewNodeType\n    static = load_structvector(db, config, NewNodeTypeStaticV1)\n\n    # Unpack the fields of static as inputs for the NewNodeType constructor\n    return NewNodeType(static.node_id, static.some_property)\nend"
+  },
+  {
+    "objectID": "contribute/addnode.html#node-behavior",
+    "href": "contribute/addnode.html#node-behavior",
+    "title": "Adding node types",
+    "section": "1.3 Node behavior",
+    "text": "1.3 Node behavior\nThe behaviour of the new node in the Ribasim core is defined in a method of the formulate! function, which is called within the water_balance! (both in solve.jl) function being the right hand side of the system of differential equations solved by Ribasim. Here the details depend highly on the specifics of the node type. An example structure of a formulate! method is given below.\nfunction formulate!(new_node_type::NewNodeType, p::Parameters)::Nothing\n    # Retrieve relevant parameters\n    (; connectivity) = p\n    (; flow) = connectivity\n    (; node_id, param_1, param_2) = new_node_type\n\n    # Loop over nodes of NewNodeType\n    for (i, id) in enumerate(node_id)\n        # compute e.g. flow based on param_1[i], param_2[i]\n    end\n\n    return nothing\nend"
+  },
+  {
+    "objectID": "contribute/addnode.html#python-class",
+    "href": "contribute/addnode.html#python-class",
+    "title": "Adding node types",
+    "section": "2.1 Python class",
+    "text": "2.1 Python class\nCreate a new file python/ribasim/ribasim/new_node_type.py which is structured as follows:\nimport pandas as pd\nimport pandera as pa\nfrom pandera.typing import DataFrame, Series\nfrom pydantic import BaseModel\n\nfrom ribasim.input_base import InputMixin\n\n__all__ = (\"NewNodeType\",)\n\nclass StaticSchema(pa.SchemaModel):\n    node_id: Series[int] = pa.Field(coerce=True)\n    # Series per node property, pa.Field for mandatory data\n\n# Possible other schemas\n\n\nclass NewNodeType(InputMixin, BaseModel):\n    \"\"\"\n    Description of this node type.\n\n    Parameters\n    ----------\n    static: pandas.DataFrame\n        table with data for this node type.\n\n    possible other schemas\n    \"\"\"\n\n    _input_type = \"NewNodeType\"\n    static: Optional[DataFrame[StaticSchema]] = None\n    # possible other schemas\n\n    class Config:\n        validate_assignment = True\n\n\n\n    def sort(self):\n        self.static = self.static.sort_values(\"node_id\", ignore_index=True)\nThe sort method should implement the same sorting as in validation.jl.\nNow in python/ribasim/ribasim/__init__.py add\n\nfrom ribasim.new_node_type import NewNodeType;\n\"NewNodeType\" to __all__.\n\nIn python/ribasim/ribasim/model.py, add\n\nfrom ribasim.new_node_type import NewNodeType;\n(NewNodetype, \"new_node_type\") in the _NODES list;\nnew_node_type as a parameter and in the docstring of the Model class.\n\nIn python/ribasim/ribasim/node.py add a shape specifier in the _MARKERS dictionary to specify the shape of a node when calling ribasim.model.plot."
+  },
+  {
     "objectID": "contribute/index.html",
     "href": "contribute/index.html",
     "title": "Contributing",
     "section": "",
-    "text": "Ribasim welcomes contributions. Information on how to contribute will be added here.\nThere is already specific developer documentation on the Julia core, and the Python tooling."
+    "text": "Ribasim welcomes contributions.\nThere is developer documentation for the Julia core and Python tooling. A guide on how to add a new node type to both is written in adding node types."
   },
   {
     "objectID": "contribute/python.html",
     "href": "contribute/python.html",
     "title": "Python tooling development",
     "section": "",
-    "text": "In order to develop on ribasim locally, please follow the following steps:\n\nDownload and install miniconda.\nInitialize conda by running the following in the Miniconda prompt:\n\nconda init\n\nDepending on your company settings, you might also have to run the following in a Powershell terminal as administrator:\n\nSet-ExecutionPolicy -ExecutionPolicy RemoteSigned\n\n\n\n\nCreate (or update) the environment by executing the following in your terminal:\n\nconda env create --file=environment.yml --force\n\n\n\n\nActivate the environment\n\nconda activate ribasim\nIn order to develop on ribasim locally, execute the following line inside your virtual environment with the repo root as your working directory:\npip install --editable python/ribasim\npip install --editable python/ribasim_testmodels\n\n\n\nIf not already done, activate the environment:\nconda activate ribasim\nTo run the tests execute with python/ribasim as your working directory:\npytest tests\n\n\n\nRun in the docs folder:\nquartodoc build\nThis will generate the .qmd files in docs/python/reference for inspection.\n\n\n\nMake sure to run Clear All Outputs on the notebook before committing.\n\n\n\nBefore running the Julia tests or building binaries, example model input needs to created. This is done by running the following Python script:\npython python/ribasim/tests/conftest.py\nThis places example model input files under ./data/. If the example models change, re-run this script.\n\n\n\n\nInstall the Python, ruff and autoDocstring extensions.\nCopy .vscode/settings_template.json into .vscode/settings.json\n\n\n\n\n\nUpdate __version__ in ribasim/__init__.py\nOpen a terminal and run cd python/ribasim\nActivate the ribasim environment with conda activate ribasim\nIf present remove dist folder\nRe-create the wheels:\n\npython -m build\n\nCheck the package files:\n\ntwine check dist/*\n\nMake a new commit with the updated version number, and push to remote\nRe-upload the new files:\n\ntwine upload dist/*"
+    "text": "In order to develop on ribasim locally, please follow the following steps:\n\nDownload and install miniconda.\nInitialize conda by running the following in the Miniconda prompt:\n\nconda init\n\nDepending on your company settings, you might also have to run the following in a Powershell terminal as administrator:\n\nSet-ExecutionPolicy -ExecutionPolicy RemoteSigned\n\n\n\n\nCreate (or update) the environment by executing the following in your terminal:\n\nconda env create --file=environment.yml --force\n\n\n\n\nActivate the environment\n\nconda activate ribasim\nIn order to develop on ribasim locally, execute the following line inside your virtual environment with the repo root as your working directory:\npip install --editable python/ribasim\npip install --editable python/ribasim_testmodels\n\n\n\nIf not already done, activate the environment:\nconda activate ribasim\nTo run the tests call pytest with the path to the Python package. Here the the root of the repository is the working directory:\npytest python/ribasim\n\n\n\nRun in the docs folder:\nquartodoc build\nThis will generate the .qmd files in docs/python/reference for inspection.\n\n\n\nMake sure to run Clear All Outputs on the notebook before committing.\n\n\n\nBefore running the Julia tests or building binaries, example model input needs to created. This is done by running the following Python script:\npython python/ribasim/tests/conftest.py\nThis places example model input files under ./data/. If the example models change, re-run this script.\n\n\n\n\nInstall the Python, ruff and autoDocstring extensions.\nCopy .vscode/settings_template.json into .vscode/settings.json\n\n\n\n\n\nUpdate __version__ in ribasim/__init__.py\nOpen a terminal and run cd python/ribasim\nActivate the ribasim environment with conda activate ribasim\nIf present remove dist folder\nRe-create the wheels:\n\npython -m build\n\nCheck the package files:\n\ntwine check dist/*\n\nMake a new commit with the updated version number, and push to remote\nRe-upload the new files:\n\ntwine upload dist/*\n\n\n\nWe use the Black code formatter. Code only passes the continuous integration checks if it is fully formatted according to the Black code style. When working in VS Code the settings suggested in Section 1.8 run Black automatically when saving Python files.\nIf you want to run Black manually, you can run it from the command line. To run it on the entire python directory, use the command below. Here the repository root is the working directory.\nblack python\n\n\n\nWe use the Ruff linter to help finding issues with Python code. Code only passes the continuous integration checks if Ruff does not find any issues.\nTo run Ruff on the entire python directory, use the command below. Here the repository root is the working directory.\nruff python"
   },
   {
     "objectID": "contribute/python.html#setting-up-conda",
@@ -105,11 +140,11 @@
     "text": "Activate the environment\n\nconda activate ribasim\nIn order to develop on ribasim locally, execute the following line inside your virtual environment with the repo root as your working directory:\npip install --editable python/ribasim\npip install --editable python/ribasim_testmodels"
   },
   {
-    "objectID": "contribute/python.html#running-the-tests",
-    "href": "contribute/python.html#running-the-tests",
+    "objectID": "contribute/python.html#sec-test",
+    "href": "contribute/python.html#sec-test",
     "title": "Python tooling development",
     "section": "",
-    "text": "If not already done, activate the environment:\nconda activate ribasim\nTo run the tests execute with python/ribasim as your working directory:\npytest tests"
+    "text": "If not already done, activate the environment:\nconda activate ribasim\nTo run the tests call pytest with the path to the Python package. Here the the root of the repository is the working directory:\npytest python/ribasim"
   },
   {
     "objectID": "contribute/python.html#building-the-documentation",
@@ -133,8 +168,8 @@
     "text": "Before running the Julia tests or building binaries, example model input needs to created. This is done by running the following Python script:\npython python/ribasim/tests/conftest.py\nThis places example model input files under ./data/. If the example models change, re-run this script."
   },
   {
-    "objectID": "contribute/python.html#setup-visual-studio-code-optional",
-    "href": "contribute/python.html#setup-visual-studio-code-optional",
+    "objectID": "contribute/python.html#sec-vscode",
+    "href": "contribute/python.html#sec-vscode",
     "title": "Python tooling development",
     "section": "",
     "text": "Install the Python, ruff and autoDocstring extensions.\nCopy .vscode/settings_template.json into .vscode/settings.json"
@@ -145,6 +180,20 @@
     "title": "Python tooling development",
     "section": "",
     "text": "Update __version__ in ribasim/__init__.py\nOpen a terminal and run cd python/ribasim\nActivate the ribasim environment with conda activate ribasim\nIf present remove dist folder\nRe-create the wheels:\n\npython -m build\n\nCheck the package files:\n\ntwine check dist/*\n\nMake a new commit with the updated version number, and push to remote\nRe-upload the new files:\n\ntwine upload dist/*"
+  },
+  {
+    "objectID": "contribute/python.html#sec-black",
+    "href": "contribute/python.html#sec-black",
+    "title": "Python tooling development",
+    "section": "",
+    "text": "We use the Black code formatter. Code only passes the continuous integration checks if it is fully formatted according to the Black code style. When working in VS Code the settings suggested in Section 1.8 run Black automatically when saving Python files.\nIf you want to run Black manually, you can run it from the command line. To run it on the entire python directory, use the command below. Here the repository root is the working directory.\nblack python"
+  },
+  {
+    "objectID": "contribute/python.html#sec-ruff",
+    "href": "contribute/python.html#sec-ruff",
+    "title": "Python tooling development",
+    "section": "",
+    "text": "We use the Ruff linter to help finding issues with Python code. Code only passes the continuous integration checks if Ruff does not find any issues.\nTo run Ruff on the entire python directory, use the command below. Here the repository root is the working directory.\nruff python"
   },
   {
     "objectID": "core/index.html",
