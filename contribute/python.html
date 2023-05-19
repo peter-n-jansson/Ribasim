@@ -325,14 +325,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sec-black" class="level2" data-number="1.10">
 <h2 data-number="1.10" class="anchored" data-anchor-id="sec-black"><span class="header-section-number">1.10</span> Automatic code formatting with Black</h2>
 <p>We use the <a href="https://black.readthedocs.io/en/stable/">Black</a> code formatter. Code only passes the continuous integration checks if it is fully formatted according to the Black code style. When working in VS Code the settings suggested in <a href="#sec-vscode">Section&nbsp;1.8</a> run Black automatically when saving Python files.</p>
-<p>If you want to run Black manually, you can run it from the command line. To run it on the entire <code>python</code> directory, use the command below. Here the repository root is the working directory.</p>
-<pre><code>black python</code></pre>
+<p>If you want to run Black manually, you can run it from the command line. To run it on the entire repository, use the command below. Here the repository root is the working directory.</p>
+<pre><code>black .</code></pre>
 </section>
 <section id="sec-ruff" class="level2" data-number="1.11">
 <h2 data-number="1.11" class="anchored" data-anchor-id="sec-ruff"><span class="header-section-number">1.11</span> Code linting with Ruff</h2>
 <p>We use the <a href="https://github.com/charliermarsh/ruff">Ruff</a> linter to help finding issues with Python code. Code only passes the continuous integration checks if Ruff does not find any issues.</p>
-<p>To run Ruff on the entire <code>python</code> directory, use the command below. Here the repository root is the working directory.</p>
-<pre><code>ruff python</code></pre>
+<p>To run Ruff on the entire repository, use the command below. Here the repository root is the working directory.</p>
+<pre><code>ruff .</code></pre>
 
 
 </section>
