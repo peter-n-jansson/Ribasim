@@ -345,10 +345,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In <code>python/ribasim/ribasim/model.py</code>, add</p>
 <ul>
 <li><code>from ribasim.new_node_type import NewNodeType</code>;</li>
-<li><code>(NewNodetype, "new_node_type")</code> in the <code>_NODES</code> list;</li>
+<li><code>(NewNodetype, "new_node_type")</code> in the <code>NODES</code> list;</li>
 <li>new_node_type as a parameter and in the docstring of the <code>Model</code> class.</li>
 </ul>
-<p>In <code>python/ribasim/ribasim/node.py</code> add a shape specifier in the <code>_MARKERS</code> dictionary to specify the shape of a node when calling <code>ribasim.model.plot</code>.</p>
+<p>In <code>python/ribasim/ribasim/node.py</code> add a color and shape description in the <code>MARKERS</code> and <code>COLORS</code> dictionaries.</p>
 </section>
 </section>
 <section id="qgis-plugin" class="level1" data-number="3">
@@ -356,7 +356,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The script <code>qgis/core/nodes.py</code> has to be updated to specify how the new node type is displayed by the QGIS plugin. Specifically:</p>
 <ul>
 <li>Add <code>"NewNodeType: NewNodeType",</code> to the <code>"map"</code> dictionary in <code>Node.set_editor_widget</code>;</li>
-<li>Add a color and shape description in the <code>markers</code> dictionary in <code>Node.renderer</code>;</li>
+<li>Add a color and shape description in the <code>MARKERS</code> dictionary in <code>Node.renderer</code>, consistent with the entries added above;</li>
 <li>Add an input class per schema, e.g.</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NewNodeTypeStatic</span>
