@@ -201,8 +201,7 @@ div.csl-indent {
   <li><a href="#allocated-water-balance-terms" id="toc-allocated-water-balance-terms" class="nav-link" data-scroll-target="#allocated-water-balance-terms"><span class="header-section-number">3</span> Allocated water balance terms</a>
   <ul class="collapse">
   <li><a href="#general-user" id="toc-general-user" class="nav-link" data-scroll-target="#general-user"><span class="header-section-number">3.1</span> General User</a></li>
-  <li><a href="#level-control" id="toc-level-control" class="nav-link" data-scroll-target="#level-control"><span class="header-section-number">3.2</span> Level Control</a></li>
-  <li><a href="#flushing" id="toc-flushing" class="nav-link" data-scroll-target="#flushing"><span class="header-section-number">3.3</span> Flushing</a></li>
+  <li><a href="#flushing" id="toc-flushing" class="nav-link" data-scroll-target="#flushing"><span class="header-section-number">3.2</span> Flushing</a></li>
   </ul></li>
   <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="header-section-number">4</span> Numerical solution</a></li>
   <li><a href="#performance" id="toc-performance" class="nav-link" data-scroll-target="#performance"><span class="header-section-number">5</span> Performance</a></li>
@@ -241,7 +240,6 @@ div.csl-indent {
 <p>Additionally, Ribasim simulates the following “allocated” water balance terms:</p>
 <ol type="1">
 <li>General user</li>
-<li>Level Control</li>
 <li>Flushing</li>
 </ol>
 <p>Depending on the type of boundary conditions, Ribasim requires relation between storage volume and wetted area <span class="math inline">\(A\)</span>, and between the storage volume and the water level <span class="math inline">\(h\)</span>. These are (currently) represented by piecewise linear relationships.</p>
@@ -482,20 +480,12 @@ B = w + 2 d \sqrt{\left(\frac{\Delta y}{\Delta z}\right)^2 + 1}
     Q_\text{user} = Q_\text{alloc} \cdot r
 \tag{7}\]</span></span></p>
 </section>
-<section id="level-control" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="level-control"><span class="header-section-number">3.2</span> Level Control</h2>
-<p>A level-controlled basin (<code>local_surface_water_type = "P"</code>) has a user demand referred to as water management (<span class="math inline">\(\demwm\)</span>). The purpose of this demand is to maintain the water levels for each basin at a target level. This target levels is determined externally. The <span class="math inline">\(\demwm\)</span> is negative if additional water is required to increase the water level in the basin, or positive if there is surplus water which must be removed to lower the level in the basin. When <span class="math inline">\(\demwm\)</span> is positive and there is surplus water, Ribasim is designed to make any surplus water available to General Users within the basin for abstraction. This is modelled by adding the <span class="math inline">\(\demwm\)</span> to the <span class="math inline">\(\qavail\)</span> in calculated in <a href="#eq-wm">Equation&nbsp;8</a>.</p>
-<p><span id="eq-wm"><span class="math display">\[
-    \qavail = \demwm
-\tag{8}\]</span></span></p>
-<p>When the <span class="math inline">\(\demwm\)</span> is negative, the <span class="math inline">\(\demwm\)</span> is allocated first from the basin <span class="math inline">\(\qavail\)</span>, and then secondly with water from the national network, should the local basin water not be sufficient to satisfy <span class="math inline">\(\demwm\)</span>. This demand is therefore handled similar to that of a General User. In the case that a General User is allocated water as a higher priority than the Level Control such that the water level of the basin decreases, the <span class="math inline">\(\demwm\)</span> will increase accordingly. However, in most cases the demand for Level Control is higher than that of the General Users so this does not occur.</p>
-</section>
-<section id="flushing" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="flushing"><span class="header-section-number">3.3</span> Flushing</h2>
-<p>The flushing requirement for the basin is a special case of user. Flushing is required to maintain water quality in the basin. This is determined externally. Water from the national network flows into the basin, and the same volume gets removed from the basin back to the national network. This water cannot be allocated to other users and there is no net change to the water level in the basin or the <span class="math inline">\(\qavail\)</span>, see <a href="#eq-flushing">Equation&nbsp;9</a>.</p>
+<section id="flushing" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="flushing"><span class="header-section-number">3.2</span> Flushing</h2>
+<p>The flushing requirement for the basin is a special case of user. Flushing is required to maintain water quality in the basin. This is determined externally. Water from the national network flows into the basin, and the same volume gets removed from the basin back to the national network. This water cannot be allocated to other users and there is no net change to the water level in the basin or the <span class="math inline">\(\qavail\)</span>, see <a href="#eq-flushing">Equation&nbsp;8</a>.</p>
 <p><span id="eq-flushing"><span class="math display">\[
     Q_\text{in} = -Q_\text{out}
-\tag{9}\]</span></span></p>
+\tag{8}\]</span></span></p>
 </section>
 </section>
 <section id="numerical-solution" class="level1" data-number="4">

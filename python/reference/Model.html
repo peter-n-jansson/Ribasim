@@ -200,60 +200,54 @@ ul.task-list li input[type="checkbox"] {
 <td>required</td>
 </tr>
 <tr class="even">
-<td><code>level_control</code></td>
-<td>Optional[LevelControl]</td>
-<td>Control the water level with a resistance.</td>
-<td>required</td>
-</tr>
-<tr class="odd">
 <td><code>level_boundary</code></td>
 <td>Optional[LevelBoundary]</td>
 <td>Boundary condition specifying the water level.</td>
 <td>required</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>linear_resistance</code></td>
 <td></td>
 <td>Linear flow resistance.</td>
 <td>required</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>manning_resistance</code></td>
 <td>Optional[ManningResistance]</td>
 <td>Flow resistance based on the Manning formula.</td>
 <td>required</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>tabulated_rating_curve</code></td>
 <td>Optional[TabulatedRatingCurve]</td>
 <td>Tabulated rating curve describing flow based on the upstream water level.</td>
 <td>required</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>pump</code></td>
 <td>Optional[Pump]</td>
 <td>Prescribed flow rate from one basin to the other.</td>
 <td>required</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>terminal</code></td>
 <td>Optional[Terminal]</td>
 <td>Water sink without state or properties.</td>
 <td>required</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>starttime</code></td>
 <td>Union[str, datetime.datetime]</td>
 <td>Starting time of the simulation.</td>
 <td>required</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>endtime</code></td>
 <td>Union[str, datetime.datetime]</td>
 <td>End time of the simulation.</td>
 <td>required</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>solver</code></td>
 <td>Optional[Solver]</td>
 <td>Solver settings.</td>
