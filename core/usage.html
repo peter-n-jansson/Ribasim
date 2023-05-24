@@ -212,9 +212,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="header-section-number">1.9</span> TabulatedRatingCurve</a></li>
   <li><a href="#tabulatedratingcurve-time" id="toc-tabulatedratingcurve-time" class="nav-link" data-scroll-target="#tabulatedratingcurve-time"><span class="header-section-number">1.10</span> TabulatedRatingCurve / time</a></li>
   <li><a href="#pump" id="toc-pump" class="nav-link" data-scroll-target="#pump"><span class="header-section-number">1.11</span> Pump</a></li>
-  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">1.12</span> Terminal</a></li>
-  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="header-section-number">1.13</span> Basin output</a></li>
-  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="header-section-number">1.14</span> Flow output</a></li>
+  <li><a href="#levelboundary" id="toc-levelboundary" class="nav-link" data-scroll-target="#levelboundary"><span class="header-section-number">1.12</span> LevelBoundary</a></li>
+  <li><a href="#flowboundary" id="toc-flowboundary" class="nav-link" data-scroll-target="#flowboundary"><span class="header-section-number">1.13</span> FlowBoundary</a></li>
+  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">1.14</span> Terminal</a></li>
+  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="header-section-number">1.15</span> Basin output</a></li>
+  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="header-section-number">1.16</span> Flow output</a></li>
   </ul></li>
   <li><a href="#example-input-files" id="toc-example-input-files" class="nav-link" data-scroll-target="#example-input-files"><span class="header-section-number">2</span> Example input files</a></li>
   </ul>
@@ -363,6 +365,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>LevelBoundary: stores water at a given level unaffected by flow, like an infinitely large basin
 <ul>
 <li><code>LevelBoundary / static</code>: levels</li>
+</ul></li>
+<li>FlowBoundary: sets a precribed flow like a one-sided pump
+<ul>
+<li><code>FlowBoundary / static</code>: flow rate</li>
 </ul></li>
 <li>LinearResistance: bidirectional flow based on water level difference between Basins
 <ul>
@@ -733,8 +739,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="terminal" class="level3" data-number="1.12">
-<h3 data-number="1.12" class="anchored" data-anchor-id="terminal"><span class="header-section-number">1.12</span> Terminal</h3>
+<section id="levelboundary" class="level3" data-number="1.12">
+<h3 data-number="1.12" class="anchored" data-anchor-id="levelboundary"><span class="header-section-number">1.12</span> LevelBoundary</h3>
+<p>Acts like an infinitely large basin where the level does not change by flow. This can be connected to a basin via a <code>LinearResistance</code>. This boundary node will then exchange water with the basin based on the difference in water level between the two.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>level</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
+<td>non-negative</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="flowboundary" class="level3" data-number="1.13">
+<h3 data-number="1.13" class="anchored" data-anchor-id="flowboundary"><span class="header-section-number">1.13</span> FlowBoundary</h3>
+<p>Pump water to a destination node. We require that the edge connecting the flow boundary to the Basin should point towards the basin, so that positive flow corresponds to water being added to the model. The set flow rate will be pumped unless the intake storage (for a negative flow rate) is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. Note that the connected node must always be a Basin.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>flow_rate</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="terminal" class="level3" data-number="1.14">
+<h3 data-number="1.14" class="anchored" data-anchor-id="terminal"><span class="header-section-number">1.14</span> Terminal</h3>
 <p>A terminal is a water sink without state or properties. Any water that flows into a terminal node is removed from the model. No water can come into the model from a terminal node. For example, terminal nodes can be used as a downstream boundary.</p>
 <table class="table">
 <thead>
@@ -755,8 +817,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="basin-output" class="level3" data-number="1.13">
-<h3 data-number="1.13" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">1.13</span> Basin output</h3>
+<section id="basin-output" class="level3" data-number="1.15">
+<h3 data-number="1.15" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">1.15</span> Basin output</h3>
 <p>The basin table contains outputs of the storage and level of each basin at every solver timestep. The initial condition is also written to the file.</p>
 <table class="table">
 <thead>
@@ -791,8 +853,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>The table is sorted by time, and per time it is sorted by node_id.</p>
 </section>
-<section id="flow-output" class="level3" data-number="1.14">
-<h3 data-number="1.14" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">1.14</span> Flow output</h3>
+<section id="flow-output" class="level3" data-number="1.16">
+<h3 data-number="1.16" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">1.16</span> Flow output</h3>
 <p>The flow tables contains outputs of the flow on every edge in the model, for each solver timestep.</p>
 <table class="table">
 <thead>

@@ -195,7 +195,8 @@ div.csl-indent {
   <li><a href="#linearresistance" id="toc-linearresistance" class="nav-link" data-scroll-target="#linearresistance"><span class="header-section-number">2.4.2</span> LinearResistance</a></li>
   <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">2.4.3</span> Terminal</a></li>
   <li><a href="#levelboundary" id="toc-levelboundary" class="nav-link" data-scroll-target="#levelboundary"><span class="header-section-number">2.4.4</span> LevelBoundary</a></li>
-  <li><a href="#manning-connection" id="toc-manning-connection" class="nav-link" data-scroll-target="#manning-connection"><span class="header-section-number">2.4.5</span> Manning connection</a></li>
+  <li><a href="#flowboundary" id="toc-flowboundary" class="nav-link" data-scroll-target="#flowboundary"><span class="header-section-number">2.4.5</span> FlowBoundary</a></li>
+  <li><a href="#manning-connection" id="toc-manning-connection" class="nav-link" data-scroll-target="#manning-connection"><span class="header-section-number">2.4.6</span> Manning connection</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#allocated-water-balance-terms" id="toc-allocated-water-balance-terms" class="nav-link" data-scroll-target="#allocated-water-balance-terms"><span class="header-section-number">3</span> Allocated water balance terms</a>
@@ -308,10 +309,11 @@ derivative.
 <li><code>LinearResistance</code></li>
 </ol>
 <p>The flow direction of the basin is not pre-determined: flow directions may freely reverse, provided the connection allows it. Currently, a <code>LinearResistance</code> allows bidirectional flow, but the</p>
-<p>Additionally, two additional “connections” area available for the “outmost” basins (external nodes) in a network.</p>
+<p>Additionally, three additional “connections” area available for the “outmost” basins (external nodes) in a network.</p>
 <ol type="1">
 <li><code>Terminal</code></li>
 <li><code>LevelBoundary</code></li>
+<li><code>FlowBoundary</code></li>
 </ol>
 <section id="outflowtable" class="level3" data-number="2.4.1">
 <h3 data-number="2.4.1" class="anchored" data-anchor-id="outflowtable"><span class="header-section-number">2.4.1</span> OutflowTable</h3>
@@ -347,8 +349,12 @@ Note
 <h3 data-number="2.4.4" class="anchored" data-anchor-id="levelboundary"><span class="header-section-number">2.4.4</span> LevelBoundary</h3>
 <p>This can be connected to a basin via a <code>LinearResistance</code>. This boundary node will then exchange water with the basin based on the difference in water level between the two.</p>
 </section>
-<section id="manning-connection" class="level3" data-number="2.4.5">
-<h3 data-number="2.4.5" class="anchored" data-anchor-id="manning-connection"><span class="header-section-number">2.4.5</span> Manning connection</h3>
+<section id="flowboundary" class="level3" data-number="2.4.5">
+<h3 data-number="2.4.5" class="anchored" data-anchor-id="flowboundary"><span class="header-section-number">2.4.5</span> FlowBoundary</h3>
+<p>This can be connected directly to a basin and prescribes the flow to or from that basin. We require that the edge connecting the flow boundary to the basin should point towards the basin, so that positive flow corresponds to water being added to the model.</p>
+</section>
+<section id="manning-connection" class="level3" data-number="2.4.6">
+<h3 data-number="2.4.6" class="anchored" data-anchor-id="manning-connection"><span class="header-section-number">2.4.6</span> Manning connection</h3>
 <p>Ribasim is capable of simulating steady flow between basins through a reach described by a trapezoidal profile and a Manning roughness coefficient.</p>
 <p>We describe the discharge from basin <span class="math inline">\(a\)</span> to basin <span class="math inline">\(b\)</span> solely as a function of the water levels in <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
 <p><span class="math display">\[
