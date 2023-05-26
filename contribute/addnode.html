@@ -296,7 +296,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="2"><span class="header-section-number">2</span> Python I/O</h1>
 <section id="python-class" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="python-class"><span class="header-section-number">2.1</span> Python class</h2>
-<p>Create a new file <code>python/ribasim/ribasim/new_node_type.py</code> which is structured as follows:</p>
+<p>Create a new file <code>python/ribasim/ribasim/node_types/new_node_type.py</code> which is structured as follows:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandera <span class="im">as</span> pa</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandera.typing <span class="im">import</span> DataFrame, Series</span>
@@ -325,27 +325,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">    possible other schemas</span></span>
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
 <span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    _input_type <span class="op">=</span> <span class="st">"NewNodeType"</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    static: Optional[DataFrame[StaticSchema]] <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># possible other schemas</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Config:</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>        validate_assignment <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    static: Optional[DataFrame[StaticSchema]] <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># possible other schemas</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Config:</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>        validate_assignment <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> sort(<span class="va">self</span>):</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.static <span class="op">=</span> <span class="va">self</span>.static.sort_values(<span class="st">"node_id"</span>, ignore_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> sort(<span class="va">self</span>):</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.static <span class="op">=</span> <span class="va">self</span>.static.sort_values(<span class="st">"node_id"</span>, ignore_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>sort</code> method should implement the same sorting as in <code>validation.jl</code>.</p>
-<p>Now in <code>python/ribasim/ribasim/__init__.py</code> add</p>
+<p>Now in both <code>python/ribasim/ribasim/__init__.py</code> and <code>python/ribasim/ribasim/node_types/__init__.py</code> add</p>
 <ul>
-<li><code>from ribasim.new_node_type import NewNodeType</code>;</li>
+<li><code>from ribasim.node_types.new_node_type import NewNodeType</code>;</li>
 <li><code>"NewNodeType"</code> to <code>__all__</code>.</li>
 </ul>
 <p>In <code>python/ribasim/ribasim/model.py</code>, add</p>
 <ul>
 <li><code>from ribasim.new_node_type import NewNodeType</code>;</li>
-<li><code>(NewNodetype, "new_node_type")</code> in the <code>NODES</code> list;</li>
 <li>new_node_type as a parameter and in the docstring of the <code>Model</code> class.</li>
 </ul>
 <p>In <code>python/ribasim/ribasim/node.py</code> add a color and shape description in the <code>MARKERS</code> and <code>COLORS</code> dictionaries.</p>
@@ -359,7 +357,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Add a color and shape description in the <code>MARKERS</code> dictionary in <code>Node.renderer</code>, consistent with the entries added above;</li>
 <li>Add an input class per schema, e.g.</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NewNodeTypeStatic</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NewNodeTypeStatic:</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    input_type <span class="op">=</span> <span class="st">"NewNodeType / static"</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    geometry_type <span class="op">=</span> <span class="st">"No Geometry"</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    attributes <span class="op">=</span> [</span>
@@ -372,6 +370,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="4"><span class="header-section-number">4</span> Tests</h1>
 <p>Models for the julia tests are generated by running <code>python/ribasim/tests/conftest.py</code>, which uses model definitions from the <code>ribasim_testmodels</code> package, see <a href="../contribute/python.html#installing-python-packages">here</a>. These models should also be updated to contain the new node type. Note that certain tests must be updated accordingly when the models used for certain tests are updated, e.g.&nbsp;the final state of the models in <code>core/test/basin.jl</code>. The following function is used to format the array of this final state.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reprf</span>(x) <span class="op">=</span> <span class="fu">repr</span>(<span class="fu">convert</span>(<span class="dt">Vector</span>{<span class="dt">Float32</span>}, x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>See <a href="../contribute/python.html#sec-codecov">here</a> for monitoring of Python test coverage.</p>
 <p>Future: Test for the specific behaviour of each node type</p>
 </section>
 <section id="documentation" class="level1" data-number="5">

@@ -217,6 +217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-black" id="toc-sec-black" class="nav-link" data-scroll-target="#sec-black"><span class="header-section-number">1.10</span> Automatic code formatting with Black</a></li>
   <li><a href="#sec-ruff" id="toc-sec-ruff" class="nav-link" data-scroll-target="#sec-ruff"><span class="header-section-number">1.11</span> Code linting with Ruff</a></li>
   </ul></li>
+  <li><a href="#sec-codecov" id="toc-sec-codecov" class="nav-link" data-scroll-target="#sec-codecov"><span class="header-section-number">2</span> Code maintenance</a></li>
   </ul>
 </nav>
     </div>
@@ -333,9 +334,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We use the <a href="https://github.com/charliermarsh/ruff">Ruff</a> linter to help finding issues with Python code. Code only passes the continuous integration checks if Ruff does not find any issues.</p>
 <p>To run Ruff on the entire repository, use the command below. Here the repository root is the working directory.</p>
 <pre><code>ruff .</code></pre>
-
-
 </section>
+</section>
+<section id="sec-codecov" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Code maintenance</h1>
+<p>For new features new tests have to be added. To monitor how much of the code is covered by the tests we use <a href="https://about.codecov.io/">Codecov</a>. For a simple overview of the local code coverage run</p>
+<pre><code>pytest --cov=ribasim tests/</code></pre>
+<p>from <code>python/ribasim</code>. For an extensive overview in <code>html</code> format use</p>
+<pre><code>ytest --cov=ribasim --cov-report=html tests/</code></pre>
+<p>which creates a folder <code>htmlcov</code> in the working directory. To see te contents open <code>htmlcov/index.html</code> in a browser.</p>
+<p>The code coverage of pushed branches can be seen <a href="https://app.codecov.io/gh/Deltares/Ribasim">here</a>.</p>
+
+
 </section>
 
 </main> <!-- /main -->
