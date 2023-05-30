@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.361">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -91,7 +91,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -449,92 +450,95 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Let’s take a look at the model:</p>
 <div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.</code></pre>
+</div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>&lt;Axes: &gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="examples_files/figure-html/cell-16-output-2.png" width="753" height="389"></p>
+<p><img src="examples_files/figure-html/cell-16-output-3.png" width="463" height="389"></p>
 </div>
 </div>
 <p>Write the model to a TOML and GeoPackage:</p>
 <div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>datadir <span class="op">=</span> Path(<span class="st">"data"</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>model.write(datadir <span class="op">/</span> <span class="st">"basic"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>datadir <span class="op">=</span> Path(<span class="st">"data"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>model.write(datadir <span class="op">/</span> <span class="st">"basic"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="update-the-basic-model-with-transient-forcing" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Update the basic model with transient forcing</h1>
 <p>This assumes you have already created the basic model with static forcing.</p>
 <div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ribasim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ribasim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ribasim.Model.from_toml(datadir <span class="op">/</span> <span class="st">"basic/basic.toml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ribasim.Model.from_toml(datadir <span class="op">/</span> <span class="st">"basic/basic.toml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> pd.date_range(model.starttime, model.endtime)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>day_of_year <span class="op">=</span> time.day_of_year.to_numpy()</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>seconds_per_day <span class="op">=</span> <span class="dv">24</span> <span class="op">*</span> <span class="dv">60</span> <span class="op">*</span> <span class="dv">60</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>evaporation <span class="op">=</span> (</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    (<span class="op">-</span><span class="fl">1.0</span> <span class="op">*</span> np.cos(day_of_year <span class="op">/</span> <span class="fl">365.0</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">*</span> np.pi) <span class="op">+</span> <span class="fl">1.0</span>) <span class="op">*</span> <span class="fl">0.0025</span> <span class="op">/</span> seconds_per_day</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(seed<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>precipitation <span class="op">=</span> (</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    rng.lognormal(mean<span class="op">=-</span><span class="fl">1.0</span>, sigma<span class="op">=</span><span class="fl">1.7</span>, size<span class="op">=</span>time.size) <span class="op">*</span> <span class="fl">0.001</span> <span class="op">/</span> seconds_per_day</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> pd.date_range(model.starttime, model.endtime)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>day_of_year <span class="op">=</span> time.day_of_year.to_numpy()</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>seconds_per_day <span class="op">=</span> <span class="dv">24</span> <span class="op">*</span> <span class="dv">60</span> <span class="op">*</span> <span class="dv">60</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>evaporation <span class="op">=</span> (</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    (<span class="op">-</span><span class="fl">1.0</span> <span class="op">*</span> np.cos(day_of_year <span class="op">/</span> <span class="fl">365.0</span> <span class="op">*</span> <span class="dv">2</span> <span class="op">*</span> np.pi) <span class="op">+</span> <span class="fl">1.0</span>) <span class="op">*</span> <span class="fl">0.0025</span> <span class="op">/</span> seconds_per_day</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(seed<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>precipitation <span class="op">=</span> (</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    rng.lognormal(mean<span class="op">=-</span><span class="fl">1.0</span>, sigma<span class="op">=</span><span class="fl">1.7</span>, size<span class="op">=</span>time.size) <span class="op">*</span> <span class="fl">0.001</span> <span class="op">/</span> seconds_per_day</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We’ll use xarray to easily broadcast the values.</p>
 <div class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>timeseries <span class="op">=</span> (</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    pd.DataFrame(</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_id"</span>: <span class="dv">1</span>,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"time"</span>: time,</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"drainage"</span>: <span class="fl">0.0</span>,</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"potential_evaporation"</span>: evaporation,</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"infiltration"</span>: <span class="fl">0.0</span>,</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"precipitation"</span>: precipitation,</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"urban_runoff"</span>: <span class="fl">0.0</span>,</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    .set_index(<span class="st">"time"</span>)</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    .to_xarray()</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>basin_ids <span class="op">=</span> model.basin.static[<span class="st">"node_id"</span>].to_numpy()</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>basin_nodes <span class="op">=</span> xr.DataArray(</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    np.ones(<span class="bu">len</span>(basin_ids)), coords<span class="op">=</span>{<span class="st">"node_id"</span>: basin_ids}, dims<span class="op">=</span>[<span class="st">"node_id"</span>]</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>forcing <span class="op">=</span> (timeseries <span class="op">*</span> basin_nodes).to_dataframe().reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>timeseries <span class="op">=</span> (</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    pd.DataFrame(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_id"</span>: <span class="dv">1</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"time"</span>: time,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"drainage"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"potential_evaporation"</span>: evaporation,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"infiltration"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"precipitation"</span>: precipitation,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"urban_runoff"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    .set_index(<span class="st">"time"</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    .to_xarray()</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>basin_ids <span class="op">=</span> model.basin.static[<span class="st">"node_id"</span>].to_numpy()</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>basin_nodes <span class="op">=</span> xr.DataArray(</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    np.ones(<span class="bu">len</span>(basin_ids)), coords<span class="op">=</span>{<span class="st">"node_id"</span>: basin_ids}, dims<span class="op">=</span>[<span class="st">"node_id"</span>]</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>forcing <span class="op">=</span> (timeseries <span class="op">*</span> basin_nodes).to_dataframe().reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>state <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: basin_ids,</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"storage"</span>: <span class="fl">1000.0</span>,</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"concentration"</span>: <span class="fl">0.0</span>,</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>state <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: basin_ids,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"storage"</span>: <span class="fl">1000.0</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"concentration"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>model.basin.forcing <span class="op">=</span> forcing</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>model.basin.state <span class="op">=</span> state</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>model.basin.forcing <span class="op">=</span> forcing</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>model.basin.state <span class="op">=</span> state</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>model.modelname <span class="op">=</span> <span class="st">"basic-transient"</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>model.write(datadir <span class="op">/</span> <span class="st">"basic-transient"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>model.modelname <span class="op">=</span> <span class="st">"basic-transient"</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>model.write(datadir <span class="op">/</span> <span class="st">"basic-transient"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now run the model with <code>ribasim basic-transient/basic.toml</code>. After running the model, read back the output:</p>
 <div class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df_basin <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"basic-transient/output/basin.arrow"</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>df_basin_wide <span class="op">=</span> df_basin.pivot_table(</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"node_id"</span>, values<span class="op">=</span>[<span class="st">"storage"</span>, <span class="st">"level"</span>]</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>df_basin_wide[<span class="st">"level"</span>].plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df_basin <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"basic-transient/output/basin.arrow"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>df_basin_wide <span class="op">=</span> df_basin.pivot_table(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"node_id"</span>, values<span class="op">=</span>[<span class="st">"storage"</span>, <span class="st">"level"</span>]</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>df_basin_wide[<span class="st">"level"</span>].plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>&lt;Axes: xlabel='time'&gt;</code></pre>
 </div>
@@ -543,15 +547,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df_flow <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"basic-transient/output/flow.arrow"</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"edge"</span>] <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(df_flow.from_node_id, df_flow.to_node_id))</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"flow_m3d"</span>] <span class="op">=</span> df_flow.flow <span class="op">*</span> <span class="dv">86400</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>df_flow.pivot_table(index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"edge"</span>, values<span class="op">=</span><span class="st">"flow_m3d"</span>).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df_flow <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"basic-transient/output/flow.arrow"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"edge"</span>] <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(df_flow.from_node_id, df_flow.to_node_id))</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"flow_m3d"</span>] <span class="op">=</span> df_flow.flow <span class="op">*</span> <span class="dv">86400</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>df_flow.pivot_table(index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"edge"</span>, values<span class="op">=</span><span class="st">"flow_m3d"</span>).plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>&lt;Axes: xlabel='time'&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="examples_files/figure-html/cell-27-output-2.png" width="603" height="412"></p>
+<p><img src="examples_files/figure-html/cell-27-output-2.png" width="603" height="414"></p>
 </div>
 </div>
 
