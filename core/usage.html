@@ -210,14 +210,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#basin" id="toc-basin" class="nav-link" data-scroll-target="#basin"><span class="header-section-number">1.6</span> Basin</a></li>
   <li><a href="#basin-forcing" id="toc-basin-forcing" class="nav-link" data-scroll-target="#basin-forcing"><span class="header-section-number">1.7</span> Basin / forcing</a></li>
   <li><a href="#basin-profile" id="toc-basin-profile" class="nav-link" data-scroll-target="#basin-profile"><span class="header-section-number">1.8</span> Basin / profile</a></li>
-  <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="header-section-number">1.9</span> TabulatedRatingCurve</a></li>
-  <li><a href="#tabulatedratingcurve-time" id="toc-tabulatedratingcurve-time" class="nav-link" data-scroll-target="#tabulatedratingcurve-time"><span class="header-section-number">1.10</span> TabulatedRatingCurve / time</a></li>
-  <li><a href="#pump" id="toc-pump" class="nav-link" data-scroll-target="#pump"><span class="header-section-number">1.11</span> Pump</a></li>
-  <li><a href="#levelboundary" id="toc-levelboundary" class="nav-link" data-scroll-target="#levelboundary"><span class="header-section-number">1.12</span> LevelBoundary</a></li>
-  <li><a href="#flowboundary" id="toc-flowboundary" class="nav-link" data-scroll-target="#flowboundary"><span class="header-section-number">1.13</span> FlowBoundary</a></li>
-  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">1.14</span> Terminal</a></li>
-  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="header-section-number">1.15</span> Basin output</a></li>
-  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="header-section-number">1.16</span> Flow output</a></li>
+  <li><a href="#fractionalflow" id="toc-fractionalflow" class="nav-link" data-scroll-target="#fractionalflow"><span class="header-section-number">1.9</span> FractionalFlow</a></li>
+  <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="header-section-number">1.10</span> TabulatedRatingCurve</a></li>
+  <li><a href="#tabulatedratingcurve-time" id="toc-tabulatedratingcurve-time" class="nav-link" data-scroll-target="#tabulatedratingcurve-time"><span class="header-section-number">1.11</span> TabulatedRatingCurve / time</a></li>
+  <li><a href="#pump" id="toc-pump" class="nav-link" data-scroll-target="#pump"><span class="header-section-number">1.12</span> Pump</a></li>
+  <li><a href="#levelboundary" id="toc-levelboundary" class="nav-link" data-scroll-target="#levelboundary"><span class="header-section-number">1.13</span> LevelBoundary</a></li>
+  <li><a href="#flowboundary" id="toc-flowboundary" class="nav-link" data-scroll-target="#flowboundary"><span class="header-section-number">1.14</span> FlowBoundary</a></li>
+  <li><a href="#linearresistance" id="toc-linearresistance" class="nav-link" data-scroll-target="#linearresistance"><span class="header-section-number">1.15</span> LinearResistance</a></li>
+  <li><a href="#manningresistance" id="toc-manningresistance" class="nav-link" data-scroll-target="#manningresistance"><span class="header-section-number">1.16</span> ManningResistance</a></li>
+  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">1.17</span> Terminal</a></li>
+  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="header-section-number">1.18</span> Basin output</a></li>
+  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="header-section-number">1.19</span> Flow output</a></li>
+  <li><a href="#control" id="toc-control" class="nav-link" data-scroll-target="#control"><span class="header-section-number">1.20</span> Control</a></li>
   </ul></li>
   <li><a href="#example-input-files" id="toc-example-input-files" class="nav-link" data-scroll-target="#example-input-files"><span class="header-section-number">2</span> Example input files</a></li>
   </ul>
@@ -375,6 +379,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><code>LinearResistance / static</code>: conductances</li>
 </ul></li>
+<li>ManningResistance: Flow through this connection is estimated by conservation of energy and the Manning-Gauckler formula to estimate friction losses.
+<ul>
+<li><code>ManningResistance / static</code>: properties</li>
+</ul></li>
 <li>TabulatedRatingCurve: Basin outflow relation
 <ul>
 <li><code>TabulatedRatingCurve / static</code>: rating curve</li>
@@ -388,12 +396,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><code>Terminal / static</code>: - (only node IDs)</li>
 </ul></li>
+<li>Control: Set parameters of other nodes based on model state conditions (e.g.&nbsp;basin level)
+<ul>
+<li><code>Control / condition</code>: Conditions of the form ‘the level in the basin with node id n is bigger than 2.0 m’</li>
+<li><code>Control / logic</code>: Translates the truth value of a set of conditions to parameter values for a controlled node</li>
+</ul></li>
 </ul>
 <p>Adding a geometry to the node table can be helpful to examine models in <a href="https://qgis.org/en/site/">QGIS</a>, as it will show the location of the nodes on the map. The geometry is not used by Ribasim.</p>
 </section>
 <section id="edge" class="level3" data-number="1.4">
 <h3 data-number="1.4" class="anchored" data-anchor-id="edge"><span class="header-section-number">1.4</span> Edge</h3>
-<p>Edges define connections between nodes. Flows between nodes are stored on edges. The only thing that defines an edge is the nodes it connects, and in what direction. The effect of the edge direction depends on the node type, Node types that have a notion of an upstream and downstream side use the incoming edge as the upstream side, and the outgoing edge as the downstream side. This means that edges should generally be drawn in the main flow direction. But for instance between two <code>LinearResistances</code> the edge direction does not affect anything, other than the sign of the flow on the edge. The sign of the flow follows the edge direction; a positive flow flows along the edge direction, a negative flow in the opposite way.</p>
+<p>Edges define connections between nodes. The only thing that defines an edge is the nodes it connects, and in what direction. There are currently 2 possible edge types:</p>
+<ol type="1">
+<li>“flow”: Flows between nodes are stored on edges. The effect of the edge direction depends on the node type, Node types that have a notion of an upstream and downstream side use the incoming edge as the upstream side, and the outgoing edge as the downstream side. This means that edges should generally be drawn in the main flow direction. But for instance between two <code>LinearResistances</code> the edge direction does not affect anything, other than the sign of the flow on the edge. The sign of the flow follows the edge direction; a positive flow flows along the edge direction, a negative flow in the opposite way.</li>
+<li>“control”: The control edges define which nodes are controlled by a particular control node. Control edges should always point away from the control node. The edges between the control node and the nodes it <em>listens</em> to are <em>not</em> present in <code>Edge \ static</code>, these are defined in <a href="../core/usage.html#sec-condition">Control / condition</a></li>
+</ol>
 <table class="table">
 <thead>
 <tr class="header">
@@ -419,6 +436,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>-</td>
 </tr>
 <tr class="even">
+<td>edge_type</td>
+<td>String</td>
+<td>must be “flow” or “control”</td>
+</tr>
+<tr class="odd">
 <td>geom</td>
 <td>geometry</td>
 <td>(optional)</td>
@@ -602,8 +624,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="tabulatedratingcurve" class="level3" data-number="1.9">
-<h3 data-number="1.9" class="anchored" data-anchor-id="tabulatedratingcurve"><span class="header-section-number">1.9</span> TabulatedRatingCurve</h3>
+<section id="fractionalflow" class="level3" data-number="1.9">
+<h3 data-number="1.9" class="anchored" data-anchor-id="fractionalflow"><span class="header-section-number">1.9</span> FractionalFlow</h3>
+<p>Lets a fraction (in [0,1]) of the incoming flow trough.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>fraction</td>
+<td>Float64</td>
+<td>-</td>
+<td>in the interval [0,1]</td>
+</tr>
+<tr class="odd">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td>(optional)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabulatedratingcurve" class="level3" data-number="1.10">
+<h3 data-number="1.10" class="anchored" data-anchor-id="tabulatedratingcurve"><span class="header-section-number">1.10</span> TabulatedRatingCurve</h3>
 <p>This table is similar in structure to the Basin profile. The TabulatedRatingCurve gives a relation between the storage of a connected Basin (via the outlet level) and its outflow.</p>
 <table class="table">
 <thead>
@@ -672,8 +728,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="tabulatedratingcurve-time" class="level3" data-number="1.10">
-<h3 data-number="1.10" class="anchored" data-anchor-id="tabulatedratingcurve-time"><span class="header-section-number">1.10</span> TabulatedRatingCurve / time</h3>
+<section id="tabulatedratingcurve-time" class="level3" data-number="1.11">
+<h3 data-number="1.11" class="anchored" data-anchor-id="tabulatedratingcurve-time"><span class="header-section-number">1.11</span> TabulatedRatingCurve / time</h3>
 <p>This table is the transient form of the <code>TabulatedRatingCurve</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by node_id. With this the rating curves can be updated over time. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
 <table class="table">
 <thead>
@@ -712,8 +768,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="pump" class="level3" data-number="1.11">
-<h3 data-number="1.11" class="anchored" data-anchor-id="pump"><span class="header-section-number">1.11</span> Pump</h3>
+<section id="pump" class="level3" data-number="1.12">
+<h3 data-number="1.12" class="anchored" data-anchor-id="pump"><span class="header-section-number">1.12</span> Pump</h3>
 <p>Pump water from a source node to a destination node. The set flow rate will be pumped unless the intake storage is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. A negative flow rate means pumping against the edge direction. Note that the intake must always be a Basin.</p>
 <table class="table">
 <thead>
@@ -737,11 +793,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 <td>-</td>
 </tr>
+<tr class="odd">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td>(optional)</td>
+</tr>
 </tbody>
 </table>
 </section>
-<section id="levelboundary" class="level3" data-number="1.12">
-<h3 data-number="1.12" class="anchored" data-anchor-id="levelboundary"><span class="header-section-number">1.12</span> LevelBoundary</h3>
+<section id="levelboundary" class="level3" data-number="1.13">
+<h3 data-number="1.13" class="anchored" data-anchor-id="levelboundary"><span class="header-section-number">1.13</span> LevelBoundary</h3>
 <p>Acts like an infinitely large basin where the level does not change by flow. This can be connected to a basin via a <code>LinearResistance</code>. This boundary node will then exchange water with the basin based on the difference in water level between the two.</p>
 <table class="table">
 <thead>
@@ -765,11 +827,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><span class="math inline">\(m^3\)</span></td>
 <td>non-negative</td>
 </tr>
+<tr class="odd">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td>(optional)</td>
+</tr>
 </tbody>
 </table>
 </section>
-<section id="flowboundary" class="level3" data-number="1.13">
-<h3 data-number="1.13" class="anchored" data-anchor-id="flowboundary"><span class="header-section-number">1.13</span> FlowBoundary</h3>
+<section id="flowboundary" class="level3" data-number="1.14">
+<h3 data-number="1.14" class="anchored" data-anchor-id="flowboundary"><span class="header-section-number">1.14</span> FlowBoundary</h3>
 <p>Pump water to a destination node. We require that the edge connecting the flow boundary to the Basin should point towards the basin, so that positive flow corresponds to water being added to the model. The set flow rate will be pumped unless the intake storage (for a negative flow rate) is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. Note that the connected node must always be a Basin.</p>
 <table class="table">
 <thead>
@@ -793,11 +861,103 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 <td>-</td>
 </tr>
+<tr class="odd">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td>(optional)</td>
+</tr>
 </tbody>
 </table>
 </section>
-<section id="terminal" class="level3" data-number="1.14">
-<h3 data-number="1.14" class="anchored" data-anchor-id="terminal"><span class="header-section-number">1.14</span> Terminal</h3>
+<section id="linearresistance" class="level3" data-number="1.15">
+<h3 data-number="1.15" class="anchored" data-anchor-id="linearresistance"><span class="header-section-number">1.15</span> LinearResistance</h3>
+<p>Flow proportional to the level difference between the connected basins.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>resistance</td>
+<td>Float64</td>
+<td><span class="math inline">\(sm^{-2}\)</span></td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td>(optional)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="manningresistance" class="level3" data-number="1.16">
+<h3 data-number="1.16" class="anchored" data-anchor-id="manningresistance"><span class="header-section-number">1.16</span> ManningResistance</h3>
+<p>Flow through this connection is estimated by conservation of energy and the Manning-Gauckler formula to estimate friction losses.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>length</td>
+<td>Float64</td>
+<td><span class="math inline">\(m\)</span></td>
+<td>positive</td>
+</tr>
+<tr class="odd">
+<td>manning_n</td>
+<td>Float64</td>
+<td><span class="math inline">\(s m^{-\frac{1}{3}}\)</span></td>
+<td>positive</td>
+</tr>
+<tr class="even">
+<td>profile_with</td>
+<td>Float64</td>
+<td><span class="math inline">\(m\)</span></td>
+<td>positive</td>
+</tr>
+<tr class="odd">
+<td>profile_slope</td>
+<td>Float64</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td>(optional)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="terminal" class="level3" data-number="1.17">
+<h3 data-number="1.17" class="anchored" data-anchor-id="terminal"><span class="header-section-number">1.17</span> Terminal</h3>
 <p>A terminal is a water sink without state or properties. Any water that flows into a terminal node is removed from the model. No water can come into the model from a terminal node. For example, terminal nodes can be used as a downstream boundary.</p>
 <table class="table">
 <thead>
@@ -818,8 +978,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="basin-output" class="level3" data-number="1.15">
-<h3 data-number="1.15" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">1.15</span> Basin output</h3>
+<section id="basin-output" class="level3" data-number="1.18">
+<h3 data-number="1.18" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">1.18</span> Basin output</h3>
 <p>The basin table contains outputs of the storage and level of each basin at every solver timestep. The initial condition is also written to the file.</p>
 <table class="table">
 <thead>
@@ -854,8 +1014,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>The table is sorted by time, and per time it is sorted by node_id.</p>
 </section>
-<section id="flow-output" class="level3" data-number="1.16">
-<h3 data-number="1.16" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">1.16</span> Flow output</h3>
+<section id="flow-output" class="level3" data-number="1.19">
+<h3 data-number="1.19" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">1.19</span> Flow output</h3>
 <p>The flow tables contains outputs of the flow on every edge in the model, for each solver timestep.</p>
 <table class="table">
 <thead>
@@ -894,6 +1054,110 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>The table is sorted by time, and per time the same edge_id order is used, though not sorted.</p>
+</section>
+<section id="control" class="level3" data-number="1.20">
+<h3 data-number="1.20" class="anchored" data-anchor-id="control"><span class="header-section-number">1.20</span> Control</h3>
+<p>Control is implemented based on <a href="https://docs.sciml.ai/DiffEqDocs/stable/features/callback_functions/#VectorContinuousCallback">VectorContinuousCallback</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Currently the Julia core only supports controlling pumps.</p>
+</div>
+</div>
+<section id="sec-condition" class="level4" data-number="1.20.1">
+<h4 data-number="1.20.1" class="anchored" data-anchor-id="sec-condition"><span class="header-section-number">1.20.1</span> Control / condition</h4>
+<p>The control schema defines conditions of the form ‘the control node with this node id listens to whether the given variable of the node with the given listen node id is grater than the given value’.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>listen_node_id</td>
+<td>Int</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>variable</td>
+<td>String</td>
+<td>-</td>
+<td>must be “level”</td>
+</tr>
+<tr class="even">
+<td>greater_than</td>
+<td>Float64</td>
+<td>various</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="control-logic" class="level4" data-number="1.20.2">
+<h4 data-number="1.20.2" class="anchored" data-anchor-id="control-logic"><span class="header-section-number">1.20.2</span> Control / logic</h4>
+<p>The logic schema defines which control states are triggered based on the truth of the conditions a control node listens to. Control is applied in the Julia core as follows:</p>
+<ul>
+<li>During the simulation it is checked whether the truth of any of the conditions changes.</li>
+<li>When a condition changes, the corresponding control node id is retrieved (node_id in the condition schema above).</li>
+<li>The truth value of all the conditions this control node lisens to are retrieved, in the order as they are specified in the condition schema. This is then converted into a string of “T” for true and “F” for false. This string we call the truth state.</li>
+<li>The table below determines for the given control node ID and truth state what the corresponding control state is.</li>
+<li>For all the nodes this control node affects (as given by the “control” edges in <a href="../core/usage.html#edge">Edges / static</a>), their parameters are set to those parameters in <code>NodeType / static</code> corresponding to the determined control state.</li>
+</ul>
+<table class="table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 21%">
+<col style="width: 10%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>truth_state</td>
+<td>String</td>
+<td>-</td>
+<td>Consists of the characters “T” (true) and “F” (false)</td>
+</tr>
+<tr class="odd">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 </section>
 <section id="example-input-files" class="level2" data-number="2">
