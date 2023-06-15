@@ -1,444 +1,73 @@
 [
   {
-    "objectID": "couple/index.html",
-    "href": "couple/index.html",
-    "title": "Coupled models",
+    "objectID": "contribute/core.html",
+    "href": "contribute/core.html",
+    "title": "Julia core development",
     "section": "",
-    "text": "Ribasim can be coupled to other software, for instance to model another process or domain, or to control a simulation from another process.\nTo enable this, Ribasim can be compiled as a shared library (libribasim) instead of a command line interface (ribasim). This shared library exposes a C API in the form of the Basic Model Interface (BMI). Other software can then load libribasim and load a Ribasim model, exchange data, and control the time stepping.\nAn initial coupling to MODFLOW 6 was done in 2022 inside the Julia core as a proof of concept. Read about the coupling setup and see the demonstration. Going forward this and other coupling codes will be implemented outside of the core, by making use of iMOD Coupler and libribasim. iMOD Coupler is a generic coupling tool, and can be used to couple to other models as well."
+    "text": "Install Julia via Juliaup as described in its README.\n\n\n\nStart the Julia REPL by executing julia in your terminal. Within the REPL type ] to enter the Pkg REPL. For more information on how to use Pkg, see the Getting Started page in its documentation. There you can add Revise to your global environment.\npkg&gt; add Revise\n\n\n\nRevise.jl is a library that allows you to modify code and use the changes without restarting Julia. You can let it start automatically by following these instructions.\n\n\n\nQuarto is the publishing system that builds our documentation. The installation instructions can be found on their web page.\n\n\n\nIn order to have the Ribasim repository locally available, you can clone it with Git. Git can be installed from git-scm.com. Once installed, run the following command at a directory of your choice:\nIn order to have the Ribasim repository locally available, run the following command at a directory of your choice:\ngit clone https://github.com/Deltares/Ribasim.git\nTo continue with the following steps, make the root of the repository your working directory by running\ncd Ribasim\n\n\n\nThere is a section on editors and IDEs for Julia on https://julialang.org/, scroll down to see it. We use and recommend Microsoft’s free editor Visual Studio Code. When combined with the Julia extension it provides a powerful and interactive development experience."
   },
   {
-    "objectID": "couple/modflow.html",
-    "href": "couple/modflow.html",
-    "title": "MODFLOW 6",
+    "objectID": "contribute/core.html#install-julia-via-juliaup",
+    "href": "contribute/core.html#install-julia-via-juliaup",
+    "title": "Julia core development",
     "section": "",
-    "text": "Ribasim has been designed to provide a computationally efficient representation of surface water for MODFLOW 6. It does so by connecting to basic MODFLOW 6 boundary conditions: the river and drainage packages.\nRibasim connects to MODFLOW 6 via the Basic Model Interface (BMI) and Extended Model Interface (XMI) (Hughes et al. 2022). BMI describes the interface to initialize a model, get values from its memory, run a timestep, etc. XMI extends this interface to allow much finer control into MODFLOW 6’s solution procedures. We have written a Julia package (Deltares 2022) which implements this interface for the Julia programming language. In coupling, Ribasim uses this interface to get the head values, the boundary condition water levels, and the budgets term of the MODFLOW 6 groundwater model while MODFLOW 6 is running.\nAdditionally, links can be made with other (BMI/XMI-compliant) processes and models. One example of such a link is using the surface runoff and the agricultural irrigation demand calculated by an unsaturated zone model; in the Netherlands Hydrological Instrument MetaSWAP provides this demand."
+    "text": "Install Julia via Juliaup as described in its README."
   },
   {
-    "objectID": "couple/modflow.html#drainage",
-    "href": "couple/modflow.html#drainage",
-    "title": "MODFLOW 6",
-    "section": "1.1 Drainage",
-    "text": "1.1 Drainage\nThe drainage package can be simulated to agricultural drains, ditches, or draining streams. The amount of water removed from the aquifer is proportional to the difference between the groundwater head and the drainage elevation. Drainage only occurs when the head is larger than the elevation; this boundary condition does not allow infiltration into the groundwater.\n\\[\nQ_{drain} = \\left\\{\n    \\begin{array}{ c l }\n        C_{drain} (\\phi - h_{drain}) & \\quad \\textrm{if } \\phi &gt; h_{drain} \\\\\n        0                            & \\quad \\textrm{otherwise}\n     \\end{array}\n\\right.\n\\]"
-  },
-  {
-    "objectID": "couple/modflow.html#river",
-    "href": "couple/modflow.html#river",
-    "title": "MODFLOW 6",
-    "section": "1.2 River",
-    "text": "1.2 River\nThe river package can both drain the groundwater, or infiltrate surface water to the groundwater. It limits the amount of water that can infiltrate when the groundwater head falls below the river bottom, in which cases it assumes atmospheric pressure conditions underneath the surface water.\n\\[\nQ_{river} = \\left\\{\n    \\begin{array}{ c l }\n        C_{river} (\\phi - h_{river}) & \\quad \\textrm{if } \\phi &gt; b_{river} \\\\\n        C_{river} (h_{river} - b_{river}) & \\quad \\textrm{if } \\phi &lt;= b_{river}\n     \\end{array}\n\\right.\n\\]\nIn the Netherlands, it is somewhat common to make a distinction between the drainage and infiltration conductance of surface waters. Drainage conductance is often larger than the infiltration conductance due to clogging processes, seepage through sides of the ditches, less contracted flow lines, etc.\n\\[\nQ_{river} = \\left\\{\n    \\begin{array}{ c l }\n        C_{river,drn} (\\phi - h_{river}) & \\quad \\textrm{if } \\phi &gt; h_{river} \\\\\n        C_{river,inf} (\\phi - h_{river}) & \\quad \\textrm{if } \\phi &lt;= h_{river} \\\\\n        C_{river,inf} (h_{river} - b_{river}) & \\quad \\textrm{if } \\phi &lt;= b_{river}\n     \\end{array}\n\\right.\n\\]\nMODFLOW 6 does not support this (currently), but an identical effect may be achieved by “stacking” a drainage package on top of a river package with these values:\n\\[\n\\begin{array}{ c l }\n  h_{drain} = h_{river} \\\\\n  C_{drain} = C_{river,drn} - C_{river,inf}\n\\end{array}\n\\]"
-  },
-  {
-    "objectID": "couple/modflow.html#numerical-solution-in-modflow",
-    "href": "couple/modflow.html#numerical-solution-in-modflow",
-    "title": "MODFLOW 6",
-    "section": "2.1 Numerical solution in MODFLOW",
-    "text": "2.1 Numerical solution in MODFLOW\nMODFLOW uses a backward-in-time implicit solution scheme. This creates a large system of equations (a water balance for every cell), which it solves by repeatedly solving a linearized system of equations instead. In matrix form, this system of equations is expressed by:\n\\[\n\\mathbf{Ax} = \\mathbf{b}\n\\]\nWhere \\(\\mathbf{x}\\) is a vector containing the head of every cell.\nFor the boundary conditions, this requires linearization of the flow equations. Flow from outside of the aquifer (cell) may be represented by:\n\\[\na = p\\phi + q\n\\]\n(Equation 2-6 in the MODFLOW 6 documentation (Langevin et al. 2017).)\nFor e.g. a draining boundary condition, the flow is head dependent:\n\\[\na = C(h - \\phi) = -C\\phi + Ch\n\\]\nWith \\(C\\) the conductance, \\(h\\) the boundary head or elevation, and \\(\\phi\\) the groundwater head.\nIn MODFLOW’s internal formulation, the term in \\(\\mathbf{A}\\) is called “coefficient of head” or hcof. Terms in \\(\\mathbf{b}\\) are called “right hand side” or rhs. We can separate the equation above:\n\\[\n\\begin{aligned}\np = \\text{hcof} = -C \\\\\nq = \\textrm{rhs} = -Ch \\\\\na = -C\\phi + Ch = \\text{hcof} * \\phi - \\text{rhs}\n\\end{aligned}\n\\]\nFor every boundary condition, MODFLOW 6 stores the hcof and rhs values. This makes it quite convenient for us to compute the water budget for every boundary condition: we simply multiply the hcof value by the head of the cell and subtract the rhs.\nNote that hcof may have a value of 0! For example, when for a river boundary the \\(\\phi &lt;= b_{river}\\) condition occurs, the flow into the cell is controlled only by \\(h_{river}\\) and \\(b_{river}\\) (equal to recharge for the linear solution)."
-  },
-  {
-    "objectID": "couple/modflow.html#sequential-coupled-solution",
-    "href": "couple/modflow.html#sequential-coupled-solution",
-    "title": "MODFLOW 6",
-    "section": "2.2 Sequential coupled solution",
-    "text": "2.2 Sequential coupled solution\nA coupled run stars by initializing both models and creating the exchange information: which MODFLOW 6 boundary condition is connected to which Ribasim basin. While the model is running, the model proceeds through time as follows:\n\nRibasim solves the equations on a basin level; this occurs with adaptive timestepping via ModelingToolkit.\nAt a specified time (in accordance with the MODFLOW 6 time discretization), the volumes are converted to MODFLOW 6 boundary condition levels using a Callback function.\nMODFLOW 6 runs a timestep.\nThe drainage and infiltration budgets are computed from MODFLOW 6 using the equations described above and aggregated per basin.\nThe aggregated values are set as Ribasim boundary conditions, and Ribasim solves until the next preset exchange time.\n\nThese steps run until the final timestep is finished."
-  },
-  {
-    "objectID": "couple/modflow.html#iterative-coupled-solution",
-    "href": "couple/modflow.html#iterative-coupled-solution",
-    "title": "MODFLOW 6",
-    "section": "2.3 Iterative coupled solution",
-    "text": "2.3 Iterative coupled solution\n\n\n\n\n\n\nNote\n\n\n\nWe have not implemented an iterative coupled solution yet. The section below describes an approach.\n\n\nThe simplest form of a iterative solution occurs as follows:\n\nMODFLOW 6 computes drainage and infiltration flows.\nRibasim uses these flows to compute a storage volume for the basin.\nThe volume is translated to a water level for every MODFLOW 6 boundary condition in the basins.\nMODFLOW 6 recomputes drainage and infiltration flows with the updated water levels, etc.\n\nSuch a scheme is not maximally efficient: the discharge and infiltration terms are not constant, but are driven by a head difference. This head difference depends on the level of the boundary conditions and head of every cell of the groundwater model. If the surface waters of a basin empty, the water level will decrease and drainage and infiltration flows will change. Ideally, we can provide Ribasim with more information, so that it may estimate drainage and infiltration terms better.\nAs groundwater flow is often (approximately) linear, we can use linearization to more efficiently compute the flow from Ribasim’s side as well. In the iterative coupled solution, we are solving both MODFLOW 6 and Ribasim repeatedly, until they produce same drainage or infiltration (approximately). One of Ribasim’s basins contains many MODFLOW cells with boundary conditions. We could add every boundary condition to Ribasim’s equations, but this is costly and cumbersome. Fortunately, linearization allows us to “stack” (superpose) all the different boundary conditions into a single, simple equation. In linear form, every equation takes the form of:\n\\[\na = ph + q\n\\]\nNote the \\(h\\) rather than \\(\\phi\\), we are formulating from Ribasim’s perspective! We can sum all coefficients for p and q to provide a linear groundwater response to Ribasim.\n\n2.3.1 Drainage\nFrom Ribasim’s perspective, the groundwater head is constant given a timestep, so that:\n\\[\n\\begin{align}\np = -C \\\\\nq = -C\\phi\n\\end{align}\n\\]\nWhen the head falls below the drainage elevation, the coefficients are 0.\n\n\n2.3.2 River\nFrom Ribasim’s perspective, infiltration is never limited when the head falls below the bottom:\n\\[\n\\begin{align}\np = -C \\\\\nq = -Cb\n\\end{align}\n\\]\nOtherwise, infiltration and drainage occur with the same equation as for the drainage package:\n\\[\n\\begin{align}\np = -C \\\\\nq = -C\\phi\n\\end{align}\n\\]"
-  },
-  {
-    "objectID": "couple/modflow.html#parametrization",
-    "href": "couple/modflow.html#parametrization",
-    "title": "MODFLOW 6",
-    "section": "3.1 Parametrization",
-    "text": "3.1 Parametrization\nIn coupling Ribasim to MODFLOW 6, relations translating the Ribasim volume must be given for every every cell of every boundary condition. These consist of piecewise linear relationships between the basin volume and its associated water level for the boundary condition in the cell.\nThese values are stored in a netCDF dataset. This dataset must meet the following requirements:\n\nIt must contain a x and y coordinate. The extent and cell size of these coordinates must match the domain of the coupled MODFLOW 6 model exactly.\nIt must contain a variable (x, y) denoting the basin IDs.\nIt must contain a volume-level variable (x, y, row, column) for every coupled MODFLOW 6 boundary condition, describing the volume-level lookup table per cell.\n\n\n\n\n\n\n\nNote\n\n\n\nThe x and y coordinates are valid for structured MODFLOW 6 models (DIS). Discretized-by-vertices (DISV) and fully unstructured discretization (DISU). are not yet supported, but require no fundamental changes: one basin is connected to multiple MODFLOW 6 cells, and the coupling parameters must match the (structured, unstructured) grid of the MODFLOW 6 model exactly.\n\n\nThe MODFLOW 6 coupling example cases show examples of such a parametrization."
-  },
-  {
-    "objectID": "couple/modflow-demo.html",
-    "href": "couple/modflow-demo.html",
-    "title": "MODFLOW 6 Demonstration",
+    "objectID": "contribute/core.html#install-julia-libraries",
+    "href": "contribute/core.html#install-julia-libraries",
+    "title": "Julia core development",
     "section": "",
-    "text": "In our test cases, we will work with the Dutch national groundwater model (LHM). For testing, we simplify the top boundary conditions to just three surface water “systems”, from large to small:\n\nPrimary\nSecondary\nTertiary\n\nThese systems are separated in the groundwater model schematization due to the relatively small size of the surface waters (several meters in width) in comparison with relatively coarse cells of the groundwater model (250 m): most cells in the LHM contain more than one surface water, and are included via representative parameters which take the physical scaling into account. In case of sufficiently small cell sizes, no overlap occurs and all surface waters can be represented in a single grid.\nRibasim has no knowledge of these systems unless explicitly separated into different (sub-)basins. In the examples below, these three systems are represented by one basin with a single volume. For the purposes of testing, we have not yet created empirical volume-level relationships for the surface water of every cell extracted from a hydraulic model. Instead, we have chosen an (over)simplified parametrization of the hydraulic properties, which makes it easy to verify the behavior of Ribasim and the coupling procedures:\n\nPrimary, secondary, and tertiary systems have a rectangular profile: the area of the surface water does not change with water level or volume.\nWater depth is constant for a system within a basin.\nWater depth increases linearly with volume. (This follows from 1.)\nWater depth is distributed across the systems in a geometric progression: when the tertiary system contains 0.1 m of water, the secondary system contains 0.2 m, and the primary system contains 0.4 m.\nWater depth is 0.0 m for all systems when basin volume is 0.0. (This follows from 4.)\nThe distribution of water occurs according to the surface water area (width times length) used for the LHM parametrization of river bed conductance.\n\nFor freely draining basins, a simplified storage-discharge relationship has been derived as follows:\n\nThe area of the basin polygon has been multiplied by 1 mm/d (roughly the average precipitation excess in the Netherlands). This yields a “normative discharge”.\nA corresponding normative volume has been chosen, corresponding with water depths of 0.4, 0.2, and 0.1 m for the primary, secondary, and tertiary surface waters respectively.\nA dead storage volume has been chosen, corresponding with water depths of 0.2, 0.1, and 0.05 m for the primary, secondary, and tertiary surface waters respectively. The basin only starts discharging when the storage volume exceeds this value.\n\n\n\n\n\n\n\nNote\n\n\n\nRibasim is not limited to such oversimplified parametrization! Ribasim uses tabulations and therefore supports arbitrary (piecewise linear) volume-depth and volume-discharge relationships.\n\n\nA visual representation of this simplified conceptual schematization is given in Figure 1 and Figure 2.\n\n\n\nFigure 1: Distribution of water depths over the primary, secondary, and tertiary system.\n\n\n\n\n\nFigure 2: Discharge as a function of basin storage volume.\n\n\nAn example of the resulting parameters for a single cell is shown in Table 1. The first row shows the water levels when the basin is empty. The level for primary, secondary, and tertiary are equal to the bottom elevation of the surface waters. The second row shows the volume and levels for water depths of 0.4, 0.2, and 0.1 m. The third row shows the volume and levels for a tenfold larger volume. This results in implausible water levels with depths of 4.0, 2.0 and 1.0 m; the water level in the primary system is over two meters higher than in the tertiary system. In reality, the surface waters would overflow and surface ponding would occur; this mechanism is ignored in the test cases for the sake of simplicity.\n\n\nTable 1: Volume-level table for a single cell in the Hupsel basin.\n\n\nVolume (m3)\nPrimary (m NAP)\nSecondary (m NAP)\nTertiary (m NAP)\n\n\n\n\n0.0\n25.65\n25.83\n26.60\n\n\n6843.1\n26.05\n26.03\n26.70\n\n\n68431.0\n29.65\n27.83\n27.60\n\n\n\n\nFigure 3 shows the volume of the first row of the cell based input for the primary system. Symbology is set to unique values. While water levels differ per cell in this parametrization, the “normative volume” defined above is shared by all cells in a basin.\n\n\n\nFigure 3: Basin normative volume of the primary system.\n\n\nFigure 3 shows the water level corresponding to the normative storage volume based input for the primary system (it corresponds to the value shown in the first row of the primary column in Table 1). We see a clear gradient from west to east: as our simplified parametrization assumes a constant water depth for all cells in a single system, water levels spatially fall and rise with the bottom elevation.\n\n\n\nFigure 4: Water level corresponding to the normative basin volume of the primary system."
+    "text": "Start the Julia REPL by executing julia in your terminal. Within the REPL type ] to enter the Pkg REPL. For more information on how to use Pkg, see the Getting Started page in its documentation. There you can add Revise to your global environment.\npkg&gt; add Revise"
   },
   {
-    "objectID": "couple/modflow-demo.html#example-parametrization",
-    "href": "couple/modflow-demo.html#example-parametrization",
-    "title": "MODFLOW 6 Demonstration",
+    "objectID": "contribute/core.html#setup-revise.jl",
+    "href": "contribute/core.html#setup-revise.jl",
+    "title": "Julia core development",
     "section": "",
-    "text": "In our test cases, we will work with the Dutch national groundwater model (LHM). For testing, we simplify the top boundary conditions to just three surface water “systems”, from large to small:\n\nPrimary\nSecondary\nTertiary\n\nThese systems are separated in the groundwater model schematization due to the relatively small size of the surface waters (several meters in width) in comparison with relatively coarse cells of the groundwater model (250 m): most cells in the LHM contain more than one surface water, and are included via representative parameters which take the physical scaling into account. In case of sufficiently small cell sizes, no overlap occurs and all surface waters can be represented in a single grid.\nRibasim has no knowledge of these systems unless explicitly separated into different (sub-)basins. In the examples below, these three systems are represented by one basin with a single volume. For the purposes of testing, we have not yet created empirical volume-level relationships for the surface water of every cell extracted from a hydraulic model. Instead, we have chosen an (over)simplified parametrization of the hydraulic properties, which makes it easy to verify the behavior of Ribasim and the coupling procedures:\n\nPrimary, secondary, and tertiary systems have a rectangular profile: the area of the surface water does not change with water level or volume.\nWater depth is constant for a system within a basin.\nWater depth increases linearly with volume. (This follows from 1.)\nWater depth is distributed across the systems in a geometric progression: when the tertiary system contains 0.1 m of water, the secondary system contains 0.2 m, and the primary system contains 0.4 m.\nWater depth is 0.0 m for all systems when basin volume is 0.0. (This follows from 4.)\nThe distribution of water occurs according to the surface water area (width times length) used for the LHM parametrization of river bed conductance.\n\nFor freely draining basins, a simplified storage-discharge relationship has been derived as follows:\n\nThe area of the basin polygon has been multiplied by 1 mm/d (roughly the average precipitation excess in the Netherlands). This yields a “normative discharge”.\nA corresponding normative volume has been chosen, corresponding with water depths of 0.4, 0.2, and 0.1 m for the primary, secondary, and tertiary surface waters respectively.\nA dead storage volume has been chosen, corresponding with water depths of 0.2, 0.1, and 0.05 m for the primary, secondary, and tertiary surface waters respectively. The basin only starts discharging when the storage volume exceeds this value.\n\n\n\n\n\n\n\nNote\n\n\n\nRibasim is not limited to such oversimplified parametrization! Ribasim uses tabulations and therefore supports arbitrary (piecewise linear) volume-depth and volume-discharge relationships.\n\n\nA visual representation of this simplified conceptual schematization is given in Figure 1 and Figure 2.\n\n\n\nFigure 1: Distribution of water depths over the primary, secondary, and tertiary system.\n\n\n\n\n\nFigure 2: Discharge as a function of basin storage volume.\n\n\nAn example of the resulting parameters for a single cell is shown in Table 1. The first row shows the water levels when the basin is empty. The level for primary, secondary, and tertiary are equal to the bottom elevation of the surface waters. The second row shows the volume and levels for water depths of 0.4, 0.2, and 0.1 m. The third row shows the volume and levels for a tenfold larger volume. This results in implausible water levels with depths of 4.0, 2.0 and 1.0 m; the water level in the primary system is over two meters higher than in the tertiary system. In reality, the surface waters would overflow and surface ponding would occur; this mechanism is ignored in the test cases for the sake of simplicity.\n\n\nTable 1: Volume-level table for a single cell in the Hupsel basin.\n\n\nVolume (m3)\nPrimary (m NAP)\nSecondary (m NAP)\nTertiary (m NAP)\n\n\n\n\n0.0\n25.65\n25.83\n26.60\n\n\n6843.1\n26.05\n26.03\n26.70\n\n\n68431.0\n29.65\n27.83\n27.60\n\n\n\n\nFigure 3 shows the volume of the first row of the cell based input for the primary system. Symbology is set to unique values. While water levels differ per cell in this parametrization, the “normative volume” defined above is shared by all cells in a basin.\n\n\n\nFigure 3: Basin normative volume of the primary system.\n\n\nFigure 3 shows the water level corresponding to the normative storage volume based input for the primary system (it corresponds to the value shown in the first row of the primary column in Table 1). We see a clear gradient from west to east: as our simplified parametrization assumes a constant water depth for all cells in a single system, water levels spatially fall and rise with the bottom elevation.\n\n\n\nFigure 4: Water level corresponding to the normative basin volume of the primary system."
+    "text": "Revise.jl is a library that allows you to modify code and use the changes without restarting Julia. You can let it start automatically by following these instructions."
   },
   {
-    "objectID": "couple/modflow-demo.html#example-configuration",
-    "href": "couple/modflow-demo.html#example-configuration",
-    "title": "MODFLOW 6 Demonstration",
-    "section": "2 Example: Configuration",
-    "text": "2 Example: Configuration\nAn example of the MODFLOW 6 section of TOML configuration required for a coupled run can be seen below:\n[modflow]\nsimulation = \"../data/hupsel/mfsim.nam\"\nmode = \"sequential\"\ntimestep = 86400.0\n\n[modflow.models]\n\n[modflow.models.gwf]\ntype = \"gwf\"\ndataset = \"../data/volume_level_profile-hupsel.nc\"\nbasins = \"basin_id\"\n\n[[modflow.models.gwf.bounds]]\nriver = \"RIV_P\"\ndrain = \"DRN_P\"\nprofile = \"profile_primary\"\n\n[[modflow.models.gwf.bounds]]\nriver = \"RIV_S\"\ndrain = \"DRN_S\"\nprofile = \"profile_secondary\"\n\n[[modflow.models.gwf.bounds]]\ndrain = \"DRN_T\"\nprofile = \"profile_tertiary\"\nThe section starts by stating the path to the MODFLOW 6 simulation name file (simulation). The next section contains the information regarding the MODFLOW 6 model(s) to couple to Ribasim’s basins. Per model, a path to the coupling parameter dataset is provided (dataset), along with the variable to use as the basin identification number (basins). Next, for every boundary condition that should be coupled to Ribasim, the package names (river, drain) used by MODFLOW 6 must be specified (as we look for these names in the MODFLOW 6 memory), along with the name of the variable in the coupling dataset which provides the volume-level relationship (profile).\nAs can be seen in the example, the coupling mechanism supports coupling of:\n\nA single drainage package (drain entry).\nA single river package (river entry).\nA combination of river and drainage package (when infiltration conductance does not equal drainage conductance) both (river and drain entry)."
-  },
-  {
-    "objectID": "couple/modflow-demo.html#test-case-hupsel",
-    "href": "couple/modflow-demo.html#test-case-hupsel",
-    "title": "MODFLOW 6 Demonstration",
-    "section": "3 Test case: Hupsel",
-    "text": "3 Test case: Hupsel\nTo test the coupling, the following simulations have been setup and run:\n\nA standalone MODFLOW 6 run of sequential steady-states (i.e. no storage) with differing groundwater recharge values.\nA coupled run where the MODFLOW 6 stages are updated by the Ribasim coupler process, but without Ribasim. This results in volumes of 0.0, so all MODFLOW 6 water levels are set equal to bed elevation.\nA coupled run where the water levels are updated by Ribasim.\n\nFrom these tests, we expect the following behavior:\n\nDrainage terms should remain largely the same when the water level is lowered in a steady-state: the amount of recharge is fixed, and this is locally drained.\nIn case of negative recharge (evapotranspiration), infiltration occurs in the surface waters. Infiltration should be zero when the basin volume is 0.\n\n\n\n\nFigure 5: Water balance of the MODFLOW 6 boundary conditions for the Hupsel basin for a standalone MODFLOW 6 run. The four sequential steady states (01, 02, 03, 04) use net groundwater recharge values of 1.0, 0.5, -0.05 and -0.1 mm/d.\n\n\nFigure 5 shows the water balance of steady-state for submodel of the LHM that has been by selecting the cells belonging to the district containing the Hupsel catch, the Berkel.\nThe Hupsel basin show the expected behavior: for a net groundwater recharge of 1.0 mm/d, most is precipitation with a minor part lateral inflow from higher areas. In terms of outgoing flows, most of the precipitation ends up in the surface water, primarily in the many ditches of the tertiary system. Only a relatively small part of the water leaves the basin via the groundwater. Interbasin flows through the groundwater form such a minor role, as the aquifer is thin and transmissivity is limited.\nReducing groundwater recharge to 0.5 mm/d reduces all flows, with the tertiary system playing a less dominant role, relatively speaking: as its elevation is the highest compared to the primary and secondary system, the head difference is reduced strongest for the tertiary system.\nWith evapotranspiration (ET) excess (-0.05 and 0.1 mm/d; low values are chosen here since most ET would be drawn from storage, which is not available in a steady-state model), the surface waters provide mostly inflow, and recharge is a negative term. In this case, the secondary system provides a small amount of infiltration; most of the water is drawn from the surroundings instead.\n\n\n\nFigure 6: Water balance of the MODFLOW 6 boundary conditions for the Hupsel basin for a zero volume run. The four sequential steady states (01, 02, 03, 04) use net groundwater recharge values of 1.0, 0.5, -0.05 and -0.1 mm/d.\n\n\nFigure 6 shows the same model, with 0-basin volume which causes water levels to be set equal to bed elevation. Consequently, primary and secondary outflow terms are larger for positive groundwater recharge as they drain at a lower level and intercept the water before the tertiary system does. Secondly, with negative groundwater recharge, no infiltration occurs and the water is drawn from the surroundings instead. This shows the coupling mechanism adjusting MODFLOW 6 water levels successfully."
-  },
-  {
-    "objectID": "couple/modflow-demo.html#test-case-de-tol",
-    "href": "couple/modflow-demo.html#test-case-de-tol",
-    "title": "MODFLOW 6 Demonstration",
-    "section": "4 Test case: de Tol",
-    "text": "4 Test case: de Tol\nTo test the coupling, the following simulations have been setup and run:\n\nA standalone MODFLOW 6 run of sequential steady-states (i.e. no storage) with differing groundwater recharge values.\nA coupled run where the MODFLOW 6 stages are updated by the Ribasim coupler process, but without Ribasim. This results in volumes of 0.0, so all MODFLOW 6 water levels are set equal to bed elevation.\nA coupled run where the water levels are updated by Ribasim.\n\n\n\n\nFigure 7: Water balance of the MODFLOW 6 boundary conditions for De Tol basin for a standalone MODFLOW 6 run. The four sequential steady states (01, 02, 03, 04) use net groundwater recharge values of 1.0, 0.5, -0.05 and -0.1 mm/d.\n\n\nFigure 7 shows the water balance of steady-state for a submodel of the LHM for the Polder de Tol and its surroundings. While groundwater recharge is the dominant ingoing flow, lateral groundwater flow (over the entire depth of the groundwater model) is a sizable inflow for the area; the larger lateral inflow shows that De Tol is a net receiver of groundwater which is mostly discharged through the secondary system. In contrast to the Hupsel, the tertiary system is almost entirely absent: drainage occurs not through ephemeral tertiary ditches, but by the permanently water-bearing ditches of the primary and secondary system. Unlike the Hupsel, the water balance does not shrink to very small discharges, as there is sizable regional groundwater flow.\n\n\n\nFigure 8: Water balance of the MODFLOW 6 boundary conditions for De Tol basin for a zero volume run. The four sequential steady states (01, 02, 03, 04) use net groundwater recharge values of 1.0, 0.5, -0.05 and -0.1 mm/d.\n\n\nFigure 8 shows the same model, with 0-basin volume which causes water levels to be set equal to bed elevation. The total discharge is larger: the primary and secondary systems are set to lower levels, and so the head difference is larger. While De Tol’s evapotranspiration excess can be fed by the regional groundwater, the primary and secondary ditches also provide some part; as expected, they do not feed when the coupling mechanism adjusts MODFLOW 6’s water levels."
-  },
-  {
-    "objectID": "qgis/index.html",
-    "href": "qgis/index.html",
-    "title": "QGIS plugin",
+    "objectID": "contribute/core.html#install-quarto",
+    "href": "contribute/core.html#install-quarto",
+    "title": "Julia core development",
     "section": "",
-    "text": "Plugins menu &gt; Manage and Install Plugins…\n\n\n\n\n\nUnder “All”, search for “imod”:\n\n\n\n\n\n\nClick “Install Plugin”\n\nSelect “Install from ZIP”:\n\nBrowse to the ribasim_qgis.zip file that contains the plugin\nClick “Install Plugin”\n\n\n\n\n\n\nStart the Ribasim plugin.\n\n\n\n\n\n\n\n\nOpen example model basic.gpkg or create a new model.\n\n\n\n\n\nCheck if your coordinate reference system (CRS) is set correctly.\n\n\n\n\n\nIf you are working with an unknown CRS, right click the model GeoPackage group in Layers, and click “Set Group CRS…”.\n\n\n\n\n\nIf you are modeling the Netherlands, select “Amersfoort / RD New” (EPSG:28992).\n\n\n\n\n\n\n\n\n\n\n\nSelect the Node layer.\n\n\n\n\n\nTurn on the edit mode to be able to add nodes on the map.\n\n\n\n\n\nAdd nodes to the map with a left click and select the node type.\n\n\n\n\n\nTurn the edit mode off and save the edits to the Nodes layer.\n\n\n\n\n\n\n\n\nRight click a layer and select “Open Attribute Table”.\n\n\n\n\n\nClick the yellow pencil icon on the top left to enable editing, and copy and paste a record. A record can be selected by clicking on the row number.\n\n\n\n\n\nAdjust the content. If you prefer, it also works to copy data with the same columns from Excel. Turn off edit mode and save changes to the layer.\n\n\n\n\n\n\n\n\n\n\n\nMake sure the Snapping Toolbar is visible, by going to the View &gt; Toolbars menu. Turn on snapping mode by clicking the magnet and set the snapping distance to 25 pixels.\n\n\n\n\n\n\n\n\nSelect the Edge layer and turn on the edit mode.\n\n\n\n\n\nSelect “Add line feature”.\n\n\n\n\n\nCreate a connection by left clicking a source node and right clicking the destination node.\n\n\n\n\n\nNow leave the edit mode and save the results to the layer.\n\n\n\n\n\nOpen a text editor and create an empty file next to your GeoPackage, with the .toml extension.\nAdd the following content to the TOML file:\n\n\n\nbasic.toml\n\nstarttime = 2020-01-01 00:00:00\nendtime = 2021-01-01 00:00:00\ngeopackage = \"basic.gpkg\"\n\n\nUnzip the Ribasim command line interface, ribasim_cli.zip\nOpen your terminal and go to the directory where your TOML is stored. Now run path/to/ribasim_cli/ribasim basic.toml. Adjust the path to the ribasim_cli folder to where you placed it. This runs the model.\nIn your model directory there is now an output/ folder with basin.arrow and flow.arrow output files.\n\n\n\n\n\n\nIn QGIS select the model group.\n\n\n\n\n\nIn the Ribasim plugin widget, select the Output tab and click “Associate Output”.\n\n\n\n\n\nSelect output/basin.arrow.\n\n\n\n\n\nThis adds metadata to the model that the iMOD plugin can use to find the timeseries data that is associated to the model nodes.\n\n\n\nClick the “Time Series” button of the iMOD plugin.\n\n\n\n\n\nSelect the variables that you want to plot.\n\n\n\n\n\nClick “Select points” and select a node by dragging a rectangle around it on the map. Hold the Ctrl key to select multiple nodes. Currently only the Basin nodes can be plotted.\n\n\n\n\n\nThe associated time series are shown the the graph."
+    "text": "Quarto is the publishing system that builds our documentation. The installation instructions can be found on their web page."
   },
   {
-    "objectID": "qgis/index.html#start",
-    "href": "qgis/index.html#start",
-    "title": "QGIS plugin",
+    "objectID": "contribute/core.html#clone-ribasim",
+    "href": "contribute/core.html#clone-ribasim",
+    "title": "Julia core development",
     "section": "",
-    "text": "Plugins menu &gt; Manage and Install Plugins…\n\n\n\n\n\nUnder “All”, search for “imod”:\n\n\n\n\n\n\nClick “Install Plugin”\n\nSelect “Install from ZIP”:\n\nBrowse to the ribasim_qgis.zip file that contains the plugin\nClick “Install Plugin”\n\n\n\n\n\n\nStart the Ribasim plugin.\n\n\n\n\n\n\n\n\nOpen example model basic.gpkg or create a new model.\n\n\n\n\n\nCheck if your coordinate reference system (CRS) is set correctly.\n\n\n\n\n\nIf you are working with an unknown CRS, right click the model GeoPackage group in Layers, and click “Set Group CRS…”.\n\n\n\n\n\nIf you are modeling the Netherlands, select “Amersfoort / RD New” (EPSG:28992)."
+    "text": "In order to have the Ribasim repository locally available, you can clone it with Git. Git can be installed from git-scm.com. Once installed, run the following command at a directory of your choice:\nIn order to have the Ribasim repository locally available, run the following command at a directory of your choice:\ngit clone https://github.com/Deltares/Ribasim.git\nTo continue with the following steps, make the root of the repository your working directory by running\ncd Ribasim"
   },
   {
-    "objectID": "qgis/index.html#edit-nodes",
-    "href": "qgis/index.html#edit-nodes",
-    "title": "QGIS plugin",
+    "objectID": "contribute/core.html#install-visual-studio-code-optional",
+    "href": "contribute/core.html#install-visual-studio-code-optional",
+    "title": "Julia core development",
     "section": "",
-    "text": "Select the Node layer.\n\n\n\n\n\nTurn on the edit mode to be able to add nodes on the map.\n\n\n\n\n\nAdd nodes to the map with a left click and select the node type.\n\n\n\n\n\nTurn the edit mode off and save the edits to the Nodes layer.\n\n\n\n\n\n\n\n\nRight click a layer and select “Open Attribute Table”.\n\n\n\n\n\nClick the yellow pencil icon on the top left to enable editing, and copy and paste a record. A record can be selected by clicking on the row number.\n\n\n\n\n\nAdjust the content. If you prefer, it also works to copy data with the same columns from Excel. Turn off edit mode and save changes to the layer."
+    "text": "There is a section on editors and IDEs for Julia on https://julialang.org/, scroll down to see it. We use and recommend Microsoft’s free editor Visual Studio Code. When combined with the Julia extension it provides a powerful and interactive development experience."
   },
   {
-    "objectID": "qgis/index.html#connect-nodes",
-    "href": "qgis/index.html#connect-nodes",
-    "title": "QGIS plugin",
-    "section": "",
-    "text": "Make sure the Snapping Toolbar is visible, by going to the View &gt; Toolbars menu. Turn on snapping mode by clicking the magnet and set the snapping distance to 25 pixels.\n\n\n\n\n\n\n\n\nSelect the Edge layer and turn on the edit mode.\n\n\n\n\n\nSelect “Add line feature”.\n\n\n\n\n\nCreate a connection by left clicking a source node and right clicking the destination node.\n\n\n\n\n\nNow leave the edit mode and save the results to the layer."
+    "objectID": "contribute/core.html#sec-test",
+    "href": "contribute/core.html#sec-test",
+    "title": "Julia core development",
+    "section": "2.1 Running tests",
+    "text": "2.1 Running tests\nYou will want to run the testsuite on a regular basis to check if your changes had unexpected side effects. It is also a good way to find out if your development environment is set up correctly.\nBefore the tests can run, you need to prepare model input.\nWith the root of the repository as your working directory you can activate the Julia project by running the following:\njulia --project=core\nWhile not technically required, it is advised to import Ribasim first to catch installation issues early on.\njulia&gt; using Ribasim\nThen open the Pkg REPL by typing ] and execute:\npkg&gt; test\nIf you are in a different environment that depends on Ribasim, you can test Ribasim with the following command:\npkg&gt; test Ribasim\n\n\n\n\n\n\nTip\n\n\n\nThe Julia VS Code extension allows you to open a REPL with the Ribasim environment already activated: \"julia.environmentPath\": \"Ribasim/core\". That way you don’t have to type activate core every time you open the REPL."
   },
   {
-    "objectID": "qgis/index.html#run-a-model",
-    "href": "qgis/index.html#run-a-model",
-    "title": "QGIS plugin",
-    "section": "",
-    "text": "Open a text editor and create an empty file next to your GeoPackage, with the .toml extension.\nAdd the following content to the TOML file:\n\n\n\nbasic.toml\n\nstarttime = 2020-01-01 00:00:00\nendtime = 2021-01-01 00:00:00\ngeopackage = \"basic.gpkg\"\n\n\nUnzip the Ribasim command line interface, ribasim_cli.zip\nOpen your terminal and go to the directory where your TOML is stored. Now run path/to/ribasim_cli/ribasim basic.toml. Adjust the path to the ribasim_cli folder to where you placed it. This runs the model.\nIn your model directory there is now an output/ folder with basin.arrow and flow.arrow output files."
+    "objectID": "contribute/core.html#render-documentation",
+    "href": "contribute/core.html#render-documentation",
+    "title": "Julia core development",
+    "section": "2.2 Render documentation",
+    "text": "2.2 Render documentation\nExample models are created and simulated as part of the rendering of the documentation. Therefore you need to have both the ribasim Python package and the Julia Ribasim package installed. Furthermore you need these 3 Python packages installed: jupyter quartodoc xarray.\nThe Python API reference is created using quartodoc by running this command from the docs/ folder:\nquartodoc build\nYou typically only have to run this once, or if you want to check out how it looks after changing Python docstrings.\nIn order to preview documentation you can run the following command from the docs/ folder. Afterwards, a browser tab will open with the rendered documentation, updating it as you make changes.\nquarto preview\nThe documentation also includes Jupyter notebooks. Note that they are stored in the repository without any output, and this should stay this way to keep the repository small. The documentation rendering process adds the output by running the notebooks.\n\n\n\n\n\n\nTip\n\n\n\nThe Jupyter VS Code extension allows you to run Jupyter notebooks directly in VS Code."
   },
   {
-    "objectID": "qgis/index.html#inspect-results",
-    "href": "qgis/index.html#inspect-results",
-    "title": "QGIS plugin",
-    "section": "",
-    "text": "In QGIS select the model group.\n\n\n\n\n\nIn the Ribasim plugin widget, select the Output tab and click “Associate Output”.\n\n\n\n\n\nSelect output/basin.arrow.\n\n\n\n\n\nThis adds metadata to the model that the iMOD plugin can use to find the timeseries data that is associated to the model nodes.\n\n\n\nClick the “Time Series” button of the iMOD plugin.\n\n\n\n\n\nSelect the variables that you want to plot.\n\n\n\n\n\nClick “Select points” and select a node by dragging a rectangle around it on the map. Hold the Ctrl key to select multiple nodes. Currently only the Basin nodes can be plotted.\n\n\n\n\n\nThe associated time series are shown the the graph."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Ribasim",
-    "section": "",
-    "text": "Ribasim is a water resources model, designed to be the replacement of the regional surface water modules Mozart and SIMRES in the Netherlands Hydrological Instrument (NHI). Ribasim is a work in progress, it is a prototype that demonstrates all essential functionalities. Further development of the prototype in a software release is planned in 2022 and 2023.\nRibasim is written in the Julia programming language and is built on top of the SciML: Open Source Software for Scientific Machine Learning libraries, notably DifferentialEquations.jl.\nThe latest build can be downloaded here: ribasim_cli.zip. Currently only Windows builds are available. See Usage for more information."
-  },
-  {
-    "objectID": "index.html#water-balance-equations",
-    "href": "index.html#water-balance-equations",
-    "title": "Ribasim",
-    "section": "2.1 Water balance equations",
-    "text": "2.1 Water balance equations\nThe water balance equation for a drainage basin (Wikipedia contributors 2022) can be defined by a first-order ordinary differential equation (ODE), where the change of the storage \\(S\\) over time is determined by the inflow fluxes minus the outflow fluxes.\n\\[\n\\frac{\\mathrm{d}S}{\\mathrm{d}t} = Q_{in} - Q_{out}\n\\]\nWe can split out the fluxes into separate terms, such as precipitation \\(P\\), evapotranspiration \\(ET\\) and runoff \\(R\\). For now other fluxes are combined into \\(Q_{rest}\\). If we define all fluxes entering our reservoir as positive, and those leaving the system as negative, all fluxes can be summed up.\n\\[\n\\frac{\\mathrm{d}S}{\\mathrm{d}t} = R + P + ET + Q_{rest}\n\\]"
-  },
-  {
-    "objectID": "index.html#time",
-    "href": "index.html#time",
-    "title": "Ribasim",
-    "section": "2.2 Time",
-    "text": "2.2 Time\nThe water balance equation can be applied on many timescales; years, weeks, days or hours. Depending on the application and available data any of these can be the best choice. In Ribasim, we make use of DifferentialEquations.jl and its ODE solvers. Many of these solvers are based on adaptive time stepping, which means the solver will decide how large the time steps can be depending on the state of the system.\nThe forcing, like precipitation, is generally provided as a time series. Ribasim is set up to support unevenly spaced timeseries. The solver will stop on timestamps where new forcing values are available, so they can be loaded as the new value.\nRibasim is essentially a continuous model, rather than daily or hourly. If you want to use hourly forcing, you only need to make sure that your forcing data contains hourly updates. The output frequency can be configured independently. To be able to write a closed water balance, we accumulate the fluxes. This way any variations in between timesteps are also included, and we can output in m³ rather than m³s⁻¹."
-  },
-  {
-    "objectID": "index.html#sec-space",
-    "href": "index.html#sec-space",
-    "title": "Ribasim",
-    "section": "2.3 Space",
-    "text": "2.3 Space\nThe water balance equation can be applied on different spatial scales. Besides modelling a single lumped watershed, it allows you to divide the area into a network of connected representative elementary watersheds (REWs) (Reggiani, Sivapalan, and Majid Hassanizadeh 1998). At this scale global water balance laws can be formulated by means of integration of point-scale conservation equations over control volumes. Such an approach makes Ribasim a semi-distributed model. In this document we typically use the term “basin” to refer to the REW. (In Mozart the spatial unit was called Local Surface Water (LSW)). Each basin has an associated polygon, and the set of basins is connected to each other as described by a graph, which we call the network. Below is a representation of both on the map.\n\n\n\nMozart Local Surface Water polygons and their drainage.\n\n\nThe network is described as graph. Flow can be bi-directional, and the graph does not have to be acyclic.\n\n\n\n\ngraph LR;\n    A[\"basin A\"] --- B[\"basin B\"];\n    A --- C[\"basin C\"];\n    B --- D[\"basin D\"];\n    C --- D;\n\n\n\n\n\nInternally a directed graph is used. The direction is defined to be the positive flow direction, and is generally set in the dominant flow direction. The basins are the nodes of the network graph. Basin states and properties such storage volume and wetted area are associated with the nodes (A, B, C, D), as are most forcing data such as precipitation, evaporation, or water demand. Basin connection properties and interbasin flows are associated with the edges (the lines between A, B, C, and D) instead.\nMultiple basins may exist within the same spatial polygon, representing different aspects of the surface water system (perennial ditches, ephemeral ditches, or even surface ponding). Figure 1, Figure 2, Figure 3 show the 25.0 m rasterized primary, secondary, and tertiary surface waters as identified by BRT TOP10NL (PDOK 2022) in the Hupsel basin (as defined in the Mozart LSW’s). These systems may represented in multiple ways.\n\n\n\nFigure 1: Hupsel: primary surface water.\n\n\n\n\n\nFigure 2: Hupsel: secondary surface water.\n\n\n\n\n\nFigure 3: Hupsel: tertiary surface water.\n\n\nAs a single basin (A) containing all surface water, discharging to its downstream basin to the west (B):\n\n\n\n\ngraph LR;\n    A[\"basin A\"] --&gt; B[\"basin B\"];\n\n\n\n\n\nSuch a system may be capable of representing discharge, but it cannot represent residence times or differences in solute concentrations: within a single basin, drop of water is mixed instantaneously. Instead, we may the group primary (P), secondary (S), and tertiary (T) surface waters. Then T may flow into S, S into P, and P discharges to the downstream basin (B.)\n\n\n\n\ngraph LR;\n    T[\"basin T\"] --&gt; S[\"basin S\"];\n    S --&gt; P[\"basin P\"];\n    P --&gt; B[\"basin B\"];\n\n\n\n\n\nAs each (sub)basin has its own volume, low throughput (high volume, low discharge, long residence time) and high throughput (low volume, high discharge, short residence time) systems can be represented in a lumped manner; of course, more detail requires more parameters."
-  },
-  {
-    "objectID": "python/index.html",
-    "href": "python/index.html",
-    "title": "Python tooling",
-    "section": "",
-    "text": "The Ribasim Python package (named ribasim) aims to make it easy to build, update and analyze Ribasim models programmatically.\nThe Ribasim QGIS plugin allows users to construct a model from scratch without programming. For specific tasks, like adding observed rainfall timeseries, it can be faster to use Python instead.\nOne can also use Ribasim Python to build entire models from base data, such that your model setup is fully reproducible.\nThe package is registered in PyPI and can therefore be installed with pip install ribasim.\nFor documentation please see the examples and API reference."
-  },
-  {
-    "objectID": "python/examples.html",
-    "href": "python/examples.html",
-    "title": "Examples",
-    "section": "",
-    "text": "1 Basic model with static forcing\n\nimport geopandas as gpd\nimport numpy as np\nimport pandas as pd\nfrom pathlib import Path\n\nimport ribasim\n\nSet up the nodes:\n\nxy = np.array(\n    [\n        (0.0, 0.0),  # 1: Basin,\n        (1.0, 0.0),  # 2: ManningResistance\n        (2.0, 0.0),  # 3: Basin\n        (3.0, 0.0),  # 4: TabulatedRatingCurve\n        (3.0, 1.0),  # 5: FractionalFlow\n        (3.0, 2.0),  # 6: Basin\n        (4.0, 1.0),  # 7: Pump\n        (4.0, 0.0),  # 8: FractionalFlow\n        (5.0, 0.0),  # 9: Basin\n        (6.0, 0.0),  # 10: LinearResistance\n        (2.0, 2.0),  # 11: LevelBoundary\n        (2.0, 1.0),  # 12: LinearResistance\n        (3.0, -1.0),  # 13: FractionalFlow\n        (3.0, -2.0),  # 14: Terminal\n        (3.0, 3.0),  # 15: FlowBoundary\n        (0.0, 1.0),  # 16: FlowBoundary\n        (6.0, 1.0),  # 17: LevelBoundary\n    ]\n)\nnode_xy = gpd.points_from_xy(x=xy[:, 0], y=xy[:, 1])\n\nnode_type = [\n    \"Basin\",\n    \"ManningResistance\",\n    \"Basin\",\n    \"TabulatedRatingCurve\",\n    \"FractionalFlow\",\n    \"Basin\",\n    \"Pump\",\n    \"FractionalFlow\",\n    \"Basin\",\n    \"LinearResistance\",\n    \"LevelBoundary\",\n    \"LinearResistance\",\n    \"FractionalFlow\",\n    \"Terminal\",\n    \"FlowBoundary\",\n    \"FlowBoundary\",\n    \"LevelBoundary\",\n]\n\n# Make sure the feature id starts at 1: explicitly give an index.\nnode = ribasim.Node(\n    static=gpd.GeoDataFrame(\n        data={\"type\": node_type},\n        index=pd.Index(np.arange(len(xy)) + 1, name=\"fid\"),\n        geometry=node_xy,\n        crs=\"EPSG:28992\",\n    )\n)\n\nSetup the edges:\n\nfrom_id = np.array(\n    [1, 2, 3, 4, 4, 5, 6, 8, 7, 9, 11, 12, 4, 13, 15, 16, 10], dtype=np.int64\n)\nto_id = np.array(\n    [2, 3, 4, 5, 8, 6, 7, 9, 9, 10, 12, 3, 13, 14, 6, 1, 17], dtype=np.int64\n)\nlines = ribasim.utils.geometry_from_connectivity(node, from_id, to_id)\nedge = ribasim.Edge(\n    static=gpd.GeoDataFrame(\n        data={\n            \"from_node_id\": from_id,\n            \"to_node_id\": to_id,\n            \"edge_type\": len(from_id) * [\"flow\"],\n        },\n        geometry=lines,\n        crs=\"EPSG:28992\",\n    )\n)\n\nSetup the basins:\n\nprofile = pd.DataFrame(\n    data={\n        \"node_id\": [1, 1, 3, 3, 6, 6, 9, 9],\n        \"storage\": [0.0, 500.0] * 4,\n        \"area\": [0.0, 1000.0] * 4,\n        \"level\": [0.0, 1.0] * 4,\n    }\n)\n\n# Convert steady forcing to m/s\n# 2 mm/d precipitation, 1 mm/d evaporation\nseconds_in_day = 24 * 3600\nprecipitation = 0.002 / seconds_in_day\nevaporation = 0.001 / seconds_in_day\n\nstatic = pd.DataFrame(\n    data={\n        \"node_id\": [0],\n        \"drainage\": [0.0],\n        \"potential_evaporation\": [evaporation],\n        \"infiltration\": [0.0],\n        \"precipitation\": [precipitation],\n        \"urban_runoff\": [0.0],\n    }\n)\nstatic = static.iloc[[0, 0, 0, 0]]\nstatic[\"node_id\"] = [1, 3, 6, 9]\n\nbasin = ribasim.Basin(profile=profile, static=static)\n\nSetup linear resistance:\n\nlinear_resistance = ribasim.LinearResistance(\n    static=pd.DataFrame(\n        data={\"node_id\": [10, 12], \"resistance\": [5e3, (3600.0 * 24) / 100.0]}\n    )\n)\n\nSetup Manning resistance:\n\nmanning_resistance = ribasim.ManningResistance(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [2],\n            \"length\": [900.0],\n            \"manning_n\": [0.04],\n            \"profile_width\": [6.0],\n            \"profile_slope\": [3.0],\n        }\n    )\n)\n\nSet up a rating curve node:\n\n# Discharge: lose 1% of storage volume per day at storage = 1000.0.\nq1000 = 1000.0 * 0.01 / seconds_in_day\n\nrating_curve = ribasim.TabulatedRatingCurve(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [4, 4],\n            \"level\": [0.0, 1.0],\n            \"discharge\": [0.0, q1000],\n        }\n    )\n)\n\nSetup fractional flows:\n\nfractional_flow = ribasim.FractionalFlow(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [5, 8, 13],\n            \"fraction\": [0.3, 0.6, 0.1],\n        }\n    )\n)\n\nSetup pump:\n\npump = ribasim.Pump(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [7],\n            \"flow_rate\": [0.5 / 3600],\n        }\n    )\n)\n\nSetup level boundary:\n\nlevel_boundary = ribasim.LevelBoundary(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [11, 17],\n            \"level\": [0.5, 1.5],\n        }\n    )\n)\n\nSetup flow boundary:\n\nflow_boundary = ribasim.FlowBoundary(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [15, 16],\n            \"flow_rate\": [-1e-4, 1e-4],\n        }\n    )\n)\n\nSetup terminal:\n\nterminal = ribasim.Terminal(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [14],\n        }\n    )\n)\n\nSetup a model:\n\nmodel = ribasim.Model(\n    modelname=\"basic\",\n    node=node,\n    edge=edge,\n    basin=basin,\n    level_boundary=level_boundary,\n    flow_boundary=flow_boundary,\n    pump=pump,\n    linear_resistance=linear_resistance,\n    manning_resistance=manning_resistance,\n    tabulated_rating_curve=rating_curve,\n    fractional_flow=fractional_flow,\n    terminal=terminal,\n    starttime=\"2020-01-01 00:00:00\",\n    endtime=\"2021-01-01 00:00:00\",\n)\n\nLet’s take a look at the model:\n\nmodel.plot()\n\n&lt;Axes: &gt;\n\n\n\n\n\nWrite the model to a TOML and GeoPackage:\n\ndatadir = Path(\"data\")\nmodel.write(datadir / \"basic\")\n\n\n\n2 Update the basic model with transient forcing\nThis assumes you have already created the basic model with static forcing.\n\nimport numpy as np\nimport pandas as pd\nimport xarray as xr\n\nimport ribasim\n\n\nmodel = ribasim.Model.from_toml(datadir / \"basic/basic.toml\")\n\n\ntime = pd.date_range(model.starttime, model.endtime)\nday_of_year = time.day_of_year.to_numpy()\nseconds_per_day = 24 * 60 * 60\nevaporation = (\n    (-1.0 * np.cos(day_of_year / 365.0 * 2 * np.pi) + 1.0) * 0.0025 / seconds_per_day\n)\nrng = np.random.default_rng(seed=0)\nprecipitation = (\n    rng.lognormal(mean=-1.0, sigma=1.7, size=time.size) * 0.001 / seconds_per_day\n)\n\nWe’ll use xarray to easily broadcast the values.\n\ntimeseries = (\n    pd.DataFrame(\n        data={\n            \"node_id\": 1,\n            \"time\": time,\n            \"drainage\": 0.0,\n            \"potential_evaporation\": evaporation,\n            \"infiltration\": 0.0,\n            \"precipitation\": precipitation,\n            \"urban_runoff\": 0.0,\n        }\n    )\n    .set_index(\"time\")\n    .to_xarray()\n)\n\nbasin_ids = model.basin.static[\"node_id\"].to_numpy()\nbasin_nodes = xr.DataArray(\n    np.ones(len(basin_ids)), coords={\"node_id\": basin_ids}, dims=[\"node_id\"]\n)\nforcing = (timeseries * basin_nodes).to_dataframe().reset_index()\n\n\nstate = pd.DataFrame(\n    data={\n        \"node_id\": basin_ids,\n        \"storage\": 1000.0,\n        \"concentration\": 0.0,\n    }\n)\n\n\nmodel.basin.forcing = forcing\nmodel.basin.state = state\n\n\nmodel.modelname = \"basic-transient\"\nmodel.write(datadir / \"basic-transient\")\n\nNow run the model with ribasim basic-transient/basic.toml. After running the model, read back the output:\n\ndf_basin = pd.read_feather(datadir / \"basic-transient/output/basin.arrow\")\ndf_basin_wide = df_basin.pivot_table(\n    index=\"time\", columns=\"node_id\", values=[\"storage\", \"level\"]\n)\ndf_basin_wide[\"level\"].plot()\n\n&lt;Axes: xlabel='time'&gt;\n\n\n\n\n\n\ndf_flow = pd.read_feather(datadir / \"basic-transient/output/flow.arrow\")\ndf_flow[\"edge\"] = list(zip(df_flow.from_node_id, df_flow.to_node_id))\ndf_flow[\"flow_m3d\"] = df_flow.flow * 86400\nax = df_flow.pivot_table(index=\"time\", columns=\"edge\", values=\"flow_m3d\").plot()\nax.legend(bbox_to_anchor=(1.3, 1), title=\"Edge\")\n\n&lt;matplotlib.legend.Legend at 0x7fa8a05aff10&gt;\n\n\n\n\n\n\ntype(df_flow)\n\npandas.core.frame.DataFrame\n\n\n\n\n3 Model with control\nSet up the nodes:\n\nxy = np.array(\n    [\n        (0.0, 0.0),  # 1: Basin\n        (1.0, -1.0),  # 2: LinearResistance\n        (2.0, 0.0),  # 3: Basin\n        (1.0, 0.0),  # 4: Pump\n        (1.0, 1.0),  # 5: Control\n    ]\n)\n\nnode_xy = gpd.points_from_xy(x=xy[:, 0], y=xy[:, 1])\n\nnode_type = [\n    \"Basin\",\n    \"LinearResistance\",\n    \"Basin\",\n    \"Pump\",\n    \"Control\",\n]\n\n# Make sure the feature id starts at 1: explicitly give an index.\nnode = ribasim.Node(\n    static=gpd.GeoDataFrame(\n        data={\"type\": node_type},\n        index=pd.Index(np.arange(len(xy)) + 1, name=\"fid\"),\n        geometry=node_xy,\n        crs=\"EPSG:28992\",\n    )\n)\n\nSetup the edges:\n\nfrom_id = np.array([1, 2, 1, 4, 5], dtype=np.int64)\nto_id = np.array([2, 3, 4, 3, 4], dtype=np.int64)\n\n# Note: currently only controlling pumps is supported in the Julia core\nedge_type = 4 * [\"flow\"] + [\"control\"]\n\nlines = ribasim.utils.geometry_from_connectivity(node, from_id, to_id)\nedge = ribasim.Edge(\n    static=gpd.GeoDataFrame(\n        data={\"from_node_id\": from_id, \"to_node_id\": to_id, \"edge_type\": edge_type},\n        geometry=lines,\n        crs=\"EPSG:28992\",\n    )\n)\n\nSetup the basins:\n\nprofile = pd.DataFrame(\n    data={\n        \"node_id\": [1, 1, 3, 3],\n        \"storage\": [0.0, 100.0] * 2,\n        \"area\": [100.0, 100.0] * 2,\n        \"level\": [0.0, 1.0] * 2,\n    }\n)\n\nstatic = pd.DataFrame(\n    data={\n        \"node_id\": [1, 3],\n        \"drainage\": [0.0] * 2,\n        \"potential_evaporation\": [0.0] * 2,\n        \"infiltration\": [0.0] * 2,\n        \"precipitation\": [0.0] * 2,\n        \"urban_runoff\": [0.0] * 2,\n    }\n)\n\nstate = pd.DataFrame(data={\"node_id\": [1, 3], \"storage\": [100.0, 0.0]})\n\nbasin = ribasim.Basin(profile=profile, static=static, state=state)\n\nSetup the control:\n\ncondition = pd.DataFrame(\n    data={\n        \"node_id\": [5, 5],\n        \"listen_node_id\": [1, 3],\n        \"variable\": [\"level\", \"level\"],\n        \"greater_than\": [0.8, 0.4],\n    }\n)\n\n# False, False -&gt; \"on\"\n# True,  False -&gt; \"off\"\n# False, True  -&gt; \"off\"\n# True,  True  -&gt; \"On\"\n\n# Truth state as subset of the conditions above and in that order\n\nlogic = pd.DataFrame(\n    data={\n        \"node_id\": [5, 5, 5, 5],\n        \"truth_state\": [\"FF\", \"TF\", \"FT\", \"TT\"],\n        \"control_state\": [\"on\", \"off\", \"off\", \"on\"],\n    }\n)\n\ncontrol = ribasim.Control(condition=condition, logic=logic)\n\nSetup the pump:\n\npump = ribasim.Pump(\n    static=pd.DataFrame(\n        data={\n            \"control_state\": [\"off\", \"on\"],\n            \"node_id\": [4, 4],\n            \"flow_rate\": [0.0, 1e-5],\n        }\n    )\n)\n\nSetup the linear resistance:\n\nlinear_resistance = ribasim.LinearResistance(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [2],\n            \"resistance\": [1e5],\n        }\n    )\n)\n\nSetup a model:\n\nmodel = ribasim.Model(\n    modelname=\"control\",\n    node=node,\n    edge=edge,\n    basin=basin,\n    linear_resistance=linear_resistance,\n    pump=pump,\n    control=control,\n    starttime=\"2020-01-01 00:00:00\",\n    endtime=\"2021-01-01 00:00:00\",\n)\n\nLet’s take a look at the model:\n\nmodel.plot()\n\n&lt;Axes: &gt;\n\n\n\n\n\nListen edges are plotted with a dashed line since they are not present in the “Edge / static” schema but only in the “Control / condition” schema.\n\ndatadir = Path(\"data\")\nmodel.write(datadir / \"control\")\n\n\nfrom matplotlib.dates import date2num\n\ndf_basin = pd.read_feather(datadir / \"control/output/basin.arrow\")\ndf_basin_wide = df_basin.pivot_table(\n    index=\"time\", columns=\"node_id\", values=[\"storage\", \"level\"]\n)\n\nax = df_basin_wide[\"level\"].plot()\n\nax.hlines(\n    model.control.condition.greater_than,\n    df_basin.time[0],\n    df_basin.time.max(),\n    lw=1,\n    ls=\":\",\n    color=[\"C0\", \"C1\"],\n)\n\ndf_control = pd.read_feather(datadir / \"control/output/control.arrow\")\n\nax.vlines(df_control.time, 0, 1, lw=1, ls=\":\", color=\"k\")\nax.set_xticks(\n    list(ax.get_xticks()) + date2num(df_control.time).tolist(),\n    list(ax.get_xticklabels()) + df_control.control_state.tolist(),\n    rotation=50,\n);\n\n\n\n\nLet’s print an overview of what happened with control:\n\nmodel.print_control_record(datadir / \"control/output/control.arrow\")\n\n0. At 2020-01-01 00:00:00 the control node with ID 5 reached truth state TF:\n    For node ID 1 (Basin): level &gt; 0.8\n    For node ID 3 (Basin): level &lt; 0.4\n\n   This yielded control state \"off\":\n    For node ID 4 (Pump): flow_rate = 0.0\n\n1. At 2020-01-30 12:07:44.413000 the control node with ID 5 reached truth state FF:\n    For node ID 1 (Basin): level &lt; 0.8\n    For node ID 3 (Basin): level &lt; 0.4\n\n   This yielded control state \"on\":\n    For node ID 4 (Pump): flow_rate = 1e-05\n\n2. At 2020-02-16 04:47:34.025000 the control node with ID 5 reached truth state FT:\n    For node ID 1 (Basin): level &lt; 0.8\n    For node ID 3 (Basin): level &gt; 0.4\n\n   This yielded control state \"off\":\n    For node ID 4 (Pump): flow_rate = 0.0"
-  },
-  {
-    "objectID": "python/reference/Pump.html",
-    "href": "python/reference/Pump.html",
-    "title": "1 Pump",
-    "section": "",
-    "text": "Pump()\nPump water from a source node to a destination node. The set flow rate will be pumped unless the intake storage is less than 10m3, in which case the flow rate will be linearly reduced to 0 m3/s. A negative flow rate means pumping against the edge direction. Note that the intake must always be a Basin.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with constant flow rates.\nrequired"
-  },
-  {
-    "objectID": "python/reference/Pump.html#parameters",
-    "href": "python/reference/Pump.html#parameters",
-    "title": "1 Pump",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with constant flow rates.\nrequired"
-  },
-  {
-    "objectID": "python/reference/LinearResistance.html",
-    "href": "python/reference/LinearResistance.html",
-    "title": "1 LinearResistance",
-    "section": "",
-    "text": "LinearResistance()\nFlow through this connection linearly depends on the level difference between the two connected basins.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with the constant resistances.\nrequired"
-  },
-  {
-    "objectID": "python/reference/LinearResistance.html#parameters",
-    "href": "python/reference/LinearResistance.html#parameters",
-    "title": "1 LinearResistance",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with the constant resistances.\nrequired"
-  },
-  {
-    "objectID": "python/reference/LevelBoundary.html",
-    "href": "python/reference/LevelBoundary.html",
-    "title": "1 LevelBoundary",
-    "section": "",
-    "text": "LevelBoundary(self, static)\nStores water at a given level unaffected by flow, like an infinitely large basin.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npandas.DataFrame\nTable with the constant water levels.\nrequired"
-  },
-  {
-    "objectID": "python/reference/LevelBoundary.html#parameters",
-    "href": "python/reference/LevelBoundary.html#parameters",
-    "title": "1 LevelBoundary",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npandas.DataFrame\nTable with the constant water levels.\nrequired"
-  },
-  {
-    "objectID": "python/reference/utils.connectivity_from_geometry.html",
-    "href": "python/reference/utils.connectivity_from_geometry.html",
-    "title": "1 utils.connectivity_from_geometry",
-    "section": "",
-    "text": "utils.connectivity_from_geometry(node, lines)\nDerive from_node_id and to_node_id for every edge in lines. LineStrings may be used to connect multiple nodes in a sequence, but every linestring vertex must also a node.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nnode\nNode\n\nrequired\n\n\nlines\nnp.ndarray\nArray of shapely linestrings.\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nnp.ndarray of int\n\n\n\nnp.ndarray of int"
-  },
-  {
-    "objectID": "python/reference/utils.connectivity_from_geometry.html#parameters",
-    "href": "python/reference/utils.connectivity_from_geometry.html#parameters",
-    "title": "1 utils.connectivity_from_geometry",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nnode\nNode\n\nrequired\n\n\nlines\nnp.ndarray\nArray of shapely linestrings.\nrequired"
-  },
-  {
-    "objectID": "python/reference/utils.connectivity_from_geometry.html#returns",
-    "href": "python/reference/utils.connectivity_from_geometry.html#returns",
-    "title": "1 utils.connectivity_from_geometry",
-    "section": "",
-    "text": "Type\nDescription\n\n\n\n\nnp.ndarray of int\n\n\n\nnp.ndarray of int"
-  },
-  {
-    "objectID": "python/reference/ManningResistance.html",
-    "href": "python/reference/ManningResistance.html",
-    "title": "1 ManningResistance",
-    "section": "",
-    "text": "ManningResistance(self, static)\nFlow through this connection is estimated by conservation of energy and the Manning-Gauckler formula to estimate friction losses.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with the constant Manning parameters.\nrequired"
-  },
-  {
-    "objectID": "python/reference/ManningResistance.html#parameters",
-    "href": "python/reference/ManningResistance.html#parameters",
-    "title": "1 ManningResistance",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with the constant Manning parameters.\nrequired"
-  },
-  {
-    "objectID": "python/reference/FractionalFlow.html",
-    "href": "python/reference/FractionalFlow.html",
-    "title": "1 FractionalFlow",
-    "section": "",
-    "text": "FractionalFlow()\nReceives a fraction of the flow. The fractions must sum to 1.0 for a furcation.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npandas.DataFrame\nTable with the constant flow fractions.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nFractionalFlow.sort(self)"
-  },
-  {
-    "objectID": "python/reference/FractionalFlow.html#parameters",
-    "href": "python/reference/FractionalFlow.html#parameters",
-    "title": "1 FractionalFlow",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npandas.DataFrame\nTable with the constant flow fractions.\nrequired"
-  },
-  {
-    "objectID": "python/reference/FractionalFlow.html#methods",
-    "href": "python/reference/FractionalFlow.html#methods",
-    "title": "1 FractionalFlow",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nFractionalFlow.sort(self)"
-  },
-  {
-    "objectID": "python/reference/index.html",
-    "href": "python/reference/index.html",
-    "title": "1 API Reference",
-    "section": "",
-    "text": "The Model class represents an entire Ribasim model.\n\n\n\nModel\nA full Ribasim model schematisation with all input.\n\n\n\n\n\n\nThe Node and Edge GeoPackage layers define the network layout.\n\n\n\nNode\nThe Ribasim nodes as Point geometries.\n\n\nEdge\nDefines the connections between nodes.\n\n\n\n\n\n\nAvailable node types to model different situations.\n\n\n\nBasin\nInput for a (sub-)basin: an area of land where all flowing surface water\n\n\nFractionalFlow\nReceives a fraction of the flow. The fractions must sum to 1.0 for a furcation.\n\n\nLevelBoundary\nStores water at a given level unaffected by flow, like an infinitely large basin.\n\n\nLinearResistance\nFlow through this connection linearly depends on the level difference\n\n\nManningResistance\nFlow through this connection is estimated by conservation of energy and the\n\n\nPump\nPump water from a source node to a destination node.\n\n\nTabulatedRatingCurve\nLinearly interpolates discharge between a tabulation of level and discharge.\n\n\n\n\n\n\nCollection of utility functions.\n\n\n\nutils.geometry_from_connectivity\nCreate edge shapely geometries from connectivities.\n\n\nutils.connectivity_from_geometry\nDerive from_node_id and to_node_id for every edge in lines. LineStrings"
-  },
-  {
-    "objectID": "python/reference/index.html#model",
-    "href": "python/reference/index.html#model",
-    "title": "1 API Reference",
-    "section": "",
-    "text": "The Model class represents an entire Ribasim model.\n\n\n\nModel\nA full Ribasim model schematisation with all input."
-  },
-  {
-    "objectID": "python/reference/index.html#network",
-    "href": "python/reference/index.html#network",
-    "title": "1 API Reference",
-    "section": "",
-    "text": "The Node and Edge GeoPackage layers define the network layout.\n\n\n\nNode\nThe Ribasim nodes as Point geometries.\n\n\nEdge\nDefines the connections between nodes."
-  },
-  {
-    "objectID": "python/reference/index.html#node-types",
-    "href": "python/reference/index.html#node-types",
-    "title": "1 API Reference",
-    "section": "",
-    "text": "Available node types to model different situations.\n\n\n\nBasin\nInput for a (sub-)basin: an area of land where all flowing surface water\n\n\nFractionalFlow\nReceives a fraction of the flow. The fractions must sum to 1.0 for a furcation.\n\n\nLevelBoundary\nStores water at a given level unaffected by flow, like an infinitely large basin.\n\n\nLinearResistance\nFlow through this connection linearly depends on the level difference\n\n\nManningResistance\nFlow through this connection is estimated by conservation of energy and the\n\n\nPump\nPump water from a source node to a destination node.\n\n\nTabulatedRatingCurve\nLinearly interpolates discharge between a tabulation of level and discharge."
-  },
-  {
-    "objectID": "python/reference/index.html#utility-functions",
-    "href": "python/reference/index.html#utility-functions",
-    "title": "1 API Reference",
-    "section": "",
-    "text": "Collection of utility functions.\n\n\n\nutils.geometry_from_connectivity\nCreate edge shapely geometries from connectivities.\n\n\nutils.connectivity_from_geometry\nDerive from_node_id and to_node_id for every edge in lines. LineStrings"
-  },
-  {
-    "objectID": "python/reference/Model.html",
-    "href": "python/reference/Model.html",
-    "title": "1 Model",
-    "section": "",
-    "text": "Model()\nA full Ribasim model schematisation with all input.\nRibasim model containing the location of the nodes, the edges between the nodes, and the node parametrization.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmodelname\nstr\nModel name, used in TOML and GeoPackage file name.\nrequired\n\n\nnode\nNode\nThe ID, type and geometry of each node.\nrequired\n\n\nedge\nEdge\nHow the nodes are connected.\nrequired\n\n\nbasin\nBasin\nThe waterbodies.\nrequired\n\n\nfractional_flow\nOptional[FractionalFlow]\nSplit flows into fractions.\nrequired\n\n\nlevel_boundary\nOptional[LevelBoundary]\nBoundary condition specifying the water level.\nrequired\n\n\nflow_boundary\nOptional[FlowBoundary]\nBoundary conditions specifying the flow.\nrequired\n\n\nlinear_resistance\n\nLinear flow resistance.\nrequired\n\n\nmanning_resistance\nOptional[ManningResistance]\nFlow resistance based on the Manning formula.\nrequired\n\n\ntabulated_rating_curve\nOptional[TabulatedRatingCurve]\nTabulated rating curve describing flow based on the upstream water level.\nrequired\n\n\npump\nOptional[Pump]\nPrescribed flow rate from one basin to the other.\nrequired\n\n\nterminal\nOptional[Terminal]\nWater sink without state or properties.\nrequired\n\n\ncontrol\nOptional[Control]\nControl logic.\nrequired\n\n\nstarttime\nUnion[str, datetime.datetime]\nStarting time of the simulation.\nrequired\n\n\nendtime\nUnion[str, datetime.datetime]\nEnd time of the simulation.\nrequired\n\n\nsolver\nOptional[Solver]\nSolver settings.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nfields\nReturns the names of the fields contained in the Model.\n\n\nfrom_toml\nInitialize a model from the TOML configuration file.\n\n\nget_node_types\n\n\n\nplot\nPlot the nodes and edges of the model.\n\n\nplot_control_listen\n\n\n\nprint_control_record\n\n\n\nsort\nSort all input tables as required.\n\n\nvalidate_model\nChecks:\n\n\nvalidate_model_node_IDs\nChecks whether the node IDs in the node field correspond to the node IDs on the node type fields\n\n\nvalidate_model_node_field_IDs\nChecks whether the node IDs of the node_type fields are valid\n\n\nvalidate_model_node_types\nChecks whether all node types in the node field are valid\n\n\nwrite\nWrite the contents of the model to a GeoPackage and a TOML\n\n\n\n\n\nModel.fields(cls)\nReturns the names of the fields contained in the Model.\n\n\n\nModel.from_toml(path)\nInitialize a model from the TOML configuration file.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npath\nFilePath\nPath to the configuration TOML file.\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nModel\n\n\n\n\n\n\n\n\nModel.get_node_types()\n\n\n\nModel.plot(self, ax=None)\nPlot the nodes and edges of the model.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nax\nmatplotlib.pyplot.Artist, optional\nAxes on which to draw the plot.\nNone\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nmatplotlib.pyplot.Artist\n\n\n\n\n\n\n\n\nModel.plot_control_listen(self, ax)\n\n\n\nModel.print_control_record(self, path)\n\n\n\nModel.sort(self)\nSort all input tables as required. Tables are sorted by “node_id”, unless otherwise specified. Sorting is done automatically before writing the table.\n\n\n\nModel.validate_model(self)\nChecks: - Whether all node types in the node field are valid - Whether the node IDs of the node_type fields are valid - Whether the node IDs in the node field correspond to the node IDs on the node type fields\n\n\n\nModel.validate_model_node_IDs(self)\nChecks whether the node IDs in the node field correspond to the node IDs on the node type fields\n\n\n\nModel.validate_model_node_field_IDs(self)\nChecks whether the node IDs of the node_type fields are valid\n\n\n\nModel.validate_model_node_types(self)\nChecks whether all node types in the node field are valid\n\n\n\nModel.write(self, directory)\nWrite the contents of the model to a GeoPackage and a TOML configuration file.\nIf directory does not exist, it is created before writing. The GeoPackage and TOML file will be called {modelname}.gpkg and {modelname}.toml respectively.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired"
-  },
-  {
-    "objectID": "python/reference/Model.html#parameters",
-    "href": "python/reference/Model.html#parameters",
-    "title": "1 Model",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nmodelname\nstr\nModel name, used in TOML and GeoPackage file name.\nrequired\n\n\nnode\nNode\nThe ID, type and geometry of each node.\nrequired\n\n\nedge\nEdge\nHow the nodes are connected.\nrequired\n\n\nbasin\nBasin\nThe waterbodies.\nrequired\n\n\nfractional_flow\nOptional[FractionalFlow]\nSplit flows into fractions.\nrequired\n\n\nlevel_boundary\nOptional[LevelBoundary]\nBoundary condition specifying the water level.\nrequired\n\n\nflow_boundary\nOptional[FlowBoundary]\nBoundary conditions specifying the flow.\nrequired\n\n\nlinear_resistance\n\nLinear flow resistance.\nrequired\n\n\nmanning_resistance\nOptional[ManningResistance]\nFlow resistance based on the Manning formula.\nrequired\n\n\ntabulated_rating_curve\nOptional[TabulatedRatingCurve]\nTabulated rating curve describing flow based on the upstream water level.\nrequired\n\n\npump\nOptional[Pump]\nPrescribed flow rate from one basin to the other.\nrequired\n\n\nterminal\nOptional[Terminal]\nWater sink without state or properties.\nrequired\n\n\ncontrol\nOptional[Control]\nControl logic.\nrequired\n\n\nstarttime\nUnion[str, datetime.datetime]\nStarting time of the simulation.\nrequired\n\n\nendtime\nUnion[str, datetime.datetime]\nEnd time of the simulation.\nrequired\n\n\nsolver\nOptional[Solver]\nSolver settings.\nrequired"
-  },
-  {
-    "objectID": "python/reference/Model.html#methods",
-    "href": "python/reference/Model.html#methods",
-    "title": "1 Model",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\nfields\nReturns the names of the fields contained in the Model.\n\n\nfrom_toml\nInitialize a model from the TOML configuration file.\n\n\nget_node_types\n\n\n\nplot\nPlot the nodes and edges of the model.\n\n\nplot_control_listen\n\n\n\nprint_control_record\n\n\n\nsort\nSort all input tables as required.\n\n\nvalidate_model\nChecks:\n\n\nvalidate_model_node_IDs\nChecks whether the node IDs in the node field correspond to the node IDs on the node type fields\n\n\nvalidate_model_node_field_IDs\nChecks whether the node IDs of the node_type fields are valid\n\n\nvalidate_model_node_types\nChecks whether all node types in the node field are valid\n\n\nwrite\nWrite the contents of the model to a GeoPackage and a TOML\n\n\n\n\n\nModel.fields(cls)\nReturns the names of the fields contained in the Model.\n\n\n\nModel.from_toml(path)\nInitialize a model from the TOML configuration file.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npath\nFilePath\nPath to the configuration TOML file.\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nModel\n\n\n\n\n\n\n\n\nModel.get_node_types()\n\n\n\nModel.plot(self, ax=None)\nPlot the nodes and edges of the model.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nax\nmatplotlib.pyplot.Artist, optional\nAxes on which to draw the plot.\nNone\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nmatplotlib.pyplot.Artist\n\n\n\n\n\n\n\n\nModel.plot_control_listen(self, ax)\n\n\n\nModel.print_control_record(self, path)\n\n\n\nModel.sort(self)\nSort all input tables as required. Tables are sorted by “node_id”, unless otherwise specified. Sorting is done automatically before writing the table.\n\n\n\nModel.validate_model(self)\nChecks: - Whether all node types in the node field are valid - Whether the node IDs of the node_type fields are valid - Whether the node IDs in the node field correspond to the node IDs on the node type fields\n\n\n\nModel.validate_model_node_IDs(self)\nChecks whether the node IDs in the node field correspond to the node IDs on the node type fields\n\n\n\nModel.validate_model_node_field_IDs(self)\nChecks whether the node IDs of the node_type fields are valid\n\n\n\nModel.validate_model_node_types(self)\nChecks whether all node types in the node field are valid\n\n\n\nModel.write(self, directory)\nWrite the contents of the model to a GeoPackage and a TOML configuration file.\nIf directory does not exist, it is created before writing. The GeoPackage and TOML file will be called {modelname}.gpkg and {modelname}.toml respectively.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired"
-  },
-  {
-    "objectID": "python/reference/TabulatedRatingCurve.html",
-    "href": "python/reference/TabulatedRatingCurve.html",
-    "title": "1 TabulatedRatingCurve",
-    "section": "",
-    "text": "TabulatedRatingCurve()\nLinearly interpolates discharge between a tabulation of level and discharge.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with constant rating curves.\nrequired\n\n\ntime\npandas.DataFrame, optional\nTable with time-varying rating curves.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nTabulatedRatingCurve.sort(self)"
-  },
-  {
-    "objectID": "python/reference/TabulatedRatingCurve.html#parameters",
-    "href": "python/reference/TabulatedRatingCurve.html#parameters",
-    "title": "1 TabulatedRatingCurve",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with constant rating curves.\nrequired\n\n\ntime\npandas.DataFrame, optional\nTable with time-varying rating curves.\nrequired"
-  },
-  {
-    "objectID": "python/reference/TabulatedRatingCurve.html#methods",
-    "href": "python/reference/TabulatedRatingCurve.html#methods",
-    "title": "1 TabulatedRatingCurve",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nTabulatedRatingCurve.sort(self)"
-  },
-  {
-    "objectID": "python/reference/Basin.html",
-    "href": "python/reference/Basin.html",
-    "title": "1 Basin",
-    "section": "",
-    "text": "Basin()\nInput for a (sub-)basin: an area of land where all flowing surface water converges to a single point.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nprofile\npandas.DataFrame\nTable describing the geometry.\nrequired\n\n\nstatic\npandas.DataFrame, optional\nTable describing the constant fluxes.\nrequired\n\n\nforcing\npandas.DataFrame, optional\nTable describing the time-varying fluxes.\nrequired\n\n\nstate\npandas.DataFrame, optional\nTable describing the initial condition.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nBasin.sort(self)"
-  },
-  {
-    "objectID": "python/reference/Basin.html#parameters",
-    "href": "python/reference/Basin.html#parameters",
-    "title": "1 Basin",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nprofile\npandas.DataFrame\nTable describing the geometry.\nrequired\n\n\nstatic\npandas.DataFrame, optional\nTable describing the constant fluxes.\nrequired\n\n\nforcing\npandas.DataFrame, optional\nTable describing the time-varying fluxes.\nrequired\n\n\nstate\npandas.DataFrame, optional\nTable describing the initial condition.\nrequired"
-  },
-  {
-    "objectID": "python/reference/Basin.html#methods",
-    "href": "python/reference/Basin.html#methods",
-    "title": "1 Basin",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nBasin.sort(self)"
-  },
-  {
-    "objectID": "python/reference/utils.geometry_from_connectivity.html",
-    "href": "python/reference/utils.geometry_from_connectivity.html",
-    "title": "1 utils.geometry_from_connectivity",
-    "section": "",
-    "text": "utils.geometry_from_connectivity(node, from_id, to_id)\nCreate edge shapely geometries from connectivities.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nnode\nRibasim.Node\n\nrequired\n\n\nfrom_id\nSequence[int]\nFirst node of every edge.\nrequired\n\n\nto_id\nSequence[int]\nSecond node of every edge.\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nnp.ndarray\nArray of shapely LineStrings."
-  },
-  {
-    "objectID": "python/reference/utils.geometry_from_connectivity.html#parameters",
-    "href": "python/reference/utils.geometry_from_connectivity.html#parameters",
-    "title": "1 utils.geometry_from_connectivity",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nnode\nRibasim.Node\n\nrequired\n\n\nfrom_id\nSequence[int]\nFirst node of every edge.\nrequired\n\n\nto_id\nSequence[int]\nSecond node of every edge.\nrequired"
-  },
-  {
-    "objectID": "python/reference/utils.geometry_from_connectivity.html#returns",
-    "href": "python/reference/utils.geometry_from_connectivity.html#returns",
-    "title": "1 utils.geometry_from_connectivity",
-    "section": "",
-    "text": "Type\nDescription\n\n\n\n\nnp.ndarray\nArray of shapely LineStrings."
-  },
-  {
-    "objectID": "python/reference/Edge.html",
-    "href": "python/reference/Edge.html",
-    "title": "1 Edge",
-    "section": "",
-    "text": "Edge()\nDefines the connections between nodes.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npandas.DataFrame\nTable describing the flow connections.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nget_where_edge_type\n\n\n\nplot\n\n\n\nsort\n\n\n\nwrite\nWrite the contents of the input to a GeoPackage.\n\n\n\n\n\nEdge.get_where_edge_type(self, edge_type)\n\n\n\nEdge.plot(self, **kwargs)\n\n\n\nEdge.sort(self)\n\n\n\nEdge.write(self, directory, modelname)\nWrite the contents of the input to a GeoPackage.\nThe Geopackage will be written in directory and will be be named {modelname}.gpkg.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired\n\n\nmodelname\nstr\n\nrequired"
-  },
-  {
-    "objectID": "python/reference/Edge.html#parameters",
-    "href": "python/reference/Edge.html#parameters",
-    "title": "1 Edge",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npandas.DataFrame\nTable describing the flow connections.\nrequired"
-  },
-  {
-    "objectID": "python/reference/Edge.html#methods",
-    "href": "python/reference/Edge.html#methods",
-    "title": "1 Edge",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\nget_where_edge_type\n\n\n\nplot\n\n\n\nsort\n\n\n\nwrite\nWrite the contents of the input to a GeoPackage.\n\n\n\n\n\nEdge.get_where_edge_type(self, edge_type)\n\n\n\nEdge.plot(self, **kwargs)\n\n\n\nEdge.sort(self)\n\n\n\nEdge.write(self, directory, modelname)\nWrite the contents of the input to a GeoPackage.\nThe Geopackage will be written in directory and will be be named {modelname}.gpkg.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired\n\n\nmodelname\nstr\n\nrequired"
-  },
-  {
-    "objectID": "python/reference/Node.html",
-    "href": "python/reference/Node.html",
-    "title": "1 Node",
-    "section": "",
-    "text": "Node()\nThe Ribasim nodes as Point geometries.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\ngeopandas.GeoDataFrame\nTable with node ID, type and geometry.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nhasfid\n\n\n\nplot\nPlot the nodes. Each node type is given a separate marker.\n\n\nsort\n\n\n\nwrite\nWrite the contents of the input to a GeoPackage.\n\n\n\n\n\nNode.hasfid(cls)\n\n\n\nNode.plot(self, ax=None, zorder=None)\nPlot the nodes. Each node type is given a separate marker.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nax\nOptional\nThe axis on which the nodes will be plotted.\nNone\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nNone\n\n\n\n\n\n\n\n\nNode.sort(self)\n\n\n\nNode.write(self, directory, modelname)\nWrite the contents of the input to a GeoPackage.\nThe Geopackage will be written in directory and will be be named {modelname}.gpkg.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired\n\n\nmodelname\nstr\n\nrequired"
-  },
-  {
-    "objectID": "python/reference/Node.html#parameters",
-    "href": "python/reference/Node.html#parameters",
-    "title": "1 Node",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\ngeopandas.GeoDataFrame\nTable with node ID, type and geometry.\nrequired"
-  },
-  {
-    "objectID": "python/reference/Node.html#methods",
-    "href": "python/reference/Node.html#methods",
-    "title": "1 Node",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\nhasfid\n\n\n\nplot\nPlot the nodes. Each node type is given a separate marker.\n\n\nsort\n\n\n\nwrite\nWrite the contents of the input to a GeoPackage.\n\n\n\n\n\nNode.hasfid(cls)\n\n\n\nNode.plot(self, ax=None, zorder=None)\nPlot the nodes. Each node type is given a separate marker.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nax\nOptional\nThe axis on which the nodes will be plotted.\nNone\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nNone\n\n\n\n\n\n\n\n\nNode.sort(self)\n\n\n\nNode.write(self, directory, modelname)\nWrite the contents of the input to a GeoPackage.\nThe Geopackage will be written in directory and will be be named {modelname}.gpkg.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired\n\n\nmodelname\nstr\n\nrequired"
-  },
-  {
-    "objectID": "contribute/index.html",
-    "href": "contribute/index.html",
-    "title": "Contributing",
-    "section": "",
-    "text": "Ribasim welcomes contributions.\nThere is developer documentation for the Julia core and Python tooling. A guide on how to add a new node type to both is written in adding node types."
+    "objectID": "contribute/core.html#run-ribasim-simulations",
+    "href": "contribute/core.html#run-ribasim-simulations",
+    "title": "Julia core development",
+    "section": "2.3 Run Ribasim simulations",
+    "text": "2.3 Run Ribasim simulations\nAssuming your working directory is the root of the repository, you can activate this project by entering the Pkg mode of the REPL with ] and execute:\npkg&gt; activate core\npkg&gt; instantiate\nPress backspace to go back to the Julia REPL. There you can run a model with:\njulia&gt; Ribasim.run(\"path/to/model.toml\")\n\n\n\n\n\n\nTip\n\n\n\nThe Julia VS Code extension allows you to execute code cells in REPL. This is a very convenient way of executing only parts of your source file."
   },
   {
     "objectID": "contribute/python.html",
@@ -525,74 +154,11 @@
     "text": "We use the Ruff linter to help finding issues with Python code. Code only passes the continuous integration checks if Ruff does not find any issues.\nTo run Ruff on the entire repository, use the command below. Here the repository root is the working directory.\nruff ."
   },
   {
-    "objectID": "contribute/core.html",
-    "href": "contribute/core.html",
-    "title": "Julia core development",
+    "objectID": "contribute/index.html",
+    "href": "contribute/index.html",
+    "title": "Contributing",
     "section": "",
-    "text": "Install Julia via Juliaup as described in its README.\n\n\n\nStart the Julia REPL by executing julia in your terminal. Within the REPL type ] to enter the Pkg REPL. For more information on how to use Pkg, see the Getting Started page in its documentation. There you can add Revise to your global environment.\npkg&gt; add Revise\n\n\n\nRevise.jl is a library that allows you to modify code and use the changes without restarting Julia. You can let it start automatically by following these instructions.\n\n\n\nQuarto is the publishing system that builds our documentation. The installation instructions can be found on their web page.\n\n\n\nIn order to have the Ribasim repository locally available, you can clone it with Git. Git can be installed from git-scm.com. Once installed, run the following command at a directory of your choice:\nIn order to have the Ribasim repository locally available, run the following command at a directory of your choice:\ngit clone https://github.com/Deltares/Ribasim.git\nTo continue with the following steps, make the root of the repository your working directory by running\ncd Ribasim\n\n\n\nThere is a section on editors and IDEs for Julia on https://julialang.org/, scroll down to see it. We use and recommend Microsoft’s free editor Visual Studio Code. When combined with the Julia extension it provides a powerful and interactive development experience."
-  },
-  {
-    "objectID": "contribute/core.html#install-julia-via-juliaup",
-    "href": "contribute/core.html#install-julia-via-juliaup",
-    "title": "Julia core development",
-    "section": "",
-    "text": "Install Julia via Juliaup as described in its README."
-  },
-  {
-    "objectID": "contribute/core.html#install-julia-libraries",
-    "href": "contribute/core.html#install-julia-libraries",
-    "title": "Julia core development",
-    "section": "",
-    "text": "Start the Julia REPL by executing julia in your terminal. Within the REPL type ] to enter the Pkg REPL. For more information on how to use Pkg, see the Getting Started page in its documentation. There you can add Revise to your global environment.\npkg&gt; add Revise"
-  },
-  {
-    "objectID": "contribute/core.html#setup-revise.jl",
-    "href": "contribute/core.html#setup-revise.jl",
-    "title": "Julia core development",
-    "section": "",
-    "text": "Revise.jl is a library that allows you to modify code and use the changes without restarting Julia. You can let it start automatically by following these instructions."
-  },
-  {
-    "objectID": "contribute/core.html#install-quarto",
-    "href": "contribute/core.html#install-quarto",
-    "title": "Julia core development",
-    "section": "",
-    "text": "Quarto is the publishing system that builds our documentation. The installation instructions can be found on their web page."
-  },
-  {
-    "objectID": "contribute/core.html#clone-ribasim",
-    "href": "contribute/core.html#clone-ribasim",
-    "title": "Julia core development",
-    "section": "",
-    "text": "In order to have the Ribasim repository locally available, you can clone it with Git. Git can be installed from git-scm.com. Once installed, run the following command at a directory of your choice:\nIn order to have the Ribasim repository locally available, run the following command at a directory of your choice:\ngit clone https://github.com/Deltares/Ribasim.git\nTo continue with the following steps, make the root of the repository your working directory by running\ncd Ribasim"
-  },
-  {
-    "objectID": "contribute/core.html#install-visual-studio-code-optional",
-    "href": "contribute/core.html#install-visual-studio-code-optional",
-    "title": "Julia core development",
-    "section": "",
-    "text": "There is a section on editors and IDEs for Julia on https://julialang.org/, scroll down to see it. We use and recommend Microsoft’s free editor Visual Studio Code. When combined with the Julia extension it provides a powerful and interactive development experience."
-  },
-  {
-    "objectID": "contribute/core.html#sec-test",
-    "href": "contribute/core.html#sec-test",
-    "title": "Julia core development",
-    "section": "2.1 Running tests",
-    "text": "2.1 Running tests\nYou will want to run the testsuite on a regular basis to check if your changes had unexpected side effects. It is also a good way to find out if your development environment is set up correctly.\nBefore the tests can run, you need to prepare model input.\nWith the root of the repository as your working directory you can activate the Julia project by running the following:\njulia --project=core\nWhile not technically required, it is advised to import Ribasim first to catch installation issues early on.\njulia&gt; using Ribasim\nThen open the Pkg REPL by typing ] and execute:\npkg&gt; test\nIf you are in a different environment that depends on Ribasim, you can test Ribasim with the following command:\npkg&gt; test Ribasim\n\n\n\n\n\n\nTip\n\n\n\nThe Julia VS Code extension allows you to open a REPL with the Ribasim environment already activated: \"julia.environmentPath\": \"Ribasim/core\". That way you don’t have to type activate core every time you open the REPL."
-  },
-  {
-    "objectID": "contribute/core.html#render-documentation",
-    "href": "contribute/core.html#render-documentation",
-    "title": "Julia core development",
-    "section": "2.2 Render documentation",
-    "text": "2.2 Render documentation\nExample models are created and simulated as part of the rendering of the documentation. Therefore you need to have both the ribasim Python package and the Julia Ribasim package installed. Furthermore you need these 3 Python packages installed: jupyter quartodoc xarray.\nThe Python API reference is created using quartodoc by running this command from the docs/ folder:\nquartodoc build\nYou typically only have to run this once, or if you want to check out how it looks after changing Python docstrings.\nIn order to preview documentation you can run the following command from the docs/ folder. Afterwards, a browser tab will open with the rendered documentation, updating it as you make changes.\nquarto preview\nThe documentation also includes Jupyter notebooks. Note that they are stored in the repository without any output, and this should stay this way to keep the repository small. The documentation rendering process adds the output by running the notebooks.\n\n\n\n\n\n\nTip\n\n\n\nThe Jupyter VS Code extension allows you to run Jupyter notebooks directly in VS Code."
-  },
-  {
-    "objectID": "contribute/core.html#run-ribasim-simulations",
-    "href": "contribute/core.html#run-ribasim-simulations",
-    "title": "Julia core development",
-    "section": "2.3 Run Ribasim simulations",
-    "text": "2.3 Run Ribasim simulations\nAssuming your working directory is the root of the repository, you can activate this project by entering the Pkg mode of the REPL with ] and execute:\npkg&gt; activate core\npkg&gt; instantiate\nPress backspace to go back to the Julia REPL. There you can run a model with:\njulia&gt; Ribasim.run(\"path/to/model.toml\")\n\n\n\n\n\n\nTip\n\n\n\nThe Julia VS Code extension allows you to execute code cells in REPL. This is a very convenient way of executing only parts of your source file."
+    "text": "Ribasim welcomes contributions.\nThere is developer documentation for the Julia core and Python tooling. A guide on how to add a new node type to both is written in adding node types."
   },
   {
     "objectID": "contribute/addnode.html",
@@ -628,6 +194,13 @@
     "title": "Adding node types",
     "section": "2.1 Python class",
     "text": "2.1 Python class\nCreate a new file python/ribasim/ribasim/node_types/new_node_type.py which is structured as follows:\nimport pandas as pd\nimport pandera as pa\nfrom pandera.engines.pandas_engine import PydanticModel\nfrom pandera.typing import DataFrame\n\nfrom ribasim import models\nfrom ribasim.input_base import TableModel\n\n__all__ = (\"NewNodeType\",)\n\nclass StaticSchema(pa.SchemaModel):\n    class Config:\n        \"\"\"Config with dataframe-level data type.\"\"\"\n\n        dtype = PydanticModel(models.NewNodeTypeStatic)\n\n# Possible other schemas\n\n\nclass NewNodeType(TableModel):\n    \"\"\"\n    Description of this node type.\n\n    Parameters\n    ----------\n    static: pandas.DataFrame\n        table with data for this node type.\n\n    possible other schemas\n    \"\"\"\n\n    static: Optional[DataFrame[StaticSchema]] = None\n    # possible other schemas\n\n    class Config:\n        validate_assignment = True\n\n\n\n    def sort(self):\n        self.static = self.static.sort_values(\"node_id\", ignore_index=True)\nThe sort method should implement the same sorting as in validation.jl.\nNow in both python/ribasim/ribasim/__init__.py and python/ribasim/ribasim/node_types/__init__.py add\n\nfrom ribasim.node_types.new_node_type import NewNodeType;\n\"NewNodeType\" to __all__.\n\nIn python/ribasim/ribasim/model.py, add\n\nfrom ribasim.new_node_type import NewNodeType;\nnew_node_type as a parameter and in the docstring of the Model class.\n\nIn python/ribasim/ribasim/node.py add a color and shape description in the MARKERS and COLORS dictionaries."
+  },
+  {
+    "objectID": "core/index.html",
+    "href": "core/index.html",
+    "title": "Julia core",
+    "section": "",
+    "text": "With the term “core”, we mean the computational engine of Ribasim. As detailed in the usage documentation, it is generally used as a command line tool.\nThe theory is described on the equations page.\nThe core is implemented in the Julia programming language, and can be found in the Ribasim repository under the core/ folder. For developers we also advise to read the developer documentation."
   },
   {
     "objectID": "core/equations.html",
@@ -679,13 +252,6 @@
     "text": "3.2 Flushing\nThe flushing requirement for the basin is a special case of user. Flushing is required to maintain water quality in the basin. This is determined externally. Water from the national network flows into the basin, and the same volume gets removed from the basin back to the national network. This water cannot be allocated to other users and there is no net change to the water level in the basin or the \\(\\qavail\\), see Equation 8.\n\\[\n    Q_\\text{in} = -Q_\\text{out}\n\\tag{8}\\]"
   },
   {
-    "objectID": "core/index.html",
-    "href": "core/index.html",
-    "title": "Julia core",
-    "section": "",
-    "text": "With the term “core”, we mean the computational engine of Ribasim. As detailed in the usage documentation, it is generally used as a command line tool.\nThe theory is described on the equations page.\nThe core is implemented in the Julia programming language, and can be found in the Ribasim repository under the core/ folder. For developers we also advise to read the developer documentation."
-  },
-  {
     "objectID": "core/usage.html",
     "href": "core/usage.html",
     "title": "Usage",
@@ -705,5 +271,439 @@
     "title": "Usage",
     "section": "2 Example input files",
     "text": "2 Example input files\nFrom this link you can download an existing schematization for the Netherlands that was used for testing purposes during development. It is provided here as an example to help people get started. Based on the description of the input files above, you can also generate your own schematization using your tools of choice. For Python users ribasim-python was created to make it easy to do pre- and postprocessing."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Ribasim",
+    "section": "",
+    "text": "Ribasim is a water resources model, designed to be the replacement of the regional surface water modules Mozart and SIMRES in the Netherlands Hydrological Instrument (NHI). Ribasim is a work in progress, it is a prototype that demonstrates all essential functionalities. Further development of the prototype in a software release is planned in 2022 and 2023.\nRibasim is written in the Julia programming language and is built on top of the SciML: Open Source Software for Scientific Machine Learning libraries, notably DifferentialEquations.jl.\nThe latest build can be downloaded here: ribasim_cli.zip. Currently only Windows builds are available. See Usage for more information."
+  },
+  {
+    "objectID": "index.html#water-balance-equations",
+    "href": "index.html#water-balance-equations",
+    "title": "Ribasim",
+    "section": "2.1 Water balance equations",
+    "text": "2.1 Water balance equations\nThe water balance equation for a drainage basin (Wikipedia contributors 2022) can be defined by a first-order ordinary differential equation (ODE), where the change of the storage \\(S\\) over time is determined by the inflow fluxes minus the outflow fluxes.\n\\[\n\\frac{\\mathrm{d}S}{\\mathrm{d}t} = Q_{in} - Q_{out}\n\\]\nWe can split out the fluxes into separate terms, such as precipitation \\(P\\), evapotranspiration \\(ET\\) and runoff \\(R\\). For now other fluxes are combined into \\(Q_{rest}\\). If we define all fluxes entering our reservoir as positive, and those leaving the system as negative, all fluxes can be summed up.\n\\[\n\\frac{\\mathrm{d}S}{\\mathrm{d}t} = R + P + ET + Q_{rest}\n\\]"
+  },
+  {
+    "objectID": "index.html#time",
+    "href": "index.html#time",
+    "title": "Ribasim",
+    "section": "2.2 Time",
+    "text": "2.2 Time\nThe water balance equation can be applied on many timescales; years, weeks, days or hours. Depending on the application and available data any of these can be the best choice. In Ribasim, we make use of DifferentialEquations.jl and its ODE solvers. Many of these solvers are based on adaptive time stepping, which means the solver will decide how large the time steps can be depending on the state of the system.\nThe forcing, like precipitation, is generally provided as a time series. Ribasim is set up to support unevenly spaced timeseries. The solver will stop on timestamps where new forcing values are available, so they can be loaded as the new value.\nRibasim is essentially a continuous model, rather than daily or hourly. If you want to use hourly forcing, you only need to make sure that your forcing data contains hourly updates. The output frequency can be configured independently. To be able to write a closed water balance, we accumulate the fluxes. This way any variations in between timesteps are also included, and we can output in m³ rather than m³s⁻¹."
+  },
+  {
+    "objectID": "index.html#sec-space",
+    "href": "index.html#sec-space",
+    "title": "Ribasim",
+    "section": "2.3 Space",
+    "text": "2.3 Space\nThe water balance equation can be applied on different spatial scales. Besides modelling a single lumped watershed, it allows you to divide the area into a network of connected representative elementary watersheds (REWs) (Reggiani, Sivapalan, and Majid Hassanizadeh 1998). At this scale global water balance laws can be formulated by means of integration of point-scale conservation equations over control volumes. Such an approach makes Ribasim a semi-distributed model. In this document we typically use the term “basin” to refer to the REW. (In Mozart the spatial unit was called Local Surface Water (LSW)). Each basin has an associated polygon, and the set of basins is connected to each other as described by a graph, which we call the network. Below is a representation of both on the map.\n\n\n\nMozart Local Surface Water polygons and their drainage.\n\n\nThe network is described as graph. Flow can be bi-directional, and the graph does not have to be acyclic.\n\n\n\n\ngraph LR;\n    A[\"basin A\"] --- B[\"basin B\"];\n    A --- C[\"basin C\"];\n    B --- D[\"basin D\"];\n    C --- D;\n\n\n\n\n\nInternally a directed graph is used. The direction is defined to be the positive flow direction, and is generally set in the dominant flow direction. The basins are the nodes of the network graph. Basin states and properties such storage volume and wetted area are associated with the nodes (A, B, C, D), as are most forcing data such as precipitation, evaporation, or water demand. Basin connection properties and interbasin flows are associated with the edges (the lines between A, B, C, and D) instead.\nMultiple basins may exist within the same spatial polygon, representing different aspects of the surface water system (perennial ditches, ephemeral ditches, or even surface ponding). Figure 1, Figure 2, Figure 3 show the 25.0 m rasterized primary, secondary, and tertiary surface waters as identified by BRT TOP10NL (PDOK 2022) in the Hupsel basin (as defined in the Mozart LSW’s). These systems may represented in multiple ways.\n\n\n\nFigure 1: Hupsel: primary surface water.\n\n\n\n\n\nFigure 2: Hupsel: secondary surface water.\n\n\n\n\n\nFigure 3: Hupsel: tertiary surface water.\n\n\nAs a single basin (A) containing all surface water, discharging to its downstream basin to the west (B):\n\n\n\n\ngraph LR;\n    A[\"basin A\"] --&gt; B[\"basin B\"];\n\n\n\n\n\nSuch a system may be capable of representing discharge, but it cannot represent residence times or differences in solute concentrations: within a single basin, drop of water is mixed instantaneously. Instead, we may the group primary (P), secondary (S), and tertiary (T) surface waters. Then T may flow into S, S into P, and P discharges to the downstream basin (B.)\n\n\n\n\ngraph LR;\n    T[\"basin T\"] --&gt; S[\"basin S\"];\n    S --&gt; P[\"basin P\"];\n    P --&gt; B[\"basin B\"];\n\n\n\n\n\nAs each (sub)basin has its own volume, low throughput (high volume, low discharge, long residence time) and high throughput (low volume, high discharge, short residence time) systems can be represented in a lumped manner; of course, more detail requires more parameters."
+  },
+  {
+    "objectID": "couple/index.html",
+    "href": "couple/index.html",
+    "title": "Coupled models",
+    "section": "",
+    "text": "Ribasim can be coupled to other software, for instance to model another process or domain, or to control a simulation from another process.\nTo enable this, Ribasim can be compiled as a shared library (libribasim) instead of a command line interface (ribasim). This shared library exposes a C API in the form of the Basic Model Interface (BMI). Other software can then load libribasim and load a Ribasim model, exchange data, and control the time stepping.\nAn initial coupling to MODFLOW 6 was done in 2022 inside the Julia core as a proof of concept. Read about the coupling setup and see the demonstration. Going forward this and other coupling codes will be implemented outside of the core, by making use of iMOD Coupler and libribasim. iMOD Coupler is a generic coupling tool, and can be used to couple to other models as well."
+  },
+  {
+    "objectID": "couple/modflow-demo.html",
+    "href": "couple/modflow-demo.html",
+    "title": "MODFLOW 6 Demonstration",
+    "section": "",
+    "text": "In our test cases, we will work with the Dutch national groundwater model (LHM). For testing, we simplify the top boundary conditions to just three surface water “systems”, from large to small:\n\nPrimary\nSecondary\nTertiary\n\nThese systems are separated in the groundwater model schematization due to the relatively small size of the surface waters (several meters in width) in comparison with relatively coarse cells of the groundwater model (250 m): most cells in the LHM contain more than one surface water, and are included via representative parameters which take the physical scaling into account. In case of sufficiently small cell sizes, no overlap occurs and all surface waters can be represented in a single grid.\nRibasim has no knowledge of these systems unless explicitly separated into different (sub-)basins. In the examples below, these three systems are represented by one basin with a single volume. For the purposes of testing, we have not yet created empirical volume-level relationships for the surface water of every cell extracted from a hydraulic model. Instead, we have chosen an (over)simplified parametrization of the hydraulic properties, which makes it easy to verify the behavior of Ribasim and the coupling procedures:\n\nPrimary, secondary, and tertiary systems have a rectangular profile: the area of the surface water does not change with water level or volume.\nWater depth is constant for a system within a basin.\nWater depth increases linearly with volume. (This follows from 1.)\nWater depth is distributed across the systems in a geometric progression: when the tertiary system contains 0.1 m of water, the secondary system contains 0.2 m, and the primary system contains 0.4 m.\nWater depth is 0.0 m for all systems when basin volume is 0.0. (This follows from 4.)\nThe distribution of water occurs according to the surface water area (width times length) used for the LHM parametrization of river bed conductance.\n\nFor freely draining basins, a simplified storage-discharge relationship has been derived as follows:\n\nThe area of the basin polygon has been multiplied by 1 mm/d (roughly the average precipitation excess in the Netherlands). This yields a “normative discharge”.\nA corresponding normative volume has been chosen, corresponding with water depths of 0.4, 0.2, and 0.1 m for the primary, secondary, and tertiary surface waters respectively.\nA dead storage volume has been chosen, corresponding with water depths of 0.2, 0.1, and 0.05 m for the primary, secondary, and tertiary surface waters respectively. The basin only starts discharging when the storage volume exceeds this value.\n\n\n\n\n\n\n\nNote\n\n\n\nRibasim is not limited to such oversimplified parametrization! Ribasim uses tabulations and therefore supports arbitrary (piecewise linear) volume-depth and volume-discharge relationships.\n\n\nA visual representation of this simplified conceptual schematization is given in Figure 1 and Figure 2.\n\n\n\nFigure 1: Distribution of water depths over the primary, secondary, and tertiary system.\n\n\n\n\n\nFigure 2: Discharge as a function of basin storage volume.\n\n\nAn example of the resulting parameters for a single cell is shown in Table 1. The first row shows the water levels when the basin is empty. The level for primary, secondary, and tertiary are equal to the bottom elevation of the surface waters. The second row shows the volume and levels for water depths of 0.4, 0.2, and 0.1 m. The third row shows the volume and levels for a tenfold larger volume. This results in implausible water levels with depths of 4.0, 2.0 and 1.0 m; the water level in the primary system is over two meters higher than in the tertiary system. In reality, the surface waters would overflow and surface ponding would occur; this mechanism is ignored in the test cases for the sake of simplicity.\n\n\nTable 1: Volume-level table for a single cell in the Hupsel basin.\n\n\nVolume (m3)\nPrimary (m NAP)\nSecondary (m NAP)\nTertiary (m NAP)\n\n\n\n\n0.0\n25.65\n25.83\n26.60\n\n\n6843.1\n26.05\n26.03\n26.70\n\n\n68431.0\n29.65\n27.83\n27.60\n\n\n\n\nFigure 3 shows the volume of the first row of the cell based input for the primary system. Symbology is set to unique values. While water levels differ per cell in this parametrization, the “normative volume” defined above is shared by all cells in a basin.\n\n\n\nFigure 3: Basin normative volume of the primary system.\n\n\nFigure 3 shows the water level corresponding to the normative storage volume based input for the primary system (it corresponds to the value shown in the first row of the primary column in Table 1). We see a clear gradient from west to east: as our simplified parametrization assumes a constant water depth for all cells in a single system, water levels spatially fall and rise with the bottom elevation.\n\n\n\nFigure 4: Water level corresponding to the normative basin volume of the primary system."
+  },
+  {
+    "objectID": "couple/modflow-demo.html#example-parametrization",
+    "href": "couple/modflow-demo.html#example-parametrization",
+    "title": "MODFLOW 6 Demonstration",
+    "section": "",
+    "text": "In our test cases, we will work with the Dutch national groundwater model (LHM). For testing, we simplify the top boundary conditions to just three surface water “systems”, from large to small:\n\nPrimary\nSecondary\nTertiary\n\nThese systems are separated in the groundwater model schematization due to the relatively small size of the surface waters (several meters in width) in comparison with relatively coarse cells of the groundwater model (250 m): most cells in the LHM contain more than one surface water, and are included via representative parameters which take the physical scaling into account. In case of sufficiently small cell sizes, no overlap occurs and all surface waters can be represented in a single grid.\nRibasim has no knowledge of these systems unless explicitly separated into different (sub-)basins. In the examples below, these three systems are represented by one basin with a single volume. For the purposes of testing, we have not yet created empirical volume-level relationships for the surface water of every cell extracted from a hydraulic model. Instead, we have chosen an (over)simplified parametrization of the hydraulic properties, which makes it easy to verify the behavior of Ribasim and the coupling procedures:\n\nPrimary, secondary, and tertiary systems have a rectangular profile: the area of the surface water does not change with water level or volume.\nWater depth is constant for a system within a basin.\nWater depth increases linearly with volume. (This follows from 1.)\nWater depth is distributed across the systems in a geometric progression: when the tertiary system contains 0.1 m of water, the secondary system contains 0.2 m, and the primary system contains 0.4 m.\nWater depth is 0.0 m for all systems when basin volume is 0.0. (This follows from 4.)\nThe distribution of water occurs according to the surface water area (width times length) used for the LHM parametrization of river bed conductance.\n\nFor freely draining basins, a simplified storage-discharge relationship has been derived as follows:\n\nThe area of the basin polygon has been multiplied by 1 mm/d (roughly the average precipitation excess in the Netherlands). This yields a “normative discharge”.\nA corresponding normative volume has been chosen, corresponding with water depths of 0.4, 0.2, and 0.1 m for the primary, secondary, and tertiary surface waters respectively.\nA dead storage volume has been chosen, corresponding with water depths of 0.2, 0.1, and 0.05 m for the primary, secondary, and tertiary surface waters respectively. The basin only starts discharging when the storage volume exceeds this value.\n\n\n\n\n\n\n\nNote\n\n\n\nRibasim is not limited to such oversimplified parametrization! Ribasim uses tabulations and therefore supports arbitrary (piecewise linear) volume-depth and volume-discharge relationships.\n\n\nA visual representation of this simplified conceptual schematization is given in Figure 1 and Figure 2.\n\n\n\nFigure 1: Distribution of water depths over the primary, secondary, and tertiary system.\n\n\n\n\n\nFigure 2: Discharge as a function of basin storage volume.\n\n\nAn example of the resulting parameters for a single cell is shown in Table 1. The first row shows the water levels when the basin is empty. The level for primary, secondary, and tertiary are equal to the bottom elevation of the surface waters. The second row shows the volume and levels for water depths of 0.4, 0.2, and 0.1 m. The third row shows the volume and levels for a tenfold larger volume. This results in implausible water levels with depths of 4.0, 2.0 and 1.0 m; the water level in the primary system is over two meters higher than in the tertiary system. In reality, the surface waters would overflow and surface ponding would occur; this mechanism is ignored in the test cases for the sake of simplicity.\n\n\nTable 1: Volume-level table for a single cell in the Hupsel basin.\n\n\nVolume (m3)\nPrimary (m NAP)\nSecondary (m NAP)\nTertiary (m NAP)\n\n\n\n\n0.0\n25.65\n25.83\n26.60\n\n\n6843.1\n26.05\n26.03\n26.70\n\n\n68431.0\n29.65\n27.83\n27.60\n\n\n\n\nFigure 3 shows the volume of the first row of the cell based input for the primary system. Symbology is set to unique values. While water levels differ per cell in this parametrization, the “normative volume” defined above is shared by all cells in a basin.\n\n\n\nFigure 3: Basin normative volume of the primary system.\n\n\nFigure 3 shows the water level corresponding to the normative storage volume based input for the primary system (it corresponds to the value shown in the first row of the primary column in Table 1). We see a clear gradient from west to east: as our simplified parametrization assumes a constant water depth for all cells in a single system, water levels spatially fall and rise with the bottom elevation.\n\n\n\nFigure 4: Water level corresponding to the normative basin volume of the primary system."
+  },
+  {
+    "objectID": "couple/modflow-demo.html#example-configuration",
+    "href": "couple/modflow-demo.html#example-configuration",
+    "title": "MODFLOW 6 Demonstration",
+    "section": "2 Example: Configuration",
+    "text": "2 Example: Configuration\nAn example of the MODFLOW 6 section of TOML configuration required for a coupled run can be seen below:\n[modflow]\nsimulation = \"../data/hupsel/mfsim.nam\"\nmode = \"sequential\"\ntimestep = 86400.0\n\n[modflow.models]\n\n[modflow.models.gwf]\ntype = \"gwf\"\ndataset = \"../data/volume_level_profile-hupsel.nc\"\nbasins = \"basin_id\"\n\n[[modflow.models.gwf.bounds]]\nriver = \"RIV_P\"\ndrain = \"DRN_P\"\nprofile = \"profile_primary\"\n\n[[modflow.models.gwf.bounds]]\nriver = \"RIV_S\"\ndrain = \"DRN_S\"\nprofile = \"profile_secondary\"\n\n[[modflow.models.gwf.bounds]]\ndrain = \"DRN_T\"\nprofile = \"profile_tertiary\"\nThe section starts by stating the path to the MODFLOW 6 simulation name file (simulation). The next section contains the information regarding the MODFLOW 6 model(s) to couple to Ribasim’s basins. Per model, a path to the coupling parameter dataset is provided (dataset), along with the variable to use as the basin identification number (basins). Next, for every boundary condition that should be coupled to Ribasim, the package names (river, drain) used by MODFLOW 6 must be specified (as we look for these names in the MODFLOW 6 memory), along with the name of the variable in the coupling dataset which provides the volume-level relationship (profile).\nAs can be seen in the example, the coupling mechanism supports coupling of:\n\nA single drainage package (drain entry).\nA single river package (river entry).\nA combination of river and drainage package (when infiltration conductance does not equal drainage conductance) both (river and drain entry)."
+  },
+  {
+    "objectID": "couple/modflow-demo.html#test-case-hupsel",
+    "href": "couple/modflow-demo.html#test-case-hupsel",
+    "title": "MODFLOW 6 Demonstration",
+    "section": "3 Test case: Hupsel",
+    "text": "3 Test case: Hupsel\nTo test the coupling, the following simulations have been setup and run:\n\nA standalone MODFLOW 6 run of sequential steady-states (i.e. no storage) with differing groundwater recharge values.\nA coupled run where the MODFLOW 6 stages are updated by the Ribasim coupler process, but without Ribasim. This results in volumes of 0.0, so all MODFLOW 6 water levels are set equal to bed elevation.\nA coupled run where the water levels are updated by Ribasim.\n\nFrom these tests, we expect the following behavior:\n\nDrainage terms should remain largely the same when the water level is lowered in a steady-state: the amount of recharge is fixed, and this is locally drained.\nIn case of negative recharge (evapotranspiration), infiltration occurs in the surface waters. Infiltration should be zero when the basin volume is 0.\n\n\n\n\nFigure 5: Water balance of the MODFLOW 6 boundary conditions for the Hupsel basin for a standalone MODFLOW 6 run. The four sequential steady states (01, 02, 03, 04) use net groundwater recharge values of 1.0, 0.5, -0.05 and -0.1 mm/d.\n\n\nFigure 5 shows the water balance of steady-state for submodel of the LHM that has been by selecting the cells belonging to the district containing the Hupsel catch, the Berkel.\nThe Hupsel basin show the expected behavior: for a net groundwater recharge of 1.0 mm/d, most is precipitation with a minor part lateral inflow from higher areas. In terms of outgoing flows, most of the precipitation ends up in the surface water, primarily in the many ditches of the tertiary system. Only a relatively small part of the water leaves the basin via the groundwater. Interbasin flows through the groundwater form such a minor role, as the aquifer is thin and transmissivity is limited.\nReducing groundwater recharge to 0.5 mm/d reduces all flows, with the tertiary system playing a less dominant role, relatively speaking: as its elevation is the highest compared to the primary and secondary system, the head difference is reduced strongest for the tertiary system.\nWith evapotranspiration (ET) excess (-0.05 and 0.1 mm/d; low values are chosen here since most ET would be drawn from storage, which is not available in a steady-state model), the surface waters provide mostly inflow, and recharge is a negative term. In this case, the secondary system provides a small amount of infiltration; most of the water is drawn from the surroundings instead.\n\n\n\nFigure 6: Water balance of the MODFLOW 6 boundary conditions for the Hupsel basin for a zero volume run. The four sequential steady states (01, 02, 03, 04) use net groundwater recharge values of 1.0, 0.5, -0.05 and -0.1 mm/d.\n\n\nFigure 6 shows the same model, with 0-basin volume which causes water levels to be set equal to bed elevation. Consequently, primary and secondary outflow terms are larger for positive groundwater recharge as they drain at a lower level and intercept the water before the tertiary system does. Secondly, with negative groundwater recharge, no infiltration occurs and the water is drawn from the surroundings instead. This shows the coupling mechanism adjusting MODFLOW 6 water levels successfully."
+  },
+  {
+    "objectID": "couple/modflow-demo.html#test-case-de-tol",
+    "href": "couple/modflow-demo.html#test-case-de-tol",
+    "title": "MODFLOW 6 Demonstration",
+    "section": "4 Test case: de Tol",
+    "text": "4 Test case: de Tol\nTo test the coupling, the following simulations have been setup and run:\n\nA standalone MODFLOW 6 run of sequential steady-states (i.e. no storage) with differing groundwater recharge values.\nA coupled run where the MODFLOW 6 stages are updated by the Ribasim coupler process, but without Ribasim. This results in volumes of 0.0, so all MODFLOW 6 water levels are set equal to bed elevation.\nA coupled run where the water levels are updated by Ribasim.\n\n\n\n\nFigure 7: Water balance of the MODFLOW 6 boundary conditions for De Tol basin for a standalone MODFLOW 6 run. The four sequential steady states (01, 02, 03, 04) use net groundwater recharge values of 1.0, 0.5, -0.05 and -0.1 mm/d.\n\n\nFigure 7 shows the water balance of steady-state for a submodel of the LHM for the Polder de Tol and its surroundings. While groundwater recharge is the dominant ingoing flow, lateral groundwater flow (over the entire depth of the groundwater model) is a sizable inflow for the area; the larger lateral inflow shows that De Tol is a net receiver of groundwater which is mostly discharged through the secondary system. In contrast to the Hupsel, the tertiary system is almost entirely absent: drainage occurs not through ephemeral tertiary ditches, but by the permanently water-bearing ditches of the primary and secondary system. Unlike the Hupsel, the water balance does not shrink to very small discharges, as there is sizable regional groundwater flow.\n\n\n\nFigure 8: Water balance of the MODFLOW 6 boundary conditions for De Tol basin for a zero volume run. The four sequential steady states (01, 02, 03, 04) use net groundwater recharge values of 1.0, 0.5, -0.05 and -0.1 mm/d.\n\n\nFigure 8 shows the same model, with 0-basin volume which causes water levels to be set equal to bed elevation. The total discharge is larger: the primary and secondary systems are set to lower levels, and so the head difference is larger. While De Tol’s evapotranspiration excess can be fed by the regional groundwater, the primary and secondary ditches also provide some part; as expected, they do not feed when the coupling mechanism adjusts MODFLOW 6’s water levels."
+  },
+  {
+    "objectID": "couple/modflow.html",
+    "href": "couple/modflow.html",
+    "title": "MODFLOW 6",
+    "section": "",
+    "text": "Ribasim has been designed to provide a computationally efficient representation of surface water for MODFLOW 6. It does so by connecting to basic MODFLOW 6 boundary conditions: the river and drainage packages.\nRibasim connects to MODFLOW 6 via the Basic Model Interface (BMI) and Extended Model Interface (XMI) (Hughes et al. 2022). BMI describes the interface to initialize a model, get values from its memory, run a timestep, etc. XMI extends this interface to allow much finer control into MODFLOW 6’s solution procedures. We have written a Julia package (Deltares 2022) which implements this interface for the Julia programming language. In coupling, Ribasim uses this interface to get the head values, the boundary condition water levels, and the budgets term of the MODFLOW 6 groundwater model while MODFLOW 6 is running.\nAdditionally, links can be made with other (BMI/XMI-compliant) processes and models. One example of such a link is using the surface runoff and the agricultural irrigation demand calculated by an unsaturated zone model; in the Netherlands Hydrological Instrument MetaSWAP provides this demand."
+  },
+  {
+    "objectID": "couple/modflow.html#drainage",
+    "href": "couple/modflow.html#drainage",
+    "title": "MODFLOW 6",
+    "section": "1.1 Drainage",
+    "text": "1.1 Drainage\nThe drainage package can be simulated to agricultural drains, ditches, or draining streams. The amount of water removed from the aquifer is proportional to the difference between the groundwater head and the drainage elevation. Drainage only occurs when the head is larger than the elevation; this boundary condition does not allow infiltration into the groundwater.\n\\[\nQ_{drain} = \\left\\{\n    \\begin{array}{ c l }\n        C_{drain} (\\phi - h_{drain}) & \\quad \\textrm{if } \\phi &gt; h_{drain} \\\\\n        0                            & \\quad \\textrm{otherwise}\n     \\end{array}\n\\right.\n\\]"
+  },
+  {
+    "objectID": "couple/modflow.html#river",
+    "href": "couple/modflow.html#river",
+    "title": "MODFLOW 6",
+    "section": "1.2 River",
+    "text": "1.2 River\nThe river package can both drain the groundwater, or infiltrate surface water to the groundwater. It limits the amount of water that can infiltrate when the groundwater head falls below the river bottom, in which cases it assumes atmospheric pressure conditions underneath the surface water.\n\\[\nQ_{river} = \\left\\{\n    \\begin{array}{ c l }\n        C_{river} (\\phi - h_{river}) & \\quad \\textrm{if } \\phi &gt; b_{river} \\\\\n        C_{river} (h_{river} - b_{river}) & \\quad \\textrm{if } \\phi &lt;= b_{river}\n     \\end{array}\n\\right.\n\\]\nIn the Netherlands, it is somewhat common to make a distinction between the drainage and infiltration conductance of surface waters. Drainage conductance is often larger than the infiltration conductance due to clogging processes, seepage through sides of the ditches, less contracted flow lines, etc.\n\\[\nQ_{river} = \\left\\{\n    \\begin{array}{ c l }\n        C_{river,drn} (\\phi - h_{river}) & \\quad \\textrm{if } \\phi &gt; h_{river} \\\\\n        C_{river,inf} (\\phi - h_{river}) & \\quad \\textrm{if } \\phi &lt;= h_{river} \\\\\n        C_{river,inf} (h_{river} - b_{river}) & \\quad \\textrm{if } \\phi &lt;= b_{river}\n     \\end{array}\n\\right.\n\\]\nMODFLOW 6 does not support this (currently), but an identical effect may be achieved by “stacking” a drainage package on top of a river package with these values:\n\\[\n\\begin{array}{ c l }\n  h_{drain} = h_{river} \\\\\n  C_{drain} = C_{river,drn} - C_{river,inf}\n\\end{array}\n\\]"
+  },
+  {
+    "objectID": "couple/modflow.html#numerical-solution-in-modflow",
+    "href": "couple/modflow.html#numerical-solution-in-modflow",
+    "title": "MODFLOW 6",
+    "section": "2.1 Numerical solution in MODFLOW",
+    "text": "2.1 Numerical solution in MODFLOW\nMODFLOW uses a backward-in-time implicit solution scheme. This creates a large system of equations (a water balance for every cell), which it solves by repeatedly solving a linearized system of equations instead. In matrix form, this system of equations is expressed by:\n\\[\n\\mathbf{Ax} = \\mathbf{b}\n\\]\nWhere \\(\\mathbf{x}\\) is a vector containing the head of every cell.\nFor the boundary conditions, this requires linearization of the flow equations. Flow from outside of the aquifer (cell) may be represented by:\n\\[\na = p\\phi + q\n\\]\n(Equation 2-6 in the MODFLOW 6 documentation (Langevin et al. 2017).)\nFor e.g. a draining boundary condition, the flow is head dependent:\n\\[\na = C(h - \\phi) = -C\\phi + Ch\n\\]\nWith \\(C\\) the conductance, \\(h\\) the boundary head or elevation, and \\(\\phi\\) the groundwater head.\nIn MODFLOW’s internal formulation, the term in \\(\\mathbf{A}\\) is called “coefficient of head” or hcof. Terms in \\(\\mathbf{b}\\) are called “right hand side” or rhs. We can separate the equation above:\n\\[\n\\begin{aligned}\np = \\text{hcof} = -C \\\\\nq = \\textrm{rhs} = -Ch \\\\\na = -C\\phi + Ch = \\text{hcof} * \\phi - \\text{rhs}\n\\end{aligned}\n\\]\nFor every boundary condition, MODFLOW 6 stores the hcof and rhs values. This makes it quite convenient for us to compute the water budget for every boundary condition: we simply multiply the hcof value by the head of the cell and subtract the rhs.\nNote that hcof may have a value of 0! For example, when for a river boundary the \\(\\phi &lt;= b_{river}\\) condition occurs, the flow into the cell is controlled only by \\(h_{river}\\) and \\(b_{river}\\) (equal to recharge for the linear solution)."
+  },
+  {
+    "objectID": "couple/modflow.html#sequential-coupled-solution",
+    "href": "couple/modflow.html#sequential-coupled-solution",
+    "title": "MODFLOW 6",
+    "section": "2.2 Sequential coupled solution",
+    "text": "2.2 Sequential coupled solution\nA coupled run stars by initializing both models and creating the exchange information: which MODFLOW 6 boundary condition is connected to which Ribasim basin. While the model is running, the model proceeds through time as follows:\n\nRibasim solves the equations on a basin level; this occurs with adaptive timestepping via ModelingToolkit.\nAt a specified time (in accordance with the MODFLOW 6 time discretization), the volumes are converted to MODFLOW 6 boundary condition levels using a Callback function.\nMODFLOW 6 runs a timestep.\nThe drainage and infiltration budgets are computed from MODFLOW 6 using the equations described above and aggregated per basin.\nThe aggregated values are set as Ribasim boundary conditions, and Ribasim solves until the next preset exchange time.\n\nThese steps run until the final timestep is finished."
+  },
+  {
+    "objectID": "couple/modflow.html#iterative-coupled-solution",
+    "href": "couple/modflow.html#iterative-coupled-solution",
+    "title": "MODFLOW 6",
+    "section": "2.3 Iterative coupled solution",
+    "text": "2.3 Iterative coupled solution\n\n\n\n\n\n\nNote\n\n\n\nWe have not implemented an iterative coupled solution yet. The section below describes an approach.\n\n\nThe simplest form of a iterative solution occurs as follows:\n\nMODFLOW 6 computes drainage and infiltration flows.\nRibasim uses these flows to compute a storage volume for the basin.\nThe volume is translated to a water level for every MODFLOW 6 boundary condition in the basins.\nMODFLOW 6 recomputes drainage and infiltration flows with the updated water levels, etc.\n\nSuch a scheme is not maximally efficient: the discharge and infiltration terms are not constant, but are driven by a head difference. This head difference depends on the level of the boundary conditions and head of every cell of the groundwater model. If the surface waters of a basin empty, the water level will decrease and drainage and infiltration flows will change. Ideally, we can provide Ribasim with more information, so that it may estimate drainage and infiltration terms better.\nAs groundwater flow is often (approximately) linear, we can use linearization to more efficiently compute the flow from Ribasim’s side as well. In the iterative coupled solution, we are solving both MODFLOW 6 and Ribasim repeatedly, until they produce same drainage or infiltration (approximately). One of Ribasim’s basins contains many MODFLOW cells with boundary conditions. We could add every boundary condition to Ribasim’s equations, but this is costly and cumbersome. Fortunately, linearization allows us to “stack” (superpose) all the different boundary conditions into a single, simple equation. In linear form, every equation takes the form of:\n\\[\na = ph + q\n\\]\nNote the \\(h\\) rather than \\(\\phi\\), we are formulating from Ribasim’s perspective! We can sum all coefficients for p and q to provide a linear groundwater response to Ribasim.\n\n2.3.1 Drainage\nFrom Ribasim’s perspective, the groundwater head is constant given a timestep, so that:\n\\[\n\\begin{align}\np = -C \\\\\nq = -C\\phi\n\\end{align}\n\\]\nWhen the head falls below the drainage elevation, the coefficients are 0.\n\n\n2.3.2 River\nFrom Ribasim’s perspective, infiltration is never limited when the head falls below the bottom:\n\\[\n\\begin{align}\np = -C \\\\\nq = -Cb\n\\end{align}\n\\]\nOtherwise, infiltration and drainage occur with the same equation as for the drainage package:\n\\[\n\\begin{align}\np = -C \\\\\nq = -C\\phi\n\\end{align}\n\\]"
+  },
+  {
+    "objectID": "couple/modflow.html#parametrization",
+    "href": "couple/modflow.html#parametrization",
+    "title": "MODFLOW 6",
+    "section": "3.1 Parametrization",
+    "text": "3.1 Parametrization\nIn coupling Ribasim to MODFLOW 6, relations translating the Ribasim volume must be given for every every cell of every boundary condition. These consist of piecewise linear relationships between the basin volume and its associated water level for the boundary condition in the cell.\nThese values are stored in a netCDF dataset. This dataset must meet the following requirements:\n\nIt must contain a x and y coordinate. The extent and cell size of these coordinates must match the domain of the coupled MODFLOW 6 model exactly.\nIt must contain a variable (x, y) denoting the basin IDs.\nIt must contain a volume-level variable (x, y, row, column) for every coupled MODFLOW 6 boundary condition, describing the volume-level lookup table per cell.\n\n\n\n\n\n\n\nNote\n\n\n\nThe x and y coordinates are valid for structured MODFLOW 6 models (DIS). Discretized-by-vertices (DISV) and fully unstructured discretization (DISU). are not yet supported, but require no fundamental changes: one basin is connected to multiple MODFLOW 6 cells, and the coupling parameters must match the (structured, unstructured) grid of the MODFLOW 6 model exactly.\n\n\nThe MODFLOW 6 coupling example cases show examples of such a parametrization."
+  },
+  {
+    "objectID": "qgis/index.html",
+    "href": "qgis/index.html",
+    "title": "QGIS plugin",
+    "section": "",
+    "text": "Plugins menu &gt; Manage and Install Plugins…\n\n\n\n\n\nUnder “All”, search for “imod”:\n\n\n\n\n\n\nClick “Install Plugin”\n\nSelect “Install from ZIP”:\n\nBrowse to the ribasim_qgis.zip file that contains the plugin\nClick “Install Plugin”\n\n\n\n\n\n\nStart the Ribasim plugin.\n\n\n\n\n\n\n\n\nOpen example model basic.gpkg or create a new model.\n\n\n\n\n\nCheck if your coordinate reference system (CRS) is set correctly.\n\n\n\n\n\nIf you are working with an unknown CRS, right click the model GeoPackage group in Layers, and click “Set Group CRS…”.\n\n\n\n\n\nIf you are modeling the Netherlands, select “Amersfoort / RD New” (EPSG:28992).\n\n\n\n\n\n\n\n\n\n\n\nSelect the Node layer.\n\n\n\n\n\nTurn on the edit mode to be able to add nodes on the map.\n\n\n\n\n\nAdd nodes to the map with a left click and select the node type.\n\n\n\n\n\nTurn the edit mode off and save the edits to the Nodes layer.\n\n\n\n\n\n\n\n\nRight click a layer and select “Open Attribute Table”.\n\n\n\n\n\nClick the yellow pencil icon on the top left to enable editing, and copy and paste a record. A record can be selected by clicking on the row number.\n\n\n\n\n\nAdjust the content. If you prefer, it also works to copy data with the same columns from Excel. Turn off edit mode and save changes to the layer.\n\n\n\n\n\n\n\n\n\n\n\nMake sure the Snapping Toolbar is visible, by going to the View &gt; Toolbars menu. Turn on snapping mode by clicking the magnet and set the snapping distance to 25 pixels.\n\n\n\n\n\n\n\n\nSelect the Edge layer and turn on the edit mode.\n\n\n\n\n\nSelect “Add line feature”.\n\n\n\n\n\nCreate a connection by left clicking a source node and right clicking the destination node.\n\n\n\n\n\nNow leave the edit mode and save the results to the layer.\n\n\n\n\n\nOpen a text editor and create an empty file next to your GeoPackage, with the .toml extension.\nAdd the following content to the TOML file:\n\n\n\nbasic.toml\n\nstarttime = 2020-01-01 00:00:00\nendtime = 2021-01-01 00:00:00\ngeopackage = \"basic.gpkg\"\n\n\nUnzip the Ribasim command line interface, ribasim_cli.zip\nOpen your terminal and go to the directory where your TOML is stored. Now run path/to/ribasim_cli/ribasim basic.toml. Adjust the path to the ribasim_cli folder to where you placed it. This runs the model.\nIn your model directory there is now an output/ folder with basin.arrow and flow.arrow output files.\n\n\n\n\n\n\nIn QGIS select the model group.\n\n\n\n\n\nIn the Ribasim plugin widget, select the Output tab and click “Associate Output”.\n\n\n\n\n\nSelect output/basin.arrow.\n\n\n\n\n\nThis adds metadata to the model that the iMOD plugin can use to find the timeseries data that is associated to the model nodes.\n\n\n\nClick the “Time Series” button of the iMOD plugin.\n\n\n\n\n\nSelect the variables that you want to plot.\n\n\n\n\n\nClick “Select points” and select a node by dragging a rectangle around it on the map. Hold the Ctrl key to select multiple nodes. Currently only the Basin nodes can be plotted.\n\n\n\n\n\nThe associated time series are shown the the graph."
+  },
+  {
+    "objectID": "qgis/index.html#start",
+    "href": "qgis/index.html#start",
+    "title": "QGIS plugin",
+    "section": "",
+    "text": "Plugins menu &gt; Manage and Install Plugins…\n\n\n\n\n\nUnder “All”, search for “imod”:\n\n\n\n\n\n\nClick “Install Plugin”\n\nSelect “Install from ZIP”:\n\nBrowse to the ribasim_qgis.zip file that contains the plugin\nClick “Install Plugin”\n\n\n\n\n\n\nStart the Ribasim plugin.\n\n\n\n\n\n\n\n\nOpen example model basic.gpkg or create a new model.\n\n\n\n\n\nCheck if your coordinate reference system (CRS) is set correctly.\n\n\n\n\n\nIf you are working with an unknown CRS, right click the model GeoPackage group in Layers, and click “Set Group CRS…”.\n\n\n\n\n\nIf you are modeling the Netherlands, select “Amersfoort / RD New” (EPSG:28992)."
+  },
+  {
+    "objectID": "qgis/index.html#edit-nodes",
+    "href": "qgis/index.html#edit-nodes",
+    "title": "QGIS plugin",
+    "section": "",
+    "text": "Select the Node layer.\n\n\n\n\n\nTurn on the edit mode to be able to add nodes on the map.\n\n\n\n\n\nAdd nodes to the map with a left click and select the node type.\n\n\n\n\n\nTurn the edit mode off and save the edits to the Nodes layer.\n\n\n\n\n\n\n\n\nRight click a layer and select “Open Attribute Table”.\n\n\n\n\n\nClick the yellow pencil icon on the top left to enable editing, and copy and paste a record. A record can be selected by clicking on the row number.\n\n\n\n\n\nAdjust the content. If you prefer, it also works to copy data with the same columns from Excel. Turn off edit mode and save changes to the layer."
+  },
+  {
+    "objectID": "qgis/index.html#connect-nodes",
+    "href": "qgis/index.html#connect-nodes",
+    "title": "QGIS plugin",
+    "section": "",
+    "text": "Make sure the Snapping Toolbar is visible, by going to the View &gt; Toolbars menu. Turn on snapping mode by clicking the magnet and set the snapping distance to 25 pixels.\n\n\n\n\n\n\n\n\nSelect the Edge layer and turn on the edit mode.\n\n\n\n\n\nSelect “Add line feature”.\n\n\n\n\n\nCreate a connection by left clicking a source node and right clicking the destination node.\n\n\n\n\n\nNow leave the edit mode and save the results to the layer."
+  },
+  {
+    "objectID": "qgis/index.html#run-a-model",
+    "href": "qgis/index.html#run-a-model",
+    "title": "QGIS plugin",
+    "section": "",
+    "text": "Open a text editor and create an empty file next to your GeoPackage, with the .toml extension.\nAdd the following content to the TOML file:\n\n\n\nbasic.toml\n\nstarttime = 2020-01-01 00:00:00\nendtime = 2021-01-01 00:00:00\ngeopackage = \"basic.gpkg\"\n\n\nUnzip the Ribasim command line interface, ribasim_cli.zip\nOpen your terminal and go to the directory where your TOML is stored. Now run path/to/ribasim_cli/ribasim basic.toml. Adjust the path to the ribasim_cli folder to where you placed it. This runs the model.\nIn your model directory there is now an output/ folder with basin.arrow and flow.arrow output files."
+  },
+  {
+    "objectID": "qgis/index.html#inspect-results",
+    "href": "qgis/index.html#inspect-results",
+    "title": "QGIS plugin",
+    "section": "",
+    "text": "In QGIS select the model group.\n\n\n\n\n\nIn the Ribasim plugin widget, select the Output tab and click “Associate Output”.\n\n\n\n\n\nSelect output/basin.arrow.\n\n\n\n\n\nThis adds metadata to the model that the iMOD plugin can use to find the timeseries data that is associated to the model nodes.\n\n\n\nClick the “Time Series” button of the iMOD plugin.\n\n\n\n\n\nSelect the variables that you want to plot.\n\n\n\n\n\nClick “Select points” and select a node by dragging a rectangle around it on the map. Hold the Ctrl key to select multiple nodes. Currently only the Basin nodes can be plotted.\n\n\n\n\n\nThe associated time series are shown the the graph."
+  },
+  {
+    "objectID": "python/index.html",
+    "href": "python/index.html",
+    "title": "Python tooling",
+    "section": "",
+    "text": "The Ribasim Python package (named ribasim) aims to make it easy to build, update and analyze Ribasim models programmatically.\nThe Ribasim QGIS plugin allows users to construct a model from scratch without programming. For specific tasks, like adding observed rainfall timeseries, it can be faster to use Python instead.\nOne can also use Ribasim Python to build entire models from base data, such that your model setup is fully reproducible.\nThe package is registered in PyPI and can therefore be installed with pip install ribasim.\nFor documentation please see the examples and API reference."
+  },
+  {
+    "objectID": "python/examples.html",
+    "href": "python/examples.html",
+    "title": "Examples",
+    "section": "",
+    "text": "1 Basic model with static forcing\n\nimport geopandas as gpd\nimport numpy as np\nimport pandas as pd\nfrom pathlib import Path\n\nimport ribasim\n\nSet up the nodes:\n\nxy = np.array(\n    [\n        (0.0, 0.0),  # 1: Basin,\n        (1.0, 0.0),  # 2: ManningResistance\n        (2.0, 0.0),  # 3: Basin\n        (3.0, 0.0),  # 4: TabulatedRatingCurve\n        (3.0, 1.0),  # 5: FractionalFlow\n        (3.0, 2.0),  # 6: Basin\n        (4.0, 1.0),  # 7: Pump\n        (4.0, 0.0),  # 8: FractionalFlow\n        (5.0, 0.0),  # 9: Basin\n        (6.0, 0.0),  # 10: LinearResistance\n        (2.0, 2.0),  # 11: LevelBoundary\n        (2.0, 1.0),  # 12: LinearResistance\n        (3.0, -1.0),  # 13: FractionalFlow\n        (3.0, -2.0),  # 14: Terminal\n        (3.0, 3.0),  # 15: FlowBoundary\n        (0.0, 1.0),  # 16: FlowBoundary\n        (6.0, 1.0),  # 17: LevelBoundary\n    ]\n)\nnode_xy = gpd.points_from_xy(x=xy[:, 0], y=xy[:, 1])\n\nnode_type = [\n    \"Basin\",\n    \"ManningResistance\",\n    \"Basin\",\n    \"TabulatedRatingCurve\",\n    \"FractionalFlow\",\n    \"Basin\",\n    \"Pump\",\n    \"FractionalFlow\",\n    \"Basin\",\n    \"LinearResistance\",\n    \"LevelBoundary\",\n    \"LinearResistance\",\n    \"FractionalFlow\",\n    \"Terminal\",\n    \"FlowBoundary\",\n    \"FlowBoundary\",\n    \"LevelBoundary\",\n]\n\n# Make sure the feature id starts at 1: explicitly give an index.\nnode = ribasim.Node(\n    static=gpd.GeoDataFrame(\n        data={\"type\": node_type},\n        index=pd.Index(np.arange(len(xy)) + 1, name=\"fid\"),\n        geometry=node_xy,\n        crs=\"EPSG:28992\",\n    )\n)\n\nSetup the edges:\n\nfrom_id = np.array(\n    [1, 2, 3, 4, 4, 5, 6, 8, 7, 9, 11, 12, 4, 13, 15, 16, 10], dtype=np.int64\n)\nto_id = np.array(\n    [2, 3, 4, 5, 8, 6, 7, 9, 9, 10, 12, 3, 13, 14, 6, 1, 17], dtype=np.int64\n)\nlines = ribasim.utils.geometry_from_connectivity(node, from_id, to_id)\nedge = ribasim.Edge(\n    static=gpd.GeoDataFrame(\n        data={\n            \"from_node_id\": from_id,\n            \"to_node_id\": to_id,\n            \"edge_type\": len(from_id) * [\"flow\"],\n        },\n        geometry=lines,\n        crs=\"EPSG:28992\",\n    )\n)\n\nSetup the basins:\n\nprofile = pd.DataFrame(\n    data={\n        \"node_id\": [1, 1, 3, 3, 6, 6, 9, 9],\n        \"storage\": [0.0, 500.0] * 4,\n        \"area\": [0.0, 1000.0] * 4,\n        \"level\": [0.0, 1.0] * 4,\n    }\n)\n\n# Convert steady forcing to m/s\n# 2 mm/d precipitation, 1 mm/d evaporation\nseconds_in_day = 24 * 3600\nprecipitation = 0.002 / seconds_in_day\nevaporation = 0.001 / seconds_in_day\n\nstatic = pd.DataFrame(\n    data={\n        \"node_id\": [0],\n        \"drainage\": [0.0],\n        \"potential_evaporation\": [evaporation],\n        \"infiltration\": [0.0],\n        \"precipitation\": [precipitation],\n        \"urban_runoff\": [0.0],\n    }\n)\nstatic = static.iloc[[0, 0, 0, 0]]\nstatic[\"node_id\"] = [1, 3, 6, 9]\n\nbasin = ribasim.Basin(profile=profile, static=static)\n\nSetup linear resistance:\n\nlinear_resistance = ribasim.LinearResistance(\n    static=pd.DataFrame(\n        data={\"node_id\": [10, 12], \"resistance\": [5e3, (3600.0 * 24) / 100.0]}\n    )\n)\n\nSetup Manning resistance:\n\nmanning_resistance = ribasim.ManningResistance(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [2],\n            \"length\": [900.0],\n            \"manning_n\": [0.04],\n            \"profile_width\": [6.0],\n            \"profile_slope\": [3.0],\n        }\n    )\n)\n\nSet up a rating curve node:\n\n# Discharge: lose 1% of storage volume per day at storage = 1000.0.\nq1000 = 1000.0 * 0.01 / seconds_in_day\n\nrating_curve = ribasim.TabulatedRatingCurve(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [4, 4],\n            \"level\": [0.0, 1.0],\n            \"discharge\": [0.0, q1000],\n        }\n    )\n)\n\nSetup fractional flows:\n\nfractional_flow = ribasim.FractionalFlow(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [5, 8, 13],\n            \"fraction\": [0.3, 0.6, 0.1],\n        }\n    )\n)\n\nSetup pump:\n\npump = ribasim.Pump(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [7],\n            \"flow_rate\": [0.5 / 3600],\n        }\n    )\n)\n\nSetup level boundary:\n\nlevel_boundary = ribasim.LevelBoundary(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [11, 17],\n            \"level\": [0.5, 1.5],\n        }\n    )\n)\n\nSetup flow boundary:\n\nflow_boundary = ribasim.FlowBoundary(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [15, 16],\n            \"flow_rate\": [-1e-4, 1e-4],\n        }\n    )\n)\n\nSetup terminal:\n\nterminal = ribasim.Terminal(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [14],\n        }\n    )\n)\n\nSetup a model:\n\nmodel = ribasim.Model(\n    modelname=\"basic\",\n    node=node,\n    edge=edge,\n    basin=basin,\n    level_boundary=level_boundary,\n    flow_boundary=flow_boundary,\n    pump=pump,\n    linear_resistance=linear_resistance,\n    manning_resistance=manning_resistance,\n    tabulated_rating_curve=rating_curve,\n    fractional_flow=fractional_flow,\n    terminal=terminal,\n    starttime=\"2020-01-01 00:00:00\",\n    endtime=\"2021-01-01 00:00:00\",\n)\n\nLet’s take a look at the model:\n\nmodel.plot()\n\n&lt;Axes: &gt;\n\n\n\n\n\nWrite the model to a TOML and GeoPackage:\n\ndatadir = Path(\"data\")\nmodel.write(datadir / \"basic\")\n\n\n\n2 Update the basic model with transient forcing\nThis assumes you have already created the basic model with static forcing.\n\nimport numpy as np\nimport pandas as pd\nimport xarray as xr\n\nimport ribasim\n\n\nmodel = ribasim.Model.from_toml(datadir / \"basic/basic.toml\")\n\n\ntime = pd.date_range(model.starttime, model.endtime)\nday_of_year = time.day_of_year.to_numpy()\nseconds_per_day = 24 * 60 * 60\nevaporation = (\n    (-1.0 * np.cos(day_of_year / 365.0 * 2 * np.pi) + 1.0) * 0.0025 / seconds_per_day\n)\nrng = np.random.default_rng(seed=0)\nprecipitation = (\n    rng.lognormal(mean=-1.0, sigma=1.7, size=time.size) * 0.001 / seconds_per_day\n)\n\nWe’ll use xarray to easily broadcast the values.\n\ntimeseries = (\n    pd.DataFrame(\n        data={\n            \"node_id\": 1,\n            \"time\": time,\n            \"drainage\": 0.0,\n            \"potential_evaporation\": evaporation,\n            \"infiltration\": 0.0,\n            \"precipitation\": precipitation,\n            \"urban_runoff\": 0.0,\n        }\n    )\n    .set_index(\"time\")\n    .to_xarray()\n)\n\nbasin_ids = model.basin.static[\"node_id\"].to_numpy()\nbasin_nodes = xr.DataArray(\n    np.ones(len(basin_ids)), coords={\"node_id\": basin_ids}, dims=[\"node_id\"]\n)\nforcing = (timeseries * basin_nodes).to_dataframe().reset_index()\n\n\nstate = pd.DataFrame(\n    data={\n        \"node_id\": basin_ids,\n        \"storage\": 1000.0,\n        \"concentration\": 0.0,\n    }\n)\n\n\nmodel.basin.forcing = forcing\nmodel.basin.state = state\n\n\nmodel.modelname = \"basic-transient\"\nmodel.write(datadir / \"basic-transient\")\n\nNow run the model with ribasim basic-transient/basic.toml. After running the model, read back the output:\n\ndf_basin = pd.read_feather(datadir / \"basic-transient/output/basin.arrow\")\ndf_basin_wide = df_basin.pivot_table(\n    index=\"time\", columns=\"node_id\", values=[\"storage\", \"level\"]\n)\ndf_basin_wide[\"level\"].plot()\n\n&lt;Axes: xlabel='time'&gt;\n\n\n\n\n\n\ndf_flow = pd.read_feather(datadir / \"basic-transient/output/flow.arrow\")\ndf_flow[\"edge\"] = list(zip(df_flow.from_node_id, df_flow.to_node_id))\ndf_flow[\"flow_m3d\"] = df_flow.flow * 86400\nax = df_flow.pivot_table(index=\"time\", columns=\"edge\", values=\"flow_m3d\").plot()\nax.legend(bbox_to_anchor=(1.3, 1), title=\"Edge\")\n\n&lt;matplotlib.legend.Legend at 0x7f52d9f9fa90&gt;\n\n\n\n\n\n\ntype(df_flow)\n\npandas.core.frame.DataFrame\n\n\n\n\n3 Model with control\nSet up the nodes:\n\nxy = np.array(\n    [\n        (0.0, 0.0),  # 1: Basin\n        (1.0, -1.0),  # 2: LinearResistance\n        (2.0, 0.0),  # 3: Basin\n        (1.0, 0.0),  # 4: Pump\n        (1.0, 1.0),  # 5: Control\n    ]\n)\n\nnode_xy = gpd.points_from_xy(x=xy[:, 0], y=xy[:, 1])\n\nnode_type = [\n    \"Basin\",\n    \"LinearResistance\",\n    \"Basin\",\n    \"Pump\",\n    \"Control\",\n]\n\n# Make sure the feature id starts at 1: explicitly give an index.\nnode = ribasim.Node(\n    static=gpd.GeoDataFrame(\n        data={\"type\": node_type},\n        index=pd.Index(np.arange(len(xy)) + 1, name=\"fid\"),\n        geometry=node_xy,\n        crs=\"EPSG:28992\",\n    )\n)\n\nSetup the edges:\n\nfrom_id = np.array([1, 2, 1, 4, 5], dtype=np.int64)\nto_id = np.array([2, 3, 4, 3, 4], dtype=np.int64)\n\n# Note: currently only controlling pumps is supported in the Julia core\nedge_type = 4 * [\"flow\"] + [\"control\"]\n\nlines = ribasim.utils.geometry_from_connectivity(node, from_id, to_id)\nedge = ribasim.Edge(\n    static=gpd.GeoDataFrame(\n        data={\"from_node_id\": from_id, \"to_node_id\": to_id, \"edge_type\": edge_type},\n        geometry=lines,\n        crs=\"EPSG:28992\",\n    )\n)\n\nSetup the basins:\n\nprofile = pd.DataFrame(\n    data={\n        \"node_id\": [1, 1, 3, 3],\n        \"storage\": [0.0, 100.0] * 2,\n        \"area\": [100.0, 100.0] * 2,\n        \"level\": [0.0, 1.0] * 2,\n    }\n)\n\nstatic = pd.DataFrame(\n    data={\n        \"node_id\": [1, 3],\n        \"drainage\": [0.0] * 2,\n        \"potential_evaporation\": [0.0] * 2,\n        \"infiltration\": [0.0] * 2,\n        \"precipitation\": [0.0] * 2,\n        \"urban_runoff\": [0.0] * 2,\n    }\n)\n\nstate = pd.DataFrame(data={\"node_id\": [1, 3], \"storage\": [100.0, 0.0]})\n\nbasin = ribasim.Basin(profile=profile, static=static, state=state)\n\nSetup the control:\n\ncondition = pd.DataFrame(\n    data={\n        \"node_id\": [5, 5],\n        \"listen_node_id\": [1, 3],\n        \"variable\": [\"level\", \"level\"],\n        \"greater_than\": [0.8, 0.4],\n    }\n)\n\n# False, False -&gt; \"on\"\n# True,  False -&gt; \"off\"\n# False, True  -&gt; \"off\"\n# True,  True  -&gt; \"On\"\n\n# Truth state as subset of the conditions above and in that order\n\nlogic = pd.DataFrame(\n    data={\n        \"node_id\": [5, 5, 5, 5],\n        \"truth_state\": [\"FF\", \"TF\", \"FT\", \"TT\"],\n        \"control_state\": [\"on\", \"off\", \"off\", \"on\"],\n    }\n)\n\ncontrol = ribasim.Control(condition=condition, logic=logic)\n\nSetup the pump:\n\npump = ribasim.Pump(\n    static=pd.DataFrame(\n        data={\n            \"control_state\": [\"off\", \"on\"],\n            \"node_id\": [4, 4],\n            \"flow_rate\": [0.0, 1e-5],\n        }\n    )\n)\n\nSetup the linear resistance:\n\nlinear_resistance = ribasim.LinearResistance(\n    static=pd.DataFrame(\n        data={\n            \"node_id\": [2],\n            \"resistance\": [1e5],\n        }\n    )\n)\n\nSetup a model:\n\nmodel = ribasim.Model(\n    modelname=\"control\",\n    node=node,\n    edge=edge,\n    basin=basin,\n    linear_resistance=linear_resistance,\n    pump=pump,\n    control=control,\n    starttime=\"2020-01-01 00:00:00\",\n    endtime=\"2021-01-01 00:00:00\",\n)\n\nLet’s take a look at the model:\n\nmodel.plot()\n\n&lt;Axes: &gt;\n\n\n\n\n\nListen edges are plotted with a dashed line since they are not present in the “Edge / static” schema but only in the “Control / condition” schema.\n\ndatadir = Path(\"data\")\nmodel.write(datadir / \"control\")\n\n\nfrom matplotlib.dates import date2num\n\ndf_basin = pd.read_feather(datadir / \"control/output/basin.arrow\")\ndf_basin_wide = df_basin.pivot_table(\n    index=\"time\", columns=\"node_id\", values=[\"storage\", \"level\"]\n)\n\nax = df_basin_wide[\"level\"].plot()\n\nax.hlines(\n    model.control.condition.greater_than,\n    df_basin.time[0],\n    df_basin.time.max(),\n    lw=1,\n    ls=\":\",\n    color=[\"C0\", \"C1\"],\n)\n\ndf_control = pd.read_feather(datadir / \"control/output/control.arrow\")\n\nax.vlines(df_control.time, 0, 1, lw=1, ls=\":\", color=\"k\")\nax.set_xticks(\n    list(ax.get_xticks()) + date2num(df_control.time).tolist(),\n    list(ax.get_xticklabels()) + df_control.control_state.tolist(),\n    rotation=50,\n);\n\n\n\n\nLet’s print an overview of what happened with control:\n\nmodel.print_control_record(datadir / \"control/output/control.arrow\")\n\n0. At 2020-01-01 00:00:00 the control node with ID 5 reached truth state TF:\n    For node ID 1 (Basin): level &gt; 0.8\n    For node ID 3 (Basin): level &lt; 0.4\n\n   This yielded control state \"off\":\n    For node ID 4 (Pump): flow_rate = 0.0\n\n1. At 2020-01-30 12:07:44.413000 the control node with ID 5 reached truth state FF:\n    For node ID 1 (Basin): level &lt; 0.8\n    For node ID 3 (Basin): level &lt; 0.4\n\n   This yielded control state \"on\":\n    For node ID 4 (Pump): flow_rate = 1e-05\n\n2. At 2020-02-16 04:47:34.025000 the control node with ID 5 reached truth state FT:\n    For node ID 1 (Basin): level &lt; 0.8\n    For node ID 3 (Basin): level &gt; 0.4\n\n   This yielded control state \"off\":\n    For node ID 4 (Pump): flow_rate = 0.0"
+  },
+  {
+    "objectID": "python/reference/LevelBoundary.html",
+    "href": "python/reference/LevelBoundary.html",
+    "title": "1 LevelBoundary",
+    "section": "",
+    "text": "LevelBoundary(self, static)\nStores water at a given level unaffected by flow, like an infinitely large basin.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npandas.DataFrame\nTable with the constant water levels.\nrequired"
+  },
+  {
+    "objectID": "python/reference/LevelBoundary.html#parameters",
+    "href": "python/reference/LevelBoundary.html#parameters",
+    "title": "1 LevelBoundary",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npandas.DataFrame\nTable with the constant water levels.\nrequired"
+  },
+  {
+    "objectID": "python/reference/Basin.html",
+    "href": "python/reference/Basin.html",
+    "title": "1 Basin",
+    "section": "",
+    "text": "Basin()\nInput for a (sub-)basin: an area of land where all flowing surface water converges to a single point.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nprofile\npandas.DataFrame\nTable describing the geometry.\nrequired\n\n\nstatic\npandas.DataFrame, optional\nTable describing the constant fluxes.\nrequired\n\n\nforcing\npandas.DataFrame, optional\nTable describing the time-varying fluxes.\nrequired\n\n\nstate\npandas.DataFrame, optional\nTable describing the initial condition.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nBasin.sort(self)"
+  },
+  {
+    "objectID": "python/reference/Basin.html#parameters",
+    "href": "python/reference/Basin.html#parameters",
+    "title": "1 Basin",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nprofile\npandas.DataFrame\nTable describing the geometry.\nrequired\n\n\nstatic\npandas.DataFrame, optional\nTable describing the constant fluxes.\nrequired\n\n\nforcing\npandas.DataFrame, optional\nTable describing the time-varying fluxes.\nrequired\n\n\nstate\npandas.DataFrame, optional\nTable describing the initial condition.\nrequired"
+  },
+  {
+    "objectID": "python/reference/Basin.html#methods",
+    "href": "python/reference/Basin.html#methods",
+    "title": "1 Basin",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nBasin.sort(self)"
+  },
+  {
+    "objectID": "python/reference/index.html",
+    "href": "python/reference/index.html",
+    "title": "1 API Reference",
+    "section": "",
+    "text": "The Model class represents an entire Ribasim model.\n\n\n\nModel\nA full Ribasim model schematisation with all input.\n\n\n\n\n\n\nThe Node and Edge GeoPackage layers define the network layout.\n\n\n\nNode\nThe Ribasim nodes as Point geometries.\n\n\nEdge\nDefines the connections between nodes.\n\n\n\n\n\n\nAvailable node types to model different situations.\n\n\n\nBasin\nInput for a (sub-)basin: an area of land where all flowing surface water\n\n\nFractionalFlow\nReceives a fraction of the flow. The fractions must sum to 1.0 for a furcation.\n\n\nLevelBoundary\nStores water at a given level unaffected by flow, like an infinitely large basin.\n\n\nLinearResistance\nFlow through this connection linearly depends on the level difference\n\n\nManningResistance\nFlow through this connection is estimated by conservation of energy and the\n\n\nPump\nPump water from a source node to a destination node.\n\n\nTabulatedRatingCurve\nLinearly interpolates discharge between a tabulation of level and discharge.\n\n\n\n\n\n\nCollection of utility functions.\n\n\n\nutils.geometry_from_connectivity\nCreate edge shapely geometries from connectivities.\n\n\nutils.connectivity_from_geometry\nDerive from_node_id and to_node_id for every edge in lines. LineStrings"
+  },
+  {
+    "objectID": "python/reference/index.html#model",
+    "href": "python/reference/index.html#model",
+    "title": "1 API Reference",
+    "section": "",
+    "text": "The Model class represents an entire Ribasim model.\n\n\n\nModel\nA full Ribasim model schematisation with all input."
+  },
+  {
+    "objectID": "python/reference/index.html#network",
+    "href": "python/reference/index.html#network",
+    "title": "1 API Reference",
+    "section": "",
+    "text": "The Node and Edge GeoPackage layers define the network layout.\n\n\n\nNode\nThe Ribasim nodes as Point geometries.\n\n\nEdge\nDefines the connections between nodes."
+  },
+  {
+    "objectID": "python/reference/index.html#node-types",
+    "href": "python/reference/index.html#node-types",
+    "title": "1 API Reference",
+    "section": "",
+    "text": "Available node types to model different situations.\n\n\n\nBasin\nInput for a (sub-)basin: an area of land where all flowing surface water\n\n\nFractionalFlow\nReceives a fraction of the flow. The fractions must sum to 1.0 for a furcation.\n\n\nLevelBoundary\nStores water at a given level unaffected by flow, like an infinitely large basin.\n\n\nLinearResistance\nFlow through this connection linearly depends on the level difference\n\n\nManningResistance\nFlow through this connection is estimated by conservation of energy and the\n\n\nPump\nPump water from a source node to a destination node.\n\n\nTabulatedRatingCurve\nLinearly interpolates discharge between a tabulation of level and discharge."
+  },
+  {
+    "objectID": "python/reference/index.html#utility-functions",
+    "href": "python/reference/index.html#utility-functions",
+    "title": "1 API Reference",
+    "section": "",
+    "text": "Collection of utility functions.\n\n\n\nutils.geometry_from_connectivity\nCreate edge shapely geometries from connectivities.\n\n\nutils.connectivity_from_geometry\nDerive from_node_id and to_node_id for every edge in lines. LineStrings"
+  },
+  {
+    "objectID": "python/reference/TabulatedRatingCurve.html",
+    "href": "python/reference/TabulatedRatingCurve.html",
+    "title": "1 TabulatedRatingCurve",
+    "section": "",
+    "text": "TabulatedRatingCurve()\nLinearly interpolates discharge between a tabulation of level and discharge.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with constant rating curves.\nrequired\n\n\ntime\npandas.DataFrame, optional\nTable with time-varying rating curves.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nTabulatedRatingCurve.sort(self)"
+  },
+  {
+    "objectID": "python/reference/TabulatedRatingCurve.html#parameters",
+    "href": "python/reference/TabulatedRatingCurve.html#parameters",
+    "title": "1 TabulatedRatingCurve",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with constant rating curves.\nrequired\n\n\ntime\npandas.DataFrame, optional\nTable with time-varying rating curves.\nrequired"
+  },
+  {
+    "objectID": "python/reference/TabulatedRatingCurve.html#methods",
+    "href": "python/reference/TabulatedRatingCurve.html#methods",
+    "title": "1 TabulatedRatingCurve",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nTabulatedRatingCurve.sort(self)"
+  },
+  {
+    "objectID": "python/reference/utils.geometry_from_connectivity.html",
+    "href": "python/reference/utils.geometry_from_connectivity.html",
+    "title": "1 utils.geometry_from_connectivity",
+    "section": "",
+    "text": "utils.geometry_from_connectivity(node, from_id, to_id)\nCreate edge shapely geometries from connectivities.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nnode\nRibasim.Node\n\nrequired\n\n\nfrom_id\nSequence[int]\nFirst node of every edge.\nrequired\n\n\nto_id\nSequence[int]\nSecond node of every edge.\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nnp.ndarray\nArray of shapely LineStrings."
+  },
+  {
+    "objectID": "python/reference/utils.geometry_from_connectivity.html#parameters",
+    "href": "python/reference/utils.geometry_from_connectivity.html#parameters",
+    "title": "1 utils.geometry_from_connectivity",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nnode\nRibasim.Node\n\nrequired\n\n\nfrom_id\nSequence[int]\nFirst node of every edge.\nrequired\n\n\nto_id\nSequence[int]\nSecond node of every edge.\nrequired"
+  },
+  {
+    "objectID": "python/reference/utils.geometry_from_connectivity.html#returns",
+    "href": "python/reference/utils.geometry_from_connectivity.html#returns",
+    "title": "1 utils.geometry_from_connectivity",
+    "section": "",
+    "text": "Type\nDescription\n\n\n\n\nnp.ndarray\nArray of shapely LineStrings."
+  },
+  {
+    "objectID": "python/reference/Pump.html",
+    "href": "python/reference/Pump.html",
+    "title": "1 Pump",
+    "section": "",
+    "text": "Pump()\nPump water from a source node to a destination node. The set flow rate will be pumped unless the intake storage is less than 10m3, in which case the flow rate will be linearly reduced to 0 m3/s. A negative flow rate means pumping against the edge direction. Note that the intake must always be a Basin.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with constant flow rates.\nrequired"
+  },
+  {
+    "objectID": "python/reference/Pump.html#parameters",
+    "href": "python/reference/Pump.html#parameters",
+    "title": "1 Pump",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with constant flow rates.\nrequired"
+  },
+  {
+    "objectID": "python/reference/ManningResistance.html",
+    "href": "python/reference/ManningResistance.html",
+    "title": "1 ManningResistance",
+    "section": "",
+    "text": "ManningResistance(self, static)\nFlow through this connection is estimated by conservation of energy and the Manning-Gauckler formula to estimate friction losses.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with the constant Manning parameters.\nrequired"
+  },
+  {
+    "objectID": "python/reference/ManningResistance.html#parameters",
+    "href": "python/reference/ManningResistance.html#parameters",
+    "title": "1 ManningResistance",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with the constant Manning parameters.\nrequired"
+  },
+  {
+    "objectID": "python/reference/LinearResistance.html",
+    "href": "python/reference/LinearResistance.html",
+    "title": "1 LinearResistance",
+    "section": "",
+    "text": "LinearResistance()\nFlow through this connection linearly depends on the level difference between the two connected basins.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with the constant resistances.\nrequired"
+  },
+  {
+    "objectID": "python/reference/LinearResistance.html#parameters",
+    "href": "python/reference/LinearResistance.html#parameters",
+    "title": "1 LinearResistance",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npd.DataFrame\nTable with the constant resistances.\nrequired"
+  },
+  {
+    "objectID": "python/reference/Edge.html",
+    "href": "python/reference/Edge.html",
+    "title": "1 Edge",
+    "section": "",
+    "text": "Edge()\nDefines the connections between nodes.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npandas.DataFrame\nTable describing the flow connections.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nget_where_edge_type\n\n\n\nplot\n\n\n\nsort\n\n\n\nwrite\nWrite the contents of the input to a GeoPackage.\n\n\n\n\n\nEdge.get_where_edge_type(self, edge_type)\n\n\n\nEdge.plot(self, **kwargs)\n\n\n\nEdge.sort(self)\n\n\n\nEdge.write(self, directory, modelname)\nWrite the contents of the input to a GeoPackage.\nThe Geopackage will be written in directory and will be be named {modelname}.gpkg.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired\n\n\nmodelname\nstr\n\nrequired"
+  },
+  {
+    "objectID": "python/reference/Edge.html#parameters",
+    "href": "python/reference/Edge.html#parameters",
+    "title": "1 Edge",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npandas.DataFrame\nTable describing the flow connections.\nrequired"
+  },
+  {
+    "objectID": "python/reference/Edge.html#methods",
+    "href": "python/reference/Edge.html#methods",
+    "title": "1 Edge",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nget_where_edge_type\n\n\n\nplot\n\n\n\nsort\n\n\n\nwrite\nWrite the contents of the input to a GeoPackage.\n\n\n\n\n\nEdge.get_where_edge_type(self, edge_type)\n\n\n\nEdge.plot(self, **kwargs)\n\n\n\nEdge.sort(self)\n\n\n\nEdge.write(self, directory, modelname)\nWrite the contents of the input to a GeoPackage.\nThe Geopackage will be written in directory and will be be named {modelname}.gpkg.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired\n\n\nmodelname\nstr\n\nrequired"
+  },
+  {
+    "objectID": "python/reference/utils.connectivity_from_geometry.html",
+    "href": "python/reference/utils.connectivity_from_geometry.html",
+    "title": "1 utils.connectivity_from_geometry",
+    "section": "",
+    "text": "utils.connectivity_from_geometry(node, lines)\nDerive from_node_id and to_node_id for every edge in lines. LineStrings may be used to connect multiple nodes in a sequence, but every linestring vertex must also a node.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nnode\nNode\n\nrequired\n\n\nlines\nnp.ndarray\nArray of shapely linestrings.\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nnp.ndarray of int\n\n\n\nnp.ndarray of int"
+  },
+  {
+    "objectID": "python/reference/utils.connectivity_from_geometry.html#parameters",
+    "href": "python/reference/utils.connectivity_from_geometry.html#parameters",
+    "title": "1 utils.connectivity_from_geometry",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nnode\nNode\n\nrequired\n\n\nlines\nnp.ndarray\nArray of shapely linestrings.\nrequired"
+  },
+  {
+    "objectID": "python/reference/utils.connectivity_from_geometry.html#returns",
+    "href": "python/reference/utils.connectivity_from_geometry.html#returns",
+    "title": "1 utils.connectivity_from_geometry",
+    "section": "",
+    "text": "Type\nDescription\n\n\n\n\nnp.ndarray of int\n\n\n\nnp.ndarray of int"
+  },
+  {
+    "objectID": "python/reference/FractionalFlow.html",
+    "href": "python/reference/FractionalFlow.html",
+    "title": "1 FractionalFlow",
+    "section": "",
+    "text": "FractionalFlow()\nReceives a fraction of the flow. The fractions must sum to 1.0 for a furcation.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\npandas.DataFrame\nTable with the constant flow fractions.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nFractionalFlow.sort(self)"
+  },
+  {
+    "objectID": "python/reference/FractionalFlow.html#parameters",
+    "href": "python/reference/FractionalFlow.html#parameters",
+    "title": "1 FractionalFlow",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\npandas.DataFrame\nTable with the constant flow fractions.\nrequired"
+  },
+  {
+    "objectID": "python/reference/FractionalFlow.html#methods",
+    "href": "python/reference/FractionalFlow.html#methods",
+    "title": "1 FractionalFlow",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nsort\n\n\n\n\n\n\nFractionalFlow.sort(self)"
+  },
+  {
+    "objectID": "python/reference/Model.html",
+    "href": "python/reference/Model.html",
+    "title": "1 Model",
+    "section": "",
+    "text": "Model()\nA full Ribasim model schematisation with all input.\nRibasim model containing the location of the nodes, the edges between the nodes, and the node parametrization.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nmodelname\nstr\nModel name, used in TOML and GeoPackage file name.\nrequired\n\n\nnode\nNode\nThe ID, type and geometry of each node.\nrequired\n\n\nedge\nEdge\nHow the nodes are connected.\nrequired\n\n\nbasin\nBasin\nThe waterbodies.\nrequired\n\n\nfractional_flow\nOptional[FractionalFlow]\nSplit flows into fractions.\nrequired\n\n\nlevel_boundary\nOptional[LevelBoundary]\nBoundary condition specifying the water level.\nrequired\n\n\nflow_boundary\nOptional[FlowBoundary]\nBoundary conditions specifying the flow.\nrequired\n\n\nlinear_resistance\n\nLinear flow resistance.\nrequired\n\n\nmanning_resistance\nOptional[ManningResistance]\nFlow resistance based on the Manning formula.\nrequired\n\n\ntabulated_rating_curve\nOptional[TabulatedRatingCurve]\nTabulated rating curve describing flow based on the upstream water level.\nrequired\n\n\npump\nOptional[Pump]\nPrescribed flow rate from one basin to the other.\nrequired\n\n\nterminal\nOptional[Terminal]\nWater sink without state or properties.\nrequired\n\n\ncontrol\nOptional[Control]\nControl logic.\nrequired\n\n\nstarttime\nUnion[str, datetime.datetime]\nStarting time of the simulation.\nrequired\n\n\nendtime\nUnion[str, datetime.datetime]\nEnd time of the simulation.\nrequired\n\n\nsolver\nOptional[Solver]\nSolver settings.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nfields\nReturns the names of the fields contained in the Model.\n\n\nfrom_toml\nInitialize a model from the TOML configuration file.\n\n\nget_node_types\n\n\n\nplot\nPlot the nodes and edges of the model.\n\n\nplot_control_listen\n\n\n\nprint_control_record\n\n\n\nsort\nSort all input tables as required.\n\n\nvalidate_model\nChecks:\n\n\nvalidate_model_node_IDs\nChecks whether the node IDs in the node field correspond to the node IDs on the node type fields\n\n\nvalidate_model_node_field_IDs\nChecks whether the node IDs of the node_type fields are valid\n\n\nvalidate_model_node_types\nChecks whether all node types in the node field are valid\n\n\nwrite\nWrite the contents of the model to a GeoPackage and a TOML\n\n\n\n\n\nModel.fields(cls)\nReturns the names of the fields contained in the Model.\n\n\n\nModel.from_toml(path)\nInitialize a model from the TOML configuration file.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npath\nFilePath\nPath to the configuration TOML file.\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nModel\n\n\n\n\n\n\n\n\nModel.get_node_types()\n\n\n\nModel.plot(self, ax=None)\nPlot the nodes and edges of the model.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nax\nmatplotlib.pyplot.Artist, optional\nAxes on which to draw the plot.\nNone\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nmatplotlib.pyplot.Artist\n\n\n\n\n\n\n\n\nModel.plot_control_listen(self, ax)\n\n\n\nModel.print_control_record(self, path)\n\n\n\nModel.sort(self)\nSort all input tables as required. Tables are sorted by “node_id”, unless otherwise specified. Sorting is done automatically before writing the table.\n\n\n\nModel.validate_model(self)\nChecks: - Whether all node types in the node field are valid - Whether the node IDs of the node_type fields are valid - Whether the node IDs in the node field correspond to the node IDs on the node type fields\n\n\n\nModel.validate_model_node_IDs(self)\nChecks whether the node IDs in the node field correspond to the node IDs on the node type fields\n\n\n\nModel.validate_model_node_field_IDs(self)\nChecks whether the node IDs of the node_type fields are valid\n\n\n\nModel.validate_model_node_types(self)\nChecks whether all node types in the node field are valid\n\n\n\nModel.write(self, directory)\nWrite the contents of the model to a GeoPackage and a TOML configuration file.\nIf directory does not exist, it is created before writing. The GeoPackage and TOML file will be called {modelname}.gpkg and {modelname}.toml respectively.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired"
+  },
+  {
+    "objectID": "python/reference/Model.html#parameters",
+    "href": "python/reference/Model.html#parameters",
+    "title": "1 Model",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nmodelname\nstr\nModel name, used in TOML and GeoPackage file name.\nrequired\n\n\nnode\nNode\nThe ID, type and geometry of each node.\nrequired\n\n\nedge\nEdge\nHow the nodes are connected.\nrequired\n\n\nbasin\nBasin\nThe waterbodies.\nrequired\n\n\nfractional_flow\nOptional[FractionalFlow]\nSplit flows into fractions.\nrequired\n\n\nlevel_boundary\nOptional[LevelBoundary]\nBoundary condition specifying the water level.\nrequired\n\n\nflow_boundary\nOptional[FlowBoundary]\nBoundary conditions specifying the flow.\nrequired\n\n\nlinear_resistance\n\nLinear flow resistance.\nrequired\n\n\nmanning_resistance\nOptional[ManningResistance]\nFlow resistance based on the Manning formula.\nrequired\n\n\ntabulated_rating_curve\nOptional[TabulatedRatingCurve]\nTabulated rating curve describing flow based on the upstream water level.\nrequired\n\n\npump\nOptional[Pump]\nPrescribed flow rate from one basin to the other.\nrequired\n\n\nterminal\nOptional[Terminal]\nWater sink without state or properties.\nrequired\n\n\ncontrol\nOptional[Control]\nControl logic.\nrequired\n\n\nstarttime\nUnion[str, datetime.datetime]\nStarting time of the simulation.\nrequired\n\n\nendtime\nUnion[str, datetime.datetime]\nEnd time of the simulation.\nrequired\n\n\nsolver\nOptional[Solver]\nSolver settings.\nrequired"
+  },
+  {
+    "objectID": "python/reference/Model.html#methods",
+    "href": "python/reference/Model.html#methods",
+    "title": "1 Model",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nfields\nReturns the names of the fields contained in the Model.\n\n\nfrom_toml\nInitialize a model from the TOML configuration file.\n\n\nget_node_types\n\n\n\nplot\nPlot the nodes and edges of the model.\n\n\nplot_control_listen\n\n\n\nprint_control_record\n\n\n\nsort\nSort all input tables as required.\n\n\nvalidate_model\nChecks:\n\n\nvalidate_model_node_IDs\nChecks whether the node IDs in the node field correspond to the node IDs on the node type fields\n\n\nvalidate_model_node_field_IDs\nChecks whether the node IDs of the node_type fields are valid\n\n\nvalidate_model_node_types\nChecks whether all node types in the node field are valid\n\n\nwrite\nWrite the contents of the model to a GeoPackage and a TOML\n\n\n\n\n\nModel.fields(cls)\nReturns the names of the fields contained in the Model.\n\n\n\nModel.from_toml(path)\nInitialize a model from the TOML configuration file.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npath\nFilePath\nPath to the configuration TOML file.\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nModel\n\n\n\n\n\n\n\n\nModel.get_node_types()\n\n\n\nModel.plot(self, ax=None)\nPlot the nodes and edges of the model.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nax\nmatplotlib.pyplot.Artist, optional\nAxes on which to draw the plot.\nNone\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nmatplotlib.pyplot.Artist\n\n\n\n\n\n\n\n\nModel.plot_control_listen(self, ax)\n\n\n\nModel.print_control_record(self, path)\n\n\n\nModel.sort(self)\nSort all input tables as required. Tables are sorted by “node_id”, unless otherwise specified. Sorting is done automatically before writing the table.\n\n\n\nModel.validate_model(self)\nChecks: - Whether all node types in the node field are valid - Whether the node IDs of the node_type fields are valid - Whether the node IDs in the node field correspond to the node IDs on the node type fields\n\n\n\nModel.validate_model_node_IDs(self)\nChecks whether the node IDs in the node field correspond to the node IDs on the node type fields\n\n\n\nModel.validate_model_node_field_IDs(self)\nChecks whether the node IDs of the node_type fields are valid\n\n\n\nModel.validate_model_node_types(self)\nChecks whether all node types in the node field are valid\n\n\n\nModel.write(self, directory)\nWrite the contents of the model to a GeoPackage and a TOML configuration file.\nIf directory does not exist, it is created before writing. The GeoPackage and TOML file will be called {modelname}.gpkg and {modelname}.toml respectively.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired"
+  },
+  {
+    "objectID": "python/reference/Node.html",
+    "href": "python/reference/Node.html",
+    "title": "1 Node",
+    "section": "",
+    "text": "Node()\nThe Ribasim nodes as Point geometries.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nstatic\ngeopandas.GeoDataFrame\nTable with node ID, type and geometry.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nhasfid\n\n\n\nplot\nPlot the nodes. Each node type is given a separate marker.\n\n\nsort\n\n\n\nwrite\nWrite the contents of the input to a GeoPackage.\n\n\n\n\n\nNode.hasfid(cls)\n\n\n\nNode.plot(self, ax=None, zorder=None)\nPlot the nodes. Each node type is given a separate marker.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nax\nOptional\nThe axis on which the nodes will be plotted.\nNone\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nNone\n\n\n\n\n\n\n\n\nNode.sort(self)\n\n\n\nNode.write(self, directory, modelname)\nWrite the contents of the input to a GeoPackage.\nThe Geopackage will be written in directory and will be be named {modelname}.gpkg.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired\n\n\nmodelname\nstr\n\nrequired"
+  },
+  {
+    "objectID": "python/reference/Node.html#parameters",
+    "href": "python/reference/Node.html#parameters",
+    "title": "1 Node",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nstatic\ngeopandas.GeoDataFrame\nTable with node ID, type and geometry.\nrequired"
+  },
+  {
+    "objectID": "python/reference/Node.html#methods",
+    "href": "python/reference/Node.html#methods",
+    "title": "1 Node",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nhasfid\n\n\n\nplot\nPlot the nodes. Each node type is given a separate marker.\n\n\nsort\n\n\n\nwrite\nWrite the contents of the input to a GeoPackage.\n\n\n\n\n\nNode.hasfid(cls)\n\n\n\nNode.plot(self, ax=None, zorder=None)\nPlot the nodes. Each node type is given a separate marker.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nax\nOptional\nThe axis on which the nodes will be plotted.\nNone\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nNone\n\n\n\n\n\n\n\n\nNode.sort(self)\n\n\n\nNode.write(self, directory, modelname)\nWrite the contents of the input to a GeoPackage.\nThe Geopackage will be written in directory and will be be named {modelname}.gpkg.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndirectory\nFilePath\n\nrequired\n\n\nmodelname\nstr\n\nrequired"
   }
 ]
