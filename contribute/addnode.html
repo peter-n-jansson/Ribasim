@@ -362,7 +362,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="3"><span class="header-section-number">3</span> QGIS plugin</h1>
 <p>The script <code>qgis/core/nodes.py</code> has to be updated to specify how the new node type is displayed by the QGIS plugin. Specifically:</p>
 <ul>
-<li>Add <code>"NewNodeType: NewNodeType",</code> to the <code>"map"</code> dictionary in <code>Node.set_editor_widget</code>;</li>
 <li>Add a color and shape description in the <code>MARKERS</code> dictionary in <code>Node.renderer</code>, consistent with the entries added above;</li>
 <li>Add an input class per schema, e.g.</li>
 </ul>
@@ -373,7 +372,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        QgsField(<span class="st">"node_id"</span>, QVariant.Int)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Other fields for properties of this node</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>and add these to the NODES dictionary.</p>
 </section>
 <section id="tests" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Tests</h1>
