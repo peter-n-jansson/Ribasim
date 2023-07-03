@@ -163,10 +163,10 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.1</span> Parameters</h2>
 <table class="table">
 <colgroup>
-<col style="width: 17%">
-<col style="width: 23%">
-<col style="width: 51%">
-<col style="width: 7%">
+<col style="width: 13%">
+<col style="width: 42%">
+<col style="width: 38%">
+<col style="width: 5%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -203,19 +203,19 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td><code>fractional_flow</code></td>
-<td>Optional[FractionalFlow]</td>
+<td>typing.Optional[ribasim.node_types.fractional_flow.FractionalFlow]</td>
 <td>Split flows into fractions.</td>
 <td>required</td>
 </tr>
 <tr class="even">
 <td><code>level_boundary</code></td>
-<td>Optional[LevelBoundary]</td>
+<td>typing.Optional[ribasim.node_types.level_boundary.LevelBoundary]</td>
 <td>Boundary condition specifying the water level.</td>
 <td>required</td>
 </tr>
 <tr class="odd">
 <td><code>flow_boundary</code></td>
-<td>Optional[FlowBoundary]</td>
+<td>typing.Optional[ribasim.node_types.flow_boundary.FlowBoundary]</td>
 <td>Boundary conditions specifying the flow.</td>
 <td>required</td>
 </tr>
@@ -227,49 +227,49 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td><code>manning_resistance</code></td>
-<td>Optional[ManningResistance]</td>
+<td>typing.Optional[ribasim.node_types.manning_resistance.ManningResistance]</td>
 <td>Flow resistance based on the Manning formula.</td>
 <td>required</td>
 </tr>
 <tr class="even">
 <td><code>tabulated_rating_curve</code></td>
-<td>Optional[TabulatedRatingCurve]</td>
+<td>typing.Optional[ribasim.node_types.tabulated_rating_curve.TabulatedRatingCurve]</td>
 <td>Tabulated rating curve describing flow based on the upstream water level.</td>
 <td>required</td>
 </tr>
 <tr class="odd">
 <td><code>pump</code></td>
-<td>Optional[Pump]</td>
+<td>typing.Optional[ribasim.node_types.pump.Pump]</td>
 <td>Prescribed flow rate from one basin to the other.</td>
 <td>required</td>
 </tr>
 <tr class="even">
 <td><code>terminal</code></td>
-<td>Optional[Terminal]</td>
+<td>typing.Optional[ribasim.node_types.terminal.Terminal]</td>
 <td>Water sink without state or properties.</td>
 <td>required</td>
 </tr>
 <tr class="odd">
 <td><code>control</code></td>
-<td>Optional[Control]</td>
+<td>typing.Optional[ribasim.node_types.control.Control]</td>
 <td>Control logic.</td>
 <td>required</td>
 </tr>
 <tr class="even">
 <td><code>starttime</code></td>
-<td>Union[str, datetime.datetime]</td>
+<td>typing.Union[str, datetime.datetime]</td>
 <td>Starting time of the simulation.</td>
 <td>required</td>
 </tr>
 <tr class="odd">
 <td><code>endtime</code></td>
-<td>Union[str, datetime.datetime]</td>
+<td>typing.Union[str, datetime.datetime]</td>
 <td>End time of the simulation.</td>
 <td>required</td>
 </tr>
 <tr class="even">
 <td><code>solver</code></td>
-<td>Optional[Solver]</td>
+<td>typing.Optional[ribasim.model.Solver]</td>
 <td>Solver settings.</td>
 <td>required</td>
 </tr>
@@ -396,10 +396,10 @@ ul.task-list li input[type="checkbox"] {
 <h4 data-number="1.2.4.1" class="anchored" data-anchor-id="parameters-2"><span class="header-section-number">1.2.4.1</span> Parameters</h4>
 <table class="table">
 <colgroup>
-<col style="width: 9%">
-<col style="width: 40%">
-<col style="width: 37%">
-<col style="width: 12%">
+<col style="width: 10%">
+<col style="width: 33%">
+<col style="width: 42%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -412,7 +412,7 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><code>ax</code></td>
-<td>matplotlib.pyplot.Artist, optional</td>
+<td>matplotlib.pyplot.Artist</td>
 <td>Axes on which to draw the plot.</td>
 <td><code>None</code></td>
 </tr>
