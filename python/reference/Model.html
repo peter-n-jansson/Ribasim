@@ -163,9 +163,9 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.1</span> Parameters</h2>
 <table class="table">
 <colgroup>
-<col style="width: 13%">
-<col style="width: 42%">
+<col style="width: 12%">
 <col style="width: 38%">
+<col style="width: 43%">
 <col style="width: 5%">
 </colgroup>
 <thead>
@@ -252,22 +252,28 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td><code>control</code></td>
 <td>typing.Optional[ribasim.node_types.control.Control]</td>
-<td>Control logic.</td>
+<td>Discrete control logic.</td>
 <td>required</td>
 </tr>
 <tr class="even">
+<td><code>pid_control</code></td>
+<td>typing.Optional[ribasim.node_types.pid_control.PidControl]</td>
+<td>PID controller attempting to set the level of a basin to a desired value using a pump/weir.</td>
+<td>required</td>
+</tr>
+<tr class="odd">
 <td><code>starttime</code></td>
 <td>typing.Union[str, datetime.datetime]</td>
 <td>Starting time of the simulation.</td>
 <td>required</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>endtime</code></td>
 <td>typing.Union[str, datetime.datetime]</td>
 <td>End time of the simulation.</td>
 <td>required</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>solver</code></td>
 <td>typing.Optional[ribasim.model.Solver]</td>
 <td>Solver settings.</td>
