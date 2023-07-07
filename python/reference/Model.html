@@ -181,103 +181,103 @@ ul.task-list li input[type="checkbox"] {
 <td><code>modelname</code></td>
 <td>str</td>
 <td>Model name, used in TOML and GeoPackage file name.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="even">
 <td><code>node</code></td>
 <td>Node</td>
 <td>The ID, type and geometry of each node.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="odd">
 <td><code>edge</code></td>
 <td>Edge</td>
 <td>How the nodes are connected.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="even">
 <td><code>basin</code></td>
 <td>Basin</td>
 <td>The waterbodies.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="odd">
 <td><code>fractional_flow</code></td>
 <td>typing.Optional[ribasim.node_types.fractional_flow.FractionalFlow]</td>
 <td>Split flows into fractions.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="even">
 <td><code>level_boundary</code></td>
 <td>typing.Optional[ribasim.node_types.level_boundary.LevelBoundary]</td>
 <td>Boundary condition specifying the water level.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="odd">
 <td><code>flow_boundary</code></td>
 <td>typing.Optional[ribasim.node_types.flow_boundary.FlowBoundary]</td>
 <td>Boundary conditions specifying the flow.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="even">
 <td><code>linear_resistance</code></td>
 <td></td>
 <td>Linear flow resistance.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="odd">
 <td><code>manning_resistance</code></td>
 <td>typing.Optional[ribasim.node_types.manning_resistance.ManningResistance]</td>
 <td>Flow resistance based on the Manning formula.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="even">
 <td><code>tabulated_rating_curve</code></td>
 <td>typing.Optional[ribasim.node_types.tabulated_rating_curve.TabulatedRatingCurve]</td>
 <td>Tabulated rating curve describing flow based on the upstream water level.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="odd">
 <td><code>pump</code></td>
 <td>typing.Optional[ribasim.node_types.pump.Pump]</td>
 <td>Prescribed flow rate from one basin to the other.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="even">
 <td><code>terminal</code></td>
 <td>typing.Optional[ribasim.node_types.terminal.Terminal]</td>
 <td>Water sink without state or properties.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="odd">
 <td><code>control</code></td>
 <td>typing.Optional[ribasim.node_types.control.Control]</td>
 <td>Discrete control logic.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="even">
 <td><code>pid_control</code></td>
 <td>typing.Optional[ribasim.node_types.pid_control.PidControl]</td>
 <td>PID controller attempting to set the level of a basin to a desired value using a pump/weir.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="odd">
 <td><code>starttime</code></td>
 <td>typing.Union[str, datetime.datetime]</td>
 <td>Starting time of the simulation.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="even">
 <td><code>endtime</code></td>
 <td>typing.Union[str, datetime.datetime]</td>
 <td>End time of the simulation.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 <tr class="odd">
 <td><code>solver</code></td>
 <td>typing.Optional[ribasim.model.Solver]</td>
 <td>Solver settings.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 </tbody>
 </table>
@@ -354,6 +354,12 @@ ul.task-list li input[type="checkbox"] {
 <section id="parameters-1" class="level4" data-number="1.2.2.1">
 <h4 data-number="1.2.2.1" class="anchored" data-anchor-id="parameters-1"><span class="header-section-number">1.2.2.1</span> Parameters</h4>
 <table class="table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 55%">
+<col style="width: 17%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
@@ -367,7 +373,7 @@ ul.task-list li input[type="checkbox"] {
 <td><code>path</code></td>
 <td>FilePath</td>
 <td>Path to the configuration TOML file.</td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 </tbody>
 </table>
@@ -499,7 +505,7 @@ ul.task-list li input[type="checkbox"] {
 <td><code>directory</code></td>
 <td>FilePath</td>
 <td></td>
-<td>required</td>
+<td><em>required</em></td>
 </tr>
 </tbody>
 </table>
