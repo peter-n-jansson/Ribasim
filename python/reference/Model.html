@@ -137,7 +137,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#ribasim.Model.get_node_types" id="toc-ribasim.Model.get_node_types" class="nav-link" data-scroll-target="#ribasim.Model.get_node_types"><span class="header-section-number">1.2.3</span> get_node_types</a></li>
   <li><a href="#ribasim.Model.plot" id="toc-ribasim.Model.plot" class="nav-link" data-scroll-target="#ribasim.Model.plot"><span class="header-section-number">1.2.4</span> plot</a></li>
   <li><a href="#ribasim.Model.plot_control_listen" id="toc-ribasim.Model.plot_control_listen" class="nav-link" data-scroll-target="#ribasim.Model.plot_control_listen"><span class="header-section-number">1.2.5</span> plot_control_listen</a></li>
-  <li><a href="#ribasim.Model.print_control_record" id="toc-ribasim.Model.print_control_record" class="nav-link" data-scroll-target="#ribasim.Model.print_control_record"><span class="header-section-number">1.2.6</span> print_control_record</a></li>
+  <li><a href="#ribasim.Model.print_discrete_control_record" id="toc-ribasim.Model.print_discrete_control_record" class="nav-link" data-scroll-target="#ribasim.Model.print_discrete_control_record"><span class="header-section-number">1.2.6</span> print_discrete_control_record</a></li>
   <li><a href="#ribasim.Model.sort" id="toc-ribasim.Model.sort" class="nav-link" data-scroll-target="#ribasim.Model.sort"><span class="header-section-number">1.2.7</span> sort</a></li>
   <li><a href="#ribasim.Model.validate_model" id="toc-ribasim.Model.validate_model" class="nav-link" data-scroll-target="#ribasim.Model.validate_model"><span class="header-section-number">1.2.8</span> validate_model</a></li>
   <li><a href="#ribasim.Model.validate_model_node_IDs" id="toc-ribasim.Model.validate_model_node_IDs" class="nav-link" data-scroll-target="#ribasim.Model.validate_model_node_IDs"><span class="header-section-number">1.2.9</span> validate_model_node_IDs</a></li>
@@ -250,8 +250,8 @@ ul.task-list li input[type="checkbox"] {
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
-<td><code>control</code></td>
-<td>typing.Optional[ribasim.node_types.control.Control]</td>
+<td><code>discrete_control</code></td>
+<td>typing.Optional[ribasim.node_types.discrete_control.DiscreteControl]</td>
 <td>Discrete control logic.</td>
 <td><em>required</em></td>
 </tr>
@@ -313,7 +313,7 @@ ul.task-list li input[type="checkbox"] {
 <td></td>
 </tr>
 <tr class="even">
-<td><a href="#ribasim.Model.print_control_record">print_control_record</a></td>
+<td><a href="#ribasim.Model.print_discrete_control_record">print_discrete_control_record</a></td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -453,9 +453,9 @@ ul.task-list li input[type="checkbox"] {
 <h3 data-number="1.2.5" class="anchored" data-anchor-id="ribasim.Model.plot_control_listen"><span class="header-section-number">1.2.5</span> plot_control_listen</h3>
 <p><code>Model.plot_control_listen(self, ax)</code></p>
 </section>
-<section id="ribasim.Model.print_control_record" class="level3" data-number="1.2.6">
-<h3 data-number="1.2.6" class="anchored" data-anchor-id="ribasim.Model.print_control_record"><span class="header-section-number">1.2.6</span> print_control_record</h3>
-<p><code>Model.print_control_record(self, path)</code></p>
+<section id="ribasim.Model.print_discrete_control_record" class="level3" data-number="1.2.6">
+<h3 data-number="1.2.6" class="anchored" data-anchor-id="ribasim.Model.print_discrete_control_record"><span class="header-section-number">1.2.6</span> print_discrete_control_record</h3>
+<p><code>Model.print_discrete_control_record(self, path)</code></p>
 </section>
 <section id="ribasim.Model.sort" class="level3" data-number="1.2.7">
 <h3 data-number="1.2.7" class="anchored" data-anchor-id="ribasim.Model.sort"><span class="header-section-number">1.2.7</span> sort</h3>
