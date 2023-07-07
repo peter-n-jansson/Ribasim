@@ -758,6 +758,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="1.12" class="anchored" data-anchor-id="pump"><span class="header-section-number">1.12</span> Pump</h3>
 <p>Pump water from a source node to a destination node. The set flow rate will be pumped unless the intake storage is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. A negative flow rate means pumping against the edge direction. Note that the intake must always be a Basin.</p>
 <table class="table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 17%">
+<col style="width: 30%">
+<col style="width: 28%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>column</th>
@@ -778,6 +784,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 <td>-</td>
+</tr>
+<tr class="odd">
+<td>min_flow_rate</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>(optional, defaults to 0.0)</td>
+</tr>
+<tr class="even">
+<td>max_flow_rate</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>(optional)</td>
 </tr>
 <tr class="odd">
 <td>control_state</td>
