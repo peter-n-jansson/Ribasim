@@ -209,14 +209,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#setting-up-conda" id="toc-setting-up-conda" class="nav-link" data-scroll-target="#setting-up-conda"><span class="header-section-number">1.1</span> Setting up conda</a></li>
   <li><a href="#creating-or-updating-the-environment" id="toc-creating-or-updating-the-environment" class="nav-link" data-scroll-target="#creating-or-updating-the-environment"><span class="header-section-number">1.2</span> Creating (or updating) the environment</a></li>
   <li><a href="#installing-python-packages" id="toc-installing-python-packages" class="nav-link" data-scroll-target="#installing-python-packages"><span class="header-section-number">1.3</span> Installing Python packages</a></li>
-  <li><a href="#sec-test" id="toc-sec-test" class="nav-link" data-scroll-target="#sec-test"><span class="header-section-number">1.4</span> Running the tests</a></li>
-  <li><a href="#building-the-documentation" id="toc-building-the-documentation" class="nav-link" data-scroll-target="#building-the-documentation"><span class="header-section-number">1.5</span> Building the documentation</a></li>
-  <li><a href="#updating-example-notebooks" id="toc-updating-example-notebooks" class="nav-link" data-scroll-target="#updating-example-notebooks"><span class="header-section-number">1.6</span> Updating example notebooks</a></li>
-  <li><a href="#prepare-model-input" id="toc-prepare-model-input" class="nav-link" data-scroll-target="#prepare-model-input"><span class="header-section-number">1.7</span> Prepare model input</a></li>
-  <li><a href="#sec-vscode" id="toc-sec-vscode" class="nav-link" data-scroll-target="#sec-vscode"><span class="header-section-number">1.8</span> Setup Visual Studio Code (optional)</a></li>
-  <li><a href="#how-to-publish-to-pypi" id="toc-how-to-publish-to-pypi" class="nav-link" data-scroll-target="#how-to-publish-to-pypi"><span class="header-section-number">1.9</span> How to publish to PyPI</a></li>
-  <li><a href="#sec-black" id="toc-sec-black" class="nav-link" data-scroll-target="#sec-black"><span class="header-section-number">1.10</span> Automatic code formatting with Black</a></li>
-  <li><a href="#sec-ruff" id="toc-sec-ruff" class="nav-link" data-scroll-target="#sec-ruff"><span class="header-section-number">1.11</span> Code linting with Ruff</a></li>
+  <li><a href="#sec-precommit" id="toc-sec-precommit" class="nav-link" data-scroll-target="#sec-precommit"><span class="header-section-number">1.4</span> Install the pre-commit hook</a></li>
+  <li><a href="#sec-test" id="toc-sec-test" class="nav-link" data-scroll-target="#sec-test"><span class="header-section-number">1.5</span> Running the tests</a></li>
+  <li><a href="#building-the-documentation" id="toc-building-the-documentation" class="nav-link" data-scroll-target="#building-the-documentation"><span class="header-section-number">1.6</span> Building the documentation</a></li>
+  <li><a href="#updating-example-notebooks" id="toc-updating-example-notebooks" class="nav-link" data-scroll-target="#updating-example-notebooks"><span class="header-section-number">1.7</span> Updating example notebooks</a></li>
+  <li><a href="#prepare-model-input" id="toc-prepare-model-input" class="nav-link" data-scroll-target="#prepare-model-input"><span class="header-section-number">1.8</span> Prepare model input</a></li>
+  <li><a href="#sec-vscode" id="toc-sec-vscode" class="nav-link" data-scroll-target="#sec-vscode"><span class="header-section-number">1.9</span> Setup Visual Studio Code (optional)</a></li>
+  <li><a href="#how-to-publish-to-pypi" id="toc-how-to-publish-to-pypi" class="nav-link" data-scroll-target="#how-to-publish-to-pypi"><span class="header-section-number">1.10</span> How to publish to PyPI</a></li>
+  <li><a href="#sec-black" id="toc-sec-black" class="nav-link" data-scroll-target="#sec-black"><span class="header-section-number">1.11</span> Automatic code formatting with Black</a></li>
+  <li><a href="#sec-ruff" id="toc-sec-ruff" class="nav-link" data-scroll-target="#sec-ruff"><span class="header-section-number">1.12</span> Code linting with Ruff</a></li>
   </ul></li>
   <li><a href="#sec-codecov" id="toc-sec-codecov" class="nav-link" data-scroll-target="#sec-codecov"><span class="header-section-number">2</span> Code maintenance</a></li>
   </ul>
@@ -272,40 +273,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>conda activate ribasim</code></pre>
 <p>In order to develop on <code>ribasim</code> locally, execute the following line inside your virtual environment with the repo root as your working directory:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--editable</span> python/ribasim</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--editable</span> python/ribasim_testmodels</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--editable</span> python/ribasim_testmodels</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">--editable</span> python/ribasim_api</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="sec-test" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="sec-test"><span class="header-section-number">1.4</span> Running the tests</h2>
+<section id="sec-precommit" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="sec-precommit"><span class="header-section-number">1.4</span> Install the pre-commit hook</h2>
+<p>If not already done, activate the environment:</p>
+<pre><code>conda activate ribasim</code></pre>
+<p>Pre-commit ensures that all linters are happy with your code before you commit your files. In order to install the pre-commit hook run:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pre-commit</span> install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="sec-test" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="sec-test"><span class="header-section-number">1.5</span> Running the tests</h2>
 <p>If not already done, activate the environment:</p>
 <pre><code>conda activate ribasim</code></pre>
 <p>To run the tests call <code>pytest</code> with the path to the Python package. Here the the root of the repository is the working directory:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span> python/ribasim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span> python/ribasim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="building-the-documentation" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="building-the-documentation"><span class="header-section-number">1.5</span> Building the documentation</h2>
+<section id="building-the-documentation" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="building-the-documentation"><span class="header-section-number">1.6</span> Building the documentation</h2>
 <p>Run in the docs folder:</p>
 <pre><code>quartodoc build</code></pre>
 <p>This will generate the <code>.qmd</code> files in <code>docs/python/reference</code> for inspection.</p>
 </section>
-<section id="updating-example-notebooks" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="updating-example-notebooks"><span class="header-section-number">1.6</span> Updating example notebooks</h2>
+<section id="updating-example-notebooks" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="updating-example-notebooks"><span class="header-section-number">1.7</span> Updating example notebooks</h2>
 <p>Make sure to run <code>Clear All Outputs</code> on the notebook before committing.</p>
 </section>
-<section id="prepare-model-input" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="prepare-model-input"><span class="header-section-number">1.7</span> Prepare model input</h2>
+<section id="prepare-model-input" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="prepare-model-input"><span class="header-section-number">1.8</span> Prepare model input</h2>
 <p>Before running the Julia tests or building binaries, example model input needs to created. This is done by running the following Python script:</p>
 <pre><code>python python/ribasim/tests/conftest.py</code></pre>
 <p>This places example model input files under <code>./data/</code>. If the example models change, re-run this script.</p>
 </section>
-<section id="sec-vscode" class="level2" data-number="1.8">
-<h2 data-number="1.8" class="anchored" data-anchor-id="sec-vscode"><span class="header-section-number">1.8</span> Setup Visual Studio Code (optional)</h2>
+<section id="sec-vscode" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="sec-vscode"><span class="header-section-number">1.9</span> Setup Visual Studio Code (optional)</h2>
 <ol type="1">
 <li><p>Install the <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python">Python</a>, <a href="https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff">ruff</a> and <a href="https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring">autoDocstring</a> extensions.</p></li>
 <li><p>Copy <code>.vscode/settings_template.json</code> into <code>.vscode/settings.json</code></p></li>
 </ol>
 </section>
-<section id="how-to-publish-to-pypi" class="level2" data-number="1.9">
-<h2 data-number="1.9" class="anchored" data-anchor-id="how-to-publish-to-pypi"><span class="header-section-number">1.9</span> How to publish to PyPI</h2>
+<section id="how-to-publish-to-pypi" class="level2" data-number="1.10">
+<h2 data-number="1.10" class="anchored" data-anchor-id="how-to-publish-to-pypi"><span class="header-section-number">1.10</span> How to publish to PyPI</h2>
 <ol type="1">
 <li><p>Update <code>__version__</code> in <code>ribasim/__init__.py</code></p></li>
 <li><p>Open a terminal and run <code>cd python/ribasim</code></p></li>
@@ -324,14 +333,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <pre><code>twine upload dist/*</code></pre>
 </section>
-<section id="sec-black" class="level2" data-number="1.10">
-<h2 data-number="1.10" class="anchored" data-anchor-id="sec-black"><span class="header-section-number">1.10</span> Automatic code formatting with Black</h2>
-<p>We use the <a href="https://black.readthedocs.io/en/stable/">Black</a> code formatter. Code only passes the continuous integration checks if it is fully formatted according to the Black code style. When working in VS Code the settings suggested in <a href="#sec-vscode">Section&nbsp;1.8</a> run Black automatically when saving Python files.</p>
+<section id="sec-black" class="level2" data-number="1.11">
+<h2 data-number="1.11" class="anchored" data-anchor-id="sec-black"><span class="header-section-number">1.11</span> Automatic code formatting with Black</h2>
+<p>We use the <a href="https://black.readthedocs.io/en/stable/">Black</a> code formatter. Code only passes the continuous integration checks if it is fully formatted according to the Black code style. When working in VS Code the settings suggested in <a href="#sec-vscode">Section&nbsp;1.9</a> run Black automatically when saving Python files.</p>
 <p>If you want to run Black manually, you can run it from the command line. To run it on the entire repository, use the command below. Here the repository root is the working directory.</p>
 <pre><code>black .</code></pre>
 </section>
-<section id="sec-ruff" class="level2" data-number="1.11">
-<h2 data-number="1.11" class="anchored" data-anchor-id="sec-ruff"><span class="header-section-number">1.11</span> Code linting with Ruff</h2>
+<section id="sec-ruff" class="level2" data-number="1.12">
+<h2 data-number="1.12" class="anchored" data-anchor-id="sec-ruff"><span class="header-section-number">1.12</span> Code linting with Ruff</h2>
 <p>We use the <a href="https://github.com/charliermarsh/ruff">Ruff</a> linter to help finding issues with Python code. Code only passes the continuous integration checks if Ruff does not find any issues.</p>
 <p>To run Ruff on the entire repository, use the command below. Here the repository root is the working directory.</p>
 <pre><code>ruff .</code></pre>
