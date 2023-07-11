@@ -1020,7 +1020,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="flow-output" class="level3" data-number="1.19">
 <h3 data-number="1.19" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">1.19</span> Flow output</h3>
-<p>The flow tables contains outputs of the flow on every edge in the model, for each solver timestep.</p>
+<p>The flow table contains outputs of the flow on every edge in the model, for each solver timestep.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -1158,6 +1158,36 @@ Note
 <td>String</td>
 <td>-</td>
 <td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="discretecontrol-output" class="level4" data-number="1.20.3">
+<h4 data-number="1.20.3" class="anchored" data-anchor-id="discretecontrol-output"><span class="header-section-number">1.20.3</span> DiscreteControl output</h4>
+<p>The control table contains a record of each change of control state: when it happened, which control node was involved, to which control state it changed and based on which truth state.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>time</td>
+<td>DateTime</td>
+</tr>
+<tr class="even">
+<td>control_node_id</td>
+<td>Int</td>
+</tr>
+<tr class="odd">
+<td>truth_state</td>
+<td>String</td>
+</tr>
+<tr class="even">
+<td>control_state</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
