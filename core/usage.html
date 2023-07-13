@@ -400,7 +400,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li>DiscreteControl: Set parameters of other nodes based on model state conditions (e.g.&nbsp;basin level)
 <ul>
-<li><code>DisceteControl / condition</code>: Conditions of the form ‘the level in the basin with node id n is bigger than 2.0 m’</li>
+<li><code>DisceteControl / condition</code>: Conditions of the form ‘the level in the basin with node id <code>n</code> is bigger than 2.0 m’</li>
 <li><code>DisceteControl / logic</code>: Translates the truth value of a set of conditions to parameter values for a controlled node</li>
 </ul></li>
 </ul>
@@ -1077,7 +1077,7 @@ Note
 </div>
 <section id="sec-condition" class="level4" data-number="1.20.1">
 <h4 data-number="1.20.1" class="anchored" data-anchor-id="sec-condition"><span class="header-section-number">1.20.1</span> DiscreteControl / condition</h4>
-<p>The condition schema defines conditions of the form ‘the discrete_control node with this node id listens to whether the given variable of the node with the given listen node id is grater than the given value’.</p>
+<p>The condition schema defines conditions of the form ‘the discrete_control node with this node id listens to whether the given variable of the node/edge with the given listen feature id is grater than the given value’.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -1095,7 +1095,7 @@ Note
 <td>sorted</td>
 </tr>
 <tr class="even">
-<td>listen_node_id</td>
+<td>listen_feature_id</td>
 <td>Int</td>
 <td>-</td>
 <td></td>
@@ -1104,7 +1104,7 @@ Note
 <td>variable</td>
 <td>String</td>
 <td>-</td>
-<td>must be “level”</td>
+<td>must be “level” or “flow”</td>
 </tr>
 <tr class="even">
 <td>greater_than</td>
