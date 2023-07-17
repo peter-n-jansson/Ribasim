@@ -200,10 +200,9 @@ div.csl-indent {
   <li><a href="#manning-connection" id="toc-manning-connection" class="nav-link" data-scroll-target="#manning-connection"><span class="header-section-number">2.4.6</span> Manning connection</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#allocated-water-balance-terms" id="toc-allocated-water-balance-terms" class="nav-link" data-scroll-target="#allocated-water-balance-terms"><span class="header-section-number">3</span> Allocated water balance terms</a>
+  <li><a href="#sec-PID" id="toc-sec-PID" class="nav-link" data-scroll-target="#sec-PID"><span class="header-section-number">3</span> PID controller</a>
   <ul class="collapse">
-  <li><a href="#general-user" id="toc-general-user" class="nav-link" data-scroll-target="#general-user"><span class="header-section-number">3.1</span> General User</a></li>
-  <li><a href="#flushing" id="toc-flushing" class="nav-link" data-scroll-target="#flushing"><span class="header-section-number">3.2</span> Flushing</a></li>
+  <li><a href="#the-sign-of-the-parameters" id="toc-the-sign-of-the-parameters" class="nav-link" data-scroll-target="#the-sign-of-the-parameters"><span class="header-section-number">3.1</span> The sign of the parameters</a></li>
   </ul></li>
   <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="header-section-number">4</span> Numerical solution</a></li>
   <li><a href="#performance" id="toc-performance" class="nav-link" data-scroll-target="#performance"><span class="header-section-number">5</span> Performance</a></li>
@@ -248,13 +247,14 @@ div.csl-indent {
 <section id="formal-model-description" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Formal model description</h1>
 <p>In this section we give a formal description of the problem that is solved by Ribasim. The problem is of the form</p>
-<p><span class="math display">\[
+<p><span id="eq-system"><span class="math display">\[
 \frac{\text{d}\mathbf{u}}{\text{d}t} = f(\mathbf{u},p(t),t),\quad t \in [t_0,t_\text{end}],
-\]</span></p>
+\tag{1}\]</span></span></p>
 <p>i.e.&nbsp;a system of coupled first order ordinary differential equations, with initial condition <span class="math inline">\(\mathbf{u}(t_0)= \mathbf{u}_0\)</span> and time dependent input data denoted by <span class="math inline">\(p(t)\)</span>.</p>
 <p>The model is given by a directed graph, consisting of a set of nodes (or vertices) <span class="math inline">\(V\)</span> and edges <span class="math inline">\(E\)</span>. Let <span class="math inline">\(V\)</span> be the set of node IDs and let <span class="math inline">\(E\)</span> be the set of ordered tuples <span class="math inline">\((i,j)\)</span> meaning that node <span class="math inline">\(i\)</span> is connected to node <span class="math inline">\(j\)</span>.</p>
 <p>We can split the set of nodes into two subsets <span class="math inline">\(V = B \cup N\)</span>, where <span class="math inline">\(B\)</span> is the set of basins and <span class="math inline">\(N\)</span> is the set of non-basins. The basins have an associated storage state and the non-basins dictate how water flows to or from basins.</p>
-<p><span class="math inline">\(\mathbf{u}(t)\)</span> is given by all the states of the model, which are (currently) the storage of the basins. Given a single basin with node ID <span class="math inline">\(i \in B\)</span>, the equation that dictates the change of its storage over time is given by</p>
+<p><span class="math inline">\(\mathbf{u}(t)\)</span> is given by all the states of the model, which are (currently) the storage of the basins and the integral terms of the PID controllers, the latter being explained in <a href="../core/equations.html#sec-PID">3 PID controller</a>.</p>
+<p>Given a single basin with node ID <span class="math inline">\(i \in B\)</span>, the equation that dictates the change of its storage over time is given by</p>
 <p><span class="math display">\[
 \frac{\text{d}S_i}{\text{d}t} =
 \sum_{(i',j') \in E | j' = i} Q_{i',j'} - \sum_{(i',j') \in E | i' = i} Q_{i',j'} + F_i(\mathbf{u},p,t).
@@ -269,7 +269,7 @@ div.csl-indent {
 <p>The precipitation term is given by</p>
 <p><span id="eq-precip"><span class="math display">\[
     Q_P = P \cdot A(S).
-\tag{1}\]</span></span></p>
+\tag{2}\]</span></span></p>
 <p>Here <span class="math inline">\(P = P(t)\)</span> is the precipitation rate and <span class="math inline">\(A\)</span> is the wetted area. <span class="math inline">\(A\)</span> is a function of the storage <span class="math inline">\(S = S(t)\)</span>: as the volume of water changes, the area of the free water surface may change as well, depending on the slopes of the surface waters.</p>
 </section>
 <section id="evaporation" class="level2" data-number="2.2">
@@ -277,10 +277,10 @@ div.csl-indent {
 <p>The evaporation term is given by</p>
 <p><span id="eq-evap"><span class="math display">\[
     Q_E = E_\text{pot} \cdot A(S) \cdot r.
-\tag{2}\]</span></span></p>
+\tag{3}\]</span></span></p>
 <p>Here <span class="math inline">\(E_\text{pot} = E_\text{pot}(t)\)</span> is the potential evaporation rate and <span class="math inline">\(A\)</span> is the wetted area. <span class="math inline">\(r\)</span> is the reduction factor which depends on the depth <span class="math inline">\(d\)</span> and is given by <span id="eq-reduc"><span class="math display">\[
     r = \frac{\min\{d,0.1\}}{0.1} \le 1.
-\tag{3}\]</span></span> It provides a smooth gradient as <span class="math inline">\(S \rightarrow 0\)</span> (but not at <span class="math inline">\(d=0.1\)</span>).</p>
+\tag{4}\]</span></span> It provides a smooth gradient as <span class="math inline">\(S \rightarrow 0\)</span> (but not at <span class="math inline">\(d=0.1\)</span>).</p>
 <p>A straightforward formulation <span class="math inline">\(Q_E = \mathrm{max}(E_\text{pot} A(S), 0)\)</span> is unsuitable, as <span class="math inline">\(\frac{\mathrm{d}Q_E}{\mathrm{d}S}(S=0)\)</span> is then not well-defined.</p>
 <!--
 A hyperbolic tangent is a commonly used activation function
@@ -299,15 +299,16 @@ derivative.
 <p>Drainage is a lump sump for the basin, and consists of the sum of the absolute value of all <strong>negative</strong> flows of the MODFLOW 6 boundary conditions in the basin.</p>
 <p><span id="eq-drn"><span class="math display">\[
     Q_\text{drn} = \sum_{i=1}^{n} \sum_{j=1}^{m} \left| \min(Q_{\mathrm{mf6}_{i,j}}, 0.0) \right|
-\tag{4}\]</span></span></p>
+\tag{5}\]</span></span></p>
 <p>The interaction with MODFLOW 6 boundary conditions is explained in greater detail in the <a href="../couple/modflow.html">the MODFLOW coupling section</a> of the documentation.</p>
 </section>
 <section id="upstream-and-downstream-flow" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="upstream-and-downstream-flow"><span class="header-section-number">2.4</span> Upstream and downstream flow</h2>
-<p>Ribasim’s basins can be connected to each other, and each basin expects an explicit connection. Two connections are currently available for inter-basin flows:</p>
+<p>Ribasim’s basins can be connected to each other, and each basin expects an explicit connection. These connections are currently available for inter-basin flows:</p>
 <ol type="1">
 <li><code>OutflowTable</code></li>
 <li><code>LinearResistance</code></li>
+<li><code>ManningResistance</code></li>
 </ol>
 <p>The flow direction of the basin is not pre-determined: flow directions may freely reverse, provided the connection allows it. Currently, a <code>LinearResistance</code> allows bidirectional flow, but the</p>
 <p>Additionally, three additional “connections” area available for the “outmost” basins (external nodes) in a network.</p>
@@ -339,7 +340,7 @@ Note
 <p>A <code>LinearResistance</code> connects two basins together. The flow between the two basins is determined by a linear relationship:</p>
 <p><span id="eq-basinflow"><span class="math display">\[
     Q = \frac{h_a - h_b}{R}
-\tag{5}\]</span></span></p>
+\tag{6}\]</span></span></p>
 <p>Here <span class="math inline">\(h_a\)</span> is the water level in the first basin, <span class="math inline">\(h_b\)</span> is the water level in the second basin, and <span class="math inline">\(R\)</span> is the resistance of the link. A <code>LinearResistance</code> makes no assumptions about the direction of the flow: water flows from high to low.</p>
 </section>
 <section id="terminal" class="level3" data-number="2.4.3">
@@ -391,7 +392,7 @@ h_a + \frac{v_a^2}{2g} = h_b + \frac{v_b^2}{2g} + h_{\text{loss}}
 \]</span></p>
 <p>Where <span class="math inline">\(v\)</span> is the average water velocity. <span class="math inline">\(h_{\text{loss}}\)</span> is a combination of friction and contraction/expansion losses:</p>
 <p><span class="math display">\[
-h_{\text{loss}} = S_f L + \frac{C}{2g} (v_b^2 - v_a^2)
+h_{\text{loss}} = S_f L + \frac{C}{2g} \left(v_b^2 - v_a^2\right)
 \]</span></p>
 <p>Where:</p>
 <ul>
@@ -422,7 +423,7 @@ S_f = Q^2 \frac{n^2}{A^2 R_h^{4/3}}
 <p><span class="math display">\[
 Q_a = Q_b = Q
 \]</span></p>
-<p>Filling in:</p>
+<p>Substituting:</p>
 <p><span class="math display">\[
 h_a = h_b + Q^2 \frac{n^2}{A^2 R_h^{4/3}} L
 \]</span></p>
@@ -461,37 +462,33 @@ B = w + 2 d \sqrt{\left(\frac{\Delta y}{\Delta z}\right)^2 + 1}
 </section>
 </section>
 </section>
-<section id="allocated-water-balance-terms" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Allocated water balance terms</h1>
-<p>Ribasim has been designed with the functionality to allocate water to different users within each basin. The volume allocated is determined by the user demand, the available water, and the priority of each user with respect to other users within the same basin. The water demands for a given basin can be summarized into three user categories. The handling of the allocation of water for different user categories varies, as explained in more detail below.</p>
-<div class="hidden">
-<p><span class="math display">\[
-\def\qavail{{Q_\text{avail vol}}}
-\def\demwm{{D_{\text{wm}}}}
-\def\demuser{{D_\text{user}}}
-\]</span></p>
-</div>
-<section id="general-user" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="general-user"><span class="header-section-number">3.1</span> General User</h2>
-<p>The General User category include the users Agriculture, Industry and Public Water supply. These users extract water from the basin and the demand (<span class="math inline">\(\demuser\)</span>) is determined externally. The source of water allocated to the General User is dependent on if the basin is a free-flowing type basin or a level-controlled basin.</p>
-<p>If the basin is free-flowing, the water source will be the available water within the basin. If the basin is level-controlled additional water can be sourced from the regional network, should the water available from the basin be insufficient to satisfy <span class="math inline">\(\demuser\)</span>.</p>
-<p>The availability of water (<span class="math inline">\(\qavail\)</span>) internally in a basin in a given timestep is calculated by <a href="#eq-q-avail">Equation&nbsp;6</a>. This volume is available to be extracted by the General Users. In the Ribasim prototype, additional water from the regional network is currently modelled as an unlimited supply.</p>
-<p><span id="eq-q-avail"><span class="math display">\[
-    \qavail = \frac{(P - E_\text{pot}) \cdot A}{\mathrm{Δ}t} - \min(0, Q_\text{infil} - Q_\text{drain} - Q_\text{runoff}).
-\tag{6}\]</span></span></p>
-<p>Here <span class="math inline">\(A\)</span> is the area. The <span class="math inline">\(\qavail\)</span> can be assigned to multiple users in the same basin. Allocation is based upon user priority. For a given user, in the case where <span class="math inline">\(\qavail &gt; \demuser\)</span>, the user demand is satisfied and the remaining <span class="math inline">\(\qavail\)</span> becomes available for the user of next highest priority. For a given user, in the case where <span class="math inline">\(\demuser &gt; \qavail\)</span> then all of the available water is assigned to the user. This results in an allocation shortage and no remaining local water for any users of lower priority.</p>
-<p>However, as discussed, if the basin is a level-controlled basin, additional water can then be sourced from the regional network and is allocated to satisfy the allocation shortage of the General User.</p>
-<p>The allocation of water is decided intermittently by a separate process. This separate process is not all-knowing and it may overextract. Like other water balance sinks, negative storage is avoided and smooth numerical behavior is ensured via an activation function:</p>
-<p><span id="eq-userflow"><span class="math display">\[
-    Q_\text{user} = Q_\text{alloc} \cdot r
+<section id="sec-PID" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> PID controller</h1>
+<p>The PID controller continuously sets the flow rate of a pump or weir to bring the level of a certain basin closer to its setpoint. If we denote the setpoint by <span class="math inline">\(r(t)\)</span> and the basin level by <span class="math inline">\(y(t)\)</span>, then the error is given by <span id="eq-error"><span class="math display">\[
+e(t) = r(t) - y(t).
 \tag{7}\]</span></span></p>
-</section>
-<section id="flushing" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="flushing"><span class="header-section-number">3.2</span> Flushing</h2>
-<p>The flushing requirement for the basin is a special case of user. Flushing is required to maintain water quality in the basin. This is determined externally. Water from the national network flows into the basin, and the same volume gets removed from the basin back to the national network. This water cannot be allocated to other users and there is no net change to the water level in the basin or the <span class="math inline">\(\qavail\)</span>, see <a href="#eq-flushing">Equation&nbsp;8</a>.</p>
-<p><span id="eq-flushing"><span class="math display">\[
-    Q_\text{in} = -Q_\text{out}
-\tag{8}\]</span></span></p>
+<p>The output of the PID controller for the flow rate of the pump or weir is then given by <span class="math display">\[
+    Q_\text{PID}(t) = K_p e(t) + K_i\int_{t_0}^t e(\tau)\text{d}\tau + K_d \frac{\text{d}e}{\text{d}t},
+\]</span></p>
+<p>for given constant parameters <span class="math inline">\(K_p,K_i,K_d\)</span>. The pump or weir can have associated minimum and maximum flow rates <span class="math inline">\(Q_\min, Q_\max\)</span>, and so <span class="math display">\[
+Q_\text{pump/weir} = \begin{align}
+\begin{cases}
+    Q_\min &amp; \text{if} &amp; Q_\text{PID} &lt; Q_\min, \\
+    Q_\text{PID} &amp; \text{if} &amp; Q_\min \leq Q_\text{PID} \leq Q_\max, \\
+    Q_\max &amp; \text{if} &amp; Q_\text{PID} &gt; Q_\max.
+\end{cases}
+\end{align}
+\]</span></p>
+<p>For the integral term we denote <span class="math display">\[
+I(t) = \int_{t_0}^t e(\tau)\text{d}\tau.
+\]</span></p>
+<p><span class="math inline">\(I(t)\)</span> is treated as a state of the system and thus it has its own equation in the system in <a href="#eq-system">Equation&nbsp;1</a>: <span class="math display">\[
+\frac{\text{d}I}{\text{d}t} = e(t).
+\]</span></p>
+<section id="the-sign-of-the-parameters" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="the-sign-of-the-parameters"><span class="header-section-number">3.1</span> The sign of the parameters</h2>
+<p>Note by <a href="#eq-error">Equation&nbsp;7</a> that the error is positive if the setpoint is larger than the basin level and negative if the setpoint is smaller than the basin level.</p>
+<p>We enforce the convention that when a pump is controlled, its edge points away from the basin, and when a weir is controlled, its edge points towards the basin, so that the main flow direction along these edges is positive. Therefore, positive flows of the pump and weir have opposite effects on the basin, and thus the parameters <span class="math inline">\(K_p,K_i,K_d\)</span> of the pump and weir must have oppositive signs to achieve the same goal.</p>
 </section>
 </section>
 <section id="numerical-solution" class="level1" data-number="4">
