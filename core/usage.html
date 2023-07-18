@@ -684,13 +684,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>level</td>
 <td>Float64</td>
 <td><span class="math inline">\(m\)</span></td>
-<td>-</td>
+<td>sorted per control_state</td>
 </tr>
 <tr class="even">
 <td>discharge</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 <td>non-negative</td>
+</tr>
+<tr class="odd">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td>(optional) sorted per node_id</td>
 </tr>
 </tbody>
 </table>
