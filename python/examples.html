@@ -200,7 +200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#basic-model-with-static-forcing" id="toc-basic-model-with-static-forcing" class="nav-link active" data-scroll-target="#basic-model-with-static-forcing"><span class="header-section-number">1</span> Basic model with static forcing</a></li>
   <li><a href="#update-the-basic-model-with-transient-forcing" id="toc-update-the-basic-model-with-transient-forcing" class="nav-link" data-scroll-target="#update-the-basic-model-with-transient-forcing"><span class="header-section-number">2</span> Update the basic model with transient forcing</a></li>
-  <li><a href="#model-with-control" id="toc-model-with-control" class="nav-link" data-scroll-target="#model-with-control"><span class="header-section-number">3</span> Model with control</a></li>
+  <li><a href="#model-with-discrete-control" id="toc-model-with-discrete-control" class="nav-link" data-scroll-target="#model-with-discrete-control"><span class="header-section-number">3</span> Model with discrete control</a></li>
   </ul>
 </nav>
     </div>
@@ -315,32 +315,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>profile <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">9</span>],</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"storage"</span>: [<span class="fl">0.0</span>, <span class="fl">500.0</span>] <span class="op">*</span> <span class="dv">4</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"area"</span>: [<span class="fl">0.0</span>, <span class="fl">1000.0</span>] <span class="op">*</span> <span class="dv">4</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"level"</span>: [<span class="fl">0.0</span>, <span class="fl">1.0</span>] <span class="op">*</span> <span class="dv">4</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert steady forcing to m/s</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 mm/d precipitation, 1 mm/d evaporation</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>seconds_in_day <span class="op">=</span> <span class="dv">24</span> <span class="op">*</span> <span class="dv">3600</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>precipitation <span class="op">=</span> <span class="fl">0.002</span> <span class="op">/</span> seconds_in_day</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>evaporation <span class="op">=</span> <span class="fl">0.001</span> <span class="op">/</span> seconds_in_day</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>static <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: [<span class="dv">0</span>],</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"drainage"</span>: [<span class="fl">0.0</span>],</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"potential_evaporation"</span>: [evaporation],</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"infiltration"</span>: [<span class="fl">0.0</span>],</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"precipitation"</span>: [precipitation],</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"urban_runoff"</span>: [<span class="fl">0.0</span>],</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>static <span class="op">=</span> static.iloc[[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]]</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>static[<span class="st">"node_id"</span>] <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>]</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>basin <span class="op">=</span> ribasim.Basin(profile<span class="op">=</span>profile, static<span class="op">=</span>static)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"area"</span>: [<span class="fl">0.0</span>, <span class="fl">1000.0</span>] <span class="op">*</span> <span class="dv">4</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"level"</span>: [<span class="fl">0.0</span>, <span class="fl">1.0</span>] <span class="op">*</span> <span class="dv">4</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert steady forcing to m/s</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 mm/d precipitation, 1 mm/d evaporation</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>seconds_in_day <span class="op">=</span> <span class="dv">24</span> <span class="op">*</span> <span class="dv">3600</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>precipitation <span class="op">=</span> <span class="fl">0.002</span> <span class="op">/</span> seconds_in_day</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>evaporation <span class="op">=</span> <span class="fl">0.001</span> <span class="op">/</span> seconds_in_day</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>static <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: [<span class="dv">0</span>],</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"drainage"</span>: [<span class="fl">0.0</span>],</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"potential_evaporation"</span>: [evaporation],</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"infiltration"</span>: [<span class="fl">0.0</span>],</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"precipitation"</span>: [precipitation],</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"urban_runoff"</span>: [<span class="fl">0.0</span>],</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>static <span class="op">=</span> static.iloc[[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]]</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>static[<span class="st">"node_id"</span>] <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">9</span>]</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>basin <span class="op">=</span> ribasim.Basin(profile<span class="op">=</span>profile, static<span class="op">=</span>static)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Setup linear resistance:</p>
 <div class="cell" data-execution_count="6">
@@ -555,7 +554,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df_flow.pivot_table(index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"edge"</span>, values<span class="op">=</span><span class="st">"flow_m3d"</span>).plot()</span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>ax.legend(bbox_to_anchor<span class="op">=</span>(<span class="fl">1.3</span>, <span class="dv">1</span>), title<span class="op">=</span><span class="st">"Edge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
-<pre><code>&lt;matplotlib.legend.Legend at 0x7f382c148690&gt;</code></pre>
+<pre><code>&lt;matplotlib.legend.Legend at 0x7f03740ce4d0&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="examples_files/figure-html/cell-27-output-2.png" width="744" height="412"></p>
@@ -568,8 +567,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="model-with-control" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Model with control</h1>
+<section id="model-with-discrete-control" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Model with discrete control</h1>
 <p>Set up the nodes:</p>
 <div class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>xy <span class="op">=</span> np.array(</span>
@@ -623,27 +622,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>profile <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>],</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"storage"</span>: [<span class="fl">0.0</span>, <span class="fl">100.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"area"</span>: [<span class="fl">100.0</span>, <span class="fl">100.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"level"</span>: [<span class="fl">0.0</span>, <span class="fl">1.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>static <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{</span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: [<span class="dv">1</span>, <span class="dv">3</span>],</span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"drainage"</span>: [<span class="fl">0.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"potential_evaporation"</span>: [<span class="fl">0.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"infiltration"</span>: [<span class="fl">0.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"precipitation"</span>: [<span class="fl">0.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"urban_runoff"</span>: [<span class="fl">0.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>state <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>{<span class="st">"node_id"</span>: [<span class="dv">1</span>, <span class="dv">3</span>], <span class="st">"storage"</span>: [<span class="fl">100.0</span>, <span class="fl">0.0</span>]})</span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>basin <span class="op">=</span> ribasim.Basin(profile<span class="op">=</span>profile, static<span class="op">=</span>static, state<span class="op">=</span>state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>],</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"area"</span>: [<span class="fl">0.0</span>, <span class="fl">100.0</span>, <span class="fl">100.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"level"</span>: [<span class="fl">0.0</span>, <span class="fl">0.001</span>, <span class="fl">1.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>static <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: [<span class="dv">1</span>, <span class="dv">3</span>],</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"drainage"</span>: [<span class="fl">0.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"potential_evaporation"</span>: [<span class="fl">0.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"infiltration"</span>: [<span class="fl">0.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"precipitation"</span>: [<span class="fl">0.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"urban_runoff"</span>: [<span class="fl">0.0</span>] <span class="op">*</span> <span class="dv">2</span>,</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>state <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>{<span class="st">"node_id"</span>: [<span class="dv">1</span>, <span class="dv">3</span>], <span class="st">"storage"</span>: [<span class="fl">100.0</span>, <span class="fl">0.0</span>]})</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>basin <span class="op">=</span> ribasim.Basin(profile<span class="op">=</span>profile, static<span class="op">=</span>static, state<span class="op">=</span>state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Setup the control:</p>
 <div class="cell" data-execution_count="31">
@@ -767,14 +765,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    This yielded control state "off":
     For node ID 4 (Pump): flow_rate = 0.0
 
-1. At 2020-01-30 12:07:27.039000 the control node with ID 5 reached truth state FF:
+1. At 2020-01-30 14:26:08.048000 the control node with ID 5 reached truth state FF:
     For node ID 1 (Basin): level &lt; 0.8
     For node ID 3 (Basin): level &lt; 0.4
 
    This yielded control state "on":
     For node ID 4 (Pump): flow_rate = 1e-05
 
-2. At 2020-02-16 04:47:16.639000 the control node with ID 5 reached truth state FT:
+2. At 2020-02-16 05:05:05.564000 the control node with ID 5 reached truth state FT:
     For node ID 1 (Basin): level &lt; 0.8
     For node ID 3 (Basin): level &gt; 0.4
 
