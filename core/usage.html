@@ -216,13 +216,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#pump" id="toc-pump" class="nav-link" data-scroll-target="#pump"><span class="header-section-number">1.12</span> Pump</a></li>
   <li><a href="#levelboundary" id="toc-levelboundary" class="nav-link" data-scroll-target="#levelboundary"><span class="header-section-number">1.13</span> LevelBoundary</a></li>
   <li><a href="#flowboundary" id="toc-flowboundary" class="nav-link" data-scroll-target="#flowboundary"><span class="header-section-number">1.14</span> FlowBoundary</a></li>
-  <li><a href="#linearresistance" id="toc-linearresistance" class="nav-link" data-scroll-target="#linearresistance"><span class="header-section-number">1.15</span> LinearResistance</a></li>
-  <li><a href="#manningresistance" id="toc-manningresistance" class="nav-link" data-scroll-target="#manningresistance"><span class="header-section-number">1.16</span> ManningResistance</a></li>
-  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">1.17</span> Terminal</a></li>
-  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="header-section-number">1.18</span> Basin output</a></li>
-  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="header-section-number">1.19</span> Flow output</a></li>
-  <li><a href="#discetecontrol" id="toc-discetecontrol" class="nav-link" data-scroll-target="#discetecontrol"><span class="header-section-number">1.20</span> DisceteControl</a></li>
-  <li><a href="#pidcontrol" id="toc-pidcontrol" class="nav-link" data-scroll-target="#pidcontrol"><span class="header-section-number">1.21</span> PidControl</a></li>
+  <li><a href="#flowboundary-time" id="toc-flowboundary-time" class="nav-link" data-scroll-target="#flowboundary-time"><span class="header-section-number">1.15</span> FlowBoundary / time</a></li>
+  <li><a href="#linearresistance" id="toc-linearresistance" class="nav-link" data-scroll-target="#linearresistance"><span class="header-section-number">1.16</span> LinearResistance</a></li>
+  <li><a href="#manningresistance" id="toc-manningresistance" class="nav-link" data-scroll-target="#manningresistance"><span class="header-section-number">1.17</span> ManningResistance</a></li>
+  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">1.18</span> Terminal</a></li>
+  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="header-section-number">1.19</span> Basin output</a></li>
+  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="header-section-number">1.20</span> Flow output</a></li>
+  <li><a href="#discetecontrol" id="toc-discetecontrol" class="nav-link" data-scroll-target="#discetecontrol"><span class="header-section-number">1.21</span> DisceteControl</a></li>
+  <li><a href="#pidcontrol" id="toc-pidcontrol" class="nav-link" data-scroll-target="#pidcontrol"><span class="header-section-number">1.22</span> PidControl</a></li>
   </ul></li>
   <li><a href="#example-input-files" id="toc-example-input-files" class="nav-link" data-scroll-target="#example-input-files"><span class="header-section-number">2</span> Example input files</a></li>
   </ul>
@@ -377,6 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>FlowBoundary: sets a precribed flow like a one-sided pump
 <ul>
 <li><code>FlowBoundary / static</code>: flow rate</li>
+<li><code>FlowBoundary / time</code>: dynamic flow rate</li>
 </ul></li>
 <li>LinearResistance: bidirectional flow based on water level difference between Basins
 <ul>
@@ -540,7 +542,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="basin-forcing" class="level3" data-number="1.7">
 <h3 data-number="1.7" class="anchored" data-anchor-id="basin-forcing"><span class="header-section-number">1.7</span> Basin / forcing</h3>
-<p>This table is the transient form of the <code>Basin</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by node_id. A linear interpolation between the given timesteps is currently done if the solver takes timesteps between the given data points. More options will be available later.</p>
+<p>This table is the transient form of the <code>Basin</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. A linear interpolation between the given timesteps is currently done if the solver takes timesteps between the given data points. More options will be available later.</p>
 </section>
 <section id="basin-profile" class="level3" data-number="1.8">
 <h3 data-number="1.8" class="anchored" data-anchor-id="basin-profile"><span class="header-section-number">1.8</span> Basin / profile</h3>
@@ -739,7 +741,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="tabulatedratingcurve-time" class="level3" data-number="1.11">
 <h3 data-number="1.11" class="anchored" data-anchor-id="tabulatedratingcurve-time"><span class="header-section-number">1.11</span> TabulatedRatingCurve / time</h3>
-<p>This table is the transient form of the <code>TabulatedRatingCurve</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by node_id. With this the rating curves can be updated over time. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
+<p>This table is the transient form of the <code>TabulatedRatingCurve</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the rating curves can be updated over time. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -903,8 +905,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="linearresistance" class="level3" data-number="1.15">
-<h3 data-number="1.15" class="anchored" data-anchor-id="linearresistance"><span class="header-section-number">1.15</span> LinearResistance</h3>
+<section id="flowboundary-time" class="level3" data-number="1.15">
+<h3 data-number="1.15" class="anchored" data-anchor-id="flowboundary-time"><span class="header-section-number">1.15</span> FlowBoundary / time</h3>
+<p>This table is the transient form of the <code>FlowBoundary</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the flow rates can be updated over time. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>time</td>
+<td>DateTime</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted per time</td>
+</tr>
+<tr class="odd">
+<td>flow_rate</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="linearresistance" class="level3" data-number="1.16">
+<h3 data-number="1.16" class="anchored" data-anchor-id="linearresistance"><span class="header-section-number">1.16</span> LinearResistance</h3>
 <p>Flow proportional to the level difference between the connected basins.</p>
 <table class="table">
 <thead>
@@ -943,8 +979,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="manningresistance" class="level3" data-number="1.16">
-<h3 data-number="1.16" class="anchored" data-anchor-id="manningresistance"><span class="header-section-number">1.16</span> ManningResistance</h3>
+<section id="manningresistance" class="level3" data-number="1.17">
+<h3 data-number="1.17" class="anchored" data-anchor-id="manningresistance"><span class="header-section-number">1.17</span> ManningResistance</h3>
 <p>Flow through this connection is estimated by conservation of energy and the Manning-Gauckler formula to estimate friction losses.</p>
 <table class="table">
 <thead>
@@ -1001,8 +1037,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="terminal" class="level3" data-number="1.17">
-<h3 data-number="1.17" class="anchored" data-anchor-id="terminal"><span class="header-section-number">1.17</span> Terminal</h3>
+<section id="terminal" class="level3" data-number="1.18">
+<h3 data-number="1.18" class="anchored" data-anchor-id="terminal"><span class="header-section-number">1.18</span> Terminal</h3>
 <p>A terminal is a water sink without state or properties. Any water that flows into a terminal node is removed from the model. No water can come into the model from a terminal node. For example, terminal nodes can be used as a downstream boundary.</p>
 <table class="table">
 <thead>
@@ -1023,8 +1059,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="basin-output" class="level3" data-number="1.18">
-<h3 data-number="1.18" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">1.18</span> Basin output</h3>
+<section id="basin-output" class="level3" data-number="1.19">
+<h3 data-number="1.19" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">1.19</span> Basin output</h3>
 <p>The basin table contains outputs of the storage and level of each basin at every solver timestep. The initial condition is also written to the file.</p>
 <table class="table">
 <thead>
@@ -1057,10 +1093,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>The table is sorted by time, and per time it is sorted by node_id.</p>
+<p>The table is sorted by time, and per time it is sorted by <code>node_id</code>.</p>
 </section>
-<section id="flow-output" class="level3" data-number="1.19">
-<h3 data-number="1.19" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">1.19</span> Flow output</h3>
+<section id="flow-output" class="level3" data-number="1.20">
+<h3 data-number="1.20" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">1.20</span> Flow output</h3>
 <p>The flow table contains outputs of the flow on every edge in the model, for each solver timestep.</p>
 <table class="table">
 <thead>
@@ -1100,8 +1136,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>The table is sorted by time, and per time the same edge_id order is used, though not sorted.</p>
 </section>
-<section id="discetecontrol" class="level3" data-number="1.20">
-<h3 data-number="1.20" class="anchored" data-anchor-id="discetecontrol"><span class="header-section-number">1.20</span> DisceteControl</h3>
+<section id="discetecontrol" class="level3" data-number="1.21">
+<h3 data-number="1.21" class="anchored" data-anchor-id="discetecontrol"><span class="header-section-number">1.21</span> DisceteControl</h3>
 <p>DiscreteControl is implemented based on <a href="https://docs.sciml.ai/DiffEqDocs/stable/features/callback_functions/#VectorContinuousCallback">VectorContinuousCallback</a>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1116,8 +1152,8 @@ Note
 <p>Currently the Julia core only supports controlling pumps.</p>
 </div>
 </div>
-<section id="sec-condition" class="level4" data-number="1.20.1">
-<h4 data-number="1.20.1" class="anchored" data-anchor-id="sec-condition"><span class="header-section-number">1.20.1</span> DiscreteControl / condition</h4>
+<section id="sec-condition" class="level4" data-number="1.21.1">
+<h4 data-number="1.21.1" class="anchored" data-anchor-id="sec-condition"><span class="header-section-number">1.21.1</span> DiscreteControl / condition</h4>
 <p>The condition schema defines conditions of the form ‘the discrete_control node with this node id listens to whether the given variable of the node/edge with the given listen feature id is grater than the given value’.</p>
 <table class="table">
 <thead>
@@ -1156,8 +1192,8 @@ Note
 </tbody>
 </table>
 </section>
-<section id="discretecontrol-logic" class="level4" data-number="1.20.2">
-<h4 data-number="1.20.2" class="anchored" data-anchor-id="discretecontrol-logic"><span class="header-section-number">1.20.2</span> DiscreteControl / logic</h4>
+<section id="discretecontrol-logic" class="level4" data-number="1.21.2">
+<h4 data-number="1.21.2" class="anchored" data-anchor-id="discretecontrol-logic"><span class="header-section-number">1.21.2</span> DiscreteControl / logic</h4>
 <p>The logic schema defines which control states are triggered based on the truth of the conditions a discrete_control node listens to. DiscreteControl is applied in the Julia core as follows:</p>
 <ul>
 <li>During the simulation it is checked whether the truth of any of the conditions changes.</li>
@@ -1203,8 +1239,8 @@ Note
 </tbody>
 </table>
 </section>
-<section id="discretecontrol-output" class="level4" data-number="1.20.3">
-<h4 data-number="1.20.3" class="anchored" data-anchor-id="discretecontrol-output"><span class="header-section-number">1.20.3</span> DiscreteControl output</h4>
+<section id="discretecontrol-output" class="level4" data-number="1.21.3">
+<h4 data-number="1.21.3" class="anchored" data-anchor-id="discretecontrol-output"><span class="header-section-number">1.21.3</span> DiscreteControl output</h4>
 <p>The control table contains a record of each change of control state: when it happened, which control node was involved, to which control state it changed and based on which truth state.</p>
 <table class="table">
 <thead>
@@ -1234,8 +1270,8 @@ Note
 </table>
 </section>
 </section>
-<section id="pidcontrol" class="level3" data-number="1.21">
-<h3 data-number="1.21" class="anchored" data-anchor-id="pidcontrol"><span class="header-section-number">1.21</span> PidControl</h3>
+<section id="pidcontrol" class="level3" data-number="1.22">
+<h3 data-number="1.22" class="anchored" data-anchor-id="pidcontrol"><span class="header-section-number">1.22</span> PidControl</h3>
 <p>The PidControl node controls the level in a basin by continuously controlling the flow rate of a connected pump or weir. See also <a href="https://en.wikipedia.org/wiki/PID_controller">PID controller</a>. When A PidControl node is made inactive, the node under its control retains the last flow rate value, and the error integral is reset to 0.</p>
 <table class="table">
 <thead>
