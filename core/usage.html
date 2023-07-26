@@ -378,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><code>LevelBoundary / static</code>: levels</li>
 </ul></li>
-<li>FlowBoundary: sets a precribed flow like a one-sided pump
+<li>FlowBoundary: sets a precribed flow into the model
 <ul>
 <li><code>FlowBoundary / static</code>: flow rate</li>
 <li><code>FlowBoundary / time</code>: dynamic flow rate</li>
@@ -784,7 +784,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pump" class="level3" data-number="1.12">
 <h3 data-number="1.12" class="anchored" data-anchor-id="pump"><span class="header-section-number">1.12</span> Pump</h3>
-<p>Pump water from a source node to a destination node. The set flow rate will be pumped unless the intake storage is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. A negative flow rate means pumping against the edge direction. Note that the intake must always be a Basin.</p>
+<p>Pump water from a source node to a destination node. The set flow rate will be pumped unless the intake storage is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. The intake must be either a Basin or LevelBoundary.</p>
 <table class="table">
 <colgroup>
 <col style="width: 23%">
@@ -817,7 +817,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>-</td>
+<td>non-negative</td>
 </tr>
 <tr class="even">
 <td>min_flow_rate</td>
