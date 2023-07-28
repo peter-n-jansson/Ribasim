@@ -292,6 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If the new node type can create dependendies between basins, this has to be taken into account in the sparsity structure of the Jacobian of <code>water_balance!</code> which is constructed in the function <code>get_jac_prototype</code> in <code>src\utils.jl</code>.</p>
 </section>
 </section>
 <section id="python-io" class="level1" data-number="2">
