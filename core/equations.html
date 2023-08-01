@@ -427,11 +427,16 @@ Q_a = Q_b = Q
 <p><span class="math display">\[
 h_a = h_b + Q^2 \frac{n^2}{A^2 R_h^{4/3}} L
 \]</span></p>
-<p>We can then express <span class="math inline">\(Q\)</span> as a function of head difference:</p>
+<p>We can then express <span class="math inline">\(Q\)</span> as a function of head difference <span class="math inline">\(\Delta h\)</span>:</p>
 <p><span class="math display">\[
-Q = \textrm{sign}(h_a - h_b) \frac{A}{n} R_h^{2/3}\sqrt{\frac{|h_a - h_b|}{L} }
+Q = \textrm{sign}(\Delta h) \frac{A}{n} R_h^{2/3}\sqrt{\frac{|\Delta h|}{L} }
 \]</span></p>
-<p>The <span class="math inline">\(\textrm{sign}(h_a - h_b)\)</span> term causes the direction of the flow to reverse if the head in basin <span class="math inline">\(b\)</span> is larger than in basin <span class="math inline">\(a\)</span>.</p>
+<p>The <span class="math inline">\(\textrm{sign}(\Delta h)\)</span> term causes the direction of the flow to reverse if the head in basin <span class="math inline">\(b\)</span> is larger than in basin <span class="math inline">\(a\)</span>.</p>
+<p>This expression however leads to problems in simulation since the derivative of <span class="math inline">\(Q\)</span> with respect to <span class="math inline">\(\Delta h\)</span> tends to <span class="math inline">\(\pm \infty\)</span> as <span class="math inline">\(\Delta h\)</span> tends to 0. Therefore we use the slightly modified expression</p>
+<p><span class="math display">\[
+Q = \textrm{sign}(\Delta h) \frac{A}{n} R_h^{2/3}\sqrt{\frac{\Delta h}{L} s(\Delta h)}
+\]</span></p>
+<p>to smooth out this problem. Here <span class="math inline">\(s(x) = \frac{2}{\pi}\arctan{1000x}\)</span> can be thought of as a smooth approximation of the sign function.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
