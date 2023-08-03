@@ -588,7 +588,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>area</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^2\)</span></td>
-<td>non-negative, per node_id: start at 0 and increasing</td>
+<td>non-negative, per node_id: start positive and increasing</td>
 </tr>
 <tr class="odd">
 <td>level</td>
@@ -610,7 +610,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td>2</td>
-<td>0.0</td>
+<td>1.0</td>
 <td>6.0</td>
 </tr>
 <tr class="even">
@@ -625,12 +625,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td>3</td>
-<td>0.0</td>
+<td>1.0</td>
 <td>2.2</td>
 </tr>
 </tbody>
 </table>
-<p>We use the symbol <span class="math inline">\(A\)</span> for area, <span class="math inline">\(h\)</span> for level and <span class="math inline">\(S\)</span> for storage. The profile provides a function <span class="math inline">\(A(h)\)</span> for each basin. Internally this get converted to two functions, <span class="math inline">\(A(S)\)</span> and <span class="math inline">\(h(S)\)</span>, by integrating over the function, setting the storage to zero for the bottom of the profile. The maximum area is used to convert the precipitation flux into an inflow.</p>
+<p>We use the symbol <span class="math inline">\(A\)</span> for area, <span class="math inline">\(h\)</span> for level and <span class="math inline">\(S\)</span> for storage. The profile provides a function <span class="math inline">\(A(h)\)</span> for each basin. Internally this get converted to two functions, <span class="math inline">\(A(S)\)</span> and <span class="math inline">\(h(S)\)</span>, by integrating over the function, setting the storage to zero for the bottom of the profile. The minimum area cannot be zero to avoid numerical issues. The maximum area is used to convert the precipitation flux into an inflow.</p>
 </section>
 <section id="fractionalflow" class="level3" data-number="1.9">
 <h3 data-number="1.9" class="anchored" data-anchor-id="fractionalflow"><span class="header-section-number">1.9</span> FractionalFlow</h3>
