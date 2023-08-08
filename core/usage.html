@@ -909,14 +909,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>-</td>
+<td>non-negative</td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="flowboundary-time" class="level3" data-number="1.15">
 <h3 data-number="1.15" class="anchored" data-anchor-id="flowboundary-time"><span class="header-section-number">1.15</span> FlowBoundary / time</h3>
-<p>This table is the transient form of the <code>FlowBoundary</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the flow rates can be updated over time. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
+<p>This table is the transient form of the <code>FlowBoundary</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the flow rates can be updated over time. In between the given times the flow rate is interpolated linearly, and outside the flow rate is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -943,7 +943,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>-</td>
+<td>non-negative</td>
 </tr>
 </tbody>
 </table>
@@ -1165,6 +1165,12 @@ Note
 <h4 data-number="1.21.1" class="anchored" data-anchor-id="sec-condition"><span class="header-section-number">1.21.1</span> DiscreteControl / condition</h4>
 <p>The condition schema defines conditions of the form ‘the discrete_control node with this node id listens to whether the given variable of the node/edge with the given listen feature id is grater than the given value’.</p>
 <table class="table">
+<colgroup>
+<col style="width: 39%">
+<col style="width: 18%">
+<col style="width: 16%">
+<col style="width: 25%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>column</th>
@@ -1190,7 +1196,7 @@ Note
 <td>variable</td>
 <td>String</td>
 <td>-</td>
-<td>must be “level” or “flow”</td>
+<td>must be “level” or “flow_rate”</td>
 </tr>
 <tr class="even">
 <td>greater_than</td>
