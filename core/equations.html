@@ -202,7 +202,7 @@ div.csl-indent {
   <li><a href="#infiltration-and-drainage" id="toc-infiltration-and-drainage" class="nav-link" data-scroll-target="#infiltration-and-drainage"><span class="header-section-number">2.3</span> Infiltration and Drainage</a></li>
   <li><a href="#upstream-and-downstream-flow" id="toc-upstream-and-downstream-flow" class="nav-link" data-scroll-target="#upstream-and-downstream-flow"><span class="header-section-number">2.4</span> Upstream and downstream flow</a>
   <ul class="collapse">
-  <li><a href="#pump" id="toc-pump" class="nav-link" data-scroll-target="#pump"><span class="header-section-number">2.4.1</span> Pump</a></li>
+  <li><a href="#pump-and-weir" id="toc-pump-and-weir" class="nav-link" data-scroll-target="#pump-and-weir"><span class="header-section-number">2.4.1</span> Pump and weir</a></li>
   <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="header-section-number">2.4.2</span> TabulatedRatingCurve</a></li>
   <li><a href="#linearresistance" id="toc-linearresistance" class="nav-link" data-scroll-target="#linearresistance"><span class="header-section-number">2.4.3</span> LinearResistance</a></li>
   <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">2.4.4</span> Terminal</a></li>
@@ -377,10 +377,10 @@ derivative.
 <li><code>LevelBoundary</code></li>
 <li><code>FlowBoundary</code></li>
 </ol>
-<section id="pump" class="level3" data-number="2.4.1">
-<h3 data-number="2.4.1" class="anchored" data-anchor-id="pump"><span class="header-section-number">2.4.1</span> Pump</h3>
-<p>The behaviour of the pump is very straight forward if it is not PID controlled. Its flow is given by a fixed flow rate <span class="math inline">\(q\)</span>, multiplied by a reduction factor: <span class="math display">\[
-Q_\text{pump} = \phi(u)q
+<section id="pump-and-weir" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="pump-and-weir"><span class="header-section-number">2.4.1</span> Pump and weir</h3>
+<p>The behaviour of pumps and weirs is very straight forward if these nodes are not PID controlled. Their flow is given by a fixed flow rate <span class="math inline">\(q\)</span>, multiplied by a reduction factor: <span class="math display">\[
+Q_\text{pump/weir} = \phi(u)q
 \]</span></p>
 <p>Here <span class="math inline">\(u\)</span> is the storage of the upstream basin. The reduction factor</p>
 <p><span id="eq-pumpreductionfactor"><span class="math display">\[
@@ -554,9 +554,9 @@ e(t) = \text{SP}(t) - y(t).
     Q_\text{PID}(t) = K_p e(t) + K_i\int_{t_0}^t e(\tau)\text{d}\tau + K_d \frac{\text{d}e}{\text{d}t},
 \tag{9}\]</span></span></p>
 <p>for given constant parameters <span class="math inline">\(K_p,K_i,K_d\)</span>. The pump or weir can have associated minimum and maximum flow rates <span class="math inline">\(Q_\min, Q_\max\)</span>, and so <span class="math display">\[
-Q_\text{pump/weir} = \text{clip}(\phi(u_\text{PID})Q_\text{PID}; Q_\min, Q_\max)
+Q_\text{pump/weir} = \text{clip}(\phi(u_\text{us})Q_\text{PID}; Q_\min, Q_\max).
 \]</span></p>
-<p>where <span class="math inline">\(u_\text{PID}\)</span> is the storage of the controlled basin, <span class="math inline">\(\phi\)</span> is the reduction factor (see <a href="#eq-pumpreductionfactor">Equation&nbsp;6</a>) and</p>
+<p>Here <span class="math inline">\(u_\text{us}\)</span> is the storage of the basin upstream of the pump or weir, <span class="math inline">\(\phi\)</span> is the reduction factor (see <a href="#eq-pumpreductionfactor">Equation&nbsp;6</a>) and</p>
 <p><span class="math display">\[
 \text{clip}(Q; Q_\min, Q_\max) =
 \begin{align}
@@ -573,18 +573,31 @@ I(t) = \int_{t_0}^t e(\tau)\text{d}\tau,
 <p>where <span class="math inline">\(t_0\)</span> is the last time the PID controller was made active. <span class="math inline">\(I(t)\)</span> is treated as a state of the system and thus it has its own equation in the system in <a href="#eq-system">Equation&nbsp;1</a>: <span class="math display">\[
 \frac{\text{d}I}{\text{d}t} = e(t).
 \]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the case of the controlled weir, the upstream node can also be a level boundary. In this case we define <span class="math inline">\(\phi = 1\)</span>.</p>
+</div>
+</div>
 <section id="the-derivative-term" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="the-derivative-term"><span class="header-section-number">3.1</span> The derivative term</h2>
 <p>When <span class="math inline">\(K_d \ne 0\)</span> this adds a level of complexity. We can see this by looking at the error derivative more closely: <span class="math display">\[
 \frac{\text{d}e}{\text{d}t} = \frac{\text{d}\text{SP}}{\text{d}t} - \frac{1}{A(u_\text{PID})}\frac{\text{d}u_\text{PID}}{\text{d}t},
-\]</span> where <span class="math inline">\(A(u_\text{PID})\)</span> is the area of the controlled basin. The complexity arises from the fact that <span class="math inline">\(Q_\text{PID}\)</span> is a contribution to <span class="math inline">\(\frac{\text{d}u_\text{PID}}{\text{d}t} = f_\text{PID}\)</span>, which makes <a href="#eq-PIDflow">Equation&nbsp;9</a> an implicit equation for <span class="math inline">\(Q_\text{PID}\)</span>. We define</p>
+\]</span> where <span class="math inline">\(A(u_\text{PID})\)</span> is the area of the controlled basin as a function of the storage of the controlled basin <span class="math inline">\(u_\text{PID}\)</span>. The complexity arises from the fact that <span class="math inline">\(Q_\text{PID}\)</span> is a contribution to <span class="math inline">\(\frac{\text{d}u_\text{PID}}{\text{d}t} = f_\text{PID}\)</span>, which makes <a href="#eq-PIDflow">Equation&nbsp;9</a> an implicit equation for <span class="math inline">\(Q_\text{PID}\)</span>. We define</p>
 <p><span class="math display">\[
-f_\text{PID} = \hat{f}_\text{PID} - Q_\text{pump/weir},
+f_\text{PID} = \hat{f}_\text{PID} \pm Q_\text{pump/weir},
 \]</span></p>
-<p>that is, <span class="math inline">\(\hat{f}_\text{PID}\)</span> is the right hand side of the ODE for the controlled basin storage state without the contribution of the PID controlled pump. The minus sign comes from the fact that the pump is puming away from the controlled basin.</p>
+<p>that is, <span class="math inline">\(\hat{f}_\text{PID}\)</span> is the right hand side of the ODE for the controlled basin storage state without the contribution of the PID controlled pump. The plus sign holds for a weir and the minus sign for a pump, dictated by the way the pump and weir connectivity to the controlled basin is enforced.</p>
 <p>Using this, solving <a href="#eq-PIDflow">Equation&nbsp;9</a> for <span class="math inline">\(Q_\text{PID}\)</span> yields <span class="math display">\[
-Q_\text{pump/weir} = \text{clip}\left(\phi(u_\text{PID})\frac{K_pe + K_iI + K_d \left(\frac{\text{d}\text{SP}}{\text{d}t}-\frac{\hat{f}_\text{PID}}{A(u_\text{PID})}\right)}{1-\phi(u_\text{PID})\frac{K_d}{A(u_\text{PID})}};Q_\min,Q_\max\right),
-\]</span> where the clipping is again done last. Note that to compute this, <span class="math inline">\(\hat{f}_\text{PID}\)</span> has to be known first, meaning that the PID controlled pump flow rate has to be computed after all other contributions to the PID controlled basin’s storage are known.</p>
+Q_\text{pump/weir} = \text{clip}\left(\phi(u_\text{us})\frac{K_pe + K_iI + K_d \left(\frac{\text{d}\text{SP}}{\text{d}t}-\frac{\hat{f}_\text{PID}}{A(u_\text{PID})}\right)}{1\pm\phi(u_\text{us})\frac{K_d}{A(u_\text{PID})}};Q_\min,Q_\max\right),
+\]</span> where the clipping is again done last. Note that to compute this, <span class="math inline">\(\hat{f}_\text{PID}\)</span> has to be known first, meaning that the PID controlled pump/weir flow rate has to be computed after all other contributions to the PID controlled basin’s storage are known.</p>
 </section>
 <section id="jacobian-contributions" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="jacobian-contributions"><span class="header-section-number">3.2</span> Jacobian contributions</h2>
@@ -595,25 +608,52 @@ Q_\text{pump/weir} = \text{clip}\left(\phi(u_\text{PID})\frac{K_pe + K_iI + K_d 
 <p>Note that when the calculated pump flow lies outside <span class="math inline">\([Q_\min, Q_\max]\)</span>, the pump flow is locally constant and thus all partial derivatives of <span class="math inline">\(Q_\text{pump/weir}\)</span> with respect to states are <span class="math inline">\(0\)</span>. Assuming that it lies in <span class="math inline">\([Q_\min, Q_\max]\)</span>, we derive the Jacobian contributions. Define the enumerator and denominator of the fraction in <span class="math inline">\(Q_\text{pump/weir}\)</span>:</p>
 <p><span class="math display">\[
 \begin{align}
-    E(u_\text{PID}) &amp;= K_pe + K_iI + K_d \left(\dot{\text{SP}}-\frac{\hat{f}_\text{PID}}{A(u_\text{PID})}\right) \\
-    D(u_\text{PID}) &amp;= 1-\phi(u_\text{PID})\frac{K_d}{A(u_\text{PID})}
+    E &amp;= K_pe + K_iI + K_d \left(\dot{\text{SP}}-\frac{\hat{f}_\text{PID}}{A(u_\text{PID})}\right) \\
+    D &amp;= 1 \pm \phi(u_\text{us})\frac{K_d}{A(u_\text{PID})}
 \end{align}
 \]</span></p>
 <p>Then</p>
 <p><span class="math display">\[
-\frac{\partial Q_\text{pump/weir}}{\partial I} = K_i\frac{\phi(u_\text{PID})}{D(u_\text{PID})}.
+\frac{\partial Q_\text{pump/weir}}{\partial I} = K_i\frac{\phi(u_\text{us})}{D}.
 \]</span></p>
-<p>For the derivative with respect to <span class="math inline">\(u_\text{PID}\)</span> we need the derivative of the enumerator and denominator: <span class="math display">\[
+<p>For the derivative of <span class="math inline">\(Q_\text{pump/weir}\)</span> with respect to storages we need the derivatives of the enumerator and denominator.</p>
+<p>For the denominator we distinguish 2 possibilities:</p>
+<ul>
+<li>If the controlled node is a pump, then <span class="math inline">\(u_\text{us} \equiv u_\text{PID}\)</span> and so <span class="math inline">\(D\)</span> is only a function of <span class="math inline">\(u_\text{PID}\)</span>: <span class="math display">\[
+\frac{\text{d}D}{\text{d}u_\text{PID}} = - K_d\left[\frac{\phi'(u_\text{PID})}{A(u_\text{PID})}- \phi(u_\text{PID})\frac{A'(u_\text{PID})}{A(u_\text{PID})^2}\right]
+\]</span></li>
+<li>If the controlled node is a weir, then <span class="math inline">\(D\)</span> is a function of two distinct storages (assuming the upstream node is indeed a basin): <span class="math display">\[
 \begin{align}
-    E'(u_\text{PID}) &amp;= -\frac{K_p}{A(u_\text{PID})} - K_d\frac{A(u_\text{PID})\frac{\partial\hat{f}_\text{PID}}{\partial u_\text{PID}} - \hat{f}_\text{PID}A'(u_\text{PID})}{A(u_\text{PID})^2}\\
-    D'(u_\text{PID}) &amp;= - K_d\left[\frac{\phi'(u_\text{PID})}{A(u_\text{PID})}- \phi(u_\text{PID})\frac{A'(u_\text{PID})}{A(u_\text{PID})^2}\right]
+  \frac{\partial D}{\partial u_\text{PID}} &amp;= \phi(u_\text{us})K_d\frac{A'(u_\text{PID})}{A(u_\text{PID})^2}, \\
+  \frac{\partial D}{\partial u_\text{us}} &amp;= -\phi'(u_\text{us})K_d\frac{1}{A(u_\text{PID})}.
 \end{align}
-\]</span> For computational efficiency we exploit that <span class="math inline">\(\phi'(u_\text{PID})\)</span> is mostly <span class="math inline">\(0\)</span>. Note that</p>
+\]</span></li>
+</ul>
+<p>For the enumerator there distinguish 2 cases:</p>
+<ul>
+<li>The partial derivative with respect to <span class="math inline">\(u_\text{PID}\)</span>: <span class="math display">\[
+\frac{\partial E}{\partial u_\text{PID}} = -\frac{K_p}{A(u_\text{PID})} - K_d\frac{A(u_\text{PID})\frac{\partial\hat{f}_\text{PID}}{\partial u_\text{PID}} - \hat{f}_\text{PID}A'(u_\text{PID})}{A(u_\text{PID})^2}.
+\]</span></li>
+<li>The partial derivative with respect to a different storage <span class="math inline">\(u_i\)</span>: <span class="math display">\[
+\frac{\partial E}{\partial u_i} = - \frac{K_d}{A(u_\text{PID})}\frac{\partial \hat{f}_\text{PID}}{\partial u_i}.
+\]</span></li>
+</ul>
+<p>For computational efficiency we exploit that <span class="math inline">\(\phi'\)</span> is mostly <span class="math inline">\(0\)</span>. Note that</p>
 <p><span class="math display">\[
-    \frac{\partial\hat{f}_\text{PID}}{\partial u_\text{PID}} = \hat{J}[\text{PID},\text{PID}],
-\]</span> the Jacobian term of the dependence of <span class="math inline">\(u_\text{PID}\)</span> on itself without the contribution of the PID controlled pump/weir. Note thus that also the Jacobian contribution of the PID controlled pump can only be computed after the other contributions to the Jacobian of <span class="math inline">\(u_\text{PID}\)</span> to itself are known.</p>
-<p>The partial derivative with respect to <span class="math inline">\(u_\text{PID}\)</span> is then given by <span class="math display">\[
-\frac{\partial Q_\text{pump/weir}}{\partial u_\text{PID}} = \phi'(u_\text{PID})\frac{E(u_\text{PID})}{D(u_\text{PID})} + \phi(u_\text{PID})\frac{D(u_\text{PID})E'(u_\text{PID}) - E(u_\text{PID})D'(u_\text{PID})}{D(u_\text{PID})^2}.
+\frac{\partial\hat{f}_\text{PID}}{\partial u_i} = \hat{J}[i,\text{PID}],
+\]</span> the Jacobian term of the dependence of <span class="math inline">\(u_\text{PID}\)</span> on <span class="math inline">\(u_i\)</span> without the contribution of the PID controlled pump/weir. Note thus that also the Jacobian contribution of the PID controlled pump can only be computed after the other contributions to the Jacobian are known.</p>
+<p>The partial derivatives of <span class="math inline">\(Q_\text{pump}\)</span> are then given by <span class="math display">\[
+\begin{align}
+    \frac{\partial Q_\text{pump}}{\partial u_\text{PID}} &amp;= \phi'(u_\text{PID})\frac{E}{D} + \frac{\phi(u_\text{PID})}{D^2}\left[D\frac{\partial E}{\partial u_\text{PID}} - E\frac{\text{d}D}{\text{d}u_\text{PID}}\right], \\
+    \frac{\partial Q_\text{pump}}{\partial u_i} &amp;= \frac{\phi(u_\text{PID})}{D}\frac{\partial E}{\partial u_i} \qquad (i \ne \text{PID}).
+\end{align}
+\]</span></p>
+<p>The partial derivatives of <span class="math inline">\(Q_\text{weir}\)</span> are given by <span class="math display">\[
+\begin{align}
+    \frac{\partial Q_\text{weir}}{\partial u_\text{PID}} &amp;= \frac{\phi(u_\text{us})}{D^2}\left[D\frac{\partial E}{\partial u_\text{PID}} - E\frac{\partial D}{\partial u_\text{PID}}\right], \\
+    \frac{\partial Q_\text{weir}}{\partial u_\text{us}} &amp;= \phi'(u_\text{us})\frac{E}{D} + \frac{\phi(u_\text{us})}{D^2}\left[D\frac{\partial E}{\partial u_\text{us}} - E\frac{\partial D}{\partial u_\text{us}}\right], \\
+    \frac{\partial Q_\text{weir}}{\partial u_i} &amp;= \frac{\phi(u_\text{us})}{D}\frac{\partial E}{\partial u_i} \qquad (i \ne \text{PID, us}).
+\end{align}
 \]</span></p>
 </section>
 <section id="the-sign-of-the-parameters" class="level2" data-number="3.3">

@@ -244,36 +244,42 @@ ul.task-list li input[type="checkbox"] {
 <td><em>required</em></td>
 </tr>
 <tr class="even">
+<td><code>weir</code></td>
+<td>typing.Optional[ribasim.node_types.weir.Weir]</td>
+<td>Prescribed flow rate from one basin to the other.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
 <td><code>terminal</code></td>
 <td>typing.Optional[ribasim.node_types.terminal.Terminal]</td>
 <td>Water sink without state or properties.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>discrete_control</code></td>
 <td>typing.Optional[ribasim.node_types.discrete_control.DiscreteControl]</td>
 <td>Discrete control logic.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>pid_control</code></td>
 <td>typing.Optional[ribasim.node_types.pid_control.PidControl]</td>
 <td>PID controller attempting to set the level of a basin to a desired value using a pump/weir.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>starttime</code></td>
 <td>typing.Union[str, datetime.datetime]</td>
 <td>Starting time of the simulation.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>endtime</code></td>
 <td>typing.Union[str, datetime.datetime]</td>
 <td>End time of the simulation.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>solver</code></td>
 <td>typing.Optional[ribasim.model.Solver]</td>
 <td>Solver settings.</td>
