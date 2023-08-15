@@ -545,12 +545,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 <td>non-negative</td>
 </tr>
-<tr class="odd">
-<td>target_level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3\)</span></td>
-<td>(optional)</td>
-</tr>
 </tbody>
 </table>
 <p>Note that if variables are not set in the static table, default values are used when possible. These are generally zero, e.g.&nbsp;no precipitation, no inflow. If it is not possible to have a reasonable and safe default, a value must be provided in the static table.</p>
@@ -1148,19 +1142,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="discetecontrol" class="level3" data-number="1.21">
 <h3 data-number="1.21" class="anchored" data-anchor-id="discetecontrol"><span class="header-section-number">1.21</span> DisceteControl</h3>
 <p>DiscreteControl is implemented based on <a href="https://docs.sciml.ai/DiffEqDocs/stable/features/callback_functions/#VectorContinuousCallback">VectorContinuousCallback</a>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Currently the Julia core only supports controlling pumps.</p>
-</div>
-</div>
 <section id="sec-condition" class="level4" data-number="1.21.1">
 <h4 data-number="1.21.1" class="anchored" data-anchor-id="sec-condition"><span class="header-section-number">1.21.1</span> DiscreteControl / condition</h4>
 <p>The condition schema defines conditions of the form ‘the discrete_control node with this node id listens to whether the given variable of the node/edge with the given listen feature id is grater than the given value’.</p>
@@ -1289,6 +1270,7 @@ Note
 <h3 data-number="1.22" class="anchored" data-anchor-id="pidcontrol"><span class="header-section-number">1.22</span> PidControl</h3>
 <p>The PidControl node controls the level in a basin by continuously controlling the flow rate of a connected pump or weir. See also <a href="https://en.wikipedia.org/wiki/PID_controller">PID controller</a>. When A PidControl node is made inactive, the node under its control retains the last flow rate value, and the error integral is reset to 0. For computational efficiency, if one of the terms should not be used, set its coefficient to <code>NaN</code> in stead of <span class="math inline">\(0\)</span>.</p>
 <p>The pump must be an outneighbor of the controlled basin, the weir must be an inneighbor. Thus for the same coefficient values in <code>proportional</code>, <code>integral</code> and <code>derivative</code>, the pump and weir have the oppositve effect on the controlled basin.</p>
+<p>In the future controlling the flow on a particular edge could be supported.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -1318,18 +1300,24 @@ Note
 <td>-</td>
 </tr>
 <tr class="even">
+<td>target</td>
+<td>Float64</td>
+<td><span class="math inline">\(m\)</span></td>
+<td>-</td>
+</tr>
+<tr class="odd">
 <td>proportional</td>
 <td>Float64</td>
 <td><span class="math inline">\(s^{-1}\)</span></td>
 <td>(optional, default 0.0)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>integral</td>
 <td>Float64</td>
 <td><span class="math inline">\(s^{-2}\)</span></td>
 <td>(optional, default 0.0)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>derivative</td>
 <td>Floar64</td>
 <td>-</td>
