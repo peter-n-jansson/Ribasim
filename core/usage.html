@@ -266,22 +266,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Ribasim has a single configuration file, which is written in the <a href="https://toml.io/">TOML</a> format. It contains settings, as well as paths to other input and output files.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start- and endtime of the simulation</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># can also be set to a date-time like 1979-05-27T07:32:00</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">starttime</span> <span class="op">=</span> <span class="bn">2019-01-01</span>  <span class="co"># required</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">endtime</span> <span class="op">=</span> <span class="bn">2021-01-01</span>    <span class="co"># required</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">starttime</span> <span class="op">=</span> <span class="bn">2019-01-01</span> <span class="co"># required</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">endtime</span> <span class="op">=</span> <span class="bn">2021-01-01</span>   <span class="co"># required</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># all timesteps are in seconds</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">update_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span>  <span class="co"># optional, default 1 day</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">update_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span> <span class="co"># optional, default 1 day</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># input files</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dt">geopackage</span> <span class="op">=</span> <span class="st">"model.gpkg"</span>  <span class="co"># required</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dt">geopackage</span> <span class="op">=</span> <span class="st">"model.gpkg"</span> <span class="co"># required</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">output</span><span class="kw">]</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># These output files are always written</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dt">flow</span> <span class="op">=</span> <span class="st">"output/flow.arrow"</span>        <span class="co"># optional, default "output/flow.arrow"</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dt">basin</span> <span class="op">=</span> <span class="st">"output/basin.arrow"</span>      <span class="co"># optional, default "output/basin.arrow"</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="dt">control</span> <span class="op">=</span> <span class="st">"output/control.arrow"</span>  <span class="co"># optional, default "output/control.arrow"</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="dt">compression</span> <span class="op">=</span> <span class="st">"zstd"</span>  <span class="co"># optional, default "zstd", also supports "lz4"</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="dt">compression_level</span> <span class="op">=</span> <span class="dv">6</span>  <span class="co"># optional, default 6</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dt">flow</span> <span class="op">=</span> <span class="st">"output/flow.arrow"</span>       <span class="co"># optional, default "output/flow.arrow"</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dt">basin</span> <span class="op">=</span> <span class="st">"output/basin.arrow"</span>     <span class="co"># optional, default "output/basin.arrow"</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="dt">control</span> <span class="op">=</span> <span class="st">"output/control.arrow"</span> <span class="co"># optional, default "output/control.arrow"</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="dt">compression</span> <span class="op">=</span> <span class="st">"zstd"</span>             <span class="co"># optional, default "zstd", also supports "lz4"</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="dt">compression_level</span> <span class="op">=</span> <span class="dv">6</span>            <span class="co"># optional, default 6</span></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Specific tables can also go into Arrow files rather than the GeoPackage.</span></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># For large tables this can benefit from better compressed file sizes.</span></span>
@@ -291,17 +291,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">solver</span><span class="kw">]</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="dt">algorithm</span> <span class="op">=</span> <span class="st">"QNDF"</span>  <span class="co"># optional, default "QNDF"</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="dt">algorithm</span> <span class="op">=</span> <span class="st">"QNDF"</span> <span class="co"># optional, default "QNDF"</span></span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># autodiff can only be set to true for implicit solvers, but is not yet supported</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="dt">autodiff</span> <span class="op">=</span> <span class="cn">false</span>  <span class="co"># optional, default false</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="dt">autodiff</span> <span class="op">=</span> <span class="cn">false</span> <span class="co"># optional, default false</span></span>
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co"># saveat can be a number, which is the saving interval in seconds, or</span></span>
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co"># it can be a list of numbers, which are the times in seconds since start that are saved</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="dt">saveat</span> <span class="op">=</span> <span class="op">[]</span>  <span class="co"># optional, default [], which will save every timestep</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="dt">adaptive</span> <span class="op">=</span> <span class="cn">true</span>  <span class="co"># optional, default true</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="dt">dt</span> <span class="op">=</span> <span class="fl">0.0</span>  <span class="co"># optional, default 0.0</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="dt">abstol</span> <span class="op">=</span> <span class="fl">1e-6</span>  <span class="co"># optional, default 1e-6</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="dt">reltol</span> <span class="op">=</span> <span class="fl">1e-3</span>  <span class="co"># optional, default 1e-3</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="dt">maxiters</span> <span class="op">=</span> <span class="fl">1e9</span>  <span class="co"># optional, default 1e9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="dt">saveat</span> <span class="op">=</span> <span class="op">[]</span>     <span class="co"># optional, default [], which will save every timestep</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="dt">adaptive</span> <span class="op">=</span> <span class="cn">true</span> <span class="co"># optional, default true</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="dt">dt</span> <span class="op">=</span> <span class="fl">0.0</span>        <span class="co"># optional, default 0.0</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="dt">abstol</span> <span class="op">=</span> <span class="fl">1e-6</span>   <span class="co"># optional, default 1e-6</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="dt">reltol</span> <span class="op">=</span> <span class="fl">1e-3</span>   <span class="co"># optional, default 1e-3</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="dt">maxiters</span> <span class="op">=</span> <span class="fl">1e9</span>  <span class="co"># optional, default 1e9</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">logging</span><span class="kw">]</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co"># defines the logging level of Ribasim</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="dt">verbosity</span> <span class="op">=</span> <span class="st">"info"</span> <span class="co"># optional, default "info", can otherwise be "debug", "warn" or "error"</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="dt">timing</span> <span class="op">=</span> <span class="cn">false</span>     <span class="co"># optional, whether to log debug timing statements</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>For more information on the solver options, see the <a href="https://docs.sciml.ai/DiffEqDocs/latest/basics/common_solver_opts/#solver_options">DifferentialEquations.jl docs</a>. Information on the solver algorithms can be found on the <a href="https://docs.sciml.ai/DiffEqDocs/stable/solvers/ode_solve/">ODE solvers page</a>.</p>
 </section>
 <section id="geopackage-and-arrow-tables" class="level3" data-number="1.2">
