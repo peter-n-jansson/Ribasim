@@ -202,7 +202,7 @@ div.csl-indent {
   <li><a href="#infiltration-and-drainage" id="toc-infiltration-and-drainage" class="nav-link" data-scroll-target="#infiltration-and-drainage"><span class="header-section-number">2.3</span> Infiltration and Drainage</a></li>
   <li><a href="#upstream-and-downstream-flow" id="toc-upstream-and-downstream-flow" class="nav-link" data-scroll-target="#upstream-and-downstream-flow"><span class="header-section-number">2.4</span> Upstream and downstream flow</a>
   <ul class="collapse">
-  <li><a href="#pump-and-weir" id="toc-pump-and-weir" class="nav-link" data-scroll-target="#pump-and-weir"><span class="header-section-number">2.4.1</span> Pump and weir</a></li>
+  <li><a href="#pump-and-outlet" id="toc-pump-and-outlet" class="nav-link" data-scroll-target="#pump-and-outlet"><span class="header-section-number">2.4.1</span> Pump and outlet</a></li>
   <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="header-section-number">2.4.2</span> TabulatedRatingCurve</a></li>
   <li><a href="#linearresistance" id="toc-linearresistance" class="nav-link" data-scroll-target="#linearresistance"><span class="header-section-number">2.4.3</span> LinearResistance</a></li>
   <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">2.4.4</span> Terminal</a></li>
@@ -377,10 +377,10 @@ derivative.
 <li><code>LevelBoundary</code></li>
 <li><code>FlowBoundary</code></li>
 </ol>
-<section id="pump-and-weir" class="level3" data-number="2.4.1">
-<h3 data-number="2.4.1" class="anchored" data-anchor-id="pump-and-weir"><span class="header-section-number">2.4.1</span> Pump and weir</h3>
-<p>The behaviour of pumps and weirs is very straight forward if these nodes are not PID controlled. Their flow is given by a fixed flow rate <span class="math inline">\(q\)</span>, multiplied by a reduction factor: <span class="math display">\[
-Q_\text{pump/weir} = \phi(u)q
+<section id="pump-and-outlet" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="pump-and-outlet"><span class="header-section-number">2.4.1</span> Pump and outlet</h3>
+<p>The behaviour of pumps and outlets is very straight forward if these nodes are not PID controlled. Their flow is given by a fixed flow rate <span class="math inline">\(q\)</span>, multiplied by a reduction factor: <span class="math display">\[
+Q_\text{pump/outlet} = \phi(u)q
 \]</span></p>
 <p>Here <span class="math inline">\(u\)</span> is the storage of the upstream basin. The reduction factor</p>
 <p><span id="eq-pumpreductionfactor"><span class="math display">\[
@@ -396,7 +396,7 @@ Q_\text{pump/weir} = \phi(u)q
 </section>
 <section id="tabulatedratingcurve" class="level3" data-number="2.4.2">
 <h3 data-number="2.4.2" class="anchored" data-anchor-id="tabulatedratingcurve"><span class="header-section-number">2.4.2</span> TabulatedRatingCurve</h3>
-<p>The Tabulated Rating Curve is a tabulation of a basin’s discharge behavior. It describes a piecewise linear relationship between the basin’s level and its discharge. It can be understood as an empirical description of a basin’s properties. This can include a weir, but also the lumped hydraulic behavior of the upstream channels.</p>
+<p>The Tabulated Rating Curve is a tabulation of a basin’s discharge behavior. It describes a piecewise linear relationship between the basin’s level and its discharge. It can be understood as an empirical description of a basin’s properties. This can include an outlet, but also the lumped hydraulic behavior of the upstream channels.</p>
 <!-- Is this still true? -->
 <p>The Tabulated Rating Curve should indicate at which volume no discharge occurs (the dead storage volume).</p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -409,7 +409,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Currently, the discharge relies only on the basin’s level; it could also use the volume of both connected basins to simulate backwater effects, submersion of weirs, or even reversal of flows for high precipitation events.</p>
+<p>Currently, the discharge relies only on the basin’s level; it could also use the volume of both connected basins to simulate backwater effects, submersion of outlets, or even reversal of flows for high precipitation events.</p>
 </div>
 </div>
 </section>
@@ -547,16 +547,16 @@ B = w + 2 d \sqrt{\left(\frac{\Delta y}{\Delta z}\right)^2 + 1}
 </section>
 <section id="sec-PID" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> PID controller</h1>
-<p>The PID controller continuously sets the flow rate of a pump or weir to bring the level of a certain basin closer to its setpoint. If we denote the setpoint by <span class="math inline">\(\text{SP}(t)\)</span> and the basin level by <span class="math inline">\(y(t)\)</span>, then the error is given by <span id="eq-error"><span class="math display">\[
+<p>The PID controller continuously sets the flow rate of a pump or outlet to bring the level of a certain basin closer to its setpoint. If we denote the setpoint by <span class="math inline">\(\text{SP}(t)\)</span> and the basin level by <span class="math inline">\(y(t)\)</span>, then the error is given by <span id="eq-error"><span class="math display">\[
 e(t) = \text{SP}(t) - y(t).
 \tag{8}\]</span></span></p>
-<p>The output of the PID controller for the flow rate of the pump or weir is then given by <span id="eq-PIDflow"><span class="math display">\[
+<p>The output of the PID controller for the flow rate of the pump or outlet is then given by <span id="eq-PIDflow"><span class="math display">\[
     Q_\text{PID}(t) = K_p e(t) + K_i\int_{t_0}^t e(\tau)\text{d}\tau + K_d \frac{\text{d}e}{\text{d}t},
 \tag{9}\]</span></span></p>
-<p>for given constant parameters <span class="math inline">\(K_p,K_i,K_d\)</span>. The pump or weir can have associated minimum and maximum flow rates <span class="math inline">\(Q_\min, Q_\max\)</span>, and so <span class="math display">\[
-Q_\text{pump/weir} = \text{clip}(\phi(u_\text{us})Q_\text{PID}; Q_\min, Q_\max).
+<p>for given constant parameters <span class="math inline">\(K_p,K_i,K_d\)</span>. The pump or outlet can have associated minimum and maximum flow rates <span class="math inline">\(Q_\min, Q_\max\)</span>, and so <span class="math display">\[
+Q_\text{pump/outlet} = \text{clip}(\phi(u_\text{us})Q_\text{PID}; Q_\min, Q_\max).
 \]</span></p>
-<p>Here <span class="math inline">\(u_\text{us}\)</span> is the storage of the basin upstream of the pump or weir, <span class="math inline">\(\phi\)</span> is the reduction factor (see <a href="#eq-pumpreductionfactor">Equation&nbsp;6</a>) and</p>
+<p>Here <span class="math inline">\(u_\text{us}\)</span> is the storage of the basin upstream of the pump or outlet, <span class="math inline">\(\phi\)</span> is the reduction factor (see <a href="#eq-pumpreductionfactor">Equation&nbsp;6</a>) and</p>
 <p><span class="math display">\[
 \text{clip}(Q; Q_\min, Q_\max) =
 \begin{align}
@@ -583,7 +583,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In the case of the controlled weir, the upstream node can also be a level boundary. In this case we define <span class="math inline">\(\phi = 1\)</span>.</p>
+<p>In the case of the controlled outlet, the upstream node can also be a level boundary. In this case we define <span class="math inline">\(\phi = 1\)</span>.</p>
 </div>
 </div>
 <section id="the-derivative-term" class="level2" data-number="3.1">
@@ -592,12 +592,12 @@ Note
 \frac{\text{d}e}{\text{d}t} = \frac{\text{d}\text{SP}}{\text{d}t} - \frac{1}{A(u_\text{PID})}\frac{\text{d}u_\text{PID}}{\text{d}t},
 \]</span> where <span class="math inline">\(A(u_\text{PID})\)</span> is the area of the controlled basin as a function of the storage of the controlled basin <span class="math inline">\(u_\text{PID}\)</span>. The complexity arises from the fact that <span class="math inline">\(Q_\text{PID}\)</span> is a contribution to <span class="math inline">\(\frac{\text{d}u_\text{PID}}{\text{d}t} = f_\text{PID}\)</span>, which makes <a href="#eq-PIDflow">Equation&nbsp;9</a> an implicit equation for <span class="math inline">\(Q_\text{PID}\)</span>. We define</p>
 <p><span class="math display">\[
-f_\text{PID} = \hat{f}_\text{PID} \pm Q_\text{pump/weir},
+f_\text{PID} = \hat{f}_\text{PID} \pm Q_\text{pump/outlet},
 \]</span></p>
-<p>that is, <span class="math inline">\(\hat{f}_\text{PID}\)</span> is the right hand side of the ODE for the controlled basin storage state without the contribution of the PID controlled pump. The plus sign holds for a weir and the minus sign for a pump, dictated by the way the pump and weir connectivity to the controlled basin is enforced.</p>
+<p>that is, <span class="math inline">\(\hat{f}_\text{PID}\)</span> is the right hand side of the ODE for the controlled basin storage state without the contribution of the PID controlled pump. The plus sign holds for an outlet and the minus sign for a pump, dictated by the way the pump and outlet connectivity to the controlled basin is enforced.</p>
 <p>Using this, solving <a href="#eq-PIDflow">Equation&nbsp;9</a> for <span class="math inline">\(Q_\text{PID}\)</span> yields <span class="math display">\[
-Q_\text{pump/weir} = \text{clip}\left(\phi(u_\text{us})\frac{K_pe + K_iI + K_d \left(\frac{\text{d}\text{SP}}{\text{d}t}-\frac{\hat{f}_\text{PID}}{A(u_\text{PID})}\right)}{1\pm\phi(u_\text{us})\frac{K_d}{A(u_\text{PID})}};Q_\min,Q_\max\right),
-\]</span> where the clipping is again done last. Note that to compute this, <span class="math inline">\(\hat{f}_\text{PID}\)</span> has to be known first, meaning that the PID controlled pump/weir flow rate has to be computed after all other contributions to the PID controlled basin’s storage are known.</p>
+Q_\text{pump/outlet} = \text{clip}\left(\phi(u_\text{us})\frac{K_pe + K_iI + K_d \left(\frac{\text{d}\text{SP}}{\text{d}t}-\frac{\hat{f}_\text{PID}}{A(u_\text{PID})}\right)}{1\pm\phi(u_\text{us})\frac{K_d}{A(u_\text{PID})}};Q_\min,Q_\max\right),
+\]</span> where the clipping is again done last. Note that to compute this, <span class="math inline">\(\hat{f}_\text{PID}\)</span> has to be known first, meaning that the PID controlled pump/outlet flow rate has to be computed after all other contributions to the PID controlled basin’s storage are known.</p>
 </section>
 <section id="jacobian-contributions" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="jacobian-contributions"><span class="header-section-number">3.2</span> Jacobian contributions</h2>
@@ -605,7 +605,7 @@ Q_\text{pump/weir} = \text{clip}\left(\phi(u_\text{us})\frac{K_pe + K_iI + K_d \
 <p>For the integral state we simply get the contribution <span class="math display">\[
 \frac{\partial \dot{I}}{\partial u_\text{PID}} = - \frac{1}{A(u_\text{PID})}.
 \]</span></p>
-<p>Note that when the calculated pump flow lies outside <span class="math inline">\([Q_\min, Q_\max]\)</span>, the pump flow is locally constant and thus all partial derivatives of <span class="math inline">\(Q_\text{pump/weir}\)</span> with respect to states are <span class="math inline">\(0\)</span>. Assuming that it lies in <span class="math inline">\([Q_\min, Q_\max]\)</span>, we derive the Jacobian contributions. Define the enumerator and denominator of the fraction in <span class="math inline">\(Q_\text{pump/weir}\)</span>:</p>
+<p>Note that when the calculated pump flow lies outside <span class="math inline">\([Q_\min, Q_\max]\)</span>, the pump flow is locally constant and thus all partial derivatives of <span class="math inline">\(Q_\text{pump/outlet}\)</span> with respect to states are <span class="math inline">\(0\)</span>. Assuming that it lies in <span class="math inline">\([Q_\min, Q_\max]\)</span>, we derive the Jacobian contributions. Define the enumerator and denominator of the fraction in <span class="math inline">\(Q_\text{pump/outlet}\)</span>:</p>
 <p><span class="math display">\[
 \begin{align}
     E &amp;= K_pe + K_iI + K_d \left(\dot{\text{SP}}-\frac{\hat{f}_\text{PID}}{A(u_\text{PID})}\right) \\
@@ -614,15 +614,15 @@ Q_\text{pump/weir} = \text{clip}\left(\phi(u_\text{us})\frac{K_pe + K_iI + K_d \
 \]</span></p>
 <p>Then</p>
 <p><span class="math display">\[
-\frac{\partial Q_\text{pump/weir}}{\partial I} = K_i\frac{\phi(u_\text{us})}{D}.
+\frac{\partial Q_\text{pump/outlet}}{\partial I} = K_i\frac{\phi(u_\text{us})}{D}.
 \]</span></p>
-<p>For the derivative of <span class="math inline">\(Q_\text{pump/weir}\)</span> with respect to storages we need the derivatives of the enumerator and denominator.</p>
+<p>For the derivative of <span class="math inline">\(Q_\text{pump/outlet}\)</span> with respect to storages we need the derivatives of the enumerator and denominator.</p>
 <p>For the denominator we distinguish 2 possibilities:</p>
 <ul>
 <li>If the controlled node is a pump, then <span class="math inline">\(u_\text{us} \equiv u_\text{PID}\)</span> and so <span class="math inline">\(D\)</span> is only a function of <span class="math inline">\(u_\text{PID}\)</span>: <span class="math display">\[
 \frac{\text{d}D}{\text{d}u_\text{PID}} = - K_d\left[\frac{\phi'(u_\text{PID})}{A(u_\text{PID})}- \phi(u_\text{PID})\frac{A'(u_\text{PID})}{A(u_\text{PID})^2}\right]
 \]</span></li>
-<li>If the controlled node is a weir, then <span class="math inline">\(D\)</span> is a function of two distinct storages (assuming the upstream node is indeed a basin): <span class="math display">\[
+<li>If the controlled node is an outlet, then <span class="math inline">\(D\)</span> is a function of two distinct storages (assuming the upstream node is indeed a basin): <span class="math display">\[
 \begin{align}
   \frac{\partial D}{\partial u_\text{PID}} &amp;= \phi(u_\text{us})K_d\frac{A'(u_\text{PID})}{A(u_\text{PID})^2}, \\
   \frac{\partial D}{\partial u_\text{us}} &amp;= -\phi'(u_\text{us})K_d\frac{1}{A(u_\text{PID})}.
@@ -641,25 +641,25 @@ Q_\text{pump/weir} = \text{clip}\left(\phi(u_\text{us})\frac{K_pe + K_iI + K_d \
 <p>For computational efficiency we exploit that <span class="math inline">\(\phi'\)</span> is mostly <span class="math inline">\(0\)</span>. Note that</p>
 <p><span class="math display">\[
 \frac{\partial\hat{f}_\text{PID}}{\partial u_i} = \hat{J}[i,\text{PID}],
-\]</span> the Jacobian term of the dependence of <span class="math inline">\(u_\text{PID}\)</span> on <span class="math inline">\(u_i\)</span> without the contribution of the PID controlled pump/weir. Note thus that also the Jacobian contribution of the PID controlled pump can only be computed after the other contributions to the Jacobian are known.</p>
+\]</span> the Jacobian term of the dependence of <span class="math inline">\(u_\text{PID}\)</span> on <span class="math inline">\(u_i\)</span> without the contribution of the PID controlled pump/outlet. Note thus that also the Jacobian contribution of the PID controlled pump can only be computed after the other contributions to the Jacobian are known.</p>
 <p>The partial derivatives of <span class="math inline">\(Q_\text{pump}\)</span> are then given by <span class="math display">\[
 \begin{align}
     \frac{\partial Q_\text{pump}}{\partial u_\text{PID}} &amp;= \phi'(u_\text{PID})\frac{E}{D} + \frac{\phi(u_\text{PID})}{D^2}\left[D\frac{\partial E}{\partial u_\text{PID}} - E\frac{\text{d}D}{\text{d}u_\text{PID}}\right], \\
     \frac{\partial Q_\text{pump}}{\partial u_i} &amp;= \frac{\phi(u_\text{PID})}{D}\frac{\partial E}{\partial u_i} \qquad (i \ne \text{PID}).
 \end{align}
 \]</span></p>
-<p>The partial derivatives of <span class="math inline">\(Q_\text{weir}\)</span> are given by <span class="math display">\[
+<p>The partial derivatives of <span class="math inline">\(Q_\text{outlet}\)</span> are given by <span class="math display">\[
 \begin{align}
-    \frac{\partial Q_\text{weir}}{\partial u_\text{PID}} &amp;= \frac{\phi(u_\text{us})}{D^2}\left[D\frac{\partial E}{\partial u_\text{PID}} - E\frac{\partial D}{\partial u_\text{PID}}\right], \\
-    \frac{\partial Q_\text{weir}}{\partial u_\text{us}} &amp;= \phi'(u_\text{us})\frac{E}{D} + \frac{\phi(u_\text{us})}{D^2}\left[D\frac{\partial E}{\partial u_\text{us}} - E\frac{\partial D}{\partial u_\text{us}}\right], \\
-    \frac{\partial Q_\text{weir}}{\partial u_i} &amp;= \frac{\phi(u_\text{us})}{D}\frac{\partial E}{\partial u_i} \qquad (i \ne \text{PID, us}).
+    \frac{\partial Q_\text{outlet}}{\partial u_\text{PID}} &amp;= \frac{\phi(u_\text{us})}{D^2}\left[D\frac{\partial E}{\partial u_\text{PID}} - E\frac{\partial D}{\partial u_\text{PID}}\right], \\
+    \frac{\partial Q_\text{outlet}}{\partial u_\text{us}} &amp;= \phi'(u_\text{us})\frac{E}{D} + \frac{\phi(u_\text{us})}{D^2}\left[D\frac{\partial E}{\partial u_\text{us}} - E\frac{\partial D}{\partial u_\text{us}}\right], \\
+    \frac{\partial Q_\text{outlet}}{\partial u_i} &amp;= \frac{\phi(u_\text{us})}{D}\frac{\partial E}{\partial u_i} \qquad (i \ne \text{PID, us}).
 \end{align}
 \]</span></p>
 </section>
 <section id="the-sign-of-the-parameters" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="the-sign-of-the-parameters"><span class="header-section-number">3.3</span> The sign of the parameters</h2>
 <p>Note by <a href="#eq-error">Equation&nbsp;8</a> that the error is positive if the setpoint is larger than the basin level and negative if the setpoint is smaller than the basin level.</p>
-<p>We enforce the convention that when a pump is controlled, its edge points away from the basin, and when a weir is controlled, its edge points towards the basin, so that the main flow direction along these edges is positive. Therefore, positive flows of the pump and weir have opposite effects on the basin, and thus the parameters <span class="math inline">\(K_p,K_i,K_d\)</span> of the pump and weir must have oppositive signs to achieve the same goal.</p>
+<p>We enforce the convention that when a pump is controlled, its edge points away from the basin, and when an outlet is controlled, its edge points towards the basin, so that the main flow direction along these edges is positive. Therefore, positive flows of the pump and outlet have opposite effects on the basin, and thus the parameters <span class="math inline">\(K_p,K_i,K_d\)</span> of the pump and outlet must have oppositive signs to achieve the same goal.</p>
 </section>
 </section>
 <section id="numerical-solution" class="level1" data-number="4">

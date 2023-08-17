@@ -219,7 +219,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#fractionalflow" id="toc-fractionalflow" class="nav-link" data-scroll-target="#fractionalflow"><span class="header-section-number">1.9</span> FractionalFlow</a></li>
   <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="header-section-number">1.10</span> TabulatedRatingCurve</a></li>
   <li><a href="#tabulatedratingcurve-time" id="toc-tabulatedratingcurve-time" class="nav-link" data-scroll-target="#tabulatedratingcurve-time"><span class="header-section-number">1.11</span> TabulatedRatingCurve / time</a></li>
-  <li><a href="#pump-and-weir" id="toc-pump-and-weir" class="nav-link" data-scroll-target="#pump-and-weir"><span class="header-section-number">1.12</span> Pump and weir</a></li>
+  <li><a href="#pump-and-outlet" id="toc-pump-and-outlet" class="nav-link" data-scroll-target="#pump-and-outlet"><span class="header-section-number">1.12</span> Pump and outlet</a></li>
   <li><a href="#levelboundary" id="toc-levelboundary" class="nav-link" data-scroll-target="#levelboundary"><span class="header-section-number">1.13</span> LevelBoundary</a></li>
   <li><a href="#flowboundary" id="toc-flowboundary" class="nav-link" data-scroll-target="#flowboundary"><span class="header-section-number">1.14</span> FlowBoundary</a></li>
   <li><a href="#flowboundary-time" id="toc-flowboundary-time" class="nav-link" data-scroll-target="#flowboundary-time"><span class="header-section-number">1.15</span> FlowBoundary / time</a></li>
@@ -415,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>DisceteControl / condition</code>: Conditions of the form ‘the level in the basin with node id <code>n</code> is bigger than 2.0 m’</li>
 <li><code>DisceteControl / logic</code>: Translates the truth value of a set of conditions to parameter values for a controlled node</li>
 </ul></li>
-<li>PidControl: Controls the level in a basin by continuously controlling the flow rate of a connected pump or weir. See also <a href="https://en.wikipedia.org/wiki/PID_controller">Wikipedia</a> and <a href="../core/equations.html#sec-PID">PID controller in equations</a>.
+<li>PidControl: Controls the level in a basin by continuously controlling the flow rate of a connected pump or outlet. See also <a href="https://en.wikipedia.org/wiki/PID_controller">Wikipedia</a> and <a href="../core/equations.html#sec-PID">PID controller in equations</a>.
 <ul>
 <li><code>PidControl / static</code>: The proportional, integral and derivative parameters and which basin should be controlled.</li>
 </ul></li>
@@ -782,8 +782,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="pump-and-weir" class="level3" data-number="1.12">
-<h3 data-number="1.12" class="anchored" data-anchor-id="pump-and-weir"><span class="header-section-number">1.12</span> Pump and weir</h3>
+<section id="pump-and-outlet" class="level3" data-number="1.12">
+<h3 data-number="1.12" class="anchored" data-anchor-id="pump-and-outlet"><span class="header-section-number">1.12</span> Pump and outlet</h3>
 <p>Pump/conduct water from a source node to a destination node. The set flow rate will be pumped unless the intake storage is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. The intake must be either a Basin or LevelBoundary.</p>
 <table class="table">
 <colgroup>
@@ -1268,8 +1268,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pidcontrol" class="level3" data-number="1.22">
 <h3 data-number="1.22" class="anchored" data-anchor-id="pidcontrol"><span class="header-section-number">1.22</span> PidControl</h3>
-<p>The PidControl node controls the level in a basin by continuously controlling the flow rate of a connected pump or weir. See also <a href="https://en.wikipedia.org/wiki/PID_controller">PID controller</a>. When A PidControl node is made inactive, the node under its control retains the last flow rate value, and the error integral is reset to 0. For computational efficiency, if one of the terms should not be used, set its coefficient to <code>NaN</code> in stead of <span class="math inline">\(0\)</span>.</p>
-<p>The pump must be an outneighbor of the controlled basin, the weir must be an inneighbor. Thus for the same coefficient values in <code>proportional</code>, <code>integral</code> and <code>derivative</code>, the pump and weir have the oppositve effect on the controlled basin.</p>
+<p>The PidControl node controls the level in a basin by continuously controlling the flow rate of a connected pump or outlet. See also <a href="https://en.wikipedia.org/wiki/PID_controller">PID controller</a>. When A PidControl node is made inactive, the node under its control retains the last flow rate value, and the error integral is reset to 0. For computational efficiency, if one of the terms should not be used, set its coefficient to <code>NaN</code> in stead of <span class="math inline">\(0\)</span>.</p>
+<p>The pump must be an outneighbor of the controlled basin, the outlet must be an inneighbor. Thus for the same coefficient values in <code>proportional</code>, <code>integral</code> and <code>derivative</code>, the pump and outlet have the oppositve effect on the controlled basin.</p>
 <p>In the future controlling the flow on a particular edge could be supported.</p>
 <table class="table">
 <thead>
