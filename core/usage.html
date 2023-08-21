@@ -54,7 +54,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -289,25 +308,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">basin</span><span class="kw">]</span></span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="dt">forcing</span> <span class="op">=</span> <span class="st">"forcing.arrow"</span></span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">solver</span><span class="kw">]</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="dt">algorithm</span> <span class="op">=</span> <span class="st">"QNDF"</span> <span class="co"># optional, default "QNDF"</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># autodiff can only be set to true for implicit solvers, but is not yet supported</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="dt">autodiff</span> <span class="op">=</span> <span class="cn">false</span> <span class="co"># optional, default false</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co"># saveat can be a number, which is the saving interval in seconds, or</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co"># it can be a list of numbers, which are the times in seconds since start that are saved</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="dt">saveat</span> <span class="op">=</span> <span class="op">[]</span>     <span class="co"># optional, default [], which will save every timestep</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="dt">adaptive</span> <span class="op">=</span> <span class="cn">true</span> <span class="co"># optional, default true</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="dt">dt</span> <span class="op">=</span> <span class="fl">0.0</span>        <span class="co"># optional, default 0.0</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="dt">abstol</span> <span class="op">=</span> <span class="fl">1e-6</span>   <span class="co"># optional, default 1e-6</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="dt">reltol</span> <span class="op">=</span> <span class="fl">1e-3</span>   <span class="co"># optional, default 1e-3</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="dt">maxiters</span> <span class="op">=</span> <span class="fl">1e9</span>  <span class="co"># optional, default 1e9</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">logging</span><span class="kw">]</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co"># defines the logging level of Ribasim</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="dt">verbosity</span> <span class="op">=</span> <span class="st">"info"</span> <span class="co"># optional, default "info", can otherwise be "debug", "warn" or "error"</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="dt">timing</span> <span class="op">=</span> <span class="cn">false</span>     <span class="co"># optional, whether to log debug timing statements</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>For more information on the solver options, see the <a href="https://docs.sciml.ai/DiffEqDocs/latest/basics/common_solver_opts/#solver_options">DifferentialEquations.jl docs</a>. Information on the solver algorithms can be found on the <a href="https://docs.sciml.ai/DiffEqDocs/stable/solvers/ode_solve/">ODE solvers page</a>.</p>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">solver</span><span class="kw">]</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="dt">algorithm</span> <span class="op">=</span> <span class="st">"QNDF"</span> <span class="co"># optional, default "QNDF"</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="dt">saveat</span> <span class="op">=</span> <span class="op">[]</span>        <span class="co"># optional, default [], which saves every timestep</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="dt">adaptive</span> <span class="op">=</span> <span class="cn">true</span>    <span class="co"># optional, default true</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="dt">dt</span> <span class="op">=</span> <span class="fl">0.0</span>           <span class="co"># optional, default 0.0</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="dt">abstol</span> <span class="op">=</span> <span class="fl">1e-6</span>      <span class="co"># optional, default 1e-6</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="dt">reltol</span> <span class="op">=</span> <span class="fl">1e-3</span>      <span class="co"># optional, default 1e-3</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="dt">maxiters</span> <span class="op">=</span> <span class="fl">1e9</span>     <span class="co"># optional, default 1e9</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="dt">sparse</span> <span class="op">=</span> <span class="cn">true</span>      <span class="co"># optional, default true</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="dt">jac</span> <span class="op">=</span> <span class="cn">true</span>         <span class="co"># optional, default true</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="dt">autodiff</span> <span class="op">=</span> <span class="cn">false</span>   <span class="co"># optional, default false</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">logging</span><span class="kw">]</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co"># defines the logging level of Ribasim</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="dt">verbosity</span> <span class="op">=</span> <span class="st">"info"</span> <span class="co"># optional, default "info", can otherwise be "debug", "warn" or "error"</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="dt">timing</span> <span class="op">=</span> <span class="cn">false</span>     <span class="co"># optional, whether to log debug timing statements</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="solver-settings" class="level4" data-number="1.1.1">
+<h4 data-number="1.1.1" class="anchored" data-anchor-id="solver-settings"><span class="header-section-number">1.1.1</span> Solver settings</h4>
+<p>The solver section in the configuration file is entirely optional, since we aim to use defaults that will generally work well. Common reasons to modify the solver settings are to adjust the calculation or output stepsizes: <code>adaptive</code>, <code>dt</code>, and <code>saveat</code>. If your model does not converge, or your performance is lower than expected, it can help to adjust other solver settings as well.</p>
+<p>The default solver <code>algorithm = "QNDF"</code>, which is a multistep method similar to Matlab’s <code>ode15s</code> <span class="citation" data-cites="shampine1997matlab">(<a href="#ref-shampine1997matlab" role="doc-biblioref">Shampine and Reichelt 1997</a>)</span>. It is an implicit method that supports the default <code>adaptive = true</code> timestepping. The full list of available solvers is: <code>QNDF</code>, <code>Rosenbrock23</code>, <code>TRBDF2</code>, <code>Rodas5</code>, <code>KenCarp4</code>, <code>Tsit5</code>, <code>RK4</code>, <code>ImplicitEuler</code>, <code>Euler</code>. Information on the solver algorithms can be found on the <a href="https://docs.sciml.ai/DiffEqDocs/stable/solvers/ode_solve/">ODE solvers page</a>.</p>
+<p>The <code>dt</code> controls the stepsize. When <code>adaptive = true</code> this only applies to the initial stepsize, and the default of 0.0 means that it is automatically determined. When <code>adaptive = false</code> a suitable <code>dt</code> must always be provided. The value is in seconds, so <code>dt = 3600.0</code> corresponds to an hourly timestep.</p>
+<p>By default the calculation and output stepsize are the same, with <code>saveat = []</code>, which will save every timestep. <code>saveat</code> can be a number, which is the saving interval in seconds, or it can be a list of numbers, which are the times in seconds since start that are saved. For instance, <code>saveat = 86400.0</code> will save output after every day that passed.</p>
+<p>The Jacobian matrix provides information about the local sensitivity of the model with respect to changes in the states. For implicit solvers it must be calculated often, which can be expensive to do. There are several methods to do this. By default Ribasim uses an analytical Jacobian function written by the Ribasim developers. This is enabled by default, with the solver setting <code>jac = true</code>. If this is not used, the Jacobian is calculated with a finite difference method, which can be less accurate and more expensive. In the future we want to additionally support <code>autodiff = true</code> to calculate the Jacobian with automatic differentiation.</p>
+<p>By default the Jacobian matrix is a sparse matrix (<code>sparse = true</code>). Since each state typically only depends on a small number of other states, this is generally more efficient, especially for larger models. The sparsity structure is calculated from the network and provided as a Jacobian prototype to the solver. For small or highly connected models it could be faster to use a dense Jacobian matrix instead by setting <code>sparse = false</code>.</p>
+<p>The total maximum number of iterations <code>maxiters = 1e9</code>, can normally stay as-is unless doing extremely long simulations.</p>
+<p>The absolute and relative tolerance for adaptive timestepping can be set with <code>abstol</code> and <code>reltol</code>. For more information on these and other solver options, see the <a href="https://docs.sciml.ai/DiffEqDocs/latest/basics/common_solver_opts/#solver_options">DifferentialEquations.jl docs</a>.</p>
+</section>
 </section>
 <section id="geopackage-and-arrow-tables" class="level3" data-number="1.2">
 <h3 data-number="1.2" class="anchored" data-anchor-id="geopackage-and-arrow-tables"><span class="header-section-number">1.2</span> GeoPackage and Arrow tables</h3>
@@ -1149,7 +1176,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>DiscreteControl is implemented based on <a href="https://docs.sciml.ai/DiffEqDocs/stable/features/callback_functions/#VectorContinuousCallback">VectorContinuousCallback</a>.</p>
 <section id="sec-condition" class="level4" data-number="1.21.1">
 <h4 data-number="1.21.1" class="anchored" data-anchor-id="sec-condition"><span class="header-section-number">1.21.1</span> DiscreteControl / condition</h4>
-<p>The condition schema defines conditions of the form ‘the discrete_control node with this node id listens to whether the given variable of the node/edge with the given listen feature id is grater than the given value’.</p>
+<p>The condition schema defines conditions of the form ‘the discrete_control node with this node id listens to whether the given variable of the node with the given listen feature id is grater than the given value’. If the condition variable comes from a time-series, a look ahead <span class="math inline">\(\Delta t\)</span> can be supplied.</p>
 <table class="table">
 <colgroup>
 <col style="width: 39%">
@@ -1176,7 +1203,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>listen_feature_id</td>
 <td>Int</td>
 <td>-</td>
-<td></td>
+<td>-</td>
 </tr>
 <tr class="odd">
 <td>variable</td>
@@ -1188,7 +1215,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>greater_than</td>
 <td>Float64</td>
 <td>various</td>
-<td></td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>look_ahead</td>
+<td>Float64</td>
+<td><span class="math inline">\(s\)</span></td>
+<td>Only on transient boundary conditions, non-negative (optional, default 0)</td>
 </tr>
 </tbody>
 </table>
@@ -1337,9 +1370,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>From <a href="https://github.com/visr/ribasim-artifacts/releases">this link</a> you can download an existing schematization for the Netherlands that was used for testing purposes during development. It is provided here as an example to help people get started. Based on the description of the input files above, you can also generate your own schematization using your tools of choice. For Python users <a href="https://github.com/Deltares/ribasim-python">ribasim-python</a> was created to make it easy to do pre- and postprocessing.</p>
 
 
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-shampine1997matlab" class="csl-entry" role="listitem">
+Shampine, Lawrence F, and Mark W Reichelt. 1997. <span>“The Matlab Ode Suite.”</span> <em>SIAM Journal on Scientific Computing</em> 18 (1): 1–22.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
