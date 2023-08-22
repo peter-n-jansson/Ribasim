@@ -249,6 +249,7 @@ div.csl-indent {
   <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="header-section-number">1.20</span> Flow output</a></li>
   <li><a href="#discetecontrol" id="toc-discetecontrol" class="nav-link" data-scroll-target="#discetecontrol"><span class="header-section-number">1.21</span> DisceteControl</a></li>
   <li><a href="#pidcontrol" id="toc-pidcontrol" class="nav-link" data-scroll-target="#pidcontrol"><span class="header-section-number">1.22</span> PidControl</a></li>
+  <li><a href="#pidcontrol-time" id="toc-pidcontrol-time" class="nav-link" data-scroll-target="#pidcontrol-time"><span class="header-section-number">1.23</span> PidControl / time</a></li>
   </ul></li>
   <li><a href="#example-input-files" id="toc-example-input-files" class="nav-link" data-scroll-target="#example-input-files"><span class="header-section-number">2</span> Example input files</a></li>
   </ul>
@@ -425,7 +426,7 @@ div.csl-indent {
 <ul>
 <li><code>LinearResistance / static</code>: conductances</li>
 </ul></li>
-<li>ManningResistance: Flow through this connection is estimated by conservation of energy and the Manning-Gauckler formula to estimate friction losses.
+<li>ManningResistance: Flow through this connection is estimated by conservation of energy and the Manning-Gauckler formula to estimate friction losses
 <ul>
 <li><code>ManningResistance / static</code>: properties</li>
 </ul></li>
@@ -449,7 +450,8 @@ div.csl-indent {
 </ul></li>
 <li>PidControl: Controls the level in a basin by continuously controlling the flow rate of a connected pump or outlet. See also <a href="https://en.wikipedia.org/wiki/PID_controller">Wikipedia</a> and <a href="../core/equations.html#sec-PID">PID controller in equations</a>.
 <ul>
-<li><code>PidControl / static</code>: The proportional, integral and derivative parameters and which basin should be controlled.</li>
+<li><code>PidControl / static</code>: The proportional, integral, and derivative parameters, the target value and which basin should be controlled</li>
+<li><code>PidControl / time</code>: same as <code>static</code> but varying over time.</li>
 </ul></li>
 </ul>
 <p>Adding a geometry to the node table can be helpful to examine models in <a href="https://qgis.org/en/site/">QGIS</a>, as it will show the location of the nodes on the map. The geometry is not used by Ribasim.</p>
@@ -942,7 +944,7 @@ div.csl-indent {
 </section>
 <section id="flowboundary-time" class="level3" data-number="1.15">
 <h3 data-number="1.15" class="anchored" data-anchor-id="flowboundary-time"><span class="header-section-number">1.15</span> FlowBoundary / time</h3>
-<p>This table is the transient form of the <code>FlowBoundary</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the flow rates can be updated over time. In between the given times the flow rate is interpolated linearly, and outside the flow rate is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
+<p>This table is the transient form of the <code>FlowBoundary</code> table. The only differences are that a time column is added and the nodes are assumed to be active so this column is removed. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the flow rates can be updated over time. In between the given times the flow rate is interpolated linearly, and outside the flow rate is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -1306,7 +1308,7 @@ div.csl-indent {
 </section>
 <section id="pidcontrol" class="level3" data-number="1.22">
 <h3 data-number="1.22" class="anchored" data-anchor-id="pidcontrol"><span class="header-section-number">1.22</span> PidControl</h3>
-<p>The PidControl node controls the level in a basin by continuously controlling the flow rate of a connected pump or outlet. See also <a href="https://en.wikipedia.org/wiki/PID_controller">PID controller</a>. When A PidControl node is made inactive, the node under its control retains the last flow rate value, and the error integral is reset to 0. For computational efficiency, if one of the terms should not be used, set its coefficient to <code>NaN</code> in stead of <span class="math inline">\(0\)</span>.</p>
+<p>The PidControl node controls the level in a basin by continuously controlling the flow rate of a connected pump or outlet. See also <a href="https://en.wikipedia.org/wiki/PID_controller">PID controller</a>. When A PidControl node is made inactive, the node under its control retains the last flow rate value, and the error integral is reset to 0.</p>
 <p>The pump must be an outneighbor of the controlled basin, the outlet must be an inneighbor. Thus for the same coefficient values in <code>proportional</code>, <code>integral</code> and <code>derivative</code>, the pump and outlet have the oppositve effect on the controlled basin.</p>
 <p>In the future controlling the flow on a particular edge could be supported.</p>
 <table class="table">
@@ -1347,19 +1349,77 @@ div.csl-indent {
 <td>proportional</td>
 <td>Float64</td>
 <td><span class="math inline">\(s^{-1}\)</span></td>
-<td>(optional, default 0.0)</td>
+<td>-</td>
 </tr>
 <tr class="even">
 <td>integral</td>
 <td>Float64</td>
 <td><span class="math inline">\(s^{-2}\)</span></td>
-<td>(optional, default 0.0)</td>
+<td>-</td>
 </tr>
 <tr class="odd">
 <td>derivative</td>
 <td>Floar64</td>
 <td>-</td>
-<td>(optional, default 0.0)</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pidcontrol-time" class="level3" data-number="1.23">
+<h3 data-number="1.23" class="anchored" data-anchor-id="pidcontrol-time"><span class="header-section-number">1.23</span> PidControl / time</h3>
+<p>This table is the transient form of the <code>PidControl</code> table. The differences are that a time column is added and the nodes are assumed to be active so this column is removed. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the target level and PID coefficients can be updated over time. In between the given times the these values interpolated linearly, and outside these values area constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>time</td>
+<td>DateTime</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="odd">
+<td>listen_node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>target</td>
+<td>Float64</td>
+<td><span class="math inline">\(m\)</span></td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>proportional</td>
+<td>Float64</td>
+<td><span class="math inline">\(s^{-1}\)</span></td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>integral</td>
+<td>Float64</td>
+<td><span class="math inline">\(s^{-2}\)</span></td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>derivative</td>
+<td>Float64</td>
+<td>-</td>
+<td>-</td>
 </tr>
 </tbody>
 </table>
