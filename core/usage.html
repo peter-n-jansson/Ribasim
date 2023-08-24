@@ -1234,10 +1234,11 @@ div.csl-indent {
 <ul>
 <li>During the simulation it is checked whether the truth of any of the conditions changes.</li>
 <li>When a condition changes, the corresponding discrrete_control node id is retrieved (node_id in the condition schema above).</li>
-<li>The truth value of all the conditions this discrete_control node lisens to are retrieved, in the order as they are specified in the condition schema. This is then converted into a string of “T” for true and “F” for false. This string we call the truth state.</li>
+<li>The truth value of all the conditions this discrete_control node lisens to are retrieved, in the order as they are specified in the condition schema. This is then converted into a string of “T” for true and “F” for false. This string we call the truth state.*</li>
 <li>The table below determines for the given discrete_control node ID and truth state what the corresponding control state is.</li>
 <li>For all the nodes this discrete_control node affects (as given by the “control” edges in <a href="../core/usage.html#edge">Edges / static</a>), their parameters are set to those parameters in <code>NodeType / static</code> corresponding to the determined control state.</li>
 </ul>
+<p>*. There is also a second truth state created in which for the last condition that changed it is specified whether it was an upcrossing (“U”) or downcrossing (“D”) of the threshold (greater than) value. If a control state is specified for a truth state that is crossing-specific, this takes precedence over the control state for the truth state that contains only “T” and “F”.</p>
 <table class="table">
 <colgroup>
 <col style="width: 37%">
@@ -1264,7 +1265,7 @@ div.csl-indent {
 <td>truth_state</td>
 <td>String</td>
 <td>-</td>
-<td>Consists of the characters “T” (true), “F” (false) and “*” (any)</td>
+<td>Consists of the characters “T” (true), “F” (false), “U” (upcrossing), “D” (downcrossing) and “*” (any)</td>
 </tr>
 <tr class="odd">
 <td>control_state</td>
