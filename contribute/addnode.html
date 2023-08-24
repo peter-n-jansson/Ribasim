@@ -403,16 +403,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># add your newnodetype as acceptable downstream connection of other types</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">neighbortypes</span>(<span class="op">::</span><span class="dt">Val{:Pump}</span>) <span class="op">=</span> <span class="fu">Set</span>((<span class="op">:</span>Basin, <span class="op">:</span>NewNodeType))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The minimum and maximum allowed number of inneighbors and outneighbors for <code>NewNodeType</code> are specified as follows:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Allowed number of inneighbors and outneighbors per node type</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> neighbor_amounts_bounds</span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Allowed number of flow/control inneighbors and outneighbors per node type</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> n_neighbor_bounds</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    in_min<span class="op">::</span><span class="dt">Int</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    in_max<span class="op">::</span><span class="dt">Int</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    out_min<span class="op">::</span><span class="dt">Int</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    out_max<span class="op">::</span><span class="dt">Int</span></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">neighbors_amounts_bounds</span>(<span class="op">::</span><span class="dt">Val{:NewNodeType}</span>) <span class="op">=</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">neighbor_amounts_bounds</span>(<span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fu">typemax</span>(<span class="dt">Int</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">n_neighbor_bounds_flow</span>(<span class="op">::</span><span class="dt">Val{:NewNodeType}</span>) <span class="op">=</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">n_neighbor_bounds</span>(<span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fu">typemax</span>(<span class="dt">Int</span>))</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">n_neighbor_bounds_control</span>(<span class="op">::</span><span class="dt">Val{:NewNodeType}</span>) <span class="op">=</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">n_neighbor_bounds</span>(<span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Here <code>typemax(Int)</code> effectively means unbounded.</p>
 </section>
 <section id="tests" class="level1" data-number="5">
