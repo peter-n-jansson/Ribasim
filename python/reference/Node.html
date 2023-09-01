@@ -136,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#ribasim.Node.hasfid" id="toc-ribasim.Node.hasfid" class="nav-link" data-scroll-target="#ribasim.Node.hasfid"><span class="header-section-number">1.2.2</span> hasfid</a></li>
   <li><a href="#ribasim.Node.plot" id="toc-ribasim.Node.plot" class="nav-link" data-scroll-target="#ribasim.Node.plot"><span class="header-section-number">1.2.3</span> plot</a></li>
   <li><a href="#ribasim.Node.sort" id="toc-ribasim.Node.sort" class="nav-link" data-scroll-target="#ribasim.Node.sort"><span class="header-section-number">1.2.4</span> sort</a></li>
-  <li><a href="#ribasim.Node.write" id="toc-ribasim.Node.write" class="nav-link" data-scroll-target="#ribasim.Node.write"><span class="header-section-number">1.2.5</span> write</a></li>
+  <li><a href="#ribasim.Node.write_layer" id="toc-ribasim.Node.write_layer" class="nav-link" data-scroll-target="#ribasim.Node.write_layer"><span class="header-section-number">1.2.5</span> write_layer</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -205,7 +205,7 @@ ul.task-list li input[type="checkbox"] {
 <td></td>
 </tr>
 <tr class="odd">
-<td><a href="#ribasim.Node.write">write</a></td>
+<td><a href="#ribasim.Node.write_layer">write_layer</a></td>
 <td>Write the contents of the input to a GeoPackage.</td>
 </tr>
 </tbody>
@@ -271,11 +271,10 @@ ul.task-list li input[type="checkbox"] {
 <h3 data-number="1.2.4" class="anchored" data-anchor-id="ribasim.Node.sort"><span class="header-section-number">1.2.4</span> sort</h3>
 <p><code>Node.sort(self)</code></p>
 </section>
-<section id="ribasim.Node.write" class="level3" data-number="1.2.5">
-<h3 data-number="1.2.5" class="anchored" data-anchor-id="ribasim.Node.write"><span class="header-section-number">1.2.5</span> write</h3>
-<p><code>Node.write(self, directory, modelname)</code></p>
+<section id="ribasim.Node.write_layer" class="level3" data-number="1.2.5">
+<h3 data-number="1.2.5" class="anchored" data-anchor-id="ribasim.Node.write_layer"><span class="header-section-number">1.2.5</span> write_layer</h3>
+<p><code>Node.write_layer(self, path)</code></p>
 <p>Write the contents of the input to a GeoPackage.</p>
-<p>The Geopackage will be written in <code>directory</code> and will be be named <code>{modelname}.gpkg</code>.</p>
 <section id="parameters-2" class="level4" data-number="1.2.5.1">
 <h4 data-number="1.2.5.1" class="anchored" data-anchor-id="parameters-2"><span class="header-section-number">1.2.5.1</span> Parameters</h4>
 <table class="table">
@@ -289,14 +288,8 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>directory</code></td>
+<td><code>path</code></td>
 <td>FilePath</td>
-<td></td>
-<td><em>required</em></td>
-</tr>
-<tr class="even">
-<td><code>modelname</code></td>
-<td>str</td>
 <td></td>
 <td><em>required</em></td>
 </tr>
