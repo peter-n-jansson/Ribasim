@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -197,25 +231,26 @@ div.csl-indent {
   </ul></li>
   <li><a href="#natural-water-balance-terms" id="toc-natural-water-balance-terms" class="nav-link" data-scroll-target="#natural-water-balance-terms"><span class="header-section-number">2</span> Natural water balance terms</a>
   <ul class="collapse">
-  <li><a href="#precipitation" id="toc-precipitation" class="nav-link" data-scroll-target="#precipitation"><span class="header-section-number">2.1</span> Precipitation</a></li>
-  <li><a href="#evaporation" id="toc-evaporation" class="nav-link" data-scroll-target="#evaporation"><span class="header-section-number">2.2</span> Evaporation</a></li>
-  <li><a href="#infiltration-and-drainage" id="toc-infiltration-and-drainage" class="nav-link" data-scroll-target="#infiltration-and-drainage"><span class="header-section-number">2.3</span> Infiltration and Drainage</a></li>
-  <li><a href="#upstream-and-downstream-flow" id="toc-upstream-and-downstream-flow" class="nav-link" data-scroll-target="#upstream-and-downstream-flow"><span class="header-section-number">2.4</span> Upstream and downstream flow</a>
+  <li><a href="#sec-reduction_factor" id="toc-sec-reduction_factor" class="nav-link" data-scroll-target="#sec-reduction_factor"><span class="header-section-number">2.1</span> The reduction factor</a></li>
+  <li><a href="#precipitation" id="toc-precipitation" class="nav-link" data-scroll-target="#precipitation"><span class="header-section-number">2.2</span> Precipitation</a></li>
+  <li><a href="#evaporation" id="toc-evaporation" class="nav-link" data-scroll-target="#evaporation"><span class="header-section-number">2.3</span> Evaporation</a></li>
+  <li><a href="#infiltration-and-drainage" id="toc-infiltration-and-drainage" class="nav-link" data-scroll-target="#infiltration-and-drainage"><span class="header-section-number">2.4</span> Infiltration and Drainage</a></li>
+  <li><a href="#upstream-and-downstream-flow" id="toc-upstream-and-downstream-flow" class="nav-link" data-scroll-target="#upstream-and-downstream-flow"><span class="header-section-number">2.5</span> Upstream and downstream flow</a>
   <ul class="collapse">
-  <li><a href="#pump-and-outlet" id="toc-pump-and-outlet" class="nav-link" data-scroll-target="#pump-and-outlet"><span class="header-section-number">2.4.1</span> Pump and outlet</a></li>
-  <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="header-section-number">2.4.2</span> TabulatedRatingCurve</a></li>
-  <li><a href="#linearresistance" id="toc-linearresistance" class="nav-link" data-scroll-target="#linearresistance"><span class="header-section-number">2.4.3</span> LinearResistance</a></li>
-  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">2.4.4</span> Terminal</a></li>
-  <li><a href="#levelboundary" id="toc-levelboundary" class="nav-link" data-scroll-target="#levelboundary"><span class="header-section-number">2.4.5</span> LevelBoundary</a></li>
-  <li><a href="#flowboundary" id="toc-flowboundary" class="nav-link" data-scroll-target="#flowboundary"><span class="header-section-number">2.4.6</span> FlowBoundary</a></li>
-  <li><a href="#manning-connection" id="toc-manning-connection" class="nav-link" data-scroll-target="#manning-connection"><span class="header-section-number">2.4.7</span> Manning connection</a></li>
+  <li><a href="#sec-pump" id="toc-sec-pump" class="nav-link" data-scroll-target="#sec-pump"><span class="header-section-number">2.5.1</span> Pump</a></li>
+  <li><a href="#sec-outlet" id="toc-sec-outlet" class="nav-link" data-scroll-target="#sec-outlet"><span class="header-section-number">2.5.2</span> Outlet</a></li>
+  <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="header-section-number">2.5.3</span> TabulatedRatingCurve</a></li>
+  <li><a href="#linearresistance" id="toc-linearresistance" class="nav-link" data-scroll-target="#linearresistance"><span class="header-section-number">2.5.4</span> LinearResistance</a></li>
+  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">2.5.5</span> Terminal</a></li>
+  <li><a href="#levelboundary" id="toc-levelboundary" class="nav-link" data-scroll-target="#levelboundary"><span class="header-section-number">2.5.6</span> LevelBoundary</a></li>
+  <li><a href="#flowboundary" id="toc-flowboundary" class="nav-link" data-scroll-target="#flowboundary"><span class="header-section-number">2.5.7</span> FlowBoundary</a></li>
+  <li><a href="#manning-connection" id="toc-manning-connection" class="nav-link" data-scroll-target="#manning-connection"><span class="header-section-number">2.5.8</span> Manning connection</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#sec-PID" id="toc-sec-PID" class="nav-link" data-scroll-target="#sec-PID"><span class="header-section-number">3</span> PID controller</a>
   <ul class="collapse">
   <li><a href="#the-derivative-term" id="toc-the-derivative-term" class="nav-link" data-scroll-target="#the-derivative-term"><span class="header-section-number">3.1</span> The derivative term</a></li>
-  <li><a href="#jacobian-contributions" id="toc-jacobian-contributions" class="nav-link" data-scroll-target="#jacobian-contributions"><span class="header-section-number">3.2</span> Jacobian contributions</a></li>
-  <li><a href="#the-sign-of-the-parameters" id="toc-the-sign-of-the-parameters" class="nav-link" data-scroll-target="#the-sign-of-the-parameters"><span class="header-section-number">3.3</span> The sign of the parameters</a></li>
+  <li><a href="#the-sign-of-the-parameters" id="toc-the-sign-of-the-parameters" class="nav-link" data-scroll-target="#the-sign-of-the-parameters"><span class="header-section-number">3.2</span> The sign of the parameters</a></li>
   </ul></li>
   <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="header-section-number">4</span> Numerical solution</a></li>
   <li><a href="#performance" id="toc-performance" class="nav-link" data-scroll-target="#performance"><span class="header-section-number">5</span> Performance</a></li>
@@ -322,23 +357,79 @@ Note
 </section>
 <section id="natural-water-balance-terms" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Natural water balance terms</h1>
-<section id="precipitation" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="precipitation"><span class="header-section-number">2.1</span> Precipitation</h2>
+<section id="sec-reduction_factor" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-reduction_factor"><span class="header-section-number">2.1</span> The reduction factor</h2>
+<p>At several points in the equations below a <em>reduction factor</em> is used. This is a term that makes certain transitions more smooth, for instance when a pump stops providing water when its source basin dries up. The reduction factor is given by</p>
+<p><span class="math display">\[
+    \phi(x; p) =
+    \begin{align}
+        \begin{cases}
+        0 &amp;\text{if}\quad x &lt; 0 \\
+            -2 \left(\frac{x}{p}\right)^3 + 3\left(\frac{x}{p}\right)^2 &amp;\text{if}\quad 0 \le x \le p \\
+            1 &amp;\text{if}\quad x &gt; p
+        \end{cases}
+    \end{align},
+\]</span></p>
+<p>where <span class="math inline">\(p &gt; 0\)</span> is the threshold value which determines the interval <span class="math inline">\([0,p]\)</span> of the smooth transition between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, see the plot below.</p>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x, p <span class="op">=</span> <span class="dv">3</span>):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    x_scaled <span class="op">=</span> x <span class="op">/</span> p</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    phi <span class="op">=</span> (<span class="op">-</span><span class="dv">2</span> <span class="op">*</span> x_scaled <span class="op">+</span> <span class="dv">3</span>) <span class="op">*</span> x_scaled<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    phi <span class="op">=</span> np.where(x <span class="op">&lt;</span> <span class="dv">0</span>, <span class="dv">0</span>, phi)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    phi <span class="op">=</span> np.where(x <span class="op">&gt;</span> p, <span class="dv">1</span>, phi)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> phi</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>fontsize <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>x_min <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>x_max <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(x_min,x_max,N)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>phi <span class="op">=</span> f(x,p)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots(dpi<span class="op">=</span><span class="dv">80</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>ax.plot(x,phi)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>y_lim <span class="op">=</span> ax.get_ylim()</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>ax.set_xticks([<span class="dv">0</span>,p], [<span class="dv">0</span>,<span class="st">"$p$"</span>], fontsize<span class="op">=</span>fontsize)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>ax.set_yticks([<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">0</span>,<span class="dv">1</span>], fontsize<span class="op">=</span>fontsize)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>ax.hlines([<span class="dv">0</span>,<span class="dv">1</span>],x_min,x_max, color <span class="op">=</span> <span class="st">"k"</span>, ls <span class="op">=</span> <span class="st">":"</span>, zorder<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>ax.vlines([<span class="dv">0</span>,p], <span class="op">*</span>y_lim, color <span class="op">=</span> <span class="st">"k"</span>, ls <span class="op">=</span> <span class="st">":"</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(x_min,x_max)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"$x$"</span>, fontsize<span class="op">=</span>fontsize)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"$\phi(x;p)$"</span>, fontsize<span class="op">=</span>fontsize)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(y_lim)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="equations_files/figure-html/cell-2-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="precipitation" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="precipitation"><span class="header-section-number">2.2</span> Precipitation</h2>
 <p>The precipitation term is given by</p>
 <p><span id="eq-precip"><span class="math display">\[
     Q_P = P \cdot A(S).
 \tag{2}\]</span></span></p>
 <p>Here <span class="math inline">\(P = P(t)\)</span> is the precipitation rate and <span class="math inline">\(A\)</span> is the wetted area. <span class="math inline">\(A\)</span> is a function of the storage <span class="math inline">\(S = S(t)\)</span>: as the volume of water changes, the area of the free water surface may change as well, depending on the slopes of the surface waters.</p>
 </section>
-<section id="evaporation" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="evaporation"><span class="header-section-number">2.2</span> Evaporation</h2>
+<section id="evaporation" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="evaporation"><span class="header-section-number">2.3</span> Evaporation</h2>
 <p>The evaporation term is given by</p>
 <p><span id="eq-evap"><span class="math display">\[
-    Q_E = E_\text{pot} \cdot A(S) \cdot r.
+    Q_E = E_\text{pot} \cdot A(S) \cdot \phi(d;0.1).
 \tag{3}\]</span></span></p>
-<p>Here <span class="math inline">\(E_\text{pot} = E_\text{pot}(t)\)</span> is the potential evaporation rate and <span class="math inline">\(A\)</span> is the wetted area. <span class="math inline">\(r\)</span> is the reduction factor which depends on the depth <span class="math inline">\(d\)</span> and is given by <span id="eq-reduc"><span class="math display">\[
-    r = \frac{\min\{d,0.1\}}{0.1} \le 1.
-\tag{4}\]</span></span> It provides a smooth gradient as <span class="math inline">\(S \rightarrow 0\)</span> (but not at <span class="math inline">\(d=0.1\)</span>).</p>
+<p>Here <span class="math inline">\(E_\text{pot} = E_\text{pot}(t)\)</span> is the potential evaporation rate and <span class="math inline">\(A\)</span> is the wetted area. <span class="math inline">\(\phi\)</span> is the <a href="../core/equations.html#sec-reduction_factor">reduction factor</a> which depends on the depth <span class="math inline">\(d\)</span>. It provides a smooth gradient as <span class="math inline">\(S \rightarrow 0\)</span>.</p>
 <p>A straightforward formulation <span class="math inline">\(Q_E = \mathrm{max}(E_\text{pot} A(S), 0)\)</span> is unsuitable, as <span class="math inline">\(\frac{\mathrm{d}Q_E}{\mathrm{d}S}(S=0)\)</span> is then not well-defined.</p>
 <!--
 A hyperbolic tangent is a commonly used activation function
@@ -347,8 +438,8 @@ derivative.
 -->
 <p>A non-smooth derivative results in extremely small timesteps and long computation time: ModelingToolkit identifies the singular behavior and adjusts its timestepping. In a physical interpretation, evaporation is switched on or off per individual droplet of water. In general, the effect of the reduction term is negligible, or not even necessary. As a surface water dries, its wetted area decreases and so does the evaporative flux. However, for (simplified) cases with constant wetted surface (a rectangular profile), evaporation only stops at <span class="math inline">\(S = 0\)</span>.</p>
 </section>
-<section id="infiltration-and-drainage" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="infiltration-and-drainage"><span class="header-section-number">2.3</span> Infiltration and Drainage</h2>
+<section id="infiltration-and-drainage" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="infiltration-and-drainage"><span class="header-section-number">2.4</span> Infiltration and Drainage</h2>
 <p>Infiltration is provided as a lump sum for the basin. If Ribasim is coupled with MODFLOW 6, the infiltration is computed as the sum of all <strong>positive</strong> flows of the MODFLOW 6 boundary conditions in the basin:</p>
 <p><span class="math display">\[
     Q_\text{inf} = \sum_{i=1}^{n} \sum_{j=1}^{m} \max(Q_{\mathrm{mf6}_{i,j}}, 0.0)
@@ -357,11 +448,11 @@ derivative.
 <p>Drainage is a lump sump for the basin, and consists of the sum of the absolute value of all <strong>negative</strong> flows of the MODFLOW 6 boundary conditions in the basin.</p>
 <p><span id="eq-drn"><span class="math display">\[
     Q_\text{drn} = \sum_{i=1}^{n} \sum_{j=1}^{m} \left| \min(Q_{\mathrm{mf6}_{i,j}}, 0.0) \right|
-\tag{5}\]</span></span></p>
+\tag{4}\]</span></span></p>
 <p>The interaction with MODFLOW 6 boundary conditions is explained in greater detail in the <a href="../couple/modflow.html">the MODFLOW coupling section</a> of the documentation.</p>
 </section>
-<section id="upstream-and-downstream-flow" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="upstream-and-downstream-flow"><span class="header-section-number">2.4</span> Upstream and downstream flow</h2>
+<section id="upstream-and-downstream-flow" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="upstream-and-downstream-flow"><span class="header-section-number">2.5</span> Upstream and downstream flow</h2>
 <p>Ribasim’s basins can be connected to each other, and each basin expects an explicit connection. These connections are currently available for inter-basin flows:</p>
 <!-- Is the pump a natural water balance term? -->
 <ol type="1">
@@ -377,25 +468,22 @@ derivative.
 <li><code>LevelBoundary</code></li>
 <li><code>FlowBoundary</code></li>
 </ol>
-<section id="pump-and-outlet" class="level3" data-number="2.4.1">
-<h3 data-number="2.4.1" class="anchored" data-anchor-id="pump-and-outlet"><span class="header-section-number">2.4.1</span> Pump and outlet</h3>
-<p>The behaviour of pumps and outlets is very straight forward if these nodes are not PID controlled. Their flow is given by a fixed flow rate <span class="math inline">\(q\)</span>, multiplied by a reduction factor: <span class="math display">\[
-Q_\text{pump/outlet} = \phi(u)q
+<section id="sec-pump" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="sec-pump"><span class="header-section-number">2.5.1</span> Pump</h3>
+<p>The behaviour of pumps is very straight forward if these nodes are not PID controlled. Their flow is given by a fixed flow rate <span class="math inline">\(q\)</span>, multiplied by a reduction factor: <span class="math display">\[
+Q_\text{pump} = \phi(u; 10.0)q
 \]</span></p>
-<p>Here <span class="math inline">\(u\)</span> is the storage of the upstream basin. The reduction factor</p>
-<p><span id="eq-pumpreductionfactor"><span class="math display">\[
-\phi(u) =
-\begin{align}
-    \begin{cases}
-        \frac{u}{10} &amp;\text{if}&amp; 0 \leq u \le 10 \\
-        1 &amp;\text{if}&amp; u \geq 10
-    \end{cases}
-\end{align}
-\tag{6}\]</span></span></p>
-<p>makes sure that the flow of the pump goes to <span class="math inline">\(0\)</span> as the upstream basin dries out.</p>
+<p>Here <span class="math inline">\(u\)</span> is the storage of the upstream basin. The <a href="../core/equations.html#sec-reduction_factor">reduction factor</a> <span class="math inline">\(\phi\)</span> makes sure that the flow of the pump goes smootly to <span class="math inline">\(0\)</span> as the upstream basin dries out.</p>
 </section>
-<section id="tabulatedratingcurve" class="level3" data-number="2.4.2">
-<h3 data-number="2.4.2" class="anchored" data-anchor-id="tabulatedratingcurve"><span class="header-section-number">2.4.2</span> TabulatedRatingCurve</h3>
+<section id="sec-outlet" class="level3" data-number="2.5.2">
+<h3 data-number="2.5.2" class="anchored" data-anchor-id="sec-outlet"><span class="header-section-number">2.5.2</span> Outlet</h3>
+<p>The outlet is very similar to the pump, but it has a few extra <a href="../core/equations.html#sec-reduction_factor">reduction factors</a> for physical constraints: <span class="math display">\[
+Q_\text{outlet} = \phi(u_a; 10.0)\phi(\Delta h; 0.1) \phi(h_a-h_\text{min};0.1)q.
+\]</span> The subscript <span class="math inline">\(a\)</span> denotes the upstream node and <span class="math inline">\(b\)</span> the downstream node. The first reduction factor is equivalent to the one for the pump. The second one makes sure that the outlet flow goes to zero as the head difference <span class="math inline">\(\Delta h = h_a - h_b\)</span> goes to zero. The last one makes sure that the outlet only produces flow when the upstream level is above the minimum chrest level <span class="math inline">\(h_\text{min}\)</span>.</p>
+<p>Not all node types upstream or downstream of the outlet have a defined level. If this is the case, and therefore the reduction factor cannot be computed, it is defined to be <span class="math inline">\(1.0\)</span>.</p>
+</section>
+<section id="tabulatedratingcurve" class="level3" data-number="2.5.3">
+<h3 data-number="2.5.3" class="anchored" data-anchor-id="tabulatedratingcurve"><span class="header-section-number">2.5.3</span> TabulatedRatingCurve</h3>
 <p>The Tabulated Rating Curve is a tabulation of a basin’s discharge behavior. It describes a piecewise linear relationship between the basin’s level and its discharge. It can be understood as an empirical description of a basin’s properties. This can include an outlet, but also the lumped hydraulic behavior of the upstream channels.</p>
 <!-- Is this still true? -->
 <p>The Tabulated Rating Curve should indicate at which volume no discharge occurs (the dead storage volume).</p>
@@ -413,28 +501,28 @@ Note
 </div>
 </div>
 </section>
-<section id="linearresistance" class="level3" data-number="2.4.3">
-<h3 data-number="2.4.3" class="anchored" data-anchor-id="linearresistance"><span class="header-section-number">2.4.3</span> LinearResistance</h3>
+<section id="linearresistance" class="level3" data-number="2.5.4">
+<h3 data-number="2.5.4" class="anchored" data-anchor-id="linearresistance"><span class="header-section-number">2.5.4</span> LinearResistance</h3>
 <p>A <code>LinearResistance</code> connects two basins together. The flow between the two basins is determined by a linear relationship:</p>
 <p><span id="eq-basinflow"><span class="math display">\[
     Q = \frac{h_a - h_b}{R}
-\tag{7}\]</span></span></p>
+\tag{5}\]</span></span></p>
 <p>Here <span class="math inline">\(h_a\)</span> is the water level in the first basin, <span class="math inline">\(h_b\)</span> is the water level in the second basin, and <span class="math inline">\(R\)</span> is the resistance of the link. A <code>LinearResistance</code> makes no assumptions about the direction of the flow: water flows from high to low.</p>
 </section>
-<section id="terminal" class="level3" data-number="2.4.4">
-<h3 data-number="2.4.4" class="anchored" data-anchor-id="terminal"><span class="header-section-number">2.4.4</span> Terminal</h3>
+<section id="terminal" class="level3" data-number="2.5.5">
+<h3 data-number="2.5.5" class="anchored" data-anchor-id="terminal"><span class="header-section-number">2.5.5</span> Terminal</h3>
 <p>This only allows outflow from a basin into a terminal node.</p>
 </section>
-<section id="levelboundary" class="level3" data-number="2.4.5">
-<h3 data-number="2.4.5" class="anchored" data-anchor-id="levelboundary"><span class="header-section-number">2.4.5</span> LevelBoundary</h3>
+<section id="levelboundary" class="level3" data-number="2.5.6">
+<h3 data-number="2.5.6" class="anchored" data-anchor-id="levelboundary"><span class="header-section-number">2.5.6</span> LevelBoundary</h3>
 <p>This can be connected to a basin via a <code>LinearResistance</code>. This boundary node will then exchange water with the basin based on the difference in water level between the two.</p>
 </section>
-<section id="flowboundary" class="level3" data-number="2.4.6">
-<h3 data-number="2.4.6" class="anchored" data-anchor-id="flowboundary"><span class="header-section-number">2.4.6</span> FlowBoundary</h3>
+<section id="flowboundary" class="level3" data-number="2.5.7">
+<h3 data-number="2.5.7" class="anchored" data-anchor-id="flowboundary"><span class="header-section-number">2.5.7</span> FlowBoundary</h3>
 <p>This can be connected directly to a basin and prescribes the flow to or from that basin. We require that the edge connecting the flow boundary to the basin should point towards the basin, so that positive flow corresponds to water being added to the model.</p>
 </section>
-<section id="manning-connection" class="level3" data-number="2.4.7">
-<h3 data-number="2.4.7" class="anchored" data-anchor-id="manning-connection"><span class="header-section-number">2.4.7</span> Manning connection</h3>
+<section id="manning-connection" class="level3" data-number="2.5.8">
+<h3 data-number="2.5.8" class="anchored" data-anchor-id="manning-connection"><span class="header-section-number">2.5.8</span> Manning connection</h3>
 <p>Ribasim is capable of simulating steady flow between basins through a reach described by a trapezoidal profile and a Manning roughness coefficient.</p>
 <p>We describe the discharge from basin <span class="math inline">\(a\)</span> to basin <span class="math inline">\(b\)</span> solely as a function of the water levels in <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
 <p><span class="math display">\[
@@ -549,22 +637,22 @@ B = w + 2 d \sqrt{\left(\frac{\Delta y}{\Delta z}\right)^2 + 1}
 <h1 data-number="3"><span class="header-section-number">3</span> PID controller</h1>
 <p>The PID controller continuously sets the flow rate of a pump or outlet to bring the level of a certain basin closer to its setpoint. If we denote the setpoint by <span class="math inline">\(\text{SP}(t)\)</span> and the basin level by <span class="math inline">\(y(t)\)</span>, then the error is given by <span id="eq-error"><span class="math display">\[
 e(t) = \text{SP}(t) - y(t).
-\tag{8}\]</span></span></p>
+\tag{6}\]</span></span></p>
 <p>The output of the PID controller for the flow rate of the pump or outlet is then given by <span id="eq-PIDflow"><span class="math display">\[
     Q_\text{PID}(t) = K_p e(t) + K_i\int_{t_0}^t e(\tau)\text{d}\tau + K_d \frac{\text{d}e}{\text{d}t},
-\tag{9}\]</span></span></p>
+\tag{7}\]</span></span></p>
 <p>for given constant parameters <span class="math inline">\(K_p,K_i,K_d\)</span>. The pump or outlet can have associated minimum and maximum flow rates <span class="math inline">\(Q_\min, Q_\max\)</span>, and so <span class="math display">\[
-Q_\text{pump/outlet} = \text{clip}(\phi(u_\text{us})Q_\text{PID}; Q_\min, Q_\max).
+Q_\text{pump/outlet} = \text{clip}(\Phi Q_\text{PID}; Q_\min, Q_\max).
 \]</span></p>
-<p>Here <span class="math inline">\(u_\text{us}\)</span> is the storage of the basin upstream of the pump or outlet, <span class="math inline">\(\phi\)</span> is the reduction factor (see <a href="#eq-pumpreductionfactor">Equation&nbsp;6</a>) and</p>
+<p>Here <span class="math inline">\(u_\text{us}\)</span> is the storage of the basin upstream of the pump or outlet, <span class="math inline">\(\Phi\)</span> is the product of <a href="../core/equations.html#sec-reduction_factor">reduction factors</a> associated with the <a href="../core/equations.html#sec-pump">pump</a> or <a href="../core/equations.html#sec-outlet">outlet</a> and</p>
 <p><span class="math display">\[
 \text{clip}(Q; Q_\min, Q_\max) =
 \begin{align}
     \begin{cases}
-        Q_\min &amp; \text{if} &amp; Q &lt; Q_\min, \\
-        Q &amp; \text{if} &amp; Q_\min \leq Q \leq Q_\max, \\
-        Q_\max &amp; \text{if} &amp; Q &gt; Q_\max.
-    \end{cases}
+        Q_\min &amp; \text{if} &amp; Q &lt; Q_\min \\
+        Q &amp; \text{if} &amp; Q_\min \leq Q \leq Q_\max \\
+        Q_\max &amp; \text{if} &amp; Q &gt; Q_\max
+    \end{cases}.
 \end{align}
 \]</span></p>
 <p>For the integral term we denote <span class="math display">\[
@@ -590,75 +678,18 @@ Note
 <h2 data-number="3.1" class="anchored" data-anchor-id="the-derivative-term"><span class="header-section-number">3.1</span> The derivative term</h2>
 <p>When <span class="math inline">\(K_d \ne 0\)</span> this adds a level of complexity. We can see this by looking at the error derivative more closely: <span class="math display">\[
 \frac{\text{d}e}{\text{d}t} = \frac{\text{d}\text{SP}}{\text{d}t} - \frac{1}{A(u_\text{PID})}\frac{\text{d}u_\text{PID}}{\text{d}t},
-\]</span> where <span class="math inline">\(A(u_\text{PID})\)</span> is the area of the controlled basin as a function of the storage of the controlled basin <span class="math inline">\(u_\text{PID}\)</span>. The complexity arises from the fact that <span class="math inline">\(Q_\text{PID}\)</span> is a contribution to <span class="math inline">\(\frac{\text{d}u_\text{PID}}{\text{d}t} = f_\text{PID}\)</span>, which makes <a href="#eq-PIDflow">Equation&nbsp;9</a> an implicit equation for <span class="math inline">\(Q_\text{PID}\)</span>. We define</p>
+\]</span> where <span class="math inline">\(A(u_\text{PID})\)</span> is the area of the controlled basin as a function of the storage of the controlled basin <span class="math inline">\(u_\text{PID}\)</span>. The complexity arises from the fact that <span class="math inline">\(Q_\text{PID}\)</span> is a contribution to <span class="math inline">\(\frac{\text{d}u_\text{PID}}{\text{d}t} = f_\text{PID}\)</span>, which makes <a href="#eq-PIDflow">Equation&nbsp;7</a> an implicit equation for <span class="math inline">\(Q_\text{PID}\)</span>. We define</p>
 <p><span class="math display">\[
 f_\text{PID} = \hat{f}_\text{PID} \pm Q_\text{pump/outlet},
 \]</span></p>
 <p>that is, <span class="math inline">\(\hat{f}_\text{PID}\)</span> is the right hand side of the ODE for the controlled basin storage state without the contribution of the PID controlled pump. The plus sign holds for an outlet and the minus sign for a pump, dictated by the way the pump and outlet connectivity to the controlled basin is enforced.</p>
-<p>Using this, solving <a href="#eq-PIDflow">Equation&nbsp;9</a> for <span class="math inline">\(Q_\text{PID}\)</span> yields <span class="math display">\[
+<p>Using this, solving <a href="#eq-PIDflow">Equation&nbsp;7</a> for <span class="math inline">\(Q_\text{PID}\)</span> yields <span class="math display">\[
 Q_\text{pump/outlet} = \text{clip}\left(\phi(u_\text{us})\frac{K_pe + K_iI + K_d \left(\frac{\text{d}\text{SP}}{\text{d}t}-\frac{\hat{f}_\text{PID}}{A(u_\text{PID})}\right)}{1\pm\phi(u_\text{us})\frac{K_d}{A(u_\text{PID})}};Q_\min,Q_\max\right),
 \]</span> where the clipping is again done last. Note that to compute this, <span class="math inline">\(\hat{f}_\text{PID}\)</span> has to be known first, meaning that the PID controlled pump/outlet flow rate has to be computed after all other contributions to the PID controlled basin’s storage are known.</p>
 </section>
-<section id="jacobian-contributions" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="jacobian-contributions"><span class="header-section-number">3.2</span> Jacobian contributions</h2>
-<p>For convenience here we denote a time derivative of a variable as a dot over the symbol.</p>
-<p>For the integral state we simply get the contribution <span class="math display">\[
-\frac{\partial \dot{I}}{\partial u_\text{PID}} = - \frac{1}{A(u_\text{PID})}.
-\]</span></p>
-<p>Note that when the calculated pump flow lies outside <span class="math inline">\([Q_\min, Q_\max]\)</span>, the pump flow is locally constant and thus all partial derivatives of <span class="math inline">\(Q_\text{pump/outlet}\)</span> with respect to states are <span class="math inline">\(0\)</span>. Assuming that it lies in <span class="math inline">\([Q_\min, Q_\max]\)</span>, we derive the Jacobian contributions. Define the enumerator and denominator of the fraction in <span class="math inline">\(Q_\text{pump/outlet}\)</span>:</p>
-<p><span class="math display">\[
-\begin{align}
-    E &amp;= K_pe + K_iI + K_d \left(\dot{\text{SP}}-\frac{\hat{f}_\text{PID}}{A(u_\text{PID})}\right) \\
-    D &amp;= 1 \pm \phi(u_\text{us})\frac{K_d}{A(u_\text{PID})}
-\end{align}
-\]</span></p>
-<p>Then</p>
-<p><span class="math display">\[
-\frac{\partial Q_\text{pump/outlet}}{\partial I} = K_i\frac{\phi(u_\text{us})}{D}.
-\]</span></p>
-<p>For the derivative of <span class="math inline">\(Q_\text{pump/outlet}\)</span> with respect to storages we need the derivatives of the enumerator and denominator.</p>
-<p>For the denominator we distinguish 2 possibilities:</p>
-<ul>
-<li>If the controlled node is a pump, then <span class="math inline">\(u_\text{us} \equiv u_\text{PID}\)</span> and so <span class="math inline">\(D\)</span> is only a function of <span class="math inline">\(u_\text{PID}\)</span>: <span class="math display">\[
-\frac{\text{d}D}{\text{d}u_\text{PID}} = - K_d\left[\frac{\phi'(u_\text{PID})}{A(u_\text{PID})}- \phi(u_\text{PID})\frac{A'(u_\text{PID})}{A(u_\text{PID})^2}\right]
-\]</span></li>
-<li>If the controlled node is an outlet, then <span class="math inline">\(D\)</span> is a function of two distinct storages (assuming the upstream node is indeed a basin): <span class="math display">\[
-\begin{align}
-  \frac{\partial D}{\partial u_\text{PID}} &amp;= \phi(u_\text{us})K_d\frac{A'(u_\text{PID})}{A(u_\text{PID})^2}, \\
-  \frac{\partial D}{\partial u_\text{us}} &amp;= -\phi'(u_\text{us})K_d\frac{1}{A(u_\text{PID})}.
-\end{align}
-\]</span></li>
-</ul>
-<p>For the enumerator there distinguish 2 cases:</p>
-<ul>
-<li>The partial derivative with respect to <span class="math inline">\(u_\text{PID}\)</span>: <span class="math display">\[
-\frac{\partial E}{\partial u_\text{PID}} = -\frac{K_p}{A(u_\text{PID})} - K_d\frac{A(u_\text{PID})\frac{\partial\hat{f}_\text{PID}}{\partial u_\text{PID}} - \hat{f}_\text{PID}A'(u_\text{PID})}{A(u_\text{PID})^2}.
-\]</span></li>
-<li>The partial derivative with respect to a different storage <span class="math inline">\(u_i\)</span>: <span class="math display">\[
-\frac{\partial E}{\partial u_i} = - \frac{K_d}{A(u_\text{PID})}\frac{\partial \hat{f}_\text{PID}}{\partial u_i}.
-\]</span></li>
-</ul>
-<p>For computational efficiency we exploit that <span class="math inline">\(\phi'\)</span> is mostly <span class="math inline">\(0\)</span>. Note that</p>
-<p><span class="math display">\[
-\frac{\partial\hat{f}_\text{PID}}{\partial u_i} = \hat{J}[i,\text{PID}],
-\]</span> the Jacobian term of the dependence of <span class="math inline">\(u_\text{PID}\)</span> on <span class="math inline">\(u_i\)</span> without the contribution of the PID controlled pump/outlet. Note thus that also the Jacobian contribution of the PID controlled pump can only be computed after the other contributions to the Jacobian are known.</p>
-<p>The partial derivatives of <span class="math inline">\(Q_\text{pump}\)</span> are then given by <span class="math display">\[
-\begin{align}
-    \frac{\partial Q_\text{pump}}{\partial u_\text{PID}} &amp;= \phi'(u_\text{PID})\frac{E}{D} + \frac{\phi(u_\text{PID})}{D^2}\left[D\frac{\partial E}{\partial u_\text{PID}} - E\frac{\text{d}D}{\text{d}u_\text{PID}}\right], \\
-    \frac{\partial Q_\text{pump}}{\partial u_i} &amp;= \frac{\phi(u_\text{PID})}{D}\frac{\partial E}{\partial u_i} \qquad (i \ne \text{PID}).
-\end{align}
-\]</span></p>
-<p>The partial derivatives of <span class="math inline">\(Q_\text{outlet}\)</span> are given by <span class="math display">\[
-\begin{align}
-    \frac{\partial Q_\text{outlet}}{\partial u_\text{PID}} &amp;= \frac{\phi(u_\text{us})}{D^2}\left[D\frac{\partial E}{\partial u_\text{PID}} - E\frac{\partial D}{\partial u_\text{PID}}\right], \\
-    \frac{\partial Q_\text{outlet}}{\partial u_\text{us}} &amp;= \phi'(u_\text{us})\frac{E}{D} + \frac{\phi(u_\text{us})}{D^2}\left[D\frac{\partial E}{\partial u_\text{us}} - E\frac{\partial D}{\partial u_\text{us}}\right], \\
-    \frac{\partial Q_\text{outlet}}{\partial u_i} &amp;= \frac{\phi(u_\text{us})}{D}\frac{\partial E}{\partial u_i} \qquad (i \ne \text{PID, us}).
-\end{align}
-\]</span></p>
-</section>
-<section id="the-sign-of-the-parameters" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="the-sign-of-the-parameters"><span class="header-section-number">3.3</span> The sign of the parameters</h2>
-<p>Note by <a href="#eq-error">Equation&nbsp;8</a> that the error is positive if the setpoint is larger than the basin level and negative if the setpoint is smaller than the basin level.</p>
+<section id="the-sign-of-the-parameters" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="the-sign-of-the-parameters"><span class="header-section-number">3.2</span> The sign of the parameters</h2>
+<p>Note by <a href="#eq-error">Equation&nbsp;6</a> that the error is positive if the setpoint is larger than the basin level and negative if the setpoint is smaller than the basin level.</p>
 <p>We enforce the convention that when a pump is controlled, its edge points away from the basin, and when an outlet is controlled, its edge points towards the basin, so that the main flow direction along these edges is positive. Therefore, positive flows of the pump and outlet have opposite effects on the basin, and thus the parameters <span class="math inline">\(K_p,K_i,K_d\)</span> of the pump and outlet must have oppositive signs to achieve the same goal.</p>
 </section>
 </section>
