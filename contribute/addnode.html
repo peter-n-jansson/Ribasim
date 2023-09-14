@@ -454,7 +454,6 @@ Note
 </div>
 <p>To generate the Python module <code>models.py</code> from the JSON Schemas, run:</p>
 <pre><code>datamodel-codegen --use-title-as-name --input docs/schema/root.schema.json --output python/ribasim/ribasim/models.py</code></pre>
-<p>Run <a href="../contribute/python.html#sec-black">Black</a> to format the generated code. To catch possible Python issues run <a href="../contribute/python.html#sec-ruff">Ruff</a>.</p>
 <p>Since adding a node type touches both the Python and Julia code, it is a good idea to run both the <a href="../contribute/python.html#test">Python test suite</a> and <a href="../contribute/core.html#test">Julia test suite</a> locally before creating a pull request.</p>
 
 
