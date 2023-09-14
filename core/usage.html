@@ -225,35 +225,49 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#input-and-output-files" id="toc-input-and-output-files" class="nav-link active" data-scroll-target="#input-and-output-files"><span class="header-section-number">1</span> Input and output files</a>
+  <li><a href="#configuration-file" id="toc-configuration-file" class="nav-link active" data-scroll-target="#configuration-file"><span class="header-section-number">1</span> Configuration file</a>
   <ul class="collapse">
-  <li><a href="#configuration-file" id="toc-configuration-file" class="nav-link" data-scroll-target="#configuration-file"><span class="header-section-number">1.1</span> Configuration file</a></li>
-  <li><a href="#geopackage-and-arrow-tables" id="toc-geopackage-and-arrow-tables" class="nav-link" data-scroll-target="#geopackage-and-arrow-tables"><span class="header-section-number">1.2</span> GeoPackage and Arrow tables</a></li>
-  <li><a href="#node" id="toc-node" class="nav-link" data-scroll-target="#node"><span class="header-section-number">1.3</span> Node</a></li>
-  <li><a href="#edge" id="toc-edge" class="nav-link" data-scroll-target="#edge"><span class="header-section-number">1.4</span> Edge</a></li>
-  <li><a href="#basin-state" id="toc-basin-state" class="nav-link" data-scroll-target="#basin-state"><span class="header-section-number">1.5</span> Basin / state</a></li>
-  <li><a href="#basin" id="toc-basin" class="nav-link" data-scroll-target="#basin"><span class="header-section-number">1.6</span> Basin</a></li>
-  <li><a href="#basin-forcing" id="toc-basin-forcing" class="nav-link" data-scroll-target="#basin-forcing"><span class="header-section-number">1.7</span> Basin / forcing</a></li>
-  <li><a href="#basin-profile" id="toc-basin-profile" class="nav-link" data-scroll-target="#basin-profile"><span class="header-section-number">1.8</span> Basin / profile</a></li>
-  <li><a href="#fractionalflow" id="toc-fractionalflow" class="nav-link" data-scroll-target="#fractionalflow"><span class="header-section-number">1.9</span> FractionalFlow</a></li>
-  <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="header-section-number">1.10</span> TabulatedRatingCurve</a></li>
-  <li><a href="#tabulatedratingcurve-time" id="toc-tabulatedratingcurve-time" class="nav-link" data-scroll-target="#tabulatedratingcurve-time"><span class="header-section-number">1.11</span> TabulatedRatingCurve / time</a></li>
-  <li><a href="#pump" id="toc-pump" class="nav-link" data-scroll-target="#pump"><span class="header-section-number">1.12</span> Pump</a></li>
-  <li><a href="#outlet" id="toc-outlet" class="nav-link" data-scroll-target="#outlet"><span class="header-section-number">1.13</span> Outlet</a></li>
-  <li><a href="#levelboundary" id="toc-levelboundary" class="nav-link" data-scroll-target="#levelboundary"><span class="header-section-number">1.14</span> LevelBoundary</a></li>
-  <li><a href="#levelboundary-time" id="toc-levelboundary-time" class="nav-link" data-scroll-target="#levelboundary-time"><span class="header-section-number">1.15</span> LevelBoundary / time</a></li>
-  <li><a href="#flowboundary" id="toc-flowboundary" class="nav-link" data-scroll-target="#flowboundary"><span class="header-section-number">1.16</span> FlowBoundary</a></li>
-  <li><a href="#flowboundary-time" id="toc-flowboundary-time" class="nav-link" data-scroll-target="#flowboundary-time"><span class="header-section-number">1.17</span> FlowBoundary / time</a></li>
-  <li><a href="#linearresistance" id="toc-linearresistance" class="nav-link" data-scroll-target="#linearresistance"><span class="header-section-number">1.18</span> LinearResistance</a></li>
-  <li><a href="#manningresistance" id="toc-manningresistance" class="nav-link" data-scroll-target="#manningresistance"><span class="header-section-number">1.19</span> ManningResistance</a></li>
-  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">1.20</span> Terminal</a></li>
-  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="header-section-number">1.21</span> Basin output</a></li>
-  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="header-section-number">1.22</span> Flow output</a></li>
-  <li><a href="#discetecontrol" id="toc-discetecontrol" class="nav-link" data-scroll-target="#discetecontrol"><span class="header-section-number">1.23</span> DisceteControl</a></li>
-  <li><a href="#pidcontrol" id="toc-pidcontrol" class="nav-link" data-scroll-target="#pidcontrol"><span class="header-section-number">1.24</span> PidControl</a></li>
-  <li><a href="#pidcontrol-time" id="toc-pidcontrol-time" class="nav-link" data-scroll-target="#pidcontrol-time"><span class="header-section-number">1.25</span> PidControl / time</a></li>
+  <li><a href="#solver-settings" id="toc-solver-settings" class="nav-link" data-scroll-target="#solver-settings"><span class="header-section-number">1.1</span> Solver settings</a></li>
   </ul></li>
-  <li><a href="#example-input-files" id="toc-example-input-files" class="nav-link" data-scroll-target="#example-input-files"><span class="header-section-number">2</span> Example input files</a></li>
+  <li><a href="#geopackage-and-arrow-tables" id="toc-geopackage-and-arrow-tables" class="nav-link" data-scroll-target="#geopackage-and-arrow-tables"><span class="header-section-number">2</span> GeoPackage and Arrow tables</a></li>
+  <li><a href="#node" id="toc-node" class="nav-link" data-scroll-target="#node"><span class="header-section-number">3</span> Node</a></li>
+  <li><a href="#edge" id="toc-edge" class="nav-link" data-scroll-target="#edge"><span class="header-section-number">4</span> Edge</a></li>
+  <li><a href="#basin" id="toc-basin" class="nav-link" data-scroll-target="#basin"><span class="header-section-number">5</span> Basin</a>
+  <ul class="collapse">
+  <li><a href="#basin-forcing" id="toc-basin-forcing" class="nav-link" data-scroll-target="#basin-forcing"><span class="header-section-number">5.1</span> Basin / forcing</a></li>
+  <li><a href="#basin-state" id="toc-basin-state" class="nav-link" data-scroll-target="#basin-state"><span class="header-section-number">5.2</span> Basin / state</a></li>
+  <li><a href="#basin-profile" id="toc-basin-profile" class="nav-link" data-scroll-target="#basin-profile"><span class="header-section-number">5.3</span> Basin / profile</a></li>
+  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="header-section-number">5.4</span> Basin output</a></li>
+  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="header-section-number">5.5</span> Flow output</a></li>
+  </ul></li>
+  <li><a href="#fractionalflow" id="toc-fractionalflow" class="nav-link" data-scroll-target="#fractionalflow"><span class="header-section-number">6</span> FractionalFlow</a></li>
+  <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="header-section-number">7</span> TabulatedRatingCurve</a>
+  <ul class="collapse">
+  <li><a href="#tabulatedratingcurve-time" id="toc-tabulatedratingcurve-time" class="nav-link" data-scroll-target="#tabulatedratingcurve-time"><span class="header-section-number">7.1</span> TabulatedRatingCurve / time</a></li>
+  </ul></li>
+  <li><a href="#pump" id="toc-pump" class="nav-link" data-scroll-target="#pump"><span class="header-section-number">8</span> Pump</a></li>
+  <li><a href="#outlet" id="toc-outlet" class="nav-link" data-scroll-target="#outlet"><span class="header-section-number">9</span> Outlet</a></li>
+  <li><a href="#levelboundary" id="toc-levelboundary" class="nav-link" data-scroll-target="#levelboundary"><span class="header-section-number">10</span> LevelBoundary</a>
+  <ul class="collapse">
+  <li><a href="#levelboundary-time" id="toc-levelboundary-time" class="nav-link" data-scroll-target="#levelboundary-time"><span class="header-section-number">10.1</span> LevelBoundary / time</a></li>
+  </ul></li>
+  <li><a href="#flowboundary" id="toc-flowboundary" class="nav-link" data-scroll-target="#flowboundary"><span class="header-section-number">11</span> FlowBoundary</a>
+  <ul class="collapse">
+  <li><a href="#flowboundary-time" id="toc-flowboundary-time" class="nav-link" data-scroll-target="#flowboundary-time"><span class="header-section-number">11.1</span> FlowBoundary / time</a></li>
+  </ul></li>
+  <li><a href="#linearresistance" id="toc-linearresistance" class="nav-link" data-scroll-target="#linearresistance"><span class="header-section-number">12</span> LinearResistance</a></li>
+  <li><a href="#manningresistance" id="toc-manningresistance" class="nav-link" data-scroll-target="#manningresistance"><span class="header-section-number">13</span> ManningResistance</a></li>
+  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">14</span> Terminal</a></li>
+  <li><a href="#discetecontrol" id="toc-discetecontrol" class="nav-link" data-scroll-target="#discetecontrol"><span class="header-section-number">15</span> DisceteControl</a>
+  <ul class="collapse">
+  <li><a href="#sec-condition" id="toc-sec-condition" class="nav-link" data-scroll-target="#sec-condition"><span class="header-section-number">15.1</span> DiscreteControl / condition</a></li>
+  <li><a href="#discretecontrol-logic" id="toc-discretecontrol-logic" class="nav-link" data-scroll-target="#discretecontrol-logic"><span class="header-section-number">15.2</span> DiscreteControl / logic</a></li>
+  <li><a href="#discretecontrol-output" id="toc-discretecontrol-output" class="nav-link" data-scroll-target="#discretecontrol-output"><span class="header-section-number">15.3</span> DiscreteControl output</a></li>
+  </ul></li>
+  <li><a href="#pidcontrol" id="toc-pidcontrol" class="nav-link" data-scroll-target="#pidcontrol"><span class="header-section-number">16</span> PidControl</a>
+  <ul class="collapse">
+  <li><a href="#pidcontrol-time" id="toc-pidcontrol-time" class="nav-link" data-scroll-target="#pidcontrol-time"><span class="header-section-number">16.1</span> PidControl / time</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -281,10 +295,8 @@ div.csl-indent {
 <p>The latest build can be downloaded here: <a href="https://ribasim.s3.eu-west-3.amazonaws.com/teamcity/Ribasim_Ribasim/BuildRibasimCliWindows/latest/ribasim_cli.zip">ribasim_cli.zip</a>. Currently only Windows builds are available.</p>
 <p>To check whether the installation was performed successfully, run <code>ribasim</code> with no arguments in the command line. This will give the following message:</p>
 <pre><code>Usage: ribasim 'path/to/config.toml'</code></pre>
-<section id="input-and-output-files" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="input-and-output-files"><span class="header-section-number">1</span> Input and output files</h2>
-<section id="configuration-file" class="level3" data-number="1.1">
-<h3 data-number="1.1" class="anchored" data-anchor-id="configuration-file"><span class="header-section-number">1.1</span> Configuration file</h3>
+<section id="configuration-file" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Configuration file</h1>
 <p>Ribasim has a single configuration file, which is written in the <a href="https://toml.io/">TOML</a> format. It contains settings, as well as paths to other input and output files.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start- and endtime of the simulation</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># can also be set to a date-time like 1979-05-27T07:32:00</span></span>
@@ -326,8 +338,8 @@ div.csl-indent {
 <span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co"># defines the logging level of Ribasim</span></span>
 <span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="dt">verbosity</span> <span class="op">=</span> <span class="st">"info"</span> <span class="co"># optional, default "info", can otherwise be "debug", "warn" or "error"</span></span>
 <span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="dt">timing</span> <span class="op">=</span> <span class="cn">false</span>     <span class="co"># optional, whether to log debug timing statements</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="solver-settings" class="level4" data-number="1.1.1">
-<h4 data-number="1.1.1" class="anchored" data-anchor-id="solver-settings"><span class="header-section-number">1.1.1</span> Solver settings</h4>
+<section id="solver-settings" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="solver-settings"><span class="header-section-number">1.1</span> Solver settings</h2>
 <p>The solver section in the configuration file is entirely optional, since we aim to use defaults that will generally work well. Common reasons to modify the solver settings are to adjust the calculation or output stepsizes: <code>adaptive</code>, <code>dt</code>, and <code>saveat</code>. If your model does not converge, or your performance is lower than expected, it can help to adjust other solver settings as well.</p>
 <p>The default solver <code>algorithm = "QNDF"</code>, which is a multistep method similar to Matlab’s <code>ode15s</code> <span class="citation" data-cites="shampine1997matlab">(<a href="#ref-shampine1997matlab" role="doc-biblioref">Shampine and Reichelt 1997</a>)</span>. It is an implicit method that supports the default <code>adaptive = true</code> timestepping. The full list of available solvers is: <code>QNDF</code>, <code>Rosenbrock23</code>, <code>TRBDF2</code>, <code>Rodas5</code>, <code>KenCarp4</code>, <code>Tsit5</code>, <code>RK4</code>, <code>ImplicitEuler</code>, <code>Euler</code>. Information on the solver algorithms can be found on the <a href="https://docs.sciml.ai/DiffEqDocs/stable/solvers/ode_solve/">ODE solvers page</a>.</p>
 <p>The <code>dt</code> controls the stepsize. When <code>adaptive = true</code> this only applies to the initial stepsize, and the default of 0.0 means that it is automatically determined. When <code>adaptive = false</code> a suitable <code>dt</code> must always be provided. The value is in seconds, so <code>dt = 3600.0</code> corresponds to an hourly timestep.</p>
@@ -338,8 +350,8 @@ div.csl-indent {
 <p>The absolute and relative tolerance for adaptive timestepping can be set with <code>abstol</code> and <code>reltol</code>. For more information on these and other solver options, see the <a href="https://docs.sciml.ai/DiffEqDocs/latest/basics/common_solver_opts/#solver_options">DifferentialEquations.jl docs</a>.</p>
 </section>
 </section>
-<section id="geopackage-and-arrow-tables" class="level3" data-number="1.2">
-<h3 data-number="1.2" class="anchored" data-anchor-id="geopackage-and-arrow-tables"><span class="header-section-number">1.2</span> GeoPackage and Arrow tables</h3>
+<section id="geopackage-and-arrow-tables" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> GeoPackage and Arrow tables</h1>
 <p>The input and output tables described below all share that they are tabular files. The Node and Edge tables always have to be in the <a href="https://www.geopackage.org/">GeoPackage</a> file, and output is always written to <a href="https://arrow.apache.org/">Apache Arrow</a> files, sometimes also known as Feather files. All other tables can either be in the GeoPackage or in separate Arrow files that are listed in the TOML as described above.</p>
 <p>For visualization, the Node and Edge tables typically have associated geometries. GeoPackage was used since it provides a standardized way to store tables with (and without) geometry columns in a SQLite database. If, like Ribasim, you can ignore the geometries, a GeoPackage is easy to read using SQLite libraries, which are commonly available. Furthermore GeoPackage can be updated in place when working on a model.</p>
 <p>Arrow was chosen since it is standardized, fast, simple and flexible. It can be read and written by many different software packages. In Ribasim we use <a href="https://arrow.juliadata.org/dev/">Arrow.jl</a>. Output is written to Arrow, since for long runs output can producs tables with many rows. Arrow is well suited for large tabular datasets, and file size is kept small by using compression. The Arrow input files can be compressed with LZ4 or Zstd compression. Furthermore, in some of the columns, a small amount of different values are repeated many times. To reduce file sizes it may be a good idea to apply <a href="https://arrow.apache.org/docs/format/Columnar.html#dictionary-encoded-layout">dictionary encoding</a> to those columns.</p>
@@ -371,8 +383,8 @@ div.csl-indent {
 <p>This means that two columns are required, one named <code>node_id</code>, that contained elements of type <code>Int</code>, and a column named <code>storage</code> that contains elements of type <code>Float64</code>. The order of the columns does not matter. In some cases there may be restrictions on the values. This is indicated under <code>restriction</code>.</p>
 <p>Tables are also allowed to have rows for timestamps that are not part of the simulation, these will be ignored. That makes it easy to prepare data for a larger period, and test models on a shorted period.</p>
 </section>
-<section id="node" class="level3" data-number="1.3">
-<h3 data-number="1.3" class="anchored" data-anchor-id="node"><span class="header-section-number">1.3</span> Node</h3>
+<section id="node" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Node</h1>
 <p>Node is a table that specifies the ID and type of each node of a model. The ID must be unique among all nodes, and the type must be one of the available node types listed below.</p>
 <p>Nodes are components that are connected together to form a larger system. The Basin is a central node type that stores water. The other node types influence the flow between Basins in some way. Counter intuitively, even systems you may think of as edges, such as a canal, are nodes in Ribasim. This is because edges only define direct instantaneous couplings between nodes, and never have storage of their own.</p>
 <table class="table">
@@ -462,8 +474,8 @@ div.csl-indent {
 </ul>
 <p>Adding a geometry to the node table can be helpful to examine models in <a href="https://qgis.org/en/site/">QGIS</a>, as it will show the location of the nodes on the map. The geometry is not used by Ribasim.</p>
 </section>
-<section id="edge" class="level3" data-number="1.4">
-<h3 data-number="1.4" class="anchored" data-anchor-id="edge"><span class="header-section-number">1.4</span> Edge</h3>
+<section id="edge" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Edge</h1>
 <p>Edges define connections between nodes. The only thing that defines an edge is the nodes it connects, and in what direction. There are currently 2 possible edge types:</p>
 <ol type="1">
 <li>“flow”: Flows between nodes are stored on edges. The effect of the edge direction depends on the node type, Node types that have a notion of an upstream and downstream side use the incoming edge as the upstream side, and the outgoing edge as the downstream side. This means that edges should generally be drawn in the main flow direction. But for instance between two <code>LinearResistances</code> the edge direction does not affect anything, other than the sign of the flow on the edge. The sign of the flow follows the edge direction; a positive flow flows along the edge direction, a negative flow in the opposite way.</li>
@@ -507,37 +519,8 @@ div.csl-indent {
 </table>
 <p>Similarly to the node table, you can use a geometry to visualize the connections between the nodes in QGIS. For instance, you can draw a line connecting the two node coordinates.</p>
 </section>
-<section id="basin-state" class="level3" data-number="1.5">
-<h3 data-number="1.5" class="anchored" data-anchor-id="basin-state"><span class="header-section-number">1.5</span> Basin / state</h3>
-<p>The state table aims to capture the full state of the Basin, such that it can be used as an initial condition, potentially the outcome of an earlier simulation. Currently only the Basin node types have state.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td><span class="math inline">\(\ge\)</span> basin bottom</td>
-</tr>
-</tbody>
-</table>
-<p>Each Basin ID needs to be in the table.</p>
-</section>
-<section id="basin" class="level3" data-number="1.6">
-<h3 data-number="1.6" class="anchored" data-anchor-id="basin"><span class="header-section-number">1.6</span> Basin</h3>
+<section id="basin" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Basin</h1>
 <p>The Basin table can be used to set the static value of variables. The forcing table has a similar schema, with the time column added. A static value for a variable is only used if there is no dynamic forcing data for that variable. Specifically, if there is either no forcing table, it is empty, or all timestamps of that variable are missing.</p>
 <table class="table">
 <thead>
@@ -588,13 +571,41 @@ div.csl-indent {
 </tbody>
 </table>
 <p>Note that if variables are not set in the static table, default values are used when possible. These are generally zero, e.g.&nbsp;no precipitation, no inflow. If it is not possible to have a reasonable and safe default, a value must be provided in the static table.</p>
-</section>
-<section id="basin-forcing" class="level3" data-number="1.7">
-<h3 data-number="1.7" class="anchored" data-anchor-id="basin-forcing"><span class="header-section-number">1.7</span> Basin / forcing</h3>
+<section id="basin-forcing" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="basin-forcing"><span class="header-section-number">5.1</span> Basin / forcing</h2>
 <p>This table is the transient form of the <code>Basin</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. A linear interpolation between the given timesteps is currently done if the solver takes timesteps between the given data points. More options will be available later.</p>
 </section>
-<section id="basin-profile" class="level3" data-number="1.8">
-<h3 data-number="1.8" class="anchored" data-anchor-id="basin-profile"><span class="header-section-number">1.8</span> Basin / profile</h3>
+<section id="basin-state" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="basin-state"><span class="header-section-number">5.2</span> Basin / state</h2>
+<p>The state table aims to capture the full state of the Basin, such that it can be used as an initial condition, potentially the outcome of an earlier simulation. Currently only the Basin node types have state.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>level</td>
+<td>Float64</td>
+<td><span class="math inline">\(m\)</span></td>
+<td><span class="math inline">\(\ge\)</span> basin bottom</td>
+</tr>
+</tbody>
+</table>
+<p>Each Basin ID needs to be in the table.</p>
+</section>
+<section id="basin-profile" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="basin-profile"><span class="header-section-number">5.3</span> Basin / profile</h2>
 <p>The profile table defines the physical dimensions of the storage reservoir of each basin.</p>
 <table class="table">
 <colgroup>
@@ -666,8 +677,86 @@ div.csl-indent {
 </table>
 <p>We use the symbol <span class="math inline">\(A\)</span> for area, <span class="math inline">\(h\)</span> for level and <span class="math inline">\(S\)</span> for storage. The profile provides a function <span class="math inline">\(A(h)\)</span> for each basin. Internally this get converted to two functions, <span class="math inline">\(A(S)\)</span> and <span class="math inline">\(h(S)\)</span>, by integrating over the function, setting the storage to zero for the bottom of the profile. The minimum area cannot be zero to avoid numerical issues. The maximum area is used to convert the precipitation flux into an inflow.</p>
 </section>
-<section id="fractionalflow" class="level3" data-number="1.9">
-<h3 data-number="1.9" class="anchored" data-anchor-id="fractionalflow"><span class="header-section-number">1.9</span> FractionalFlow</h3>
+<section id="basin-output" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">5.4</span> Basin output</h2>
+<p>The basin table contains outputs of the storage and level of each basin at every solver timestep. The initial condition is also written to the file.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>time</td>
+<td>DateTime</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>node_id</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>storage</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
+</tr>
+<tr class="even">
+<td>level</td>
+<td>Float64</td>
+<td><span class="math inline">\(m\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The table is sorted by time, and per time it is sorted by <code>node_id</code>.</p>
+</section>
+<section id="flow-output" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">5.5</span> Flow output</h2>
+<p>The flow table contains outputs of the flow on every edge in the model, for each solver timestep.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>time</td>
+<td>DateTime</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>edge_id</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>from_node_id</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>to_node_id</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>flow</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The table is sorted by time, and per time the same edge_id order is used, though not sorted.</p>
+</section>
+</section>
+<section id="fractionalflow" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> FractionalFlow</h1>
 <p>Lets a fraction (in [0,1]) of the incoming flow trough.</p>
 <table class="table">
 <thead>
@@ -700,8 +789,8 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="tabulatedratingcurve" class="level3" data-number="1.10">
-<h3 data-number="1.10" class="anchored" data-anchor-id="tabulatedratingcurve"><span class="header-section-number">1.10</span> TabulatedRatingCurve</h3>
+<section id="tabulatedratingcurve" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> TabulatedRatingCurve</h1>
 <p>This table is similar in structure to the Basin profile. The TabulatedRatingCurve gives a relation between the storage of a connected Basin (via the outlet level) and its outflow.</p>
 <table class="table">
 <thead>
@@ -781,9 +870,8 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-</section>
-<section id="tabulatedratingcurve-time" class="level3" data-number="1.11">
-<h3 data-number="1.11" class="anchored" data-anchor-id="tabulatedratingcurve-time"><span class="header-section-number">1.11</span> TabulatedRatingCurve / time</h3>
+<section id="tabulatedratingcurve-time" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="tabulatedratingcurve-time"><span class="header-section-number">7.1</span> TabulatedRatingCurve / time</h2>
 <p>This table is the transient form of the <code>TabulatedRatingCurve</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the rating curves can be updated over time. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
 <table class="table">
 <thead>
@@ -822,8 +910,9 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="pump" class="level3" data-number="1.12">
-<h3 data-number="1.12" class="anchored" data-anchor-id="pump"><span class="header-section-number">1.12</span> Pump</h3>
+</section>
+<section id="pump" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Pump</h1>
 <p>Pump water from a source node to a destination node. The set flow rate will be pumped unless the intake storage is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. The intake must be either a Basin or LevelBoundary. When PID controlled, the pump must point away from the controlled basin in terms of edges.</p>
 <table class="table">
 <colgroup>
@@ -880,8 +969,8 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="outlet" class="level3" data-number="1.13">
-<h3 data-number="1.13" class="anchored" data-anchor-id="outlet"><span class="header-section-number">1.13</span> Outlet</h3>
+<section id="outlet" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Outlet</h1>
 <p>The outlet is very similar to the pump. The outlet has two additional physical constraints: water only flows trough the outlet when the head difference is positive (i.e.&nbsp;water flows down by gravity), and the upstream level must be above the minimum crest level if the upstream level is defined. When PID controlled, the outlet must point towards the controlled basin in terms of edges.</p>
 <table class="table">
 <colgroup>
@@ -944,8 +1033,8 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="levelboundary" class="level3" data-number="1.14">
-<h3 data-number="1.14" class="anchored" data-anchor-id="levelboundary"><span class="header-section-number">1.14</span> LevelBoundary</h3>
+<section id="levelboundary" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> LevelBoundary</h1>
 <p>Acts like an infinitely large basin where the level does not change by flow. This can be connected to a basin via a <code>LinearResistance</code>. This boundary node will then exchange water with the basin based on the difference in water level between the two.</p>
 <table class="table">
 <thead>
@@ -977,9 +1066,8 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-</section>
-<section id="levelboundary-time" class="level3" data-number="1.15">
-<h3 data-number="1.15" class="anchored" data-anchor-id="levelboundary-time"><span class="header-section-number">1.15</span> LevelBoundary / time</h3>
+<section id="levelboundary-time" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="levelboundary-time"><span class="header-section-number">10.1</span> LevelBoundary / time</h2>
 <p>This table is the transient form of the <code>LevelBoundary</code> table. The only difference is that a time column is added and activity is assumed to be true. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the levels can be updated over time. In between the given times the level is interpolated linearly, and outside the flow rate is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
 <table class="table">
 <thead>
@@ -1012,8 +1100,9 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="flowboundary" class="level3" data-number="1.16">
-<h3 data-number="1.16" class="anchored" data-anchor-id="flowboundary"><span class="header-section-number">1.16</span> FlowBoundary</h3>
+</section>
+<section id="flowboundary" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> FlowBoundary</h1>
 <p>Pump water to a destination node. We require that the edge connecting the flow boundary to the Basin should point towards the basin, so that positive flow corresponds to water being added to the model. The set flow rate will be pumped unless the intake storage (for a negative flow rate) is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. Note that the connected node must always be a Basin.</p>
 <table class="table">
 <thead>
@@ -1045,9 +1134,8 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-</section>
-<section id="flowboundary-time" class="level3" data-number="1.17">
-<h3 data-number="1.17" class="anchored" data-anchor-id="flowboundary-time"><span class="header-section-number">1.17</span> FlowBoundary / time</h3>
+<section id="flowboundary-time" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="flowboundary-time"><span class="header-section-number">11.1</span> FlowBoundary / time</h2>
 <p>This table is the transient form of the <code>FlowBoundary</code> table. The only differences are that a time column is added and the nodes are assumed to be active so this column is removed. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the flow rates can be updated over time. In between the given times the flow rate is interpolated linearly, and outside the flow rate is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
 <table class="table">
 <thead>
@@ -1080,8 +1168,9 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="linearresistance" class="level3" data-number="1.18">
-<h3 data-number="1.18" class="anchored" data-anchor-id="linearresistance"><span class="header-section-number">1.18</span> LinearResistance</h3>
+</section>
+<section id="linearresistance" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> LinearResistance</h1>
 <p>Flow proportional to the level difference between the connected basins.</p>
 <table class="table">
 <thead>
@@ -1120,8 +1209,8 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="manningresistance" class="level3" data-number="1.19">
-<h3 data-number="1.19" class="anchored" data-anchor-id="manningresistance"><span class="header-section-number">1.19</span> ManningResistance</h3>
+<section id="manningresistance" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> ManningResistance</h1>
 <p>Flow through this connection is estimated by conservation of energy and the Manning-Gauckler formula to estimate friction losses.</p>
 <table class="table">
 <thead>
@@ -1178,8 +1267,8 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="terminal" class="level3" data-number="1.20">
-<h3 data-number="1.20" class="anchored" data-anchor-id="terminal"><span class="header-section-number">1.20</span> Terminal</h3>
+<section id="terminal" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Terminal</h1>
 <p>A terminal is a water sink without state or properties. Any water that flows into a terminal node is removed from the model. No water can come into the model from a terminal node. For example, terminal nodes can be used as a downstream boundary.</p>
 <table class="table">
 <thead>
@@ -1200,88 +1289,11 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="basin-output" class="level3" data-number="1.21">
-<h3 data-number="1.21" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">1.21</span> Basin output</h3>
-<p>The basin table contains outputs of the storage and level of each basin at every solver timestep. The initial condition is also written to the file.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>time</td>
-<td>DateTime</td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>node_id</td>
-<td>Int</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>storage</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3\)</span></td>
-</tr>
-<tr class="even">
-<td>level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-</tr>
-</tbody>
-</table>
-<p>The table is sorted by time, and per time it is sorted by <code>node_id</code>.</p>
-</section>
-<section id="flow-output" class="level3" data-number="1.22">
-<h3 data-number="1.22" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">1.22</span> Flow output</h3>
-<p>The flow table contains outputs of the flow on every edge in the model, for each solver timestep.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>time</td>
-<td>DateTime</td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>edge_id</td>
-<td>Int</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>from_node_id</td>
-<td>Int</td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>to_node_id</td>
-<td>Int</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>flow</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-</tr>
-</tbody>
-</table>
-<p>The table is sorted by time, and per time the same edge_id order is used, though not sorted.</p>
-</section>
-<section id="discetecontrol" class="level3" data-number="1.23">
-<h3 data-number="1.23" class="anchored" data-anchor-id="discetecontrol"><span class="header-section-number">1.23</span> DisceteControl</h3>
+<section id="discetecontrol" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> DisceteControl</h1>
 <p>DiscreteControl is implemented based on <a href="https://docs.sciml.ai/DiffEqDocs/stable/features/callback_functions/#VectorContinuousCallback">VectorContinuousCallback</a>.</p>
-<section id="sec-condition" class="level4" data-number="1.23.1">
-<h4 data-number="1.23.1" class="anchored" data-anchor-id="sec-condition"><span class="header-section-number">1.23.1</span> DiscreteControl / condition</h4>
+<section id="sec-condition" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="sec-condition"><span class="header-section-number">15.1</span> DiscreteControl / condition</h2>
 <p>The condition schema defines conditions of the form ‘the discrete_control node with this node id listens to whether the given variable of the node with the given listen feature id is grater than the given value’. If the condition variable comes from a time-series, a look ahead <span class="math inline">\(\Delta t\)</span> can be supplied.</p>
 <table class="table">
 <colgroup>
@@ -1332,8 +1344,8 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="discretecontrol-logic" class="level4" data-number="1.23.2">
-<h4 data-number="1.23.2" class="anchored" data-anchor-id="discretecontrol-logic"><span class="header-section-number">1.23.2</span> DiscreteControl / logic</h4>
+<section id="discretecontrol-logic" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="discretecontrol-logic"><span class="header-section-number">15.2</span> DiscreteControl / logic</h2>
 <p>The logic schema defines which control states are triggered based on the truth of the conditions a discrete_control node listens to. DiscreteControl is applied in the Julia core as follows:</p>
 <ul>
 <li>During the simulation it is checked whether the truth of any of the conditions changes.</li>
@@ -1380,8 +1392,8 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="discretecontrol-output" class="level4" data-number="1.23.3">
-<h4 data-number="1.23.3" class="anchored" data-anchor-id="discretecontrol-output"><span class="header-section-number">1.23.3</span> DiscreteControl output</h4>
+<section id="discretecontrol-output" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="discretecontrol-output"><span class="header-section-number">15.3</span> DiscreteControl output</h2>
 <p>The control table contains a record of each change of control state: when it happened, which control node was involved, to which control state it changed and based on which truth state.</p>
 <table class="table">
 <thead>
@@ -1411,8 +1423,8 @@ div.csl-indent {
 </table>
 </section>
 </section>
-<section id="pidcontrol" class="level3" data-number="1.24">
-<h3 data-number="1.24" class="anchored" data-anchor-id="pidcontrol"><span class="header-section-number">1.24</span> PidControl</h3>
+<section id="pidcontrol" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> PidControl</h1>
 <p>The PidControl node controls the level in a basin by continuously controlling the flow rate of a connected pump or outlet. See also <a href="https://en.wikipedia.org/wiki/PID_controller">PID controller</a>. When A PidControl node is made inactive, the node under its control retains the last flow rate value, and the error integral is reset to 0.</p>
 <p>The pump must be an outneighbor of the controlled basin, the outlet must be an inneighbor. Thus for the same coefficient values in <code>proportional</code>, <code>integral</code> and <code>derivative</code>, the pump and outlet have the oppositve effect on the controlled basin.</p>
 <p>In the future controlling the flow on a particular edge could be supported.</p>
@@ -1476,9 +1488,8 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-</section>
-<section id="pidcontrol-time" class="level3" data-number="1.25">
-<h3 data-number="1.25" class="anchored" data-anchor-id="pidcontrol-time"><span class="header-section-number">1.25</span> PidControl / time</h3>
+<section id="pidcontrol-time" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="pidcontrol-time"><span class="header-section-number">16.1</span> PidControl / time</h2>
 <p>This table is the transient form of the <code>PidControl</code> table. The differences are that a time column is added and the nodes are assumed to be active so this column is removed. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the target level and PID coefficients can be updated over time. In between the given times the these values interpolated linearly, and outside these values area constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
 <table class="table">
 <thead>
@@ -1494,7 +1505,7 @@ div.csl-indent {
 <td>node_id</td>
 <td>Int</td>
 <td>-</td>
-<td>sorted</td>
+<td>sorted per time</td>
 </tr>
 <tr class="even">
 <td>time</td>
@@ -1534,14 +1545,10 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
+
+
+
 </section>
-</section>
-<section id="example-input-files" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="example-input-files"><span class="header-section-number">2</span> Example input files</h2>
-<p>From <a href="https://github.com/visr/ribasim-artifacts/releases">this link</a> you can download an existing schematization for the Netherlands that was used for testing purposes during development. It is provided here as an example to help people get started. Based on the description of the input files above, you can also generate your own schematization using your tools of choice. For Python users <a href="https://github.com/Deltares/ribasim-python">ribasim-python</a> was created to make it easy to do pre- and postprocessing.</p>
-
-
-
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
