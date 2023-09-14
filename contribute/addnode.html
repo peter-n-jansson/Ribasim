@@ -314,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Out-neighbor dependencies: examples are <code>TabulatedRatingCurve</code>, <code>Pump</code> (the latter only in the reduction factor regime and not PID controlled). If the in-neighbor of a node of this group is a basin, then the storage of this basin affects itself and the storage of the outneighbor (or the basin one node further if it is connected with a <code>FractionalFlow</code> in between) if that is also a basin;</li>
 <li>Either-neighbor dependencies: examples are <code>LinearResistance</code>, <code>ManningResistance</code>. If either the in-neighbor or out-neighbor of a node of this group is a basin, the storage of this basin depends on itself. If both the in-neighbor and the out-neighbor are basins, their storages also depend on eachother.</li>
-<li>The <code>PidControl</code> node is a special case which is discussed in <a href="..\core\equations.qmd#sec-PID">equations</a>.</li>
+<li>The <code>PidControl</code> node is a special case which is discussed in <a href="../core/equations.html#sec-PID">equations</a>.</li>
 </ul>
 <p>In the methods <code>formulate_jac!</code> in <code>jac.jl</code> the analytical expressions for the partial derivatives <span class="math inline">\(\frac{\partial Q_{i',j'}}{\partial u_i}\)</span> (and the ones related to PID integral states) are hardcoded. For <code>NewNodeType</code> either a new method of <code>formulate_jac!</code> has to be introduced, or it has to be added to the list of node types that do not contribute to the Jacobian in the method of <code>formulate_jac!</code> whose signature contains <code>node::AbstractParameterNode</code>.</p>
 </section>
