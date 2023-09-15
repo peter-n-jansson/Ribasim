@@ -265,24 +265,30 @@ ul.task-list li input[type="checkbox"] {
 <td><em>required</em></td>
 </tr>
 <tr class="even">
+<td><code>user</code></td>
+<td>Optional[User]</td>
+<td>User node type with demand and priority.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
 <td><code>starttime</code></td>
 <td>Union[str, datetime.datetime]</td>
 <td>Starting time of the simulation.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>endtime</code></td>
 <td>Union[str, datetime.datetime]</td>
 <td>End time of the simulation.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>solver</code></td>
 <td>Optional[Solver]</td>
 <td>Solver settings.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>logging</code></td>
 <td>Optional[logging]</td>
 <td>Logging settings.</td>
