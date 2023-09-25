@@ -234,7 +234,7 @@ div.csl-indent {
   <li><a href="#edge" id="toc-edge" class="nav-link" data-scroll-target="#edge"><span class="header-section-number">4</span> Edge</a></li>
   <li><a href="#basin" id="toc-basin" class="nav-link" data-scroll-target="#basin"><span class="header-section-number">5</span> Basin</a>
   <ul class="collapse">
-  <li><a href="#basin-forcing" id="toc-basin-forcing" class="nav-link" data-scroll-target="#basin-forcing"><span class="header-section-number">5.1</span> Basin / forcing</a></li>
+  <li><a href="#basin-time" id="toc-basin-time" class="nav-link" data-scroll-target="#basin-time"><span class="header-section-number">5.1</span> Basin / time</a></li>
   <li><a href="#basin-state" id="toc-basin-state" class="nav-link" data-scroll-target="#basin-state"><span class="header-section-number">5.2</span> Basin / state</a></li>
   <li><a href="#basin-profile" id="toc-basin-profile" class="nav-link" data-scroll-target="#basin-profile"><span class="header-section-number">5.3</span> Basin / profile</a></li>
   <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="header-section-number">5.4</span> Basin output</a></li>
@@ -325,7 +325,7 @@ div.csl-indent {
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># For large tables this can benefit from better compressed file sizes.</span></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># This is optional, tables are retrieved from the GeoPackage if not specified in the TOML.</span></span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">basin</span><span class="kw">]</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="dt">forcing</span> <span class="op">=</span> <span class="st">"forcing.arrow"</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="dt">time</span> <span class="op">=</span> <span class="st">"basin/time.arrow"</span></span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">solver</span><span class="kw">]</span></span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="dt">algorithm</span> <span class="op">=</span> <span class="st">"QNDF"</span> <span class="co"># optional, default "QNDF"</span></span>
@@ -423,7 +423,7 @@ div.csl-indent {
 <ul>
 <li><code>Basin / static</code>: default forcing values, used if no dynamic data given in the forcing table</li>
 <li><code>Basin / profile</code>: geometries of the basins</li>
-<li><code>Basin / forcing</code>: time series of the forcing values</li>
+<li><code>Basin / time</code>: time series of the forcing values</li>
 <li><code>Basin / state</code>: used as initial condition of the basins</li>
 </ul></li>
 <li>FractionalFlow: connect two of these from a Basin to get a fixed ratio bifurcation
@@ -530,7 +530,7 @@ div.csl-indent {
 </section>
 <section id="basin" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Basin</h1>
-<p>The Basin table can be used to set the static value of variables. The forcing table has a similar schema, with the time column added. A static value for a variable is only used if there is no dynamic forcing data for that variable. Specifically, if there is either no forcing table, it is empty, or all timestamps of that variable are missing.</p>
+<p>The Basin table can be used to set the static value of variables. The time table has a similar schema, with the time column added. A static value for a variable is only used if there is no dynamic forcing data for that variable. Specifically, if there is either no time table, it is empty, or all timestamps of that variable are missing.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -580,8 +580,8 @@ div.csl-indent {
 </tbody>
 </table>
 <p>Note that if variables are not set in the static table, default values are used when possible. These are generally zero, e.g.&nbsp;no precipitation, no inflow. If it is not possible to have a reasonable and safe default, a value must be provided in the static table.</p>
-<section id="basin-forcing" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="basin-forcing"><span class="header-section-number">5.1</span> Basin / forcing</h2>
+<section id="basin-time" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="basin-time"><span class="header-section-number">5.1</span> Basin / time</h2>
 <p>This table is the transient form of the <code>Basin</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. A linear interpolation between the given timesteps is currently done if the solver takes timesteps between the given data points. More options will be available later.</p>
 </section>
 <section id="basin-state" class="level2" data-number="5.2">
