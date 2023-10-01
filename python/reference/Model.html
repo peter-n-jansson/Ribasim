@@ -347,7 +347,7 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <section id="ribasim.Model.fields" class="level3" data-number="1.2.1">
 <h3 data-number="1.2.1" class="anchored" data-anchor-id="ribasim.Model.fields"><span class="header-section-number">1.2.1</span> fields</h3>
-<p><code>Model.fields(cls)</code></p>
+<p><code>Model.fields()</code></p>
 <p>Return the names of the fields contained in the Model.</p>
 </section>
 <section id="ribasim.Model.from_toml" class="level3" data-number="1.2.2">
@@ -401,7 +401,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="ribasim.Model.plot" class="level3" data-number="1.2.3">
 <h3 data-number="1.2.3" class="anchored" data-anchor-id="ribasim.Model.plot"><span class="header-section-number">1.2.3</span> plot</h3>
-<p><code>Model.plot(self, ax=None)</code></p>
+<p><code>Model.plot(ax=None)</code></p>
 <p>Plot the nodes and edges of the model.</p>
 <section id="parameters-2" class="level4" data-number="1.2.3.1">
 <h4 data-number="1.2.3.1" class="anchored" data-anchor-id="parameters-2"><span class="header-section-number">1.2.3.1</span> Parameters</h4>
@@ -450,34 +450,34 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="ribasim.Model.sort" class="level3" data-number="1.2.4">
 <h3 data-number="1.2.4" class="anchored" data-anchor-id="ribasim.Model.sort"><span class="header-section-number">1.2.4</span> sort</h3>
-<p><code>Model.sort(self)</code></p>
+<p><code>Model.sort()</code></p>
 <p>Sort all input tables as required.</p>
 <p>Tables are sorted by “node_id”, unless otherwise specified. Sorting is done automatically before writing the table.</p>
 </section>
 <section id="ribasim.Model.validate_model" class="level3" data-number="1.2.5">
 <h3 data-number="1.2.5" class="anchored" data-anchor-id="ribasim.Model.validate_model"><span class="header-section-number">1.2.5</span> validate_model</h3>
-<p><code>Model.validate_model(self)</code></p>
+<p><code>Model.validate_model()</code></p>
 <p>Validate the model.</p>
 <p>Checks: - Whether all node types in the node field are valid - Whether the node IDs of the node_type fields are valid - Whether the node IDs in the node field correspond to the node IDs on the node type fields</p>
 </section>
 <section id="ribasim.Model.validate_model_node_IDs" class="level3" data-number="1.2.6">
 <h3 data-number="1.2.6" class="anchored" data-anchor-id="ribasim.Model.validate_model_node_IDs"><span class="header-section-number">1.2.6</span> validate_model_node_IDs</h3>
-<p><code>Model.validate_model_node_IDs(self)</code></p>
+<p><code>Model.validate_model_node_IDs()</code></p>
 <p>Check whether the node IDs in the node field correspond to the node IDs on the node type fields.</p>
 </section>
 <section id="ribasim.Model.validate_model_node_field_IDs" class="level3" data-number="1.2.7">
 <h3 data-number="1.2.7" class="anchored" data-anchor-id="ribasim.Model.validate_model_node_field_IDs"><span class="header-section-number">1.2.7</span> validate_model_node_field_IDs</h3>
-<p><code>Model.validate_model_node_field_IDs(self)</code></p>
+<p><code>Model.validate_model_node_field_IDs()</code></p>
 <p>Check whether the node IDs of the node_type fields are valid.</p>
 </section>
 <section id="ribasim.Model.validate_model_node_types" class="level3" data-number="1.2.8">
 <h3 data-number="1.2.8" class="anchored" data-anchor-id="ribasim.Model.validate_model_node_types"><span class="header-section-number">1.2.8</span> validate_model_node_types</h3>
-<p><code>Model.validate_model_node_types(self)</code></p>
+<p><code>Model.validate_model_node_types()</code></p>
 <p>Check whether all node types in the node field are valid.</p>
 </section>
 <section id="ribasim.Model.write" class="level3" data-number="1.2.9">
 <h3 data-number="1.2.9" class="anchored" data-anchor-id="ribasim.Model.write"><span class="header-section-number">1.2.9</span> write</h3>
-<p><code>Model.write(self, directory)</code></p>
+<p><code>Model.write(directory)</code></p>
 <p>Write the contents of the model to a GeoPackage and a TOML configuration file.</p>
 <p>If <code>directory</code> does not exist, it is created before writing. The GeoPackage and TOML file will be called <code>{modelname}.gpkg</code> and <code>{modelname}.toml</code> respectively.</p>
 <section id="parameters-3" class="level4" data-number="1.2.9.1">
