@@ -83,7 +83,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../build/index.html" rel="next">
+<link href="../core/numerics.html" rel="next">
 <link href="../core/usage.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -211,6 +211,12 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../core/numerics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Numerical considerations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../build/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">API Reference</span></a>
   </div>
@@ -324,7 +330,7 @@ Note
 </div>
 <section id="the-jacobian" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="the-jacobian"><span class="header-section-number">1.1</span> The Jacobian</h2>
-<p>The Jacobian is a <span class="math inline">\(n\times n\)</span> matrix where <span class="math inline">\(n\)</span> is the number of states in the simulation. The computation of the Jacobian for the solver is hardcoded in the Julia core, which is faster and more accurate than using finite difference methods.</p>
+<p>The Jacobian is a <span class="math inline">\(n\times n\)</span> matrix where <span class="math inline">\(n\)</span> is the number of states in the simulation. The Jacobian is computed either using finite difference methods or automatic differentiation. For more details on the computation of the Jacobian and how it is used in the solvers see <a href="../core/numerics.html">numerical considerations</a>.</p>
 <p>The entries of the Jacobian <span class="math inline">\(J\)</span> are given by <span class="math display">\[
 J[i,j] = \frac{\partial f_j}{\partial u_i},
 \]</span></p>
@@ -959,8 +965,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../build/index.html" class="pagination-link">
-        <span class="nav-page-text">API Reference</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../core/numerics.html" class="pagination-link">
+        <span class="nav-page-text">Numerical considerations</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

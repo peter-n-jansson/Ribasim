@@ -211,6 +211,12 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../core/numerics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Numerical considerations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../build/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">API Reference</span></a>
   </div>
@@ -227,7 +233,7 @@ div.csl-indent {
   <ul>
   <li><a href="#configuration-file" id="toc-configuration-file" class="nav-link active" data-scroll-target="#configuration-file"><span class="header-section-number">1</span> Configuration file</a>
   <ul class="collapse">
-  <li><a href="#solver-settings" id="toc-solver-settings" class="nav-link" data-scroll-target="#solver-settings"><span class="header-section-number">1.1</span> Solver settings</a></li>
+  <li><a href="#sec-solver-settings" id="toc-sec-solver-settings" class="nav-link" data-scroll-target="#sec-solver-settings"><span class="header-section-number">1.1</span> Solver settings</a></li>
   </ul></li>
   <li><a href="#geopackage-and-arrow-tables" id="toc-geopackage-and-arrow-tables" class="nav-link" data-scroll-target="#geopackage-and-arrow-tables"><span class="header-section-number">2</span> GeoPackage and Arrow tables</a></li>
   <li><a href="#node" id="toc-node" class="nav-link" data-scroll-target="#node"><span class="header-section-number">3</span> Node</a></li>
@@ -345,8 +351,8 @@ div.csl-indent {
 <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co"># defines the logging level of Ribasim</span></span>
 <span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="dt">verbosity</span> <span class="op">=</span> <span class="st">"info"</span> <span class="co"># optional, default "info", can otherwise be "debug", "warn" or "error"</span></span>
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="dt">timing</span> <span class="op">=</span> <span class="cn">false</span>     <span class="co"># optional, whether to log debug timing statements</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="solver-settings" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="solver-settings"><span class="header-section-number">1.1</span> Solver settings</h2>
+<section id="sec-solver-settings" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="sec-solver-settings"><span class="header-section-number">1.1</span> Solver settings</h2>
 <p>The solver section in the configuration file is entirely optional, since we aim to use defaults that will generally work well. Common reasons to modify the solver settings are to adjust the calculation or output stepsizes: <code>adaptive</code>, <code>dt</code>, and <code>saveat</code>. If your model does not converge, or your performance is lower than expected, it can help to adjust other solver settings as well.</p>
 <p>The default solver <code>algorithm = "QNDF"</code>, which is a multistep method similar to Matlab’s <code>ode15s</code> <span class="citation" data-cites="shampine1997matlab">(<a href="#ref-shampine1997matlab" role="doc-biblioref">Shampine and Reichelt 1997</a>)</span>. It is an implicit method that supports the default <code>adaptive = true</code> timestepping. The full list of available solvers is: <code>QNDF</code>, <code>Rosenbrock23</code>, <code>TRBDF2</code>, <code>Rodas5</code>, <code>KenCarp4</code>, <code>Tsit5</code>, <code>RK4</code>, <code>ImplicitEuler</code>, <code>Euler</code>. Information on the solver algorithms can be found on the <a href="https://docs.sciml.ai/DiffEqDocs/stable/solvers/ode_solve/">ODE solvers page</a>.</p>
 <p>The <code>dt</code> controls the stepsize. When <code>adaptive = true</code>, <code>dt</code> only applies to the initial stepsize, and by default it is automatically determined. When <code>adaptive = false</code> a suitable <code>dt</code> must always be provided. The value is in seconds, so <code>dt = 3600.0</code> corresponds to an hourly timestep. When <code>adaptive = true</code>, <code>dtmin</code> and <code>dtmax</code> control the minimum and maximum allowed <code>dt</code>. By default these depend on the problem and algorithm. If a smaller <code>dt</code> than <code>dtmin</code> is needed to meet the set error tolerances, the simulation stops, unless <code>force_dtmin</code> is set to <code>true</code>. <code>force_dtmin</code> is off by default to ensure an accurate solution.</p>
