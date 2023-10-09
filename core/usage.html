@@ -470,7 +470,7 @@ div.csl-indent {
 <ul>
 <li><code>Outlet / static</code>: flow rate, minimum crest level</li>
 </ul></li>
-<li>User: sets water usage demands at a certain priority
+<li>User: sets water usage demands at certain priorities
 <ul>
 <li><code>User / static</code>: demands</li>
 <li><code>User / time</code>: dynamic demands</li>
@@ -1053,7 +1053,7 @@ div.csl-indent {
 </section>
 <section id="user" class="level1" data-number="10">
 <h1 data-number="10"><span class="header-section-number">10</span> User</h1>
-<p>A user can demand a certain flow from the basin that supplies it. Currently the user attempts to extract the complete demand from the Basin. Only if the Basin is almost empty or reaches the minimum level at which the user can extract water (<code>min_level</code>), will it take less than the demand. In the future water can be allocated to users based on their priority. Users need an outgoing flow edge along which they can send their return flow, this can also be to the same basin from which it extracts water. The amount of return flow is always a fraction of the inflow into the user. The difference is consumed by the user.</p>
+<p>A user can demand a certain flow from the basin that supplies it, distributed over multiple priorities 1,2,3,… where priority 1 denotes the most important demand. Currently the user attempts to extract the complete demand from the Basin. Only if the Basin is almost empty or reaches the minimum level at which the user can extract water (<code>min_level</code>), will it take less than the demand. In the future water can be allocated to users based on their priority. Users need an outgoing flow edge along which they can send their return flow, this can also be to the same basin from which it extracts water. The amount of return flow is always a fraction of the inflow into the user. The difference is consumed by the user.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -1098,7 +1098,7 @@ div.csl-indent {
 <td>priority</td>
 <td>Int</td>
 <td>-</td>
-<td>-</td>
+<td>sorted per node id</td>
 </tr>
 </tbody>
 </table>
@@ -1106,6 +1106,12 @@ div.csl-indent {
 <h2 data-number="10.1" class="anchored" data-anchor-id="user-time"><span class="header-section-number">10.1</span> User / time</h2>
 <p>This table is the transient form of the <code>User</code> table. The only difference is that a time column is added and activity is assumed to be true. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the demand can be updated over time. In between the given times the demand is interpolated linearly, and outside the demand is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
 <table class="table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 18%">
+<col style="width: 27%">
+<col style="width: 25%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>column</th>
@@ -1119,13 +1125,13 @@ div.csl-indent {
 <td>node_id</td>
 <td>Int</td>
 <td>-</td>
-<td>sorted per time</td>
+<td>sorted</td>
 </tr>
 <tr class="even">
 <td>time</td>
 <td>DateTime</td>
 <td>-</td>
-<td>sorted</td>
+<td>sorted per priority per node id</td>
 </tr>
 <tr class="odd">
 <td>demand</td>
@@ -1149,7 +1155,7 @@ div.csl-indent {
 <td>priority</td>
 <td>Int</td>
 <td>-</td>
-<td>-</td>
+<td>sorted per node id</td>
 </tr>
 </tbody>
 </table>
