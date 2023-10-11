@@ -750,7 +750,7 @@ div.csl-indent {
 </tr>
 <tr class="even">
 <td>edge_id</td>
-<td>Int</td>
+<td>Union{Int, Missing}</td>
 <td>-</td>
 </tr>
 <tr class="odd">
@@ -770,7 +770,7 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>The table is sorted by time, and per time the same edge_id order is used, though not sorted.</p>
+<p>The table is sorted by time, and per time the same <code>edge_id</code> order is used, though not sorted. Flows that are added to the model at a node, have a missing <code>edge_id</code>, and identical <code>from_node_id</code> and <code>to_node_id</code>. Flows out of the model always have a negative sign, and additions a positive sign.</p>
 </section>
 </section>
 <section id="fractionalflow" class="level1" data-number="6">
