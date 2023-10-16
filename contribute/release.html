@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim - Python tooling development</title>
+<title>Ribasim - Release process</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,8 +30,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../contribute/addnode.html" rel="next">
-<link href="../contribute/core.html" rel="prev">
+<link href="../contribute/addnode.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -158,7 +123,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../contribute/python.html">Python tooling development</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../contribute/release.html">Release process</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -184,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contribute/python.html" class="sidebar-item-text sidebar-link active">
+  <a href="../contribute/python.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Python tooling development</span></a>
   </div>
 </li>
@@ -196,7 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contribute/release.html" class="sidebar-item-text sidebar-link">
+  <a href="../contribute/release.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Release process</span></a>
   </div>
 </li>
@@ -210,17 +175,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#set-up-the-developer-environment" id="toc-set-up-the-developer-environment" class="nav-link active" data-scroll-target="#set-up-the-developer-environment"><span class="header-section-number">1</span> Set up the developer environment</a>
+  <li><a href="#what-is-a-release" id="toc-what-is-a-release" class="nav-link active" data-scroll-target="#what-is-a-release"><span class="header-section-number">1</span> What is a release</a></li>
+  <li><a href="#release-steps" id="toc-release-steps" class="nav-link" data-scroll-target="#release-steps"><span class="header-section-number">2</span> Release steps</a>
   <ul class="collapse">
-  <li><a href="#setting-up-pixi" id="toc-setting-up-pixi" class="nav-link" data-scroll-target="#setting-up-pixi"><span class="header-section-number">1.1</span> Setting up pixi</a></li>
-  <li><a href="#sec-test" id="toc-sec-test" class="nav-link" data-scroll-target="#sec-test"><span class="header-section-number">1.2</span> Running the tests</a></li>
-  <li><a href="#updating-example-notebooks" id="toc-updating-example-notebooks" class="nav-link" data-scroll-target="#updating-example-notebooks"><span class="header-section-number">1.3</span> Updating example notebooks</a></li>
-  <li><a href="#prepare-model-input" id="toc-prepare-model-input" class="nav-link" data-scroll-target="#prepare-model-input"><span class="header-section-number">1.4</span> Prepare model input</a></li>
-  <li><a href="#sec-vscode" id="toc-sec-vscode" class="nav-link" data-scroll-target="#sec-vscode"><span class="header-section-number">1.5</span> Setup Visual Studio Code (optional)</a></li>
-  <li><a href="#sec-pypi" id="toc-sec-pypi" class="nav-link" data-scroll-target="#sec-pypi"><span class="header-section-number">1.6</span> How to publish to PyPI</a></li>
-  <li><a href="#linting" id="toc-linting" class="nav-link" data-scroll-target="#linting"><span class="header-section-number">1.7</span> Linting</a></li>
+  <li><a href="#pre-release-checks" id="toc-pre-release-checks" class="nav-link" data-scroll-target="#pre-release-checks"><span class="header-section-number">2.1</span> Pre-release checks</a></li>
+  <li><a href="#update-version-numbers-of-the-components-as-needed" id="toc-update-version-numbers-of-the-components-as-needed" class="nav-link" data-scroll-target="#update-version-numbers-of-the-components-as-needed"><span class="header-section-number">2.2</span> Update version numbers of the components as needed</a></li>
+  <li><a href="#sec-wheel-links" id="toc-sec-wheel-links" class="nav-link" data-scroll-target="#sec-wheel-links"><span class="header-section-number">2.3</span> Update the wheel links</a></li>
+  <li><a href="#create-a-new-release" id="toc-create-a-new-release" class="nav-link" data-scroll-target="#create-a-new-release"><span class="header-section-number">2.4</span> Create a new release</a></li>
+  <li><a href="#release-ribasim-python-to-pypi" id="toc-release-ribasim-python-to-pypi" class="nav-link" data-scroll-target="#release-ribasim-python-to-pypi"><span class="header-section-number">2.5</span> Release Ribasim Python to PyPI</a></li>
+  <li><a href="#sec-teamcity" id="toc-sec-teamcity" class="nav-link" data-scroll-target="#sec-teamcity"><span class="header-section-number">2.6</span> Wait for TeamCity to build the new release</a></li>
+  <li><a href="#do-manual-checks" id="toc-do-manual-checks" class="nav-link" data-scroll-target="#do-manual-checks"><span class="header-section-number">2.7</span> Do manual checks</a></li>
+  <li><a href="#generate-and-upload-test-models" id="toc-generate-and-upload-test-models" class="nav-link" data-scroll-target="#generate-and-upload-test-models"><span class="header-section-number">2.8</span> Generate and upload test models</a></li>
+  <li><a href="#upload-artifacts-from-s3-to-github-release-assets" id="toc-upload-artifacts-from-s3-to-github-release-assets" class="nav-link" data-scroll-target="#upload-artifacts-from-s3-to-github-release-assets"><span class="header-section-number">2.9</span> Upload artifacts from S3 to GitHub release assets</a></li>
+  <li><a href="#announce-release" id="toc-announce-release" class="nav-link" data-scroll-target="#announce-release"><span class="header-section-number">2.10</span> Announce release</a></li>
   </ul></li>
-  <li><a href="#sec-codecov" id="toc-sec-codecov" class="nav-link" data-scroll-target="#sec-codecov"><span class="header-section-number">2</span> Code maintenance</a></li>
   </ul>
 </nav>
     </div>
@@ -229,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Python tooling development</h1>
+<h1 class="title">Release process</h1>
 </div>
 
 
@@ -244,74 +212,86 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="set-up-the-developer-environment" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Set up the developer environment</h1>
-<section id="setting-up-pixi" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="setting-up-pixi"><span class="header-section-number">1.1</span> Setting up pixi</h2>
-<p>First, set up pixi as described on their getting started <a href="https://prefix.dev/docs/pixi/overview">page</a>.</p>
-<p>Then set up the environment by running the following commands:</p>
-<pre><code>pixi run install</code></pre>
+<section id="what-is-a-release" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> What is a release</h1>
+<p>The <a href="https://github.com/Deltares/Ribasim">Ribasim repository</a> contains several components, e.g., the Julia core, the Python tooling and QGIS plugin. The components are currently only guaranteed to work together if they are built at the same time. Therefore we release Ribasim as a collection of all the components at once. For maximum interoperability it is suggested to only release all components together, and not individually.</p>
+<p>For these releases we use <a href="https://calver.org/">Calender Versioning</a>, which makes it clear in which month the release was made.</p>
 </section>
-<section id="sec-test" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="sec-test"><span class="header-section-number">1.2</span> Running the tests</h2>
-<p>In order to run tests on Ribasim Python execute</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run test-ribasim-python</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="release-steps" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Release steps</h1>
+<p>This section provides a guide for developers to follow when preparing a new release.</p>
+<section id="pre-release-checks" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="pre-release-checks"><span class="header-section-number">2.1</span> Pre-release checks</h2>
+<p>Before starting the release process, ensure that all tests are passing and that all features intended for the release are complete and merged into the main branch.</p>
 </section>
-<section id="updating-example-notebooks" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="updating-example-notebooks"><span class="header-section-number">1.3</span> Updating example notebooks</h2>
-<p>Make sure to run <code>Clear All Outputs</code> on the notebook before committing.</p>
+<section id="update-version-numbers-of-the-components-as-needed" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="update-version-numbers-of-the-components-as-needed"><span class="header-section-number">2.2</span> Update version numbers of the components as needed</h2>
+<p>The components have their own version number which generally uses <a href="https://semver.org/">Semantic Versioning</a>, with minor version signifying a breaking release for pre-1.0 versions, as <a href="https://pkgdocs.julialang.org/v1/compatibility/#compat-pre-1.0">documented here</a>. If a component did not change at all between releases, the version number can stay the same.</p>
+<p>Now submit a pull request which updates the version numbers of the components as needed. You can use <a href="https://github.com/Deltares/Ribasim/pull/623">PR #623</a> as an example.</p>
+<p>In general for Python packages the version number is in <code>__init__.py</code>, for Julia it is <code>Project.toml</code>, and for QGIS <code>metadata.txt</code></p>
 </section>
-<section id="prepare-model-input" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="prepare-model-input"><span class="header-section-number">1.4</span> Prepare model input</h2>
-<p>Before running the Julia tests or building binaries, example model input needs to created. This is done by running the following:</p>
+<section id="sec-wheel-links" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-wheel-links"><span class="header-section-number">2.3</span> Update the wheel links</h2>
+<p>The nightly download links for the Ribasim Python wheels contain the version number. Search for “any.whl” and update these to the new version number of Ribasim Python.</p>
+</section>
+<section id="create-a-new-release" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="create-a-new-release"><span class="header-section-number">2.4</span> Create a new release</h2>
+<p>Create a <a href="https://github.com/Deltares/Ribasim/releases/new">new release</a>. Give it a tag like <code>v2023.08.0</code>, filling in the current year, month and a sequential “MICRO” number. This follows <code>vYYYY.0M.MICRO</code> from <a href="https://calver.org/">calver</a>. For <a href="https://github.com/Deltares/Ribasim/releases/tag/v2023.09.0">v2023.09.0</a> I used the “Generate release notes” button, which I then manually edited to copy the most important changes for users to the top in the form of <a href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>. The possibly long list of generated release notes can put below an “All changes” collapsed item as such:</p>
+<pre><code>&lt;details&gt;
+&lt;summary&gt;
+All changes
+&lt;/summary&gt;
+
+# Put Github flavored markdown here
+
+&lt;/details&gt;
+</code></pre>
+</section>
+<section id="release-ribasim-python-to-pypi" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="release-ribasim-python-to-pypi"><span class="header-section-number">2.5</span> Release Ribasim Python to PyPI</h2>
+<p>To be able to do <code>pip install ribasim</code>, Ribasim Python needs to be released on the Python Package Index, see <a href="../contribute/python.html#sec-pypi">these instructions</a></p>
+</section>
+<section id="sec-teamcity" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="sec-teamcity"><span class="header-section-number">2.6</span> Wait for TeamCity to build the new release</h2>
+<p>Currently TeamCity is set to build a release at the night after it has been tagged.</p>
+<p>If this succeeds, the release assets are uploaded to an S3 link with the version number in the URL, as show here:</p>
+<pre><code>https://ribasim.s3.eu-west-3.amazonaws.com/teamcity/Ribasim_Ribasim/BuildRibasimCliWindows/v2023.07.0/ribasim_cli.zip
+https://ribasim.s3.eu-west-3.amazonaws.com/teamcity/Ribasim_Ribasim/BuildRibasimCliWindows/v2023.07.0/ribasim-0.4.0-py3-none-any.whl
+https://ribasim.s3.eu-west-3.amazonaws.com/teamcity/Ribasim_Ribasim/BuildRibasimCliWindows/v2023.07.0/ribasim_qgis.zip</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A non-existent version number <code>v2023.07.0</code> is used in these links. Replace with the version number of the new release. Similarly the filename of the Ribasim Python wheel needs to be updated as in <a href="#sec-wheel-links">Section&nbsp;2.3</a>.</p>
+</div>
+</div>
+</section>
+<section id="do-manual-checks" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="do-manual-checks"><span class="header-section-number">2.7</span> Do manual checks</h2>
+<p>Our continuous integration (CI) should have caught most issues. A current weak spot in our testing is the QGIS plugin, so it is a good idea to do some manual checks to see if it works properly. It is a good idea to load new test models if there are any, or test any other changed functionality.</p>
+</section>
+<section id="generate-and-upload-test-models" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="generate-and-upload-test-models"><span class="header-section-number">2.8</span> Generate and upload test models</h2>
+<p>The test models are currently not automatically uploaded. Create them locally with:</p>
 <pre><code>pixi run generate-testmodels</code></pre>
-<p>This places example model input files under <code>./generated_testmodels/</code>. If the example models change, re-run this script.</p>
+<p>Note that this only includes the test model data, no results. And zip the <code>generated_testmodels</code> directory to <code>generated_testmodels.zip</code>, and add these to the <a href="https://github.com/Deltares/Ribasim/releases/latest">release assets</a>. Click the edit pencil icon to be able to upload it.</p>
 </section>
-<section id="sec-vscode" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="sec-vscode"><span class="header-section-number">1.5</span> Setup Visual Studio Code (optional)</h2>
-<ol type="1">
-<li><p>Install the <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python">Python</a>, <a href="https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff">ruff</a> and <a href="https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring">autoDocstring</a> extensions.</p></li>
-<li><p>Copy <code>.vscode/settings_template.json</code> into <code>.vscode/settings.json</code></p></li>
-</ol>
+<section id="upload-artifacts-from-s3-to-github-release-assets" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="upload-artifacts-from-s3-to-github-release-assets"><span class="header-section-number">2.9</span> Upload artifacts from S3 to GitHub release assets</h2>
+<p>Again edit the <a href="https://github.com/Deltares/Ribasim/releases/latest">release assets</a>. Now upload the files downloaded from S3 as mentioned in <a href="#sec-teamcity">Section&nbsp;2.6</a>.</p>
 </section>
-<section id="sec-pypi" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="sec-pypi"><span class="header-section-number">1.6</span> How to publish to PyPI</h2>
-<ol type="1">
-<li><p>Update <code>__version__</code> in <code>ribasim/__init__.py</code></p></li>
-<li><p>Open a terminal and run <code>cd python/ribasim</code></p></li>
-<li><p>Activate the ribasim environment with <code>conda activate ribasim</code></p></li>
-<li><p>If present remove dist folder</p></li>
-<li><p>Re-create the wheels:</p></li>
-</ol>
-<pre><code>python -m build</code></pre>
-<ol start="6" type="1">
-<li>Check the package files:</li>
-</ol>
-<pre><code>twine check dist/*</code></pre>
-<ol start="7" type="1">
-<li><p>Make a new commit with the updated version number, and push to remote</p></li>
-<li><p>Re-upload the new files:</p></li>
-</ol>
-<pre><code>twine upload dist/*</code></pre>
-</section>
-<section id="linting" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="linting"><span class="header-section-number">1.7</span> Linting</h2>
-<p>To run our linting suite locally, execute:</p>
-<pre><code>pixi run lint</code></pre>
-</section>
-</section>
-<section id="sec-codecov" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Code maintenance</h1>
-<p>For new features new tests have to be added. To monitor how much of the code is covered by the tests we use <a href="https://about.codecov.io/">Codecov</a>. For a simple overview of the local code coverage run</p>
-<pre><code>pixi shell
-pytest --cov=ribasim tests/</code></pre>
-<p>from <code>python/ribasim</code>. For an extensive overview in <code>html</code> format use</p>
-<pre><code>pixi shell
-pytest --cov=ribasim --cov-report=html tests/</code></pre>
-<p>which creates a folder <code>htmlcov</code> in the working directory. To see te contents open <code>htmlcov/index.html</code> in a browser.</p>
-<p>The code coverage of pushed branches can be seen <a href="https://app.codecov.io/gh/Deltares/Ribasim">here</a>.</p>
+<section id="announce-release" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="announce-release"><span class="header-section-number">2.10</span> Announce release</h2>
+<p>Announce the release in appropriate channels. Include a link to the release notes and assets, which is whatever <a href="https://github.com/Deltares/Ribasim/releases/latest">this</a> resolves to at that time. Also include a link to the <a href="https://deltares.github.io/Ribasim/">documentation</a>.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -550,14 +530,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../contribute/core.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Julia core development</span>
+      <a href="../contribute/addnode.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Adding node types</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../contribute/addnode.html" class="pagination-link">
-        <span class="nav-page-text">Adding node types</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -151,12 +151,13 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#sec-usage" id="toc-sec-usage" class="nav-link active" data-scroll-target="#sec-usage"><span class="header-section-number">1</span> Status</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">2</span> Introduction</a>
+  <li><a href="#sec-download" id="toc-sec-download" class="nav-link active" data-scroll-target="#sec-download"><span class="header-section-number">1</span> Download</a></li>
+  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status"><span class="header-section-number">2</span> Status</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">3</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#water-balance-equations" id="toc-water-balance-equations" class="nav-link" data-scroll-target="#water-balance-equations"><span class="header-section-number">2.1</span> Water balance equations</a></li>
-  <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="header-section-number">2.2</span> Time</a></li>
-  <li><a href="#sec-space" id="toc-sec-space" class="nav-link" data-scroll-target="#sec-space"><span class="header-section-number">2.3</span> Space</a></li>
+  <li><a href="#water-balance-equations" id="toc-water-balance-equations" class="nav-link" data-scroll-target="#water-balance-equations"><span class="header-section-number">3.1</span> Water balance equations</a></li>
+  <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="header-section-number">3.2</span> Time</a></li>
+  <li><a href="#sec-space" id="toc-sec-space" class="nav-link" data-scroll-target="#sec-space"><span class="header-section-number">3.3</span> Space</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -183,13 +184,6 @@ div.csl-indent {
 
 <p>Ribasim is a water resources model, designed to be the replacement of the regional surface water modules Mozart and SIMRES in the Netherlands Hydrological Instrument (NHI). Ribasim is a work in progress, it is a prototype that demonstrates all essential functionalities. Further development of the prototype in a software release is planned in 2022 and 2023.</p>
 <p>Ribasim is written in the <a href="https://julialang.org/">Julia programming language</a> and is built on top of the <a href="https://sciml.ai/">SciML: Open Source Software for Scientific Machine Learning</a> libraries, notably <a href="https://docs.sciml.ai/DiffEqDocs/stable/">DifferentialEquations.jl</a>.</p>
-<p>The latest builds can be downloaded here:</p>
-<ul>
-<li>Ribasim executable: <a href="https://ribasim.s3.eu-west-3.amazonaws.com/teamcity/Ribasim_Ribasim/BuildRibasimCliWindows/latest/ribasim_cli.zip">ribasim_cli.zip</a>.</li>
-<li>Python package: <a href="https://ribasim.s3.eu-west-3.amazonaws.com/teamcity/Ribasim_Ribasim/BuildRibasimCliWindows/latest/ribasim-0.4.0-py3-none-any.whl">ribasim-0.4.0-py3-none-any.whl</a></li>
-<li>QGIS plugin: <a href="https://ribasim.s3.eu-west-3.amazonaws.com/teamcity/Ribasim_Ribasim/BuildRibasimCliWindows/latest/ribasim_qgis.zip">ribasim_qgis.zip</a>.</li>
-</ul>
-<p>Currently only Windows builds for <code>ribasim_cli.zip</code> are available. See <a href="./core/usage.html">Usage</a> for more information.</p>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-bottom">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -200,8 +194,26 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<section id="sec-usage" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Status</h1>
+<section id="sec-download" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Download</h1>
+<p>For most users the <a href="https://github.com/Deltares/Ribasim/releases/latest">latest release</a> is recommended, it can be downloaded here:</p>
+<ul>
+<li>Ribasim executable: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_cli.zip">ribasim_cli.zip</a>.</li>
+<li>Python package: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim-0.4.0-py3-none-any.whl">ribasim-0.4.0-py3-none-any.whl</a></li>
+<li>QGIS plugin: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_qgis.zip">ribasim_qgis.zip</a>.</li>
+<li>Generated testmodels: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/generated_testmodels.zip">generated_testmodels.zip</a></li>
+</ul>
+<p>The nightly builds contain the latest developments and can be found below. It is important to either use the release or nightly for all components.</p>
+<ul>
+<li>Ribasim executable: <a href="https://ribasim.s3.eu-west-3.amazonaws.com/teamcity/Ribasim_Ribasim/BuildRibasimCliWindows/latest/ribasim_cli.zip">ribasim_cli.zip</a>.</li>
+<li>Python package: <a href="https://ribasim.s3.eu-west-3.amazonaws.com/teamcity/Ribasim_Ribasim/BuildRibasimCliWindows/latest/ribasim-0.4.0-py3-none-any.whl">ribasim-0.4.0-py3-none-any.whl</a></li>
+<li>QGIS plugin: <a href="https://ribasim.s3.eu-west-3.amazonaws.com/teamcity/Ribasim_Ribasim/BuildRibasimCliWindows/latest/ribasim_qgis.zip">ribasim_qgis.zip</a>.</li>
+</ul>
+<p>Currently only Windows builds for <code>ribasim_cli.zip</code> are available.</p>
+<p>See <a href="./core/usage.html">Usage</a> for more information.</p>
+</section>
+<section id="status" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Status</h1>
 <p>The initial focus is on being able to reproduce the Mozart regional surface water reservoir results. Each component is defined by a set of symbolic equations, and can be connected to each other. From this a simplified system of equations is generated automatically. We use solvers with adaptive time stepping from <a href="https://diffeq.sciml.ai/stable/">DifferentialEquations.jl</a> to get results.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -216,10 +228,10 @@ div.csl-indent {
 </figure>
 </div>
 </section>
-<section id="introduction" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Introduction</h1>
-<section id="water-balance-equations" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="water-balance-equations"><span class="header-section-number">2.1</span> Water balance equations</h2>
+<section id="introduction" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Introduction</h1>
+<section id="water-balance-equations" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="water-balance-equations"><span class="header-section-number">3.1</span> Water balance equations</h2>
 <p>The water balance equation for a drainage basin <span class="citation" data-cites="enwiki:1099736933">(<a href="#ref-enwiki:1099736933" role="doc-biblioref">Wikipedia contributors 2022</a>)</span> can be defined by a first-order ordinary differential equation (ODE), where the change of the storage <span class="math inline">\(S\)</span> over time is determined by the inflow fluxes minus the outflow fluxes.</p>
 <p><span class="math display">\[
 \frac{\mathrm{d}S}{\mathrm{d}t} = Q_{in} - Q_{out}
@@ -229,14 +241,14 @@ div.csl-indent {
 \frac{\mathrm{d}S}{\mathrm{d}t} = R + P + ET + Q_{rest}
 \]</span></p>
 </section>
-<section id="time" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="time"><span class="header-section-number">2.2</span> Time</h2>
+<section id="time" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="time"><span class="header-section-number">3.2</span> Time</h2>
 <p>The water balance equation can be applied on many timescales; years, weeks, days or hours. Depending on the application and available data any of these can be the best choice. In Ribasim, we make use of DifferentialEquations.jl and its <a href="https://diffeq.sciml.ai/stable/solvers/ode_solve/">ODE solvers</a>. Many of these solvers are based on adaptive time stepping, which means the solver will decide how large the time steps can be depending on the state of the system.</p>
 <p>The forcing, like precipitation, is generally provided as a time series. Ribasim is set up to support unevenly spaced timeseries. The solver will stop on timestamps where new forcing values are available, so they can be loaded as the new value.</p>
 <p>Ribasim is essentially a continuous model, rather than daily or hourly. If you want to use hourly forcing, you only need to make sure that your forcing data contains hourly updates. The output frequency can be configured independently. To be able to write a closed water balance, we accumulate the fluxes. This way any variations in between timesteps are also included, and we can output in <code>m³</code> rather than <code>m³s⁻¹</code>.</p>
 </section>
-<section id="sec-space" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="sec-space"><span class="header-section-number">2.3</span> Space</h2>
+<section id="sec-space" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="sec-space"><span class="header-section-number">3.3</span> Space</h2>
 <p>The water balance equation can be applied on different spatial scales. Besides modelling a single lumped watershed, it allows you to divide the area into a network of connected representative elementary watersheds (REWs) <span class="citation" data-cites="REGGIANI1998367">(<a href="#ref-REGGIANI1998367" role="doc-biblioref">Reggiani, Sivapalan, and Majid Hassanizadeh 1998</a>)</span>. At this scale global water balance laws can be formulated by means of integration of point-scale conservation equations over control volumes. Such an approach makes Ribasim a semi-distributed model. In this document we typically use the term “basin” to refer to the REW. (In Mozart the spatial unit was called Local Surface Water (LSW)). Each basin has an associated polygon, and the set of basins is connected to each other as described by a graph, which we call the network. Below is a representation of both on the map.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

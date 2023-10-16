@@ -165,8 +165,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#start" id="toc-start" class="nav-link" data-scroll-target="#start"><span class="header-section-number">1.1</span> Start</a>
   <ul class="collapse">
-  <li><a href="#download-plugin" id="toc-download-plugin" class="nav-link" data-scroll-target="#download-plugin"><span class="header-section-number">1.1.1</span> Download plugin</a></li>
-  <li><a href="#add-ribasim-and-imod-plugins-to-qgis-version-3.28-or-higher" id="toc-add-ribasim-and-imod-plugins-to-qgis-version-3.28-or-higher" class="nav-link" data-scroll-target="#add-ribasim-and-imod-plugins-to-qgis-version-3.28-or-higher"><span class="header-section-number">1.1.2</span> Add Ribasim and iMOD plugins to QGIS version 3.28 or higher</a></li>
+  <li><a href="#install-ribasim-plugin" id="toc-install-ribasim-plugin" class="nav-link" data-scroll-target="#install-ribasim-plugin"><span class="header-section-number">1.1.1</span> Install Ribasim plugin</a></li>
+  <li><a href="#add-imod-plugin" id="toc-add-imod-plugin" class="nav-link" data-scroll-target="#add-imod-plugin"><span class="header-section-number">1.1.2</span> Add iMOD plugin</a></li>
   <li><a href="#prepare-your-model" id="toc-prepare-your-model" class="nav-link" data-scroll-target="#prepare-your-model"><span class="header-section-number">1.1.3</span> Prepare your model</a></li>
   </ul></li>
   <li><a href="#edit-nodes" id="toc-edit-nodes" class="nav-link" data-scroll-target="#edit-nodes"><span class="header-section-number">1.2</span> Edit nodes</a>
@@ -180,7 +180,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#create-connecting-edges" id="toc-create-connecting-edges" class="nav-link" data-scroll-target="#create-connecting-edges"><span class="header-section-number">1.3.2</span> Create connecting edges</a></li>
   </ul></li>
   <li><a href="#run-a-model" id="toc-run-a-model" class="nav-link" data-scroll-target="#run-a-model"><span class="header-section-number">1.4</span> Run a model</a></li>
-  <li><a href="#inspect-results" id="toc-inspect-results" class="nav-link" data-scroll-target="#inspect-results"><span class="header-section-number">1.5</span> Inspect results</a>
+  <li><a href="#sec-results" id="toc-sec-results" class="nav-link" data-scroll-target="#sec-results"><span class="header-section-number">1.5</span> Inspect results</a>
   <ul class="collapse">
   <li><a href="#associate-output-to-imod-time-series-window" id="toc-associate-output-to-imod-time-series-window" class="nav-link" data-scroll-target="#associate-output-to-imod-time-series-window"><span class="header-section-number">1.5.1</span> Associate output to iMOD time series window</a></li>
   <li><a href="#plot-time-series" id="toc-plot-time-series" class="nav-link" data-scroll-target="#plot-time-series"><span class="header-section-number">1.5.2</span> Plot time series</a></li>
@@ -213,12 +213,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="1"><span class="header-section-number">1</span> How to</h1>
 <section id="start" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="start"><span class="header-section-number">1.1</span> Start</h2>
-<section id="download-plugin" class="level3" data-number="1.1.1">
-<h3 data-number="1.1.1" class="anchored" data-anchor-id="download-plugin"><span class="header-section-number">1.1.1</span> Download plugin</h3>
-<p>Download <a href="https://ribasim.s3.eu-west-3.amazonaws.com/teamcity/Ribasim_Ribasim/BuildRibasimCliWindows/latest/ribasim_qgis.zip">ribasim_qgis.zip</a>.</p>
-</section>
-<section id="add-ribasim-and-imod-plugins-to-qgis-version-3.28-or-higher" class="level3" data-number="1.1.2">
-<h3 data-number="1.1.2" class="anchored" data-anchor-id="add-ribasim-and-imod-plugins-to-qgis-version-3.28-or-higher"><span class="header-section-number">1.1.2</span> Add Ribasim and iMOD plugins to QGIS version 3.28 or higher</h3>
+<p>Install <a href="https://qgis.org/en/site/">QGIS</a> version 3.28 or higher.</p>
+<section id="install-ribasim-plugin" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="install-ribasim-plugin"><span class="header-section-number">1.1.1</span> Install Ribasim plugin</h3>
+<p>Download <code>ribasim_qgis.zip</code>, see the <a href="../index.html#sec-download">download section</a>.</p>
 <p>Plugins menu &gt; Manage and Install Plugins…</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
@@ -229,7 +227,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Browse to the <code>ribasim_qgis.zip</code> file containing the plugin that was downloaded earlier</li>
 <li>Click “Install Plugin”</li>
-<li>Repeat for the iMOD plugin, <code>imodqgis.zip</code></li>
 </ul>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
@@ -242,6 +239,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="https://user-images.githubusercontent.com/4471859/224939101-228e068a-875b-4df2-98bb-6ee6a3830ddd.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
+</section>
+<section id="add-imod-plugin" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="add-imod-plugin"><span class="header-section-number">1.1.2</span> Add iMOD plugin</h3>
+<p>In QGIS, navigate to “Plugins &gt; Manage and Install Plugins &gt; All”. In the search bar, type: “iMOD”. Select the iMOD plugin, and click “Install”.</p>
+<p>At least version 0.4.0 of the iMOD plugin is required.</p>
+<p>The Time Series widget from the iMOD plugin is used for visualizing Ribasim results, which is described in <a href="#sec-results">Section&nbsp;1.5</a>. Documentation on the Time Series widget can be found in the <a href="https://deltares.github.io/iMOD-Documentation/qgis_user_manual.html#time-series-time-series">iMOD documentation</a>.</p>
 </section>
 <section id="prepare-your-model" class="level3" data-number="1.1.3">
 <h3 data-number="1.1.3" class="anchored" data-anchor-id="prepare-your-model"><span class="header-section-number">1.1.3</span> Prepare your model</h3>
@@ -376,8 +379,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>In your model directory there is now an <code>output/</code> folder with <code>basin.arrow</code> and <code>flow.arrow</code> output files.</li>
 </ul>
 </section>
-<section id="inspect-results" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="inspect-results"><span class="header-section-number">1.5</span> Inspect results</h2>
+<section id="sec-results" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="sec-results"><span class="header-section-number">1.5</span> Inspect results</h2>
 <section id="associate-output-to-imod-time-series-window" class="level3" data-number="1.5.1">
 <h3 data-number="1.5.1" class="anchored" data-anchor-id="associate-output-to-imod-time-series-window"><span class="header-section-number">1.5.1</span> Associate output to iMOD time series window</h3>
 <p>In QGIS select the model group.</p>
