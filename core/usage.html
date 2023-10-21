@@ -241,7 +241,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#sec-solver-settings" id="toc-sec-solver-settings" class="nav-link" data-scroll-target="#sec-solver-settings"><span class="header-section-number">1.1</span> Solver settings</a></li>
   </ul></li>
-  <li><a href="#geopackage-and-arrow-tables" id="toc-geopackage-and-arrow-tables" class="nav-link" data-scroll-target="#geopackage-and-arrow-tables"><span class="header-section-number">2</span> GeoPackage and Arrow tables</a></li>
+  <li><a href="#geopackage-database-and-arrow-tables" id="toc-geopackage-database-and-arrow-tables" class="nav-link" data-scroll-target="#geopackage-database-and-arrow-tables"><span class="header-section-number">2</span> GeoPackage database and Arrow tables</a></li>
   <li><a href="#node" id="toc-node" class="nav-link" data-scroll-target="#node"><span class="header-section-number">3</span> Node</a></li>
   <li><a href="#edge" id="toc-edge" class="nav-link" data-scroll-target="#edge"><span class="header-section-number">4</span> Edge</a></li>
   <li><a href="#basin" id="toc-basin" class="nav-link" data-scroll-target="#basin"><span class="header-section-number">5</span> Basin</a>
@@ -249,8 +249,8 @@ div.csl-indent {
   <li><a href="#basin-time" id="toc-basin-time" class="nav-link" data-scroll-target="#basin-time"><span class="header-section-number">5.1</span> Basin / time</a></li>
   <li><a href="#basin-state" id="toc-basin-state" class="nav-link" data-scroll-target="#basin-state"><span class="header-section-number">5.2</span> Basin / state</a></li>
   <li><a href="#basin-profile" id="toc-basin-profile" class="nav-link" data-scroll-target="#basin-profile"><span class="header-section-number">5.3</span> Basin / profile</a></li>
-  <li><a href="#basin-output" id="toc-basin-output" class="nav-link" data-scroll-target="#basin-output"><span class="header-section-number">5.4</span> Basin output</a></li>
-  <li><a href="#flow-output" id="toc-flow-output" class="nav-link" data-scroll-target="#flow-output"><span class="header-section-number">5.5</span> Flow output</a></li>
+  <li><a href="#basin-results" id="toc-basin-results" class="nav-link" data-scroll-target="#basin-results"><span class="header-section-number">5.4</span> Basin results</a></li>
+  <li><a href="#flow-results" id="toc-flow-results" class="nav-link" data-scroll-target="#flow-results"><span class="header-section-number">5.5</span> Flow results</a></li>
   </ul></li>
   <li><a href="#fractionalflow" id="toc-fractionalflow" class="nav-link" data-scroll-target="#fractionalflow"><span class="header-section-number">6</span> FractionalFlow</a></li>
   <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="header-section-number">7</span> TabulatedRatingCurve</a>
@@ -278,7 +278,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#sec-condition" id="toc-sec-condition" class="nav-link" data-scroll-target="#sec-condition"><span class="header-section-number">16.1</span> DiscreteControl / condition</a></li>
   <li><a href="#discretecontrol-logic" id="toc-discretecontrol-logic" class="nav-link" data-scroll-target="#discretecontrol-logic"><span class="header-section-number">16.2</span> DiscreteControl / logic</a></li>
-  <li><a href="#discretecontrol-output" id="toc-discretecontrol-output" class="nav-link" data-scroll-target="#discretecontrol-output"><span class="header-section-number">16.3</span> DiscreteControl output</a></li>
+  <li><a href="#discretecontrol-results" id="toc-discretecontrol-results" class="nav-link" data-scroll-target="#discretecontrol-results"><span class="header-section-number">16.3</span> DiscreteControl results</a></li>
   </ul></li>
   <li><a href="#pidcontrol" id="toc-pidcontrol" class="nav-link" data-scroll-target="#pidcontrol"><span class="header-section-number">17</span> PidControl</a>
   <ul class="collapse">
@@ -310,7 +310,7 @@ div.csl-indent {
 <p>Ribasim is typically used as a command-line interface (CLI). It is distributed as a <code>.zip</code> archive, that must be downloaded and unpacked. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The Ribasim CLI executable is in the <code>bin</code> directory.</p>
 <p>To download <code>ribasim_cli.zip</code>, see the <a href="../index.html#sec-download">download section</a>.</p>
 <p>To check whether the installation was performed successfully, run <code>ribasim</code> with no arguments in the command line. This will give the following message:</p>
-<pre><code>Usage: ribasim 'path/to/config.toml'</code></pre>
+<pre><code>Usage: ribasim 'path/to/model/ribasim.toml'</code></pre>
 <section id="configuration-file" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Configuration file</h1>
 <p>Ribasim has a single configuration file, which is written in the <a href="https://toml.io/">TOML</a> format. It contains settings, as well as paths to other input and output files.</p>
@@ -323,19 +323,19 @@ div.csl-indent {
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">update_timestep</span> <span class="op">=</span> <span class="fl">86400.0</span> <span class="co"># optional, default 1 day</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># input files</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dt">geopackage</span> <span class="op">=</span> <span class="st">"model.gpkg"</span> <span class="co"># required</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dt">database</span> <span class="op">=</span> <span class="st">"database.gpkg"</span> <span class="co"># required</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">output</span><span class="kw">]</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># These output files are always written</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dt">flow</span> <span class="op">=</span> <span class="st">"output/flow.arrow"</span>       <span class="co"># optional, default "output/flow.arrow"</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dt">basin</span> <span class="op">=</span> <span class="st">"output/basin.arrow"</span>     <span class="co"># optional, default "output/basin.arrow"</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="dt">control</span> <span class="op">=</span> <span class="st">"output/control.arrow"</span> <span class="co"># optional, default "output/control.arrow"</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">results</span><span class="kw">]</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># These results files are always written</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dt">flow</span> <span class="op">=</span> <span class="st">"results/flow.arrow"</span>       <span class="co"># optional, default "results/flow.arrow"</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dt">basin</span> <span class="op">=</span> <span class="st">"results/basin.arrow"</span>     <span class="co"># optional, default "results/basin.arrow"</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="dt">control</span> <span class="op">=</span> <span class="st">"results/control.arrow"</span> <span class="co"># optional, default "results/control.arrow"</span></span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="dt">compression</span> <span class="op">=</span> <span class="st">"zstd"</span>             <span class="co"># optional, default "zstd", also supports "lz4"</span></span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="dt">compression_level</span> <span class="op">=</span> <span class="dv">6</span>            <span class="co"># optional, default 6</span></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Specific tables can also go into Arrow files rather than the GeoPackage.</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Specific tables can also go into Arrow files rather than the database.</span></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># For large tables this can benefit from better compressed file sizes.</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># This is optional, tables are retrieved from the GeoPackage if not specified in the TOML.</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># This is optional, tables are retrieved from the database if not specified in the TOML.</span></span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">basin</span><span class="kw">]</span></span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="dt">time</span> <span class="op">=</span> <span class="st">"basin/time.arrow"</span></span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
@@ -359,21 +359,21 @@ div.csl-indent {
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="dt">timing</span> <span class="op">=</span> <span class="cn">false</span>     <span class="co"># optional, whether to log debug timing statements</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="sec-solver-settings" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="sec-solver-settings"><span class="header-section-number">1.1</span> Solver settings</h2>
-<p>The solver section in the configuration file is entirely optional, since we aim to use defaults that will generally work well. Common reasons to modify the solver settings are to adjust the calculation or output stepsizes: <code>adaptive</code>, <code>dt</code>, and <code>saveat</code>. If your model does not converge, or your performance is lower than expected, it can help to adjust other solver settings as well.</p>
+<p>The solver section in the configuration file is entirely optional, since we aim to use defaults that will generally work well. Common reasons to modify the solver settings are to adjust the calculation or result stepsizes: <code>adaptive</code>, <code>dt</code>, and <code>saveat</code>. If your model does not converge, or your performance is lower than expected, it can help to adjust other solver settings as well.</p>
 <p>The default solver <code>algorithm = "QNDF"</code>, which is a multistep method similar to Matlab’s <code>ode15s</code> <span class="citation" data-cites="shampine1997matlab">(<a href="#ref-shampine1997matlab" role="doc-biblioref">Shampine and Reichelt 1997</a>)</span>. It is an implicit method that supports the default <code>adaptive = true</code> timestepping. The full list of available solvers is: <code>QNDF</code>, <code>Rosenbrock23</code>, <code>TRBDF2</code>, <code>Rodas5</code>, <code>KenCarp4</code>, <code>Tsit5</code>, <code>RK4</code>, <code>ImplicitEuler</code>, <code>Euler</code>. Information on the solver algorithms can be found on the <a href="https://docs.sciml.ai/DiffEqDocs/stable/solvers/ode_solve/">ODE solvers page</a>.</p>
 <p>The <code>dt</code> controls the stepsize. When <code>adaptive = true</code>, <code>dt</code> only applies to the initial stepsize, and by default it is automatically determined. When <code>adaptive = false</code> a suitable <code>dt</code> must always be provided. The value is in seconds, so <code>dt = 3600.0</code> corresponds to an hourly timestep. When <code>adaptive = true</code>, <code>dtmin</code> and <code>dtmax</code> control the minimum and maximum allowed <code>dt</code>. By default these depend on the problem and algorithm. If a smaller <code>dt</code> than <code>dtmin</code> is needed to meet the set error tolerances, the simulation stops, unless <code>force_dtmin</code> is set to <code>true</code>. <code>force_dtmin</code> is off by default to ensure an accurate solution.</p>
-<p>By default the calculation and output stepsize are the same, with <code>saveat = []</code>, which will save every timestep. <code>saveat</code> can be a number, which is the saving interval in seconds, or it can be a list of numbers, which are the times in seconds since start that are saved. For instance, <code>saveat = 86400.0</code> will save output after every day that passed.</p>
+<p>By default the calculation and result stepsize are the same, with <code>saveat = []</code>, which will save every timestep. <code>saveat</code> can be a number, which is the saving interval in seconds, or it can be a list of numbers, which are the times in seconds since start that are saved. For instance, <code>saveat = 86400.0</code> will save results after every day that passed.</p>
 <p>The Jacobian matrix provides information about the local sensitivity of the model with respect to changes in the states. For implicit solvers it must be calculated often, which can be expensive to do. There are several methods to do this. By default Ribasim uses a Jacobian derived automatically using <a href="https://juliadiff.org/ForwardDiff.jl/stable/">ForwardDiff.jl</a> with memory management provided by <a href="https://docs.sciml.ai/PreallocationTools/stable/">PreallocationTools.jl</a>. If this is not used by setting <code>autodiff = false</code>, the Jacobian is calculated with a finite difference method, which can be less accurate and more expensive.</p>
 <p>By default the Jacobian matrix is a sparse matrix (<code>sparse = true</code>). Since each state typically only depends on a small number of other states, this is generally more efficient, especially for larger models. The sparsity structure is calculated from the network and provided as a Jacobian prototype to the solver. For small or highly connected models it could be faster to use a dense Jacobian matrix instead by setting <code>sparse = false</code>.</p>
 <p>The total maximum number of iterations <code>maxiters = 1e9</code>, can normally stay as-is unless doing extremely long simulations.</p>
 <p>The absolute and relative tolerance for adaptive timestepping can be set with <code>abstol</code> and <code>reltol</code>. For more information on these and other solver options, see the <a href="https://docs.sciml.ai/DiffEqDocs/latest/basics/common_solver_opts/#solver_options">DifferentialEquations.jl docs</a>.</p>
 </section>
 </section>
-<section id="geopackage-and-arrow-tables" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> GeoPackage and Arrow tables</h1>
-<p>The input and output tables described below all share that they are tabular files. The Node and Edge tables always have to be in the <a href="https://www.geopackage.org/">GeoPackage</a> file, and output is always written to <a href="https://arrow.apache.org/">Apache Arrow</a> files, sometimes also known as Feather files. All other tables can either be in the GeoPackage or in separate Arrow files that are listed in the TOML as described above.</p>
+<section id="geopackage-database-and-arrow-tables" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> GeoPackage database and Arrow tables</h1>
+<p>The input and output tables described below all share that they are tabular files. The Node and Edge tables always have to be in the <a href="https://www.geopackage.org/">GeoPackage</a> database file, and results are always written to <a href="https://arrow.apache.org/">Apache Arrow</a> files, sometimes also known as Feather files. All other tables can either be in the database or in separate Arrow files that are listed in the TOML as described above.</p>
 <p>For visualization, the Node and Edge tables typically have associated geometries. GeoPackage was used since it provides a standardized way to store tables with (and without) geometry columns in a SQLite database. If, like Ribasim, you can ignore the geometries, a GeoPackage is easy to read using SQLite libraries, which are commonly available. Furthermore GeoPackage can be updated in place when working on a model.</p>
-<p>Arrow was chosen since it is standardized, fast, simple and flexible. It can be read and written by many different software packages. In Ribasim we use <a href="https://arrow.apache.org/julia/dev/">Arrow.jl</a>. Output is written to Arrow, since for long runs output can producs tables with many rows. Arrow is well suited for large tabular datasets, and file size is kept small by using compression. The Arrow input files can be compressed with LZ4 or Zstd compression. Furthermore, in some of the columns, a small amount of different values are repeated many times. To reduce file sizes it may be a good idea to apply <a href="https://arrow.apache.org/docs/format/Columnar.html#dictionary-encoded-layout">dictionary encoding</a> to those columns.</p>
+<p>Arrow was chosen since it is standardized, fast, simple and flexible. It can be read and written by many different software packages. In Ribasim we use <a href="https://arrow.apache.org/julia/dev/">Arrow.jl</a>. Results are written to Arrow, since for long runs Ribasim can produce tables with many rows. Arrow is well suited for large tabular datasets, and file size is kept small by using compression. The Arrow input files can be compressed with LZ4 or Zstd compression. Furthermore, in some of the columns, a small amount of different values are repeated many times. To reduce file sizes it may be a good idea to apply <a href="https://arrow.apache.org/docs/format/Columnar.html#dictionary-encoded-layout">dictionary encoding</a> to those columns.</p>
 <p>Below we give details per file, in which we describe the schema of the table using a syntax like this:</p>
 <table class="table">
 <thead>
@@ -432,7 +432,7 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
-<p>The available node types as of this writing are listed as the top level bullets below. The sub-bullets indicate which tables are associated to the node type. The table name is the name it must have in the GeoPackage if it is stored there.</p>
+<p>The available node types as of this writing are listed as the top level bullets below. The sub-bullets indicate which tables are associated to the node type. The table name is the name it must have in the database if it is stored there.</p>
 <ul>
 <li>Basin: stores water
 <ul>
@@ -701,9 +701,9 @@ div.csl-indent {
 </table>
 <p>We use the symbol <span class="math inline">\(A\)</span> for area, <span class="math inline">\(h\)</span> for level and <span class="math inline">\(S\)</span> for storage. The profile provides a function <span class="math inline">\(A(h)\)</span> for each basin. Internally this get converted to two functions, <span class="math inline">\(A(S)\)</span> and <span class="math inline">\(h(S)\)</span>, by integrating over the function, setting the storage to zero for the bottom of the profile. The minimum area cannot be zero to avoid numerical issues. The maximum area is used to convert the precipitation flux into an inflow.</p>
 </section>
-<section id="basin-output" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="basin-output"><span class="header-section-number">5.4</span> Basin output</h2>
-<p>The basin table contains outputs of the storage and level of each basin at every solver timestep. The initial condition is also written to the file.</p>
+<section id="basin-results" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="basin-results"><span class="header-section-number">5.4</span> Basin results</h2>
+<p>The basin table contains results of the storage and level of each basin at every solver timestep. The initial condition is also written to the file.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -737,9 +737,9 @@ div.csl-indent {
 </table>
 <p>The table is sorted by time, and per time it is sorted by <code>node_id</code>.</p>
 </section>
-<section id="flow-output" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="flow-output"><span class="header-section-number">5.5</span> Flow output</h2>
-<p>The flow table contains outputs of the flow on every edge in the model, for each solver timestep.</p>
+<section id="flow-results" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="flow-results"><span class="header-section-number">5.5</span> Flow results</h2>
+<p>The flow table contains results of the flow on every edge in the model, for each solver timestep.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -1526,8 +1526,8 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="discretecontrol-output" class="level2" data-number="16.3">
-<h2 data-number="16.3" class="anchored" data-anchor-id="discretecontrol-output"><span class="header-section-number">16.3</span> DiscreteControl output</h2>
+<section id="discretecontrol-results" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="discretecontrol-results"><span class="header-section-number">16.3</span> DiscreteControl results</h2>
 <p>The control table contains a record of each change of control state: when it happened, which control node was involved, to which control state it changed and based on which truth state.</p>
 <table class="table">
 <thead>

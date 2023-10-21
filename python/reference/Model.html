@@ -175,120 +175,114 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>modelname</code></td>
-<td>str</td>
-<td>Model name, used in TOML and GeoPackage file name.</td>
-<td><em>required</em></td>
-</tr>
-<tr class="even">
 <td><code>node</code></td>
 <td>Node</td>
 <td>The ID, type and geometry of each node.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>edge</code></td>
 <td>Edge</td>
 <td>How the nodes are connected.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>basin</code></td>
 <td>Basin</td>
 <td>The waterbodies.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>fractional_flow</code></td>
 <td>Optional[FractionalFlow]</td>
 <td>Split flows into fractions.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>level_boundary</code></td>
 <td>Optional[LevelBoundary]</td>
 <td>Boundary condition specifying the water level.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>flow_boundary</code></td>
 <td>Optional[FlowBoundary]</td>
 <td>Boundary conditions specifying the flow.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>linear_resistance</code></td>
 <td></td>
 <td>Linear flow resistance.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>manning_resistance</code></td>
 <td>Optional[ManningResistance]</td>
 <td>Flow resistance based on the Manning formula.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>tabulated_rating_curve</code></td>
 <td>Optional[TabulatedRatingCurve]</td>
 <td>Tabulated rating curve describing flow based on the upstream water level.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>pump</code></td>
 <td>Optional[Pump]</td>
 <td>Prescribed flow rate from one basin to the other.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>outlet</code></td>
 <td>Optional[Outlet]</td>
 <td>Prescribed flow rate from one basin to the other.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>terminal</code></td>
 <td>Optional[Terminal]</td>
 <td>Water sink without state or properties.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>discrete_control</code></td>
 <td>Optional[DiscreteControl]</td>
 <td>Discrete control logic.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>pid_control</code></td>
 <td>Optional[PidControl]</td>
 <td>PID controller attempting to set the level of a basin to a desired value using a pump/outlet.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>user</code></td>
 <td>Optional[User]</td>
 <td>User node type with demand and priority.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>starttime</code></td>
 <td>Union[str, datetime.datetime]</td>
 <td>Starting time of the simulation.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>endtime</code></td>
 <td>Union[str, datetime.datetime]</td>
 <td>End time of the simulation.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>solver</code></td>
 <td>Optional[Solver]</td>
 <td>Solver settings.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>logging</code></td>
 <td>Optional[logging]</td>
 <td>Logging settings.</td>
@@ -341,7 +335,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td><a href="#ribasim.Model.write">write</a></td>
-<td>Write the contents of the model to a GeoPackage and a TOML configuration file.</td>
+<td>Write the contents of the model to a database and a TOML configuration file.</td>
 </tr>
 </tbody>
 </table>
@@ -478,8 +472,8 @@ ul.task-list li input[type="checkbox"] {
 <section id="ribasim.Model.write" class="level3" data-number="1.2.9">
 <h3 data-number="1.2.9" class="anchored" data-anchor-id="ribasim.Model.write"><span class="header-section-number">1.2.9</span> write</h3>
 <p><code>Model.write(directory)</code></p>
-<p>Write the contents of the model to a GeoPackage and a TOML configuration file.</p>
-<p>If <code>directory</code> does not exist, it is created before writing. The GeoPackage and TOML file will be called <code>{modelname}.gpkg</code> and <code>{modelname}.toml</code> respectively.</p>
+<p>Write the contents of the model to a database and a TOML configuration file.</p>
+<p>If <code>directory</code> does not exist, it is created before writing.</p>
 <section id="parameters-3" class="level4" data-number="1.2.9.1">
 <h4 data-number="1.2.9.1" class="anchored" data-anchor-id="parameters-3"><span class="header-section-number">1.2.9.1</span> Parameters</h4>
 <table class="table">
