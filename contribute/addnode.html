@@ -443,29 +443,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>docs/core/equations</code> should contain a short explanation and if possible an analytical expression for the behaviour of the new node;</li>
 <li><code>docs/core/usage.qmd</code> should contain a short explanation of the node and the possible schemas associated with it;</li>
 <li>The example models constructed in <code>docs/python/examples.ipynb</code> should be extended with the new node type or a new example model with the new node type should be made.</li>
+<li>In <code>_quarto.yml</code> add <code>NewNodeType</code> to the “Node types” contents for the Python API reference.</li>
 </ul>
 </section>
 <section id="finishing-up" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Finishing up</h1>
 <p>When a new node type is created, one needs to run</p>
-<pre><code>julia --project=docs docs/gen_schema.jl</code></pre>
-<p>to create new JSON Schemas in the docs folder.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If you haven’t done so before, you first need to instantiate your docs environment. Run <code>julia --project=docs</code>, followed by running <code>instantiate</code> in the Pkg mode (press <code>]</code>).</p>
-</div>
-</div>
-<p>To generate the Python module <code>models.py</code> and <code>config.py</code> from the JSON Schemas, run:</p>
 <pre><code>pixi run codegen</code></pre>
-<p>Since adding a node type touches both the Python and Julia code, it is a good idea to run both the <a href="../contribute/python.html#test">Python test suite</a> and <a href="../contribute/core.html#test">Julia test suite</a> locally before creating a pull request.</p>
+<p>This will derive all JSON Schemas from the julia code, and write them to the docs folder. From these JSON Schemas the Python modules <code>models.py</code> and <code>config.py</code> are generated.</p>
+<p>Since adding a node type touches both the Python and Julia code, it is a good idea to run both the <a href="../contribute/python.html#test">Python test suite</a> and <a href="../contribute/core.html#test">Julia test suite</a> locally before creating a pull request. You can run all tests with:</p>
+<pre><code>pixi run tests</code></pre>
 
 
 </section>
