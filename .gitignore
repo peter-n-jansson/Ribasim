@@ -1,8 +1,0 @@
-/.quarto/
-/_site/
-/site_libs/
-python/reference/
-python/data/
-*.html
-/Manifest.toml
-objects.json
