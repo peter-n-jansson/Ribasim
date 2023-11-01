@@ -1,0 +1,98 @@
+project:
+  type: website
+  resources:
+    - schema/*.schema.json
+
+website:
+  title: "Ribasim"
+  page-navigation: true
+  navbar:
+    logo: https://user-images.githubusercontent.com/4471859/224825908-bee7e044-bc6b-4561-8b08-5d330cce3ed5.png
+    left:
+      - text: "Julia core"
+        file: core/index.qmd
+      - text: "Python tooling"
+        file: python/index.qmd
+      - text: "QGIS plugin"
+        file: qgis/index.qmd
+      - text: "Coupled models"
+        file: couple/index.qmd
+      - text: "Contributing"
+        file: contribute/index.qmd
+    right:
+      - icon: github
+        href: https://github.com/Deltares/Ribasim
+        aria-label: GitHub
+
+  sidebar:
+    - title: "Julia core"
+      contents:
+        - core/index.qmd
+        - core/usage.qmd
+        - core/equations.qmd
+        - core/allocation.qmd
+        - core/numerics.qmd
+        - build/index.md
+    - title: "Python tooling"
+      contents:
+        - python/index.qmd
+        - python/examples.ipynb
+        - python/reference/index.qmd
+    - title: "Coupled models"
+      contents:
+        - couple/index.qmd
+        - couple/modflow.qmd
+        - couple/modflow-demo.qmd
+    - title: "Contributing"
+      contents:
+        - contribute/index.qmd
+        - contribute/core.qmd
+        - contribute/python.qmd
+        - contribute/addnode.qmd
+        - contribute/release.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: assets/styles.css
+    toc: true
+
+bibliography: references.bib
+number-sections: true
+
+quartodoc:
+  style: pkgdown
+  dir: python/reference
+  title: API Reference
+  package: ribasim
+  sections:
+    - title: Model
+      desc: The Model class represents an entire Ribasim model.
+      contents:
+        - Model
+    - title: Network
+      desc: The Node and Edge database layers define the network layout.
+      contents:
+        - Node
+        - Edge
+    - title: Node types
+      desc: Available node types to model different situations.
+      contents:
+        - Basin
+        - FractionalFlow
+        - TabulatedRatingCurve
+        - Pump
+        - Outlet
+        - User
+        - LevelBoundary
+        - FlowBoundary
+        - LinearResistance
+        - ManningResistance
+        - Terminal
+        - DiscreteControl
+        - PidControl
+    - title: Utility functions
+      desc: Collection of utility functions.
+      contents:
+        - utils.geometry_from_connectivity
+        - utils.connectivity_from_geometry

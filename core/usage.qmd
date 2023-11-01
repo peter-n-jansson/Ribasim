@@ -1,0 +1,607 @@
+---
+title: "Usage"
+filters:
+  - include-code-files
+---
+
+Ribasim is typically used as a command-line interface (CLI). It is distributed as a `.zip`
+archive, that must be downloaded and unpacked. It can be placed anywhere, however it is
+important that the contents of the zip file are kept together in a directory. The Ribasim
+CLI executable is in the `bin` directory.
+
+To download `ribasim_cli.zip`, see the [download section](../index.qmd#sec-download).
+
+To check whether the installation was performed successfully, run `ribasim` with no
+arguments in the command line.
+This will give the following message:
+
+```
+Usage: ribasim 'path/to/model/ribasim.toml'
+```
+
+# Configuration file
+
+Ribasim has a single configuration file, which is written in the [TOML](https://toml.io/)
+format. It contains settings, as well as paths to other input and output files.
+
+```{.toml include="../../core/test/docs.toml"}
+```
+
+## Solver settings {#sec-solver-settings}
+
+The solver section in the configuration file is entirely optional, since we aim to use defaults that will generally work well.
+Common reasons to modify the solver settings are to adjust the calculation or result stepsizes: `adaptive`, `dt`, and `saveat`.
+If your model does not converge, or your performance is lower than expected, it can help to adjust other solver settings as well.
+
+The default solver `algorithm = "QNDF"`, which is a multistep method similar to Matlab's `ode15s` [@shampine1997matlab].
+It is an implicit method that supports the default `adaptive = true` timestepping.
+The full list of available solvers is: `QNDF`, `Rosenbrock23`, `TRBDF2`, `Rodas5`, `KenCarp4`, `Tsit5`, `RK4`, `ImplicitEuler`, `Euler`.
+Information on the solver algorithms can be found on the [ODE solvers page](https://docs.sciml.ai/DiffEqDocs/stable/solvers/ode_solve/).
+
+The `dt` controls the stepsize.
+When `adaptive = true`, `dt` only applies to the initial stepsize, and by default it is automatically determined.
+When `adaptive = false` a suitable `dt` must always be provided.
+The value is in seconds, so `dt = 3600.0` corresponds to an hourly timestep.
+When `adaptive = true`, `dtmin` and `dtmax` control the minimum and maximum allowed `dt`.
+By default these depend on the problem and algorithm.
+If a smaller `dt` than `dtmin` is needed to meet the set error tolerances, the simulation stops, unless `force_dtmin` is set to `true`.
+`force_dtmin` is off by default to ensure an accurate solution.
+
+By default the calculation and result stepsize are the same, with `saveat = []`, which will save every timestep.
+`saveat` can be a number, which is the saving interval in seconds, or it can be a list of numbers, which are the times in seconds since start that are saved.
+For instance, `saveat = 86400.0` will save results after every day that passed.
+
+The Jacobian matrix provides information about the local sensitivity of the model with respect to changes in the states.
+For implicit solvers it must be calculated often, which can be expensive to do.
+There are several methods to do this.
+By default Ribasim uses a Jacobian derived automatically using [ForwardDiff.jl](https://juliadiff.org/ForwardDiff.jl/stable/) with memory management provided by [PreallocationTools.jl](https://docs.sciml.ai/PreallocationTools/stable/).
+If this is not used by setting `autodiff = false`, the Jacobian is calculated with a finite difference method, which can be less accurate and more expensive.
+
+By default the Jacobian matrix is a sparse matrix (`sparse = true`).
+Since each state typically only depends on a small number of other states, this is generally more efficient, especially for larger models.
+The sparsity structure is calculated from the network and provided as a Jacobian prototype to the solver.
+For small or highly connected models it could be faster to use a dense Jacobian matrix instead by setting `sparse = false`.
+
+The total maximum number of iterations `maxiters = 1e9`, can normally stay as-is unless doing extremely long simulations.
+
+The absolute and relative tolerance for adaptive timestepping can be set with `abstol` and `reltol`. For more information on these and other solver options, see the [DifferentialEquations.jl docs](https://docs.sciml.ai/DiffEqDocs/latest/basics/common_solver_opts/#solver_options).
+
+## Allocation settings
+Currently there are the following allocation settings:
+- `use_allocation`: A boolean which says whether allocation should be used or not;
+- `timestep`: a float value in seconds which dictates the update interval for allocations.
+
+# GeoPackage database and Arrow tables
+
+The input and output tables described below all share that they are tabular files. The Node
+and Edge tables always have to be in the [GeoPackage](https://www.geopackage.org/) database file, and
+results are always written to [Apache Arrow](https://arrow.apache.org/) files, sometimes also
+known as Feather files. All other tables can either be in the database or in separate
+Arrow files that are listed in the TOML as described above.
+
+For visualization, the Node and Edge tables typically have associated geometries. GeoPackage
+was used since it provides a standardized way to store tables with (and without) geometry
+columns in a SQLite database. If, like Ribasim, you can ignore the geometries, a GeoPackage
+is easy to read using SQLite libraries, which are commonly available. Furthermore GeoPackage
+can be updated in place when working on a model.
+
+Arrow was chosen since it is standardized, fast, simple and flexible. It can be read and
+written by many different software packages. In Ribasim we use
+[Arrow.jl](https://arrow.apache.org/julia/dev/). Results are written to Arrow, since for long
+runs Ribasim can produce tables with many rows. Arrow is well suited for large tabular
+datasets, and file size is kept small by using compression. The Arrow input files can be
+compressed with LZ4 or Zstd compression. Furthermore, in some of the columns, a small amount
+of different values are repeated many times. To reduce file sizes it may be a good idea to
+apply [dictionary
+encoding](https://arrow.apache.org/docs/format/Columnar.html#dictionary-encoded-layout) to
+those columns.
+
+Below we give details per file, in which we describe the schema of the table using a syntax
+like this:
+
+column    | type    | unit         | restriction
+--------- | ------- | ------------ | -----------
+node_id   | Int     | -            | sorted
+storage   | Float64 | $m^3$        | non-negative
+
+This means that two columns are required, one named `node_id`, that contained elements of
+type `Int`, and a column named `storage` that contains elements of type `Float64`. The order
+of the columns does not matter. In some cases there may be restrictions on the values. This
+is indicated under `restriction`.
+
+Tables are also allowed to have rows for timestamps that are not part of the simulation,
+these will be ignored. That makes it easy to prepare data for a larger period, and test
+models on a shorted period.
+
+# Node
+
+Node is a table that specifies the ID and type of each node of a model. The ID must be
+unique among all nodes, and the type must be one of the available node types listed below.
+
+Nodes are components that are connected together to form a larger system. The Basin is a
+central node type that stores water. The other node types influence the flow between Basins
+in some way. Counter intuitively, even systems you may think of as edges, such as a canal,
+are nodes in Ribasim. This is because edges only define direct instantaneous couplings
+between nodes, and never have storage of their own.
+
+column                | type     | restriction
+--------------------- | -------- | -----------
+fid                   | Int      | unique, sorted
+type                  | String   | known node type
+geometry              | geoarrow | (optional)
+name                  | String   | (optional, does not have to be unique)
+allocation_network_id | Int      | (optional)
+
+The available node types as of this writing are listed as the top level bullets below. The
+sub-bullets indicate which tables are associated to the node type. The table name is the
+name it must have in the database if it is stored there.
+
+- Basin: stores water
+  - `Basin / static`: default forcing values, used if no dynamic data given in the forcing table
+  - `Basin / profile`: geometries of the basins
+  - `Basin / time`: time series of the forcing values
+  - `Basin / state`: used as initial condition of the basins
+- FractionalFlow: connect two of these from a Basin to get a fixed ratio bifurcation
+  - `FractionalFlow / static`: fractions
+- LevelBoundary: stores water at a given level unaffected by flow, like an infinitely large basin
+  - `LevelBoundary / static`: levels
+  - `LevelBoundary / time`: dynamic levels
+- FlowBoundary: sets a precribed flow into the model
+  - `FlowBoundary / static`: flow rate
+  - `FlowBoundary / time`: dynamic flow rate
+- LinearResistance: bidirectional flow based on water level difference between Basins
+  - `LinearResistance / static`: conductances
+- ManningResistance: Flow through this connection is estimated by conservation of energy and the Manning-Gauckler formula to estimate friction losses
+  - `ManningResistance / static`: properties
+- TabulatedRatingCurve: Basin outflow relation
+  - `TabulatedRatingCurve / static`: rating curve
+  - `TabulatedRatingCurve / time`: dynamic rating curve
+- Pump: pump water from a source node to a destination node
+  - `Pump / static`: flow rate
+- Outlet: let water flow with a prescribed flux under the conditions of positive head difference and the upstream level being higher than the minimum crest level
+  - `Outlet / static`: flow rate, minimum crest level
+- User: sets water usage demands at certain priorities
+  - `User / static`: demands
+  - `User / time`: dynamic demands
+- Terminal: Water sink without state or properties
+  - `Terminal / static`: - (only node IDs)
+- DiscreteControl: Set parameters of other nodes based on model state conditions (e.g. basin level)
+  - `DisceteControl / condition`: Conditions of the form 'the level in the basin with node id `n` is bigger than 2.0 m'
+  - `DisceteControl / logic`: Translates the truth value of a set of conditions to parameter values for a controlled node
+- PidControl: Controls the level in a basin by continuously controlling the flow rate of a connected pump or outlet. See also [Wikipedia](https://en.wikipedia.org/wiki/PID_controller) and [PID controller in equations](equations.qmd#sec-PID).
+  - `PidControl / static`: The proportional, integral, and derivative parameters, the target value and which basin should be controlled
+  - `PidControl / time`: same as `static` but varying over time.
+
+Adding a geometry to the node table can be helpful to examine models in
+[QGIS](https://qgis.org/en/site/), as it will show the location of the nodes on the map. The
+geometry is not used by Ribasim.
+
+# Edge
+
+Edges define connections between nodes. The only thing that defines an edge is the nodes it connects, and in what direction.
+There are currently 2 possible edge types:
+
+1. "flow": Flows between nodes are stored on edges. The effect of
+  the edge direction depends on the node type, Node types that have a notion of an upstream
+  and downstream side use the incoming edge as the upstream side, and the outgoing edge as the
+  downstream side. This means that edges should generally be drawn in the main flow direction.
+  But for instance between two `LinearResistances` the edge direction does not affect
+  anything, other than the sign of the flow on the edge. The sign of the flow follows the edge
+  direction; a positive flow flows along the edge direction, a negative flow in the opposite
+  way.
+2. "control": The control edges define which nodes are controlled by a particular control node.
+  Control edges should always point away from the control node.
+  The edges between the control node and the nodes it *listens* to are *not* present in `Edge \ static`, these are defined in [Control / condition](usage.qmd#sec-condition)
+
+column                | type     | restriction
+--------------------- | -------- | -----------
+fid                   | Int      | unique, sorted
+from_node_id          | Int      | -
+to_node_id            | Int      | -
+edge_type             | String   | must be "flow" or "control"
+geom                  | geometry | (optional)
+name                  | String   | (optional, does not have to be unique)
+allocation_network_id | Int      | (optional, denotes source in allocation network)
+
+Similarly to the node table, you can use a geometry to visualize the connections between the
+nodes in QGIS. For instance, you can draw a line connecting the two node coordinates.
+
+# Basin
+
+The Basin table can be used to set the static value of variables. The time table has a
+similar schema, with the time column added. A static value for a variable is only used if
+there is no dynamic forcing data for that variable. Specifically, if there is either no
+time table, it is empty, or all timestamps of that variable are missing.
+
+column                | type    | unit         | restriction
+---------             | ------- | ------------ | -----------
+node_id               | Int     | -            | sorted
+precipitation         | Float64 | $m s^{-1}$   | non-negative
+potential_evaporation | Float64 | $m s^{-1}$   | non-negative
+drainage              | Float64 | $m^3 s^{-1}$ | non-negative
+infiltration          | Float64 | $m^3 s^{-1}$ | non-negative
+urban_runoff          | Float64 | $m^3 s^{-1}$ | non-negative
+
+Note that if variables are not set in the static table, default values are used when
+possible. These are generally zero, e.g. no precipitation, no inflow. If it is not possible
+to have a reasonable and safe default, a value must be provided in the static table.
+
+## Basin / time
+
+This table is the transient form of the `Basin` table.
+The only difference is that a time column is added.
+The table must by sorted by time, and per time it must be sorted by `node_id`.
+A linear interpolation between the given timesteps is currently done if the
+solver takes timesteps between the given data points. More options will be available later.
+
+## Basin / state
+
+The state table aims to capture the full state of the Basin, such that it can be used as an
+initial condition, potentially the outcome of an earlier simulation. Currently only the
+Basin node types have state.
+
+column    | type    | unit         | restriction
+--------- | ------- | ------------ | -----------
+node_id   | Int     | -            | sorted
+level     | Float64 | $m$          | $\ge$ basin bottom
+
+Each Basin ID needs to be in the table.
+
+## Basin / profile
+
+The profile table defines the physical dimensions of the storage reservoir of each basin.
+
+column    | type    | unit         | restriction
+--------- | ------- | ------------ | -----------
+node_id   | Int     | -            | sorted
+area      | Float64 | $m^2$        | non-negative, per node_id: start positive and increasing
+level     | Float64 | $m$          | per node_id: increasing
+
+The level is the level at the basin outlet. All levels are defined in meters above a datum
+that is the same for the entire model. An example of the first 5 rows of such a table is
+given below. The first 4 rows define the profile of ID `2`. The number of rows can vary
+per ID. Using a very large number of rows may impact performance.
+
+node_id |   area | level
+------- |------- |-------
+      2 |    1.0 |   6.0
+      2 | 1000.0 |   7.0
+      2 | 1000.0 |   9.0
+      3 |    1.0 |   2.2
+
+We use the symbol $A$ for area, $h$ for level and $S$ for storage.
+The profile provides a function $A(h)$ for each basin.
+Internally this get converted to two functions, $A(S)$ and $h(S)$, by integrating over the function, setting the storage to zero for the bottom of the profile.
+The minimum area cannot be zero to avoid numerical issues.
+The maximum area is used to convert the precipitation flux into an inflow.
+
+## Basin results
+
+The basin table contains results of the storage and level of each basin at every solver
+timestep. The initial condition is also written to the file.
+
+column   | type     | unit
+-------- | -------- | ----
+time     | DateTime | -
+node_id  | Int      | -
+storage  | Float64  | $m^3$
+level    | Float64  | $m$
+
+The table is sorted by time, and per time it is sorted by `node_id`.
+
+## Flow results
+
+The flow table contains results of the flow on every edge in the model, for each solver
+timestep.
+
+column        | type                | unit
+------------- | ------------------- | ----
+time          | DateTime            | -
+edge_id       | Union{Int, Missing} | -
+from_node_id  | Int                 | -
+to_node_id    | Int                 | -
+flow          | Float64             | $m^3 s^{-1}$
+
+The table is sorted by time, and per time the same `edge_id` order is used, though not sorted.
+Flows that are added to the model at a node, have a missing `edge_id`, and identical `from_node_id` and `to_node_id`.
+Flows out of the model always have a negative sign, and additions a positive sign.
+
+# FractionalFlow
+
+Lets a fraction (in [0,1]) of the incoming flow trough.
+
+column        | type    | unit         | restriction
+------------- | ------- | ------------ | -----------
+node_id       | Int     | -            | sorted
+fraction      | Float64 | -            | in the interval [0,1]
+control_state | String  | -            | (optional)
+
+# TabulatedRatingCurve
+
+This table is similar in structure to the Basin profile. The TabulatedRatingCurve gives a
+relation between the storage of a connected Basin (via the outlet level) and its outflow.
+
+column        | type    | unit         | restriction
+------------- | ------- | ------------ | -----------
+node_id       | Int     | -            | sorted
+active        | Bool    | -            | (optional, default true)
+level         | Float64 | $m$          | sorted per control_state
+discharge     | Float64 | $m^3 s^{-1}$ | non-negative
+control_state | String  | -            | (optional) sorted per node_id
+
+node_id | discharge  | level
+------- |----------- |-------
+      2 | 0.0        | -0.105
+      2 | 0.0        |  0.095
+      2 | 0.00942702 |  0.295
+      2 | 0.942702   | 20.095
+      3 | 0.0        |  2.129
+
+## TabulatedRatingCurve / time
+
+This table is the transient form of the `TabulatedRatingCurve` table.
+The only difference is that a time column is added.
+The table must by sorted by time, and per time it must be sorted by `node_id`.
+With this the rating curves can be updated over time.
+Note that a `node_id` can be either in this table or in the static one, but not both.
+
+column    | type     | unit         | restriction
+--------- | -------  | ------------ | -----------
+time      | DateTime | -            | sorted
+node_id   | Int      | -            | sorted per time
+level     | Float64  | $m$          | -
+discharge | Float64  | $m^3 s^{-1}$ | non-negative
+
+# Pump
+
+Pump water from a source node to a destination node.
+The set flow rate will be pumped unless the intake storage is less than $10~m^3$,
+in which case the flow rate will be linearly reduced to $0~m^3/s$.
+The intake must be either a Basin or LevelBoundary.
+When PID controlled, the pump must point away from the controlled basin in terms of edges.
+
+column                | type    | unit         | restriction
+---------             | ------- | ------------ | -----------
+node_id               | Int     | -            | sorted
+active                | Bool    | -            | (optional, default true)
+flow_rate             | Float64 | $m^3 s^{-1}$ | non-negative
+min_flow_rate         | Float64 | $m^3 s^{-1}$ | (optional, default 0.0)
+max_flow_rate         | Float64 | $m^3 s^{-1}$ | (optional)
+control_state         | String  | -            | (optional)
+
+# Outlet
+
+The outlet is very similar to the pump. The outlet has two additional physical constraints: water only flows trough the outlet when the head difference is positive (i.e. water flows down by gravity), and the upstream level must be above the minimum crest level if the upstream level is defined.
+When PID controlled, the outlet must point towards the controlled basin in terms of edges.
+
+column                | type    | unit         | restriction
+---------             | ------- | ------------ | -----------
+node_id               | Int     | -            | sorted
+active                | Bool    | -            | (optional, default true)
+flow_rate             | Float64 | $m^3 s^{-1}$ | non-negative
+min_flow_rate         | Float64 | $m^3 s^{-1}$ | (optional, default 0.0)
+max_flow_rate         | Float64 | $m^3 s^{-1}$ | (optional)
+min_crest_level       | Float64 | $m$          | (optional)
+control_state         | String  | -            | (optional)
+
+# User
+
+A user can demand a certain flow from the basin that supplies it,
+distributed over multiple priorities 1,2,3,... where priority 1 denotes the most important demand.
+Currently the user attempts to extract the complete demand from the Basin.
+Only if the Basin is almost empty or reaches the minimum level at which the user can extract
+water (`min_level`), will it take less than the demand.
+In the future water can be allocated to users based on their priority.
+Users need an outgoing flow edge along which they can send their return flow,
+this can also be to the same basin from which it extracts water.
+The amount of return flow is always a fraction of the inflow into the user.
+The difference is consumed by the user.
+
+column        | type    | unit         | restriction
+------------- | ------- | ------------ | -----------
+node_id       | Int     | -            | sorted
+active        | Bool    | -            | (optional, default true)
+demand        | Float64 | $m^3 s^{-1}$ | -
+return_factor | Float64 | -            | between [0 - 1]
+min_level     | Float64 | $m$          | (optional)
+priority      | Int     | -            | sorted per node id
+
+## User / time
+
+This table is the transient form of the `User` table.
+The only difference is that a time column is added and activity is assumed to be true.
+The table must by sorted by time, and per time it must be sorted by `node_id`.
+With this the demand can be updated over time. In between the given times the
+demand is interpolated linearly, and outside the demand is constant given by the
+nearest time value.
+Note that a `node_id` can be either in this table or in the static one, but not both.
+
+column        | type     | unit         | restriction
+------------- | -------- | ------------ | -----------
+node_id       | Int      | -            | sorted
+time          | DateTime | -            | sorted per priority per node id
+demand        | Float64  | $m^3 s^{-1}$ | -
+return_factor | Float64  | -            | between [0 - 1]
+min_level     | Float64  | $m$          | (optional)
+priority      | Int      | -            | sorted per node id
+
+# LevelBoundary
+
+Acts like an infinitely large basin where the level does not change by flow.
+This can be connected to a basin via a `LinearResistance`.
+This boundary node will then
+exchange water with the basin based on the difference in water level between the two.
+
+column        | type    | unit         | restriction
+------------- | ------- | ------------ | -----------
+node_id       | Int     | -            | sorted
+active        | Bool    | -            | (optional, default true)
+level         | Float64 | $m$          | -
+
+## LevelBoundary / time
+
+This table is the transient form of the `LevelBoundary` table.
+The only difference is that a time column is added and activity is assumed to be true.
+The table must by sorted by time, and per time it must be sorted by `node_id`.
+With this the levels can be updated over time. In between the given times the
+level is interpolated linearly, and outside the flow rate is constant given by the
+nearest time value.
+Note that a `node_id` can be either in this table or in the static one, but not both.
+
+column    | type     | unit         | restriction
+--------- | -------  | ------------ | -----------
+time      | DateTime | -            | sorted
+node_id   | Int      | -            | sorted per time
+level     | Float64  | $m$          | -
+
+# FlowBoundary
+
+Pump water to a destination node.
+We require that the edge connecting the flow boundary to the Basin should point towards the basin,
+so that positive flow corresponds to water being added to the model.
+The set flow rate will be pumped unless the intake storage (for a negative flow rate) is less than $10~m^3$,
+in which case the flow rate will be linearly reduced to $0~m^3/s$.
+Note that the connected node must always be a Basin.
+
+column        | type    | unit         | restriction
+------------- | ------- | ------------ | -----------
+node_id       | Int     | -            | sorted
+active        | Bool    | -            | (optional, default true)
+flow_rate     | Float64 | $m^3 s^{-1}$ | non-negative
+
+## FlowBoundary / time
+
+This table is the transient form of the `FlowBoundary` table.
+The only differences are that a time column is added and the nodes are assumed to be active so this column is removed.
+The table must by sorted by time, and per time it must be sorted by `node_id`.
+With this the flow rates can be updated over time. In between the given times the
+flow rate is interpolated linearly, and outside the flow rate is constant given by the
+nearest time value.
+Note that a `node_id` can be either in this table or in the static one, but not both.
+
+column    | type     | unit         | restriction
+--------- | -------  | ------------ | -----------
+time      | DateTime | -            | sorted
+node_id   | Int      | -            | sorted per time
+flow_rate | Float64  | $m^3 s^{-1}$ | non-negative
+
+# LinearResistance
+
+Flow proportional to the level difference between the connected basins.
+
+column        | type    | unit         | restriction
+------------- | ------- | ------------ | -----------
+node_id       | Int     | -            | sorted
+active        | Bool    | -            | (optional, default true)
+resistance    | Float64 | $sm^{-2}$    | -
+control_state | String  | -            | (optional)
+
+# ManningResistance
+
+Flow through this connection is estimated by conservation of energy and the Manning-Gauckler formula to estimate friction losses.
+
+column        | type    | unit         | restriction
+------------- | ------- | ------------ | -----------
+node_id       | Int     | -            | sorted
+active        | Bool    | -            | (optional, default true)
+length        | Float64 | $m$          | positive
+manning_n     | Float64 | $s m^{-\frac{1}{3}}$          | positive
+profile_with  | Float64 | $m$          | positive
+profile_slope | Float64 | -            | -
+control_state | String  | -            | (optional)
+
+# Terminal
+
+A terminal is a water sink without state or properties.
+Any water that flows into a terminal node is removed from the model.
+No water can come into the model from a terminal node.
+For example, terminal nodes can be used as a downstream boundary.
+
+column                | type    | unit         | restriction
+---------             | ------- | ------------ | -----------
+node_id               | Int     | -            | sorted
+
+# DisceteControl
+
+DiscreteControl is implemented based on [VectorContinuousCallback](https://docs.sciml.ai/DiffEqDocs/stable/features/callback_functions/#VectorContinuousCallback).
+
+## DiscreteControl / condition {#sec-condition}
+
+The condition schema defines conditions of the form 'the discrete_control node with this node id listens to whether the given variable of the node with the given listen feature id is grater than the given value'. If the condition variable comes from a time-series, a look ahead $\Delta t$ can be supplied.
+
+column            | type     | unit    | restriction
+----------------- | -------- | ------- | -----------
+node_id           | Int      | -       | sorted
+listen_feature_id | Int      | -       | -
+variable          | String   | -       | must be "level" or "flow_rate"
+greater_than      | Float64  | various | -
+look_ahead        | Float64  | $s$     | Only on transient boundary conditions, non-negative (optional, default 0)
+
+## DiscreteControl / logic
+
+The logic schema defines which control states are triggered based on the truth of the conditions a discrete_control node listens to.
+DiscreteControl is applied in the Julia core as follows:
+
+- During the simulation it is checked whether the truth of any of the conditions changes.
+- When a condition changes, the corresponding discrrete_control node id is retrieved (node_id in the condition schema above).
+- The truth value of all the conditions this discrete_control node lisens to are retrieved, in the order as they are specified in the condition schema. This is then converted into a string of "T" for true and "F" for false. This string we call the truth state.*
+- The table below determines for the given discrete_control node ID and truth state what the corresponding control state is.
+- For all the nodes this discrete_control node affects (as given by the "control" edges in [Edges / static](usage.qmd#edge)), their parameters are set to those parameters in `NodeType / static` corresponding to the determined control state.
+
+*.  There is also a second truth state created in which for the last condition that changed it is specified whether it was an upcrossing ("U") or downcrossing ("D") of the threshold (greater than) value. If a control state is specified for a truth state that is crossing-specific, this takes precedence over the control state for the truth state that contains only "T" and "F".
+
+column         | type     | unit | restriction
+-------------- | -------- | ---- | -----------
+node_id        | Int      | -    | sorted
+truth_state    | String   | -    | Consists of the characters "T" (true), "F" (false), "U" (upcrossing), "D" (downcrossing) and "*" (any)
+control_state  | String   | -    |
+
+## DiscreteControl results
+
+The control table contains a record of each change of control state: when it happened, which control node was involved, to which control state it changed and based on which truth state.
+
+column          | type
+--------------- | ----------
+time            | DateTime
+control_node_id | Int
+truth_state     | String
+control_state   | String
+
+# PidControl
+
+The PidControl node controls the level in a basin by continuously controlling the flow rate of a connected pump or outlet. See also [PID controller](https://en.wikipedia.org/wiki/PID_controller). When A PidControl node is made inactive, the node under its control retains the last flow rate value, and the error integral is reset to 0.
+
+The pump must be an outneighbor of the controlled basin, the outlet must be an inneighbor. Thus for the same coefficient values in `proportional`, `integral` and `derivative`, the pump and outlet have the oppositve effect on the controlled basin.
+
+In the future controlling the flow on a particular edge could be supported.
+
+column         | type     | unit     | restriction
+-------------- | -------- | -------- | -----------
+node_id        | Int      | -        | sorted
+active         | Bool     | -        | (optional, default true)
+listen_node_id | Int      | -        | -
+target         | Float64  | $m$      | -
+proportional   | Float64  | $s^{-1}$ | -
+integral       | Float64  | $s^{-2}$ | -
+derivative     | Float64  | -        | -
+control_state  | String   | -        | -
+
+## PidControl / time
+
+This table is the transient form of the `PidControl` table.
+The differences are that a time column is added and the nodes are assumed to be active so this column is removed.
+The table must by sorted by time, and per time it must be sorted by `node_id`.
+With this the target level and PID coefficients can be updated over time. In between the given times the
+these values interpolated linearly, and outside these values area constant given by the
+nearest time value.
+Note that a `node_id` can be either in this table or in the static one, but not both.
+
+column         | type     | unit     | restriction
+-------------- | -------- | -------- | -----------
+node_id        | Int      | -        | sorted per time
+time           | DateTime | -        | sorted
+listen_node_id | Int      | -        | -
+target         | Float64  | $m$      | -
+proportional   | Float64  | $s^{-1}$ | -
+integral       | Float64  | $s^{-2}$ | -
+derivative     | Float64  | -        | -
