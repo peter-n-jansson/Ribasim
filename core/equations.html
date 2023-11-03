@@ -372,17 +372,15 @@ Note
 <section id="sec-reduction_factor" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="sec-reduction_factor"><span class="header-section-number">2.1</span> The reduction factor</h2>
 <p>At several points in the equations below a <em>reduction factor</em> is used. This is a term that makes certain transitions more smooth, for instance when a pump stops providing water when its source basin dries up. The reduction factor is given by</p>
-<p><span class="math display">\[
+<p><span class="math display">\[\begin{align}
     \phi(x; p) =
-    \begin{align}
-        \begin{cases}
-        0 &amp;\text{if}\quad x &lt; 0 \\
-            -2 \left(\frac{x}{p}\right)^3 + 3\left(\frac{x}{p}\right)^2 &amp;\text{if}\quad 0 \le x \le p \\
-            1 &amp;\text{if}\quad x &gt; p
-        \end{cases}
-    \end{align},
-\]</span></p>
-<p>where <span class="math inline">\(p &gt; 0\)</span> is the threshold value which determines the interval <span class="math inline">\([0,p]\)</span> of the smooth transition between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, see the plot below.</p>
+    \begin{cases}
+    0 &amp;\text{if}\quad x &lt; 0 \\
+        -2 \left(\frac{x}{p}\right)^3 + 3\left(\frac{x}{p}\right)^2 &amp;\text{if}\quad 0 \le x \le p \\
+        1 &amp;\text{if}\quad x &gt; p
+    \end{cases}
+\end{align}\]</span></p>
+<p>Here <span class="math inline">\(p &gt; 0\)</span> is the threshold value which determines the interval <span class="math inline">\([0,p]\)</span> of the smooth transition between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, see the plot below.</p>
 <div class="cell" data-execution_count="1">
 <details>
 <summary>Code</summary>
@@ -425,7 +423,7 @@ Note
 <div class="cell-output cell-output-stderr">
 <pre><code>&lt;&gt;:31: SyntaxWarning: invalid escape sequence '\p'
 &lt;&gt;:31: SyntaxWarning: invalid escape sequence '\p'
-/tmp/ipykernel_5049/665069857.py:31: SyntaxWarning: invalid escape sequence '\p'
+/tmp/ipykernel_5477/665069857.py:31: SyntaxWarning: invalid escape sequence '\p'
   ax.set_ylabel("$\phi(x;p)$", fontsize=fontsize)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -659,20 +657,18 @@ e(t) = \text{SP}(t) - y(t).
 <p>The output of the PID controller for the flow rate of the pump or outlet is then given by <span id="eq-PIDflow"><span class="math display">\[
     Q_\text{PID}(t) = K_p e(t) + K_i\int_{t_0}^t e(\tau)\text{d}\tau + K_d \frac{\text{d}e}{\text{d}t},
 \tag{7}\]</span></span></p>
-<p>for given constant parameters <span class="math inline">\(K_p,K_i,K_d\)</span>. The pump or outlet can have associated minimum and maximum flow rates <span class="math inline">\(Q_\min, Q_\max\)</span>, and so <span class="math display">\[
-Q_\text{pump/outlet} = \text{clip}(\Phi Q_\text{PID}; Q_\min, Q_\max).
+<p>for given constant parameters <span class="math inline">\(K_p,K_i,K_d\)</span>. The pump or outlet can have associated minimum and maximum flow rates <span class="math inline">\(Q_{\min}, Q_{\max}\)</span>, and so <span class="math display">\[
+Q_\text{pump/outlet} = \text{clip}(\Phi Q_\text{PID}; Q_{\min}, Q_{\max}).
 \]</span></p>
 <p>Here <span class="math inline">\(u_\text{us}\)</span> is the storage of the basin upstream of the pump or outlet, <span class="math inline">\(\Phi\)</span> is the product of <a href="../core/equations.html#sec-reduction_factor">reduction factors</a> associated with the <a href="../core/equations.html#sec-pump">pump</a> or <a href="../core/equations.html#sec-outlet">outlet</a> and</p>
-<p><span class="math display">\[
-\text{clip}(Q; Q_\min, Q_\max) =
-\begin{align}
+<p><span class="math display">\[\begin{align}
+    \text{clip}(Q; Q_{\min}, Q_{\max}) =
     \begin{cases}
-        Q_\min &amp; \text{if} &amp; Q &lt; Q_\min \\
-        Q &amp; \text{if} &amp; Q_\min \leq Q \leq Q_\max \\
-        Q_\max &amp; \text{if} &amp; Q &gt; Q_\max
+        Q_{\min} &amp; \text{if} \quad Q &lt; Q_{\min} \\
+        Q &amp; \text{if} \quad Q_{\min} \leq Q \leq Q_{\max} \\
+        Q_{\max} &amp; \text{if} \quad Q &gt; Q_{\max}
     \end{cases}.
-\end{align}
-\]</span></p>
+\end{align}\]</span></p>
 <p>For the integral term we denote <span class="math display">\[
 I(t) = \int_{t_0}^t e(\tau)\text{d}\tau,
 \]</span></p>
@@ -702,7 +698,7 @@ f_\text{PID} = \hat{f}_\text{PID} \pm Q_\text{pump/outlet},
 \]</span></p>
 <p>that is, <span class="math inline">\(\hat{f}_\text{PID}\)</span> is the right hand side of the ODE for the controlled basin storage state without the contribution of the PID controlled pump. The plus sign holds for an outlet and the minus sign for a pump, dictated by the way the pump and outlet connectivity to the controlled basin is enforced.</p>
 <p>Using this, solving <a href="#eq-PIDflow">Equation&nbsp;7</a> for <span class="math inline">\(Q_\text{PID}\)</span> yields <span class="math display">\[
-Q_\text{pump/outlet} = \text{clip}\left(\phi(u_\text{us})\frac{K_pe + K_iI + K_d \left(\frac{\text{d}\text{SP}}{\text{d}t}-\frac{\hat{f}_\text{PID}}{A(u_\text{PID})}\right)}{1\pm\phi(u_\text{us})\frac{K_d}{A(u_\text{PID})}};Q_\min,Q_\max\right),
+Q_\text{pump/outlet} = \text{clip}\left(\phi(u_\text{us})\frac{K_pe + K_iI + K_d \left(\frac{\text{d}\text{SP}}{\text{d}t}-\frac{\hat{f}_\text{PID}}{A(u_\text{PID})}\right)}{1\pm\phi(u_\text{us})\frac{K_d}{A(u_\text{PID})}};Q_{\min},Q_{\max}\right),
 \]</span> where the clipping is again done last. Note that to compute this, <span class="math inline">\(\hat{f}_\text{PID}\)</span> has to be known first, meaning that the PID controlled pump/outlet flow rate has to be computed after all other contributions to the PID controlled basin’s storage are known.</p>
 </section>
 <section id="the-sign-of-the-parameters" class="level2" data-number="3.2">

@@ -255,15 +255,14 @@ ul.task-list li input[type="checkbox"] {
 <li>Picard iteration for fixed points. This method aims to approximate <span class="math inline">\(\mathbf{w}_{n+1}\)</span> as a fixed point of the function <span class="math display">\[
 \mathbf{g}(\mathbf{x}) = \mathbf{w}_n + (t_{n+1}-t_n)\mathbf{f}(\mathbf{x},t_{n+1})
 \]</span> by iterating <span class="math inline">\(\mathbf{g}\)</span> on an initial guess of <span class="math inline">\(\mathbf{w}_{n+1}\)</span>;</li>
-<li>Newton-Raphson iterations: approximate <span class="math inline">\(\mathbf{w}_{n+1}\)</span> as a root of the function <span class="math display">\[
+<li>Newton iterations: approximate <span class="math inline">\(\mathbf{w}_{n+1}\)</span> as a root of the function <span class="math display">\[
 \mathbf{h}(\mathbf{x}) = \mathbf{w}_n + (t_{n+1}-t_n)\mathbf{f}(\mathbf{x},t_{n+1}) - \mathbf{x},
-\]</span> by iteratively finding the root of its linearized form: <span id="eq-newtoniter"><span class="math display">\[
-\begin{align}
+\]</span> by iteratively finding the root of its linearized form:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
 \mathbf{0} =&amp; \mathbf{h}(\mathbf{w}_{n+1}^k) + \mathbf{J}(\mathbf{h})(\mathbf{w}_{n+1}^k)(\mathbf{w}_{n+1}^{k+1}-\mathbf{w}_{n+1}^k) \\
 =&amp; \mathbf{w}_n + (t_{n+1}-t_n)\mathbf{f}(\mathbf{w}_{n+1}^k,t_{n+1}) - \mathbf{w}_{n+1}^k \\ +&amp;\left[(t_{n+1}-t_n)\mathbf{J}(\mathbf{f})(\mathbf{w}_{n+1}^k)-\mathbf{I}\right](\mathbf{w}_{n+1}^{k+1}-\mathbf{w}_{n+1}^k).
-\end{align}
-\tag{4}\]</span></span> Note that this thus requires an evaluation of the Jacobian of <span class="math inline">\(\mathbf{f}\)</span> and solving a linear system per iteration.</li>
-</ul>
+\end{align}\]</span> Note that this thus requires an evaluation of the Jacobian of <span class="math inline">\(\mathbf{f}\)</span> and solving a linear system per iteration.</p>
 </section>
 </section>
 <section id="the-advantage-of-implicit-methods" class="level1" data-number="2">
@@ -272,7 +271,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="jacobian-computations" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Jacobian computations</h1>
-<p>The iterations <a href="#eq-newtoniter">Equation&nbsp;4</a> require an evaluation of the Jacobian of <span class="math inline">\(\mathbf{f}\)</span>. The Jacobian of <code>water_balance!</code> is discussed <a href="../core/equations.html#the-jacobian">here</a>.</p>
+<p>The Newton iterations above require an evaluation of the Jacobian of <span class="math inline">\(\mathbf{f}\)</span>. The Jacobian of <code>water_balance!</code> is discussed <a href="../core/equations.html#the-jacobian">here</a>.</p>
 <p>There are several ways to compute the Jacobian:</p>
 <ul>
 <li>Using <a href="https://en.wikipedia.org/wiki/Numerical_differentiation#Finite_differences">finite difference methods</a>; however these are relatively expensive to compute and introduce truncation errors.</li>
@@ -282,7 +281,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="continuity-considerations" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Continuity considerations</h1>
-<p>The convergence of the Newton-Raphson method can be <a href="https://en.wikipedia.org/wiki/Newton%27s_method#Proof_of_quadratic_convergence_for_Newton's_iterative_method">proven</a> given certain properties of <span class="math inline">\(\mathbf{f}\)</span> around the initial guess and root to find. An important aspect is the smoothness of <span class="math inline">\(\mathbf{f}\)</span>. The basin profiles and <span class="math inline">\(Q(h)\)</span> relations are given by interpolated data, and thus we have some control over the smoothness of these functions by the choice of interpolation method. This is discussed further below. the Manning resistance is not mentioned here since it is given by an analytical expression.</p>
+<p>The convergence of the Newton method can be <a href="https://en.wikipedia.org/wiki/Newton%27s_method#Proof_of_quadratic_convergence_for_Newton's_iterative_method">proven</a> given certain properties of <span class="math inline">\(\mathbf{f}\)</span> around the initial guess and root to find. An important aspect is the smoothness of <span class="math inline">\(\mathbf{f}\)</span>. The basin profiles and <span class="math inline">\(Q(h)\)</span> relations are given by interpolated data, and thus we have some control over the smoothness of these functions by the choice of interpolation method. This is discussed further below. the Manning resistance is not mentioned here since it is given by an analytical expression.</p>
 <p>Control mechanisms can change parameters of <span class="math inline">\(\mathbf{f}\)</span> discontinuously, leading to discontinuities of <span class="math inline">\(\mathbf{f}\)</span>. This however does not yield problems for the time integration methods in <code>DifferentialEquations.jl</code>, since the <a href="https://docs.sciml.ai/DiffEqDocs/stable/features/callback_functions/">callback mechanisms</a> used to change these parameters make the solver take these discontinuities into account.</p>
 <section id="basin-profiles" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="basin-profiles"><span class="header-section-number">4.1</span> Basin profiles</h2>
