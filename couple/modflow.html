@@ -356,42 +356,34 @@ a = ph + q
 <section id="drainage-1" class="level3" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="drainage-1"><span class="header-section-number">2.3.1</span> Drainage</h3>
 <p>From Ribasim’s perspective, the groundwater head is constant given a timestep, so that:</p>
-<p><span class="math display">\[
-\begin{align}
+<p><span class="math display">\[\begin{align}
 p = -C \\
 q = -C\phi
-\end{align}
-\]</span></p>
+\end{align}\]</span></p>
 <p>When the head falls below the drainage elevation, the coefficients are 0.</p>
 </section>
 <section id="river-1" class="level3" data-number="2.3.2">
 <h3 data-number="2.3.2" class="anchored" data-anchor-id="river-1"><span class="header-section-number">2.3.2</span> River</h3>
 <p>From Ribasim’s perspective, infiltration is never limited when the head falls below the bottom:</p>
-<p><span class="math display">\[
-\begin{align}
+<p><span class="math display">\[\begin{align}
 p = -C \\
 q = -Cb
-\end{align}
-\]</span></p>
+\end{align}\]</span></p>
 <p>Otherwise, infiltration and drainage occur with the same equation as for the drainage package:</p>
-<p><span class="math display">\[
-\begin{align}
+<p><span class="math display">\[\begin{align}
 p = -C \\
 q = -C\phi
-\end{align}
-\]</span></p>
+\end{align}\]</span></p>
 </section>
 </section>
 </section>
 <section id="assigning-modflow-water-levels" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Assigning MODFLOW water levels</h1>
 <p>Principally, MODFLOW deals with water levels; Ribasim deals with water volumes. The translation from a water volume to a water level for a single boundary condition is straightforward:</p>
-<p><span class="math display">\[
-\begin{align}
+<p><span class="math display">\[\begin{align}
 \Delta d = \frac{\Delta V}{A} \\
 h = b + d
-\end{align}
-\]</span></p>
+\end{align}\]</span></p>
 <p>Where <span class="math inline">\(d\)</span> is water depth, <span class="math inline">\(V\)</span> is volume, <span class="math inline">\(A\)</span> is area, <span class="math inline">\(h\)</span> is water level, and <span class="math inline">\(b\)</span> is the bed elevation.</p>
 <p>However, the primary complication is that where Ribasim has <strong>one volume</strong>, MODFLOW has <strong>many levels</strong> to adjust. The sum of all these adjustments times their respective areas should result in the basin volume change:</p>
 <p><span class="math display">\[
