@@ -249,7 +249,13 @@ All changes
 </section>
 <section id="release-ribasim-python-to-pypi" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="release-ribasim-python-to-pypi"><span class="header-section-number">2.5</span> Release Ribasim Python to PyPI</h2>
-<p>To be able to do <code>pip install ribasim</code>, Ribasim Python needs to be released on the Python Package Index, see <a href="../contribute/python.html#sec-pypi">these instructions</a></p>
+<p>To be able to install packages with <code>pip</code>, they need to be released on the Python Package Index (PyPI). In order to publish Ribasim Python or Ribasim API follow the following steps:</p>
+<ol type="1">
+<li><p>Update <code>__version__</code> in <code>__init__.py</code></p></li>
+<li><p>Open a terminal and run <code>pixi run build-ribasim-python-wheel</code> or <code>pixi run build-ribasim-api-wheel</code></p></li>
+<li><p>Make a new commit with the updated version number, and push to remote</p></li>
+<li><p>Publish on PyPI with <code>pixi run publish-ribasim-python</code> or <code>pixi run publish-ribasim-api</code></p></li>
+</ol>
 </section>
 <section id="sec-teamcity" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="sec-teamcity"><span class="header-section-number">2.6</span> Wait for TeamCity to build the new release</h2>
