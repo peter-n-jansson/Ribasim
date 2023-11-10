@@ -60,6 +60,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../assets/styles.css">
@@ -202,6 +205,55 @@ ul.task-list li input[type="checkbox"] {
 <p>With the term “core”, we mean the computational engine of Ribasim. As detailed in the <a href="../core/usage.html">usage</a> documentation, it is generally used as a command line tool.</p>
 <p>The theory is described on the <a href="../core/equations.html">equations</a> page, and more in-depth numerical considerations are described on the <a href="../core/numerics.html">numerical considerations</a> page. As allocation is a large and self-contained part of the Ribasim core, it is described on the separate <a href="../core/allocation.html">allocation</a> page.</p>
 <p>The core is implemented in the <a href="https://julialang.org/">Julia programming language</a>, and can be found in the <a href="https://github.com/Deltares/Ribasim">Ribasim repository</a> under the <code>core/</code> folder. For developers we also advise to read the <a href="../contribute/core.html">developer documentation</a>.</p>
+<div class="cell" data-file="../assets/c4_component_ribasim.mmd">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+modeler([Modeler]):::user
+
+api["Ribasim Python\n[python]"]:::system
+modeler--&gt;|prepare model|api
+
+subgraph ribasimBoundary[Ribasim]
+    ribasim["Ribasim.jl\n[julia]"]:::system
+    libribasim["libribasim\n[julia + python + BMI]"]:::system
+    cli["Ribasim CLI\n[julia]"]:::system
+    cli--&gt;ribasim
+    libribasim--&gt;ribasim
+end
+modeler--&gt;|start|cli
+modeler--&gt;|coupled simulation|libribasim
+
+subgraph qgisBoundary[QGIS]
+    QGIS[QGIS Application]:::system_ext
+    qgisPlugin["Ribasim QGIS plugin\n[python]"]:::system
+    QGIS--&gt;qgisPlugin
+end
+modeler--&gt;|prepare model|qgisBoundary
+
+model[("input model data\n[toml + geopackage + arrow]")]:::system
+qgisPlugin--&gt;|read/write|model
+api--&gt;|read/write|model
+ribasim--&gt;|simulate|model
+
+output[("simulation output\n[arrow]")]:::system
+ribasim--&gt;|write|output
+
+class qgisBoundary,ribasimBoundary boundary
+
+%% class definitions for C4 model
+classDef default stroke-width:1px,stroke:white,color:white
+classDef system fill:#1168bd
+classDef user fill:#08427b
+classDef system_ext fill:#999999
+classDef boundary fill:transparent,stroke-dasharray:5 5,stroke:black,color:black
+</pre>
+</div>
+<p>Component overview of Ribasim</p>
+</div>
+</div>
+</div>
 
 
 

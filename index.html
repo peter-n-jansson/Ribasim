@@ -211,6 +211,48 @@ div.csl-indent {
 </ul>
 <p>Currently only Windows builds for <code>ribasim_cli.zip</code> are available.</p>
 <p>See <a href="./core/usage.html">Usage</a> for more information.</p>
+<div class="cell" data-file="assets/c4_system.mmd">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+modeler([Modeler]):::user
+
+api["Ribasim Python\n[python]"]:::system
+modeler--&gt;|prepare model|api
+
+ribasim["Ribasim\n[julia]"]:::system
+modeler--&gt;|start|ribasim
+
+subgraph qgisBoundary[QGIS]
+    QGIS[QGIS Application]:::system_ext
+    qgisPlugin["Ribasim QGIS plugin\n[python]"]:::system
+    QGIS--&gt;qgisPlugin
+end
+modeler--&gt;|prepare model|qgisBoundary
+
+model[("input model data\n[toml + geopackage + arrow]")]:::system
+qgisPlugin--&gt;|read/write|model
+api--&gt;|read/write|model
+ribasim--&gt;|simulate|model
+
+output[("simulation results\n[arrow]")]:::system
+ribasim--&gt;|write|output
+
+class qgisBoundary boundary
+
+%% class definitions for C4 model
+classDef default stroke-width:1px,stroke:white,color:white
+classDef system fill:#1168bd
+classDef user fill:#08427b
+classDef system_ext fill:#999999
+classDef boundary fill:transparent,stroke-dasharray:5 5,stroke:black,color:black
+</pre>
+</div>
+<p>System overview of Ribasim</p>
+</div>
+</div>
+</div>
 </section>
 <section id="status" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Status</h1>
