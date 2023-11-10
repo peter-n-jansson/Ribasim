@@ -259,13 +259,14 @@ div.csl-indent {
   <li><a href="#manning-connection" id="toc-manning-connection" class="nav-link" data-scroll-target="#manning-connection"><span class="header-section-number">2.5.8</span> Manning connection</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-PID" id="toc-sec-PID" class="nav-link" data-scroll-target="#sec-PID"><span class="header-section-number">3</span> PID controller</a>
+  <li><a href="#user-allocation" id="toc-user-allocation" class="nav-link" data-scroll-target="#user-allocation"><span class="header-section-number">3</span> User allocation</a></li>
+  <li><a href="#sec-PID" id="toc-sec-PID" class="nav-link" data-scroll-target="#sec-PID"><span class="header-section-number">4</span> PID controller</a>
   <ul class="collapse">
-  <li><a href="#the-derivative-term" id="toc-the-derivative-term" class="nav-link" data-scroll-target="#the-derivative-term"><span class="header-section-number">3.1</span> The derivative term</a></li>
-  <li><a href="#the-sign-of-the-parameters" id="toc-the-sign-of-the-parameters" class="nav-link" data-scroll-target="#the-sign-of-the-parameters"><span class="header-section-number">3.2</span> The sign of the parameters</a></li>
+  <li><a href="#the-derivative-term" id="toc-the-derivative-term" class="nav-link" data-scroll-target="#the-derivative-term"><span class="header-section-number">4.1</span> The derivative term</a></li>
+  <li><a href="#the-sign-of-the-parameters" id="toc-the-sign-of-the-parameters" class="nav-link" data-scroll-target="#the-sign-of-the-parameters"><span class="header-section-number">4.2</span> The sign of the parameters</a></li>
   </ul></li>
-  <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="header-section-number">4</span> Numerical solution</a></li>
-  <li><a href="#performance" id="toc-performance" class="nav-link" data-scroll-target="#performance"><span class="header-section-number">5</span> Performance</a></li>
+  <li><a href="#numerical-solution" id="toc-numerical-solution" class="nav-link" data-scroll-target="#numerical-solution"><span class="header-section-number">5</span> Numerical solution</a></li>
+  <li><a href="#performance" id="toc-performance" class="nav-link" data-scroll-target="#performance"><span class="header-section-number">6</span> Performance</a></li>
   </ul>
 </nav>
     </div>
@@ -423,7 +424,7 @@ Note
 <div class="cell-output cell-output-stderr">
 <pre><code>&lt;&gt;:31: SyntaxWarning: invalid escape sequence '\p'
 &lt;&gt;:31: SyntaxWarning: invalid escape sequence '\p'
-/tmp/ipykernel_5010/665069857.py:31: SyntaxWarning: invalid escape sequence '\p'
+/tmp/ipykernel_5319/665069857.py:31: SyntaxWarning: invalid escape sequence '\p'
   ax.set_ylabel("$\phi(x;p)$", fontsize=fontsize)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -649,8 +650,25 @@ B = w + 2 d \sqrt{\left(\frac{\Delta y}{\Delta z}\right)^2 + 1}
 </section>
 </section>
 </section>
-<section id="sec-PID" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> PID controller</h1>
+<section id="user-allocation" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> User allocation</h1>
+<p>Users have an allocated flow rate <span class="math inline">\(F^p\)</span> per priority <span class="math inline">\(p=1,2,\ldots, p_{\max}\)</span>, which is either determined by <a href="../core/allocation.html">allocation optimization</a> or simply equal to the demand at time <span class="math inline">\(t\)</span>; <span class="math inline">\(F^p = d^p(t)\)</span>. The actual abstraction rate of a user is given by <span class="math display">\[
+    Q_\text{user, in} = \phi(u, 10.0)\phi(h-l_{\min}, 0.1)\sum_{p=1}^{p_{\max}} \min\left(F^p, d^p(t)\right).
+\]</span></p>
+<p>From left to right:</p>
+<ul>
+<li>The first reduction factor lets the user abstraction go smoothly to <span class="math inline">\(0\)</span> as the source basin dries out;</li>
+<li>The second reduction factor lets the user abstraction go smoothly to <span class="math inline">\(0\)</span> as the source basin level approaches the minimum source basin level (from above);</li>
+<li>The last term is the sum of the allocations over the priorities. If the current demand happens to be lower than the allocation at some priority, the demand is taken instead.</li>
+</ul>
+<p>Users also have a return factor <span class="math inline">\(0 \le r \le 1\)</span>, which determines the return flow (outflow) of the user:</p>
+<p><span class="math display">\[
+Q_\text{user, out} = r \cdot Q_\text{user, in}.
+\]</span></p>
+<p>Note that this means that the user has a consumption rate of <span class="math inline">\((1-r)Q_\text{user, in}\)</span>.</p>
+</section>
+<section id="sec-PID" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> PID controller</h1>
 <p>The PID controller continuously sets the flow rate of a pump or outlet to bring the level of a certain basin closer to its setpoint. If we denote the setpoint by <span class="math inline">\(\text{SP}(t)\)</span> and the basin level by <span class="math inline">\(y(t)\)</span>, then the error is given by <span id="eq-error"><span class="math display">\[
 e(t) = \text{SP}(t) - y(t).
 \tag{6}\]</span></span></p>
@@ -688,8 +706,8 @@ Note
 <p>In the case of the controlled outlet, the upstream node can also be a level boundary. In this case we define <span class="math inline">\(\phi = 1\)</span>.</p>
 </div>
 </div>
-<section id="the-derivative-term" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="the-derivative-term"><span class="header-section-number">3.1</span> The derivative term</h2>
+<section id="the-derivative-term" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="the-derivative-term"><span class="header-section-number">4.1</span> The derivative term</h2>
 <p>When <span class="math inline">\(K_d \ne 0\)</span> this adds a level of complexity. We can see this by looking at the error derivative more closely: <span class="math display">\[
 \frac{\text{d}e}{\text{d}t} = \frac{\text{d}\text{SP}}{\text{d}t} - \frac{1}{A(u_\text{PID})}\frac{\text{d}u_\text{PID}}{\text{d}t},
 \]</span> where <span class="math inline">\(A(u_\text{PID})\)</span> is the area of the controlled basin as a function of the storage of the controlled basin <span class="math inline">\(u_\text{PID}\)</span>. The complexity arises from the fact that <span class="math inline">\(Q_\text{PID}\)</span> is a contribution to <span class="math inline">\(\frac{\text{d}u_\text{PID}}{\text{d}t} = f_\text{PID}\)</span>, which makes <a href="#eq-PIDflow">Equation&nbsp;7</a> an implicit equation for <span class="math inline">\(Q_\text{PID}\)</span>. We define</p>
@@ -701,18 +719,18 @@ f_\text{PID} = \hat{f}_\text{PID} \pm Q_\text{pump/outlet},
 Q_\text{pump/outlet} = \text{clip}\left(\phi(u_\text{us})\frac{K_pe + K_iI + K_d \left(\frac{\text{d}\text{SP}}{\text{d}t}-\frac{\hat{f}_\text{PID}}{A(u_\text{PID})}\right)}{1\pm\phi(u_\text{us})\frac{K_d}{A(u_\text{PID})}};Q_{\min},Q_{\max}\right),
 \]</span> where the clipping is again done last. Note that to compute this, <span class="math inline">\(\hat{f}_\text{PID}\)</span> has to be known first, meaning that the PID controlled pump/outlet flow rate has to be computed after all other contributions to the PID controlled basin’s storage are known.</p>
 </section>
-<section id="the-sign-of-the-parameters" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="the-sign-of-the-parameters"><span class="header-section-number">3.2</span> The sign of the parameters</h2>
+<section id="the-sign-of-the-parameters" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="the-sign-of-the-parameters"><span class="header-section-number">4.2</span> The sign of the parameters</h2>
 <p>Note by <a href="#eq-error">Equation&nbsp;6</a> that the error is positive if the setpoint is larger than the basin level and negative if the setpoint is smaller than the basin level.</p>
 <p>We enforce the convention that when a pump is controlled, its edge points away from the basin, and when an outlet is controlled, its edge points towards the basin, so that the main flow direction along these edges is positive. Therefore, positive flows of the pump and outlet have opposite effects on the basin, and thus the parameters <span class="math inline">\(K_p,K_i,K_d\)</span> of the pump and outlet must have oppositive signs to achieve the same goal.</p>
 </section>
 </section>
-<section id="numerical-solution" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Numerical solution</h1>
-<p>Ribasim uses OrdinaryDiffEq.jl to provide a numerical solution to the water balance equations. Changes to forcings or parameters such as precipitation, but also the allocated water abstraction is managed through the use of CallBack functions <span class="citation" data-cites="callbacks">(<a href="#ref-callbacks" role="doc-biblioref">SciML Development Team 2022</a>)</span>. In a coupled run, the exchanges with MODFLOW 6 are also managed via the use of a callback function.</p>
+<section id="numerical-solution" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Numerical solution</h1>
+<p>Ribasim uses OrdinaryDiffEq.jl to provide a numerical solution to the water balance equations. Changes to forcings or parameters such as precipitation, but also the allocated water abstraction is managed through the use of CallBack functions <span class="citation" data-cites="callbacks">(<a href="#ref-callbacks" role="doc-biblioref">SciML Development Team 2022</a>)</span>. In a coupled run, the exchanges with MODFLOW 6 are also managed via the use of a callback function. For more a more in-depth discussion of numerical computations see <a href="../core/numerics.html">Numerical considerations</a>.</p>
 </section>
-<section id="performance" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Performance</h1>
+<section id="performance" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Performance</h1>
 <p>Ribasim needs to be sufficiently fast to make application on the national scale, with ~10000 basins, practical. Therefore, whilst developing, we need to be mindful that our approach can scale to such a size. We currently simulate a set of 40 connected free-flowing basins for a period of 2 years in about 10 seconds.</p>
 <p>For a real scaling test we would need to do a national simulation, but we expect these computation times not to be problematic, considering that simulating those same 40 basins in MODFLOW 6 takes minutes.</p>
 <p>There are many things that can influence the calculations times, for instance:</p>

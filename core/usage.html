@@ -263,6 +263,7 @@ div.csl-indent {
   <li><a href="#user" id="toc-user" class="nav-link" data-scroll-target="#user"><span class="header-section-number">10</span> User</a>
   <ul class="collapse">
   <li><a href="#user-time" id="toc-user-time" class="nav-link" data-scroll-target="#user-time"><span class="header-section-number">10.1</span> User / time</a></li>
+  <li><a href="#allocation-results" id="toc-allocation-results" class="nav-link" data-scroll-target="#allocation-results"><span class="header-section-number">10.2</span> Allocation results</a></li>
   </ul></li>
   <li><a href="#levelboundary" id="toc-levelboundary" class="nav-link" data-scroll-target="#levelboundary"><span class="header-section-number">11</span> LevelBoundary</a>
   <ul class="collapse">
@@ -357,8 +358,9 @@ div.csl-indent {
 <span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="dt">flow</span> <span class="op">=</span> <span class="st">"results/flow.arrow"</span>       <span class="co"># optional, default "results/flow.arrow"</span></span>
 <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="dt">basin</span> <span class="op">=</span> <span class="st">"results/basin.arrow"</span>     <span class="co"># optional, default "results/basin.arrow"</span></span>
 <span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="dt">control</span> <span class="op">=</span> <span class="st">"results/control.arrow"</span> <span class="co"># optional, default "results/control.arrow"</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="dt">compression</span> <span class="op">=</span> <span class="st">"zstd"</span>             <span class="co"># optional, default "zstd", also supports "lz4"</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="dt">compression_level</span> <span class="op">=</span> <span class="dv">6</span>            <span class="co"># optional, default 6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="dt">allocation</span> <span class="op">=</span> <span class="st">"results/allocation.arrow"</span> <span class="co"># optional, default "results/allocation.arrow"</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="dt">compression</span> <span class="op">=</span> <span class="st">"zstd"</span>             <span class="co"># optional, default "zstd", also supports "lz4"</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="dt">compression_level</span> <span class="op">=</span> <span class="dv">6</span>            <span class="co"># optional, default 6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="sec-solver-settings" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="sec-solver-settings"><span class="header-section-number">1.1</span> Solver settings</h2>
 <p>The solver section in the configuration file is entirely optional, since we aim to use defaults that will generally work well. Common reasons to modify the solver settings are to adjust the calculation or result stepsizes: <code>adaptive</code>, <code>dt</code>, and <code>saveat</code>. If your model does not converge, or your performance is lower than expected, it can help to adjust other solver settings as well.</p>
@@ -1201,6 +1203,61 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
+</section>
+<section id="allocation-results" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="allocation-results"><span class="header-section-number">10.2</span> Allocation results</h2>
+<p>The allocation table contains a record of allocation results: when it happened, for which user node, in which allocation network, and what the demand, allocated flow and abstracted flow were.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>time</td>
+<td>DateTime</td>
+</tr>
+<tr class="even">
+<td>allocation_network_id</td>
+<td>Int</td>
+</tr>
+<tr class="odd">
+<td>user_node_id</td>
+<td>Int</td>
+</tr>
+<tr class="even">
+<td>priority</td>
+<td>Int</td>
+</tr>
+<tr class="odd">
+<td>demand</td>
+<td>Float64</td>
+</tr>
+<tr class="even">
+<td>allocated</td>
+<td>Float64</td>
+</tr>
+<tr class="odd">
+<td>abstracted</td>
+<td>Float64</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Currently the stored demand and abstraction rate are those at the allocation timepoint (and the abstraction rate is based on the previous allocation optimization). In the future these will be an average over the previous allocation timestep.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="levelboundary" class="level1" data-number="11">
