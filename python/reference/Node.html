@@ -129,11 +129,9 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#ribasim.Node" id="toc-ribasim.Node" class="nav-link active" data-scroll-target="#ribasim.Node"><span class="header-section-number">1</span> Node</a>
   <ul class="collapse">
-  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters"><span class="header-section-number">1.1</span> Parameters</a></li>
-  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="header-section-number">1.2</span> Methods</a>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="header-section-number">1.1</span> Methods</a>
   <ul class="collapse">
-  <li><a href="#ribasim.Node.plot" id="toc-ribasim.Node.plot" class="nav-link" data-scroll-target="#ribasim.Node.plot"><span class="header-section-number">1.2.1</span> plot</a></li>
-  <li><a href="#ribasim.Node.write_layer" id="toc-ribasim.Node.write_layer" class="nav-link" data-scroll-target="#ribasim.Node.write_layer"><span class="header-section-number">1.2.2</span> write_layer</a></li>
+  <li><a href="#ribasim.Node.plot" id="toc-ribasim.Node.plot" class="nav-link" data-scroll-target="#ribasim.Node.plot"><span class="header-section-number">1.1.1</span> plot</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -148,35 +146,8 @@ ul.task-list li input[type="checkbox"] {
 <h1 data-number="1"><span class="header-section-number">1</span> Node</h1>
 <p><code>Node()</code></p>
 <p>The Ribasim nodes as Point geometries.</p>
-<section id="parameters" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.1</span> Parameters</h2>
-<table class="table">
-<colgroup>
-<col style="width: 11%">
-<col style="width: 27%">
-<col style="width: 46%">
-<col style="width: 13%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>static</code></td>
-<td>geopandas.GeoDataFrame</td>
-<td>Table with node ID, type and geometry.</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="methods" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="methods"><span class="header-section-number">1.2</span> Methods</h2>
+<section id="methods" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="methods"><span class="header-section-number">1.1</span> Methods</h2>
 <table class="table">
 <thead>
 <tr class="header">
@@ -189,18 +160,14 @@ ul.task-list li input[type="checkbox"] {
 <td><a href="#ribasim.Node.plot">plot</a></td>
 <td>Plot the nodes. Each node type is given a separate marker.</td>
 </tr>
-<tr class="even">
-<td><a href="#ribasim.Node.write_layer">write_layer</a></td>
-<td>Write the contents of the input to a database.</td>
-</tr>
 </tbody>
 </table>
-<section id="ribasim.Node.plot" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="ribasim.Node.plot"><span class="header-section-number">1.2.1</span> plot</h3>
+<section id="ribasim.Node.plot" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="ribasim.Node.plot"><span class="header-section-number">1.1.1</span> plot</h3>
 <p><code>Node.plot(ax=None, zorder=None)</code></p>
 <p>Plot the nodes. Each node type is given a separate marker.</p>
-<section id="parameters-1" class="level4" data-number="1.2.1.1">
-<h4 data-number="1.2.1.1" class="anchored" data-anchor-id="parameters-1"><span class="header-section-number">1.2.1.1</span> Parameters</h4>
+<section id="parameters" class="level4" data-number="1.1.1.1">
+<h4 data-number="1.1.1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.1.1.1</span> Parameters</h4>
 <table class="table">
 <colgroup>
 <col style="width: 10%">
@@ -226,8 +193,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="returns" class="level4" data-number="1.2.1.2">
-<h4 data-number="1.2.1.2" class="anchored" data-anchor-id="returns"><span class="header-section-number">1.2.1.2</span> Returns</h4>
+<section id="returns" class="level4" data-number="1.1.1.2">
+<h4 data-number="1.1.1.2" class="anchored" data-anchor-id="returns"><span class="header-section-number">1.1.1.2</span> Returns</h4>
 <table class="table">
 <thead>
 <tr class="header">
@@ -239,32 +206,6 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td>None</td>
 <td></td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="ribasim.Node.write_layer" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="ribasim.Node.write_layer"><span class="header-section-number">1.2.2</span> write_layer</h3>
-<p><code>Node.write_layer(path)</code></p>
-<p>Write the contents of the input to a database.</p>
-<section id="parameters-2" class="level4" data-number="1.2.2.1">
-<h4 data-number="1.2.2.1" class="anchored" data-anchor-id="parameters-2"><span class="header-section-number">1.2.2.1</span> Parameters</h4>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>path</code></td>
-<td>FilePath</td>
-<td></td>
-<td><em>required</em></td>
 </tr>
 </tbody>
 </table>

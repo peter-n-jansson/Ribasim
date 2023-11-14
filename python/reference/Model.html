@@ -132,15 +132,12 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters"><span class="header-section-number">1.1</span> Parameters</a></li>
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="header-section-number">1.2</span> Methods</a>
   <ul class="collapse">
-  <li><a href="#ribasim.Model.fields" id="toc-ribasim.Model.fields" class="nav-link" data-scroll-target="#ribasim.Model.fields"><span class="header-section-number">1.2.1</span> fields</a></li>
-  <li><a href="#ribasim.Model.from_toml" id="toc-ribasim.Model.from_toml" class="nav-link" data-scroll-target="#ribasim.Model.from_toml"><span class="header-section-number">1.2.2</span> from_toml</a></li>
-  <li><a href="#ribasim.Model.plot" id="toc-ribasim.Model.plot" class="nav-link" data-scroll-target="#ribasim.Model.plot"><span class="header-section-number">1.2.3</span> plot</a></li>
-  <li><a href="#ribasim.Model.sort" id="toc-ribasim.Model.sort" class="nav-link" data-scroll-target="#ribasim.Model.sort"><span class="header-section-number">1.2.4</span> sort</a></li>
-  <li><a href="#ribasim.Model.validate_model" id="toc-ribasim.Model.validate_model" class="nav-link" data-scroll-target="#ribasim.Model.validate_model"><span class="header-section-number">1.2.5</span> validate_model</a></li>
-  <li><a href="#ribasim.Model.validate_model_node_IDs" id="toc-ribasim.Model.validate_model_node_IDs" class="nav-link" data-scroll-target="#ribasim.Model.validate_model_node_IDs"><span class="header-section-number">1.2.6</span> validate_model_node_IDs</a></li>
-  <li><a href="#ribasim.Model.validate_model_node_field_IDs" id="toc-ribasim.Model.validate_model_node_field_IDs" class="nav-link" data-scroll-target="#ribasim.Model.validate_model_node_field_IDs"><span class="header-section-number">1.2.7</span> validate_model_node_field_IDs</a></li>
-  <li><a href="#ribasim.Model.validate_model_node_types" id="toc-ribasim.Model.validate_model_node_types" class="nav-link" data-scroll-target="#ribasim.Model.validate_model_node_types"><span class="header-section-number">1.2.8</span> validate_model_node_types</a></li>
-  <li><a href="#ribasim.Model.write" id="toc-ribasim.Model.write" class="nav-link" data-scroll-target="#ribasim.Model.write"><span class="header-section-number">1.2.9</span> write</a></li>
+  <li><a href="#ribasim.Model.from_toml" id="toc-ribasim.Model.from_toml" class="nav-link" data-scroll-target="#ribasim.Model.from_toml"><span class="header-section-number">1.2.1</span> from_toml</a></li>
+  <li><a href="#ribasim.Model.plot" id="toc-ribasim.Model.plot" class="nav-link" data-scroll-target="#ribasim.Model.plot"><span class="header-section-number">1.2.2</span> plot</a></li>
+  <li><a href="#ribasim.Model.validate_model" id="toc-ribasim.Model.validate_model" class="nav-link" data-scroll-target="#ribasim.Model.validate_model"><span class="header-section-number">1.2.3</span> validate_model</a></li>
+  <li><a href="#ribasim.Model.validate_model_node_field_ids" id="toc-ribasim.Model.validate_model_node_field_ids" class="nav-link" data-scroll-target="#ribasim.Model.validate_model_node_field_ids"><span class="header-section-number">1.2.4</span> validate_model_node_field_ids</a></li>
+  <li><a href="#ribasim.Model.validate_model_node_ids" id="toc-ribasim.Model.validate_model_node_ids" class="nav-link" data-scroll-target="#ribasim.Model.validate_model_node_ids"><span class="header-section-number">1.2.5</span> validate_model_node_ids</a></li>
+  <li><a href="#ribasim.Model.write" id="toc-ribasim.Model.write" class="nav-link" data-scroll-target="#ribasim.Model.write"><span class="header-section-number">1.2.6</span> write</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -277,18 +274,12 @@ ul.task-list li input[type="checkbox"] {
 <td><em>required</em></td>
 </tr>
 <tr class="even">
-<td><code>allocation</code></td>
-<td>Optional[Allocation]</td>
-<td>Allocation settings.</td>
-<td><em>required</em></td>
-</tr>
-<tr class="odd">
 <td><code>solver</code></td>
 <td>Optional[Solver]</td>
 <td>Solver settings.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>logging</code></td>
 <td>Optional[logging]</td>
 <td>Logging settings.</td>
@@ -308,54 +299,37 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#ribasim.Model.fields">fields</a></td>
-<td>Return the names of the fields contained in the Model.</td>
-</tr>
-<tr class="even">
 <td><a href="#ribasim.Model.from_toml">from_toml</a></td>
 <td>Initialize a model from the TOML configuration file.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#ribasim.Model.plot">plot</a></td>
 <td>Plot the nodes and edges of the model.</td>
-</tr>
-<tr class="even">
-<td><a href="#ribasim.Model.sort">sort</a></td>
-<td>Sort all input tables as required.</td>
 </tr>
 <tr class="odd">
 <td><a href="#ribasim.Model.validate_model">validate_model</a></td>
 <td>Validate the model.</td>
 </tr>
 <tr class="even">
-<td><a href="#ribasim.Model.validate_model_node_IDs">validate_model_node_IDs</a></td>
-<td>Check whether the node IDs in the node field correspond to the node IDs on the node type fields.</td>
-</tr>
-<tr class="odd">
-<td><a href="#ribasim.Model.validate_model_node_field_IDs">validate_model_node_field_IDs</a></td>
+<td><a href="#ribasim.Model.validate_model_node_field_ids">validate_model_node_field_ids</a></td>
 <td>Check whether the node IDs of the node_type fields are valid.</td>
 </tr>
-<tr class="even">
-<td><a href="#ribasim.Model.validate_model_node_types">validate_model_node_types</a></td>
-<td>Check whether all node types in the node field are valid.</td>
-</tr>
 <tr class="odd">
+<td><a href="#ribasim.Model.validate_model_node_ids">validate_model_node_ids</a></td>
+<td>Check whether the node IDs in the node field correspond to the node IDs on the node type fields.</td>
+</tr>
+<tr class="even">
 <td><a href="#ribasim.Model.write">write</a></td>
 <td>Write the contents of the model to a database and a TOML configuration file.</td>
 </tr>
 </tbody>
 </table>
-<section id="ribasim.Model.fields" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="ribasim.Model.fields"><span class="header-section-number">1.2.1</span> fields</h3>
-<p><code>Model.fields()</code></p>
-<p>Return the names of the fields contained in the Model.</p>
-</section>
-<section id="ribasim.Model.from_toml" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="ribasim.Model.from_toml"><span class="header-section-number">1.2.2</span> from_toml</h3>
+<section id="ribasim.Model.from_toml" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="ribasim.Model.from_toml"><span class="header-section-number">1.2.1</span> from_toml</h3>
 <p><code>Model.from_toml(path)</code></p>
 <p>Initialize a model from the TOML configuration file.</p>
-<section id="parameters-1" class="level4" data-number="1.2.2.1">
-<h4 data-number="1.2.2.1" class="anchored" data-anchor-id="parameters-1"><span class="header-section-number">1.2.2.1</span> Parameters</h4>
+<section id="parameters-1" class="level4" data-number="1.2.1.1">
+<h4 data-number="1.2.1.1" class="anchored" data-anchor-id="parameters-1"><span class="header-section-number">1.2.1.1</span> Parameters</h4>
 <table class="table">
 <colgroup>
 <col style="width: 11%">
@@ -381,8 +355,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="returns" class="level4" data-number="1.2.2.2">
-<h4 data-number="1.2.2.2" class="anchored" data-anchor-id="returns"><span class="header-section-number">1.2.2.2</span> Returns</h4>
+<section id="returns" class="level4" data-number="1.2.1.2">
+<h4 data-number="1.2.1.2" class="anchored" data-anchor-id="returns"><span class="header-section-number">1.2.1.2</span> Returns</h4>
 <table class="table">
 <thead>
 <tr class="header">
@@ -399,12 +373,12 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </section>
 </section>
-<section id="ribasim.Model.plot" class="level3" data-number="1.2.3">
-<h3 data-number="1.2.3" class="anchored" data-anchor-id="ribasim.Model.plot"><span class="header-section-number">1.2.3</span> plot</h3>
+<section id="ribasim.Model.plot" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="ribasim.Model.plot"><span class="header-section-number">1.2.2</span> plot</h3>
 <p><code>Model.plot(ax=None)</code></p>
 <p>Plot the nodes and edges of the model.</p>
-<section id="parameters-2" class="level4" data-number="1.2.3.1">
-<h4 data-number="1.2.3.1" class="anchored" data-anchor-id="parameters-2"><span class="header-section-number">1.2.3.1</span> Parameters</h4>
+<section id="parameters-2" class="level4" data-number="1.2.2.1">
+<h4 data-number="1.2.2.1" class="anchored" data-anchor-id="parameters-2"><span class="header-section-number">1.2.2.1</span> Parameters</h4>
 <table class="table">
 <colgroup>
 <col style="width: 10%">
@@ -430,8 +404,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 </section>
-<section id="returns-1" class="level4" data-number="1.2.3.2">
-<h4 data-number="1.2.3.2" class="anchored" data-anchor-id="returns-1"><span class="header-section-number">1.2.3.2</span> Returns</h4>
+<section id="returns-1" class="level4" data-number="1.2.2.2">
+<h4 data-number="1.2.2.2" class="anchored" data-anchor-id="returns-1"><span class="header-section-number">1.2.2.2</span> Returns</h4>
 <table class="table">
 <thead>
 <tr class="header">
@@ -448,40 +422,29 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </section>
 </section>
-<section id="ribasim.Model.sort" class="level3" data-number="1.2.4">
-<h3 data-number="1.2.4" class="anchored" data-anchor-id="ribasim.Model.sort"><span class="header-section-number">1.2.4</span> sort</h3>
-<p><code>Model.sort()</code></p>
-<p>Sort all input tables as required.</p>
-<p>Tables are sorted by “node_id”, unless otherwise specified. Sorting is done automatically before writing the table.</p>
-</section>
-<section id="ribasim.Model.validate_model" class="level3" data-number="1.2.5">
-<h3 data-number="1.2.5" class="anchored" data-anchor-id="ribasim.Model.validate_model"><span class="header-section-number">1.2.5</span> validate_model</h3>
+<section id="ribasim.Model.validate_model" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="ribasim.Model.validate_model"><span class="header-section-number">1.2.3</span> validate_model</h3>
 <p><code>Model.validate_model()</code></p>
 <p>Validate the model.</p>
-<p>Checks: - Whether all node types in the node field are valid - Whether the node IDs of the node_type fields are valid - Whether the node IDs in the node field correspond to the node IDs on the node type fields</p>
+<p>Checks: - Whether the node IDs of the node_type fields are valid - Whether the node IDs in the node field correspond to the node IDs on the node type fields</p>
 </section>
-<section id="ribasim.Model.validate_model_node_IDs" class="level3" data-number="1.2.6">
-<h3 data-number="1.2.6" class="anchored" data-anchor-id="ribasim.Model.validate_model_node_IDs"><span class="header-section-number">1.2.6</span> validate_model_node_IDs</h3>
-<p><code>Model.validate_model_node_IDs()</code></p>
-<p>Check whether the node IDs in the node field correspond to the node IDs on the node type fields.</p>
-</section>
-<section id="ribasim.Model.validate_model_node_field_IDs" class="level3" data-number="1.2.7">
-<h3 data-number="1.2.7" class="anchored" data-anchor-id="ribasim.Model.validate_model_node_field_IDs"><span class="header-section-number">1.2.7</span> validate_model_node_field_IDs</h3>
-<p><code>Model.validate_model_node_field_IDs()</code></p>
+<section id="ribasim.Model.validate_model_node_field_ids" class="level3" data-number="1.2.4">
+<h3 data-number="1.2.4" class="anchored" data-anchor-id="ribasim.Model.validate_model_node_field_ids"><span class="header-section-number">1.2.4</span> validate_model_node_field_ids</h3>
+<p><code>Model.validate_model_node_field_ids()</code></p>
 <p>Check whether the node IDs of the node_type fields are valid.</p>
 </section>
-<section id="ribasim.Model.validate_model_node_types" class="level3" data-number="1.2.8">
-<h3 data-number="1.2.8" class="anchored" data-anchor-id="ribasim.Model.validate_model_node_types"><span class="header-section-number">1.2.8</span> validate_model_node_types</h3>
-<p><code>Model.validate_model_node_types()</code></p>
-<p>Check whether all node types in the node field are valid.</p>
+<section id="ribasim.Model.validate_model_node_ids" class="level3" data-number="1.2.5">
+<h3 data-number="1.2.5" class="anchored" data-anchor-id="ribasim.Model.validate_model_node_ids"><span class="header-section-number">1.2.5</span> validate_model_node_ids</h3>
+<p><code>Model.validate_model_node_ids()</code></p>
+<p>Check whether the node IDs in the node field correspond to the node IDs on the node type fields.</p>
 </section>
-<section id="ribasim.Model.write" class="level3" data-number="1.2.9">
-<h3 data-number="1.2.9" class="anchored" data-anchor-id="ribasim.Model.write"><span class="header-section-number">1.2.9</span> write</h3>
+<section id="ribasim.Model.write" class="level3" data-number="1.2.6">
+<h3 data-number="1.2.6" class="anchored" data-anchor-id="ribasim.Model.write"><span class="header-section-number">1.2.6</span> write</h3>
 <p><code>Model.write(directory)</code></p>
 <p>Write the contents of the model to a database and a TOML configuration file.</p>
 <p>If <code>directory</code> does not exist, it is created before writing.</p>
-<section id="parameters-3" class="level4" data-number="1.2.9.1">
-<h4 data-number="1.2.9.1" class="anchored" data-anchor-id="parameters-3"><span class="header-section-number">1.2.9.1</span> Parameters</h4>
+<section id="parameters-3" class="level4" data-number="1.2.6.1">
+<h4 data-number="1.2.6.1" class="anchored" data-anchor-id="parameters-3"><span class="header-section-number">1.2.6.1</span> Parameters</h4>
 <table class="table">
 <thead>
 <tr class="header">
