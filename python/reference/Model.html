@@ -157,9 +157,9 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.1</span> Parameters</h2>
 <table class="table">
 <colgroup>
-<col style="width: 15%">
-<col style="width: 20%">
-<col style="width: 56%">
+<col style="width: 16%">
+<col style="width: 14%">
+<col style="width: 61%">
 <col style="width: 7%">
 </colgroup>
 <thead>
@@ -172,117 +172,147 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>node</code></td>
-<td>Node</td>
-<td>The ID, type and geometry of each node.</td>
+<td><code>starttime</code></td>
+<td>datetime.datetime</td>
+<td>Starting time of the simulation.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
-<td><code>edge</code></td>
-<td>Edge</td>
-<td>How the nodes are connected.</td>
+<td><code>endtime</code></td>
+<td>datetime.datetime</td>
+<td>End time of the simulation.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
+<td><code>update_timestep</code></td>
+<td></td>
+<td>The output time step of the simulation in seconds (default of 1 day)</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td><code>relative_dir</code></td>
+<td></td>
+<td>The relative directory of the input files.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td><code>input_dir</code></td>
+<td></td>
+<td>The directory of the input files.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td><code>results_dir</code></td>
+<td></td>
+<td>The directory of the results files.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td><code>network</code></td>
+<td></td>
+<td>Class containing the topology (nodes and edges) of the model.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td><code>results</code></td>
+<td></td>
+<td>Results configuration options.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td><code>solver</code></td>
+<td></td>
+<td>Solver configuration options.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td><code>logging</code></td>
+<td></td>
+<td>Logging configuration options.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td><code>allocation</code></td>
+<td></td>
+<td>The allocation configuration.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
 <td><code>basin</code></td>
 <td>Basin</td>
 <td>The waterbodies.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>fractional_flow</code></td>
-<td>Optional[FractionalFlow]</td>
+<td>FractionalFlow</td>
 <td>Split flows into fractions.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>level_boundary</code></td>
-<td>Optional[LevelBoundary]</td>
+<td>LevelBoundary</td>
 <td>Boundary condition specifying the water level.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>flow_boundary</code></td>
-<td>Optional[FlowBoundary]</td>
+<td>FlowBoundary</td>
 <td>Boundary conditions specifying the flow.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>linear_resistance</code></td>
 <td></td>
 <td>Linear flow resistance.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>manning_resistance</code></td>
-<td>Optional[ManningResistance]</td>
+<td>ManningResistance</td>
 <td>Flow resistance based on the Manning formula.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>tabulated_rating_curve</code></td>
-<td>Optional[TabulatedRatingCurve]</td>
+<td>TabulatedRatingCurve</td>
 <td>Tabulated rating curve describing flow based on the upstream water level.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>pump</code></td>
-<td>Optional[Pump]</td>
+<td>Pump</td>
+<td>Prescribed flow rate from one basin to the other.</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td><code>outlet</code></td>
+<td>Outlet</td>
 <td>Prescribed flow rate from one basin to the other.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
-<td><code>outlet</code></td>
-<td>Optional[Outlet]</td>
-<td>Prescribed flow rate from one basin to the other.</td>
-<td><em>required</em></td>
-</tr>
-<tr class="even">
 <td><code>terminal</code></td>
-<td>Optional[Terminal]</td>
+<td>Terminal</td>
 <td>Water sink without state or properties.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>discrete_control</code></td>
-<td>Optional[DiscreteControl]</td>
+<td>DiscreteControl</td>
 <td>Discrete control logic.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>pid_control</code></td>
-<td>Optional[PidControl]</td>
+<td>PidControl</td>
 <td>PID controller attempting to set the level of a basin to a desired value using a pump/outlet.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>user</code></td>
-<td>Optional[User]</td>
+<td>User</td>
 <td>User node type with demand and priority.</td>
-<td><em>required</em></td>
-</tr>
-<tr class="even">
-<td><code>starttime</code></td>
-<td>Union[str, datetime.datetime]</td>
-<td>Starting time of the simulation.</td>
-<td><em>required</em></td>
-</tr>
-<tr class="odd">
-<td><code>endtime</code></td>
-<td>Union[str, datetime.datetime]</td>
-<td>End time of the simulation.</td>
-<td><em>required</em></td>
-</tr>
-<tr class="even">
-<td><code>solver</code></td>
-<td>Optional[Solver]</td>
-<td>Solver settings.</td>
-<td><em>required</em></td>
-</tr>
-<tr class="odd">
-<td><code>logging</code></td>
-<td>Optional[logging]</td>
-<td>Logging settings.</td>
 <td><em>required</em></td>
 </tr>
 </tbody>
