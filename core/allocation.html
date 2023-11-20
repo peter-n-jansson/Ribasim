@@ -323,7 +323,7 @@ Note
 <li>The flows <span class="math inline">\(F \in \mathbb{R}_{\ge 0}^{\hat{n}\times\hat{n}}\)</span> over the edges in the allocation graph;</li>
 <li>The allocations to the basins <span class="math display">\[
   A^\text{basin}_{\hat{i}} \ge 0, \quad \hat{B}_S,
-\]</span> where <span class="math inline">\(\hat{B} = m_S(B_S) \subset \hat{V}_S\)</span> is the set of basin node ids in the allocation graph.</li>
+\]</span> where <span class="math inline">\(\hat{B}_S = m_S(B_S) \subset \hat{V}_S\)</span> is the set of basin node ids in the allocation graph.</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -341,9 +341,23 @@ Note
 </section>
 <section id="the-optimization-objective" class="level3" data-number="1.2.4">
 <h3 data-number="1.2.4" class="anchored" data-anchor-id="the-optimization-objective"><span class="header-section-number">1.2.4</span> The optimization objective</h3>
-<p>The goal of allocation is to maximize the flow to the users. Therefore, we use the following optimization objective: <span id="eq-objective"><span class="math display">\[
-    \max \sum_{(\hat{i},\hat{j})\in \hat{E}_S\;:\; \hat{i}\in \hat{U}_S} F_{\hat{i}\hat{j}}
-\tag{1}\]</span></span> This is a linear combination of the allocations to the users, where all allocations currently get a weight of <span class="math inline">\(1\)</span>.</p>
+<p>The goal of allocation is to get the flow to the users as close as possible to their demand. To achieve this, the following objectives are supported:</p>
+<ul>
+<li><code>quadratic_absolute</code>: <span class="math display">\[
+  \min \sum_{(\hat{i},\hat{j})\in \hat{E}_S\;:\; \hat{i}\in \hat{U}_S} \left( F_{\hat{i}\hat{j}} - d_j^p(t)\right)^2
+\]</span></li>
+<li><code>quadratic_relative</code>: <span class="math display">\[
+  \min \sum_{(\hat{i},\hat{j})\in \hat{E}_S\;:\; \hat{i}\in \hat{U}_S} \left( 1 - \frac{F_{\hat{i}\hat{j}}}{d_j^p(t)}\right)^2
+\]</span></li>
+<li><code>linear_absolute</code>: <span class="math display">\[
+  \min \sum_{(\hat{i},\hat{j})\in \hat{E}_S\;:\; \hat{i}\in \hat{U}_S} \left| F_{\hat{i}\hat{j}} - d_j^p(t)\right|
+\]</span></li>
+<li><code>linear_relative</code>: <span class="math display">\[
+  \min \sum_{(\hat{i},\hat{j})\in \hat{E}_S\;:\; \hat{i}\in \hat{U}_S} \left|1 - \frac{F_{\hat{i}\hat{j}}}{d_j^p(t)}\right|
+\]</span></li>
+</ul>
+<p>To avoid division by <span class="math inline">\(0\)</span> errors, if a <code>*_relative</code> objective is used and a demand is <span class="math inline">\(0\)</span>, the coefficient of the flow <span class="math inline">\(F_{\hat{i}\hat{j}}\)</span> is set to <span class="math inline">\(0\)</span>.</p>
+<p>For <code>*_absolute</code> objectives the optimizer cares about the actual amount of water allocated to a user, for <code>*_relative</code> objectives it cares about the fraction of the demand allocated to the user. For <code>quadratic_*</code> objectives the optimizer cares about avoiding large shortages, for <code>linear_*</code> objectives it treats all deviations equally.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -354,11 +368,21 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This optimization objective will probably be modified in the future, to take things into account like:</p>
-<ul>
-<li>Fair distribution in the case of water scarcity;</li>
-<li>An allocation graph-wide preference ordering over sources.</li>
-</ul>
+<p>These options for objectives for allocation to users have not been tested thoroughly, and might change in the future.</p>
+</div>
+</div>
+<p>The absolute value applied here is not supported in a linear programming context directly; this requires introduction of new variables and constraints. For more details see <a href="https://optimization.cbe.cornell.edu/index.php?title=Optimization_with_absolute_values">here</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In the future new optimization objectives will be introduced, for demands of basins and priorities over sources. These will be used in combination with the above, in the form of goal programming.</p>
 </div>
 </div>
 </section>
@@ -367,22 +391,22 @@ Note
 <ul>
 <li><p>Flow conservation: For the basins in the allocation graph we have that <span id="eq-flowconservationconstraint"><span class="math display">\[
   \sum_{\hat{j}=1}^{\hat{n}} F_{\hat{k}\hat{j}} \le \sum_{\hat{i}=1}^{\hat{n}} F_{\hat{i}\hat{k}}, \quad \forall\hat{k} \in \hat{B}_S.
-\tag{2}\]</span></span> Note that we do not require equality here; in the allocation we do not mind that excess flow is ‘forgotten’ if it cannot contribute to the allocation to the users.</p></li>
+\tag{1}\]</span></span> Note that we do not require equality here; in the allocation we do not mind that excess flow is ‘forgotten’ if it cannot contribute to the allocation to the users.</p></li>
 <li><p>Capacity: the flows over the edges are positive and bounded by the edge capacity: <span id="eq-capacityconstraint"><span class="math display">\[
   F_{\hat{i}\hat{j}} \le \left(\hat{C}_S\right)_{\hat{i}\hat{j}}, \quad \forall(\hat{i},\hat{j}) \in \hat{E}_S.
-\tag{3}\]</span></span> By the definition of <span class="math inline">\(\hat{C}_S\)</span> this also includes the source flows.</p></li>
+\tag{2}\]</span></span> By the definition of <span class="math inline">\(\hat{C}_S\)</span> this also includes the source flows.</p></li>
 <li><p>User outflow: The outflow of the user is dictated by the inflow and the return factor: <span id="eq-returnflowconstraint"><span class="math display">\[
   F_{\hat{i}\hat{k}} = r_k \cdot F_{\hat{k}\hat{j}} \quad
   \quad \forall\hat{k} \in \hat{U}_s, \quad
   \hat{V}^{\text{in}}_S(\hat{k}) = \{\hat{i}\},\;
    \hat{V}^{\text{out}}_S(\hat{k}) = \{\hat{j}\}.
-\tag{4}\]</span></span> Here we use that each user node in the allocation graph has a unique in-edge and out-edge.</p></li>
+\tag{3}\]</span></span> Here we use that each user node in the allocation graph has a unique in-edge and out-edge.</p></li>
 <li><p>User demand: user demand constraints are discussed in <a href="../core/allocation.html#sec-solving-allocation">the next section</a>.</p></li>
 <li><p>Fractinal flow: Let <span class="math inline">\(\hat{L}_S \subset \hat{V}_S\)</span> be the set of nodes in the max flow graph with fractional flow outneighbors, and <span class="math inline">\(f_j\)</span> the flow fraction associated with fractional flow node <span class="math inline">\(j \in V_S\)</span>. Then <span id="eq-fractionalflowconstraint"><span class="math display">\[
   F_{\hat{i}\hat{j}} \le f_j \sum_{k\in \hat{V}^\text{in}_S(\hat{i})} F_{\hat{k}\hat{i}} \qquad
   \forall \hat{i} \in \hat{L}_S, \;
   \hat{j} \in \hat{V}_S^\text{out}(\hat{i}).
-\tag{5}\]</span></span></p></li>
+\tag{4}\]</span></span></p></li>
 <li><p>Flow sign: Furthermore there are the non-negativity constraints for the flows and allocations, see <a href="../core/allocation.html#the-optimization-variables">The optimization variables</a>.</p></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -434,7 +458,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In the future there will be another solve before the priority 1 solve, taking the demand/supply from basins into account.</p>
+<p>In the future there will be 2 more optimization solves: - One before optimizing for users, taking the demand/supply from basins into account; - One after optimizing for users, taking preferences over sources into account.</p>
 </div>
 </div>
 <section id="example" class="level2" data-number="2.1">
