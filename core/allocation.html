@@ -197,7 +197,7 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#the-allocation-optimization-problem" id="toc-the-allocation-optimization-problem" class="nav-link" data-scroll-target="#the-allocation-optimization-problem"><span class="header-section-number">1.2</span> The allocation optimization problem</a>
   <ul class="collapse">
-  <li><a href="#the-allocation-graph" id="toc-the-allocation-graph" class="nav-link" data-scroll-target="#the-allocation-graph"><span class="header-section-number">1.2.1</span> The allocation graph</a></li>
+  <li><a href="#the-allocation-subgraph" id="toc-the-allocation-subgraph" class="nav-link" data-scroll-target="#the-allocation-subgraph"><span class="header-section-number">1.2.1</span> The allocation subgraph</a></li>
   <li><a href="#the-allocation-graph-capacities" id="toc-the-allocation-graph-capacities" class="nav-link" data-scroll-target="#the-allocation-graph-capacities"><span class="header-section-number">1.2.2</span> The allocation graph capacities</a></li>
   <li><a href="#the-optimization-variables" id="toc-the-optimization-variables" class="nav-link" data-scroll-target="#the-optimization-variables"><span class="header-section-number">1.2.3</span> The optimization variables</a></li>
   <li><a href="#the-optimization-objective" id="toc-the-optimization-objective" class="nav-link" data-scroll-target="#the-optimization-objective"><span class="header-section-number">1.2.4</span> The optimization objective</a></li>
@@ -236,7 +236,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>Allocation is the process of assigning an allocated abstraction flow rate to user nodes in the model based on information about sources, user demands over various priorities, constraints introduced by nodes, local water availability and graph topology. The allocation procedure implemented in Ribasim is heavily inspired by the <a href="https://en.wikipedia.org/wiki/Maximum_flow_problem">maximum flow problem</a>.</p>
-<p>The allocation problem is solved per subnetwork of the Ribasim model, from which a new graph is created called the allocation graph. The allocation graph is used to formulate an optimization problem with the <a href="https://jump.dev/JuMP.jl/stable/">JuMP</a> package, which is solved using the <a href="https://highs.dev/">HiGHS solver</a>. For more information see also the example of solving the maximum flow problem with <code>JuMP.jl</code> <a href="https://jump.dev/JuMP.jl/stable/tutorials/linear/network_flows/#The-max-flow-problem">here</a>.</p>
+<p>The allocation problem is solved per subnetwork of the Ribasim model. The subnetwork is used to formulate an optimization problem with the <a href="https://jump.dev/JuMP.jl/stable/">JuMP</a> package, which is solved using the <a href="https://highs.dev/">HiGHS solver</a>. For more information see also the example of solving the maximum flow problem with <code>JuMP.jl</code> <a href="https://jump.dev/JuMP.jl/stable/tutorials/linear/network_flows/#The-max-flow-problem">here</a>.</p>
 <section id="the-allocation-problem" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> The allocation problem</h1>
 <p>The following data of the parameters and state of a Ribasim model are relevant for the allocation problem.</p>
@@ -244,7 +244,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="1.1" class="anchored" data-anchor-id="allocation-problem-input"><span class="header-section-number">1.1</span> Allocation problem input</h2>
 <section id="the-subnetwork" class="level3" data-number="1.1.1">
 <h3 data-number="1.1.1" class="anchored" data-anchor-id="the-subnetwork"><span class="header-section-number">1.1.1</span> The subnetwork</h3>
-<p>The allocation problem is solved per allocation graph, which is derived from a subnetwork given by a subset <span class="math inline">\(S \subset V\)</span> of node ids. Different subnetworks are disjoint from eachother.</p>
+<p>The allocation problem is solved per subnetwork, which is given by a subset <span class="math inline">\(S \subset V\)</span> of node ids. Different subnetworks are disjoint from eachother.</p>
 </section>
 <section id="source-flows" class="level3" data-number="1.1.2">
 <h3 data-number="1.1.2" class="anchored" data-anchor-id="source-flows"><span class="header-section-number">1.1.2</span> Source flows</h3>
@@ -291,39 +291,39 @@ Note
 </section>
 <section id="the-allocation-optimization-problem" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="the-allocation-optimization-problem"><span class="header-section-number">1.2</span> The allocation optimization problem</h2>
-<section id="the-allocation-graph" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="the-allocation-graph"><span class="header-section-number">1.2.1</span> The allocation graph</h3>
-<p>A new graph is created from the subnetwork, which we call the allocation graph. To indicate the difference between subnetwork data and allocation graph data, the allocation graph data is denoted with a hat. The allocation graph consists of:</p>
+<section id="the-allocation-subgraph" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="the-allocation-subgraph"><span class="header-section-number">1.2.1</span> The allocation subgraph</h3>
+<p>A new graph is created from the subnetwork, which we call an allocation graph. The allocation graph is almost a subgraph of the main (flow) model, apart from the fact that an allocation graph can contain edges which are not in the main model.</p>
+<p>The allocation graph consists of:</p>
 <ul>
-<li>Nodes <span class="math inline">\(\hat{V}_s\)</span>, where each basin, source and user in the subnetwork get a node in the allocation graph. Also nodes that have fractional flow outneighbors get a node in the allocation graph. The implementation makes heavy use of the node id mapping <span class="math inline">\(m_S : i \mapsto \hat{i}\)</span> to translate from subnetwork node IDs to allocation graph node IDs. Unless specified otherwise, we assume this relationship between index symbols that appear both with and without a hat.</li>
-<li>Edges <span class="math inline">\(\hat{E}_S\)</span>, where the edges in the allocation graph are given by one or more edges in the subnetwork, where those edges connect nodes in the subnetwork that have an equivalent in the allocation graph. The direction of the edges in the allocation graph is given by the direction constraints in the subnetwork.</li>
+<li>Nodes <span class="math inline">\(V'_S \subset V_S\)</span>, where each basin, source and user in the subnetwork get a node in the allocation graph. Also nodes that have fractional flow outneighbors get a node in the allocation graph.</li>
+<li>Edges <span class="math inline">\(E_S\)</span>, which are either edges that also appear between nodes in the subnetwork or represent a sequence of those, creating a shortcut.</li>
 </ul>
 <p>For notational convenience, we use the notation</p>
 <p><span class="math display">\[\begin{align}
-    \hat{V}^{\text{out}}_S(\hat{i}) = \left\{\hat{j} \in \hat{V}_S : (\hat{i},\hat{j}) \in \hat{E}_S\right\} \\
-    \hat{V}^{\text{in}}_S(\hat{j}) = \left\{\hat{i} \in \hat{V}_S : (\hat{i},\hat{j}) \in \hat{E}_S\right\}
+    V^{\text{out}}_S(i) = \left\{j \in V'_S : (i,j) \in E_S\right\} \\
+    V^{\text{in}}_S(j) = \left\{i \in V'_S : (i,j) \in E_S\right\}
 \end{align}\]</span></p>
-<p>for the set of in-neighbors and out-neighbors of a node in the allocation graph respectively.</p>
+<p>for the set of in-neighbors and out-neighbors of a node in the allocation graph respectively</p>
 </section>
 <section id="the-allocation-graph-capacities" class="level3" data-number="1.2.2">
 <h3 data-number="1.2.2" class="anchored" data-anchor-id="the-allocation-graph-capacities"><span class="header-section-number">1.2.2</span> The allocation graph capacities</h3>
-<p>The capacities of the edges of the allocation graph are collected in the sparse capacity matrix <span class="math inline">\(\hat{C}_S \in \overline{\mathbb{R}}_{\ge 0}^{\hat{n}\times\hat{n}}\)</span> where <span class="math inline">\(\hat{n}\)</span> is the number of nodes in the allocation graph. The capacities can be infinite.</p>
+<p>The capacities of the edges of the allocation graph are collected in the sparse capacity matrix <span class="math inline">\(C_S \in \overline{\mathbb{R}}_{\ge 0}^{n'\times n'}\)</span> where <span class="math inline">\(n' = \#V'_S\)</span> is the number of nodes in the allocation graph. The capacities can be infinite.</p>
 <p>The capacities are determined in 4 different ways:</p>
 <ul>
-<li>If an edge does not exist, i.e.&nbsp;<span class="math inline">\((\hat{i},\hat{j}) \notin \hat{E}\)</span> for certain <span class="math inline">\(1 \le \hat{i},\hat{j}\le \hat{n}\)</span>, then <span class="math inline">\((\hat{C}_S)_{\hat{i},\hat{j}} = 0\)</span>;</li>
-<li>The capacity of the edge <span class="math inline">\(\hat{e} \in \hat{E_S}\)</span> is given by the smallest <code>max_flow_rate</code> of the nodes along the equivalent edges in the subnetwork. If there are no nodes with a <code>max_flow_rate</code>, the edge capacity is infinite;</li>
+<li>If an edge does not exist in the allocation graph, i.e.&nbsp;<span class="math inline">\((i,j) \notin E_S\)</span> for certain <span class="math inline">\(1 \le i,j\le n'\)</span>, then <span class="math inline">\((C_S)_{i,j} = 0\)</span>;</li>
+<li>The capacity of the edge <span class="math inline">\(e \in E_S\)</span> is given by the smallest <code>max_flow_rate</code> of the nodes along the equivalent edges in the subnetwork. If there are no nodes with a <code>max_flow_rate</code>, the edge capacity is infinite;</li>
 <li>If the edge is a source, the capacity of the edge is given by the flow rate of that source.</li>
-<li>If the edge ends in a user node, the edge capacity is given by the demand of that user, see also <a href="../core/allocation.html#sec-solving-allocation">the next section</a>.</li>
 </ul>
 </section>
 <section id="the-optimization-variables" class="level3" data-number="1.2.3">
 <h3 data-number="1.2.3" class="anchored" data-anchor-id="the-optimization-variables"><span class="header-section-number">1.2.3</span> The optimization variables</h3>
 <p>There are 2 types of variables whose value has to be determined to solve the allocation problem:</p>
 <ul>
-<li>The flows <span class="math inline">\(F \in \mathbb{R}_{\ge 0}^{\hat{n}\times\hat{n}}\)</span> over the edges in the allocation graph;</li>
+<li>The flows <span class="math inline">\(F \in \mathbb{R}_{\ge 0}^{n'\times n'}\)</span> over the edges in the allocation graph;</li>
 <li>The allocations to the basins <span class="math display">\[
-  A^\text{basin}_{\hat{i}} \ge 0, \quad \hat{B}_S,
-\]</span> where <span class="math inline">\(\hat{B}_S = m_S(B_S) \subset \hat{V}_S\)</span> is the set of basin node ids in the allocation graph.</li>
+  A^\text{basin}_{i} \ge 0, \quad B_S.
+\]</span></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -344,19 +344,19 @@ Note
 <p>The goal of allocation is to get the flow to the users as close as possible to their demand. To achieve this, the following objectives are supported:</p>
 <ul>
 <li><code>quadratic_absolute</code>: <span class="math display">\[
-  \min \sum_{(\hat{i},\hat{j})\in \hat{E}_S\;:\; \hat{i}\in \hat{U}_S} \left( F_{\hat{i}\hat{j}} - d_j^p(t)\right)^2
+  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left( F_{ij} - d_j^p(t)\right)^2
 \]</span></li>
 <li><code>quadratic_relative</code>: <span class="math display">\[
-  \min \sum_{(\hat{i},\hat{j})\in \hat{E}_S\;:\; \hat{i}\in \hat{U}_S} \left( 1 - \frac{F_{\hat{i}\hat{j}}}{d_j^p(t)}\right)^2
+  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left( 1 - \frac{F_{ij}}{d_j^p(t)}\right)^2
 \]</span></li>
 <li><code>linear_absolute</code>: <span class="math display">\[
-  \min \sum_{(\hat{i},\hat{j})\in \hat{E}_S\;:\; \hat{i}\in \hat{U}_S} \left| F_{\hat{i}\hat{j}} - d_j^p(t)\right|
+  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left| F_{ij} - d_j^p(t)\right|
 \]</span></li>
 <li><code>linear_relative</code>: <span class="math display">\[
-  \min \sum_{(\hat{i},\hat{j})\in \hat{E}_S\;:\; \hat{i}\in \hat{U}_S} \left|1 - \frac{F_{\hat{i}\hat{j}}}{d_j^p(t)}\right|
+  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left|1 - \frac{F_{ij}}{d_j^p(t)}\right|
 \]</span></li>
 </ul>
-<p>To avoid division by <span class="math inline">\(0\)</span> errors, if a <code>*_relative</code> objective is used and a demand is <span class="math inline">\(0\)</span>, the coefficient of the flow <span class="math inline">\(F_{\hat{i}\hat{j}}\)</span> is set to <span class="math inline">\(0\)</span>.</p>
+<p>To avoid division by <span class="math inline">\(0\)</span> errors, if a <code>*_relative</code> objective is used and a demand is <span class="math inline">\(0\)</span>, the coefficient of the flow <span class="math inline">\(F_{ij}\)</span> is set to <span class="math inline">\(0\)</span>.</p>
 <p>For <code>*_absolute</code> objectives the optimizer cares about the actual amount of water allocated to a user, for <code>*_relative</code> objectives it cares about the fraction of the demand allocated to the user. For <code>quadratic_*</code> objectives the optimizer cares about avoiding large shortages, for <code>linear_*</code> objectives it treats all deviations equally.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -390,22 +390,22 @@ Note
 <h3 data-number="1.2.5" class="anchored" data-anchor-id="the-optimization-variable-constraints"><span class="header-section-number">1.2.5</span> The optimization variable constraints</h3>
 <ul>
 <li><p>Flow conservation: For the basins in the allocation graph we have that <span id="eq-flowconservationconstraint"><span class="math display">\[
-  \sum_{\hat{j}=1}^{\hat{n}} F_{\hat{k}\hat{j}} \le \sum_{\hat{i}=1}^{\hat{n}} F_{\hat{i}\hat{k}}, \quad \forall\hat{k} \in \hat{B}_S.
+  \sum_{j=1}^{n'} F_{kj} \le \sum_{i=1}^{n'} F_{ik}, \quad \forall k \in B_S.
 \tag{1}\]</span></span> Note that we do not require equality here; in the allocation we do not mind that excess flow is ‘forgotten’ if it cannot contribute to the allocation to the users.</p></li>
 <li><p>Capacity: the flows over the edges are positive and bounded by the edge capacity: <span id="eq-capacityconstraint"><span class="math display">\[
-  F_{\hat{i}\hat{j}} \le \left(\hat{C}_S\right)_{\hat{i}\hat{j}}, \quad \forall(\hat{i},\hat{j}) \in \hat{E}_S.
-\tag{2}\]</span></span> By the definition of <span class="math inline">\(\hat{C}_S\)</span> this also includes the source flows.</p></li>
+  F_{ij} \le \left(C_S\right)_{ij}, \quad \forall(i,j) \in E_S.
+\tag{2}\]</span></span> By the definition of <span class="math inline">\(C_S\)</span> this also includes the source flows.</p></li>
 <li><p>User outflow: The outflow of the user is dictated by the inflow and the return factor: <span id="eq-returnflowconstraint"><span class="math display">\[
-  F_{\hat{i}\hat{k}} = r_k \cdot F_{\hat{k}\hat{j}} \quad
-  \quad \forall\hat{k} \in \hat{U}_s, \quad
-  \hat{V}^{\text{in}}_S(\hat{k}) = \{\hat{i}\},\;
-   \hat{V}^{\text{out}}_S(\hat{k}) = \{\hat{j}\}.
+  F_{ik} = r_k \cdot F_{kj} \quad
+  \quad \forall k \in U_S, \quad
+  V^{\text{in}}_S(k) = \{i\},\;
+   V^{\text{out}}_S(k) = \{j\}.
 \tag{3}\]</span></span> Here we use that each user node in the allocation graph has a unique in-edge and out-edge.</p></li>
 <li><p>User demand: user demand constraints are discussed in <a href="../core/allocation.html#sec-solving-allocation">the next section</a>.</p></li>
-<li><p>Fractinal flow: Let <span class="math inline">\(\hat{L}_S \subset \hat{V}_S\)</span> be the set of nodes in the max flow graph with fractional flow outneighbors, and <span class="math inline">\(f_j\)</span> the flow fraction associated with fractional flow node <span class="math inline">\(j \in V_S\)</span>. Then <span id="eq-fractionalflowconstraint"><span class="math display">\[
-  F_{\hat{i}\hat{j}} \le f_j \sum_{k\in \hat{V}^\text{in}_S(\hat{i})} F_{\hat{k}\hat{i}} \qquad
-  \forall \hat{i} \in \hat{L}_S, \;
-  \hat{j} \in \hat{V}_S^\text{out}(\hat{i}).
+<li><p>Fractional flow: Let <span class="math inline">\(L_S \subset V_S\)</span> be the set of nodes in the max flow graph with fractional flow outneighbors, and <span class="math inline">\(f_j\)</span> the flow fraction associated with fractional flow node <span class="math inline">\(j \in V_S\)</span>. Then <span id="eq-fractionalflowconstraint"><span class="math display">\[
+  F_{ij} \le f_j \sum_{k\in V^\text{in}_S(i)} F_{ki} \qquad
+  \forall i \in L_S, \;
+  j \in V_S^\text{out}(i).
 \tag{4}\]</span></span></p></li>
 <li><p>Flow sign: Furthermore there are the non-negativity constraints for the flows and allocations, see <a href="../core/allocation.html#the-optimization-variables">The optimization variables</a>.</p></li>
 </ul>
@@ -437,14 +437,14 @@ Note
 <p>The allocation problem for an allocation graph at time <span class="math inline">\(t\)</span> is solved per priority, as follows:</p>
 <ol type="1">
 <li>Define a capacity matrix with capacities as described above, that will be updated for each priority: <span class="math display">\[
-\hat{C}_S^p \leftarrow \hat{C}_S;
+C_S^p \leftarrow C_S;
 \]</span></li>
 <li>Set the capacities of the edges that end in an user to their priority 1 demands: <span class="math display">\[
-(\hat{C}_S^p)_{\hat{i},\hat{j}} \leftarrow d_j^1(t) \quad\text{ for all } (\hat{i},\hat{j}) \in \hat{U}_S;
+(C_S^p)_{i,j} \leftarrow d_j^1(t) \quad\text{ for all } (i,j) \in U_S;
 \]</span></li>
 <li>Maximize the objective function given the constraints;</li>
 <li>Subtract the used flows from the edge capacities: <span class="math display">\[
-\hat{C}_S^p \leftarrow \hat{C}_S^p - F;
+C_S^p \leftarrow C_S^p - F;
 \]</span></li>
 <li>Repeat steps 2-4 for the remaining priorities up to <span class="math inline">\(p_{\max}\)</span>.</li>
 </ol>

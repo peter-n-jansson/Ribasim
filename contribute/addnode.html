@@ -264,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.1</span> Parameters</h2>
 <p>The parameters object (defined in <code>solve.jl</code>) passed to the ODE solver must be made aware of the new node type. Therefore define a struct in <code>solve.jl</code> which holds the data for each node of the new node type:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> NewNodeType</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    node_id<span class="op">::</span><span class="dt">Vector{Int}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    node_id<span class="op">::</span><span class="dt">Vector{NodeID}</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Other fields</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>These fields do not have to correspond 1:1 with the input tables (see below). The vector with all node IDs that are of the new type in a given model is a mandatory field. Now you can:</p>
@@ -300,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Unpack the fields of static as inputs for the NewNodeType constructor</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">NewNodeType</span>(</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        parsed_parameters.node_id,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">NodeID</span>.(parsed_parameters.node_id),</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        parsed_parameters.some_property,</span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        parsed_parameters.control_mapping)</span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -414,11 +414,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="validation" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Validation</h1>
 <p>The new node type might have associated restrictions for a model with the new node type so that it behaves properly. Basic node ID and node type validation happens in <code>Model.validate_model</code> in <code>python/ribasim/ribasim/model.py</code>, which automatically considers all node types in the <code>node_types</code> module.</p>
-<p>Connectivity validation happens in <code>valid_edges</code> and <code>valid_n_flow_neighbors</code> in <code>core/src/solve.jl</code>. Connectivity rules are specified in <code>core/src/validation.jl</code>. Allowed upstream and downstream neighbor types for <code>NewNodeType</code> in are specified as follows:</p>
+<p>Connectivity validation happens in <code>valid_edges</code> and <code>valid_n_flow_neighbors</code> in <code>core/src/solve.jl</code>. Connectivity rules are specified in <code>core/src/validation.jl</code>. Allowed upstream and downstream neighbor types for <code>new_node_type</code> (the snake case version of <code>NewNodeType</code>) are specified as follows:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set allowed downstream types</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">neighbortypes</span>(<span class="op">::</span><span class="dt">Val{:NewNodeType}</span>) <span class="op">=</span> <span class="fu">Set</span>((<span class="op">:</span>Basin,))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">neighbortypes</span>(<span class="op">::</span><span class="dt">Val{:new_node_type}</span>) <span class="op">=</span> <span class="fu">Set</span>((<span class="op">:</span>basin,))</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># add your newnodetype as acceptable downstream connection of other types</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">neighbortypes</span>(<span class="op">::</span><span class="dt">Val{:Pump}</span>) <span class="op">=</span> <span class="fu">Set</span>((<span class="op">:</span>Basin, <span class="op">:</span>NewNodeType))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">neighbortypes</span>(<span class="op">::</span><span class="dt">Val{:pump}</span>) <span class="op">=</span> <span class="fu">Set</span>((<span class="op">:</span>basin, <span class="op">:</span>new_node_type))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The minimum and maximum allowed number of inneighbors and outneighbors for <code>NewNodeType</code> are specified as follows:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Allowed number of flow/control inneighbors and outneighbors per node type</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> n_neighbor_bounds</span>
