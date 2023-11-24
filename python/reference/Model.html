@@ -190,126 +190,120 @@ ul.task-list li input[type="checkbox"] {
 <td><em>required</em></td>
 </tr>
 <tr class="even">
-<td><code>relative_dir</code></td>
-<td></td>
-<td>The relative directory of the input files.</td>
-<td><em>required</em></td>
-</tr>
-<tr class="odd">
 <td><code>input_dir</code></td>
 <td></td>
 <td>The directory of the input files.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>results_dir</code></td>
 <td></td>
 <td>The directory of the results files.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>network</code></td>
 <td></td>
 <td>Class containing the topology (nodes and edges) of the model.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>results</code></td>
 <td></td>
 <td>Results configuration options.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>solver</code></td>
 <td></td>
 <td>Solver configuration options.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>logging</code></td>
 <td></td>
 <td>Logging configuration options.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>allocation</code></td>
 <td></td>
 <td>The allocation configuration.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>basin</code></td>
 <td>Basin</td>
 <td>The waterbodies.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>fractional_flow</code></td>
 <td>FractionalFlow</td>
 <td>Split flows into fractions.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>level_boundary</code></td>
 <td>LevelBoundary</td>
 <td>Boundary condition specifying the water level.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>flow_boundary</code></td>
 <td>FlowBoundary</td>
 <td>Boundary conditions specifying the flow.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>linear_resistance</code></td>
 <td></td>
 <td>Linear flow resistance.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>manning_resistance</code></td>
 <td>ManningResistance</td>
 <td>Flow resistance based on the Manning formula.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>tabulated_rating_curve</code></td>
 <td>TabulatedRatingCurve</td>
 <td>Tabulated rating curve describing flow based on the upstream water level.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>pump</code></td>
 <td>Pump</td>
 <td>Prescribed flow rate from one basin to the other.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>outlet</code></td>
 <td>Outlet</td>
 <td>Prescribed flow rate from one basin to the other.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>terminal</code></td>
 <td>Terminal</td>
 <td>Water sink without state or properties.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>discrete_control</code></td>
 <td>DiscreteControl</td>
 <td>Discrete control logic.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>pid_control</code></td>
 <td>PidControl</td>
 <td>PID controller attempting to set the level of a basin to a desired value using a pump/outlet.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>user</code></td>
 <td>User</td>
 <td>User node type with demand and priority.</td>
@@ -350,7 +344,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td><a href="#ribasim.Model.write">write</a></td>
-<td>Write the contents of the model to a database and a TOML configuration file.</td>
+<td>Write the contents of the model to disk and save it as a TOML configuration file.</td>
 </tr>
 </tbody>
 </table>
@@ -426,9 +420,9 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="ribasim.Model.write" class="level3" data-number="1.2.6">
 <h3 data-number="1.2.6" class="anchored" data-anchor-id="ribasim.Model.write"><span class="header-section-number">1.2.6</span> write</h3>
-<p><code>Model.write(directory)</code></p>
-<p>Write the contents of the model to a database and a TOML configuration file.</p>
-<p>If <code>directory</code> does not exist, it is created before writing.</p>
+<p><code>Model.write(filepath)</code></p>
+<p>Write the contents of the model to disk and save it as a TOML configuration file.</p>
+<p>If <code>filepath.parent</code> does not exist, it is created before writing.</p>
 <section id="parameters-2" class="level4" data-number="1.2.6.1">
 <h4 data-number="1.2.6.1" class="anchored" data-anchor-id="parameters-2"><span class="header-section-number">1.2.6.1</span> Parameters</h4>
 <table class="table">
@@ -442,8 +436,8 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>directory</code></td>
-<td>FilePath</td>
+<td><code>filepath</code></td>
+<td>Path | str</td>
 <td></td>
 <td><em>required</em></td>
 </tr>
