@@ -185,6 +185,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#set-up-the-developer-environment" id="toc-set-up-the-developer-environment" class="nav-link active" data-scroll-target="#set-up-the-developer-environment"><span class="header-section-number">1</span> Set up the developer environment</a></li>
   <li><a href="#running-qgis" id="toc-running-qgis" class="nav-link" data-scroll-target="#running-qgis"><span class="header-section-number">2</span> Running QGIS</a></li>
   <li><a href="#running-tests" id="toc-running-tests" class="nav-link" data-scroll-target="#running-tests"><span class="header-section-number">3</span> Running tests</a></li>
+  <li><a href="#debugging" id="toc-debugging" class="nav-link" data-scroll-target="#debugging"><span class="header-section-number">4</span> Debugging</a></li>
   </ul>
 </nav>
     </div>
@@ -247,6 +248,25 @@ Note
 <h1 data-number="3"><span class="header-section-number">3</span> Running tests</h1>
 <p>To run the QGIS plugin tests in the application environment of QGIS, it is best to make use of the Docker environment provided in this repository. Make sure that docker is installed and available in your path.</p>
 <p>Then simply call <code>pixi run test-ribasim-qgis</code>.</p>
+</section>
+<section id="debugging" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Debugging</h1>
+<p>After installing the plugins via <code>pixi run install-qgis-plugins</code>. Extra debugging tools are also installed in QGIS that is installed within your pixi environment.</p>
+<p>After you have started <code>pixi run qgis</code>, you can make alterations to the python code and use the <a href="https://github.com/borysiasty/plugin_reloader">Plugin Reloader</a> to reload the plugin without restarting QGIS. The shortcut in QGIS is <code>CTRL+F5</code>.</p>
+<p>It is also possible to connect the debugger of Visual Studio Code. For this the <a href="https://github.com/lmotta/debug_vs_plugin">debugvs</a> plugin is installed in QGIS. In QGIS press the button to <em>Enable Debug for Visual Studio</em>. Then go to Visual Studio Code and start the launch task <em>Ribasim QGIS: Attach to QGIS</em>. Now you can place breakpoints.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We are currently using debugvs 0.7 with ptvsd as service, since there is an <a href="https://github.com/lmotta/debug_vs_plugin/issues/12">open issue</a> that breaks debugvs 0.8 with debugpy.</p>
+</div>
+</div>
 
 
 </section>
