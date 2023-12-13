@@ -333,9 +333,9 @@ div.csl-indent {
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dt">time</span> <span class="op">=</span> <span class="st">"basin/time.arrow"</span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">allocation</span><span class="kw">]</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="dt">timestep</span> <span class="op">=</span> <span class="dv">86400</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="dt">use_allocation</span> <span class="op">=</span> <span class="cn">true</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="dt">objective_type</span> <span class="op">=</span> <span class="st">"quadratic_relative"</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="dt">timestep</span> <span class="op">=</span> <span class="dv">86400</span>                   <span class="co"># optional (required if use_allocation = true), default 86400</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="dt">use_allocation</span> <span class="op">=</span> <span class="cn">false</span>             <span class="co"># optional, default false</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="dt">objective_type</span> <span class="op">=</span> <span class="st">"linear_absolute"</span> <span class="co"># optional, default "linear_absolute"</span></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="kw">[</span><span class="dt">solver</span><span class="kw">]</span></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="dt">algorithm</span> <span class="op">=</span> <span class="st">"QNDF"</span>  <span class="co"># optional, default "QNDF"</span></span>

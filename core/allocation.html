@@ -349,15 +349,16 @@ Note
 <li><code>quadratic_relative</code>: <span class="math display">\[
   \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left( 1 - \frac{F_{ij}}{d_j^p(t)}\right)^2
 \]</span></li>
-<li><code>linear_absolute</code>: <span class="math display">\[
-  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left| F_{ij} - d_j^p(t)\right|
+<li><code>linear_absolute</code> (default): <span class="math display">\[
+  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left| F_{ij} - d_j^p(t)\right| + c \sum_{e \in E_S} F_e
 \]</span></li>
 <li><code>linear_relative</code>: <span class="math display">\[
-  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left|1 - \frac{F_{ij}}{d_j^p(t)}\right|
+  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left|1 - \frac{F_{ij}}{d_j^p(t)}\right| + c \sum_{e \in E_S} F_e
 \]</span></li>
 </ul>
 <p>To avoid division by <span class="math inline">\(0\)</span> errors, if a <code>*_relative</code> objective is used and a demand is <span class="math inline">\(0\)</span>, the coefficient of the flow <span class="math inline">\(F_{ij}\)</span> is set to <span class="math inline">\(0\)</span>.</p>
 <p>For <code>*_absolute</code> objectives the optimizer cares about the actual amount of water allocated to a user, for <code>*_relative</code> objectives it cares about the fraction of the demand allocated to the user. For <code>quadratic_*</code> objectives the optimizer cares about avoiding large shortages, for <code>linear_*</code> objectives it treats all deviations equally.</p>
+<p>The second sum in the <code>linear_*</code> objectives adds a small cost to using flows. This incentivizes the solver to use as little flow as possible. The cost <span class="math inline">\(c &gt; 0\)</span> is small enough such that it is always better to bring water to users than to not use flow at all. This can be achieved for <code>linear_*</code> objectives but not for <code>quadratic_*</code> objectives, and therefore this cost term is only added to the former. Therefore the <code>linear_*</code> objectives make the solver more conservative with flow than the <code>quadratic_*</code> objectives.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
