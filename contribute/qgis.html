@@ -211,8 +211,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="set-up-the-developer-environment" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Set up the developer environment</h1>
-<p>First set up pixi as described in the <a href="../contribute/python.html">Python tooling</a> page.</p>
-<p>QGIS is installed with Pixi when running <code>pixi run install</code>. To further set up the development environment, you must add the plugins to QGIS. The simplest way to do this is by running <code>pixi run install-qgis-plugins</code>. It grabs the latest version of the iMOD QGIS plugin and it makes a symlink to the ribasim_qgis folder so that QGIS can find it.</p>
+<p>After you have installed the environment as described <a href="../contribute/index.html">here</a> you must still activate the QGIS plugins. The simplest way to do this is by running <code>pixi run install-qgis-plugins</code>. It grabs the latest version of the iMOD QGIS plugin and it makes a symlink to the ribasim_qgis folder so that QGIS can find it. It also installs plugins that make it possible to reload and debug your plugin while QGIS is open.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -224,6 +223,7 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p>On Windows you need to have Developer mode enabled. Otherwise you will not have enough access rights to create symlinks. For more info, see this <a href="https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/">Windows blog</a>.</p>
+<p>We wanted to implement this via <code>pip install --editable</code>, but QGIS doesn’t find the <code>metadata.txt</code> and therefore cannot load the plugin on startup.</p>
 </div>
 </div>
 </section>
