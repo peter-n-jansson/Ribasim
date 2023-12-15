@@ -83,7 +83,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../core/equations.html" rel="next">
+<link href="../core/validation.html" rel="next">
 <link href="../core/index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -201,6 +201,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="../core/usage.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Usage</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -408,6 +414,7 @@ div.csl-indent {
 </table>
 <p>This means that two columns are required, one named <code>node_id</code>, that contained elements of type <code>Int</code>, and a column named <code>storage</code> that contains elements of type <code>Float64</code>. The order of the columns does not matter. In some cases there may be restrictions on the values. This is indicated under <code>restriction</code>.</p>
 <p>Tables are also allowed to have rows for timestamps that are not part of the simulation, these will be ignored. That makes it easy to prepare data for a larger period, and test models on a shorted period.</p>
+<p>When preparing the model for simulation, input validation is performed in the Julia core. The validation rules are described in the <a href="../core/validation.html">validation</a> section.</p>
 </section>
 <section id="node" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Node</h1>
@@ -2114,8 +2121,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../core/equations.html" class="pagination-link">
-        <span class="nav-page-text">Equations</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../core/validation.html" class="pagination-link">
+        <span class="nav-page-text">Validation</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
