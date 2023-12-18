@@ -202,6 +202,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#update-the-basic-model-with-transient-forcing" id="toc-update-the-basic-model-with-transient-forcing" class="nav-link" data-scroll-target="#update-the-basic-model-with-transient-forcing"><span class="header-section-number">2</span> Update the basic model with transient forcing</a></li>
   <li><a href="#model-with-discrete-control" id="toc-model-with-discrete-control" class="nav-link" data-scroll-target="#model-with-discrete-control"><span class="header-section-number">3</span> Model with discrete control</a></li>
   <li><a href="#model-with-pid-control" id="toc-model-with-pid-control" class="nav-link" data-scroll-target="#model-with-pid-control"><span class="header-section-number">4</span> Model with PID control</a></li>
+  <li><a href="#model-with-allocation" id="toc-model-with-allocation" class="nav-link" data-scroll-target="#model-with-allocation"><span class="header-section-number">5</span> Model with allocation</a></li>
   </ul>
 </nav>
     </div>
@@ -552,7 +553,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df_flow.pivot_table(index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"edge"</span>, values<span class="op">=</span><span class="st">"flow_m3d"</span>).plot()</span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>ax.legend(bbox_to_anchor<span class="op">=</span>(<span class="fl">1.3</span>, <span class="dv">1</span>), title<span class="op">=</span><span class="st">"Edge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
-<pre><code>&lt;matplotlib.legend.Legend at 0x7fb872b04090&gt;</code></pre>
+<pre><code>&lt;matplotlib.legend.Legend at 0x7fc77bcfbb10&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="examples_files/figure-html/cell-27-output-2.png" width="727" height="561"></p>
@@ -1049,6 +1050,305 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a><span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="examples_files/figure-html/cell-55-output-1.png" width="589" height="412"></p>
+</div>
+</div>
+</section>
+<section id="model-with-allocation" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Model with allocation</h1>
+<p>Setup the nodes:</p>
+<div class="cell" data-execution_count="55">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>xy <span class="op">=</span> np.array(</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">0.0</span>, <span class="fl">0.0</span>),  <span class="co"># 1: FlowBoundary</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">1.0</span>, <span class="fl">0.0</span>),  <span class="co"># 2: Basin</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">1.0</span>, <span class="fl">1.0</span>),  <span class="co"># 3: User</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">2.0</span>, <span class="fl">0.0</span>),  <span class="co"># 4: LinearResistance</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">3.0</span>, <span class="fl">0.0</span>),  <span class="co"># 5: Basin</span></span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">3.0</span>, <span class="fl">1.0</span>),  <span class="co"># 6: User</span></span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">4.0</span>, <span class="fl">0.0</span>),  <span class="co"># 7: TabulatedRatingCurve</span></span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">4.5</span>, <span class="fl">0.0</span>),  <span class="co"># 8: FractionalFlow</span></span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">4.5</span>, <span class="fl">0.5</span>),  <span class="co"># 9: FractionalFlow</span></span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">5.0</span>, <span class="fl">0.0</span>),  <span class="co"># 10: Terminal</span></span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">4.5</span>, <span class="fl">0.25</span>),  <span class="co"># 11: DiscreteControl</span></span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">4.5</span>, <span class="fl">1.0</span>),  <span class="co"># 12: Basin</span></span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">5.0</span>, <span class="fl">1.0</span>),  <span class="co"># 13: User</span></span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a>node_xy <span class="op">=</span> gpd.points_from_xy(x<span class="op">=</span>xy[:, <span class="dv">0</span>], y<span class="op">=</span>xy[:, <span class="dv">1</span>])</span>
+<span id="cb62-19"><a href="#cb62-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-20"><a href="#cb62-20" aria-hidden="true" tabindex="-1"></a>node_type <span class="op">=</span> [</span>
+<span id="cb62-21"><a href="#cb62-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FlowBoundary"</span>,</span>
+<span id="cb62-22"><a href="#cb62-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Basin"</span>,</span>
+<span id="cb62-23"><a href="#cb62-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"User"</span>,</span>
+<span id="cb62-24"><a href="#cb62-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"LinearResistance"</span>,</span>
+<span id="cb62-25"><a href="#cb62-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Basin"</span>,</span>
+<span id="cb62-26"><a href="#cb62-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"User"</span>,</span>
+<span id="cb62-27"><a href="#cb62-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"TabulatedRatingCurve"</span>,</span>
+<span id="cb62-28"><a href="#cb62-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FractionalFlow"</span>,</span>
+<span id="cb62-29"><a href="#cb62-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FractionalFlow"</span>,</span>
+<span id="cb62-30"><a href="#cb62-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Terminal"</span>,</span>
+<span id="cb62-31"><a href="#cb62-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DiscreteControl"</span>,</span>
+<span id="cb62-32"><a href="#cb62-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Basin"</span>,</span>
+<span id="cb62-33"><a href="#cb62-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"User"</span>,</span>
+<span id="cb62-34"><a href="#cb62-34" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb62-35"><a href="#cb62-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-36"><a href="#cb62-36" aria-hidden="true" tabindex="-1"></a><span class="co"># All nodes belong to allocation network id 1</span></span>
+<span id="cb62-37"><a href="#cb62-37" aria-hidden="true" tabindex="-1"></a>node <span class="op">=</span> ribasim.Node(</span>
+<span id="cb62-38"><a href="#cb62-38" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>gpd.GeoDataFrame(</span>
+<span id="cb62-39"><a href="#cb62-39" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"type"</span>: node_type, <span class="st">"allocation_network_id"</span>: <span class="dv">1</span>},</span>
+<span id="cb62-40"><a href="#cb62-40" aria-hidden="true" tabindex="-1"></a>        index<span class="op">=</span>pd.Index(np.arange(<span class="bu">len</span>(xy)) <span class="op">+</span> <span class="dv">1</span>, name<span class="op">=</span><span class="st">"fid"</span>),</span>
+<span id="cb62-41"><a href="#cb62-41" aria-hidden="true" tabindex="-1"></a>        geometry<span class="op">=</span>node_xy,</span>
+<span id="cb62-42"><a href="#cb62-42" aria-hidden="true" tabindex="-1"></a>        crs<span class="op">=</span><span class="st">"EPSG:28992"</span>,</span>
+<span id="cb62-43"><a href="#cb62-43" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb62-44"><a href="#cb62-44" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the edges:</p>
+<div class="cell" data-execution_count="56">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>from_id <span class="op">=</span> np.array(</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">11</span>, <span class="dv">11</span>],</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>    dtype<span class="op">=</span>np.int64,</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>to_id <span class="op">=</span> np.array(</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">9</span>],</span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>    dtype<span class="op">=</span>np.int64,</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Denote the first edge, 1 =&gt; 2, as a source edge for</span></span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a><span class="co"># allocation network 1</span></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>allocation_network_id <span class="op">=</span> <span class="bu">len</span>(from_id) <span class="op">*</span> [<span class="va">None</span>]</span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>allocation_network_id[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a>lines <span class="op">=</span> node.geometry_from_connectivity(from_id, to_id)</span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>edge <span class="op">=</span> ribasim.Edge(</span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>gpd.GeoDataFrame(</span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
+<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"from_node_id"</span>: from_id,</span>
+<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"to_node_id"</span>: to_id,</span>
+<span id="cb63-19"><a href="#cb63-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"edge_type"</span>: (<span class="bu">len</span>(from_id) <span class="op">-</span> <span class="dv">2</span>) <span class="op">*</span> [<span class="st">"flow"</span>] <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> [<span class="st">"control"</span>],</span>
+<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"allocation_network_id"</span>: allocation_network_id,</span>
+<span id="cb63-21"><a href="#cb63-21" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb63-22"><a href="#cb63-22" aria-hidden="true" tabindex="-1"></a>        geometry<span class="op">=</span>lines,</span>
+<span id="cb63-23"><a href="#cb63-23" aria-hidden="true" tabindex="-1"></a>        crs<span class="op">=</span><span class="st">"EPSG:28992"</span>,</span>
+<span id="cb63-24"><a href="#cb63-24" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb63-25"><a href="#cb63-25" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the basins:</p>
+<div class="cell" data-execution_count="57">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>profile <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: [<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">12</span>],</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"area"</span>: <span class="fl">300_000.0</span>,</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"level"</span>: <span class="dv">3</span> <span class="op">*</span> [<span class="fl">0.0</span>, <span class="fl">1.0</span>],</span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>static <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{</span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: [<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">12</span>],</span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"drainage"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"potential_evaporation"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"infiltration"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"precipitation"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"urban_runoff"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-20"><a href="#cb64-20" aria-hidden="true" tabindex="-1"></a>state <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>{<span class="st">"node_id"</span>: [<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">12</span>], <span class="st">"level"</span>: <span class="fl">1.0</span>})</span>
+<span id="cb64-21"><a href="#cb64-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-22"><a href="#cb64-22" aria-hidden="true" tabindex="-1"></a>basin <span class="op">=</span> ribasim.Basin(profile<span class="op">=</span>profile, static<span class="op">=</span>static, state<span class="op">=</span>state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the flow boundary:</p>
+<div class="cell" data-execution_count="58">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>flow_boundary <span class="op">=</span> ribasim.FlowBoundary(</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>    static<span class="op">=</span>pd.DataFrame(</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_id"</span>: [<span class="dv">1</span>],</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"flow_rate"</span>: <span class="fl">2.0</span>,</span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the linear resistance:</p>
+<div class="cell" data-execution_count="59">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>linear_resistance <span class="op">=</span> ribasim.LinearResistance(</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    static<span class="op">=</span>pd.DataFrame(</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_id"</span>: [<span class="dv">4</span>],</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"resistance"</span>: <span class="fl">0.06</span>,</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the tabulated rating curve:</p>
+<div class="cell" data-execution_count="60">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>tabulated_rating_curve <span class="op">=</span> ribasim.TabulatedRatingCurve(</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>    static<span class="op">=</span>pd.DataFrame(</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_id"</span>: <span class="dv">7</span>,</span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"level"</span>: [<span class="fl">0.0</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>],</span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"discharge"</span>: [<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">2.0</span>],</span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the fractional flow:</p>
+<div class="cell" data-execution_count="61">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>fractional_flow <span class="op">=</span> ribasim.FractionalFlow(</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>    static<span class="op">=</span>pd.DataFrame(</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_id"</span>: [<span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">9</span>],</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"fraction"</span>: [<span class="fl">0.6</span>, <span class="fl">0.9</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>],</span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"control_state"</span>: [<span class="st">"divert"</span>, <span class="st">"close"</span>, <span class="st">"divert"</span>, <span class="st">"close"</span>],</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the terminal:</p>
+<div class="cell" data-execution_count="62">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>terminal <span class="op">=</span> ribasim.Terminal(</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>    static<span class="op">=</span>pd.DataFrame(</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_id"</span>: [<span class="dv">10</span>],</span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the discrete control:</p>
+<div class="cell" data-execution_count="63">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>condition <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: [<span class="dv">11</span>],</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"listen_feature_id"</span>: <span class="dv">5</span>,</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"variable"</span>: <span class="st">"level"</span>,</span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"greater_than"</span>: <span class="fl">0.52</span>,</span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>logic <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{</span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: <span class="dv">11</span>,</span>
+<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"truth_state"</span>: [<span class="st">"T"</span>, <span class="st">"F"</span>],</span>
+<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"control_state"</span>: [<span class="st">"divert"</span>, <span class="st">"close"</span>],</span>
+<span id="cb70-15"><a href="#cb70-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb70-17"><a href="#cb70-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-18"><a href="#cb70-18" aria-hidden="true" tabindex="-1"></a>discrete_control <span class="op">=</span> ribasim.DiscreteControl(condition<span class="op">=</span>condition, logic<span class="op">=</span>logic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the users:</p>
+<div class="cell" data-execution_count="64">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>user <span class="op">=</span> ribasim.User(</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>    static<span class="op">=</span>pd.DataFrame(</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_id"</span>: [<span class="dv">6</span>, <span class="dv">13</span>],</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"demand"</span>: [<span class="fl">1.5</span>, <span class="fl">1.0</span>],</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"return_factor"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"min_level"</span>: <span class="op">-</span><span class="fl">1.0</span>,</span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"priority"</span>: [<span class="dv">1</span>, <span class="dv">3</span>],</span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a>    time<span class="op">=</span>pd.DataFrame(</span>
+<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
+<span id="cb71-13"><a href="#cb71-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_id"</span>: [<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>],</span>
+<span id="cb71-14"><a href="#cb71-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"demand"</span>: [<span class="fl">0.0</span>, <span class="fl">1.0</span>, <span class="fl">1.2</span>, <span class="fl">1.2</span>],</span>
+<span id="cb71-15"><a href="#cb71-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">"priority"</span>: [<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>],</span>
+<span id="cb71-16"><a href="#cb71-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">"return_factor"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb71-17"><a href="#cb71-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"min_level"</span>: <span class="op">-</span><span class="fl">1.0</span>,</span>
+<span id="cb71-18"><a href="#cb71-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"time"</span>: <span class="dv">2</span> <span class="op">*</span> [<span class="st">"2020-01-01 00:00:00"</span>, <span class="st">"2020-01-20 00:00:00"</span>],</span>
+<span id="cb71-19"><a href="#cb71-19" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb71-20"><a href="#cb71-20" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb71-21"><a href="#cb71-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the allocation:</p>
+<div class="cell" data-execution_count="65">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>allocation <span class="op">=</span> ribasim.Allocation(use_allocation<span class="op">=</span><span class="va">True</span>, timestep<span class="op">=</span><span class="dv">86400</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup a model:</p>
+<div class="cell" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ribasim.Model(</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>    network<span class="op">=</span>ribasim.Network(</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>        node<span class="op">=</span>node,</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>        edge<span class="op">=</span>edge,</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>    basin<span class="op">=</span>basin,</span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>    flow_boundary<span class="op">=</span>flow_boundary,</span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>    linear_resistance<span class="op">=</span>linear_resistance,</span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>    tabulated_rating_curve<span class="op">=</span>tabulated_rating_curve,</span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>    terminal<span class="op">=</span>terminal,</span>
+<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a>    user<span class="op">=</span>user,</span>
+<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a>    discrete_control<span class="op">=</span>discrete_control,</span>
+<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a>    fractional_flow<span class="op">=</span>fractional_flow,</span>
+<span id="cb73-14"><a href="#cb73-14" aria-hidden="true" tabindex="-1"></a>    allocation<span class="op">=</span>allocation,</span>
+<span id="cb73-15"><a href="#cb73-15" aria-hidden="true" tabindex="-1"></a>    starttime<span class="op">=</span><span class="st">"2020-01-01 00:00:00"</span>,</span>
+<span id="cb73-16"><a href="#cb73-16" aria-hidden="true" tabindex="-1"></a>    endtime<span class="op">=</span><span class="st">"2020-01-20 00:00:00"</span>,</span>
+<span id="cb73-17"><a href="#cb73-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s take a look at the model:</p>
+<div class="cell" data-execution_count="67">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>model.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="67">
+<pre><code>&lt;Axes: &gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="examples_files/figure-html/cell-68-output-2.png" width="742" height="298"></p>
+</div>
+</div>
+<p>Write the model to a TOML and GeoPackage:</p>
+<div class="cell" data-execution_count="68">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>datadir <span class="op">=</span> Path(<span class="st">"data"</span>)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>model.write(datadir <span class="op">/</span> <span class="st">"allocation_example/ribasim.toml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="68">
+<pre><code>PosixPath('data/allocation_example/ribasim.toml')</code></pre>
+</div>
+</div>
+<p>Now run the model with <code>ribasim allocation_example/ribasim.toml</code>. After running the model, read back the results:</p>
+<div class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.ticker <span class="im">as</span> plticker</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>df_allocation <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"allocation_example/results/allocation.arrow"</span>)</span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>df_allocation_wide <span class="op">=</span> df_allocation.pivot_table(</span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"time"</span>,</span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">"user_node_id"</span>, <span class="st">"priority"</span>],</span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span>[<span class="st">"demand"</span>, <span class="st">"allocated"</span>, <span class="st">"abstracted"</span>],</span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a>df_allocation_wide <span class="op">=</span> df_allocation_wide.loc[:, (df_allocation_wide <span class="op">!=</span> <span class="dv">0</span>).<span class="bu">any</span>(axis<span class="op">=</span><span class="dv">0</span>)]</span>
+<span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-11"><a href="#cb78-11" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb78-12"><a href="#cb78-12" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="ss">f"Objective type: </span><span class="sc">{</span>model<span class="sc">.</span>allocation<span class="sc">.</span>objective_type<span class="sc">}</span><span class="ss">"</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb78-13"><a href="#cb78-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-14"><a href="#cb78-14" aria-hidden="true" tabindex="-1"></a>df_allocation_wide[<span class="st">"demand"</span>].plot(ax<span class="op">=</span>axs[<span class="dv">0</span>], ls<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb78-15"><a href="#cb78-15" aria-hidden="true" tabindex="-1"></a>df_allocation_wide[<span class="st">"allocated"</span>].plot(ax<span class="op">=</span>axs[<span class="dv">1</span>], ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb78-16"><a href="#cb78-16" aria-hidden="true" tabindex="-1"></a>df_allocation_wide[<span class="st">"abstracted"</span>].plot(ax<span class="op">=</span>axs[<span class="dv">2</span>])</span>
+<span id="cb78-17"><a href="#cb78-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-18"><a href="#cb78-18" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb78-19"><a href="#cb78-19" aria-hidden="true" tabindex="-1"></a>loc <span class="op">=</span> plticker.MultipleLocator(<span class="dv">2</span>)</span>
+<span id="cb78-20"><a href="#cb78-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-21"><a href="#cb78-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylabel(<span class="st">"level [m]"</span>)</span>
+<span id="cb78-22"><a href="#cb78-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-23"><a href="#cb78-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, title <span class="kw">in</span> <span class="bu">zip</span>(axs, [<span class="st">"Demand"</span>, <span class="st">"Allocated"</span>, <span class="st">"Abstracted"</span>]):</span>
+<span id="cb78-24"><a href="#cb78-24" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title)</span>
+<span id="cb78-25"><a href="#cb78-25" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(<span class="fl">0.0</span>, <span class="fl">1.6</span>)</span>
+<span id="cb78-26"><a href="#cb78-26" aria-hidden="true" tabindex="-1"></a>    ax.xaxis.set_major_locator(loc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="examples_files/figure-html/cell-71-output-1.png" width="777" height="441"></p>
+</div>
+</div>
+<p>Some things to note about this plot:</p>
+<ul>
+<li><p>Abstraction behaves somewhat erratically at the start of the simulation. This is because allocation is based on flows computed in the physical layer, and at the start of the simulation these are not known yet.</p></li>
+<li><p>Although there is a plotted line for abstraction per priority, abstraction is actually accumulated over all priorities per user.</p></li>
+</ul>
+<div class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>df_basin <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"allocation_example/results/basin.arrow"</span>)</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>df_basin_wide <span class="op">=</span> df_basin.pivot_table(</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"node_id"</span>, values<span class="op">=</span>[<span class="st">"storage"</span>, <span class="st">"level"</span>]</span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df_basin_wide[<span class="st">"level"</span>].plot()</span>
+<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Basin levels"</span>)</span>
+<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"level [m]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="71">
+<pre><code>Text(0, 0.5, 'level [m]')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="examples_files/figure-html/cell-72-output-2.png" width="590" height="443"></p>
 </div>
 </div>
 
