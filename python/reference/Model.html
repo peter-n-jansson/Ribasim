@@ -130,15 +130,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#ribasim.Model" id="toc-ribasim.Model" class="nav-link active" data-scroll-target="#ribasim.Model"><span class="header-section-number">1</span> Model</a>
   <ul class="collapse">
   <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters"><span class="header-section-number">1.1</span> Parameters</a></li>
-  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="header-section-number">1.2</span> Methods</a>
-  <ul class="collapse">
-  <li><a href="#ribasim.Model.plot" id="toc-ribasim.Model.plot" class="nav-link" data-scroll-target="#ribasim.Model.plot"><span class="header-section-number">1.2.1</span> plot</a></li>
-  <li><a href="#ribasim.Model.read" id="toc-ribasim.Model.read" class="nav-link" data-scroll-target="#ribasim.Model.read"><span class="header-section-number">1.2.2</span> read</a></li>
-  <li><a href="#ribasim.Model.validate_model" id="toc-ribasim.Model.validate_model" class="nav-link" data-scroll-target="#ribasim.Model.validate_model"><span class="header-section-number">1.2.3</span> validate_model</a></li>
-  <li><a href="#ribasim.Model.validate_model_node_field_ids" id="toc-ribasim.Model.validate_model_node_field_ids" class="nav-link" data-scroll-target="#ribasim.Model.validate_model_node_field_ids"><span class="header-section-number">1.2.4</span> validate_model_node_field_ids</a></li>
-  <li><a href="#ribasim.Model.validate_model_node_ids" id="toc-ribasim.Model.validate_model_node_ids" class="nav-link" data-scroll-target="#ribasim.Model.validate_model_node_ids"><span class="header-section-number">1.2.5</span> validate_model_node_ids</a></li>
-  <li><a href="#ribasim.Model.write" id="toc-ribasim.Model.write" class="nav-link" data-scroll-target="#ribasim.Model.write"><span class="header-section-number">1.2.6</span> write</a></li>
-  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -157,9 +148,9 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.1</span> Parameters</h2>
 <table class="table">
 <colgroup>
-<col style="width: 16%">
-<col style="width: 14%">
-<col style="width: 61%">
+<col style="width: 15%">
+<col style="width: 21%">
+<col style="width: 55%">
 <col style="width: 7%">
 </colgroup>
 <thead>
@@ -173,13 +164,13 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><code>starttime</code></td>
-<td>datetime.datetime</td>
+<td>datetime.datetime.datetime</td>
 <td>Starting time of the simulation.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td><code>endtime</code></td>
-<td>datetime.datetime</td>
+<td>datetime.datetime.datetime</td>
 <td>End time of the simulation.</td>
 <td><em>required</em></td>
 </tr>
@@ -233,25 +224,25 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td><code>basin</code></td>
-<td>Basin</td>
+<td>ribasim.config.Basin</td>
 <td>The waterbodies.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td><code>fractional_flow</code></td>
-<td>FractionalFlow</td>
+<td>ribasim.config.FractionalFlow</td>
 <td>Split flows into fractions.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
 <td><code>level_boundary</code></td>
-<td>LevelBoundary</td>
+<td>ribasim.config.LevelBoundary</td>
 <td>Boundary condition specifying the water level.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td><code>flow_boundary</code></td>
-<td>FlowBoundary</td>
+<td>ribasim.config.FlowBoundary</td>
 <td>Boundary conditions specifying the flow.</td>
 <td><em>required</em></td>
 </tr>
@@ -263,190 +254,56 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td><code>manning_resistance</code></td>
-<td>ManningResistance</td>
+<td>ribasim.config.ManningResistance</td>
 <td>Flow resistance based on the Manning formula.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
 <td><code>tabulated_rating_curve</code></td>
-<td>TabulatedRatingCurve</td>
+<td>ribasim.config.TabulatedRatingCurve</td>
 <td>Tabulated rating curve describing flow based on the upstream water level.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td><code>pump</code></td>
-<td>Pump</td>
+<td>ribasim.config.Pump</td>
 <td>Prescribed flow rate from one basin to the other.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
 <td><code>outlet</code></td>
-<td>Outlet</td>
+<td>ribasim.config.Outlet</td>
 <td>Prescribed flow rate from one basin to the other.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td><code>terminal</code></td>
-<td>Terminal</td>
+<td>ribasim.config.Terminal</td>
 <td>Water sink without state or properties.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
 <td><code>discrete_control</code></td>
-<td>DiscreteControl</td>
+<td>ribasim.config.DiscreteControl</td>
 <td>Discrete control logic.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
 <td><code>pid_control</code></td>
-<td>PidControl</td>
+<td>ribasim.config.PidControl</td>
 <td>PID controller attempting to set the level of a basin to a desired value using a pump/outlet.</td>
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
 <td><code>user</code></td>
-<td>User</td>
+<td>ribasim.config.User</td>
 <td>User node type with demand and priority.</td>
 <td><em>required</em></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="methods" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="methods"><span class="header-section-number">1.2</span> Methods</h2>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#ribasim.Model.plot">plot</a></td>
-<td>Plot the nodes and edges of the model.</td>
-</tr>
-<tr class="even">
-<td><a href="#ribasim.Model.read">read</a></td>
-<td>Read model from TOML file.</td>
-</tr>
-<tr class="odd">
-<td><a href="#ribasim.Model.validate_model">validate_model</a></td>
-<td>Validate the model.</td>
-</tr>
-<tr class="even">
-<td><a href="#ribasim.Model.validate_model_node_field_ids">validate_model_node_field_ids</a></td>
-<td>Check whether the node IDs of the node_type fields are valid.</td>
-</tr>
-<tr class="odd">
-<td><a href="#ribasim.Model.validate_model_node_ids">validate_model_node_ids</a></td>
-<td>Check whether the node IDs in the data tables correspond to the node IDs in the network.</td>
-</tr>
-<tr class="even">
-<td><a href="#ribasim.Model.write">write</a></td>
-<td>Write the contents of the model to disk and save it as a TOML configuration file.</td>
-</tr>
-</tbody>
-</table>
-<section id="ribasim.Model.plot" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="ribasim.Model.plot"><span class="header-section-number">1.2.1</span> plot</h3>
-<p><code>Model.plot(ax=None)</code></p>
-<p>Plot the nodes and edges of the model.</p>
-<section id="parameters-1" class="level4" data-number="1.2.1.1">
-<h4 data-number="1.2.1.1" class="anchored" data-anchor-id="parameters-1"><span class="header-section-number">1.2.1.1</span> Parameters</h4>
-<table class="table">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 33%">
-<col style="width: 42%">
-<col style="width: 14%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>ax</code></td>
-<td>matplotlib.pyplot.Artist</td>
-<td>Axes on which to draw the plot.</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="returns" class="level4" data-number="1.2.1.2">
-<h4 data-number="1.2.1.2" class="anchored" data-anchor-id="returns"><span class="header-section-number">1.2.1.2</span> Returns</h4>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>matplotlib.pyplot.Artist</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="ribasim.Model.read" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="ribasim.Model.read"><span class="header-section-number">1.2.2</span> read</h3>
-<p><code>Model.read(filepath)</code></p>
-<p>Read model from TOML file.</p>
-</section>
-<section id="ribasim.Model.validate_model" class="level3" data-number="1.2.3">
-<h3 data-number="1.2.3" class="anchored" data-anchor-id="ribasim.Model.validate_model"><span class="header-section-number">1.2.3</span> validate_model</h3>
-<p><code>Model.validate_model()</code></p>
-<p>Validate the model.</p>
-<p>Checks: - Whether the node IDs of the node_type fields are valid - Whether the node IDs in the node field correspond to the node IDs on the node type fields</p>
-</section>
-<section id="ribasim.Model.validate_model_node_field_ids" class="level3" data-number="1.2.4">
-<h3 data-number="1.2.4" class="anchored" data-anchor-id="ribasim.Model.validate_model_node_field_ids"><span class="header-section-number">1.2.4</span> validate_model_node_field_ids</h3>
-<p><code>Model.validate_model_node_field_ids()</code></p>
-<p>Check whether the node IDs of the node_type fields are valid.</p>
-</section>
-<section id="ribasim.Model.validate_model_node_ids" class="level3" data-number="1.2.5">
-<h3 data-number="1.2.5" class="anchored" data-anchor-id="ribasim.Model.validate_model_node_ids"><span class="header-section-number">1.2.5</span> validate_model_node_ids</h3>
-<p><code>Model.validate_model_node_ids()</code></p>
-<p>Check whether the node IDs in the data tables correspond to the node IDs in the network.</p>
-</section>
-<section id="ribasim.Model.write" class="level3" data-number="1.2.6">
-<h3 data-number="1.2.6" class="anchored" data-anchor-id="ribasim.Model.write"><span class="header-section-number">1.2.6</span> write</h3>
-<p><code>Model.write(filepath)</code></p>
-<p>Write the contents of the model to disk and save it as a TOML configuration file.</p>
-<p>If <code>filepath.parent</code> does not exist, it is created before writing.</p>
-<section id="parameters-2" class="level4" data-number="1.2.6.1">
-<h4 data-number="1.2.6.1" class="anchored" data-anchor-id="parameters-2"><span class="header-section-number">1.2.6.1</span> Parameters</h4>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>filepath</code></td>
-<td>Path | str</td>
-<td></td>
-<td><em>required</em></td>
-</tr>
-</tbody>
-</table>
 
 
-</section>
-</section>
 </section>
 </section>
 
