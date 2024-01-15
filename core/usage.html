@@ -935,16 +935,16 @@ div.csl-indent {
 <td>sorted</td>
 </tr>
 <tr class="even">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td>(optional) sorted per node_id</td>
+</tr>
+<tr class="odd">
 <td>fraction</td>
 <td>Float64</td>
 <td>-</td>
 <td>in the interval [0,1]</td>
-</tr>
-<tr class="odd">
-<td>control_state</td>
-<td>String</td>
-<td>-</td>
-<td>(optional)</td>
 </tr>
 </tbody>
 </table>
@@ -969,28 +969,28 @@ div.csl-indent {
 <td>sorted</td>
 </tr>
 <tr class="even">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td>(optional) sorted per node_id</td>
+</tr>
+<tr class="odd">
 <td>active</td>
 <td>Bool</td>
 <td>-</td>
 <td>(optional, default true)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>level</td>
 <td>Float64</td>
 <td><span class="math inline">\(m\)</span></td>
 <td>sorted per control_state</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>discharge</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 <td>non-negative</td>
-</tr>
-<tr class="odd">
-<td>control_state</td>
-<td>String</td>
-<td>-</td>
-<td>(optional) sorted per node_id</td>
 </tr>
 </tbody>
 </table>
@@ -1044,16 +1044,16 @@ div.csl-indent {
 </thead>
 <tbody>
 <tr class="odd">
-<td>time</td>
-<td>DateTime</td>
+<td>node_id</td>
+<td>Int</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
 <tr class="even">
-<td>node_id</td>
-<td>Int</td>
+<td>time</td>
+<td>DateTime</td>
 <td>-</td>
-<td>sorted per time</td>
+<td>sorted per node_id</td>
 </tr>
 <tr class="odd">
 <td>level</td>
@@ -1097,33 +1097,33 @@ div.csl-indent {
 <td>sorted</td>
 </tr>
 <tr class="even">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td>(optional) sorted per node_id</td>
+</tr>
+<tr class="odd">
 <td>active</td>
 <td>Bool</td>
 <td>-</td>
 <td>(optional, default true)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 <td>non-negative</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>min_flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 <td>(optional, default 0.0)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>max_flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>(optional)</td>
-</tr>
-<tr class="even">
-<td>control_state</td>
-<td>String</td>
-<td>-</td>
 <td>(optional)</td>
 </tr>
 </tbody>
@@ -1155,39 +1155,39 @@ div.csl-indent {
 <td>sorted</td>
 </tr>
 <tr class="even">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td>(optional) sorted per node_id</td>
+</tr>
+<tr class="odd">
 <td>active</td>
 <td>Bool</td>
 <td>-</td>
 <td>(optional, default true)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 <td>non-negative</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>min_flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 <td>(optional, default 0.0)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>max_flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 <td>(optional)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>min_crest_level</td>
 <td>Float64</td>
 <td><span class="math inline">\(m\)</span></td>
-<td>(optional)</td>
-</tr>
-<tr class="odd">
-<td>control_state</td>
-<td>String</td>
-<td>-</td>
 <td>(optional)</td>
 </tr>
 </tbody>
@@ -1270,34 +1270,34 @@ div.csl-indent {
 <td>sorted</td>
 </tr>
 <tr class="even">
+<td>priority</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted per node id</td>
+</tr>
+<tr class="odd">
 <td>time</td>
 <td>DateTime</td>
 <td>-</td>
 <td>sorted per priority per node id</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>demand</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>return_factor</td>
 <td>Float64</td>
 <td>-</td>
 <td>between [0 - 1]</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>min_level</td>
 <td>Float64</td>
 <td><span class="math inline">\(m\)</span></td>
 <td>(optional)</td>
-</tr>
-<tr class="even">
-<td>priority</td>
-<td>Int</td>
-<td>-</td>
-<td>sorted per node id</td>
 </tr>
 </tbody>
 </table>
@@ -1405,16 +1405,16 @@ Note
 </thead>
 <tbody>
 <tr class="odd">
-<td>time</td>
-<td>DateTime</td>
+<td>node_id</td>
+<td>Int</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
 <tr class="even">
-<td>node_id</td>
-<td>Int</td>
+<td>time</td>
+<td>DateTime</td>
 <td>-</td>
-<td>sorted per time</td>
+<td>sorted per node_id</td>
 </tr>
 <tr class="odd">
 <td>level</td>
@@ -1473,16 +1473,16 @@ Note
 </thead>
 <tbody>
 <tr class="odd">
-<td>time</td>
-<td>DateTime</td>
+<td>node_id</td>
+<td>Int</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
 <tr class="even">
-<td>node_id</td>
-<td>Int</td>
+<td>time</td>
+<td>DateTime</td>
 <td>-</td>
-<td>sorted per time</td>
+<td>sorted per node_id</td>
 </tr>
 <tr class="odd">
 <td>flow_rate</td>
@@ -1514,22 +1514,22 @@ Note
 <td>sorted</td>
 </tr>
 <tr class="even">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td>(optional) sorted per node_id</td>
+</tr>
+<tr class="odd">
 <td>active</td>
 <td>Bool</td>
 <td>-</td>
 <td>(optional, default true)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>resistance</td>
 <td>Float64</td>
 <td><span class="math inline">\(sm^{-2}\)</span></td>
 <td>-</td>
-</tr>
-<tr class="even">
-<td>control_state</td>
-<td>String</td>
-<td>-</td>
-<td>(optional)</td>
 </tr>
 </tbody>
 </table>
@@ -1554,40 +1554,40 @@ Note
 <td>sorted</td>
 </tr>
 <tr class="even">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td>(optional) sorted per node_id</td>
+</tr>
+<tr class="odd">
 <td>active</td>
 <td>Bool</td>
 <td>-</td>
 <td>(optional, default true)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>length</td>
 <td>Float64</td>
 <td><span class="math inline">\(m\)</span></td>
 <td>positive</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>manning_n</td>
 <td>Float64</td>
 <td><span class="math inline">\(s m^{-\frac{1}{3}}\)</span></td>
 <td>positive</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>profile_width</td>
 <td>Float64</td>
 <td><span class="math inline">\(m\)</span></td>
 <td>positive</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>profile_slope</td>
 <td>Float64</td>
 <td>-</td>
 <td>-</td>
-</tr>
-<tr class="odd">
-<td>control_state</td>
-<td>String</td>
-<td>-</td>
-<td>(optional)</td>
 </tr>
 </tbody>
 </table>
@@ -1646,19 +1646,19 @@ Note
 <td>listen_feature_id</td>
 <td>Int</td>
 <td>-</td>
-<td>-</td>
+<td>sorted per node_id</td>
 </tr>
 <tr class="odd">
 <td>variable</td>
 <td>String</td>
 <td>-</td>
-<td>must be “level” or “flow_rate”</td>
+<td>must be “level” or “flow_rate”, sorted per listen_feature_id</td>
 </tr>
 <tr class="even">
 <td>greater_than</td>
 <td>Float64</td>
 <td>various</td>
-<td>-</td>
+<td>sorted per variable</td>
 </tr>
 <tr class="odd">
 <td>look_ahead</td>
@@ -1674,8 +1674,8 @@ Note
 <p>The logic schema defines which control states are triggered based on the truth of the conditions a discrete_control node listens to. DiscreteControl is applied in the Julia core as follows:</p>
 <ul>
 <li>During the simulation it is checked whether the truth of any of the conditions changes.</li>
-<li>When a condition changes, the corresponding discrrete_control node id is retrieved (node_id in the condition schema above).</li>
-<li>The truth value of all the conditions this discrete_control node lisens to are retrieved, in the order as they are specified in the condition schema. This is then converted into a string of “T” for true and “F” for false. This string we call the truth state.*</li>
+<li>When a condition changes, the corresponding discrete_control node id is retrieved (node_id in the condition schema above).</li>
+<li>The truth value of all the conditions this discrete_control node listens to are retrieved, in the order as they are specified in the condition schema. This is then converted into a string of “T” for true and “F” for false. This string we call the truth state.*</li>
 <li>The table below determines for the given discrete_control node ID and truth state what the corresponding control state is.</li>
 <li>For all the nodes this discrete_control node affects (as given by the “control” edges in <a href="../core/usage.html#edge">Edges / static</a>), their parameters are set to those parameters in <code>NodeType / static</code> corresponding to the determined control state.</li>
 </ul>
@@ -1703,16 +1703,16 @@ Note
 <td>sorted</td>
 </tr>
 <tr class="even">
-<td>truth_state</td>
-<td>String</td>
-<td>-</td>
-<td>Consists of the characters “T” (true), “F” (false), “U” (upcrossing), “D” (downcrossing) and “*” (any)</td>
-</tr>
-<tr class="odd">
 <td>control_state</td>
 <td>String</td>
 <td>-</td>
-<td></td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>truth_state</td>
+<td>String</td>
+<td>-</td>
+<td>Consists of the characters “T” (true), “F” (false), “U” (upcrossing), “D” (downcrossing) and “*” (any), sorted per node_id</td>
 </tr>
 </tbody>
 </table>
@@ -1770,44 +1770,44 @@ Note
 <td>sorted</td>
 </tr>
 <tr class="even">
+<td>control_state</td>
+<td>String</td>
+<td>-</td>
+<td>(optional) sorted per node_id</td>
+</tr>
+<tr class="odd">
 <td>active</td>
 <td>Bool</td>
 <td>-</td>
 <td>(optional, default true)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>listen_node_id</td>
 <td>Int</td>
 <td>-</td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>target</td>
 <td>Float64</td>
 <td><span class="math inline">\(m\)</span></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>proportional</td>
 <td>Float64</td>
 <td><span class="math inline">\(s^{-1}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>integral</td>
 <td>Float64</td>
 <td><span class="math inline">\(s^{-2}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>derivative</td>
 <td>Float64</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>control_state</td>
-<td>String</td>
 <td>-</td>
 <td>-</td>
 </tr>
@@ -1830,13 +1830,13 @@ Note
 <td>node_id</td>
 <td>Int</td>
 <td>-</td>
-<td>sorted per time</td>
+<td>sorted</td>
 </tr>
 <tr class="even">
 <td>time</td>
 <td>DateTime</td>
 <td>-</td>
-<td>sorted</td>
+<td>sorted per node_id</td>
 </tr>
 <tr class="odd">
 <td>listen_node_id</td>
