@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -186,33 +220,40 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-allocation-problem" id="toc-the-allocation-problem" class="nav-link active" data-scroll-target="#the-allocation-problem"><span class="header-section-number">1</span> The allocation problem</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#the-high-level-algorithm" id="toc-the-high-level-algorithm" class="nav-link" data-scroll-target="#the-high-level-algorithm"><span class="header-section-number">2</span> The high level algorithm</a></li>
+  <li><a href="#elements-of-allocation" id="toc-elements-of-allocation" class="nav-link" data-scroll-target="#elements-of-allocation"><span class="header-section-number">3</span> Elements of allocation</a>
   <ul class="collapse">
-  <li><a href="#allocation-problem-input" id="toc-allocation-problem-input" class="nav-link" data-scroll-target="#allocation-problem-input"><span class="header-section-number">1.1</span> Allocation problem input</a>
+  <li><a href="#schematisation-input" id="toc-schematisation-input" class="nav-link" data-scroll-target="#schematisation-input"><span class="header-section-number">3.1</span> Schematisation input</a>
   <ul class="collapse">
-  <li><a href="#the-subnetwork" id="toc-the-subnetwork" class="nav-link" data-scroll-target="#the-subnetwork"><span class="header-section-number">1.1.1</span> The subnetwork</a></li>
-  <li><a href="#source-flows" id="toc-source-flows" class="nav-link" data-scroll-target="#source-flows"><span class="header-section-number">1.1.2</span> Source flows</a></li>
-  <li><a href="#user-demands" id="toc-user-demands" class="nav-link" data-scroll-target="#user-demands"><span class="header-section-number">1.1.3</span> User demands</a></li>
-  <li><a href="#vertical-fluxes-and-local-storage" id="toc-vertical-fluxes-and-local-storage" class="nav-link" data-scroll-target="#vertical-fluxes-and-local-storage"><span class="header-section-number">1.1.4</span> Vertical fluxes and local storage</a></li>
-  <li><a href="#flow-magnitude-and-direction-constraints" id="toc-flow-magnitude-and-direction-constraints" class="nav-link" data-scroll-target="#flow-magnitude-and-direction-constraints"><span class="header-section-number">1.1.5</span> Flow magnitude and direction constraints</a></li>
-  <li><a href="#fractional-flows-and-user-return-flows" id="toc-fractional-flows-and-user-return-flows" class="nav-link" data-scroll-target="#fractional-flows-and-user-return-flows"><span class="header-section-number">1.1.6</span> Fractional flows and user return flows</a></li>
+  <li><a href="#the-subnetwork" id="toc-the-subnetwork" class="nav-link" data-scroll-target="#the-subnetwork"><span class="header-section-number">3.1.1</span> The subnetwork</a></li>
+  <li><a href="#source-flows" id="toc-source-flows" class="nav-link" data-scroll-target="#source-flows"><span class="header-section-number">3.1.2</span> Source flows</a></li>
+  <li><a href="#user-demands" id="toc-user-demands" class="nav-link" data-scroll-target="#user-demands"><span class="header-section-number">3.1.3</span> User demands</a></li>
   </ul></li>
-  <li><a href="#the-allocation-optimization-problem" id="toc-the-allocation-optimization-problem" class="nav-link" data-scroll-target="#the-allocation-optimization-problem"><span class="header-section-number">1.2</span> The allocation optimization problem</a>
+  <li><a href="#simulation-physical-layer-input" id="toc-simulation-physical-layer-input" class="nav-link" data-scroll-target="#simulation-physical-layer-input"><span class="header-section-number">3.2</span> Simulation (physical layer) input</a>
   <ul class="collapse">
-  <li><a href="#the-allocation-subgraph" id="toc-the-allocation-subgraph" class="nav-link" data-scroll-target="#the-allocation-subgraph"><span class="header-section-number">1.2.1</span> The allocation subgraph</a></li>
-  <li><a href="#the-allocation-graph-capacities" id="toc-the-allocation-graph-capacities" class="nav-link" data-scroll-target="#the-allocation-graph-capacities"><span class="header-section-number">1.2.2</span> The allocation graph capacities</a></li>
-  <li><a href="#the-optimization-variables" id="toc-the-optimization-variables" class="nav-link" data-scroll-target="#the-optimization-variables"><span class="header-section-number">1.2.3</span> The optimization variables</a></li>
-  <li><a href="#the-optimization-objective" id="toc-the-optimization-objective" class="nav-link" data-scroll-target="#the-optimization-objective"><span class="header-section-number">1.2.4</span> The optimization objective</a></li>
-  <li><a href="#the-optimization-variable-constraints" id="toc-the-optimization-variable-constraints" class="nav-link" data-scroll-target="#the-optimization-variable-constraints"><span class="header-section-number">1.2.5</span> The optimization variable constraints</a></li>
+  <li><a href="#vertical-fluxes-and-local-storage" id="toc-vertical-fluxes-and-local-storage" class="nav-link" data-scroll-target="#vertical-fluxes-and-local-storage"><span class="header-section-number">3.2.1</span> Vertical fluxes and local storage</a></li>
+  <li><a href="#constraining-factors" id="toc-constraining-factors" class="nav-link" data-scroll-target="#constraining-factors"><span class="header-section-number">3.2.2</span> Constraining factors</a></li>
   </ul></li>
-  <li><a href="#final-notes-on-the-allocation-problem" id="toc-final-notes-on-the-allocation-problem" class="nav-link" data-scroll-target="#final-notes-on-the-allocation-problem"><span class="header-section-number">1.3</span> Final notes on the allocation problem</a>
+  <li><a href="#the-allocation-graph" id="toc-the-allocation-graph" class="nav-link" data-scroll-target="#the-allocation-graph"><span class="header-section-number">3.3</span> The allocation graph</a>
   <ul class="collapse">
-  <li><a href="#users-using-their-own-return-flow" id="toc-users-using-their-own-return-flow" class="nav-link" data-scroll-target="#users-using-their-own-return-flow"><span class="header-section-number">1.3.1</span> Users using their own return flow</a></li>
+  <li><a href="#nodes-and-edges" id="toc-nodes-and-edges" class="nav-link" data-scroll-target="#nodes-and-edges"><span class="header-section-number">3.3.1</span> Nodes and edges</a></li>
+  <li><a href="#capacities" id="toc-capacities" class="nav-link" data-scroll-target="#capacities"><span class="header-section-number">3.3.2</span> Capacities</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#sec-solving-allocation" id="toc-sec-solving-allocation" class="nav-link" data-scroll-target="#sec-solving-allocation"><span class="header-section-number">2</span> Solving the allocation problem</a>
+  <li><a href="#the-optimization-problem" id="toc-the-optimization-problem" class="nav-link" data-scroll-target="#the-optimization-problem"><span class="header-section-number">4</span> The optimization problem</a>
   <ul class="collapse">
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">2.1</span> Example</a></li>
+  <li><a href="#the-optimization-variables" id="toc-the-optimization-variables" class="nav-link" data-scroll-target="#the-optimization-variables"><span class="header-section-number">4.1</span> The optimization variables</a></li>
+  <li><a href="#the-optimization-objective" id="toc-the-optimization-objective" class="nav-link" data-scroll-target="#the-optimization-objective"><span class="header-section-number">4.2</span> The optimization objective</a></li>
+  <li><a href="#the-optimization-constraints" id="toc-the-optimization-constraints" class="nav-link" data-scroll-target="#the-optimization-constraints"><span class="header-section-number">4.3</span> The optimization constraints</a></li>
+  <li><a href="#final-notes-on-the-allocation-problem" id="toc-final-notes-on-the-allocation-problem" class="nav-link" data-scroll-target="#final-notes-on-the-allocation-problem"><span class="header-section-number">4.4</span> Final notes on the allocation problem</a>
+  <ul class="collapse">
+  <li><a href="#users-using-their-own-return-flow" id="toc-users-using-their-own-return-flow" class="nav-link" data-scroll-target="#users-using-their-own-return-flow"><span class="header-section-number">4.4.1</span> Users using their own return flow</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#sec-solving-allocation" id="toc-sec-solving-allocation" class="nav-link" data-scroll-target="#sec-solving-allocation"><span class="header-section-number">5</span> Solving the allocation problem</a>
+  <ul class="collapse">
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">5.1</span> Example</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -237,25 +278,38 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Allocation is the process of assigning an allocated abstraction flow rate to user nodes in the model based on information about sources, user demands over various priorities, constraints introduced by nodes, local water availability and graph topology. The allocation procedure implemented in Ribasim is heavily inspired by the <a href="https://en.wikipedia.org/wiki/Maximum_flow_problem">maximum flow problem</a>.</p>
-<p>The allocation problem is solved per subnetwork of the Ribasim model. The subnetwork is used to formulate an optimization problem with the <a href="https://jump.dev/JuMP.jl/stable/">JuMP</a> package, which is solved using the <a href="https://highs.dev/">HiGHS solver</a>. For more information see also the example of solving the maximum flow problem with <code>JuMP.jl</code> <a href="https://jump.dev/JuMP.jl/stable/tutorials/linear/network_flows/#The-max-flow-problem">here</a>.</p>
-<section id="the-allocation-problem" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> The allocation problem</h1>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>Allocation is the process of assigning an allocated abstraction flow rate to user nodes in the physical layer of the model based on information about sources, user demands over various priorities, constraints introduced by nodes, local water availability and graph topology. The allocation procedure implemented in Ribasim is heavily inspired by the <a href="https://en.wikipedia.org/wiki/Maximum_flow_problem">maximum flow problem</a>.</p>
+<p>The allocation problem is solved per subnetwork of the Ribasim model. The subnetwork is used to formulate an optimization problem with the <a href="https://jump.dev/JuMP.jl/stable/">JuMP</a> package, which is solved using the <a href="https://highs.dev/">HiGHS solver</a>. For more in-depth information see also the example of solving the maximum flow problem with <code>JuMP.jl</code> <a href="https://jump.dev/JuMP.jl/stable/tutorials/linear/network_flows/#The-max-flow-problem">here</a>.</p>
+</section>
+<section id="the-high-level-algorithm" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> The high level algorithm</h1>
+<p>The allocation algorithm consists of 3 types of optimization problems:</p>
+<ol type="1">
+<li><strong>Subnetwork demand collection</strong>: Collect the demands of a subnetwork from the main network by optimizing with unlimited capacity from the main network;</li>
+<li><strong>Main network allocation</strong>: Allocate to subnetworks with the above collected demand, and users in the main network;</li>
+<li><strong>Subnetwork allocation</strong>: Allocate to users in the subnetworks with the flows allocated to the subnetwork in the main network allocation.</li>
+</ol>
+<p>The total allocation algorithm consists of performing 1 for all subnetworks, then performing 2, then performing 3 for all subnetworks. Not having a main network is also supported, then 1 and 2 are skipped.</p>
+</section>
+<section id="elements-of-allocation" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Elements of allocation</h1>
 <p>The following data of the parameters and state of a Ribasim model are relevant for the allocation problem.</p>
-<section id="allocation-problem-input" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="allocation-problem-input"><span class="header-section-number">1.1</span> Allocation problem input</h2>
-<section id="the-subnetwork" class="level3" data-number="1.1.1">
-<h3 data-number="1.1.1" class="anchored" data-anchor-id="the-subnetwork"><span class="header-section-number">1.1.1</span> The subnetwork</h3>
+<section id="schematisation-input" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="schematisation-input"><span class="header-section-number">3.1</span> Schematisation input</h2>
+<section id="the-subnetwork" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="the-subnetwork"><span class="header-section-number">3.1.1</span> The subnetwork</h3>
 <p>The allocation problem is solved per subnetwork, which is given by a subset <span class="math inline">\(S \subset V\)</span> of node ids. Different subnetworks are disjoint from eachother.</p>
 </section>
-<section id="source-flows" class="level3" data-number="1.1.2">
-<h3 data-number="1.1.2" class="anchored" data-anchor-id="source-flows"><span class="header-section-number">1.1.2</span> Source flows</h3>
+<section id="source-flows" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="source-flows"><span class="header-section-number">3.1.2</span> Source flows</h3>
 <p>Sources are indicated by a set of edges in the subnetwork <span class="math display">\[
 E_S^\text{source} \subset \left(S \times S\right) \cap E.
-\]</span> That is, if <span class="math inline">\((i,j) \in E_S^\text{source}\)</span>, then <span class="math inline">\(Q_{ij}\)</span> (see the <a href="../core/equations.html#formal-model-description">formal model description</a>) is treated as a source flow in the allocation problem.</p>
+\]</span> That is, if <span class="math inline">\((i,j) \in E_S^\text{source}\)</span>, then <span class="math inline">\(Q_{ij}\)</span> (see the <a href="../core/equations.html#formal-model-description">formal model description</a>) is treated as a source flow in the allocation problem. These edges are either coming from a boundary/source node (e.g.&nbsp;a level or flow boundary) or connect the main network to a subnetwork.</p>
 </section>
-<section id="user-demands" class="level3" data-number="1.1.3">
-<h3 data-number="1.1.3" class="anchored" data-anchor-id="user-demands"><span class="header-section-number">1.1.3</span> User demands</h3>
+<section id="user-demands" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="user-demands"><span class="header-section-number">3.1.3</span> User demands</h3>
 <p>The subnetwork contains a subset of user nodes <span class="math inline">\(U_S \subset S\)</span>, who all have time varying demands over various priorities <span class="math inline">\(p\)</span>: <span class="math display">\[
     d^p_i(t), \quad i \in U_S, p = 1,2,\ldots, p_{\max}.
 \]</span></p>
@@ -273,8 +327,11 @@ Note
 </div>
 </div>
 </section>
-<section id="vertical-fluxes-and-local-storage" class="level3" data-number="1.1.4">
-<h3 data-number="1.1.4" class="anchored" data-anchor-id="vertical-fluxes-and-local-storage"><span class="header-section-number">1.1.4</span> Vertical fluxes and local storage</h3>
+</section>
+<section id="simulation-physical-layer-input" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="simulation-physical-layer-input"><span class="header-section-number">3.2</span> Simulation (physical layer) input</h2>
+<section id="vertical-fluxes-and-local-storage" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="vertical-fluxes-and-local-storage"><span class="header-section-number">3.2.1</span> Vertical fluxes and local storage</h3>
 <p>Apart from the source flows denoted by edges, there are other sources of water in the subnetwork, associated with the basins in the subnetwork <span class="math inline">\(B_S = B \cap S\)</span>. Firstly there is the sum of the vertical fluxes (precipitation, evaporation, infiltration and drainage) for each basin <span class="math display">\[
     \phi_i(t), \quad \forall i \in B_S.
 \]</span></p>
@@ -282,20 +339,23 @@ Note
     u_i(t)-s_{\min,i}, \quad \forall i \in B_S.
 \]</span> Note that this value can be negative, which we interpret as a demand from the basin.</p>
 </section>
-<section id="flow-magnitude-and-direction-constraints" class="level3" data-number="1.1.5">
-<h3 data-number="1.1.5" class="anchored" data-anchor-id="flow-magnitude-and-direction-constraints"><span class="header-section-number">1.1.5</span> Flow magnitude and direction constraints</h3>
+<section id="constraining-factors" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="constraining-factors"><span class="header-section-number">3.2.2</span> Constraining factors</h3>
+<section id="flow-magnitude-and-direction-constraints" class="level4" data-number="3.2.2.1">
+<h4 data-number="3.2.2.1" class="anchored" data-anchor-id="flow-magnitude-and-direction-constraints"><span class="header-section-number">3.2.2.1</span> Flow magnitude and direction constraints</h4>
 <p>Nodes in the Ribasim model that have a <code>max_flow_rate</code>, i.e.&nbsp;pumps and outlets, put a constraint on the flow through that node. Some nodes only allow flow in one direction, like pumps, outlets and tabulated rating curves.</p>
 </section>
-<section id="fractional-flows-and-user-return-flows" class="level3" data-number="1.1.6">
-<h3 data-number="1.1.6" class="anchored" data-anchor-id="fractional-flows-and-user-return-flows"><span class="header-section-number">1.1.6</span> Fractional flows and user return flows</h3>
+<section id="fractional-flows-and-user-return-flows" class="level4" data-number="3.2.2.2">
+<h4 data-number="3.2.2.2" class="anchored" data-anchor-id="fractional-flows-and-user-return-flows"><span class="header-section-number">3.2.2.2</span> Fractional flows and user return flows</h4>
 <p>Both fractional flow nodes and user nodes dictate proportional relationships between flows over edges in the subnetwork. Users have a return factor <span class="math inline">\(0 \le r_i \le 1, i \in U_S\)</span>.</p>
 </section>
 </section>
-<section id="the-allocation-optimization-problem" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="the-allocation-optimization-problem"><span class="header-section-number">1.2</span> The allocation optimization problem</h2>
-<section id="the-allocation-subgraph" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="the-allocation-subgraph"><span class="header-section-number">1.2.1</span> The allocation subgraph</h3>
+</section>
+<section id="the-allocation-graph" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="the-allocation-graph"><span class="header-section-number">3.3</span> The allocation graph</h2>
 <p>A new graph is created from the subnetwork, which we call an allocation graph. The allocation graph is almost a subgraph of the main (flow) model, apart from the fact that an allocation graph can contain edges which are not in the main model.</p>
+<section id="nodes-and-edges" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="nodes-and-edges"><span class="header-section-number">3.3.1</span> Nodes and edges</h3>
 <p>The allocation graph consists of:</p>
 <ul>
 <li>Nodes <span class="math inline">\(V'_S \subset V_S\)</span>, where each basin, source and user in the subnetwork get a node in the allocation graph. Also nodes that have fractional flow outneighbors get a node in the allocation graph.</li>
@@ -306,11 +366,11 @@ Note
     V^{\text{out}}_S(i) = \left\{j \in V'_S : (i,j) \in E_S\right\} \\
     V^{\text{in}}_S(j) = \left\{i \in V'_S : (i,j) \in E_S\right\}
 \end{align}\]</span></p>
-<p>for the set of in-neighbors and out-neighbors of a node in the allocation graph respectively</p>
+<p>for the set of in-neighbors and out-neighbors of a node in the allocation graph respectively.</p>
 </section>
-<section id="the-allocation-graph-capacities" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="the-allocation-graph-capacities"><span class="header-section-number">1.2.2</span> The allocation graph capacities</h3>
-<p>The capacities of the edges of the allocation graph are collected in the sparse capacity matrix <span class="math inline">\(C_S \in \overline{\mathbb{R}}_{\ge 0}^{n'\times n'}\)</span> where <span class="math inline">\(n' = \#V'_S\)</span> is the number of nodes in the allocation graph. The capacities can be infinite.</p>
+<section id="capacities" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="capacities"><span class="header-section-number">3.3.2</span> Capacities</h3>
+<p>Each edge in the allocation graph has an associated capacity. These capacities are collected in the sparse capacity matrix <span class="math inline">\(C_S \in \overline{\mathbb{R}}_{\ge 0}^{n'\times n'}\)</span> where <span class="math inline">\(n' = \#V'_S\)</span> is the number of nodes in the allocation graph. The capacities can be infinite, if there is nothing in the model constraining the capacity of the edge.</p>
 <p>The capacities are determined in 4 different ways:</p>
 <ul>
 <li>If an edge does not exist in the allocation graph, i.e.&nbsp;<span class="math inline">\((i,j) \notin E_S\)</span> for certain <span class="math inline">\(1 \le i,j\le n'\)</span>, then <span class="math inline">\((C_S)_{i,j} = 0\)</span>;</li>
@@ -318,9 +378,14 @@ Note
 <li>If the edge is a source, the capacity of the edge is given by the flow rate of that source.</li>
 </ul>
 </section>
-<section id="the-optimization-variables" class="level3" data-number="1.2.3">
-<h3 data-number="1.2.3" class="anchored" data-anchor-id="the-optimization-variables"><span class="header-section-number">1.2.3</span> The optimization variables</h3>
-<p>There are 2 types of variables whose value has to be determined to solve the allocation problem:</p>
+</section>
+</section>
+<section id="the-optimization-problem" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> The optimization problem</h1>
+<p>The optimization problem for a subnetwork is a linear optimization problem consisting of an objective function with associated constraints on a set of variables, all of which are introduced below.</p>
+<section id="the-optimization-variables" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="the-optimization-variables"><span class="header-section-number">4.1</span> The optimization variables</h2>
+<p>There are 2 types of variable whose value has to be determined to solve the allocation problem:</p>
 <ul>
 <li>The flows <span class="math inline">\(F \in \mathbb{R}_{\ge 0}^{n'\times n'}\)</span> over the edges in the allocation graph;</li>
 <li>The allocations to the basins <span class="math display">\[
@@ -341,8 +406,8 @@ Note
 </div>
 </div>
 </section>
-<section id="the-optimization-objective" class="level3" data-number="1.2.4">
-<h3 data-number="1.2.4" class="anchored" data-anchor-id="the-optimization-objective"><span class="header-section-number">1.2.4</span> The optimization objective</h3>
+<section id="the-optimization-objective" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="the-optimization-objective"><span class="header-section-number">4.2</span> The optimization objective</h2>
 <p>The goal of allocation is to get the flow to the users as close as possible to their demand. To achieve this, the following objectives are supported:</p>
 <ul>
 <li><code>quadratic_absolute</code>: <span class="math display">\[
@@ -358,6 +423,19 @@ Note
   \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left|1 - \frac{F_{ij}}{d_j^p(t)}\right| + c \sum_{e \in E_S} F_e
 \]</span></li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When performing main network allocation, the connections to subnetworks are also interpreted as users with demands determined by subnetwork demand collection.</p>
+</div>
+</div>
 <p>To avoid division by <span class="math inline">\(0\)</span> errors, if a <code>*_relative</code> objective is used and a demand is <span class="math inline">\(0\)</span>, the coefficient of the flow <span class="math inline">\(F_{ij}\)</span> is set to <span class="math inline">\(0\)</span>.</p>
 <p>For <code>*_absolute</code> objectives the optimizer cares about the actual amount of water allocated to a user, for <code>*_relative</code> objectives it cares about the fraction of the demand allocated to the user. For <code>quadratic_*</code> objectives the optimizer cares about avoiding large shortages, for <code>linear_*</code> objectives it treats all deviations equally.</p>
 <p>The second sum in the <code>linear_*</code> objectives adds a small cost to using flows. This incentivizes the solver to use as little flow as possible. The cost <span class="math inline">\(c &gt; 0\)</span> is small enough such that it is always better to bring water to users than to not use flow at all. This can be achieved for <code>linear_*</code> objectives but not for <code>quadratic_*</code> objectives, and therefore this cost term is only added to the former. Therefore the <code>linear_*</code> objectives make the solver more conservative with flow than the <code>quadratic_*</code> objectives.</p>
@@ -389,15 +467,30 @@ Note
 </div>
 </div>
 </section>
-<section id="the-optimization-variable-constraints" class="level3" data-number="1.2.5">
-<h3 data-number="1.2.5" class="anchored" data-anchor-id="the-optimization-variable-constraints"><span class="header-section-number">1.2.5</span> The optimization variable constraints</h3>
+<section id="the-optimization-constraints" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="the-optimization-constraints"><span class="header-section-number">4.3</span> The optimization constraints</h2>
 <ul>
-<li><p>Flow conservation: For the basins in the allocation graph we have that <span id="eq-flowconservationconstraint"><span class="math display">\[
+<li>Flow conservation: For the basins in the allocation graph we have that <span id="eq-flowconservationconstraint"><span class="math display">\[
   \sum_{j=1}^{n'} F_{kj} \le \sum_{i=1}^{n'} F_{ik}, \quad \forall k \in B_S.
-\tag{1}\]</span></span> Note that we do not require equality here; in the allocation we do not mind that excess flow is ‘forgotten’ if it cannot contribute to the allocation to the users.</p></li>
-<li><p>Capacity: the flows over the edges are positive and bounded by the edge capacity: <span id="eq-capacityconstraint"><span class="math display">\[
+\tag{1}\]</span></span> Note that we do not require equality here; in the allocation we do not mind that excess flow is ‘forgotten’ if it cannot contribute to the allocation to the users.</li>
+<li>Capacity: the flows over the edges are positive and bounded by the edge capacity: <span id="eq-capacityconstraint"><span class="math display">\[
   F_{ij} \le \left(C_S\right)_{ij}, \quad \forall(i,j) \in E_S.
-\tag{2}\]</span></span> By the definition of <span class="math inline">\(C_S\)</span> this also includes the source flows.</p></li>
+\tag{2}\]</span></span> By the definition of <span class="math inline">\(C_S\)</span> this also includes the source flows.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When performing subnetwork demand collection, these capacities are set to <span class="math inline">\(\infty\)</span> for edges which connect the main network to a subnetwork.</p>
+</div>
+</div>
+<ul>
 <li><p>User outflow: The outflow of the user is dictated by the inflow and the return factor: <span id="eq-returnflowconstraint"><span class="math display">\[
   F_{ik} = r_k \cdot F_{kj} \quad
   \quad \forall k \in U_S, \quad
@@ -413,17 +506,16 @@ Note
 <li><p>Flow sign: Furthermore there are the non-negativity constraints for the flows and allocations, see <a href="../core/allocation.html#the-optimization-variables">The optimization variables</a>.</p></li>
 </ul>
 </section>
-</section>
-<section id="final-notes-on-the-allocation-problem" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="final-notes-on-the-allocation-problem"><span class="header-section-number">1.3</span> Final notes on the allocation problem</h2>
-<section id="users-using-their-own-return-flow" class="level3" data-number="1.3.1">
-<h3 data-number="1.3.1" class="anchored" data-anchor-id="users-using-their-own-return-flow"><span class="header-section-number">1.3.1</span> Users using their own return flow</h3>
+<section id="final-notes-on-the-allocation-problem" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="final-notes-on-the-allocation-problem"><span class="header-section-number">4.4</span> Final notes on the allocation problem</h2>
+<section id="users-using-their-own-return-flow" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="users-using-their-own-return-flow"><span class="header-section-number">4.4.1</span> Users using their own return flow</h3>
 <p>If not explicitly avoided, users can use their own return flow in this allocation problem formulation. Therefore, return flow of users is only taken into account by allocation if that return flow is downstream of the user where it comes from. That is, if there is no path in the directed allocation graph from the user outflow node back to the user.</p>
 </section>
 </section>
 </section>
-<section id="sec-solving-allocation" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Solving the allocation problem</h1>
+<section id="sec-solving-allocation" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Solving the allocation problem</h1>
 <p>The allocation problem for an allocation graph at time <span class="math inline">\(t\)</span> is solved per priority, as follows:</p>
 <ol type="1">
 <li>Define a capacity matrix with capacities as described above, that will be updated for each priority: <span class="math display">\[
@@ -451,19 +543,56 @@ Note
 <p>In the future there will be 2 more optimization solves: - One before optimizing for users, taking the demand/supply from basins into account; - One after optimizing for users, taking preferences over sources into account.</p>
 </div>
 </div>
-<section id="example" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="example"><span class="header-section-number">2.1</span> Example</h2>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>An example with figures and data will be added here after addition of <a href="https://github.com/Deltares/Ribasim/issues/659">allocation output files</a>.</p>
+<section id="example" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="example"><span class="header-section-number">5.1</span> Example</h2>
+<p>The following is an example of an optimization problem for the example shown <a href="../python/examples.html#model-with-allocation">here</a>:</p>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">SQLite</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>toml_path <span class="op">=</span> <span class="fu">normpath</span>(<span class="pp">@__DIR__</span>, <span class="st">"../../generated_testmodels/allocation_example/ribasim.toml"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Ribasim.<span class="fu">Model</span>(toml_path).integrator.p</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>allocation_model <span class="op">=</span> p.allocation_models[<span class="fl">1</span>]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>priority_idx <span class="op">=</span> <span class="fl">1</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">set_flow!</span>(p.graph, Ribasim.<span class="fu">NodeID</span>(<span class="fl">1</span>), Ribasim.<span class="fu">NodeID</span>(<span class="fl">2</span>), <span class="fl">1.0</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">adjust_source_flows!</span>(allocation_model, p, priority_idx)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">adjust_edge_capacities!</span>(allocation_model, p, priority_idx)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">set_objective_priority!</span>(allocation_model, p, t, priority_idx)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Min 0.05 F[(#1, #2)] + 0.05 F[(#5, #7)] + 0.05 F[(#5, #2)] + 0.05 F[(#12, #13)] + 0.05 F[(#13, #10)] + 0.05 F[(#7, #12)] + 0.05 F[(#2, #3)] + 0.05 F[(#7, #10)] + 0.05 F[(#2, #5)] + 0.05 F[(#5, #6)] + F_abs[#13] + F_abs[#6] + F_abs[#3]
+Subject to
+ abs_positive[#13] : -F[(#12, #13)] + F_abs[#13] ≥ 0
+ abs_positive[#6] : -F[(#5, #6)] + F_abs[#6] ≥ -1.5
+ abs_positive[#3] : -F[(#2, #3)] + F_abs[#3] ≥ 0
+ abs_negative[#13] : F[(#12, #13)] + F_abs[#13] ≥ 0
+ abs_negative[#6] : F[(#5, #6)] + F_abs[#6] ≥ 1.5
+ abs_negative[#3] : F[(#2, #3)] + F_abs[#3] ≥ 0
+ source[(#1, #2)] : F[(#1, #2)] ≤ 1
+ flow_conservation[#2] : -F[(#1, #2)] - F[(#5, #2)] + F[(#2, #3)] + F[(#2, #5)] ≤ 0
+ flow_conservation[#5] : F[(#5, #7)] + F[(#5, #2)] - F[(#2, #5)] + F[(#5, #6)] ≤ 0
+ flow_conservation[#12] : F[(#12, #13)] - F[(#7, #12)] ≤ 0
+ return_flow[#13] : F[(#13, #10)] ≤ 0
+ fractional_flow[(#7, #12)] : -0.4 F[(#5, #7)] + F[(#7, #12)] ≤ 0
+ F[(#1, #2)] ≥ 0
+ F[(#5, #7)] ≥ 0
+ F[(#5, #2)] ≥ 0
+ F[(#12, #13)] ≥ 0
+ F[(#13, #10)] ≥ 0
+ F[(#7, #12)] ≥ 0
+ F[(#2, #3)] ≥ 0
+ F[(#7, #10)] ≥ 0
+ F[(#2, #5)] ≥ 0
+ F[(#5, #6)] ≥ 0
+</code></pre>
 </div>
 </div>
 
