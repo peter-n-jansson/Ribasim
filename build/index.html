@@ -264,11 +264,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="../build/index.html#CommonSolve.solve!-Tuple{Ribasim.Model}"><code>solve!</code></a></li>
 <li><a href="../build/index.html#BasicModelInterface.finalize-Tuple{Ribasim.Model}"><code>BMI.finalize</code></a></li>
 </ul>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/Ribasim.jl#LL1-L14" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/Ribasim.jl#LL1-L14" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.config" href="#Ribasim.config">#</a> <strong><code>Ribasim.config</code></strong> — <em>Module</em>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">module</span> config</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Ribasim.config is a submodule of <a href="../build/index.html#Ribasim.Ribasim"><code>Ribasim</code></a> to handle the configuration of a Ribasim model. It is implemented using the <a href="https://configurations.rogerluo.dev/stable/">Configurations</a> package. A full configuration is represented by <a href="../build/index.html#Ribasim.config.Config-Tuple{AbstractString}"><code>Config</code></a>, which is the main API. Ribasim.config is a submodule mainly to avoid name clashes between the configuration sections and the rest of Ribasim.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/config.jl#LL1-L8" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/config.jl#LL1-L8" class="documenter-source">source</a><br></p>
 <p><a id="Types"></a></p>
 <p><a id="Types-1"></a></p>
 </section>
@@ -277,14 +277,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a id="Ribasim.AllocationModel" href="#Ribasim.AllocationModel">#</a> <strong><code>Ribasim.AllocationModel</code></strong> — <em>Type</em>.</p>
 <p>Store information for a subnetwork used for allocation.</p>
 <p>objective<em>type: The name of the type of objective used allocation</em>network<em>id: The ID of this allocation network capacity: The capacity per edge of the allocation graph, as constrained by nodes that have a max</em>flow<em>rate problem: The JuMP.jl model for solving the allocation problem Δt</em>allocation: The time interval between consecutive allocation solves</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL7-L15" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL7-L15" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.AllocationModel-Tuple{Ribasim.config.Config, Int64, Ribasim.Parameters, Float64}" href="#Ribasim.AllocationModel-Tuple{Ribasim.config.Config, Int64, Ribasim.Parameters, Float64}">#</a> <strong><code>Ribasim.AllocationModel</code></strong> — <em>Method</em>.</p>
 <p>Construct the JuMP.jl problem for allocation.</p>
 <p><strong>Inputs</strong></p>
 <p>config: The model configuration with allocation configuration in config.allocation p: Ribasim problem parameters Δt_allocation: The timestep between successive allocation solves</p>
 <p><strong>Outputs</strong></p>
 <p>An AllocationModel object.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL658-L670" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL658-L670" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.Basin" href="#Ribasim.Basin">#</a> <strong><code>Ribasim.Basin</code></strong> — <em>Type</em>.</p>
 <p>Requirements:</p>
 <ul>
@@ -294,22 +294,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Type parameter C indicates the content backing the StructVector, which can be a NamedTuple of vectors or Arrow Tables, and is added to avoid type instabilities. The node<em>id are Indices to support fast lookup of e.g.&nbsp;current</em>level using ID.</p>
 <p>if autodiff T = DiffCache{Vector{Float64}} else T = Vector{Float64} end</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL57-L73" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL57-L73" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.DiscreteControl" href="#Ribasim.DiscreteControl">#</a> <strong><code>Ribasim.DiscreteControl</code></strong> — <em>Type</em>.</p>
 <p>node<em>id: node ID of the DiscreteControl node; these are not unique but repeated by the amount of conditions of this DiscreteControl node listen</em>node<em>id: the ID of the node being condition on variable: the name of the variable in the condition greater</em>than: The threshold value in the condition condition<em>value: The current value of each condition control</em>state: Dictionary: node ID =&gt; (control state, control state start) logic_mapping: Dictionary: (control node ID, truth state) =&gt; control state record: Namedtuple with discrete control information for results</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL342-L352" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL342-L352" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.EdgeMetadata" href="#Ribasim.EdgeMetadata">#</a> <strong><code>Ribasim.EdgeMetadata</code></strong> — <em>Type</em>.</p>
 <p>Type for storing metadata of edges in the graph: id: ID of the edge (only used for labeling flow output) type: type of the edge allocation<em>network</em>id<em>source: ID of allocation network where this edge is a source (0 if not a source) from</em>id: the node ID of the source node to<em>id: the node ID of the destination node allocation</em>flow: whether this edge has a flow in an allocation graph</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL36-L45" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL36-L45" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.FlatVector" href="#Ribasim.FlatVector">#</a> <strong><code>Ribasim.FlatVector</code></strong> — <em>Type</em>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> FlatVector{T} <span class="op">&lt;:</span><span class="dt"> AbstractVector{T}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A FlatVector is an AbstractVector that iterates the T of a <code>Vector{Vector{T}}</code>.</p>
 <p>Each inner vector is assumed to be of equal length.</p>
 <p>It is similar to <code>Iterators.flatten</code>, though that doesn’t work with the <code>Tables.Column</code> interface, which needs <code>length</code> and <code>getindex</code> support.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL1168-L1177" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL1168-L1177" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.FlowBoundary" href="#Ribasim.FlowBoundary">#</a> <strong><code>Ribasim.FlowBoundary</code></strong> — <em>Type</em>.</p>
 <p>node<em>id: node ID of the FlowBoundary node active: whether this node is active and thus contributes flow flow</em>rate: target flow rate</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL235-L239" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL235-L239" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.FractionalFlow" href="#Ribasim.FractionalFlow">#</a> <strong><code>Ribasim.FractionalFlow</code></strong> — <em>Type</em>.</p>
 <p>Requirements:</p>
 <ul>
@@ -318,13 +318,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>fraction must be positive.</li>
 </ul>
 <p>node<em>id: node ID of the TabulatedRatingCurve node fraction: The fraction in [0,1] of flow the node lets through control</em>mapping: dictionary from (node<em>id, control</em>state) to fraction</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL207-L217" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL207-L217" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.InNeighbors" href="#Ribasim.InNeighbors">#</a> <strong><code>Ribasim.InNeighbors</code></strong> — <em>Type</em>.</p>
 <p>Iterate over incoming neighbors of a given label in a MetaGraph, only for edges of edge_type</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL126-L128" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL126-L128" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.LevelBoundary" href="#Ribasim.LevelBoundary">#</a> <strong><code>Ribasim.LevelBoundary</code></strong> — <em>Type</em>.</p>
 <p>node_id: node ID of the LevelBoundary node active: whether this node is active level: the fixed level of this ‘infinitely big basin’</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL224-L228" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL224-L228" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.LinearResistance" href="#Ribasim.LinearResistance">#</a> <strong><code>Ribasim.LinearResistance</code></strong> — <em>Type</em>.</p>
 <p>Requirements:</p>
 <ul>
@@ -332,7 +332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>to: must be (Basin,) node</li>
 </ul>
 <p>node<em>id: node ID of the LinearResistance node active: whether this node is active and thus contributes flows resistance: the resistance to flow; Q = Δh/resistance control</em>mapping: dictionary from (node<em>id, control</em>state) to resistance and/or active state</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL146-L156" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL146-L156" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.ManningResistance" href="#Ribasim.ManningResistance">#</a> <strong><code>Ribasim.ManningResistance</code></strong> — <em>Type</em>.</p>
 <p>This is a simple Manning-Gauckler reach connection.</p>
 <ul>
@@ -362,48 +362,48 @@ bottom  \______/     |
 <li>profile_slope &gt;= 0</li>
 <li>(profile<em>width == 0) xor (profile</em>slope == 0)</li>
 </ul>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL164-L196" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL164-L196" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.Model" href="#Ribasim.Model">#</a> <strong><code>Ribasim.Model</code></strong> — <em>Type</em>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Model</span>(config_path<span class="op">::</span><span class="dt">AbstractString</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Model</span>(config<span class="op">::</span><span class="dt">Config</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Initialize a Model.</p>
 <p>The Model struct is an initialized model, combined with the <a href="../build/index.html#Ribasim.config.Config-Tuple{AbstractString}"><code>Config</code></a> used to create it and saved results. The Basic Model Interface (<a href="https://github.com/Deltares/BasicModelInterface.jl">BMI</a>) is implemented on the Model. A Model can be created from the path to a TOML configuration file, or a Config object.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/lib.jl#LL6-L15" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/lib.jl#LL6-L15" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.NodeMetadata" href="#Ribasim.NodeMetadata">#</a> <strong><code>Ribasim.NodeMetadata</code></strong> — <em>Type</em>.</p>
 <p>Type for storing metadata of nodes in the graph type: type of the node allocation<em>network</em>id: Allocation network ID (0 if not in subnetwork)</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL26-L30" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL26-L30" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.OutNeighbors" href="#Ribasim.OutNeighbors">#</a> <strong><code>Ribasim.OutNeighbors</code></strong> — <em>Type</em>.</p>
 <p>Iterate over outgoing neighbors of a given label in a MetaGraph, only for edges of edge_type</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL135-L137" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL135-L137" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.Outlet" href="#Ribasim.Outlet">#</a> <strong><code>Ribasim.Outlet</code></strong> — <em>Type</em>.</p>
 <p>node<em>id: node ID of the Outlet node active: whether this node is active and thus contributes flow flow</em>rate: target flow rate min<em>flow</em>rate: The minimal flow rate of the outlet max<em>flow</em>rate: The maximum flow rate of the outlet control<em>mapping: dictionary from (node</em>id, control<em>state) to target flow rate is</em>pid_controlled: whether the flow rate of this outlet is governed by PID control</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL289-L297" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL289-L297" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.PidControl" href="#Ribasim.PidControl">#</a> <strong><code>Ribasim.PidControl</code></strong> — <em>Type</em>.</p>
 <p>PID control currently only supports regulating basin levels.</p>
 <p>node<em>id: node ID of the PidControl node active: whether this node is active and thus sets flow rates listen</em>node<em>id: the id of the basin being controlled pid</em>params: a vector interpolation for parameters changing over time. The parameters are respectively target, proportional, integral, derivative, where the last three are the coefficients for the PID equation. error: the current error; basin<em>target - current</em>level</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL370-L380" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL370-L380" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.Pump" href="#Ribasim.Pump">#</a> <strong><code>Ribasim.Pump</code></strong> — <em>Type</em>.</p>
 <p>node<em>id: node ID of the Pump node active: whether this node is active and thus contributes flow flow</em>rate: target flow rate min<em>flow</em>rate: The minimal flow rate of the pump max<em>flow</em>rate: The maximum flow rate of the pump control<em>mapping: dictionary from (node</em>id, control<em>state) to target flow rate is</em>pid_controlled: whether the flow rate of this pump is governed by PID control</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL246-L254" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL246-L254" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.Subgrid" href="#Ribasim.Subgrid">#</a> <strong><code>Ribasim.Subgrid</code></strong> — <em>Type</em>.</p>
 <p>Subgrid linearly interpolates basin levels.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL420" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL420" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.TabulatedRatingCurve" href="#Ribasim.TabulatedRatingCurve">#</a> <strong><code>Ribasim.TabulatedRatingCurve</code></strong> — <em>Type</em>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> TabulatedRatingCurve{C}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Rating curve from level to flow rate. The rating curve is a lookup table with linear interpolation in between. Relation can be updated in time, which is done by moving data from the <code>time</code> field into the <code>tables</code>, which is done in the <code>update_tabulated_rating_curve</code> callback.</p>
 <p>Type parameter C indicates the content backing the StructVector, which can be a NamedTuple of Vectors or Arrow Primitives, and is added to avoid type instabilities.</p>
 <p>node<em>id: node ID of the TabulatedRatingCurve node active: whether this node is active and thus contributes flows tables: The current Q(h) relationships time: The time table used for updating the tables control</em>mapping: dictionary from (node<em>id, control</em>state) to Q(h) and/or active state</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL121-L137" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL121-L137" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.Terminal" href="#Ribasim.Terminal">#</a> <strong><code>Ribasim.Terminal</code></strong> — <em>Type</em>.</p>
 <p>node_id: node ID of the Terminal node</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL335-L337" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL335-L337" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.User" href="#Ribasim.User">#</a> <strong><code>Ribasim.User</code></strong> — <em>Type</em>.</p>
 <p>demand: water flux demand of user per priority over time active: whether this node is active and thus demands water allocated: water flux currently allocated to user per priority return<em>factor: the factor in [0,1] of how much of the abstracted water is given back to the system min</em>level: The level of the source basin below which the user does not abstract priorities: All used priority values. Each user has a demand for all these priorities, which is 0.0 if it is not provided explicitly. record: Collected data of allocation optimizations for output file.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL391-L400" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL391-L400" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.config.Config-Tuple{AbstractString}" href="#Ribasim.config.Config-Tuple{AbstractString}">#</a> <strong><code>Ribasim.config.Config</code></strong> — <em>Method</em>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Config</span>(config_path<span class="op">::</span><span class="dt">AbstractString</span>; kwargs<span class="op">...</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Parse a TOML file to a Config. Keys can be overruled using keyword arguments. To overrule keys from a subsection, e.g.&nbsp;<code>dt</code> from the <code>solver</code> section, use underscores: <code>solver_dt</code>.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/config.jl#LL148-L153" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/config.jl#LL148-L153" class="documenter-source">source</a><br></p>
 <p><a id="Functions"></a></p>
 <p><a id="Functions-1"></a></p>
 </section>
@@ -412,161 +412,161 @@ bottom  \______/     |
 <p><a id="BasicModelInterface.finalize-Tuple{Ribasim.Model}" href="#BasicModelInterface.finalize-Tuple{Ribasim.Model}">#</a> <strong><code>BasicModelInterface.finalize</code></strong> — <em>Method</em>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>BMI.<span class="fu">finalize</span>(model<span class="op">::</span><span class="dt">Model</span>)<span class="op">::</span><span class="dt">Model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Write all results to the configured files.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL136-L140" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL136-L140" class="documenter-source">source</a><br></p>
 <p><a id="BasicModelInterface.initialize-Tuple{Type{Ribasim.Model}, AbstractString}" href="#BasicModelInterface.initialize-Tuple{Type{Ribasim.Model}, AbstractString}">#</a> <strong><code>BasicModelInterface.initialize</code></strong> — <em>Method</em>.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>BMI.<span class="fu">initialize</span>(T<span class="op">::</span><span class="dt">Type{Model}</span>, config_path<span class="op">::</span><span class="dt">AbstractString</span>)<span class="op">::</span><span class="dt">Model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Initialize a <a href="../build/index.html#Ribasim.Model"><code>Model</code></a> from the path to the TOML configuration file.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL1-L5" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL1-L5" class="documenter-source">source</a><br></p>
 <p><a id="BasicModelInterface.initialize-Tuple{Type{Ribasim.Model}, Ribasim.config.Config}" href="#BasicModelInterface.initialize-Tuple{Type{Ribasim.Model}, Ribasim.config.Config}">#</a> <strong><code>BasicModelInterface.initialize</code></strong> — <em>Method</em>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>BMI.<span class="fu">initialize</span>(T<span class="op">::</span><span class="dt">Type{Model}</span>, config<span class="op">::</span><span class="dt">Config</span>)<span class="op">::</span><span class="dt">Model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Initialize a <a href="../build/index.html#Ribasim.Model"><code>Model</code></a> from a <a href="../build/index.html#Ribasim.config.Config-Tuple{AbstractString}"><code>Config</code></a>.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL11-L15" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL11-L15" class="documenter-source">source</a><br></p>
 <p><a id="CommonSolve.solve!-Tuple{Ribasim.Model}" href="#CommonSolve.solve!-Tuple{Ribasim.Model}">#</a> <strong><code>CommonSolve.solve!</code></strong> — <em>Method</em>.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">solve!</span>(model<span class="op">::</span><span class="dt">Model</span>)<span class="op">::</span><span class="dt">ODESolution</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Solve a Model until the configured <code>endtime</code>.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/lib.jl#LL56-L60" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/lib.jl#LL56-L60" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.add_constraints_absolute_value!-Tuple{JuMP.Model, Ribasim.Parameters, Int64, Ribasim.config.Config}" href="#Ribasim.add_constraints_absolute_value!-Tuple{JuMP.Model, Ribasim.Parameters, Int64, Ribasim.config.Config}">#</a> <strong><code>Ribasim.add_constraints_absolute_value!</code></strong> — <em>Method</em>.</p>
 <p>Minimizing |expr| can be achieved by introducing a new variable expr<em>abs and posing the following constraints: expr</em>abs &gt;= expr expr_abs &gt;= -expr</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL514-L519" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL514-L519" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.add_constraints_capacity!-Tuple{JuMP.Model, SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Int64}" href="#Ribasim.add_constraints_capacity!-Tuple{JuMP.Model, SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Int64}">#</a> <strong><code>Ribasim.add_constraints_capacity!</code></strong> — <em>Method</em>.</p>
 <p>Add the flow capacity constraints to the allocation problem. Only finite capacities get a constraint. The constraint indices are (edge<em>source</em>id, edge<em>dst</em>id).</p>
 <p>Constraint: flow over edge &lt;= edge capacity</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL363-L370" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL363-L370" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.add_constraints_flow_conservation!-Tuple{JuMP.Model, Ribasim.Parameters, Int64}" href="#Ribasim.add_constraints_flow_conservation!-Tuple{JuMP.Model, Ribasim.Parameters, Int64}">#</a> <strong><code>Ribasim.add_constraints_flow_conservation!</code></strong> — <em>Method</em>.</p>
 <p>Add the flow conservation constraints to the allocation problem. The constraint indices are user node IDs.</p>
 <p>Constraint: sum(flows out of node node) &lt;= flows into node + flow from storage and vertical fluxes</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL452-L458" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL452-L458" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.add_constraints_fractional_flow!-Tuple{JuMP.Model, Ribasim.Parameters, Int64}" href="#Ribasim.add_constraints_fractional_flow!-Tuple{JuMP.Model, Ribasim.Parameters, Int64}">#</a> <strong><code>Ribasim.add_constraints_fractional_flow!</code></strong> — <em>Method</em>.</p>
 <p>Add the fractional flow constraints to the allocation problem. The constraint indices are allocation edges over a fractional flow node.</p>
 <p>Constraint: flow after fractional_flow node &lt;= fraction * inflow</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL579-L585" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL579-L585" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.add_constraints_source!-Tuple{JuMP.Model, Ribasim.Parameters, Int64}" href="#Ribasim.add_constraints_source!-Tuple{JuMP.Model, Ribasim.Parameters, Int64}">#</a> <strong><code>Ribasim.add_constraints_source!</code></strong> — <em>Method</em>.</p>
 <p>Add the source constraints to the allocation problem. The actual threshold values will be set before each allocation solve. The constraint indices are (edge<em>source</em>id, edge<em>dst</em>id).</p>
 <p>Constraint: flow over source edge &lt;= source flow in subnetwork</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL395-L402" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL395-L402" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.add_constraints_user_returnflow!-Tuple{JuMP.Model, Ribasim.Parameters, Int64}" href="#Ribasim.add_constraints_user_returnflow!-Tuple{JuMP.Model, Ribasim.Parameters, Int64}">#</a> <strong><code>Ribasim.add_constraints_user_returnflow!</code></strong> — <em>Method</em>.</p>
 <p>Add the user returnflow constraints to the allocation problem. The constraint indices are user node IDs.</p>
 <p>Constraint: outflow from user &lt;= return factor * inflow to user</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL483-L489" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL483-L489" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.add_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Number}" href="#Ribasim.add_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Number}">#</a> <strong><code>Ribasim.add_flow!</code></strong> — <em>Method</em>.</p>
 <p>Add the given flow q to the flow over the edge on the horizontal (self-loop) edge from id to id.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL206-L208" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL206-L208" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.add_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID, Number}" href="#Ribasim.add_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID, Number}">#</a> <strong><code>Ribasim.add_flow!</code></strong> — <em>Method</em>.</p>
 <p>Add the given flow q to the existing flow over the edge between the given nodes.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL197-L199" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL197-L199" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.add_variables_absolute_value!-Tuple{JuMP.Model, Ribasim.Parameters, Int64, Ribasim.config.Config}" href="#Ribasim.add_variables_absolute_value!-Tuple{JuMP.Model, Ribasim.Parameters, Int64, Ribasim.config.Config}">#</a> <strong><code>Ribasim.add_variables_absolute_value!</code></strong> — <em>Method</em>.</p>
 <p>Certain allocation distribution types use absolute values in the objective function. Since most optimization packages do not support the absolute value function directly, New variables are introduced that act as the absolute value of an expression by posing the appropriate constraints.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL342-L347" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL342-L347" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.add_variables_flow!-Tuple{JuMP.Model, Ribasim.Parameters, Int64}" href="#Ribasim.add_variables_flow!-Tuple{JuMP.Model, Ribasim.Parameters, Int64}">#</a> <strong><code>Ribasim.add_variables_flow!</code></strong> — <em>Method</em>.</p>
 <p>Add the flow variables F to the allocation problem. The variable indices are (edge<em>source</em>id, edge<em>dst</em>id). Non-negativivity constraints are also immediately added to the flow variables.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL326-L330" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL326-L330" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.adjust_edge_capacities!-Tuple{Ribasim.AllocationModel, Ribasim.Parameters, Int64}" href="#Ribasim.adjust_edge_capacities!-Tuple{Ribasim.AllocationModel, Ribasim.Parameters, Int64}">#</a> <strong><code>Ribasim.adjust_edge_capacities!</code></strong> — <em>Method</em>.</p>
 <p>Set the values of the edge capacities. 2 cases:</p>
 <ul>
 <li>Before the first allocation solve, set the edge capacities to their full capacity;</li>
 <li>Before an allocation solve, subtract the flow used by allocation for the previous priority from the edge capacities.</li>
 </ul>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL862-L867" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL862-L867" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.adjust_source_flows!-Tuple{Ribasim.AllocationModel, Ribasim.Parameters, Int64}" href="#Ribasim.adjust_source_flows!-Tuple{Ribasim.AllocationModel, Ribasim.Parameters, Int64}">#</a> <strong><code>Ribasim.adjust_source_flows!</code></strong> — <em>Method</em>.</p>
 <p>Adjust the source flows.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL824-L826" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL824-L826" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.all_neighbor_labels_type-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.EdgeType.T}" href="#Ribasim.all_neighbor_labels_type-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.EdgeType.T}">#</a> <strong><code>Ribasim.all_neighbor_labels_type</code></strong> — <em>Method</em>.</p>
 <p>Get the in- and outneighbor node IDs of the given node ID (label) over the given edge type in the graph.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL255-L258" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL255-L258" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.allocate!-Tuple{Ribasim.Parameters, Ribasim.AllocationModel, Float64}" href="#Ribasim.allocate!-Tuple{Ribasim.Parameters, Ribasim.AllocationModel, Float64}">#</a> <strong><code>Ribasim.allocate!</code></strong> — <em>Method</em>.</p>
 <p>Update the allocation optimization problem for the given subnetwork with the problem state and flows, solve the allocation problem and assign the results to the users.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL901-L904" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL901-L904" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.allocation_graph-Tuple{Ribasim.Parameters, Int64}" href="#Ribasim.allocation_graph-Tuple{Ribasim.Parameters, Int64}">#</a> <strong><code>Ribasim.allocation_graph</code></strong> — <em>Method</em>.</p>
 <p>Build the graph used for the allocation problem.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL300-L302" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL300-L302" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.allocation_graph_used_nodes!-Tuple{Ribasim.Parameters, Int64}" href="#Ribasim.allocation_graph_used_nodes!-Tuple{Ribasim.Parameters, Int64}">#</a> <strong><code>Ribasim.allocation_graph_used_nodes!</code></strong> — <em>Method</em>.</p>
 <p>Find all nodes in the subnetwork which will be used in the allocation network. Some nodes are skipped to optimize allocation optimization.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL1-L4" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL1-L4" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.allocation_path_exists_in_graph-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID}" href="#Ribasim.allocation_path_exists_in_graph-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID}">#</a> <strong><code>Ribasim.allocation_path_exists_in_graph</code></strong> — <em>Method</em>.</p>
 <p>Find out whether a path exists between a start node and end node in the given allocation graph.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL1236" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL1236" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.allocation_problem-Tuple{Ribasim.config.Config, Ribasim.Parameters, SparseArrays.SparseMatrixCSC{Float64, Int64}, Int64}" href="#Ribasim.allocation_problem-Tuple{Ribasim.config.Config, Ribasim.Parameters, SparseArrays.SparseMatrixCSC{Float64, Int64}, Int64}">#</a> <strong><code>Ribasim.allocation_problem</code></strong> — <em>Method</em>.</p>
 <p>Construct the allocation problem for the current subnetwork as a JuMP.jl model.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL630-L632" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL630-L632" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.allocation_table-Tuple{Ribasim.Model}" href="#Ribasim.allocation_table-Tuple{Ribasim.Model}">#</a> <strong><code>Ribasim.allocation_table</code></strong> — <em>Method</em>.</p>
 <p>Create an allocation result table for the saved data</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/io.jl#LL242" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/io.jl#LL242" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.assign_allocations!-Tuple{Ribasim.AllocationModel, Ribasim.Parameters, Float64, Int64}" href="#Ribasim.assign_allocations!-Tuple{Ribasim.AllocationModel, Ribasim.Parameters, Float64, Int64}">#</a> <strong><code>Ribasim.assign_allocations!</code></strong> — <em>Method</em>.</p>
 <p>Assign the allocations to the users as determined by the solution of the allocation problem.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL784-L786" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL784-L786" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.avoid_using_own_returnflow!-Tuple{Ribasim.Parameters, Int64}" href="#Ribasim.avoid_using_own_returnflow!-Tuple{Ribasim.Parameters, Int64}">#</a> <strong><code>Ribasim.avoid_using_own_returnflow!</code></strong> — <em>Method</em>.</p>
 <p>Remove allocation user return flow edges that are upstream of the user itself.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL278-L280" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL278-L280" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.basin_bottom-Tuple{Ribasim.Basin, Ribasim.NodeID}" href="#Ribasim.basin_bottom-Tuple{Ribasim.Basin, Ribasim.NodeID}">#</a> <strong><code>Ribasim.basin_bottom</code></strong> — <em>Method</em>.</p>
 <p>Return the bottom elevation of the basin with index i, or nothing if it doesn’t exist</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL730" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL730" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.basin_bottoms-Tuple{Ribasim.Basin, Ribasim.NodeID, Ribasim.NodeID, Ribasim.NodeID}" href="#Ribasim.basin_bottoms-Tuple{Ribasim.Basin, Ribasim.NodeID, Ribasim.NodeID, Ribasim.NodeID}">#</a> <strong><code>Ribasim.basin_bottoms</code></strong> — <em>Method</em>.</p>
 <p>Get the bottom on both ends of a node. If only one has a bottom, use that for both.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL743" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL743" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.basin_table-Tuple{Ribasim.Model}" href="#Ribasim.basin_table-Tuple{Ribasim.Model}">#</a> <strong><code>Ribasim.basin_table</code></strong> — <em>Method</em>.</p>
 <p>Create the basin result table from the saved data</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/io.jl#LL153" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/io.jl#LL153" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.create_callbacks-Tuple{Ribasim.Parameters, Ribasim.config.Config}" href="#Ribasim.create_callbacks-Tuple{Ribasim.Parameters, Ribasim.config.Config}">#</a> <strong><code>Ribasim.create_callbacks</code></strong> — <em>Method</em>.</p>
 <p>Create the different callbacks that are used to store results and feed the simulation with new data. The different callbacks are combined to a CallbackSet that goes to the integrator. Returns the CallbackSet and the SavedValues for flow.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL199-L204" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL199-L204" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.create_graph-Tuple{SQLite.DB, Ribasim.config.Config, Vector{Int64}}" href="#Ribasim.create_graph-Tuple{SQLite.DB, Ribasim.config.Config, Vector{Int64}}">#</a> <strong><code>Ribasim.create_graph</code></strong> — <em>Method</em>.</p>
 <p>Return a directed metagraph with data of nodes (NodeMetadata): <a href="../build/index.html#Ribasim.NodeMetadata"><code>NodeMetadata</code></a></p>
 <p>and data of edges (EdgeMetadata): <a href="../build/index.html#Ribasim.EdgeMetadata"><code>EdgeMetadata</code></a></p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL31-L37" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL31-L37" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.create_storage_tables-Tuple{SQLite.DB, Ribasim.config.Config}" href="#Ribasim.create_storage_tables-Tuple{SQLite.DB, Ribasim.config.Config}">#</a> <strong><code>Ribasim.create_storage_tables</code></strong> — <em>Method</em>.</p>
 <p>Read the Basin / profile table and return all area and level and computed storage values</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL330" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL330" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.datetime_since-Tuple{Real, Dates.DateTime}" href="#Ribasim.datetime_since-Tuple{Real, Dates.DateTime}">#</a> <strong><code>Ribasim.datetime_since</code></strong> — <em>Method</em>.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datetime_since</span>(t<span class="op">::</span><span class="dt">Real</span>, t0<span class="op">::</span><span class="dt">DateTime</span>)<span class="op">::</span><span class="dt">DateTime</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Convert a Real that represents the seconds passed since the simulation start to the nearest DateTime. This is used to convert between the solver’s inner float time, and the calendar.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/io.jl#LL39-L44" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/io.jl#LL39-L44" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.datetimes-Tuple{Ribasim.Model}" href="#Ribasim.datetimes-Tuple{Ribasim.Model}">#</a> <strong><code>Ribasim.datetimes</code></strong> — <em>Method</em>.</p>
 <p>Get all saved times as a Vector{DateTime}</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/lib.jl#LL40" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/lib.jl#LL40" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.discrete_control_affect!-Tuple{Any, Int64, Union{Missing, Bool}}" href="#Ribasim.discrete_control_affect!-Tuple{Any, Int64, Union{Missing, Bool}}">#</a> <strong><code>Ribasim.discrete_control_affect!</code></strong> — <em>Method</em>.</p>
 <p>Change parameters based on the control logic.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL399-L401" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL399-L401" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.discrete_control_affect_downcrossing!-Tuple{Any, Any}" href="#Ribasim.discrete_control_affect_downcrossing!-Tuple{Any, Any}">#</a> <strong><code>Ribasim.discrete_control_affect_downcrossing!</code></strong> — <em>Method</em>.</p>
 <p>An downcrossing means that a condition (always greater than) becomes false.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL366-L368" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL366-L368" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.discrete_control_affect_upcrossing!-Tuple{Any, Any}" href="#Ribasim.discrete_control_affect_upcrossing!-Tuple{Any, Any}">#</a> <strong><code>Ribasim.discrete_control_affect_upcrossing!</code></strong> — <em>Method</em>.</p>
 <p>An upcrossing means that a condition (always greater than) becomes true.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL330-L332" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL330-L332" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.discrete_control_condition-NTuple{4, Any}" href="#Ribasim.discrete_control_condition-NTuple{4, Any}">#</a> <strong><code>Ribasim.discrete_control_condition</code></strong> — <em>Method</em>.</p>
 <p>Listens for changes in condition truths.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL264-L266" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL264-L266" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.discrete_control_table-Tuple{Ribasim.Model}" href="#Ribasim.discrete_control_table-Tuple{Ribasim.Model}">#</a> <strong><code>Ribasim.discrete_control_table</code></strong> — <em>Method</em>.</p>
 <p>Create a discrete control result table from the saved data</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/io.jl#LL226" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/io.jl#LL226" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.expand_logic_mapping-Tuple{Dict{Tuple{Ribasim.NodeID, String}, String}}" href="#Ribasim.expand_logic_mapping-Tuple{Dict{Tuple{Ribasim.NodeID, String}, String}}">#</a> <strong><code>Ribasim.expand_logic_mapping</code></strong> — <em>Method</em>.</p>
 <p>Replace the truth states in the logic mapping which contain wildcards with all possible explicit truth states.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL875-L878" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL875-L878" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.find_allocation_graph_edges!-Tuple{Ribasim.Parameters, Int64}" href="#Ribasim.find_allocation_graph_edges!-Tuple{Ribasim.Parameters, Int64}">#</a> <strong><code>Ribasim.find_allocation_graph_edges!</code></strong> — <em>Method</em>.</p>
 <p>This loop finds allocation graph edges in several ways:</p>
 <ul>
 <li>Between allocation graph nodes whose equivalent in the subnetwork are directly connected</li>
 <li>Between allocation graph nodes whose equivalent in the subnetwork are connected with one or more allocation graph nodes in between</li>
 </ul>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL61-L66" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL61-L66" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.findlastgroup-Tuple{Int64, AbstractVector{Int64}}" href="#Ribasim.findlastgroup-Tuple{Int64, AbstractVector{Int64}}">#</a> <strong><code>Ribasim.findlastgroup</code></strong> — <em>Method</em>.</p>
 <p>For an element <code>id</code> and a vector of elements <code>ids</code>, get the range of indices of the last consecutive block of <code>id</code>. Returns the empty range <code>1:0</code> if <code>id</code> is not in <code>ids</code>.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#                         1 2 3 4 5 6 7 8 9</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">findlastgroup</span>(<span class="fl">2</span>, [<span class="fl">5</span>,<span class="fl">4</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">1</span>])</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># output</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fl">6</span><span class="op">:</span><span class="fl">8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL502-L513" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL502-L513" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.findsorted-Tuple{Any, Any}" href="#Ribasim.findsorted-Tuple{Any, Any}">#</a> <strong><code>Ribasim.findsorted</code></strong> — <em>Method</em>.</p>
 <p>Find the index of element x in a sorted collection a. Returns the index of x if it exists, or nothing if it doesn’t. If x occurs more than once, throw an error.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL604-L608" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL604-L608" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.flow_table-Tuple{Ribasim.Model}" href="#Ribasim.flow_table-Tuple{Ribasim.Model}">#</a> <strong><code>Ribasim.flow_table</code></strong> — <em>Method</em>.</p>
 <p>Create a flow result table from the saved data</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/io.jl#LL172" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/io.jl#LL172" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.formulate_basins!-Tuple{AbstractVector, Ribasim.Basin, MetaGraphsNext.MetaGraph, AbstractVector}" href="#Ribasim.formulate_basins!-Tuple{AbstractVector, Ribasim.Basin, MetaGraphsNext.MetaGraph, AbstractVector}">#</a> <strong><code>Ribasim.formulate_basins!</code></strong> — <em>Method</em>.</p>
 <p>Smoothly let the evaporation flux go to 0 when at small water depths Currently at less than 0.1 m.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL535-L538" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL535-L538" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.formulate_flow!-Tuple{Ribasim.LinearResistance, Ribasim.Parameters, AbstractVector, Number}" href="#Ribasim.formulate_flow!-Tuple{Ribasim.LinearResistance, Ribasim.Parameters, AbstractVector, Number}">#</a> <strong><code>Ribasim.formulate_flow!</code></strong> — <em>Method</em>.</p>
 <p>Directed graph: outflow is positive!</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL792-L794" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL792-L794" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.formulate_flow!-Tuple{Ribasim.ManningResistance, Ribasim.Parameters, AbstractVector, Number}" href="#Ribasim.formulate_flow!-Tuple{Ribasim.ManningResistance, Ribasim.Parameters, AbstractVector, Number}">#</a> <strong><code>Ribasim.formulate_flow!</code></strong> — <em>Method</em>.</p>
 <p>Conservation of energy for two basins, a and b:</p>
 <pre><code>h_a + v_a^2 / (2 * g) = h_b + v_b^2 / (2 * g) + S_f * L + C / 2 * g * (v_b^2 - v_a^2)</code></pre>
@@ -594,133 +594,135 @@ bottom  \______/     |
 <pre><code>R_h = A / P</code></pre>
 <p>Where P is the wetted perimeter.</p>
 <p>The average of the upstream and downstream water depth is used to compute cross-sectional area and hydraulic radius. This ensures that a basin can receive water after it has gone dry.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL858-L896" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL858-L896" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.formulate_flow!-Tuple{Ribasim.TabulatedRatingCurve, Ribasim.Parameters, AbstractVector, Number}" href="#Ribasim.formulate_flow!-Tuple{Ribasim.TabulatedRatingCurve, Ribasim.Parameters, AbstractVector, Number}">#</a> <strong><code>Ribasim.formulate_flow!</code></strong> — <em>Method</em>.</p>
 <p>Directed graph: outflow is positive!</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL828-L830" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL828-L830" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.get_area_and_level-Tuple{Ribasim.Basin, Int64, Real}" href="#Ribasim.get_area_and_level-Tuple{Ribasim.Basin, Int64, Real}">#</a> <strong><code>Ribasim.get_area_and_level</code></strong> — <em>Method</em>.</p>
 <p>Compute the area and level of a basin given its storage. Also returns darea/dlevel as it is needed for the Jacobian.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL414-L417" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL414-L417" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.get_chunk_sizes-Tuple{Ribasim.config.Config, Int64}" href="#Ribasim.get_chunk_sizes-Tuple{Ribasim.config.Config, Int64}">#</a> <strong><code>Ribasim.get_chunk_sizes</code></strong> — <em>Method</em>.</p>
 <p>Get the chunk sizes for DiffCache; differentiation w.r.t. u and t (the latter only if a Rosenbrock algorithm is used).</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/create.jl#LL778-L781" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/create.jl#LL778-L781" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.get_compressor-Tuple{Ribasim.config.Results}" href="#Ribasim.get_compressor-Tuple{Ribasim.config.Results}">#</a> <strong><code>Ribasim.get_compressor</code></strong> — <em>Method</em>.</p>
 <p>Get the compressor based on the Results section</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL760" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL760" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.get_flow-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Any}" href="#Ribasim.get_flow-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Any}">#</a> <strong><code>Ribasim.get_flow</code></strong> — <em>Method</em>.</p>
 <p>Get the flow over the given horizontal (selfloop) edge (val is needed for get_tmp from ForwardDiff.jl).</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL223-L225" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL223-L225" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.get_flow-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID, Any}" href="#Ribasim.get_flow-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID, Any}">#</a> <strong><code>Ribasim.get_flow</code></strong> — <em>Method</em>.</p>
 <p>Get the flow over the given edge (val is needed for get_tmp from ForwardDiff.jl).</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL215-L217" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL215-L217" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.get_fractional_flow_connected_basins-Tuple{Ribasim.NodeID, Ribasim.Basin, Ribasim.FractionalFlow, MetaGraphsNext.MetaGraph}" href="#Ribasim.get_fractional_flow_connected_basins-Tuple{Ribasim.NodeID, Ribasim.Basin, Ribasim.FractionalFlow, MetaGraphsNext.MetaGraph}">#</a> <strong><code>Ribasim.get_fractional_flow_connected_basins</code></strong> — <em>Method</em>.</p>
 <p>Get the node type specific indices of the fractional flows and basins, that are consecutively connected to a node of given id.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL1136-L1139" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL1136-L1139" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.get_jac_prototype-Tuple{Ribasim.Parameters}" href="#Ribasim.get_jac_prototype-Tuple{Ribasim.Parameters}">#</a> <strong><code>Ribasim.get_jac_prototype</code></strong> — <em>Method</em>.</p>
 <p>Get a sparse matrix whose sparsity matches the sparsity of the Jacobian of the ODE problem. All nodes are taken into consideration, also the ones that are inactive.</p>
 <p>In Ribasim the Jacobian is typically sparse because each state only depends on a small number of other states.</p>
 <p>Note: the name ‘prototype’ does not mean this code is a prototype, it comes from the naming convention of this sparsity structure in the differentialequations.jl docs.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL935-L946" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL935-L946" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.get_level-Tuple{Ribasim.Parameters, Ribasim.NodeID, Number}" href="#Ribasim.get_level-Tuple{Ribasim.Parameters, Ribasim.NodeID, Number}">#</a> <strong><code>Ribasim.get_level</code></strong> — <em>Method</em>.</p>
 <p>Get the current water level of a node ID. The ID can belong to either a Basin or a LevelBoundary. storage: tells ForwardDiff whether this call is for differentiation or not</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL696-L700" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL696-L700" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.get_scalar_interpolation-Tuple{Dates.DateTime, Float64, AbstractVector, Int64, Symbol}" href="#Ribasim.get_scalar_interpolation-Tuple{Dates.DateTime, Float64, AbstractVector, Int64, Symbol}">#</a> <strong><code>Ribasim.get_scalar_interpolation</code></strong> — <em>Method</em>.</p>
 <p>Linear interpolation of a scalar with constant extrapolation.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL529" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL529" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.get_storage_from_level-Tuple{Ribasim.Basin, Int64, Float64}" href="#Ribasim.get_storage_from_level-Tuple{Ribasim.Basin, Int64, Float64}">#</a> <strong><code>Ribasim.get_storage_from_level</code></strong> — <em>Method</em>.</p>
 <p>Get the storage of a basin from its level.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL351" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL351" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.get_storages_and_levels-Tuple{Ribasim.Model}" href="#Ribasim.get_storages_and_levels-Tuple{Ribasim.Model}">#</a> <strong><code>Ribasim.get_storages_and_levels</code></strong> — <em>Method</em>.</p>
 <p>Get the storage and level of all basins as matrices of nbasin × ntime</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/io.jl#LL128" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/io.jl#LL128" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.get_storages_from_levels-Tuple{Ribasim.Basin, Vector}" href="#Ribasim.get_storages_from_levels-Tuple{Ribasim.Basin, Vector}">#</a> <strong><code>Ribasim.get_storages_from_levels</code></strong> — <em>Method</em>.</p>
 <p>Compute the storages of the basins based on the water level of the basins.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL389" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL389" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.get_tstops-Tuple{Any, Dates.DateTime}" href="#Ribasim.get_tstops-Tuple{Any, Dates.DateTime}">#</a> <strong><code>Ribasim.get_tstops</code></strong> — <em>Method</em>.</p>
 <p>From an iterable of DateTimes, find the times the solver needs to stop</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL690" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL690" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.get_value-Tuple{Ribasim.Parameters, Ribasim.NodeID, String, Float64, AbstractVector{Float64}, Float64}" href="#Ribasim.get_value-Tuple{Ribasim.Parameters, Ribasim.NodeID, String, Float64, AbstractVector{Float64}, Float64}">#</a> <strong><code>Ribasim.get_value</code></strong> — <em>Method</em>.</p>
 <p>Get a value for a condition. Currently supports getting levels from basins and flows from flow boundaries.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL285-L288" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL285-L288" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.id_index-Tuple{Dictionaries.Indices{Ribasim.NodeID}, Ribasim.NodeID}" href="#Ribasim.id_index-Tuple{Dictionaries.Indices{Ribasim.NodeID}, Ribasim.NodeID}">#</a> <strong><code>Ribasim.id_index</code></strong> — <em>Method</em>.</p>
 <p>Get the index of an ID in a set of indices.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL722" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL722" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.indicate_allocation_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID}" href="#Ribasim.indicate_allocation_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID}">#</a> <strong><code>Ribasim.indicate_allocation_flow!</code></strong> — <em>Method</em>.</p>
 <p>Add to the edge metadata that the given edge is used for allocation flow. If the edge does not exist, it is created.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL42-L45" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL42-L45" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.inflow_id-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID}" href="#Ribasim.inflow_id-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID}">#</a> <strong><code>Ribasim.inflow_id</code></strong> — <em>Method</em>.</p>
 <p>Get the unique inneighbor over a flow edge.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL298-L300" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL298-L300" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.inflow_ids-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID}" href="#Ribasim.inflow_ids-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID}">#</a> <strong><code>Ribasim.inflow_ids</code></strong> — <em>Method</em>.</p>
 <p>Get the inneighbors over flow edges.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL277-L279" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL277-L279" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.inflow_ids_allocation-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID}" href="#Ribasim.inflow_ids_allocation-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID}">#</a> <strong><code>Ribasim.inflow_ids_allocation</code></strong> — <em>Method</em>.</p>
 <p>Get the inneighbors of the given ID such that the connecting edge is an allocation flow edge.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL424-L427" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL424-L427" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.inneighbor_labels_type-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.EdgeType.T}" href="#Ribasim.inneighbor_labels_type-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.EdgeType.T}">#</a> <strong><code>Ribasim.inneighbor_labels_type</code></strong> — <em>Method</em>.</p>
 <p>Get the inneighbor node IDs of the given node ID (label) over the given edge type in the graph.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL231-L234" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL231-L234" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.inoutflow_ids-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID}" href="#Ribasim.inoutflow_ids-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID}">#</a> <strong><code>Ribasim.inoutflow_ids</code></strong> — <em>Method</em>.</p>
 <p>Get the in- and outneighbors over flow edges.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL284-L286" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL284-L286" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.is_allocation_source-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID}" href="#Ribasim.is_allocation_source-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID}">#</a> <strong><code>Ribasim.is_allocation_source</code></strong> — <em>Method</em>.</p>
 <p>Find out whether the given edge is a source for an allocation network.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL34-L36" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL34-L36" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.is_current_module-Tuple{Any}" href="#Ribasim.is_current_module-Tuple{Any}">#</a> <strong><code>Ribasim.is_current_module</code></strong> — <em>Method</em>.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_current_module</span>(log<span class="op">::</span><span class="dt">LogMessageType</span>)<span class="op">::</span><span class="dt">Bool</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>Returns <span class="cn">true</span> <span class="cf">if</span> the log message is from the current <span class="kw">module</span> or a submodule.</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>See https<span class="op">://</span>github.com<span class="op">/</span>JuliaLogging<span class="op">/</span>LoggingExtras.jl<span class="op">/</span>blob<span class="op">/</span>d35e7c8cfc197853ee336ace17182e6ed36dca24<span class="op">/</span>src<span class="op">/</span>CompositionalLoggers<span class="op">/</span>earlyfiltered.jl<span class="co">#L39</span></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> the information available <span class="kw">in</span> log.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/logging.jl#LL1-L7" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/logging.jl#LL1-L7" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.is_flow_constraining-Tuple{Ribasim.AbstractParameterNode}" href="#Ribasim.is_flow_constraining-Tuple{Ribasim.AbstractParameterNode}">#</a> <strong><code>Ribasim.is_flow_constraining</code></strong> — <em>Method</em>.</p>
 <p>Whether the given node node is flow constraining by having a maximum flow rate.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL1229" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL1229" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.is_flow_direction_constraining-Tuple{Ribasim.AbstractParameterNode}" href="#Ribasim.is_flow_direction_constraining-Tuple{Ribasim.AbstractParameterNode}">#</a> <strong><code>Ribasim.is_flow_direction_constraining</code></strong> — <em>Method</em>.</p>
 <p>Whether the given node is flow direction constraining (only in direction of edges).</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL1232" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL1232" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.load_data-Tuple{SQLite.DB, Ribasim.config.Config, Type{<:Legolas.AbstractRecord}}" href="#Ribasim.load_data-Tuple{SQLite.DB, Ribasim.config.Config, Type{<:Legolas.AbstractRecord}}">#</a> <strong><code>Ribasim.load_data</code></strong> — <em>Method</em>.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load_data</span>(db<span class="op">::</span><span class="dt">DB</span>, config<span class="op">::</span><span class="dt">Config</span>, nodetype<span class="op">::</span><span class="dt">Symbol</span>, kind<span class="op">::</span><span class="dt">Symbol</span>)<span class="op">::</span><span class="dt">Union{Table, Query, Nothing}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Load data from Arrow files if available, otherwise the database. Returns either an <code>Arrow.Table</code>, <code>SQLite.Query</code> or <code>nothing</code> if the data is not present.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/io.jl#LL47-L52" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/io.jl#LL47-L52" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.load_structvector-Union{Tuple{T}, Tuple{SQLite.DB, Ribasim.config.Config, Type{T}}} where T<:Tables.AbstractRow" href="#Ribasim.load_structvector-Union{Tuple{T}, Tuple{SQLite.DB, Ribasim.config.Config, Type{T}}} where T<:Tables.AbstractRow">#</a> <strong><code>Ribasim.load_structvector</code></strong> — <em>Method</em>.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load_structvector</span>(db<span class="op">::</span><span class="dt">DB</span>, config<span class="op">::</span><span class="dt">Config</span>, <span class="op">::</span><span class="dt">Type{T}</span>)<span class="op">::</span><span class="dt">StructVector{T}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Load data from Arrow files if available, otherwise the database. Always returns a StructVector of the given struct type T, which is empty if the table is not found. This function validates the schema, and enforces the required sort order.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/io.jl#LL83-L89" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/io.jl#LL83-L89" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.low_storage_factor-Union{Tuple{T}, Tuple{AbstractVector{T}, Dictionaries.Indices{Ribasim.NodeID}, Ribasim.NodeID, Real}} where T<:Real" href="#Ribasim.low_storage_factor-Union{Tuple{T}, Tuple{AbstractVector{T}, Dictionaries.Indices{Ribasim.NodeID}, Ribasim.NodeID, Real}} where T<:Real">#</a> <strong><code>Ribasim.low_storage_factor</code></strong> — <em>Method</em>.</p>
 <p>If id is a Basin with storage below the threshold, return a reduction factor != 1</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL1214" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL1214" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.main-Tuple{Vector{String}}" href="#Ribasim.main-Tuple{Vector{String}}">#</a> <strong><code>Ribasim.main</code></strong> — <em>Method</em>.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">main</span>(<span class="cn">ARGS</span><span class="op">::</span><span class="dt">Vector{String}</span>)<span class="op">::</span><span class="dt">Cint</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">main</span>(toml_path<span class="op">::</span><span class="dt">AbstractString</span>)<span class="op">::</span><span class="dt">Cint</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">main</span>(<span class="cn">ARGS</span><span class="op">::</span><span class="dt">Vector{String}</span>)<span class="op">::</span><span class="dt">Cint</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">main</span>()<span class="op">::</span><span class="dt">Cint</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This is the main entry point of the application. Performs argument parsing and sets up logging for both terminal and file. Calls Ribasim.run() and handles exceptions to convert to exit codes.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/main.jl#LL9-L14" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/main.jl#LL10-L18" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.metadata_from_edge-Tuple{MetaGraphsNext.MetaGraph, Graphs.SimpleGraphs.SimpleEdge{Int64}}" href="#Ribasim.metadata_from_edge-Tuple{MetaGraphsNext.MetaGraph, Graphs.SimpleGraphs.SimpleEdge{Int64}}">#</a> <strong><code>Ribasim.metadata_from_edge</code></strong> — <em>Method</em>.</p>
 <p>Get the metadata of an edge in the graph from an edge of the underlying DiGraph.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL305-L308" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL305-L308" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.nodefields-Tuple{Ribasim.Parameters}" href="#Ribasim.nodefields-Tuple{Ribasim.Parameters}">#</a> <strong><code>Ribasim.nodefields</code></strong> — <em>Method</em>.</p>
 <p>Get all node fieldnames of the parameter object.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL929" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL929" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.nodetype-Union{Tuple{Legolas.SchemaVersion{T, N}}, Tuple{N}, Tuple{T}} where {T, N}" href="#Ribasim.nodetype-Union{Tuple{Legolas.SchemaVersion{T, N}}, Tuple{N}, Tuple{T}} where {T, N}">#</a> <strong><code>Ribasim.nodetype</code></strong> — <em>Method</em>.</p>
 <p>From a SchemaVersion(“ribasim.flowboundary.static”, 1) return (:FlowBoundary, :static)</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/validation.jl#LL37-L39" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/validation.jl#LL37-L39" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.outflow_id-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID}" href="#Ribasim.outflow_id-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID}">#</a> <strong><code>Ribasim.outflow_id</code></strong> — <em>Method</em>.</p>
 <p>Get the unique outneighbor over a flow edge.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL291-L293" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL291-L293" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.outflow_ids-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID}" href="#Ribasim.outflow_ids-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID}">#</a> <strong><code>Ribasim.outflow_ids</code></strong> — <em>Method</em>.</p>
 <p>Get the outneighbors over flow edges.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL270-L272" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL270-L272" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.outflow_ids_allocation-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID}" href="#Ribasim.outflow_ids_allocation-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID}">#</a> <strong><code>Ribasim.outflow_ids_allocation</code></strong> — <em>Method</em>.</p>
 <p>Get the outneighbors of the given ID such that the connecting edge is an allocation flow edge.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL438-L441" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL438-L441" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.outneighbor_labels_type-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.EdgeType.T}" href="#Ribasim.outneighbor_labels_type-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.EdgeType.T}">#</a> <strong><code>Ribasim.outneighbor_labels_type</code></strong> — <em>Method</em>.</p>
 <p>Get the outneighbor node IDs of the given node ID (label) over the given edge type in the graph.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL243-L246" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL243-L246" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.parse_static_and_time-Tuple{SQLite.DB, Ribasim.config.Config, String}" href="#Ribasim.parse_static_and_time-Tuple{SQLite.DB, Ribasim.config.Config, String}">#</a> <strong><code>Ribasim.parse_static_and_time</code></strong> — <em>Method</em>.</p>
 <p>Process the data in the static and time tables for a given node type. The ‘defaults’ named tuple dictates how missing data is filled in. ‘time_interpolatables’ is a vector of Symbols of parameter names for which a time interpolation (linear) object must be constructed. The control mapping for DiscreteControl is also constructed in this function. This function currently does not support node states that are defined by more than one row in a table, as is the case for TabulatedRatingCurve.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/create.jl#LL1-L9" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/create.jl#LL1-L9" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.pkgversion-Tuple{Module}" href="#Ribasim.pkgversion-Tuple{Module}">#</a> <strong><code>Ribasim.pkgversion</code></strong> — <em>Method</em>.</p>
 <p>Get the package version of a given module</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL1" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL1" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.process_allocation_graph_edges!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Vector{Vector{Ribasim.NodeID}}, Ribasim.Parameters, Int64}" href="#Ribasim.process_allocation_graph_edges!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Vector{Vector{Ribasim.NodeID}}, Ribasim.Parameters, Int64}">#</a> <strong><code>Ribasim.process_allocation_graph_edges!</code></strong> — <em>Method</em>.</p>
 <p>For the composite allocation graph edges:</p>
 <ul>
@@ -728,86 +730,86 @@ bottom  \______/     |
 <li>Compute their capacity</li>
 <li>Find out their allowed flow direction(s)</li>
 </ul>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL143-L148" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL143-L148" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.profile_storage-Tuple{Vector, Vector}" href="#Ribasim.profile_storage-Tuple{Vector, Vector}">#</a> <strong><code>Ribasim.profile_storage</code></strong> — <em>Method</em>.</p>
 <p>Calculate a profile storage by integrating the areas over the levels</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL315" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL315" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.qh_interpolation-Tuple{Int64, StructArrays.StructVector}" href="#Ribasim.qh_interpolation-Tuple{Int64, StructArrays.StructVector}">#</a> <strong><code>Ribasim.qh_interpolation</code></strong> — <em>Method</em>.</p>
 <p>From a table with columns node<em>id, flow</em>rate (Q) and level (h), create a LinearInterpolation from level to flow rate for a given node_id.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL591-L594" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL591-L594" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.reduction_factor-Union{Tuple{T}, Tuple{T, Real}} where T<:Real" href="#Ribasim.reduction_factor-Union{Tuple{T}, Tuple{T, Real}} where T<:Real">#</a> <strong><code>Ribasim.reduction_factor</code></strong> — <em>Method</em>.</p>
 <p>Function that goes smoothly from 0 to 1 in the interval [0,threshold], and is constant outside this interval.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL1199-L1202" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL1199-L1202" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.run-Tuple{AbstractString}" href="#Ribasim.run-Tuple{AbstractString}">#</a> <strong><code>Ribasim.run</code></strong> — <em>Method</em>.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">run</span>(config_file<span class="op">::</span><span class="dt">AbstractString</span>)<span class="op">::</span><span class="dt">Model</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">run</span>(config<span class="op">::</span><span class="dt">Config</span>)<span class="op">::</span><span class="dt">Model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Run a <a href="../build/index.html#Ribasim.Model"><code>Model</code></a>, given a path to a TOML configuration file, or a Config object. Running a model includes initialization, solving to the end with <code>[</code>solve!<code>](@ref)</code> and writing results with <a href="../build/index.html#BasicModelInterface.finalize-Tuple{Ribasim.Model}"><code>BMI.finalize</code></a>.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL663-L668" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL663-L668" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.save_flow-Tuple{Any, Any, Any}" href="#Ribasim.save_flow-Tuple{Any, Any, Any}">#</a> <strong><code>Ribasim.save_flow</code></strong> — <em>Method</em>.</p>
 <p>Copy the current flow to the SavedValues</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL542" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL542" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.save_subgrid_level-Tuple{Any, Any, Any}" href="#Ribasim.save_subgrid_level-Tuple{Any, Any, Any}">#</a> <strong><code>Ribasim.save_subgrid_level</code></strong> — <em>Method</em>.</p>
 <p>Interpolate the levels and save them to SavedValues</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL558" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL558" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.scalar_interpolation_derivative-Tuple{DataInterpolations.LinearInterpolation{Vector{Float64}, Vector{Float64}, true, Float64}, Float64}" href="#Ribasim.scalar_interpolation_derivative-Tuple{DataInterpolations.LinearInterpolation{Vector{Float64}, Vector{Float64}, true, Float64}, Float64}">#</a> <strong><code>Ribasim.scalar_interpolation_derivative</code></strong> — <em>Method</em>.</p>
 <p>Derivative of scalar interpolation.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL556" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL556" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.seconds_since-Tuple{Dates.DateTime, Dates.DateTime}" href="#Ribasim.seconds_since-Tuple{Dates.DateTime, Dates.DateTime}">#</a> <strong><code>Ribasim.seconds_since</code></strong> — <em>Method</em>.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seconds_since</span>(t<span class="op">::</span><span class="dt">DateTime</span>, t0<span class="op">::</span><span class="dt">DateTime</span>)<span class="op">::</span><span class="dt">Float64</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Convert a DateTime to a float that is the number of seconds since the start of the simulation. This is used to convert between the solver’s inner float time, and the calendar.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/io.jl#LL31-L36" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/io.jl#LL31-L36" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.set_current_value!-Tuple{NamedTuple, Vector{Int64}, StructArrays.StructVector, Dates.DateTime}" href="#Ribasim.set_current_value!-Tuple{NamedTuple, Vector{Int64}, StructArrays.StructVector, Dates.DateTime}">#</a> <strong><code>Ribasim.set_current_value!</code></strong> — <em>Method</em>.</p>
 <p>From a timeseries table <code>time</code>, load the most recent applicable data into <code>table</code>. <code>table</code> must be a NamedTuple of vectors with all variables that must be loaded. The most recent applicable data is non-NaN data for a given ID that is on or before <code>t</code>.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL654-L658" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL654-L658" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.set_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Number}" href="#Ribasim.set_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Number}">#</a> <strong><code>Ribasim.set_flow!</code></strong> — <em>Method</em>.</p>
 <p>Set the given flow q on the horizontal (self-loop) edge from id to id.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL188-L190" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL188-L190" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.set_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID, Number}" href="#Ribasim.set_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID, Number}">#</a> <strong><code>Ribasim.set_flow!</code></strong> — <em>Method</em>.</p>
 <p>Set the given flow q over the edge between the given nodes.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL179-L181" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL179-L181" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.set_fractional_flow_in_allocation!-Tuple{Ribasim.Parameters, Ribasim.NodeID, Number}" href="#Ribasim.set_fractional_flow_in_allocation!-Tuple{Ribasim.Parameters, Ribasim.NodeID, Number}">#</a> <strong><code>Ribasim.set_fractional_flow_in_allocation!</code></strong> — <em>Method</em>.</p>
 <p>Update the fractional flow fractions in an allocation problem.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL491-L493" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL491-L493" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.set_initial_discrete_controlled_parameters!-Tuple{Any, Vector{Float64}}" href="#Ribasim.set_initial_discrete_controlled_parameters!-Tuple{Any, Vector{Float64}}">#</a> <strong><code>Ribasim.set_initial_discrete_controlled_parameters!</code></strong> — <em>Method</em>.</p>
 <p>Set parameters of nodes that are controlled by DiscreteControl to the values corresponding to the initial state of the model.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL175-L178" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL175-L178" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.set_objective_priority!-Tuple{Ribasim.AllocationModel, Ribasim.Parameters, Float64, Int64}" href="#Ribasim.set_objective_priority!-Tuple{Ribasim.AllocationModel, Ribasim.Parameters, Float64, Int64}">#</a> <strong><code>Ribasim.set_objective_priority!</code></strong> — <em>Method</em>.</p>
 <p>Set the objective for the given priority. For an objective with absolute values this also involves adjusting constraints.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL692-L695" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL692-L695" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.set_static_value!-Tuple{NamedTuple, Vector{Int64}, StructArrays.StructVector}" href="#Ribasim.set_static_value!-Tuple{NamedTuple, Vector{Int64}, StructArrays.StructVector}">#</a> <strong><code>Ribasim.set_static_value!</code></strong> — <em>Method</em>.</p>
 <p>Load data from a source table <code>static</code> into a destination <code>table</code>. Data is matched based on the node_id, which is sorted.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL636-L639" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL636-L639" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.set_table_row!-Tuple{NamedTuple, Any, Int64}" href="#Ribasim.set_table_row!-Tuple{NamedTuple, Any, Int64}">#</a> <strong><code>Ribasim.set_table_row!</code></strong> — <em>Method</em>.</p>
 <p>Update <code>table</code> at row index <code>i</code>, with the values of a given row. <code>table</code> must be a NamedTuple of vectors with all variables that must be loaded. The row must contain all the column names that are present in the table. If a value is NaN, it is not set.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL620-L625" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL620-L625" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.sorted_table!-Tuple{StructArrays.StructVector{<:Legolas.AbstractRecord}}" href="#Ribasim.sorted_table!-Tuple{StructArrays.StructVector{<:Legolas.AbstractRecord}}">#</a> <strong><code>Ribasim.sorted_table!</code></strong> — <em>Method</em>.</p>
 <p>Depending on if a table can be sorted, either sort it or assert that it is sorted.</p>
 <p>Tables loaded from the database into memory can be sorted. Tables loaded from Arrow files are memory mapped and can therefore not be sorted.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/validation.jl#LL374-L379" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/validation.jl#LL374-L379" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.timesteps-Tuple{Ribasim.Model}" href="#Ribasim.timesteps-Tuple{Ribasim.Model}">#</a> <strong><code>Ribasim.timesteps</code></strong> — <em>Method</em>.</p>
 <p>Get all saved times in seconds since start</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/lib.jl#LL37" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/lib.jl#LL37" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.update_allocation!-Tuple{Any}" href="#Ribasim.update_allocation!-Tuple{Any}">#</a> <strong><code>Ribasim.update_allocation!</code></strong> — <em>Method</em>.</p>
 <p>Solve the allocation problem for all users and assign allocated abstractions to user nodes.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL589" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL589" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.update_basin-Tuple{Any}" href="#Ribasim.update_basin-Tuple{Any}">#</a> <strong><code>Ribasim.update_basin</code></strong> — <em>Method</em>.</p>
 <p>Load updates from ‘Basin / time’ into the parameters</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL564" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL564" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.update_jac_prototype!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Ribasim.AbstractParameterNode}" href="#Ribasim.update_jac_prototype!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Ribasim.AbstractParameterNode}">#</a> <strong><code>Ribasim.update_jac_prototype!</code></strong> — <em>Method</em>.</p>
 <p>Method for nodes that do not contribute to the Jacobian</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL996-L998" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL996-L998" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.update_jac_prototype!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Ribasim.PidControl}" href="#Ribasim.update_jac_prototype!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Ribasim.PidControl}">#</a> <strong><code>Ribasim.update_jac_prototype!</code></strong> — <em>Method</em>.</p>
 <p>The controlled basin affects itself and the basins upstream and downstream of the controlled pump affect eachother if there is a basin upstream of the pump. The state for the integral term and the controlled basin affect eachother, and the same for the integral state and the basin upstream of the pump if it is indeed a basin.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL1073-L1078" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL1073-L1078" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.update_jac_prototype!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Union{Ribasim.LinearResistance, Ribasim.ManningResistance}}" href="#Ribasim.update_jac_prototype!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Union{Ribasim.LinearResistance, Ribasim.ManningResistance}}">#</a> <strong><code>Ribasim.update_jac_prototype!</code></strong> — <em>Method</em>.</p>
 <p>If both the unique node upstream and the unique node downstream of these nodes are basins, then these directly depend on eachother and affect the Jacobian 2x Basins always depend on themselves.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL961-L965" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL961-L965" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.update_jac_prototype!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Union{Ribasim.User, Ribasim.Outlet, Ribasim.Pump, Ribasim.TabulatedRatingCurve}}" href="#Ribasim.update_jac_prototype!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Union{Ribasim.User, Ribasim.Outlet, Ribasim.Pump, Ribasim.TabulatedRatingCurve}}">#</a> <strong><code>Ribasim.update_jac_prototype!</code></strong> — <em>Method</em>.</p>
 <p>If both the unique node upstream and the nodes down stream (or one node further if a fractional flow is in between) are basins, then the downstream basin depends on the upstream basin(s) and affect the Jacobian as many times as there are downstream basins Upstream basins always depend on themselves.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL1024-L1029" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL1024-L1029" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.update_tabulated_rating_curve!-Tuple{Any}" href="#Ribasim.update_tabulated_rating_curve!-Tuple{Any}">#</a> <strong><code>Ribasim.update_tabulated_rating_curve!</code></strong> — <em>Method</em>.</p>
 <p>Load updates from ‘TabulatedRatingCurve / time’ into the parameters</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/bmi.jl#LL597" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/bmi.jl#LL597" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.valid_discrete_control-Tuple{Ribasim.Parameters, Ribasim.config.Config}" href="#Ribasim.valid_discrete_control-Tuple{Ribasim.Parameters, Ribasim.config.Config}">#</a> <strong><code>Ribasim.valid_discrete_control</code></strong> — <em>Method</em>.</p>
 <p>Check:</p>
 <ul>
@@ -815,50 +817,50 @@ bottom  \______/     |
 <li>Whether the supplied truth states have the proper length;</li>
 <li>Whether look_ahead is only supplied for condition variables given by a time-series.</li>
 </ul>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL775-L780" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL775-L780" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.valid_edge_types-Tuple{SQLite.DB}" href="#Ribasim.valid_edge_types-Tuple{SQLite.DB}">#</a> <strong><code>Ribasim.valid_edge_types</code></strong> — <em>Method</em>.</p>
 <p>Check that only supported edge types are declared.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/utils.jl#LL14" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/utils.jl#LL14" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.valid_edges-Tuple{MetaGraphsNext.MetaGraph}" href="#Ribasim.valid_edges-Tuple{MetaGraphsNext.MetaGraph}">#</a> <strong><code>Ribasim.valid_edges</code></strong> — <em>Method</em>.</p>
 <p>Test for each node given its node type whether the nodes that</p>
 <p><strong>are downstream (‘down-edge’) of this node are of an allowed type</strong></p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/validation.jl#LL411-L414" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/validation.jl#LL411-L414" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.valid_flow_rates-Tuple{Vector{Ribasim.NodeID}, Vector, Dict{Tuple{Ribasim.NodeID, String}, NamedTuple}, Symbol}" href="#Ribasim.valid_flow_rates-Tuple{Vector{Ribasim.NodeID}, Vector, Dict{Tuple{Ribasim.NodeID, String}, NamedTuple}, Symbol}">#</a> <strong><code>Ribasim.valid_flow_rates</code></strong> — <em>Method</em>.</p>
 <p>Test whether static or discrete controlled flow rates are indeed non-negative.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/validation.jl#LL465-L467" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/validation.jl#LL465-L467" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.valid_fractional_flow-Tuple{MetaGraphsNext.MetaGraph, Vector{Ribasim.NodeID}, Dict{Tuple{Ribasim.NodeID, String}, NamedTuple}}" href="#Ribasim.valid_fractional_flow-Tuple{MetaGraphsNext.MetaGraph, Vector{Ribasim.NodeID}, Dict{Tuple{Ribasim.NodeID, String}, NamedTuple}}">#</a> <strong><code>Ribasim.valid_fractional_flow</code></strong> — <em>Method</em>.</p>
 <p>Check that nodes that have fractional flow outneighbors do not have any other type of outneighbor, that the fractions leaving a node add up to ≈1 and that the fractions are non-negative.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/validation.jl#LL541-L544" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/validation.jl#LL541-L544" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.valid_n_neighbors-Tuple{Ribasim.Parameters}" href="#Ribasim.valid_n_neighbors-Tuple{Ribasim.Parameters}">#</a> <strong><code>Ribasim.valid_n_neighbors</code></strong> — <em>Method</em>.</p>
 <p>Test for each node given its node type whether it has an allowed number of flow/control inneighbors and outneighbors</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL466-L469" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL466-L469" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.valid_profiles-Tuple{Dictionaries.Indices{Ribasim.NodeID}, Vector{Vector{Float64}}, Vector{Vector{Float64}}}" href="#Ribasim.valid_profiles-Tuple{Dictionaries.Indices{Ribasim.NodeID}, Vector{Vector{Float64}}, Vector{Vector{Float64}}}">#</a> <strong><code>Ribasim.valid_profiles</code></strong> — <em>Method</em>.</p>
 <p>Check whether the profile data has no repeats in the levels and the areas start positive.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/validation.jl#LL432-L434" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/validation.jl#LL432-L434" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.valid_sources-Tuple{Ribasim.Parameters, Int64}" href="#Ribasim.valid_sources-Tuple{Ribasim.Parameters, Int64}">#</a> <strong><code>Ribasim.valid_sources</code></strong> — <em>Method</em>.</p>
 <p>The source nodes must only have one allocation outneighbor and no allocation inneighbors.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/allocation.jl#LL244-L246" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/allocation.jl#LL244-L246" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.valid_subgrid-Tuple{Int64, Ribasim.NodeID, Dict{Ribasim.NodeID, Int64}, Vector{Float64}, Vector{Float64}}" href="#Ribasim.valid_subgrid-Tuple{Int64, Ribasim.NodeID, Dict{Ribasim.NodeID, Int64}, Vector{Float64}, Vector{Float64}}">#</a> <strong><code>Ribasim.valid_subgrid</code></strong> — <em>Method</em>.</p>
 <p>Validate the entries for a single subgrid element.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/validation.jl#LL610-L612" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/validation.jl#LL610-L612" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.water_balance!-Tuple{ComponentArrays.ComponentVector, ComponentArrays.ComponentVector, Ribasim.Parameters, Number}" href="#Ribasim.water_balance!-Tuple{ComponentArrays.ComponentVector, ComponentArrays.ComponentVector, Ribasim.Parameters, Number}">#</a> <strong><code>Ribasim.water_balance!</code></strong> — <em>Method</em>.</p>
 <p>The right hand side function of the system of ODEs set up by Ribasim.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/solve.jl#LL1154-L1156" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/solve.jl#LL1154-L1156" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.write_arrow-Tuple{AbstractString, NamedTuple, TranscodingStreams.Codec}" href="#Ribasim.write_arrow-Tuple{AbstractString, NamedTuple, TranscodingStreams.Codec}">#</a> <strong><code>Ribasim.write_arrow</code></strong> — <em>Method</em>.</p>
 <p>Write a result table to disk as an Arrow file</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/io.jl#LL290" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/io.jl#LL290" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.config.algorithm-Tuple{Ribasim.config.Solver}" href="#Ribasim.config.algorithm-Tuple{Ribasim.config.Solver}">#</a> <strong><code>Ribasim.config.algorithm</code></strong> — <em>Method</em>.</p>
 <p>Create an OrdinaryDiffEqAlgorithm from solver config</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/config.jl#LL240" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/config.jl#LL240" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.config.input_path-Tuple{Ribasim.config.Config, String}" href="#Ribasim.config.input_path-Tuple{Ribasim.config.Config, String}">#</a> <strong><code>Ribasim.config.input_path</code></strong> — <em>Method</em>.</p>
 <p>Construct a path relative to both the TOML directory and the optional <code>input_dir</code></p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/config.jl#LL164" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/config.jl#LL164" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.config.results_path-Tuple{Ribasim.config.Config, String}" href="#Ribasim.config.results_path-Tuple{Ribasim.config.Config, String}">#</a> <strong><code>Ribasim.config.results_path</code></strong> — <em>Method</em>.</p>
 <p>Construct a path relative to both the TOML directory and the optional <code>results_dir</code></p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/config.jl#LL169" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/config.jl#LL169" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.config.snake_case-Tuple{AbstractString}" href="#Ribasim.config.snake_case-Tuple{AbstractString}">#</a> <strong><code>Ribasim.config.snake_case</code></strong> — <em>Method</em>.</p>
 <p>Convert a string from CamelCase to snake_case.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/config.jl#LL35" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/config.jl#LL35" class="documenter-source">source</a><br></p>
 <p><a id="Constants"></a></p>
 <p><a id="Constants-1"></a></p>
 </section>
@@ -879,7 +881,7 @@ bottom  \______/     |
 <li><code>ImplicitEuler</code></li>
 <li><code>Euler</code></li>
 </ul>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/config.jl#LL211-L227" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/config.jl#LL211-L227" class="documenter-source">source</a><br></p>
 <p><a id="Macros"></a></p>
 <p><a id="Macros-1"></a></p>
 </section>
@@ -887,10 +889,10 @@ bottom  \______/     |
 <h2 data-number="1.5" class="anchored" data-anchor-id="macros"><span class="header-section-number">1.5</span> Macros</h2>
 <p><a id="Ribasim.config.@addfields-Tuple{Expr, Any}" href="#Ribasim.config.@addfields-Tuple{Expr, Any}">#</a> <strong><code>Ribasim.config.@addfields</code></strong> — <em>Macro</em>.</p>
 <p>Add fieldnames with Union{String, Nothing} type to struct expression. Requires <span class="citation" data-cites="option">(<a href="#ref-option" role="doc-biblioref"><strong>option?</strong></a>)</span> use before it.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/config.jl#LL43-L45" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/config.jl#LL43-L45" class="documenter-source">source</a><br></p>
 <p><a id="Ribasim.config.@addnodetypes-Tuple{Expr}" href="#Ribasim.config.@addnodetypes-Tuple{Expr}">#</a> <strong><code>Ribasim.config.@addnodetypes</code></strong> — <em>Macro</em>.</p>
 <p>Add all TableOption subtypes as fields to struct expression. Requires <span class="citation" data-cites="option">(<a href="#ref-option" role="doc-biblioref"><strong>option?</strong></a>)</span> use before it.</p>
-<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/043f44e9fbb9c29455fe94177d4ae7af9684dde6/core/src/config.jl#LL56-L58" class="documenter-source">source</a><br></p>
+<p><a target="_blank" href="https://github.com/Deltares/Ribasim.jl/blob/4c4bb52415db8f7e1683a9ec97783c6e3f8b6268/core/src/config.jl#LL56-L58" class="documenter-source">source</a><br></p>
 <p><a id="Index"></a></p>
 <p><a id="Index-1"></a></p>
 </section>
@@ -900,8 +902,8 @@ bottom  \______/     |
 <li><a href="../build/index.html#Ribasim.Ribasim"><code>Ribasim.Ribasim</code></a></li>
 <li><a href="../build/index.html#Ribasim.config"><code>Ribasim.config</code></a></li>
 <li><a href="../build/index.html#Ribasim.config.algorithms"><code>Ribasim.config.algorithms</code></a></li>
-<li><a href="../build/index.html#Ribasim.AllocationModel-Tuple{Ribasim.config.Config, Int64, Ribasim.Parameters, Float64}"><code>Ribasim.AllocationModel</code></a></li>
 <li><a href="../build/index.html#Ribasim.AllocationModel"><code>Ribasim.AllocationModel</code></a></li>
+<li><a href="../build/index.html#Ribasim.AllocationModel-Tuple{Ribasim.config.Config, Int64, Ribasim.Parameters, Float64}"><code>Ribasim.AllocationModel</code></a></li>
 <li><a href="../build/index.html#Ribasim.Basin"><code>Ribasim.Basin</code></a></li>
 <li><a href="../build/index.html#Ribasim.DiscreteControl"><code>Ribasim.DiscreteControl</code></a></li>
 <li><a href="../build/index.html#Ribasim.EdgeMetadata"><code>Ribasim.EdgeMetadata</code></a></li>
@@ -924,8 +926,8 @@ bottom  \______/     |
 <li><a href="../build/index.html#Ribasim.User"><code>Ribasim.User</code></a></li>
 <li><a href="../build/index.html#Ribasim.config.Config-Tuple{AbstractString}"><code>Ribasim.config.Config</code></a></li>
 <li><a href="../build/index.html#BasicModelInterface.finalize-Tuple{Ribasim.Model}"><code>BasicModelInterface.finalize</code></a></li>
-<li><a href="../build/index.html#BasicModelInterface.initialize-Tuple{Type{Ribasim.Model}, AbstractString}"><code>BasicModelInterface.initialize</code></a></li>
 <li><a href="../build/index.html#BasicModelInterface.initialize-Tuple{Type{Ribasim.Model}, Ribasim.config.Config}"><code>BasicModelInterface.initialize</code></a></li>
+<li><a href="../build/index.html#BasicModelInterface.initialize-Tuple{Type{Ribasim.Model}, AbstractString}"><code>BasicModelInterface.initialize</code></a></li>
 <li><a href="../build/index.html#CommonSolve.solve!-Tuple{Ribasim.Model}"><code>CommonSolve.solve!</code></a></li>
 <li><a href="../build/index.html#Ribasim.add_constraints_absolute_value!-Tuple{JuMP.Model, Ribasim.Parameters, Int64, Ribasim.config.Config}"><code>Ribasim.add_constraints_absolute_value!</code></a></li>
 <li><a href="../build/index.html#Ribasim.add_constraints_capacity!-Tuple{JuMP.Model, SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Int64}"><code>Ribasim.add_constraints_capacity!</code></a></li>
@@ -933,8 +935,8 @@ bottom  \______/     |
 <li><a href="../build/index.html#Ribasim.add_constraints_fractional_flow!-Tuple{JuMP.Model, Ribasim.Parameters, Int64}"><code>Ribasim.add_constraints_fractional_flow!</code></a></li>
 <li><a href="../build/index.html#Ribasim.add_constraints_source!-Tuple{JuMP.Model, Ribasim.Parameters, Int64}"><code>Ribasim.add_constraints_source!</code></a></li>
 <li><a href="../build/index.html#Ribasim.add_constraints_user_returnflow!-Tuple{JuMP.Model, Ribasim.Parameters, Int64}"><code>Ribasim.add_constraints_user_returnflow!</code></a></li>
-<li><a href="../build/index.html#Ribasim.add_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID, Number}"><code>Ribasim.add_flow!</code></a></li>
 <li><a href="../build/index.html#Ribasim.add_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Number}"><code>Ribasim.add_flow!</code></a></li>
+<li><a href="../build/index.html#Ribasim.add_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID, Number}"><code>Ribasim.add_flow!</code></a></li>
 <li><a href="../build/index.html#Ribasim.add_variables_absolute_value!-Tuple{JuMP.Model, Ribasim.Parameters, Int64, Ribasim.config.Config}"><code>Ribasim.add_variables_absolute_value!</code></a></li>
 <li><a href="../build/index.html#Ribasim.add_variables_flow!-Tuple{JuMP.Model, Ribasim.Parameters, Int64}"><code>Ribasim.add_variables_flow!</code></a></li>
 <li><a href="../build/index.html#Ribasim.adjust_edge_capacities!-Tuple{Ribasim.AllocationModel, Ribasim.Parameters, Int64}"><code>Ribasim.adjust_edge_capacities!</code></a></li>
@@ -977,8 +979,8 @@ bottom  \______/     |
 <li><a href="../build/index.html#Ribasim.get_area_and_level-Tuple{Ribasim.Basin, Int64, Real}"><code>Ribasim.get_area_and_level</code></a></li>
 <li><a href="../build/index.html#Ribasim.get_chunk_sizes-Tuple{Ribasim.config.Config, Int64}"><code>Ribasim.get_chunk_sizes</code></a></li>
 <li><a href="../build/index.html#Ribasim.get_compressor-Tuple{Ribasim.config.Results}"><code>Ribasim.get_compressor</code></a></li>
-<li><a href="../build/index.html#Ribasim.get_flow-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID, Any}"><code>Ribasim.get_flow</code></a></li>
 <li><a href="../build/index.html#Ribasim.get_flow-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Any}"><code>Ribasim.get_flow</code></a></li>
+<li><a href="../build/index.html#Ribasim.get_flow-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID, Any}"><code>Ribasim.get_flow</code></a></li>
 <li><a href="../build/index.html#Ribasim.get_fractional_flow_connected_basins-Tuple{Ribasim.NodeID, Ribasim.Basin, Ribasim.FractionalFlow, MetaGraphsNext.MetaGraph}"><code>Ribasim.get_fractional_flow_connected_basins</code></a></li>
 <li><a href="../build/index.html#Ribasim.get_jac_prototype-Tuple{Ribasim.Parameters}"><code>Ribasim.get_jac_prototype</code></a></li>
 <li><a href="../build/index.html#Ribasim.get_level-Tuple{Ribasim.Parameters, Ribasim.NodeID, Number}"><code>Ribasim.get_level</code></a></li>
@@ -1022,8 +1024,8 @@ bottom  \______/     |
 <li><a href="../build/index.html#Ribasim.scalar_interpolation_derivative-Tuple{DataInterpolations.LinearInterpolation{Vector{Float64}, Vector{Float64}, true, Float64}, Float64}"><code>Ribasim.scalar_interpolation_derivative</code></a></li>
 <li><a href="../build/index.html#Ribasim.seconds_since-Tuple{Dates.DateTime, Dates.DateTime}"><code>Ribasim.seconds_since</code></a></li>
 <li><a href="../build/index.html#Ribasim.set_current_value!-Tuple{NamedTuple, Vector{Int64}, StructArrays.StructVector, Dates.DateTime}"><code>Ribasim.set_current_value!</code></a></li>
-<li><a href="../build/index.html#Ribasim.set_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Number}"><code>Ribasim.set_flow!</code></a></li>
 <li><a href="../build/index.html#Ribasim.set_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Ribasim.NodeID, Number}"><code>Ribasim.set_flow!</code></a></li>
+<li><a href="../build/index.html#Ribasim.set_flow!-Tuple{MetaGraphsNext.MetaGraph, Ribasim.NodeID, Number}"><code>Ribasim.set_flow!</code></a></li>
 <li><a href="../build/index.html#Ribasim.set_fractional_flow_in_allocation!-Tuple{Ribasim.Parameters, Ribasim.NodeID, Number}"><code>Ribasim.set_fractional_flow_in_allocation!</code></a></li>
 <li><a href="../build/index.html#Ribasim.set_initial_discrete_controlled_parameters!-Tuple{Any, Vector{Float64}}"><code>Ribasim.set_initial_discrete_controlled_parameters!</code></a></li>
 <li><a href="../build/index.html#Ribasim.set_objective_priority!-Tuple{Ribasim.AllocationModel, Ribasim.Parameters, Float64, Int64}"><code>Ribasim.set_objective_priority!</code></a></li>
@@ -1033,10 +1035,10 @@ bottom  \______/     |
 <li><a href="../build/index.html#Ribasim.timesteps-Tuple{Ribasim.Model}"><code>Ribasim.timesteps</code></a></li>
 <li><a href="../build/index.html#Ribasim.update_allocation!-Tuple{Any}"><code>Ribasim.update_allocation!</code></a></li>
 <li><a href="../build/index.html#Ribasim.update_basin-Tuple{Any}"><code>Ribasim.update_basin</code></a></li>
-<li><a href="../build/index.html#Ribasim.update_jac_prototype!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Union{Ribasim.User, Ribasim.Outlet, Ribasim.Pump, Ribasim.TabulatedRatingCurve}}"><code>Ribasim.update_jac_prototype!</code></a></li>
-<li><a href="../build/index.html#Ribasim.update_jac_prototype!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Union{Ribasim.LinearResistance, Ribasim.ManningResistance}}"><code>Ribasim.update_jac_prototype!</code></a></li>
 <li><a href="../build/index.html#Ribasim.update_jac_prototype!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Ribasim.AbstractParameterNode}"><code>Ribasim.update_jac_prototype!</code></a></li>
+<li><a href="../build/index.html#Ribasim.update_jac_prototype!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Union{Ribasim.User, Ribasim.Outlet, Ribasim.Pump, Ribasim.TabulatedRatingCurve}}"><code>Ribasim.update_jac_prototype!</code></a></li>
 <li><a href="../build/index.html#Ribasim.update_jac_prototype!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Ribasim.PidControl}"><code>Ribasim.update_jac_prototype!</code></a></li>
+<li><a href="../build/index.html#Ribasim.update_jac_prototype!-Tuple{SparseArrays.SparseMatrixCSC{Float64, Int64}, Ribasim.Parameters, Union{Ribasim.LinearResistance, Ribasim.ManningResistance}}"><code>Ribasim.update_jac_prototype!</code></a></li>
 <li><a href="../build/index.html#Ribasim.update_tabulated_rating_curve!-Tuple{Any}"><code>Ribasim.update_tabulated_rating_curve!</code></a></li>
 <li><a href="../build/index.html#Ribasim.valid_discrete_control-Tuple{Ribasim.Parameters, Ribasim.config.Config}"><code>Ribasim.valid_discrete_control</code></a></li>
 <li><a href="../build/index.html#Ribasim.valid_edge_types-Tuple{SQLite.DB}"><code>Ribasim.valid_edge_types</code></a></li>
