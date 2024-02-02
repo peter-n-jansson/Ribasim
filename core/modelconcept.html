@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim - QGIS plugin development</title>
+<title>Ribasim - Model concept</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,8 +49,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../contribute/addnode.html" rel="next">
-<link href="../contribute/python.html" rel="prev">
+<link href="../core/usage.html" rel="next">
+<link href="../core/index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -61,7 +80,12 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -87,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../core/index.html" rel="" target="">
+    <a class="nav-link active" href="../core/index.html" rel="" target="" aria-current="page">
  <span class="menu-text">Julia core</span></a>
   </li>  
   <li class="nav-item">
@@ -99,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">QGIS plugin</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../contribute/index.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="../contribute/index.html" rel="" target="">
  <span class="menu-text">Contributing</span></a>
   </li>  
 </ul>
@@ -120,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../contribute/qgis.html">QGIS plugin development</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../core/modelconcept.html">Model concept</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -134,38 +158,50 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contribute/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Contributing</span></a>
+  <a href="../core/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Julia core</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contribute/core.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Julia core development</span></a>
+  <a href="../core/modelconcept.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Model concept</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contribute/python.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Python tooling development</span></a>
+  <a href="../core/usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Usage</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contribute/qgis.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">QGIS plugin development</span></a>
+  <a href="../core/validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contribute/addnode.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Adding node types</span></a>
+  <a href="../core/equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Equations</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contribute/release.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Release process</span></a>
+  <a href="../core/allocation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Allocation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/numerics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Numerical considerations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../build/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">API Reference</span></a>
   </div>
 </li>
     </ul>
@@ -178,10 +214,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#set-up-the-developer-environment" id="toc-set-up-the-developer-environment" class="nav-link active" data-scroll-target="#set-up-the-developer-environment"><span class="header-section-number">1</span> Set up the developer environment</a></li>
-  <li><a href="#running-qgis" id="toc-running-qgis" class="nav-link" data-scroll-target="#running-qgis"><span class="header-section-number">2</span> Running QGIS</a></li>
-  <li><a href="#running-tests" id="toc-running-tests" class="nav-link" data-scroll-target="#running-tests"><span class="header-section-number">3</span> Running tests</a></li>
-  <li><a href="#debugging" id="toc-debugging" class="nav-link" data-scroll-target="#debugging"><span class="header-section-number">4</span> Debugging</a></li>
+  <li><a href="#physical-layer" id="toc-physical-layer" class="nav-link active" data-scroll-target="#physical-layer"><span class="header-section-number">1</span> Physical layer</a>
+  <ul class="collapse">
+  <li><a href="#water-balance-equations" id="toc-water-balance-equations" class="nav-link" data-scroll-target="#water-balance-equations"><span class="header-section-number">1.1</span> Water balance equations</a></li>
+  <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="header-section-number">1.2</span> Time</a></li>
+  <li><a href="#sec-space" id="toc-sec-space" class="nav-link" data-scroll-target="#sec-space"><span class="header-section-number">1.3</span> Space</a></li>
+  <li><a href="#structures-in-a-water-system" id="toc-structures-in-a-water-system" class="nav-link" data-scroll-target="#structures-in-a-water-system"><span class="header-section-number">1.4</span> Structures in a water system</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -190,7 +229,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">QGIS plugin development</h1>
+<h1 class="title">Model concept</h1>
 </div>
 
 
@@ -205,69 +244,133 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="set-up-the-developer-environment" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Set up the developer environment</h1>
-<p>After you have installed the environment as described <a href="../contribute/index.html">here</a> you must still activate the QGIS plugins. The simplest way to do this is by running <code>pixi run install-qgis-plugins</code>. It grabs the latest version of the iMOD QGIS plugin and it makes a symlink to the ribasim_qgis folder so that QGIS can find it. It also installs plugins that make it possible to reload and debug your plugin while QGIS is open.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>On Windows you need to have Developer mode enabled. Otherwise you will not have enough access rights to create symlinks. For more info, see this <a href="https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/">Windows blog</a>.</p>
-<p>We wanted to implement this via <code>pip install --editable</code>, but QGIS doesn’t find the <code>metadata.txt</code> and therefore cannot load the plugin on startup.</p>
-</div>
-</div>
+<p>A brief summary of the concept is given on the documentation <a href="../index.html#sec-concept">home page</a>. As indicated, the model concept is organized in three layers:</p>
+<ul>
+<li>a physical layer representing water bodies and associated infrastructure,</li>
+<li>a rule-based control layer to manage the infrastructure, and</li>
+<li>a priority-based allocation layer to take centralized decisions on user abstractions.</li>
+</ul>
+<section id="physical-layer" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Physical layer</h1>
+<section id="water-balance-equations" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="water-balance-equations"><span class="header-section-number">1.1</span> Water balance equations</h2>
+<p>The water balance equation for a drainage basin <span class="citation" data-cites="enwiki:1099736933">(<a href="#ref-enwiki:1099736933" role="doc-biblioref">Wikipedia contributors 2022</a>)</span> can be defined by a first-order ordinary differential equation (ODE), where the change of the storage <span class="math inline">\(S\)</span> over time is determined by the inflow fluxes minus the outflow fluxes.</p>
+<p><span class="math display">\[
+\frac{\mathrm{d}S}{\mathrm{d}t} = Q_{in} - Q_{out}
+\]</span></p>
+<p>We can split out the fluxes into separate terms, such as precipitation <span class="math inline">\(P\)</span>, evapotranspiration <span class="math inline">\(ET\)</span> and runoff <span class="math inline">\(R\)</span>. For now other fluxes are combined into <span class="math inline">\(Q_{rest}\)</span>. If we define all fluxes entering our reservoir as positive, and those leaving the system as negative, all fluxes can be summed up.</p>
+<p><span class="math display">\[
+\frac{\mathrm{d}S}{\mathrm{d}t} = R + P + ET + Q_{rest}
+\]</span></p>
 </section>
-<section id="running-qgis" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Running QGIS</h1>
-<p>In order to run QGIS with the plugins, simply call <code>pixi run qgis</code>. You will find the Ribasim and iMOD plugins in the tool bars.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>On Windows, running QGIS from the start menu will disable Python, and thus the plugins. QGIS needs some more paths during the startup and the Pixi environment provides those.</p>
-</div>
-</div>
+<section id="time" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="time"><span class="header-section-number">1.2</span> Time</h2>
+<p>The water balance equation can be applied on many timescales; years, weeks, days or hours. Depending on the application and available data any of these can be the best choice. In Ribasim, we make use of DifferentialEquations.jl and its <a href="https://diffeq.sciml.ai/stable/solvers/ode_solve/">ODE solvers</a>. Many of these solvers are based on adaptive time stepping, which means the solver will decide how large the time steps can be depending on the state of the system.</p>
+<p>The forcing, like precipitation, is generally provided as a time series. Ribasim is set up to support unevenly spaced timeseries. The solver will stop on timestamps where new forcing values are available, so they can be loaded as the new value.</p>
+<p>Ribasim is essentially a continuous model, rather than daily or hourly. If you want to use hourly forcing, you only need to make sure that your forcing data contains hourly updates. The output frequency can be configured independently. To be able to write a closed water balance, we accumulate the fluxes. This way any variations in between timesteps are also included, and we can output in <code>m³</code> rather than <code>m³s⁻¹</code>.</p>
 </section>
-<section id="running-tests" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Running tests</h1>
-<p>To run the QGIS plugin tests in the application environment of QGIS, it is best to make use of the Docker environment provided in this repository. Make sure that docker is installed and available in your path.</p>
-<p>Then simply call <code>pixi run test-ribasim-qgis</code>.</p>
+<section id="sec-space" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="sec-space"><span class="header-section-number">1.3</span> Space</h2>
+<p>The water balance equation can be applied on different spatial scales. Besides modelling a single lumped watershed, it allows you to divide the area into a network of connected representative elementary watersheds (REWs) <span class="citation" data-cites="REGGIANI1998367">(<a href="#ref-REGGIANI1998367" role="doc-biblioref">Reggiani, Sivapalan, and Majid Hassanizadeh 1998</a>)</span>. At this scale global water balance laws can be formulated by means of integration of point-scale conservation equations over control volumes. Such an approach makes Ribasim a semi-distributed model. In this document we typically use the term “basin” to refer to the REW. Each basin has an associated polygon, and the set of basins is connected to each other as described by a graph, which we call the network. Below is a representation of both on the map.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://user-images.githubusercontent.com/4471859/185932183-62c305e6-bc14-4f3c-a74c-437f831c9145.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Mozart Local Surface Water polygons and their drainage.</figcaption>
+</figure>
+</div>
+<p>The network is described as graph. Flow can be bi-directional, and the graph does not have to be acyclic.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">graph LR;
+    A["basin A"] --- B["basin B"];
+    A --- C["basin C"];
+    B --- D["basin D"];
+    C --- D;
+</pre>
+</div>
+</div>
+</div>
+</div>
+<p>Internally a directed graph is used. The direction is defined to be the positive flow direction, and is generally set in the dominant flow direction. The basins are the nodes of the network graph. Basin states and properties such storage volume and wetted area are associated with the nodes (A, B, C, D), as are most forcing data such as precipitation, evaporation, or water demand. Basin connection properties and interbasin flows are associated with the edges (the lines between A, B, C, and D) instead.</p>
+<p>Multiple basins may exist within the same spatial polygon, representing different aspects of the surface water system (perennial ditches, ephemeral ditches, or even surface ponding). <a href="#fig-p">Figure&nbsp;1</a>, <a href="#fig-s">Figure&nbsp;2</a>, <a href="#fig-t">Figure&nbsp;3</a> show the 25.0 m rasterized primary, secondary, and tertiary surface waters as identified by BRT TOP10NL <span class="citation" data-cites="pdoktopnl">(<a href="#ref-pdoktopnl" role="doc-biblioref">PDOK 2022</a>)</span> in the Hupsel basin. These systems may represented in multiple ways.</p>
+<div id="fig-p" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="https://user-images.githubusercontent.com/13662783/187625163-d0a81bb6-7f55-4ad1-83e2-90ec1ee79740.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Hupsel: primary surface water.</figcaption>
+</figure>
+</div>
+<div id="fig-s" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="https://user-images.githubusercontent.com/13662783/187625170-1acdfb41-7077-443f-b140-ae18cbf21e53.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;2: Hupsel: secondary surface water.</figcaption>
+</figure>
+</div>
+<div id="fig-t" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="https://user-images.githubusercontent.com/13662783/187625174-3eec28b5-ddbb-4870-94c3-d9e9a43f8eb4.PNG" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;3: Hupsel: tertiary surface water.</figcaption>
+</figure>
+</div>
+<p>As a single basin (A) containing all surface water, discharging to its downstream basin to the west (B):</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">graph LR;
+    A["basin A"] --&gt; B["basin B"];
+</pre>
+</div>
+</div>
+</div>
+</div>
+<p>Such a system may be capable of representing discharge, but it cannot represent residence times or differences in solute concentrations: within a single basin, a drop of water is mixed instantaneously. Instead, we may the group primary (P), secondary (S), and tertiary (T) surface waters. Then T may flow into S, S into P, and P discharges to the downstream basin (B.)</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">graph LR;
+    T["basin T"] --&gt; S["basin S"];
+    S --&gt; P["basin P"];
+    P --&gt; B["basin B"];
+</pre>
+</div>
+</div>
+</div>
+</div>
+<p>As each (sub)basin has its own volume, low throughput (high volume, low discharge, long residence time) and high throughput (low volume, high discharge, short residence time) systems can be represented in a lumped manner; of course, more detail requires more parameters.</p>
 </section>
-<section id="debugging" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Debugging</h1>
-<p>After installing the plugins via <code>pixi run install-qgis-plugins</code>. Extra debugging tools are also installed in QGIS that is installed within your pixi environment.</p>
-<p>After you have started <code>pixi run qgis</code>, you can make alterations to the Python code and use the <a href="https://github.com/borysiasty/plugin_reloader">Plugin Reloader</a> to reload the plugin without restarting QGIS. The shortcut in QGIS is <code>CTRL+F5</code>.</p>
-<p>It is also possible to connect the debugger of Visual Studio Code. For this the <a href="https://github.com/lmotta/debug_vs_plugin">debugvs</a> plugin is installed in QGIS. In QGIS press the button to <em>Enable Debug for Visual Studio</em>. Then go to Visual Studio Code and start the launch task <em>Ribasim QGIS: Attach to QGIS</em>. Now you can place breakpoints.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>We are currently using debugvs 0.7 with ptvsd as service, since there is an <a href="https://github.com/lmotta/debug_vs_plugin/issues/12">open issue</a> that breaks debugvs 0.8 with debugpy.</p>
-</div>
-</div>
+<section id="structures-in-a-water-system" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="structures-in-a-water-system"><span class="header-section-number">1.4</span> Structures in a water system</h2>
+<p>In addition to free flowing waterbodies, a watersystem typically has structures to control the flow of water. Ribasim uses connector nodes which simplify the hydraulic behaviour for the free flowing conditions or structures. The following type of connector nodes are available for this purpose:</p>
+<ul>
+<li><a href=".\usage.qmd#sec-tabulated-rating-curve">TabulatedRatingCurve</a>: one-directional flow based on upstream head. Node type typically used for gravity flow conditions either free flowing open water channels or over a fixed structure.</li>
+<li><a href=".\usage.qmd#sec-linear-resistance">LinearResistance</a>: bi-directional flow based on head difference and linear resistance. Node type typically used for bi-directional flow situations or situations where head difference over a structure determines its actual flow capacity.</li>
+<li><a href=".\usage.qmd#sec-manning-resistance">ManningResistance</a>: bi-directional flow based on head difference and resistance using Manning-Gauckler formula. Same usage as LinearResistance, providing a better hydrological meaning to the resistance parameterization.</li>
+<li><a href=".\usage.qmd#sec-pump">Pump</a>: one-directional structure with a set flow rate. Node type typically used in combination with control to force water over the edge.</li>
+<li><a href=".\usage.qmd#sec-outlet">Outlet</a>: one-directional gravity structure with a set flow rate. Node type typically used in combination with control to force water over the edge, even if their is a mismatch in actual hydraulic capacity. The node type has an automated mechanism to stop the flow when the head difference is zero.</li>
+<li><a href=".\usage.qmd#sec-fractional-flow">FractionalFlow</a>: to split an outflow over multiple edges based on a flow fraction. Node type is typically used for diversions or bifurcations with a known and fixed ratio.</li>
+</ul>
+<p>The control layer can activate or deactivate nodes, set flow rates for the Pump and Outlet, or choose different parameterizations for TabulatedRatingCurve, LinearResistance, ManningResistance or FractionalFlow.</p>
+<p>Connector nodes are required within a Ribasim network to determine the flow exchange between basins.</p>
 
 
+
+</section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-pdoktopnl" class="csl-entry" role="listitem">
+PDOK. 2022. <span>“Dataset: Basisregistratie Topografie (BRT) TOPNL.”</span> <a href="https://www.pdok.nl/downloads/-/article/basisregistratie-topografie-brt-topnl">https://www.pdok.nl/downloads/-/article/basisregistratie-topografie-brt-topnl</a>.
+</div>
+<div id="ref-REGGIANI1998367" class="csl-entry" role="listitem">
+Reggiani, Paolo, Murugesu Sivapalan, and S. Majid Hassanizadeh. 1998. <span>“A Unifying Framework for Watershed Thermodynamics: Balance Equations for Mass, Momentum, Energy and Entropy, and the Second Law of Thermodynamics.”</span> <em>Advances in Water Resources</em> 22 (4): 367–98. https://doi.org/<a href="https://doi.org/10.1016/S0309-1708(98)00012-8">https://doi.org/10.1016/S0309-1708(98)00012-8</a>.
+</div>
+<div id="ref-enwiki:1099736933" class="csl-entry" role="listitem">
+Wikipedia contributors. 2022. <span>“Drainage Basin — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=Drainage_basin&amp;oldid=1099736933">https://en.wikipedia.org/w/index.php?title=Drainage_basin&amp;oldid=1099736933</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -503,13 +606,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../contribute/python.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Python tooling development</span>
+      <a href="../core/index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Julia core</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../contribute/addnode.html" class="pagination-link">
-        <span class="nav-page-text">Adding node types</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../core/usage.html" class="pagination-link">
+        <span class="nav-page-text">Usage</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

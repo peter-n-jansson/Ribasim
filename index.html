@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim</title>
+<title>Ribasim - Ribasim quick overview</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,26 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -82,8 +63,6 @@ div.csl-indent {
 <script src="site_libs/quarto-diagram/mermaid-init.js"></script>
 <link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="assets/styles.css">
 </head>
@@ -147,14 +126,16 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#sec-download" id="toc-sec-download" class="nav-link active" data-scroll-target="#sec-download"><span class="header-section-number">1</span> Download</a></li>
-  <li><a href="#status" id="toc-status" class="nav-link" data-scroll-target="#status"><span class="header-section-number">2</span> Status</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">3</span> Introduction</a>
+  <li><a href="#sec-introduction" id="toc-sec-introduction" class="nav-link active" data-scroll-target="#sec-introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#sec-concept" id="toc-sec-concept" class="nav-link" data-scroll-target="#sec-concept"><span class="header-section-number">2</span> Concept</a>
   <ul class="collapse">
-  <li><a href="#water-balance-equations" id="toc-water-balance-equations" class="nav-link" data-scroll-target="#water-balance-equations"><span class="header-section-number">3.1</span> Water balance equations</a></li>
-  <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="header-section-number">3.2</span> Time</a></li>
-  <li><a href="#sec-space" id="toc-sec-space" class="nav-link" data-scroll-target="#sec-space"><span class="header-section-number">3.3</span> Space</a></li>
+  <li><a href="#sec-physical" id="toc-sec-physical" class="nav-link" data-scroll-target="#sec-physical"><span class="header-section-number">2.1</span> Physical layer</a></li>
+  <li><a href="#sec-control" id="toc-sec-control" class="nav-link" data-scroll-target="#sec-control"><span class="header-section-number">2.2</span> Control layer</a></li>
+  <li><a href="#sec-allocation" id="toc-sec-allocation" class="nav-link" data-scroll-target="#sec-allocation"><span class="header-section-number">2.3</span> Allocation layer</a></li>
   </ul></li>
+  <li><a href="#sec-components" id="toc-sec-components" class="nav-link" data-scroll-target="#sec-components"><span class="header-section-number">3</span> About the components</a></li>
+  <li><a href="#sec-download" id="toc-sec-download" class="nav-link" data-scroll-target="#sec-download"><span class="header-section-number">4</span> Download</a></li>
+  <li><a href="#acknowledgment" id="toc-acknowledgment" class="nav-link" data-scroll-target="#acknowledgment"><span class="header-section-number">5</span> Acknowledgment</a></li>
   </ul>
 </nav>
     </div>
@@ -163,7 +144,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Ribasim</h1>
+<h1 class="title">Ribasim quick overview</h1>
 </div>
 
 
@@ -178,8 +159,133 @@ div.csl-indent {
 
 </header>
 
-<p>Ribasim is a water resources model, designed to be the replacement of the regional surface water modules Mozart and SIMRES in the Netherlands Hydrological Instrument (NHI). Ribasim is a work in progress, it is a prototype that demonstrates all essential functionalities. Further development of the prototype in a software release is planned in 2022 and 2023.</p>
-<p>Ribasim is written in the <a href="https://julialang.org/">Julia programming language</a> and is built on top of the <a href="https://sciml.ai/">SciML: Open Source Software for Scientific Machine Learning</a> libraries, notably <a href="https://docs.sciml.ai/DiffEqDocs/stable/">DifferentialEquations.jl</a>.</p>
+<section id="sec-introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>Decision makers need to balance the supply and demand of water at the river basin scale, under increasing environmental pressure. Ribasim allows users to model basins under current and changing conditions to evaluate and design and management of the water system. It is available as free and open source software under the MIT license. Besides a model simulation core, Ribasim also includes tooling to assist in building models from basic datasets and visualize results. The model and its results provides insights to decision makers, enabling them to build consensus amongst water users and make informed decisions about how to manage water resources optimally.</p>
+<p>The model concept of Ribasim is composed of multiple layers: - a physical layer representing water bodies and associated infrastructure as well as abstractions, - a rule-based control layer to manage the infrastructure, and - (optionally) a priority-based allocation layer to take centralized decisions on user abstractions. - (optionally) a coupling layer to exchange fluxes and heads with other kernels</p>
+<p>Typically hydrological processes on land will be represented in detail by other models which can be coupled (online) to Ribasim with the help of iMOD Coupler. Currently, an online coupling with MODFLOW 6 (groundwater) and with Metaswap + MODFLOW 6 (unsaturated zone + groundwater) is available. The corresponding documentation can be found within the <a href="https://deltares.github.io/iMOD-Documentation/coupler.html">iMOD Suite Documentation</a>.</p>
+<p>This version of Ribasim is the follow up of the legacy Fortran kernel of Ribasim (version 7) applied world wide, the Fortran kernel SIMRES applied in the Netherlands, and the surface water models Distribution Model and Mozart of the Dutch National Hydrological Instrument.</p>
+</section>
+<section id="sec-concept" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Concept</h1>
+<section id="sec-physical" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-physical"><span class="header-section-number">2.1</span> Physical layer</h2>
+<p>To represent the physical characteristics of the water system in an area, Ribasim allows you to divide the area into a network of connected representative elementary watersheds (<a href="https://deltares.github.io/Ribasim/#ref-REGGIANI1998367">Reggiani, Sivapalan, and Majid Hassanizadeh 1998</a>). Within Ribasim, these elements are called basins, which are essentially buckets or reservoirs holding an aggregated volume of water bodies in an area. Basins are chained in a graph with connector nodes determining the exchange of water between the basins. These connector nodes can represent open water connections (e.g.&nbsp;bifurcations or resistance in a free flowing open water channel) or infrastructure elements such as pumps, gates or weirs. An overview of node types and associated data inputs is provided on the <a href="./core/usage.html">usage page</a>, while the associated mathematical formations are described on the <a href="./core/equations.html">equations page</a>.</p>
+</section>
+<section id="sec-control" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-control"><span class="header-section-number">2.2</span> Control layer</h2>
+<p>Infrastructure elements are often controlled by humans to implement a certain water management strategy. Ribasim allows the configuration of conditional rules to influence the exchange of water between basins, either by setting inflow or outflow, or by controlling a water level. Control rules evaluate one or multiple conditions to change a parameter setting of an infrastructure element when the conditional criteria are met. Conditions can be either calculated values within the network as well as boundary conditions or (todo) external observations, i.e.&nbsp;observation values external to the model. An overview of node types and associated data inputs is provided on the <a href="./core/usage.html">usage page</a>, while the associated mathematical formations are described on the <a href="./core/equations.html">equations page</a>.</p>
+</section>
+<section id="sec-allocation" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-allocation"><span class="header-section-number">2.3</span> Allocation layer</h2>
+<p>Ribasim allows water users (water demands) to abstract water from the basins (i.e.&nbsp;from the physical layer) unless the water level drops below a minimum level. Under dry conditions, water managers may want to prioritize some abstractions over other abstractions. The Ribasim allocation layer can take care of this prioritization by reducing the abstraction rates of lower-priority demands to ensure that sufficient water remains available in the system for the higher-priority demands. The associated mathematical formulations are described on the <a href="./core/allocation.html">allocation page</a>. In case of large networks, a subdivision in a main network with subnetworks is recommended. For more details see the explanation of the <a href="./core/index.html#sec-nested-allocation">simulation loop</a> at the Julia core home page.</p>
+<p>The layers and the main components and dataflows between the layers are shown in the next figure:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+physical:::layer
+rbc:::layer
+allocation:::layer
+user
+basin
+connector[basin connector]
+control[control rules]
+condition
+alloc[global allocation]
+
+subgraph physical[physical layer]
+    user--&gt;|abstraction| basin
+    basin&lt;--&gt;|flow| connector
+end
+
+subgraph rbc[rule based control layer]
+   condition --&gt; control
+end
+
+subgraph allocation[allocation layer]
+    alloc
+end
+
+user--&gt;|request demand| alloc
+alloc--&gt;|assign allocation| user
+basin--&gt;|volume| alloc
+basin --&gt; |volume or level| condition
+alloc --&gt; |optional flow update| control
+control --&gt; |action| connector
+
+%% class definitions for C4 model
+classDef layer fill:transparent,stroke-dasharray:5 5
+</pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-components" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> About the components</h1>
+<p>The figure below illustrates the relation between the various components of the Ribasim software package.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+modeler([Modeler]):::user
+
+api["Ribasim Python\n[python]"]
+modeler--&gt;|prepare model|api
+
+ribasim["Ribasim\n[julia]"]
+modeler--&gt;|start|ribasim
+
+subgraph qgisBoundary[QGIS]
+    QGIS[QGIS Application]:::system_ext
+    qgisPlugin["Ribasim QGIS plugin\n[python]"]
+    QGIS--&gt;qgisPlugin
+end
+modeler--&gt;|prepare model|qgisBoundary
+
+model[("input model data\n[toml + geopackage + arrow]")]
+qgisPlugin--&gt;|read/write|model
+api--&gt;|read/write|model
+ribasim--&gt;|simulate|model
+
+output[("simulation results\n[arrow]")]
+ribasim--&gt;|write|output
+
+class qgisBoundary boundary
+
+%% class definitions for C4 model
+classDef user fill:#ABD0BC
+classDef system_ext fill:#D2D2D2
+classDef boundary fill:transparent,stroke-dasharray:5 5
+</pre>
+</div>
+</div>
+</div>
+</div>
+<p>The kernel of Ribasim is written in the <a href="https://julialang.org/">Julia programming language</a> and is built on top of the <a href="https://sciml.ai/">SciML: Open Source Software for Scientific Machine Learning</a> libraries, notably <a href="https://docs.sciml.ai/DiffEqDocs/stable/">DifferentialEquations.jl</a>.</p>
+<p>The <a href="https://deltares.github.io/Ribasim/python/">Ribasim Python package</a> is available to build, update and analyze Ribasim models programmatically. For runtime data exchange and coupling with other kernels, the Julia kernel is wrapped in a Python API (<code>ribasim_api</code>) which implements the Basic Modelling Interface <a href="https://bmi-spec.readthedocs.io/en/latest/">BMI</a>.</p>
+<p>The Ribasim QGIS plugin allows users to view or edit a model without programming. For specific tasks, like adding long timeseries, using Python is strongly recommended.</p>
+<p>One can also use Ribasim Python to build entire models from base data, such that your model setup is fully reproducible.</p>
+<p>See <a href="https://deltares.github.io/Ribasim/core/usage.html">usage</a> for more information.</p>
+</section>
+<section id="sec-download" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Download</h1>
+<ul>
+<li>Ribasim executable - Linux: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_cli_linux.zip">ribasim_cli_linux.zip</a></li>
+<li>Ribasim executable - Windows: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_cli_windows.zip">ribasim_cli_windows.zip</a></li>
+<li>QGIS plugin: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_qgis.zip">ribasim_qgis.zip</a>.</li>
+<li>Generated testmodels: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/generated_testmodels.zip">generated_testmodels.zip</a></li>
+</ul>
+<p>The Ribasim Python package is <a href="https://pypi.org/project/ribasim/">registered in PyPI</a> and can therefore be installed with <a href="https://docs.python.org/3/installing/index.html">pip</a>:</p>
+<pre><code>pip install ribasim</code></pre>
+</section>
+<section id="acknowledgment" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Acknowledgment</h1>
+<p>Ribasim is supported by:</p>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-bottom">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
@@ -190,187 +296,11 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<section id="sec-download" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Download</h1>
-<ul>
-<li>Ribasim executable - Linux: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_cli_linux.zip">ribasim_cli_linux.zip</a></li>
-<li>Ribasim executable - Windows: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_cli_windows.zip">ribasim_cli_windows.zip</a></li>
-<li>QGIS plugin: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_qgis.zip">ribasim_qgis.zip</a>.</li>
-<li>Generated testmodels: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/generated_testmodels.zip">generated_testmodels.zip</a></li>
-</ul>
-<p>The nightly builds contain the latest developments and can be found below. It is important to either use the release or nightly for all components.</p>
-<ul>
-<li>Ribasim executable: <a href="https://ribasim.s3.eu-west-3.amazonaws.com/teamcity/Ribasim_Ribasim/BuildRibasimCliWindows/latest/ribasim_cli.zip">ribasim_cli.zip</a>.</li>
-<li>QGIS plugin: <a href="https://ribasim.s3.eu-west-3.amazonaws.com/teamcity/Ribasim_Ribasim/BuildRibasimCliWindows/latest/ribasim_qgis.zip">ribasim_qgis.zip</a>.</li>
-</ul>
-<p>Currently only Windows builds for <code>ribasim_cli.zip</code> are available.</p>
-<p>See <a href="./core/usage.html">Usage</a> for more information.</p>
-<div class="cell" data-file="assets/c4_system.mmd">
-<div class="cell-output-display">
-<div>
-<div>
-<pre class="mermaid mermaid-js">flowchart TB
-modeler([Modeler]):::user
-
-api["Ribasim Python\n[python]"]:::system
-modeler--&gt;|prepare model|api
-
-ribasim["Ribasim\n[julia]"]:::system
-modeler--&gt;|start|ribasim
-
-subgraph qgisBoundary[QGIS]
-    QGIS[QGIS Application]:::system_ext
-    qgisPlugin["Ribasim QGIS plugin\n[python]"]:::system
-    QGIS--&gt;qgisPlugin
-end
-modeler--&gt;|prepare model|qgisBoundary
-
-model[("input model data\n[toml + geopackage + arrow]")]:::system
-qgisPlugin--&gt;|read/write|model
-api--&gt;|read/write|model
-ribasim--&gt;|simulate|model
-
-output[("simulation results\n[arrow]")]:::system
-ribasim--&gt;|write|output
-
-class qgisBoundary boundary
-
-%% class definitions for C4 model
-classDef default stroke-width:1px,stroke:white,color:white
-classDef system fill:#1168bd
-classDef user fill:#08427b
-classDef system_ext fill:#999999
-classDef boundary fill:transparent,stroke-dasharray:5 5,stroke:black,color:black
-</pre>
-</div>
-<p>System overview of Ribasim</p>
-</div>
-</div>
-</div>
-</section>
-<section id="status" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Status</h1>
-<p>The initial focus is on being able to reproduce the Mozart regional surface water reservoir results. Each component is defined by a set of symbolic equations, and can be connected to each other. From this a simplified system of equations is generated automatically. We use solvers with adaptive time stepping from <a href="https://diffeq.sciml.ai/stable/">DifferentialEquations.jl</a> to get results.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/179259333-070dfe18-8f43-4ac4-bb38-013b252e2e4b.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Example timeseries of a single basin, the Hupselse Beek, with the input and output fluxes on the top, and the storage volume (the state) below.</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/179259174-0caccd4a-c51b-449e-873c-17d48cfc8870.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Example bar plot of the daily waterbalance for the Hupselse Beek, comparing results of Mozart (left) and Ribasim (right).</figcaption>
-</figure>
-</div>
-</section>
-<section id="introduction" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Introduction</h1>
-<section id="water-balance-equations" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="water-balance-equations"><span class="header-section-number">3.1</span> Water balance equations</h2>
-<p>The water balance equation for a drainage basin <span class="citation" data-cites="enwiki:1099736933">(<a href="#ref-enwiki:1099736933" role="doc-biblioref">Wikipedia contributors 2022</a>)</span> can be defined by a first-order ordinary differential equation (ODE), where the change of the storage <span class="math inline">\(S\)</span> over time is determined by the inflow fluxes minus the outflow fluxes.</p>
-<p><span class="math display">\[
-\frac{\mathrm{d}S}{\mathrm{d}t} = Q_{in} - Q_{out}
-\]</span></p>
-<p>We can split out the fluxes into separate terms, such as precipitation <span class="math inline">\(P\)</span>, evapotranspiration <span class="math inline">\(ET\)</span> and runoff <span class="math inline">\(R\)</span>. For now other fluxes are combined into <span class="math inline">\(Q_{rest}\)</span>. If we define all fluxes entering our reservoir as positive, and those leaving the system as negative, all fluxes can be summed up.</p>
-<p><span class="math display">\[
-\frac{\mathrm{d}S}{\mathrm{d}t} = R + P + ET + Q_{rest}
-\]</span></p>
-</section>
-<section id="time" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="time"><span class="header-section-number">3.2</span> Time</h2>
-<p>The water balance equation can be applied on many timescales; years, weeks, days or hours. Depending on the application and available data any of these can be the best choice. In Ribasim, we make use of DifferentialEquations.jl and its <a href="https://diffeq.sciml.ai/stable/solvers/ode_solve/">ODE solvers</a>. Many of these solvers are based on adaptive time stepping, which means the solver will decide how large the time steps can be depending on the state of the system.</p>
-<p>The forcing, like precipitation, is generally provided as a time series. Ribasim is set up to support unevenly spaced timeseries. The solver will stop on timestamps where new forcing values are available, so they can be loaded as the new value.</p>
-<p>Ribasim is essentially a continuous model, rather than daily or hourly. If you want to use hourly forcing, you only need to make sure that your forcing data contains hourly updates. The output frequency can be configured independently. To be able to write a closed water balance, we accumulate the fluxes. This way any variations in between timesteps are also included, and we can output in <code>m³</code> rather than <code>m³s⁻¹</code>.</p>
-</section>
-<section id="sec-space" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="sec-space"><span class="header-section-number">3.3</span> Space</h2>
-<p>The water balance equation can be applied on different spatial scales. Besides modelling a single lumped watershed, it allows you to divide the area into a network of connected representative elementary watersheds (REWs) <span class="citation" data-cites="REGGIANI1998367">(<a href="#ref-REGGIANI1998367" role="doc-biblioref">Reggiani, Sivapalan, and Majid Hassanizadeh 1998</a>)</span>. At this scale global water balance laws can be formulated by means of integration of point-scale conservation equations over control volumes. Such an approach makes Ribasim a semi-distributed model. In this document we typically use the term “basin” to refer to the REW. (In Mozart the spatial unit was called Local Surface Water (LSW)). Each basin has an associated polygon, and the set of basins is connected to each other as described by a graph, which we call the network. Below is a representation of both on the map.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/185932183-62c305e6-bc14-4f3c-a74c-437f831c9145.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Mozart Local Surface Water polygons and their drainage.</figcaption>
-</figure>
-</div>
-<p>The network is described as graph. Flow can be bi-directional, and the graph does not have to be acyclic.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<div>
-<pre class="mermaid mermaid-js">graph LR;
-    A["basin A"] --- B["basin B"];
-    A --- C["basin C"];
-    B --- D["basin D"];
-    C --- D;
-</pre>
-</div>
-</div>
-</div>
-</div>
-<p>Internally a directed graph is used. The direction is defined to be the positive flow direction, and is generally set in the dominant flow direction. The basins are the nodes of the network graph. Basin states and properties such storage volume and wetted area are associated with the nodes (A, B, C, D), as are most forcing data such as precipitation, evaporation, or water demand. Basin connection properties and interbasin flows are associated with the edges (the lines between A, B, C, and D) instead.</p>
-<p>Multiple basins may exist within the same spatial polygon, representing different aspects of the surface water system (perennial ditches, ephemeral ditches, or even surface ponding). <a href="#fig-p">Figure&nbsp;1</a>, <a href="#fig-s">Figure&nbsp;2</a>, <a href="#fig-t">Figure&nbsp;3</a> show the 25.0 m rasterized primary, secondary, and tertiary surface waters as identified by BRT TOP10NL <span class="citation" data-cites="pdoktopnl">(<a href="#ref-pdoktopnl" role="doc-biblioref">PDOK 2022</a>)</span> in the Hupsel basin (as defined in the Mozart LSW’s). These systems may represented in multiple ways.</p>
-<div id="fig-p" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/13662783/187625163-d0a81bb6-7f55-4ad1-83e2-90ec1ee79740.PNG" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: Hupsel: primary surface water.</figcaption>
-</figure>
-</div>
-<div id="fig-s" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/13662783/187625170-1acdfb41-7077-443f-b140-ae18cbf21e53.PNG" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;2: Hupsel: secondary surface water.</figcaption>
-</figure>
-</div>
-<div id="fig-t" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/13662783/187625174-3eec28b5-ddbb-4870-94c3-d9e9a43f8eb4.PNG" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;3: Hupsel: tertiary surface water.</figcaption>
-</figure>
-</div>
-<p>As a single basin (A) containing all surface water, discharging to its downstream basin to the west (B):</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<div>
-<pre class="mermaid mermaid-js">graph LR;
-    A["basin A"] --&gt; B["basin B"];
-</pre>
-</div>
-</div>
-</div>
-</div>
-<p>Such a system may be capable of representing discharge, but it cannot represent residence times or differences in solute concentrations: within a single basin, drop of water is mixed instantaneously. Instead, we may the group primary (P), secondary (S), and tertiary (T) surface waters. Then T may flow into S, S into P, and P discharges to the downstream basin (B.)</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<div>
-<pre class="mermaid mermaid-js">graph LR;
-    T["basin T"] --&gt; S["basin S"];
-    S --&gt; P["basin P"];
-    P --&gt; B["basin B"];
-</pre>
-</div>
-</div>
-</div>
-</div>
-<p>As each (sub)basin has its own volume, low throughput (high volume, low discharge, long residence time) and high throughput (low volume, high discharge, short residence time) systems can be represented in a lumped manner; of course, more detail requires more parameters.</p>
-
 
 
 </section>
-</section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-pdoktopnl" class="csl-entry" role="listitem">
-PDOK. 2022. <span>“Dataset: Basisregistratie Topografie (BRT) TOPNL.”</span> <a href="https://www.pdok.nl/downloads/-/article/basisregistratie-topografie-brt-topnl">https://www.pdok.nl/downloads/-/article/basisregistratie-topografie-brt-topnl</a>.
-</div>
-<div id="ref-REGGIANI1998367" class="csl-entry" role="listitem">
-Reggiani, Paolo, Murugesu Sivapalan, and S. Majid Hassanizadeh. 1998. <span>“A Unifying Framework for Watershed Thermodynamics: Balance Equations for Mass, Momentum, Energy and Entropy, and the Second Law of Thermodynamics.”</span> <em>Advances in Water Resources</em> 22 (4): 367–98. https://doi.org/<a href="https://doi.org/10.1016/S0309-1708(98)00012-8">https://doi.org/10.1016/S0309-1708(98)00012-8</a>.
-</div>
-<div id="ref-enwiki:1099736933" class="csl-entry" role="listitem">
-Wikipedia contributors. 2022. <span>“Drainage Basin — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=Drainage_basin&amp;oldid=1099736933">https://en.wikipedia.org/w/index.php?title=Drainage_basin&amp;oldid=1099736933</a>.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

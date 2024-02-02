@@ -84,7 +84,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../core/validation.html" rel="next">
-<link href="../core/index.html" rel="prev">
+<link href="../core/modelconcept.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -195,6 +195,12 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../core/modelconcept.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model concept</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../core/usage.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Usage</span></a>
   </div>
@@ -246,14 +252,14 @@ div.csl-indent {
   <li><a href="#results-settings" id="toc-results-settings" class="nav-link" data-scroll-target="#results-settings"><span class="header-section-number">1.3</span> Results settings</a></li>
   <li><a href="#logging-settings" id="toc-logging-settings" class="nav-link" data-scroll-target="#logging-settings"><span class="header-section-number">1.4</span> Logging settings</a></li>
   </ul></li>
-  <li><a href="#geopackage-database-and-arrow-tables" id="toc-geopackage-database-and-arrow-tables" class="nav-link" data-scroll-target="#geopackage-database-and-arrow-tables"><span class="header-section-number">2</span> GeoPackage database and Arrow tables</a>
+  <li><a href="#sec-geopackage" id="toc-sec-geopackage" class="nav-link" data-scroll-target="#sec-geopackage"><span class="header-section-number">2</span> GeoPackage database and Arrow tables</a>
   <ul class="collapse">
   <li><a href="#table-requirements" id="toc-table-requirements" class="nav-link" data-scroll-target="#table-requirements"><span class="header-section-number">2.1</span> Table requirements</a></li>
   <li><a href="#custom-metadata" id="toc-custom-metadata" class="nav-link" data-scroll-target="#custom-metadata"><span class="header-section-number">2.2</span> Custom metadata</a></li>
   </ul></li>
-  <li><a href="#node" id="toc-node" class="nav-link" data-scroll-target="#node"><span class="header-section-number">3</span> Node</a></li>
-  <li><a href="#edge" id="toc-edge" class="nav-link" data-scroll-target="#edge"><span class="header-section-number">4</span> Edge</a></li>
-  <li><a href="#basin" id="toc-basin" class="nav-link" data-scroll-target="#basin"><span class="header-section-number">5</span> Basin</a>
+  <li><a href="#sec-node" id="toc-sec-node" class="nav-link" data-scroll-target="#sec-node"><span class="header-section-number">3</span> Node</a></li>
+  <li><a href="#sec-edge" id="toc-sec-edge" class="nav-link" data-scroll-target="#sec-edge"><span class="header-section-number">4</span> Edge</a></li>
+  <li><a href="#sec-basin" id="toc-sec-basin" class="nav-link" data-scroll-target="#sec-basin"><span class="header-section-number">5</span> Basin</a>
   <ul class="collapse">
   <li><a href="#basin-time" id="toc-basin-time" class="nav-link" data-scroll-target="#basin-time"><span class="header-section-number">5.1</span> Basin / time</a></li>
   <li><a href="#basin-state" id="toc-basin-state" class="nav-link" data-scroll-target="#basin-state"><span class="header-section-number">5.2</span> Basin / state</a></li>
@@ -262,36 +268,36 @@ div.csl-indent {
   <li><a href="#basin-results" id="toc-basin-results" class="nav-link" data-scroll-target="#basin-results"><span class="header-section-number">5.5</span> Basin results</a></li>
   <li><a href="#flow-results" id="toc-flow-results" class="nav-link" data-scroll-target="#flow-results"><span class="header-section-number">5.6</span> Flow results</a></li>
   </ul></li>
-  <li><a href="#fractionalflow" id="toc-fractionalflow" class="nav-link" data-scroll-target="#fractionalflow"><span class="header-section-number">6</span> FractionalFlow</a></li>
-  <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="header-section-number">7</span> TabulatedRatingCurve</a>
+  <li><a href="#sec-fractional-flow" id="toc-sec-fractional-flow" class="nav-link" data-scroll-target="#sec-fractional-flow"><span class="header-section-number">6</span> FractionalFlow</a></li>
+  <li><a href="#sec-tabulated-rating-curve" id="toc-sec-tabulated-rating-curve" class="nav-link" data-scroll-target="#sec-tabulated-rating-curve"><span class="header-section-number">7</span> TabulatedRatingCurve</a>
   <ul class="collapse">
   <li><a href="#tabulatedratingcurve-time" id="toc-tabulatedratingcurve-time" class="nav-link" data-scroll-target="#tabulatedratingcurve-time"><span class="header-section-number">7.1</span> TabulatedRatingCurve / time</a></li>
   </ul></li>
-  <li><a href="#pump" id="toc-pump" class="nav-link" data-scroll-target="#pump"><span class="header-section-number">8</span> Pump</a></li>
-  <li><a href="#outlet" id="toc-outlet" class="nav-link" data-scroll-target="#outlet"><span class="header-section-number">9</span> Outlet</a></li>
-  <li><a href="#user" id="toc-user" class="nav-link" data-scroll-target="#user"><span class="header-section-number">10</span> User</a>
+  <li><a href="#sec-pump" id="toc-sec-pump" class="nav-link" data-scroll-target="#sec-pump"><span class="header-section-number">8</span> Pump</a></li>
+  <li><a href="#sec-outlet" id="toc-sec-outlet" class="nav-link" data-scroll-target="#sec-outlet"><span class="header-section-number">9</span> Outlet</a></li>
+  <li><a href="#sec-user" id="toc-sec-user" class="nav-link" data-scroll-target="#sec-user"><span class="header-section-number">10</span> User</a>
   <ul class="collapse">
   <li><a href="#user-time" id="toc-user-time" class="nav-link" data-scroll-target="#user-time"><span class="header-section-number">10.1</span> User / time</a></li>
   <li><a href="#allocation-results" id="toc-allocation-results" class="nav-link" data-scroll-target="#allocation-results"><span class="header-section-number">10.2</span> Allocation results</a></li>
   </ul></li>
-  <li><a href="#levelboundary" id="toc-levelboundary" class="nav-link" data-scroll-target="#levelboundary"><span class="header-section-number">11</span> LevelBoundary</a>
+  <li><a href="#sec-level-boundary" id="toc-sec-level-boundary" class="nav-link" data-scroll-target="#sec-level-boundary"><span class="header-section-number">11</span> LevelBoundary</a>
   <ul class="collapse">
   <li><a href="#levelboundary-time" id="toc-levelboundary-time" class="nav-link" data-scroll-target="#levelboundary-time"><span class="header-section-number">11.1</span> LevelBoundary / time</a></li>
   </ul></li>
-  <li><a href="#flowboundary" id="toc-flowboundary" class="nav-link" data-scroll-target="#flowboundary"><span class="header-section-number">12</span> FlowBoundary</a>
+  <li><a href="#sec-flow-boundary" id="toc-sec-flow-boundary" class="nav-link" data-scroll-target="#sec-flow-boundary"><span class="header-section-number">12</span> FlowBoundary</a>
   <ul class="collapse">
   <li><a href="#flowboundary-time" id="toc-flowboundary-time" class="nav-link" data-scroll-target="#flowboundary-time"><span class="header-section-number">12.1</span> FlowBoundary / time</a></li>
   </ul></li>
-  <li><a href="#linearresistance" id="toc-linearresistance" class="nav-link" data-scroll-target="#linearresistance"><span class="header-section-number">13</span> LinearResistance</a></li>
-  <li><a href="#manningresistance" id="toc-manningresistance" class="nav-link" data-scroll-target="#manningresistance"><span class="header-section-number">14</span> ManningResistance</a></li>
-  <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">15</span> Terminal</a></li>
-  <li><a href="#discetecontrol" id="toc-discetecontrol" class="nav-link" data-scroll-target="#discetecontrol"><span class="header-section-number">16</span> DisceteControl</a>
+  <li><a href="#sec-linear-resistance" id="toc-sec-linear-resistance" class="nav-link" data-scroll-target="#sec-linear-resistance"><span class="header-section-number">13</span> LinearResistance</a></li>
+  <li><a href="#sec-manning-resistance" id="toc-sec-manning-resistance" class="nav-link" data-scroll-target="#sec-manning-resistance"><span class="header-section-number">14</span> ManningResistance</a></li>
+  <li><a href="#sec-terminal" id="toc-sec-terminal" class="nav-link" data-scroll-target="#sec-terminal"><span class="header-section-number">15</span> Terminal</a></li>
+  <li><a href="#sec-discrete-control" id="toc-sec-discrete-control" class="nav-link" data-scroll-target="#sec-discrete-control"><span class="header-section-number">16</span> DisceteControl</a>
   <ul class="collapse">
-  <li><a href="#sec-condition" id="toc-sec-condition" class="nav-link" data-scroll-target="#sec-condition"><span class="header-section-number">16.1</span> DiscreteControl / condition</a></li>
+  <li><a href="#discretecontrol-condition" id="toc-discretecontrol-condition" class="nav-link" data-scroll-target="#discretecontrol-condition"><span class="header-section-number">16.1</span> DiscreteControl / condition</a></li>
   <li><a href="#discretecontrol-logic" id="toc-discretecontrol-logic" class="nav-link" data-scroll-target="#discretecontrol-logic"><span class="header-section-number">16.2</span> DiscreteControl / logic</a></li>
   <li><a href="#discretecontrol-results" id="toc-discretecontrol-results" class="nav-link" data-scroll-target="#discretecontrol-results"><span class="header-section-number">16.3</span> DiscreteControl results</a></li>
   </ul></li>
-  <li><a href="#pidcontrol" id="toc-pidcontrol" class="nav-link" data-scroll-target="#pidcontrol"><span class="header-section-number">17</span> PidControl</a>
+  <li><a href="#sec-pid-control" id="toc-sec-pid-control" class="nav-link" data-scroll-target="#sec-pid-control"><span class="header-section-number">17</span> PidControl</a>
   <ul class="collapse">
   <li><a href="#pidcontrol-time" id="toc-pidcontrol-time" class="nav-link" data-scroll-target="#pidcontrol-time"><span class="header-section-number">17.1</span> PidControl / time</a></li>
   </ul></li>
@@ -324,7 +330,7 @@ div.csl-indent {
 <pre><code>Usage: ribasim 'path/to/model/ribasim.toml'</code></pre>
 <section id="configuration-file" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Configuration file</h1>
-<p>Ribasim has a single configuration file, which is written in the <a href="https://toml.io/">TOML</a> format. It contains settings, as well as paths to other input and output files.</p>
+<p>Ribasim has a single configuration file, which is written in the <a href="https://toml.io/">TOML</a> format. It contains settings, as well as paths to other input and output files. Ribasim expects the GeoPackage database <a href="../core/usage.html#sec-geopackage">database.gpkg</a> as well as optional Arrow input files to be available in the input_dir.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start- and endtime of the simulation</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># can also be set to a date-time like 1979-05-27T07:32:00</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">starttime</span> <span class="op">=</span> <span class="bn">2019-01-01</span> <span class="co"># required</span></span>
@@ -449,7 +455,7 @@ div.csl-indent {
 </table>
 </section>
 </section>
-<section id="geopackage-database-and-arrow-tables" class="level1" data-number="2">
+<section id="sec-geopackage" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> GeoPackage database and Arrow tables</h1>
 <p>The input and output tables described below all share that they are tabular files. The Node and Edge tables always have to be in the <a href="https://www.geopackage.org/">GeoPackage</a> database file, and results are always written to <a href="https://arrow.apache.org/">Apache Arrow</a> files, sometimes also known as Feather files. All other tables can either be in the database or in separate Arrow files that are listed in the TOML as described above.</p>
 <p>For visualization, the Node and Edge tables typically have associated geometries. GeoPackage was used since it provides a standardized way to store tables with (and without) geometry columns in a SQLite database. If, like Ribasim, you can ignore the geometries, a GeoPackage is easy to read using SQLite libraries, which are commonly available. Furthermore GeoPackage can be updated in place when working on a model.</p>
@@ -488,10 +494,10 @@ div.csl-indent {
 <section id="custom-metadata" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="custom-metadata"><span class="header-section-number">2.2</span> Custom metadata</h2>
 <p>It may be advantageous to add metadata to rows. For example, basin areas might have names and objects such as weirs might have specific identification codes. Additional columns can be freely added to tables. The column names should be prefixed with <code>meta_</code>. They will not be used in computations or validated by the Julia core.</p>
-<p>The ribasim-python library will automatically add the <code>meta_</code> prefix to non-standard columns. Column names already prefixed with <code>meta_</code> will not be updated.</p>
+<p>The Ribasim Python library will automatically add the <code>meta_</code> prefix to non-standard columns. Column names already prefixed with <code>meta_</code> will not be updated.</p>
 </section>
 </section>
-<section id="node" class="level1" data-number="3">
+<section id="sec-node" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Node</h1>
 <p>Node is a table that specifies the ID and type of each node of a model. The ID must be unique among all nodes, and the type must be one of the available node types listed below.</p>
 <p>Nodes are components that are connected together to form a larger system. The Basin is a central node type that stores water. The other node types influence the flow between Basins in some way. Counter intuitively, even systems you may think of as edges, such as a canal, are nodes in Ribasim. This is because edges only define direct instantaneous couplings between nodes, and never have storage of their own.</p>
@@ -603,12 +609,12 @@ div.csl-indent {
 </ul>
 <p>Adding a geometry to the node table can be helpful to examine models in <a href="https://qgis.org/en/site/">QGIS</a>, as it will show the location of the nodes on the map. The geometry is not used by Ribasim.</p>
 </section>
-<section id="edge" class="level1" data-number="4">
+<section id="sec-edge" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Edge</h1>
 <p>Edges define connections between nodes. The only thing that defines an edge is the nodes it connects, and in what direction. There are currently 2 possible edge types:</p>
 <ol type="1">
 <li>“flow”: Flows between nodes are stored on edges. The effect of the edge direction depends on the node type, Node types that have a notion of an upstream and downstream side use the incoming edge as the upstream side, and the outgoing edge as the downstream side. This means that edges should generally be drawn in the main flow direction. But for instance between two <code>LinearResistances</code> the edge direction does not affect anything, other than the sign of the flow on the edge. The sign of the flow follows the edge direction; a positive flow flows along the edge direction, a negative flow in the opposite way.</li>
-<li>“control”: The control edges define which nodes are controlled by a particular control node. Control edges should always point away from the control node. The edges between the control node and the nodes it <em>listens</em> to are <em>not</em> present in <code>Edge \ static</code>, these are defined in <a href="../core/usage.html#sec-condition">Control / condition</a></li>
+<li>“control”: The control edges define which nodes are controlled by a particular control node. Control edges should always point away from the control node. The edges between the control node and the nodes it <em>listens</em> to are <em>not</em> present in <code>Edge</code>, these are defined in <a href="../core/usage.html#sec-discrete-control"><code>DiscreteControl / condition</code></a></li>
 </ol>
 <table class="table">
 <colgroup>
@@ -663,7 +669,7 @@ div.csl-indent {
 </table>
 <p>Similarly to the node table, you can use a geometry to visualize the connections between the nodes in QGIS. For instance, you can draw a line connecting the two node coordinates.</p>
 </section>
-<section id="basin" class="level1" data-number="5">
+<section id="sec-basin" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Basin</h1>
 <p>The Basin table can be used to set the static value of variables. The time table has a similar schema, with the time column added. A static value for a variable is only used if there is no dynamic forcing data for that variable. Specifically, if there is either no time table, it is empty, or all timestamps of that variable are missing.</p>
 <table class="table">
@@ -990,7 +996,7 @@ div.csl-indent {
 <p>The table is sorted by time, and per time the same <code>edge_id</code> order is used, though not sorted. Flows that are added to the model at a node, have a missing <code>edge_id</code>, and identical <code>from_node_id</code> and <code>to_node_id</code>. Flows out of the model always have a negative sign, and additions a positive sign.</p>
 </section>
 </section>
-<section id="fractionalflow" class="level1" data-number="6">
+<section id="sec-fractional-flow" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> FractionalFlow</h1>
 <p>Lets a fraction (in [0,1]) of the incoming flow trough.</p>
 <table class="table">
@@ -1024,7 +1030,7 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="tabulatedratingcurve" class="level1" data-number="7">
+<section id="sec-tabulated-rating-curve" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> TabulatedRatingCurve</h1>
 <p>This table is similar in structure to the Basin profile. The TabulatedRatingCurve gives a relation between the storage of a connected Basin (via the outlet level) and its outflow.</p>
 <table class="table">
@@ -1146,7 +1152,7 @@ div.csl-indent {
 </table>
 </section>
 </section>
-<section id="pump" class="level1" data-number="8">
+<section id="sec-pump" class="level1" data-number="8">
 <h1 data-number="8"><span class="header-section-number">8</span> Pump</h1>
 <p>Pump water from a source node to a destination node. The set flow rate will be pumped unless the intake storage is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. The intake must be either a Basin or LevelBoundary. When PID controlled, the pump must point away from the controlled basin in terms of edges.</p>
 <table class="table">
@@ -1204,7 +1210,7 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="outlet" class="level1" data-number="9">
+<section id="sec-outlet" class="level1" data-number="9">
 <h1 data-number="9"><span class="header-section-number">9</span> Outlet</h1>
 <p>The outlet is very similar to the pump. The outlet has two additional physical constraints: water only flows trough the outlet when the head difference is positive (i.e.&nbsp;water flows down by gravity), and the upstream level must be above the minimum crest level if the upstream level is defined. When PID controlled, the outlet must point towards the controlled basin in terms of edges.</p>
 <table class="table">
@@ -1268,7 +1274,7 @@ div.csl-indent {
 </tbody>
 </table>
 </section>
-<section id="user" class="level1" data-number="10">
+<section id="sec-user" class="level1" data-number="10">
 <h1 data-number="10"><span class="header-section-number">10</span> User</h1>
 <p>A user can demand a certain flow from the basin that supplies it, distributed over multiple priorities 1,2,3,… where priority 1 denotes the most important demand. Currently the user attempts to extract the complete demand from the Basin. Only if the Basin is almost empty or reaches the minimum level at which the user can extract water (<code>min_level</code>), will it take less than the demand. In the future water can be allocated to users based on their priority. Users need an outgoing flow edge along which they can send their return flow, this can also be to the same basin from which it extracts water. The amount of return flow is always a fraction of the inflow into the user. The difference is consumed by the user.</p>
 <table class="table">
@@ -1433,7 +1439,7 @@ Note
 </div>
 </section>
 </section>
-<section id="levelboundary" class="level1" data-number="11">
+<section id="sec-level-boundary" class="level1" data-number="11">
 <h1 data-number="11"><span class="header-section-number">11</span> LevelBoundary</h1>
 <p>Acts like an infinitely large basin where the level does not change by flow. This can be connected to a basin via a <code>LinearResistance</code>. This boundary node will then exchange water with the basin based on the difference in water level between the two.</p>
 <table class="table">
@@ -1501,7 +1507,7 @@ Note
 </table>
 </section>
 </section>
-<section id="flowboundary" class="level1" data-number="12">
+<section id="sec-flow-boundary" class="level1" data-number="12">
 <h1 data-number="12"><span class="header-section-number">12</span> FlowBoundary</h1>
 <p>Pump water to a destination node. We require that the edge connecting the flow boundary to the Basin should point towards the basin, so that positive flow corresponds to water being added to the model. The set flow rate will be pumped unless the intake storage (for a negative flow rate) is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. Note that the connected node must always be a Basin.</p>
 <table class="table">
@@ -1569,7 +1575,7 @@ Note
 </table>
 </section>
 </section>
-<section id="linearresistance" class="level1" data-number="13">
+<section id="sec-linear-resistance" class="level1" data-number="13">
 <h1 data-number="13"><span class="header-section-number">13</span> LinearResistance</h1>
 <p>Flow proportional to the level difference between the connected basins.</p>
 <table class="table">
@@ -1609,7 +1615,7 @@ Note
 </tbody>
 </table>
 </section>
-<section id="manningresistance" class="level1" data-number="14">
+<section id="sec-manning-resistance" class="level1" data-number="14">
 <h1 data-number="14"><span class="header-section-number">14</span> ManningResistance</h1>
 <p>Flow through this connection is estimated by conservation of energy and the Manning-Gauckler formula to estimate friction losses.</p>
 <table class="table">
@@ -1667,7 +1673,7 @@ Note
 </tbody>
 </table>
 </section>
-<section id="terminal" class="level1" data-number="15">
+<section id="sec-terminal" class="level1" data-number="15">
 <h1 data-number="15"><span class="header-section-number">15</span> Terminal</h1>
 <p>A terminal is a water sink without state or properties. Any water that flows into a terminal node is removed from the model. No water can come into the model from a terminal node. For example, terminal nodes can be used as a downstream boundary.</p>
 <table class="table">
@@ -1689,11 +1695,11 @@ Note
 </tbody>
 </table>
 </section>
-<section id="discetecontrol" class="level1" data-number="16">
+<section id="sec-discrete-control" class="level1" data-number="16">
 <h1 data-number="16"><span class="header-section-number">16</span> DisceteControl</h1>
 <p>DiscreteControl is implemented based on <a href="https://docs.sciml.ai/DiffEqDocs/stable/features/callback_functions/#VectorContinuousCallback">VectorContinuousCallback</a>.</p>
-<section id="sec-condition" class="level2" data-number="16.1">
-<h2 data-number="16.1" class="anchored" data-anchor-id="sec-condition"><span class="header-section-number">16.1</span> DiscreteControl / condition</h2>
+<section id="discretecontrol-condition" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="discretecontrol-condition"><span class="header-section-number">16.1</span> DiscreteControl / condition</h2>
 <p>The condition schema defines conditions of the form ‘the discrete_control node with this node id listens to whether the given variable of the node with the given listen feature id is grater than the given value’. If the condition variable comes from a time-series, a look ahead <span class="math inline">\(\Delta t\)</span> can be supplied.</p>
 <table class="table">
 <colgroup>
@@ -1823,7 +1829,7 @@ Note
 </table>
 </section>
 </section>
-<section id="pidcontrol" class="level1" data-number="17">
+<section id="sec-pid-control" class="level1" data-number="17">
 <h1 data-number="17"><span class="header-section-number">17</span> PidControl</h1>
 <p>The PidControl node controls the level in a basin by continuously controlling the flow rate of a connected pump or outlet. See also <a href="https://en.wikipedia.org/wiki/PID_controller">PID controller</a>. When A PidControl node is made inactive, the node under its control retains the last flow rate value, and the error integral is reset to 0.</p>
 <p>In the future controlling the flow on a particular edge could be supported.</p>
@@ -2190,8 +2196,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../core/index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Julia core</span>
+      <a href="../core/modelconcept.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Model concept</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

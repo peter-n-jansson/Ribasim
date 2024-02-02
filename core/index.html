@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../core/usage.html" rel="next">
+<link href="../core/modelconcept.html" rel="next">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -142,6 +142,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../core/modelconcept.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model concept</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../core/usage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Usage</span></a>
   </div>
@@ -186,8 +192,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-simulation-loop" id="toc-the-simulation-loop" class="nav-link active" data-scroll-target="#the-simulation-loop"><span class="header-section-number">1</span> The simulation loop</a></li>
-  <li><a href="#coupling" id="toc-coupling" class="nav-link" data-scroll-target="#coupling"><span class="header-section-number">2</span> Coupling</a></li>
+  <li><a href="#sec-simulationloop" id="toc-sec-simulationloop" class="nav-link active" data-scroll-target="#sec-simulationloop"><span class="header-section-number">1</span> The simulation loop</a></li>
+  <li><a href="#sec-nested-allocation" id="toc-sec-nested-allocation" class="nav-link" data-scroll-target="#sec-nested-allocation"><span class="header-section-number">2</span> Nested allocation</a></li>
+  <li><a href="#coupling" id="toc-coupling" class="nav-link" data-scroll-target="#coupling"><span class="header-section-number">3</span> Coupling</a></li>
   </ul>
 </nav>
     </div>
@@ -212,86 +219,125 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>With the term “core”, we mean the computational engine of Ribasim. As detailed in the <a href="../core/usage.html">usage</a> documentation, it is generally used as a command line tool.</p>
-<p>The theory is described on the <a href="../core/equations.html">equations</a> page, and more in-depth numerical considerations are described on the <a href="../core/numerics.html">numerical considerations</a> page. As allocation is a large and self-contained part of the Ribasim core, it is described on the separate <a href="../core/allocation.html">allocation</a> page. Input validation is described on the <a href="../core/validation.html">validation</a> page.</p>
+<p>A quick overview of the model concept is available at the <a href="../index.html#sec-concept">home page</a>, while a more in depth discussion is available on the <a href="../core/modelconcept.html">model concept</a> page. The theory is described on the <a href="../core/equations.html">equations</a> page, and more in-depth numerical considerations are described on the <a href="../core/numerics.html">numerical considerations</a> page. As allocation is a large and self-contained part of the Ribasim core, it is described on the separate <a href="../core/allocation.html">allocation</a> page. Input validation is described on the <a href="../core/validation.html">validation</a> page.</p>
 <p>The core is implemented in the <a href="https://julialang.org/">Julia programming language</a>, and can be found in the <a href="https://github.com/Deltares/Ribasim">Ribasim repository</a> under the <code>core/</code> folder. For developers we also advise to read the <a href="../contribute/core.html">developer documentation</a>.</p>
-<div class="cell" data-file="../assets/c4_component_ribasim.mmd">
-<div class="cell-output-display">
-<div>
-<div>
-<pre class="mermaid mermaid-js">flowchart TB
-modeler([Modeler]):::user
-
-api["Ribasim Python\n[python]"]:::system
-modeler--&gt;|prepare model|api
-
-subgraph ribasimBoundary[Ribasim]
-    ribasim["Ribasim.jl\n[julia]"]:::system
-    libribasim["libribasim\n[julia + python + BMI]"]:::system
-    cli["Ribasim CLI\n[julia]"]:::system
-    cli--&gt;ribasim
-    libribasim--&gt;ribasim
-end
-modeler--&gt;|start|cli
-modeler--&gt;|coupled simulation|libribasim
-
-subgraph qgisBoundary[QGIS]
-    QGIS[QGIS Application]:::system_ext
-    qgisPlugin["Ribasim QGIS plugin\n[python]"]:::system
-    QGIS--&gt;qgisPlugin
-end
-modeler--&gt;|prepare model|qgisBoundary
-
-model[("input model data\n[toml + geopackage + arrow]")]:::system
-qgisPlugin--&gt;|read/write|model
-api--&gt;|read/write|model
-ribasim--&gt;|simulate|model
-
-output[("simulation output\n[arrow]")]:::system
-ribasim--&gt;|write|output
-
-class qgisBoundary,ribasimBoundary boundary
-
-%% class definitions for C4 model
-classDef default stroke-width:1px,stroke:white,color:white
-classDef system fill:#1168bd
-classDef user fill:#08427b
-classDef system_ext fill:#999999
-classDef boundary fill:transparent,stroke-dasharray:5 5,stroke:black,color:black
-</pre>
-</div>
-<p>Component overview of Ribasim</p>
-</div>
-</div>
-</div>
-<section id="the-simulation-loop" class="level1" data-number="1">
+<p>An overview of all components is given on the <a href="../index.html#sec-components">home page</a></p>
+<section id="sec-simulationloop" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> The simulation loop</h1>
-<p>The figure below shows a simple flowchart of the simulation in <code>Ribasim.jl</code>.</p>
+<p>The computational process can be divided in three phases:</p>
+<ul>
+<li>Model initialization</li>
+<li>Running the simulation loop</li>
+<li>Writing the output files</li>
+</ul>
+<p>The figure below gives a more detailed description of the simulation loop in the form of a <a href="https://en.wikipedia.org/wiki/Sequence_diagram">sequence diagram</a>. From top to bottom, it contains the following blocks:</p>
+<ul>
+<li>Allocation optimization; activated when the allocation timestep has been passed;</li>
+<li>Control actions; activated when some discrete control callback is triggered;</li>
+<li>Water balance; computing the flows over flow edges happens each timestep;</li>
+<li>Time integration step; done by the integrator from <code>OrdinaryDiffEq.jl</code>.</li>
+</ul>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-Start((Start))
-Init[Initialize model]
-Con[Conditional: allocation, control]
-Sim[Simulate flows over timestep]
-Finished{End of simulation period?}
-Done((Done))
-
-Start --&gt; Init
-Init --&gt; Con
-Con --&gt; Sim
-Sim --&gt; Finished
-Finished --&gt;|no| Con
-Finished --&gt;|yes| Done
+<pre class="mermaid mermaid-js">sequenceDiagram
+    autonumber
+    participant Int as Process: Integrator
+    participant Optim as Process: Allocation optimization
+    participant Param as Data: Parameters
+    participant State as Data: State
+    participant Sim as Process: Water balance
+    loop Simulation loop (OrdinaryDiffEq.jl)
+        activate Int
+        %% Allocation
+        rect rgb(200, 200, 200)
+            opt Allocation optimization, per allocation network (JuMP.jl, HiGHS)
+                activate Optim
+                Int-&gt;&gt;Optim: Callback: allocation timestep has passed
+                Param--&gt;&gt;Optim: Input
+                State--&gt;&gt;Optim: Input
+                Optim-&gt;&gt;Optim: Optimize Basin allocations if below target level
+                Optim-&gt;&gt;Optim: Optimize User allocation, per priority
+                Optim--&gt;&gt;Param: Set allocated flow rates
+                deactivate Optim
+            end
+        end
+        %% Control
+        rect rgb(200, 200, 200)
+            opt Control actions
+                Int-&gt;&gt;Int: DiscreteControl callback
+                Int--&gt;&gt;Param: Parameter updates by control
+            end
+        end
+        %% water_balance!
+        rect rgb(200, 200, 200)
+            activate Sim
+            State--&gt;&gt;Sim: Input
+            Param--&gt;&gt;Sim: Input
+            Sim-&gt;&gt;Sim: Compute flows over edges per node type
+            Sim--&gt;&gt;Param: Set flows
+            deactivate Sim
+        end
+        %% Time integration
+        rect rgb(200, 200, 200)
+            State--&gt;&gt;Int: Input
+            Param--&gt;&gt;Int: Input
+            Int-&gt;&gt;Int: Time integration step
+            Int--&gt;&gt;State: Update state
+        end
+        deactivate Int
+  end
 </pre>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="coupling" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Coupling</h1>
+<section id="sec-nested-allocation" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Nested allocation</h1>
+<p>Since water systems may be extensive, like in the Netherlands, Ribasim models may become large networks with over ten thousand nodes. To keep a proper functioning allocation concept under these circumstances, the modeller can decompose the network domain into a main network and multiple sub-networks. The allocation will then be conducted in three steps:</p>
+<ol type="1">
+<li>conduct an inventory of demands from the sub-networks to inlets from the main network,</li>
+<li>allocate the available water in the main network to the subnetworks inlets,</li>
+<li>allocate the assigned water within each subnetwork to the individual water users.</li>
+</ol>
+<p>The users then will request this updated demand from the rule-based simulation. Whether this updated demand is indeed abstracted depends on all dry-fall control mechanism implemented in the rule-based simulation.</p>
+<p>The following sequence diagram illustrates this calculation process within then allocation phase.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">sequenceDiagram
+participant boundary
+participant basin
+participant user
+participant allocation_subNetwork
+participant allocation_mainNetwork
+
+user-&gt;&gt;allocation_subNetwork: demand
+loop
+   allocation_subNetwork--&gt;&gt;allocation_mainNetwork: demand inventory at inlets
+end
+user-&gt;&gt;allocation_mainNetwork: demand
+boundary-&gt;&gt;allocation_mainNetwork: source availability
+basin-&gt;&gt;allocation_mainNetwork: source availability
+allocation_mainNetwork--&gt;&gt;allocation_mainNetwork: allocate to inlets (and users)
+allocation_mainNetwork-&gt;&gt;user: allocated
+allocation_mainNetwork-&gt;&gt;allocation_subNetwork: allocated
+loop
+   allocation_subNetwork--&gt;&gt;allocation_subNetwork: allocate to users
+end
+allocation_subNetwork-&gt;&gt;user: allocated
+user-&gt;&gt;basin: abstracted
+</pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="coupling" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Coupling</h1>
 <p>Ribasim can also be coupled to other kernels with the help of iMOD Coupler. The corresponding documentation can be found within the <a href="https://deltares.github.io/iMOD-Documentation/coupler.html">iMOD Suite Documentation</a>.</p>
 
 
@@ -535,8 +581,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../core/usage.html" class="pagination-link">
-        <span class="nav-page-text">Usage</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../core/modelconcept.html" class="pagination-link">
+        <span class="nav-page-text">Model concept</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
