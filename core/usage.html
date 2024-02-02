@@ -1826,7 +1826,6 @@ Note
 <section id="pidcontrol" class="level1" data-number="17">
 <h1 data-number="17"><span class="header-section-number">17</span> PidControl</h1>
 <p>The PidControl node controls the level in a basin by continuously controlling the flow rate of a connected pump or outlet. See also <a href="https://en.wikipedia.org/wiki/PID_controller">PID controller</a>. When A PidControl node is made inactive, the node under its control retains the last flow rate value, and the error integral is reset to 0.</p>
-<p>The pump must be an outneighbor of the controlled basin, the outlet must be an inneighbor. Thus for the same coefficient values in <code>proportional</code>, <code>integral</code> and <code>derivative</code>, the pump and outlet have the oppositve effect on the controlled basin.</p>
 <p>In the future controlling the flow on a particular edge could be supported.</p>
 <table class="table">
 <thead>
