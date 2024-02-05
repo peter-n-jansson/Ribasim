@@ -281,7 +281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    node_id<span class="op">::</span><span class="dt">Int</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Other fields</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Here <code>Static</code> refers to data that does not change over time. For naming conventions of these schemas see <a href="../core/usage.html#node">Node usage</a>.</p>
+<p>Here <code>Static</code> refers to data that does not change over time. For naming conventions of these schemas see <a href="../core/usage.html#sec-node">Node usage</a>.</p>
 <p><code>validation.jl</code> also deals with checking and applying a specific sorting order for the tabular data (default is sorting by node ID only), see <code>sort_by_function</code> and <code>sorted_table!</code>.</p>
 <p>Now we define the function that is called in the second bullet above, in <code>create.jl</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">NewNodeType</span>(db<span class="op">::</span><span class="dt">DB</span>, config<span class="op">::</span><span class="dt">Config</span>)<span class="op">::</span><span class="dt">NewNodeType</span></span>
