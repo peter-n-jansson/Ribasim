@@ -171,126 +171,120 @@ ul.task-list li input[type="checkbox"] {
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
-<td><code>update_timestep</code></td>
-<td></td>
-<td>The output time step of the simulation in seconds (default of 1 day)</td>
-<td><em>required</em></td>
-</tr>
-<tr class="even">
 <td><code>input_dir</code></td>
 <td></td>
 <td>The directory of the input files.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>results_dir</code></td>
 <td></td>
 <td>The directory of the results files.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>network</code></td>
 <td></td>
 <td>Class containing the topology (nodes and edges) of the model.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>results</code></td>
 <td></td>
 <td>Results configuration options.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>solver</code></td>
 <td></td>
 <td>Solver configuration options.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>logging</code></td>
 <td></td>
 <td>Logging configuration options.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>allocation</code></td>
 <td></td>
 <td>The allocation configuration.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>basin</code></td>
 <td>ribasim.config.Basin</td>
 <td>The waterbodies.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>fractional_flow</code></td>
 <td>ribasim.config.FractionalFlow</td>
 <td>Split flows into fractions.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>level_boundary</code></td>
 <td>ribasim.config.LevelBoundary</td>
 <td>Boundary condition specifying the water level.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>flow_boundary</code></td>
 <td>ribasim.config.FlowBoundary</td>
 <td>Boundary conditions specifying the flow.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>linear_resistance</code></td>
 <td></td>
 <td>Linear flow resistance.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>manning_resistance</code></td>
 <td>ribasim.config.ManningResistance</td>
 <td>Flow resistance based on the Manning formula.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>tabulated_rating_curve</code></td>
 <td>ribasim.config.TabulatedRatingCurve</td>
 <td>Tabulated rating curve describing flow based on the upstream water level.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>pump</code></td>
 <td>ribasim.config.Pump</td>
 <td>Prescribed flow rate from one basin to the other.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>outlet</code></td>
 <td>ribasim.config.Outlet</td>
 <td>Prescribed flow rate from one basin to the other.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>terminal</code></td>
 <td>ribasim.config.Terminal</td>
 <td>Water sink without state or properties.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>discrete_control</code></td>
 <td>ribasim.config.DiscreteControl</td>
 <td>Discrete control logic.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>pid_control</code></td>
 <td>ribasim.config.PidControl</td>
 <td>PID controller attempting to set the level of a basin to a desired value using a pump/outlet.</td>
 <td><em>required</em></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>user</code></td>
 <td>ribasim.config.User</td>
 <td>User node type with demand and priority.</td>
