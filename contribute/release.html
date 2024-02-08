@@ -258,7 +258,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="update-version-numbers-of-the-components" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="update-version-numbers-of-the-components"><span class="header-section-number">2.2</span> Update version numbers of the components</h2>
-<p>Determine the new version number like <code>2023.08.0</code>, filling in the current year, month and a sequential “MICRO” number. This follows <code>YYYY.0M.MICRO</code> from <a href="https://calver.org/">calver</a>.</p>
+<p>Determine the new version number like <code>2023.1.0</code>, filling in the current year, a bumped <code>MINOR</code> number for normal releases and a bumped <code>MICRO</code> number for non-breaking, hotfix releases. This follows <code>YYYY.MINOR.MICRO</code> from <a href="https://calver.org/">calver</a>.</p>
 <p>Update the version numbers in the repository to the new version number. A single find and replace can update all 5 locations:</p>
 <ul>
 <li><code>pixi.toml</code></li>
@@ -272,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="create-a-new-release" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="create-a-new-release"><span class="header-section-number">2.3</span> Create a new release</h2>
 <p>When the pull request is merged to main, checkout the commit that updates the version numbers.</p>
-<p>Create a new tag, which is the letter <code>v</code> followed by the version number, like, <code>v2023.08.0</code>.</p>
+<p>Create a new tag, which is the letter <code>v</code> followed by the version number, like, <code>v2023.8.0</code>.</p>
 <p>This can be done by executing:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag <span class="op">&lt;</span>tagname<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Then push the tags:</p>
