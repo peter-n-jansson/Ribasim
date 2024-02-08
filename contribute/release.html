@@ -298,7 +298,11 @@ All changes
 </section>
 <section id="do-manual-checks" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="do-manual-checks"><span class="header-section-number">2.5</span> Do manual checks</h2>
-<p>Our continuous integration (CI) should have caught most issues. A current weak spot in our testing is the QGIS plugin, so it is a good idea to do some manual checks to see if it works properly. It is a good idea to load new test models if there are any, or test any other changed functionality.</p>
+<p>Our continuous integration (CI) should have caught most issues. A current weak spot in our testing is the QGIS plugin, so it is a good idea to do some manual checks to see if it works properly. Start with running the automated task to see if it can be correctly installed.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This test might give a fatal error on the first run, this is most likely a timing issue.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Try to run it again when that happens.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run test-ribasim-qgis-ui</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It is a good idea to load new test models if there are any, or test any other changed functionality.</p>
 </section>
 <section id="announce-release" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="announce-release"><span class="header-section-number">2.6</span> Announce release</h2>
