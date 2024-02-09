@@ -574,29 +574,29 @@ Note
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Min 0.05 F[(#5, #2)] + 0.05 F[(#1, #2)] + 0.05 F[(#7, #12)] + 0.05 F[(#2, #3)] + 0.05 F[(#2, #5)] + 0.05 F[(#12, #13)] + 0.05 F[(#5, #7)] + 0.05 F[(#5, #6)] + 0.05 F[(#13, #10)] + 0.05 F[(#7, #10)] + F_abs[#6] + F_abs[#13] + F_abs[#3]
+<pre><code>Min 0.05 F[(#1, #2)] + 0.05 F[(#2, #3)] + 0.05 F[(#12, #13)] + 0.05 F[(#2, #5)] + 0.05 F[(#5, #7)] + 0.05 F[(#7, #12)] + 0.05 F[(#13, #10)] + 0.05 F[(#5, #6)] + 0.05 F[(#7, #10)] + 0.05 F[(#5, #2)] + F_abs[#13] + F_abs[#6] + F_abs[#3]
 Subject to
  source[(#1, #2)] : F[(#1, #2)] ≤ 1
- flow_conservation[#2] : -F[(#5, #2)] - F[(#1, #2)] + F[(#2, #3)] + F[(#2, #5)] ≤ 0
- flow_conservation[#12] : -F[(#7, #12)] + F[(#12, #13)] ≤ 0
- flow_conservation[#5] : F[(#5, #2)] - F[(#2, #5)] + F[(#5, #7)] + F[(#5, #6)] ≤ 0
+ flow_conservation[#12] : F[(#12, #13)] - F[(#7, #12)] ≤ 0
+ flow_conservation[#2] : -F[(#1, #2)] + F[(#2, #3)] + F[(#2, #5)] - F[(#5, #2)] ≤ 0
+ flow_conservation[#5] : -F[(#2, #5)] + F[(#5, #7)] + F[(#5, #6)] + F[(#5, #2)] ≤ 0
  return_flow[#13] : F[(#13, #10)] ≤ 0
- fractional_flow[(#7, #12)] : F[(#7, #12)] - 0.4 F[(#5, #7)] ≤ 0
- F[(#5, #2)] ≥ 0
+ fractional_flow[(#7, #12)] : -0.4 F[(#5, #7)] + F[(#7, #12)] ≤ 0
  F[(#1, #2)] ≥ 0
- F[(#7, #12)] ≥ 0
  F[(#2, #3)] ≥ 0
- F[(#2, #5)] ≥ 0
  F[(#12, #13)] ≥ 0
+ F[(#2, #5)] ≥ 0
  F[(#5, #7)] ≥ 0
- F[(#5, #6)] ≥ 0
+ F[(#7, #12)] ≥ 0
  F[(#13, #10)] ≥ 0
+ F[(#5, #6)] ≥ 0
  F[(#7, #10)] ≥ 0
- abs_positive[#6] : -F[(#5, #6)] + F_abs[#6] ≥ -1.5
+ F[(#5, #2)] ≥ 0
  abs_positive[#13] : -F[(#12, #13)] + F_abs[#13] ≥ 0
+ abs_positive[#6] : -F[(#5, #6)] + F_abs[#6] ≥ -1.5
  abs_positive[#3] : -F[(#2, #3)] + F_abs[#3] ≥ 0
- abs_negative[#6] : F[(#5, #6)] + F_abs[#6] ≥ 1.5
  abs_negative[#13] : F[(#12, #13)] + F_abs[#13] ≥ 0
+ abs_negative[#6] : F[(#5, #6)] + F_abs[#6] ≥ 1.5
  abs_negative[#3] : F[(#2, #3)] + F_abs[#3] ≥ 0
 </code></pre>
 </div>
