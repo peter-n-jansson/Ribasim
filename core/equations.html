@@ -438,9 +438,9 @@ Note
 <h2 data-number="2.2" class="anchored" data-anchor-id="precipitation"><span class="header-section-number">2.2</span> Precipitation</h2>
 <p>The precipitation term is given by</p>
 <p><span id="eq-precip"><span class="math display">\[
-    Q_P = P \cdot A(u).
+    Q_P = P \cdot A.
 \tag{2}\]</span></span></p>
-<p>Here <span class="math inline">\(P = P(t)\)</span> is the precipitation rate and <span class="math inline">\(A\)</span> is the wetted area. <span class="math inline">\(A\)</span> is a function of the storage <span class="math inline">\(u = u(t)\)</span>: as the volume of water changes, the area of the free water surface may change as well, depending on the slopes of the surface waters.</p>
+<p>Here <span class="math inline">\(P = P(t)\)</span> is the precipitation rate and <span class="math inline">\(A\)</span> is the maximum area given in the <code>Basin / profile</code> table. Precipitation in the Basin area is assumed to be directly added to the Basin storage. The modeler needs to ensure all precipitation enters the model, and there is no overlap in the maximum profile areas, else extra water is created. If a part of the catchment is not in any Basin profile, the modeler has to verify that water source is not forgotten. It can for instance be converted to a flow rate and added to a Basin as a FlowBoundary.</p>
 </section>
 <section id="evaporation" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="evaporation"><span class="header-section-number">2.3</span> Evaporation</h2>
@@ -460,14 +460,14 @@ derivative.
 <section id="infiltration-and-drainage" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="infiltration-and-drainage"><span class="header-section-number">2.4</span> Infiltration and Drainage</h2>
 <p>Infiltration is provided as a lump sum for the basin. If Ribasim is coupled with MODFLOW 6, the infiltration is computed as the sum of all <strong>positive</strong> flows of the MODFLOW 6 boundary conditions in the basin:</p>
-<p><span class="math display">\[
+<p><span id="eq-inf"><span class="math display">\[
     Q_\text{inf} = \sum_{i=1}^{n} \sum_{j=1}^{m} \max(Q_{\mathrm{mf6}_{i,j}}, 0.0)
-\]</span> {#eq-inf}.</p>
+\tag{4}\]</span></span></p>
 <p>Where <span class="math inline">\(i\)</span> is the index of the boundary condition, <span class="math inline">\(j\)</span> the MODFLOW 6 cell index, <span class="math inline">\(n\)</span> the number of boundary conditions, and <span class="math inline">\(m\)</span> the number of MODFLOW 6 cells in the basin. <span class="math inline">\(Q_{\mathrm{mf6}_{i,j}}\)</span> is the flow computed by MODFLOW 6 for cell <span class="math inline">\(j\)</span> for boundary condition <span class="math inline">\(i\)</span>.</p>
 <p>Drainage is a lump sump for the basin, and consists of the sum of the absolute value of all <strong>negative</strong> flows of the MODFLOW 6 boundary conditions in the basin.</p>
 <p><span id="eq-drn"><span class="math display">\[
     Q_\text{drn} = \sum_{i=1}^{n} \sum_{j=1}^{m} \left| \min(Q_{\mathrm{mf6}_{i,j}}, 0.0) \right|
-\tag{4}\]</span></span></p>
+\tag{5}\]</span></span></p>
 <p>The interaction with MODFLOW 6 boundary conditions is explained in greater detail in the <a href="../couple/modflow.qmd">the MODFLOW coupling section</a> of the documentation.</p>
 </section>
 <section id="upstream-and-downstream-flow" class="level2" data-number="2.5">
@@ -523,7 +523,7 @@ Note
 <p>A <code>LinearResistance</code> connects two basins together. The flow between the two basins is determined by a linear relationship:</p>
 <p><span id="eq-basinflow"><span class="math display">\[
     Q = \frac{h_a - h_b}{R}
-\tag{5}\]</span></span></p>
+\tag{6}\]</span></span></p>
 <p>Here <span class="math inline">\(h_a\)</span> is the water level in the first basin, <span class="math inline">\(h_b\)</span> is the water level in the second basin, and <span class="math inline">\(R\)</span> is the resistance of the link. A <code>LinearResistance</code> makes no assumptions about the direction of the flow: water flows from high to low.</p>
 </section>
 <section id="terminal" class="level3" data-number="2.5.5">
@@ -671,10 +671,10 @@ Q_\text{user, out} = r \cdot Q_\text{user, in}.
 <h1 data-number="4"><span class="header-section-number">4</span> PID controller</h1>
 <p>The PID controller continuously sets the flow rate of a pump or outlet to bring the level of a certain basin closer to its setpoint. If we denote the setpoint by <span class="math inline">\(\text{SP}(t)\)</span> and the basin level by <span class="math inline">\(y(t)\)</span>, then the error is given by <span id="eq-error"><span class="math display">\[
 e(t) = \text{SP}(t) - y(t).
-\tag{6}\]</span></span></p>
+\tag{7}\]</span></span></p>
 <p>The output of the PID controller for the flow rate of the pump or outlet is then given by <span id="eq-PIDflow"><span class="math display">\[
     Q_\text{PID}(t) = K_p e(t) + K_i\int_{t_0}^t e(\tau)\text{d}\tau + K_d \frac{\text{d}e}{\text{d}t},
-\tag{7}\]</span></span></p>
+\tag{8}\]</span></span></p>
 <p>for given constant parameters <span class="math inline">\(K_p,K_i,K_d\)</span>. The pump or outlet can have associated minimum and maximum flow rates <span class="math inline">\(Q_{\min}, Q_{\max}\)</span>, and so <span class="math display">\[
 Q_\text{pump/outlet} = \text{clip}(\Phi Q_\text{PID}; Q_{\min}, Q_{\max}).
 \]</span></p>
@@ -710,18 +710,18 @@ Note
 <h2 data-number="4.1" class="anchored" data-anchor-id="the-derivative-term"><span class="header-section-number">4.1</span> The derivative term</h2>
 <p>When <span class="math inline">\(K_d \ne 0\)</span> this adds a level of complexity. We can see this by looking at the error derivative more closely: <span class="math display">\[
 \frac{\text{d}e}{\text{d}t} = \frac{\text{d}\text{SP}}{\text{d}t} - \frac{1}{A(u_\text{PID})}\frac{\text{d}u_\text{PID}}{\text{d}t},
-\]</span> where <span class="math inline">\(A(u_\text{PID})\)</span> is the area of the controlled basin as a function of the storage of the controlled basin <span class="math inline">\(u_\text{PID}\)</span>. The complexity arises from the fact that <span class="math inline">\(Q_\text{PID}\)</span> is a contribution to <span class="math inline">\(\frac{\text{d}u_\text{PID}}{\text{d}t} = f_\text{PID}\)</span>, which makes <a href="#eq-PIDflow">Equation&nbsp;7</a> an implicit equation for <span class="math inline">\(Q_\text{PID}\)</span>. We define</p>
+\]</span> where <span class="math inline">\(A(u_\text{PID})\)</span> is the area of the controlled basin as a function of the storage of the controlled basin <span class="math inline">\(u_\text{PID}\)</span>. The complexity arises from the fact that <span class="math inline">\(Q_\text{PID}\)</span> is a contribution to <span class="math inline">\(\frac{\text{d}u_\text{PID}}{\text{d}t} = f_\text{PID}\)</span>, which makes <a href="#eq-PIDflow">Equation&nbsp;8</a> an implicit equation for <span class="math inline">\(Q_\text{PID}\)</span>. We define</p>
 <p><span class="math display">\[
 f_\text{PID} = \hat{f}_\text{PID} \pm Q_\text{pump/outlet},
 \]</span></p>
 <p>that is, <span class="math inline">\(\hat{f}_\text{PID}\)</span> is the right hand side of the ODE for the controlled basin storage state without the contribution of the PID controlled pump. The plus sign holds for an outlet and the minus sign for a pump, dictated by the way the pump and outlet connectivity to the controlled basin is enforced.</p>
-<p>Using this, solving <a href="#eq-PIDflow">Equation&nbsp;7</a> for <span class="math inline">\(Q_\text{PID}\)</span> yields <span class="math display">\[
+<p>Using this, solving <a href="#eq-PIDflow">Equation&nbsp;8</a> for <span class="math inline">\(Q_\text{PID}\)</span> yields <span class="math display">\[
 Q_\text{pump/outlet} = \text{clip}\left(\phi(u_\text{us})\frac{K_pe + K_iI + K_d \left(\frac{\text{d}\text{SP}}{\text{d}t}-\frac{\hat{f}_\text{PID}}{A(u_\text{PID})}\right)}{1\pm\phi(u_\text{us})\frac{K_d}{A(u_\text{PID})}};Q_{\min},Q_{\max}\right),
 \]</span> where the clipping is again done last. Note that to compute this, <span class="math inline">\(\hat{f}_\text{PID}\)</span> has to be known first, meaning that the PID controlled pump/outlet flow rate has to be computed after all other contributions to the PID controlled basin’s storage are known.</p>
 </section>
 <section id="the-sign-of-the-parameters" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="the-sign-of-the-parameters"><span class="header-section-number">4.2</span> The sign of the parameters</h2>
-<p>Note by <a href="#eq-error">Equation&nbsp;6</a> that the error is positive if the setpoint is larger than the basin level and negative if the setpoint is smaller than the basin level.</p>
+<p>Note by <a href="#eq-error">Equation&nbsp;7</a> that the error is positive if the setpoint is larger than the basin level and negative if the setpoint is smaller than the basin level.</p>
 <p>We enforce the convention that when a pump is controlled, its edge points away from the basin, and when an outlet is controlled, its edge points towards the basin, so that the main flow direction along these edges is positive. Therefore, positive flows of the pump and outlet have opposite effects on the basin, and thus the parameters <span class="math inline">\(K_p,K_i,K_d\)</span> of the pump and outlet must have oppositive signs to achieve the same goal.</p>
 </section>
 </section>
