@@ -520,11 +520,11 @@ Note
 </section>
 <section id="linearresistance" class="level3" data-number="2.5.4">
 <h3 data-number="2.5.4" class="anchored" data-anchor-id="linearresistance"><span class="header-section-number">2.5.4</span> LinearResistance</h3>
-<p>A <code>LinearResistance</code> connects two basins together. The flow between the two basins is determined by a linear relationship:</p>
+<p>A <code>LinearResistance</code> connects two basins together. The flow between the two basins is determined by a linear relationship, up to an optional maximum flow rate:</p>
 <p><span id="eq-basinflow"><span class="math display">\[
-    Q = \frac{h_a - h_b}{R}
+    Q = \mathrm{clamp}(\frac{h_a - h_b}{R}, -Q_{\max}, Q_{\max})
 \tag{6}\]</span></span></p>
-<p>Here <span class="math inline">\(h_a\)</span> is the water level in the first basin, <span class="math inline">\(h_b\)</span> is the water level in the second basin, and <span class="math inline">\(R\)</span> is the resistance of the link. A <code>LinearResistance</code> makes no assumptions about the direction of the flow: water flows from high to low.</p>
+<p>Here <span class="math inline">\(h_a\)</span> is the water level in the first basin and <span class="math inline">\(h_b\)</span> is the water level in the second basin. <span class="math inline">\(R\)</span> is the resistance of the link, and <span class="math inline">\(Q_{\max}\)</span> is the maximum flow rate. A <code>LinearResistance</code> makes no assumptions about the direction of the flow: water flows from high to low.</p>
 </section>
 <section id="terminal" class="level3" data-number="2.5.5">
 <h3 data-number="2.5.5" class="anchored" data-anchor-id="terminal"><span class="header-section-number">2.5.5</span> Terminal</h3>
