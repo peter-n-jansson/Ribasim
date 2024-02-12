@@ -575,24 +575,24 @@ Note
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Min 0.05 F[(User #13, Terminal #10)] + 0.05 F[(Basin #5, Basin #2)] + 0.05 F[(Basin #2, User #3)] + 0.05 F[(TabulatedRatingCurve #7, Basin #12)] + 0.05 F[(TabulatedRatingCurve #7, Terminal #10)] + 0.05 F[(FlowBoundary #1, Basin #2)] + 0.05 F[(Basin #12, User #13)] + 0.05 F[(Basin #5, TabulatedRatingCurve #7)] + 0.05 F[(Basin #5, User #6)] + 0.05 F[(Basin #2, Basin #5)] + F_abs[User #13] + F_abs[User #6] + F_abs[User #3]
+<pre><code>Min 0.05 F[(FlowBoundary #1, Basin #2)] + 0.05 F[(Basin #2, User #3)] + 0.05 F[(TabulatedRatingCurve #7, Terminal #10)] + 0.05 F[(Basin #12, User #13)] + 0.05 F[(Basin #5, TabulatedRatingCurve #7)] + 0.05 F[(Basin #2, Basin #5)] + 0.05 F[(Basin #5, User #6)] + 0.05 F[(Basin #5, Basin #2)] + 0.05 F[(TabulatedRatingCurve #7, Basin #12)] + 0.05 F[(User #13, Terminal #10)] + F_abs[User #13] + F_abs[User #6] + F_abs[User #3]
 Subject to
  source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 1
- flow_conservation[Basin #12] : -F[(TabulatedRatingCurve #7, Basin #12)] + F[(Basin #12, User #13)] ≤ 0
- flow_conservation[Basin #5] : F[(Basin #5, Basin #2)] + F[(Basin #5, TabulatedRatingCurve #7)] + F[(Basin #5, User #6)] - F[(Basin #2, Basin #5)] ≤ 0
- flow_conservation[Basin #2] : -F[(Basin #5, Basin #2)] + F[(Basin #2, User #3)] - F[(FlowBoundary #1, Basin #2)] + F[(Basin #2, Basin #5)] ≤ 0
+ flow_conservation[Basin #12] : F[(Basin #12, User #13)] - F[(TabulatedRatingCurve #7, Basin #12)] ≤ 0
+ flow_conservation[Basin #5] : F[(Basin #5, TabulatedRatingCurve #7)] - F[(Basin #2, Basin #5)] + F[(Basin #5, User #6)] + F[(Basin #5, Basin #2)] ≤ 0
+ flow_conservation[Basin #2] : -F[(FlowBoundary #1, Basin #2)] + F[(Basin #2, User #3)] + F[(Basin #2, Basin #5)] - F[(Basin #5, Basin #2)] ≤ 0
  return_flow[User #13] : F[(User #13, Terminal #10)] ≤ 0
- fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : F[(TabulatedRatingCurve #7, Basin #12)] - 0.4 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0
- F[(User #13, Terminal #10)] ≥ 0
- F[(Basin #5, Basin #2)] ≥ 0
- F[(Basin #2, User #3)] ≥ 0
- F[(TabulatedRatingCurve #7, Basin #12)] ≥ 0
- F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
+ fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : -0.4 F[(Basin #5, TabulatedRatingCurve #7)] + F[(TabulatedRatingCurve #7, Basin #12)] ≤ 0
  F[(FlowBoundary #1, Basin #2)] ≥ 0
+ F[(Basin #2, User #3)] ≥ 0
+ F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
  F[(Basin #12, User #13)] ≥ 0
  F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
- F[(Basin #5, User #6)] ≥ 0
  F[(Basin #2, Basin #5)] ≥ 0
+ F[(Basin #5, User #6)] ≥ 0
+ F[(Basin #5, Basin #2)] ≥ 0
+ F[(TabulatedRatingCurve #7, Basin #12)] ≥ 0
+ F[(User #13, Terminal #10)] ≥ 0
  abs_positive[User #13] : -F[(Basin #12, User #13)] + F_abs[User #13] ≥ 0
  abs_positive[User #6] : -F[(Basin #5, User #6)] + F_abs[User #6] ≥ -1.5
  abs_positive[User #3] : -F[(Basin #2, User #3)] + F_abs[User #3] ≥ 0
