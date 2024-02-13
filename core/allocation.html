@@ -423,10 +423,10 @@ Note
   \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left( 1 - \frac{F_{ij}}{d_j^p(t)}\right)^2
 \]</span></li>
 <li><code>linear_absolute</code> (default): <span class="math display">\[
-  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left| F_{ij} - d_j^p(t)\right| + c \sum_{e \in E_S} F_e
+  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left| F_{ij} - d_j^p(t)\right|
 \]</span></li>
 <li><code>linear_relative</code>: <span class="math display">\[
-  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left|1 - \frac{F_{ij}}{d_j^p(t)}\right| + c \sum_{e \in E_S} F_e
+  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left|1 - \frac{F_{ij}}{d_j^p(t)}\right|
 \]</span></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -444,7 +444,6 @@ Note
 </div>
 <p>To avoid division by <span class="math inline">\(0\)</span> errors, if a <code>*_relative</code> objective is used and a demand is <span class="math inline">\(0\)</span>, the coefficient of the flow <span class="math inline">\(F_{ij}\)</span> is set to <span class="math inline">\(0\)</span>.</p>
 <p>For <code>*_absolute</code> objectives the optimizer cares about the actual amount of water allocated to a user, for <code>*_relative</code> objectives it cares about the fraction of the demand allocated to the user. For <code>quadratic_*</code> objectives the optimizer cares about avoiding large shortages, for <code>linear_*</code> objectives it treats all deviations equally.</p>
-<p>The second sum in the <code>linear_*</code> objectives adds a small cost to using flows. This incentivizes the solver to use as little flow as possible. The cost <span class="math inline">\(c &gt; 0\)</span> is small enough such that it is always better to bring water to users than to not use flow at all. This can be achieved for <code>linear_*</code> objectives but not for <code>quadratic_*</code> objectives, and therefore this cost term is only added to the former. Therefore the <code>linear_*</code> objectives make the solver more conservative with flow than the <code>quadratic_*</code> objectives.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -477,8 +476,8 @@ Note
 <h2 data-number="4.3" class="anchored" data-anchor-id="the-optimization-constraints"><span class="header-section-number">4.3</span> The optimization constraints</h2>
 <ul>
 <li>Flow conservation: For the basins in the allocation graph we have that <span id="eq-flowconservationconstraint"><span class="math display">\[
-  \sum_{j=1}^{n'} F_{kj} \le \sum_{i=1}^{n'} F_{ik}, \quad \forall k \in B_S.
-\tag{1}\]</span></span> Note that we do not require equality here; in the allocation we do not mind that excess flow is ‘forgotten’ if it cannot contribute to the allocation to the users.</li>
+  \sum_{j=1}^{n'} F_{kj} = \sum_{i=1}^{n'} F_{ik}, \quad \forall k \in B_S.
+\tag{1}\]</span></span></li>
 <li>Capacity: the flows over the edges are positive and bounded by the edge capacity: <span id="eq-capacityconstraint"><span class="math display">\[
   F_{ij} \le \left(C_S\right)_{ij}, \quad \forall(i,j) \in E_S.
 \tag{2}\]</span></span> By the definition of <span class="math inline">\(C_S\)</span> this also includes the source flows.</li>
@@ -575,30 +574,30 @@ Note
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Min 0.05 F[(TabulatedRatingCurve #7, Basin #12)] + 0.05 F[(Basin #2, Basin #5)] + 0.05 F[(TabulatedRatingCurve #7, Terminal #10)] + 0.05 F[(FlowBoundary #1, Basin #2)] + 0.05 F[(User #13, Terminal #10)] + 0.05 F[(Basin #2, User #3)] + 0.05 F[(Basin #5, Basin #2)] + 0.05 F[(Basin #5, User #6)] + 0.05 F[(Basin #5, TabulatedRatingCurve #7)] + 0.05 F[(Basin #12, User #13)] + F_abs[User #3] + F_abs[User #6] + F_abs[User #13]
+<pre><code>Min F_abs[User #6] + F_abs[User #13] + F_abs[User #3]
 Subject to
  source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 1
- flow_conservation[Basin #5] : -F[(Basin #2, Basin #5)] + F[(Basin #5, Basin #2)] + F[(Basin #5, User #6)] + F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0
- flow_conservation[Basin #12] : -F[(TabulatedRatingCurve #7, Basin #12)] + F[(Basin #12, User #13)] ≤ 0
- flow_conservation[Basin #2] : F[(Basin #2, Basin #5)] - F[(FlowBoundary #1, Basin #2)] + F[(Basin #2, User #3)] - F[(Basin #5, Basin #2)] ≤ 0
  return_flow[User #13] : F[(User #13, Terminal #10)] ≤ 0
- fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : F[(TabulatedRatingCurve #7, Basin #12)] - 0.4 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0
- F[(TabulatedRatingCurve #7, Basin #12)] ≥ 0
+ fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : -0.4 F[(Basin #5, TabulatedRatingCurve #7)] + F[(TabulatedRatingCurve #7, Basin #12)] ≤ 0
  F[(Basin #2, Basin #5)] ≥ 0
- F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
- F[(FlowBoundary #1, Basin #2)] ≥ 0
- F[(User #13, Terminal #10)] ≥ 0
- F[(Basin #2, User #3)] ≥ 0
- F[(Basin #5, Basin #2)] ≥ 0
- F[(Basin #5, User #6)] ≥ 0
  F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
  F[(Basin #12, User #13)] ≥ 0
- abs_positive[User #3] : -F[(Basin #2, User #3)] + F_abs[User #3] ≥ 0
+ F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
+ F[(User #13, Terminal #10)] ≥ 0
+ F[(Basin #5, User #6)] ≥ 0
+ F[(FlowBoundary #1, Basin #2)] ≥ 0
+ F[(Basin #2, User #3)] ≥ 0
+ F[(TabulatedRatingCurve #7, Basin #12)] ≥ 0
+ F[(Basin #5, Basin #2)] ≥ 0
  abs_positive[User #6] : -F[(Basin #5, User #6)] + F_abs[User #6] ≥ -1.5
  abs_positive[User #13] : -F[(Basin #12, User #13)] + F_abs[User #13] ≥ 0
- abs_negative[User #3] : F[(Basin #2, User #3)] + F_abs[User #3] ≥ 0
+ abs_positive[User #3] : -F[(Basin #2, User #3)] + F_abs[User #3] ≥ 0
  abs_negative[User #6] : F[(Basin #5, User #6)] + F_abs[User #6] ≥ 1.5
  abs_negative[User #13] : F[(Basin #12, User #13)] + F_abs[User #13] ≥ 0
+ abs_negative[User #3] : F[(Basin #2, User #3)] + F_abs[User #3] ≥ 0
+ flow_conservation[Basin #12] : F[(Basin #12, User #13)] - F[(TabulatedRatingCurve #7, Basin #12)] = 0
+ flow_conservation[Basin #5] : -F[(Basin #2, Basin #5)] + F[(Basin #5, TabulatedRatingCurve #7)] + F[(Basin #5, User #6)] + F[(Basin #5, Basin #2)] = 0
+ flow_conservation[Basin #2] : F[(Basin #2, Basin #5)] - F[(FlowBoundary #1, Basin #2)] + F[(Basin #2, User #3)] - F[(Basin #5, Basin #2)] = 0
 </code></pre>
 </div>
 </div>
