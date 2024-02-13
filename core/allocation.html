@@ -578,26 +578,26 @@ Note
 Subject to
  source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 1
  return_flow[User #13] : F[(User #13, Terminal #10)] ≤ 0
- fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : -0.4 F[(Basin #5, TabulatedRatingCurve #7)] + F[(TabulatedRatingCurve #7, Basin #12)] ≤ 0
- F[(Basin #2, Basin #5)] ≥ 0
- F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
- F[(Basin #12, User #13)] ≥ 0
- F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
- F[(User #13, Terminal #10)] ≥ 0
- F[(Basin #5, User #6)] ≥ 0
+ fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : F[(TabulatedRatingCurve #7, Basin #12)] - 0.4 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0
+ F[(Basin #5, Basin #2)] ≥ 0
  F[(FlowBoundary #1, Basin #2)] ≥ 0
  F[(Basin #2, User #3)] ≥ 0
+ F[(Basin #12, User #13)] ≥ 0
  F[(TabulatedRatingCurve #7, Basin #12)] ≥ 0
- F[(Basin #5, Basin #2)] ≥ 0
+ F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
+ F[(Basin #5, User #6)] ≥ 0
+ F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
+ F[(Basin #2, Basin #5)] ≥ 0
+ F[(User #13, Terminal #10)] ≥ 0
  abs_positive[User #6] : -F[(Basin #5, User #6)] + F_abs[User #6] ≥ -1.5
  abs_positive[User #13] : -F[(Basin #12, User #13)] + F_abs[User #13] ≥ 0
  abs_positive[User #3] : -F[(Basin #2, User #3)] + F_abs[User #3] ≥ 0
  abs_negative[User #6] : F[(Basin #5, User #6)] + F_abs[User #6] ≥ 1.5
  abs_negative[User #13] : F[(Basin #12, User #13)] + F_abs[User #13] ≥ 0
  abs_negative[User #3] : F[(Basin #2, User #3)] + F_abs[User #3] ≥ 0
+ flow_conservation[Basin #2] : -F[(Basin #5, Basin #2)] - F[(FlowBoundary #1, Basin #2)] + F[(Basin #2, User #3)] + F[(Basin #2, Basin #5)] = 0
+ flow_conservation[Basin #5] : F[(Basin #5, Basin #2)] + F[(Basin #5, User #6)] + F[(Basin #5, TabulatedRatingCurve #7)] - F[(Basin #2, Basin #5)] = 0
  flow_conservation[Basin #12] : F[(Basin #12, User #13)] - F[(TabulatedRatingCurve #7, Basin #12)] = 0
- flow_conservation[Basin #5] : -F[(Basin #2, Basin #5)] + F[(Basin #5, TabulatedRatingCurve #7)] + F[(Basin #5, User #6)] + F[(Basin #5, Basin #2)] = 0
- flow_conservation[Basin #2] : F[(Basin #2, Basin #5)] - F[(FlowBoundary #1, Basin #2)] + F[(Basin #2, User #3)] - F[(Basin #5, Basin #2)] = 0
 </code></pre>
 </div>
 </div>
