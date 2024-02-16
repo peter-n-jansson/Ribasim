@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -45,7 +45,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -54,6 +60,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -68,9 +75,9 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
     <img src="https://user-images.githubusercontent.com/4471859/224825908-bee7e044-bc6b-4561-8b08-5d330cce3ed5.png" alt="" class="navbar-logo">
     </a>
@@ -85,32 +92,32 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../core/index.html" rel="" target="">
- <span class="menu-text">Julia core</span></a>
+    <a class="nav-link" href="../core/index.html"> 
+<span class="menu-text">Julia core</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../python/index.html" rel="" target="">
- <span class="menu-text">Python tooling</span></a>
+    <a class="nav-link" href="../python/index.html"> 
+<span class="menu-text">Python tooling</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../qgis/index.html" rel="" target="" aria-current="page">
- <span class="menu-text">QGIS plugin</span></a>
+    <a class="nav-link active" href="../qgis/index.html" aria-current="page"> 
+<span class="menu-text">QGIS plugin</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contribute/index.html" rel="" target="">
- <span class="menu-text">Contributing</span></a>
+    <a class="nav-link" href="../contribute/index.html"> 
+<span class="menu-text">Contributing</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/Deltares/Ribasim" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/Deltares/Ribasim"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -165,7 +172,9 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
+
 </header>
+
 
 <section id="how-to" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> How to</h1>
@@ -178,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Plugins menu &gt; Manage and Install Plugins…</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939069-9aae77ea-898f-442f-83b5-f2671c114956.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939069-9aae77ea-898f-442f-83b5-f2671c114956.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>Select “Install from ZIP”:</p>
@@ -188,13 +197,13 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939080-7fec5db2-4417-4f7b-8e45-034d4cf4fd75.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939080-7fec5db2-4417-4f7b-8e45-034d4cf4fd75.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>Start the Ribasim plugin.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939101-228e068a-875b-4df2-98bb-6ee6a3830ddd.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939101-228e068a-875b-4df2-98bb-6ee6a3830ddd.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 </section>
@@ -202,32 +211,32 @@ ul.task-list li input[type="checkbox"] {
 <h3 data-number="1.1.2" class="anchored" data-anchor-id="add-imod-plugin"><span class="header-section-number">1.1.2</span> Add iMOD plugin</h3>
 <p>In QGIS, navigate to “Plugins &gt; Manage and Install Plugins &gt; All”. In the search bar, type: “iMOD”. Select the iMOD plugin, and click “Install”.</p>
 <p>At least version 0.4.0 of the iMOD plugin is required.</p>
-<p>The Time Series widget from the iMOD plugin is used for visualizing Ribasim results, which is described in <a href="#sec-results">Section&nbsp;1.5</a>. Documentation on the Time Series widget can be found in the <a href="https://deltares.github.io/iMOD-Documentation/qgis_user_manual.html#time-series-time-series">iMOD documentation</a>.</p>
+<p>The Time Series widget from the iMOD plugin is used for visualizing Ribasim results, which is described in <a href="#sec-results" class="quarto-xref">Section&nbsp;1.5</a>. Documentation on the Time Series widget can be found in the <a href="https://deltares.github.io/iMOD-Documentation/qgis_user_manual.html#time-series-time-series">iMOD documentation</a>.</p>
 </section>
 <section id="prepare-your-model" class="level3" data-number="1.1.3">
 <h3 data-number="1.1.3" class="anchored" data-anchor-id="prepare-your-model"><span class="header-section-number">1.1.3</span> Prepare your model</h3>
 <p>Open an existing model or create a new model. As an example of an existing model, you can use the “basic” model from <code>generated_testmodels.zip</code>, see the <a href="../index.html#sec-download">download section</a>.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939126-b38f0eed-2e89-4120-b541-5b8c31798c09.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939126-b38f0eed-2e89-4120-b541-5b8c31798c09.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>Check if your coordinate reference system (CRS) is set correctly.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939143-19e9931e-da4b-4717-ba28-67a0f141dd40.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939143-19e9931e-da4b-4717-ba28-67a0f141dd40.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>If you are working with an unknown CRS, right click the model database group in Layers, and click “Set Group CRS…”.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939165-45807f16-2d3a-41b3-92a2-7fe0e86ae72b.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939165-45807f16-2d3a-41b3-92a2-7fe0e86ae72b.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>If you are modeling the Netherlands, select “Amersfoort / RD New” (EPSG:28992).</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939182-3486ff0b-842b-4f98-a37e-ecd04f29aa7f.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939182-3486ff0b-842b-4f98-a37e-ecd04f29aa7f.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 </section>
@@ -239,25 +248,25 @@ ul.task-list li input[type="checkbox"] {
 <p>Select the Node layer.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939204-2aa2ead2-a028-4673-b747-abeadd821ec8.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939204-2aa2ead2-a028-4673-b747-abeadd821ec8.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>Turn on the edit mode to be able to add nodes on the map.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939223-66e232c0-748c-46f0-ba1b-8751a965f114.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939223-66e232c0-748c-46f0-ba1b-8751a965f114.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>Add nodes to the map with a left click and select the node type.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939237-67c1150b-15ec-4044-a02a-26a82f81da05.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939237-67c1150b-15ec-4044-a02a-26a82f81da05.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>Turn the edit mode off and save the edits to the Nodes layer.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224946136-e37021d5-80c1-4d90-ac04-d0dbd96879f3.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224946136-e37021d5-80c1-4d90-ac04-d0dbd96879f3.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 </section>
@@ -266,19 +275,19 @@ ul.task-list li input[type="checkbox"] {
 <p>Right click a layer and select “Open Attribute Table”.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939276-ca8f856d-3325-49a7-b457-78b09b81ac5e.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939276-ca8f856d-3325-49a7-b457-78b09b81ac5e.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>Click the yellow pencil icon on the top left to enable editing, and copy and paste a record. A record can be selected by clicking on the row number.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939287-a8b9f351-9aea-4e3a-8417-3867cd40cda5.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939287-a8b9f351-9aea-4e3a-8417-3867cd40cda5.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>Adjust the content. If you prefer, it also works to copy data with the same columns from Excel. Turn off edit mode and save changes to the layer.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939297-4b0ca812-9618-4d25-ab7a-518bf1ca63e1.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939297-4b0ca812-9618-4d25-ab7a-518bf1ca63e1.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 </section>
@@ -290,7 +299,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Make sure the Snapping Toolbar is visible, by going to the View &gt; Toolbars menu. Turn on snapping mode by clicking the magnet and set the snapping distance to 25 pixels.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939328-8359272a-30bb-4eb1-ab6c-968318ac3997.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939328-8359272a-30bb-4eb1-ab6c-968318ac3997.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 </section>
@@ -299,19 +308,19 @@ ul.task-list li input[type="checkbox"] {
 <p>Select the Edge layer and turn on the edit mode.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939342-c6939331-a60d-4526-a350-3cddb122c62d.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939342-c6939331-a60d-4526-a350-3cddb122c62d.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>Select “Add line feature”.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939354-523cac79-dcd5-4c43-ab5a-db7672fb743e.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939354-523cac79-dcd5-4c43-ab5a-db7672fb743e.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>Create a connection by left clicking a source node and right clicking the destination node.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939363-88716d43-0536-499d-adb8-2fb4223c0f87.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939363-88716d43-0536-499d-adb8-2fb4223c0f87.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>Now leave the edit mode and save the results to the layer.</p>
@@ -331,26 +340,26 @@ ul.task-list li input[type="checkbox"] {
 <p>Click the “Time Series” button of the iMOD plugin.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939424-ec4c77ff-3d6b-4635-b407-ef18376587e9.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939424-ec4c77ff-3d6b-4635-b407-ef18376587e9.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>Select the layer that you wish to plot. From the “Node” layer you can plot level or storage on Basin nodes. From the “Edge” layer you can plot flow over flow edges. Note that before switching between these, you typically have to click “Clear” to clear the selection. If you run a simulation with the model open in QGIS, you have to close and re-open the “iMOD Time Series Plot” panel for the new results to be loaded.</p>
 <p>Select the variables that you want to plot.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939436-a9643b68-dff0-49c3-899d-6ba13d9a6d52.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939436-a9643b68-dff0-49c3-899d-6ba13d9a6d52.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>Click “Select points” and select a node by dragging a rectangle around it on the map. Hold the Ctrl key to select multiple nodes.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939450-e369791d-3229-4621-87b0-7e1d34d0514d.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939450-e369791d-3229-4621-87b0-7e1d34d0514d.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>The associated time series are shown the the graph.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939471-85a23936-6eb6-4a80-a5b7-8c9a55ddc7f7.png" class="img-fluid figure-img"></p>
+<p><img src="https://user-images.githubusercontent.com/4471859/224939471-85a23936-6eb6-4a80-a5b7-8c9a55ddc7f7.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
 <p>Only the “basin.arrow” and “flow.arrow” can be inspected with the “iMOD Time Series Plot” panel. All Arrow files can be loaded as a layer by dragging the files onto QGIS. Right click the layer and select “Open Attribute Table” to view the contents.</p>
@@ -439,10 +448,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -452,8 +460,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -466,6 +483,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -509,6 +645,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -534,6 +671,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -594,6 +757,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

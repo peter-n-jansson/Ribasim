@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -58,6 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -100,7 +101,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -109,6 +116,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -118,6 +126,33 @@ div.csl-indent {
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
 
@@ -125,9 +160,9 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
     <img src="https://user-images.githubusercontent.com/4471859/224825908-bee7e044-bc6b-4561-8b08-5d330cce3ed5.png" alt="" class="navbar-logo">
     </a>
@@ -142,49 +177,49 @@ div.csl-indent {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../core/index.html" rel="" target="" aria-current="page">
- <span class="menu-text">Julia core</span></a>
+    <a class="nav-link active" href="../core/index.html" aria-current="page"> 
+<span class="menu-text">Julia core</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../python/index.html" rel="" target="">
- <span class="menu-text">Python tooling</span></a>
+    <a class="nav-link" href="../python/index.html"> 
+<span class="menu-text">Python tooling</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../qgis/index.html" rel="" target="">
- <span class="menu-text">QGIS plugin</span></a>
+    <a class="nav-link" href="../qgis/index.html"> 
+<span class="menu-text">QGIS plugin</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../contribute/index.html" rel="" target="">
- <span class="menu-text">Contributing</span></a>
+    <a class="nav-link" href="../contribute/index.html"> 
+<span class="menu-text">Contributing</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/Deltares/Ribasim" rel="" target=""><i class="bi bi-github" role="img" aria-label="GitHub">
+    <a class="nav-link" href="https://github.com/Deltares/Ribasim"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../core/equations.html">Equations</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../core/equations.html">Equations</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
     </div>
   </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -238,7 +273,7 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -296,7 +331,9 @@ div.csl-indent {
   </div>
   
 
+
 </header>
+
 
 <p>Ribasim currently simulates the following “natural” water balance terms:</p>
 <ol type="1">
@@ -390,8 +427,8 @@ Note
     \end{cases}
 \end{align}\]</span></p>
 <p>Here <span class="math inline">\(p &gt; 0\)</span> is the threshold value which determines the interval <span class="math inline">\([0,p]\)</span> of the smooth transition between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, see the plot below.</p>
-<div class="cell" data-execution_count="1">
-<details>
+<div id="dc68d3e3" class="cell" data-execution_count="1">
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -430,7 +467,11 @@ Note
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img src="equations_files/figure-html/cell-2-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="equations_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -449,13 +490,15 @@ Note
     Q_E = E_\text{pot} \cdot A(u) \cdot \phi(d;0.1).
 \tag{3}\]</span></span></p>
 <p>Here <span class="math inline">\(E_\text{pot} = E_\text{pot}(t)\)</span> is the potential evaporation rate and <span class="math inline">\(A\)</span> is the wetted area. <span class="math inline">\(\phi\)</span> is the <a href="../core/equations.html#sec-reduction_factor">reduction factor</a> which depends on the depth <span class="math inline">\(d\)</span>. It provides a smooth gradient as <span class="math inline">\(u \rightarrow 0\)</span>.</p>
-<p>A straightforward formulation <span class="math inline">\(Q_E = \mathrm{max}(E_\text{pot} A(u), 0)\)</span> is unsuitable, as <span class="math inline">\(\frac{\mathrm{d}Q_E}{\mathrm{d}u}(u=0)\)</span> is then not well-defined.</p>
+<p>A straightforward formulation <span class="math inline">\(Q_E = \mathrm{max}(E_\text{pot} A(u),
+0)\)</span> is unsuitable, as <span class="math inline">\(\frac{\mathrm{d}Q_E}{\mathrm{d}u}(u=0)\)</span> is then not well-defined.</p>
 <!--
 A hyperbolic tangent is a commonly used activation function
 [@enwiki:1106669904] to approximate on-off behavior while preserving a smooth
 derivative.
 -->
-<p>A non-smooth derivative results in extremely small timesteps and long computation time: ModelingToolkit identifies the singular behavior and adjusts its timestepping. In a physical interpretation, evaporation is switched on or off per individual droplet of water. In general, the effect of the reduction term is negligible, or not even necessary. As a surface water dries, its wetted area decreases and so does the evaporative flux. However, for (simplified) cases with constant wetted surface (a rectangular profile), evaporation only stops at <span class="math inline">\(u = 0\)</span>.</p>
+<p>A non-smooth derivative results in extremely small timesteps and long computation time: ModelingToolkit identifies the singular behavior and adjusts its timestepping. In a physical interpretation, evaporation is switched on or off per individual droplet of water. In general, the effect of the reduction term is negligible, or not even necessary. As a surface water dries, its wetted area decreases and so does the evaporative flux. However, for (simplified) cases with constant wetted surface (a rectangular profile), evaporation only stops at <span class="math inline">\(u =
+0\)</span>.</p>
 </section>
 <section id="infiltration-and-drainage" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="infiltration-and-drainage"><span class="header-section-number">2.4</span> Infiltration and Drainage</h2>
@@ -690,7 +733,7 @@ Q_\text{pump/outlet} = \text{clip}(\Phi Q_\text{PID}; Q_{\min}, Q_{\max}).
 <p>For the integral term we denote <span class="math display">\[
 I(t) = \int_{t_0}^t e(\tau)\text{d}\tau,
 \]</span></p>
-<p>where <span class="math inline">\(t_0\)</span> is the last time the PID controller was made active. <span class="math inline">\(I(t)\)</span> is treated as a state of the system and thus it has its own equation in the system in <a href="#eq-system">Equation&nbsp;1</a>: <span class="math display">\[
+<p>where <span class="math inline">\(t_0\)</span> is the last time the PID controller was made active. <span class="math inline">\(I(t)\)</span> is treated as a state of the system and thus it has its own equation in the system in <a href="#eq-system" class="quarto-xref">Equation&nbsp;1</a>: <span class="math display">\[
 \frac{\text{d}I}{\text{d}t} = e(t).
 \]</span></p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -710,18 +753,18 @@ Note
 <h2 data-number="4.1" class="anchored" data-anchor-id="the-derivative-term"><span class="header-section-number">4.1</span> The derivative term</h2>
 <p>When <span class="math inline">\(K_d \ne 0\)</span> this adds a level of complexity. We can see this by looking at the error derivative more closely: <span class="math display">\[
 \frac{\text{d}e}{\text{d}t} = \frac{\text{d}\text{SP}}{\text{d}t} - \frac{1}{A(u_\text{PID})}\frac{\text{d}u_\text{PID}}{\text{d}t},
-\]</span> where <span class="math inline">\(A(u_\text{PID})\)</span> is the area of the controlled basin as a function of the storage of the controlled basin <span class="math inline">\(u_\text{PID}\)</span>. The complexity arises from the fact that <span class="math inline">\(Q_\text{PID}\)</span> is a contribution to <span class="math inline">\(\frac{\text{d}u_\text{PID}}{\text{d}t} = f_\text{PID}\)</span>, which makes <a href="#eq-PIDflow">Equation&nbsp;8</a> an implicit equation for <span class="math inline">\(Q_\text{PID}\)</span>. We define</p>
+\]</span> where <span class="math inline">\(A(u_\text{PID})\)</span> is the area of the controlled basin as a function of the storage of the controlled basin <span class="math inline">\(u_\text{PID}\)</span>. The complexity arises from the fact that <span class="math inline">\(Q_\text{PID}\)</span> is a contribution to <span class="math inline">\(\frac{\text{d}u_\text{PID}}{\text{d}t} = f_\text{PID}\)</span>, which makes <a href="#eq-PIDflow" class="quarto-xref">Equation&nbsp;8</a> an implicit equation for <span class="math inline">\(Q_\text{PID}\)</span>. We define</p>
 <p><span class="math display">\[
 f_\text{PID} = \hat{f}_\text{PID} \pm Q_\text{pump/outlet},
 \]</span></p>
 <p>that is, <span class="math inline">\(\hat{f}_\text{PID}\)</span> is the right hand side of the ODE for the controlled basin storage state without the contribution of the PID controlled pump. The plus sign holds for an outlet and the minus sign for a pump, dictated by the way the pump and outlet connectivity to the controlled basin is enforced.</p>
-<p>Using this, solving <a href="#eq-PIDflow">Equation&nbsp;8</a> for <span class="math inline">\(Q_\text{PID}\)</span> yields <span class="math display">\[
+<p>Using this, solving <a href="#eq-PIDflow" class="quarto-xref">Equation&nbsp;8</a> for <span class="math inline">\(Q_\text{PID}\)</span> yields <span class="math display">\[
 Q_\text{pump/outlet} = \text{clip}\left(\phi(u_\text{us})\frac{K_pe + K_iI + K_d \left(\frac{\text{d}\text{SP}}{\text{d}t}-\frac{\hat{f}_\text{PID}}{A(u_\text{PID})}\right)}{1\pm\phi(u_\text{us})\frac{K_d}{A(u_\text{PID})}};Q_{\min},Q_{\max}\right),
 \]</span> where the clipping is again done last. Note that to compute this, <span class="math inline">\(\hat{f}_\text{PID}\)</span> has to be known first, meaning that the PID controlled pump/outlet flow rate has to be computed after all other contributions to the PID controlled basin’s storage are known.</p>
 </section>
 <section id="the-sign-of-the-parameters" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="the-sign-of-the-parameters"><span class="header-section-number">4.2</span> The sign of the parameters</h2>
-<p>Note by <a href="#eq-error">Equation&nbsp;7</a> that the error is positive if the setpoint is larger than the basin level and negative if the setpoint is smaller than the basin level.</p>
+<p>Note by <a href="#eq-error" class="quarto-xref">Equation&nbsp;7</a> that the error is positive if the setpoint is larger than the basin level and negative if the setpoint is smaller than the basin level.</p>
 <p>We enforce the convention that when a pump is controlled, its edge points away from the basin, and when an outlet is controlled, its edge points towards the basin, so that the main flow direction along these edges is positive. Therefore, positive flows of the pump and outlet have opposite effects on the basin, and thus the parameters <span class="math inline">\(K_p,K_i,K_d\)</span> of the pump and outlet must have oppositive signs to achieve the same goal.</p>
 </section>
 </section>
@@ -746,7 +789,7 @@ Q_\text{pump/outlet} = \text{clip}\left(\phi(u_\text{us})\frac{K_pe + K_iI + K_d
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-callbacks" class="csl-entry" role="listitem">
 SciML Development Team. 2022. <span>“Event Handling and Callback Functions.”</span> <a href="https://docs.sciml.ai/DiffEqDocs/latest/features/callback_functions/">https://docs.sciml.ai/DiffEqDocs/latest/features/callback_functions/</a>.
 </div>
@@ -830,10 +873,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -843,8 +885,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -857,6 +908,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -900,6 +1070,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -925,6 +1096,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -986,17 +1183,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../core/validation.html" class="pagination-link">
+      <a href="../core/validation.html" class="pagination-link" aria-label="Validation">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Validation</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../core/allocation.html" class="pagination-link">
+      <a href="../core/allocation.html" class="pagination-link" aria-label="Allocation">
         <span class="nav-page-text">Allocation</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 
