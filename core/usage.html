@@ -312,9 +312,9 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#user-time" id="toc-user-time" class="nav-link" data-scroll-target="#user-time"><span class="header-section-number">10.1</span> User / time</a></li>
   </ul></li>
-  <li><a href="#sec-allocation_target" id="toc-sec-allocation_target" class="nav-link" data-scroll-target="#sec-allocation_target"><span class="header-section-number">11</span> AllocationTarget</a>
+  <li><a href="#sec-target_level" id="toc-sec-target_level" class="nav-link" data-scroll-target="#sec-target_level"><span class="header-section-number">11</span> TargetLevel</a>
   <ul class="collapse">
-  <li><a href="#allocationtarget-time" id="toc-allocationtarget-time" class="nav-link" data-scroll-target="#allocationtarget-time"><span class="header-section-number">11.1</span> AllocationTarget / time</a></li>
+  <li><a href="#targetlevel-time" id="toc-targetlevel-time" class="nav-link" data-scroll-target="#targetlevel-time"><span class="header-section-number">11.1</span> TargetLevel / time</a></li>
   </ul></li>
   <li><a href="#sec-level-boundary" id="toc-sec-level-boundary" class="nav-link" data-scroll-target="#sec-level-boundary"><span class="header-section-number">12</span> LevelBoundary</a>
   <ul class="collapse">
@@ -632,10 +632,10 @@ window.Quarto = {
 <li><code>User / static</code>: demands</li>
 <li><code>User / time</code>: dynamic demands</li>
 </ul></li>
-<li>AllocationTarget: Indicates minimum and maximum target level of connected basins for allocation
+<li>TargetLevel: Indicates minimum and maximum target level of connected basins for allocation
 <ul>
-<li><code>AllocationTarget / static</code>: static target levels</li>
-<li><code>AllocationTarget / time</code>: dynamic target levels</li>
+<li><code>TargetLevel / static</code>: static target levels</li>
+<li><code>TargetLevel / time</code>: dynamic target levels</li>
 </ul></li>
 <li>Terminal: Water sink without state or properties
 <ul>
@@ -1352,9 +1352,9 @@ window.Quarto = {
 </table>
 </section>
 </section>
-<section id="sec-allocation_target" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> AllocationTarget</h1>
-<p>An <code>AllocationTarget</code> node associates a minimum and a maximum level with connected basins to be used by the allocation algorithm. Below the minimum level the basin has a demand of the supplied priority, above the maximum level the basin acts as a source, used by all nodes with demands in order of priority. The same <code>AllocationTarget</code> node can be used for basins in different subnetworks.</p>
+<section id="sec-target_level" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> TargetLevel</h1>
+<p>An <code>TargetLevel</code> node associates a minimum and a maximum level with connected basins to be used by the allocation algorithm. Below the minimum level the basin has a demand of the supplied priority, above the maximum level the basin acts as a source, used by all nodes with demands in order of priority. The same <code>TargetLevel</code> node can be used for basins in different subnetworks.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -1391,9 +1391,9 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<section id="allocationtarget-time" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="allocationtarget-time"><span class="header-section-number">11.1</span> AllocationTarget / time</h2>
-<p>This table is the transient form of the <code>AllocationTarget</code> table, in which time-dependent minimum and maximum levels can be supplied. Similar to the static version, only a single priority per <code>AllocationTarget</code> node can be provided.</p>
+<section id="targetlevel-time" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="targetlevel-time"><span class="header-section-number">11.1</span> TargetLevel / time</h2>
+<p>This table is the transient form of the <code>TargetLevel</code> table, in which time-dependent minimum and maximum levels can be supplied. Similar to the static version, only a single priority per <code>TargetLevel</code> node can be provided.</p>
 <table class="table">
 <thead>
 <tr class="header">
