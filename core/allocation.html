@@ -241,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#vertical-fluxes-and-local-storage" id="toc-vertical-fluxes-and-local-storage" class="nav-link" data-scroll-target="#vertical-fluxes-and-local-storage"><span class="header-section-number">3.2.1</span> Vertical fluxes and local storage</a></li>
   <li><a href="#constraining-factors" id="toc-constraining-factors" class="nav-link" data-scroll-target="#constraining-factors"><span class="header-section-number">3.2.2</span> Constraining factors</a></li>
   </ul></li>
-  <li><a href="#the-allocation-graph" id="toc-the-allocation-graph" class="nav-link" data-scroll-target="#the-allocation-graph"><span class="header-section-number">3.3</span> The allocation graph</a>
+  <li><a href="#the-allocation-network" id="toc-the-allocation-network" class="nav-link" data-scroll-target="#the-allocation-network"><span class="header-section-number">3.3</span> The allocation network</a>
   <ul class="collapse">
   <li><a href="#nodes-and-edges" id="toc-nodes-and-edges" class="nav-link" data-scroll-target="#nodes-and-edges"><span class="header-section-number">3.3.1</span> Nodes and edges</a></li>
   <li><a href="#capacities" id="toc-capacities" class="nav-link" data-scroll-target="#capacities"><span class="header-section-number">3.3.2</span> Capacities</a></li>
@@ -357,14 +357,14 @@ Note
 </section>
 </section>
 </section>
-<section id="the-allocation-graph" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="the-allocation-graph"><span class="header-section-number">3.3</span> The allocation graph</h2>
-<p>A new graph is created from the subnetwork, which we call an allocation graph. The allocation graph is almost a subgraph of the main (flow) model, apart from the fact that an allocation graph can contain edges which are not in the main model.</p>
+<section id="the-allocation-network" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="the-allocation-network"><span class="header-section-number">3.3</span> The allocation network</h2>
+<p>A new graph is created from the subnetwork, which we call an allocation network. The allocation network is almost a subgraph of the main (flow) model, apart from the fact that an allocation network can contain edges which are a combination of multiple edges in the main model.</p>
 <section id="nodes-and-edges" class="level3" data-number="3.3.1">
 <h3 data-number="3.3.1" class="anchored" data-anchor-id="nodes-and-edges"><span class="header-section-number">3.3.1</span> Nodes and edges</h3>
-<p>The allocation graph consists of:</p>
+<p>The allocation network consists of:</p>
 <ul>
-<li>Nodes <span class="math inline">\(V'_S \subset V_S\)</span>, where each basin, source and user in the subnetwork get a node in the allocation graph. Also nodes that have fractional flow outneighbors get a node in the allocation graph.</li>
+<li>Nodes <span class="math inline">\(V'_S \subset V_S\)</span>, where each basin, source and user in the subnetwork get a node in the allocation network. Also nodes that have fractional flow outneighbors get a node in the allocation network.</li>
 <li>Edges <span class="math inline">\(E_S\)</span>, which are either edges that also appear between nodes in the subnetwork or represent a sequence of those, creating a shortcut.</li>
 </ul>
 <p>For notational convenience, we use the notation</p>
@@ -372,14 +372,14 @@ Note
     V^{\text{out}}_S(i) = \left\{j \in V'_S : (i,j) \in E_S\right\} \\
     V^{\text{in}}_S(j) = \left\{i \in V'_S : (i,j) \in E_S\right\}
 \end{align}\]</span></p>
-<p>for the set of in-neighbors and out-neighbors of a node in the allocation graph respectively.</p>
+<p>for the set of in-neighbors and out-neighbors of a node in the allocation network respectively.</p>
 </section>
 <section id="capacities" class="level3" data-number="3.3.2">
 <h3 data-number="3.3.2" class="anchored" data-anchor-id="capacities"><span class="header-section-number">3.3.2</span> Capacities</h3>
-<p>Each edge in the allocation graph has an associated capacity. These capacities are collected in the sparse capacity matrix <span class="math inline">\(C_S \in \overline{\mathbb{R}}_{\ge 0}^{n'\times n'}\)</span> where <span class="math inline">\(n' = \#V'_S\)</span> is the number of nodes in the allocation graph. The capacities can be infinite, if there is nothing in the model constraining the capacity of the edge.</p>
+<p>Each edge in the allocation network has an associated capacity. These capacities are collected in the sparse capacity matrix <span class="math inline">\(C_S \in \overline{\mathbb{R}}_{\ge 0}^{n'\times n'}\)</span> where <span class="math inline">\(n' = \#V'_S\)</span> is the number of nodes in the allocation network. The capacities can be infinite, if there is nothing in the model constraining the capacity of the edge.</p>
 <p>The capacities are determined in 4 different ways:</p>
 <ul>
-<li>If an edge does not exist in the allocation graph, i.e.&nbsp;<span class="math inline">\((i,j) \notin E_S\)</span> for certain <span class="math inline">\(1 \le i,j\le n'\)</span>, then <span class="math inline">\((C_S)_{i,j} = 0\)</span>;</li>
+<li>If an edge does not exist in the allocation network, i.e.&nbsp;<span class="math inline">\((i,j) \notin E_S\)</span> for certain <span class="math inline">\(1 \le i,j\le n'\)</span>, then <span class="math inline">\((C_S)_{i,j} = 0\)</span>;</li>
 <li>The capacity of the edge <span class="math inline">\(e \in E_S\)</span> is given by the smallest <code>max_flow_rate</code> of the nodes along the equivalent edges in the subnetwork. If there are no nodes with a <code>max_flow_rate</code>, the edge capacity is infinite;</li>
 <li>If the edge is a source, the capacity of the edge is given by the flow rate of that source.</li>
 </ul>
@@ -393,7 +393,7 @@ Note
 <h2 data-number="4.1" class="anchored" data-anchor-id="the-optimization-variables"><span class="header-section-number">4.1</span> The optimization variables</h2>
 <p>There are 2 types of variable whose value has to be determined to solve the allocation problem:</p>
 <ul>
-<li>The flows <span class="math inline">\(F \in \mathbb{R}_{\ge 0}^{n'\times n'}\)</span> over the edges in the allocation graph;</li>
+<li>The flows <span class="math inline">\(F \in \mathbb{R}_{\ge 0}^{n'\times n'}\)</span> over the edges in the allocation network;</li>
 <li>The allocations to the basins <span class="math display">\[
   A^\text{basin}_{i} \ge 0, \quad B_S.
 \]</span></li>
@@ -475,7 +475,7 @@ Note
 <section id="the-optimization-constraints" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="the-optimization-constraints"><span class="header-section-number">4.3</span> The optimization constraints</h2>
 <ul>
-<li>Flow conservation: For the basins in the allocation graph we have that <span id="eq-flowconservationconstraint"><span class="math display">\[
+<li>Flow conservation: For the basins in the allocation network we have that <span id="eq-flowconservationconstraint"><span class="math display">\[
   \sum_{j=1}^{n'} F_{kj} = \sum_{i=1}^{n'} F_{ik}, \quad \forall k \in B_S.
 \tag{1}\]</span></span></li>
 <li>Capacity: the flows over the edges are positive and bounded by the edge capacity: <span id="eq-capacityconstraint"><span class="math display">\[
@@ -501,7 +501,7 @@ Note
   \quad \forall k \in U_S, \quad
   V^{\text{in}}_S(k) = \{i\},\;
    V^{\text{out}}_S(k) = \{j\}.
-\tag{3}\]</span></span> Here we use that each user node in the allocation graph has a unique in-edge and out-edge.</p></li>
+\tag{3}\]</span></span> Here we use that each user node in the allocation network has a unique in-edge and out-edge.</p></li>
 <li><p>User demand: user demand constraints are discussed in <a href="../core/allocation.html#sec-solving-allocation">the next section</a>.</p></li>
 <li><p>Fractional flow: Let <span class="math inline">\(L_S \subset V_S\)</span> be the set of nodes in the max flow graph with fractional flow outneighbors, and <span class="math inline">\(f_j\)</span> the flow fraction associated with fractional flow node <span class="math inline">\(j \in V_S\)</span>. Then <span id="eq-fractionalflowconstraint"><span class="math display">\[
   F_{ij} \le f_j \sum_{k\in V^\text{in}_S(i)} F_{ki} \qquad
@@ -515,13 +515,13 @@ Note
 <h2 data-number="4.4" class="anchored" data-anchor-id="final-notes-on-the-allocation-problem"><span class="header-section-number">4.4</span> Final notes on the allocation problem</h2>
 <section id="users-using-their-own-return-flow" class="level3" data-number="4.4.1">
 <h3 data-number="4.4.1" class="anchored" data-anchor-id="users-using-their-own-return-flow"><span class="header-section-number">4.4.1</span> Users using their own return flow</h3>
-<p>If not explicitly avoided, users can use their own return flow in this allocation problem formulation. Therefore, return flow of users is only taken into account by allocation if that return flow is downstream of the user where it comes from. That is, if there is no path in the directed allocation graph from the user outflow node back to the user.</p>
+<p>If not explicitly avoided, users can use their own return flow in this allocation problem formulation. Therefore, return flow of users is only taken into account by allocation if that return flow is downstream of the user where it comes from. That is, if there is no path in the directed allocation network from the user outflow node back to the user.</p>
 </section>
 </section>
 </section>
 <section id="sec-solving-allocation" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Solving the allocation problem</h1>
-<p>The allocation problem for an allocation graph at time <span class="math inline">\(t\)</span> is solved per priority, as follows:</p>
+<p>The allocation problem for an allocation network at time <span class="math inline">\(t\)</span> is solved per priority, as follows:</p>
 <ol type="1">
 <li>Define a capacity matrix with capacities as described above, that will be updated for each priority: <span class="math display">\[
 C_S^p \leftarrow C_S;
@@ -574,30 +574,30 @@ Note
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Min F_abs[User #13] + F_abs[User #3] + F_abs[User #6]
+<pre><code>Min F_abs[User #13] + F_abs[User #6] + F_abs[User #3]
 Subject to
  flow_conservation[Basin #12] : -F[(TabulatedRatingCurve #7, Basin #12)] + F[(Basin #12, User #13)] = 0
- flow_conservation[Basin #2] : -F[(Basin #5, Basin #2)] - F[(FlowBoundary #1, Basin #2)] + F[(Basin #2, Basin #5)] + F[(Basin #2, User #3)] = 0
- flow_conservation[Basin #5] : F[(Basin #5, Basin #2)] - F[(Basin #2, Basin #5)] + F[(Basin #5, User #6)] + F[(Basin #5, TabulatedRatingCurve #7)] = 0
+ flow_conservation[Basin #5] : F[(Basin #5, User #6)] + F[(Basin #5, Basin #2)] + F[(Basin #5, TabulatedRatingCurve #7)] - F[(Basin #2, Basin #5)] = 0
+ flow_conservation[Basin #2] : F[(Basin #2, User #3)] - F[(Basin #5, Basin #2)] - F[(FlowBoundary #1, Basin #2)] + F[(Basin #2, Basin #5)] = 0
  abs_positive[User #13] : -F[(Basin #12, User #13)] + F_abs[User #13] ≥ 0
- abs_positive[User #3] : -F[(Basin #2, User #3)] + F_abs[User #3] ≥ 0
  abs_positive[User #6] : -F[(Basin #5, User #6)] + F_abs[User #6] ≥ -1.5
+ abs_positive[User #3] : -F[(Basin #2, User #3)] + F_abs[User #3] ≥ 0
  abs_negative[User #13] : F[(Basin #12, User #13)] + F_abs[User #13] ≥ 0
- abs_negative[User #3] : F[(Basin #2, User #3)] + F_abs[User #3] ≥ 0
  abs_negative[User #6] : F[(Basin #5, User #6)] + F_abs[User #6] ≥ 1.5
+ abs_negative[User #3] : F[(Basin #2, User #3)] + F_abs[User #3] ≥ 0
  source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 1
  return_flow[User #13] : F[(User #13, Terminal #10)] ≤ 0
  fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : F[(TabulatedRatingCurve #7, Basin #12)] - 0.4 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0
- F[(TabulatedRatingCurve #7, Basin #12)] ≥ 0
- F[(Basin #5, Basin #2)] ≥ 0
- F[(FlowBoundary #1, Basin #2)] ≥ 0
- F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
- F[(Basin #12, User #13)] ≥ 0
- F[(User #13, Terminal #10)] ≥ 0
- F[(Basin #2, Basin #5)] ≥ 0
- F[(Basin #5, User #6)] ≥ 0
  F[(Basin #2, User #3)] ≥ 0
+ F[(Basin #5, User #6)] ≥ 0
+ F[(TabulatedRatingCurve #7, Basin #12)] ≥ 0
+ F[(User #13, Terminal #10)] ≥ 0
+ F[(Basin #5, Basin #2)] ≥ 0
+ F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
+ F[(FlowBoundary #1, Basin #2)] ≥ 0
  F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
+ F[(Basin #2, Basin #5)] ≥ 0
+ F[(Basin #12, User #13)] ≥ 0
 </code></pre>
 </div>
 </div>

@@ -502,11 +502,6 @@ div.csl-indent {
 <p>Node is a table that specifies the ID and type of each node of a model. The ID must be unique among all nodes, and the type must be one of the available node types listed below.</p>
 <p>Nodes are components that are connected together to form a larger system. The Basin is a central node type that stores water. The other node types influence the flow between Basins in some way. Counter intuitively, even systems you may think of as edges, such as a canal, are nodes in Ribasim. This is because edges only define direct instantaneous couplings between nodes, and never have storage of their own.</p>
 <table class="table">
-<colgroup>
-<col style="width: 52%">
-<col style="width: 20%">
-<col style="width: 27%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>column</th>
@@ -536,7 +531,7 @@ div.csl-indent {
 <td>(optional, does not have to be unique)</td>
 </tr>
 <tr class="odd">
-<td>allocation_network_id</td>
+<td>subnetwork_id</td>
 <td>Int</td>
 <td>(optional)</td>
 </tr>
@@ -618,9 +613,9 @@ div.csl-indent {
 </ol>
 <table class="table">
 <colgroup>
-<col style="width: 52%">
-<col style="width: 20%">
-<col style="width: 27%">
+<col style="width: 42%">
+<col style="width: 24%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -661,7 +656,7 @@ div.csl-indent {
 <td>(optional, does not have to be unique)</td>
 </tr>
 <tr class="odd">
-<td>allocation_network_id</td>
+<td>subnetwork_id</td>
 <td>Int</td>
 <td>(optional, denotes source in allocation network)</td>
 </tr>
@@ -1399,7 +1394,7 @@ div.csl-indent {
 <td>DateTime</td>
 </tr>
 <tr class="even">
-<td>allocation_network_id</td>
+<td>subnetwork_id</td>
 <td>Int</td>
 </tr>
 <tr class="odd">

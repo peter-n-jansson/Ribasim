@@ -552,7 +552,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df_flow.pivot_table(index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"edge"</span>, values<span class="op">=</span><span class="st">"flow_m3d"</span>).plot()</span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>ax.legend(bbox_to_anchor<span class="op">=</span>(<span class="fl">1.3</span>, <span class="dv">1</span>), title<span class="op">=</span><span class="st">"Edge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
-<pre><code>&lt;matplotlib.legend.Legend at 0x7fbbb4b20c10&gt;</code></pre>
+<pre><code>&lt;matplotlib.legend.Legend at 0x7f55aea2d110&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="examples_files/figure-html/cell-27-output-2.png" width="727" height="561"></p>
@@ -1072,7 +1072,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb62-36"><a href="#cb62-36" aria-hidden="true" tabindex="-1"></a><span class="co"># All nodes belong to allocation network id 1</span></span>
 <span id="cb62-37"><a href="#cb62-37" aria-hidden="true" tabindex="-1"></a>node <span class="op">=</span> ribasim.Node(</span>
 <span id="cb62-38"><a href="#cb62-38" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>gpd.GeoDataFrame(</span>
-<span id="cb62-39"><a href="#cb62-39" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"type"</span>: node_type, <span class="st">"allocation_network_id"</span>: <span class="dv">1</span>},</span>
+<span id="cb62-39"><a href="#cb62-39" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"type"</span>: node_type, <span class="st">"subnetwork_id"</span>: <span class="dv">1</span>},</span>
 <span id="cb62-40"><a href="#cb62-40" aria-hidden="true" tabindex="-1"></a>        index<span class="op">=</span>pd.Index(np.arange(<span class="bu">len</span>(xy)) <span class="op">+</span> <span class="dv">1</span>, name<span class="op">=</span><span class="st">"fid"</span>),</span>
 <span id="cb62-41"><a href="#cb62-41" aria-hidden="true" tabindex="-1"></a>        geometry<span class="op">=</span>node_xy,</span>
 <span id="cb62-42"><a href="#cb62-42" aria-hidden="true" tabindex="-1"></a>        crs<span class="op">=</span><span class="st">"EPSG:28992"</span>,</span>
@@ -1091,8 +1091,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Denote the first edge, 1 =&gt; 2, as a source edge for</span></span>
 <span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a><span class="co"># allocation network 1</span></span>
-<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>allocation_network_id <span class="op">=</span> <span class="bu">len</span>(from_id) <span class="op">*</span> [<span class="va">None</span>]</span>
-<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>allocation_network_id[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>subnetwork_id <span class="op">=</span> <span class="bu">len</span>(from_id) <span class="op">*</span> [<span class="va">None</span>]</span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>subnetwork_id[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a>lines <span class="op">=</span> node.geometry_from_connectivity(from_id, to_id)</span>
 <span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>edge <span class="op">=</span> ribasim.Edge(</span>
 <span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>gpd.GeoDataFrame(</span>
@@ -1100,7 +1100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"from_node_id"</span>: from_id,</span>
 <span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"to_node_id"</span>: to_id,</span>
 <span id="cb63-19"><a href="#cb63-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"edge_type"</span>: (<span class="bu">len</span>(from_id) <span class="op">-</span> <span class="dv">2</span>) <span class="op">*</span> [<span class="st">"flow"</span>] <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> [<span class="st">"control"</span>],</span>
-<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"allocation_network_id"</span>: allocation_network_id,</span>
+<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"subnetwork_id"</span>: subnetwork_id,</span>
 <span id="cb63-21"><a href="#cb63-21" aria-hidden="true" tabindex="-1"></a>        },</span>
 <span id="cb63-22"><a href="#cb63-22" aria-hidden="true" tabindex="-1"></a>        geometry<span class="op">=</span>lines,</span>
 <span id="cb63-23"><a href="#cb63-23" aria-hidden="true" tabindex="-1"></a>        crs<span class="op">=</span><span class="st">"EPSG:28992"</span>,</span>
