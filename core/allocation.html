@@ -250,7 +250,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#the-optimization-problem" id="toc-the-optimization-problem" class="nav-link" data-scroll-target="#the-optimization-problem"><span class="header-section-number">4</span> The optimization problem</a>
   <ul class="collapse">
   <li><a href="#the-optimization-variables" id="toc-the-optimization-variables" class="nav-link" data-scroll-target="#the-optimization-variables"><span class="header-section-number">4.1</span> The optimization variables</a></li>
-  <li><a href="#the-optimization-objective" id="toc-the-optimization-objective" class="nav-link" data-scroll-target="#the-optimization-objective"><span class="header-section-number">4.2</span> The optimization objective</a></li>
+  <li><a href="#the-optimization-objective" id="toc-the-optimization-objective" class="nav-link" data-scroll-target="#the-optimization-objective"><span class="header-section-number">4.2</span> The optimization objective</a>
+  <ul class="collapse">
+  <li><a href="#user-demands-1" id="toc-user-demands-1" class="nav-link" data-scroll-target="#user-demands-1"><span class="header-section-number">4.2.1</span> User demands</a></li>
+  <li><a href="#basin-demands" id="toc-basin-demands" class="nav-link" data-scroll-target="#basin-demands"><span class="header-section-number">4.2.2</span> Basin demands</a></li>
+  </ul></li>
   <li><a href="#the-optimization-constraints" id="toc-the-optimization-constraints" class="nav-link" data-scroll-target="#the-optimization-constraints"><span class="header-section-number">4.3</span> The optimization constraints</a></li>
   <li><a href="#final-notes-on-the-allocation-problem" id="toc-final-notes-on-the-allocation-problem" class="nav-link" data-scroll-target="#final-notes-on-the-allocation-problem"><span class="header-section-number">4.4</span> Final notes on the allocation problem</a>
   <ul class="collapse">
@@ -341,9 +345,14 @@ Note
 <p>Apart from the source flows denoted by edges, there are other sources of water in the subnetwork, associated with the basins in the subnetwork <span class="math inline">\(B_S = B \cap S\)</span>. Firstly there is the sum of the vertical fluxes (precipitation, evaporation, infiltration and drainage) for each basin <span class="math display">\[
     \phi_i(t), \quad \forall i \in B_S.
 \]</span></p>
-<p>Secondly, there is the available water in each basin above the minimum level <span class="math inline">\(l_{\min,i}\)</span> corresponding to a minimum storage <span class="math inline">\(s_{\min,i}\)</span>: <span class="math display">\[
-    u_i(t)-s_{\min,i}, \quad \forall i \in B_S.
-\]</span> Note that this value can be negative, which we interpret as a demand from the basin.</p>
+<p>We consider fluxes into the basin to be positive and out of the basin to be negative.</p>
+<p>Secondly, there is either a supply or demand from the storage in the basin. Given a minimum level <span class="math inline">\(\ell_{\min, i}\)</span> and a maximum level <span class="math inline">\(\ell_{\max, i}\)</span> which correspond to a minimum storage <span class="math inline">\(s_{\min, i}\)</span> and maximum storage <span class="math inline">\(s_{\max, i}\)</span> respectively, we get a flow supply of <span class="math display">\[
+    F^{\text{basin out}}_{\max, i} = \max\left(0.0, \frac{u_i(t)-s_{\max,i}}{\Delta t_{\text{alloc}}} + \phi_i(t)\right)
+\]</span></p>
+<p>and a demand of <span class="math display">\[
+    d^p_i = \max\left(0.0, \frac{s_{\min,i} - u_i(t)}{\Delta t_{\text{alloc}}} - \phi_i(t)\right),
+\]</span></p>
+<p>for all <span class="math inline">\(i \in B_S\)</span>. Here <span class="math inline">\(\Delta t_{\text{alloc}}\)</span> is the simulated time between two consecutive allocation solves. Note that the basin demand has only a single priority, so for other priorities this demand is <span class="math inline">\(0\)</span>.</p>
 </section>
 <section id="constraining-factors" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="constraining-factors"><span class="header-section-number">3.2.2</span> Constraining factors</h3>
@@ -377,12 +386,13 @@ Note
 <section id="capacities" class="level3" data-number="3.3.2">
 <h3 data-number="3.3.2" class="anchored" data-anchor-id="capacities"><span class="header-section-number">3.3.2</span> Capacities</h3>
 <p>Each edge in the allocation network has an associated capacity. These capacities are collected in the sparse capacity matrix <span class="math inline">\(C_S \in \overline{\mathbb{R}}_{\ge 0}^{n'\times n'}\)</span> where <span class="math inline">\(n' = \#V'_S\)</span> is the number of nodes in the allocation network. The capacities can be infinite, if there is nothing in the model constraining the capacity of the edge.</p>
-<p>The capacities are determined in 4 different ways:</p>
+<p>The capacities are determined in different ways:</p>
 <ul>
 <li>If an edge does not exist in the allocation network, i.e.&nbsp;<span class="math inline">\((i,j) \notin E_S\)</span> for certain <span class="math inline">\(1 \le i,j\le n'\)</span>, then <span class="math inline">\((C_S)_{i,j} = 0\)</span>;</li>
 <li>The capacity of the edge <span class="math inline">\(e \in E_S\)</span> is given by the smallest <code>max_flow_rate</code> of the nodes along the equivalent edges in the subnetwork. If there are no nodes with a <code>max_flow_rate</code>, the edge capacity is infinite;</li>
 <li>If the edge is a source, the capacity of the edge is given by the flow rate of that source.</li>
 </ul>
+<p>There are also capacities <span class="math inline">\(C^B_S \in \mathbb{R}^b\)</span> where <span class="math inline">\(b = \# B_S\)</span> is the number of basins, for the flow supplied by basins.</p>
 </section>
 </section>
 </section>
@@ -391,42 +401,32 @@ Note
 <p>The optimization problem for a subnetwork is a linear optimization problem consisting of an objective function with associated constraints on a set of variables, all of which are introduced below.</p>
 <section id="the-optimization-variables" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="the-optimization-variables"><span class="header-section-number">4.1</span> The optimization variables</h2>
-<p>There are 2 types of variable whose value has to be determined to solve the allocation problem:</p>
+<p>There are several types of variable whose value has to be determined to solve the allocation problem:</p>
 <ul>
 <li>The flows <span class="math inline">\(F \in \mathbb{R}_{\ge 0}^{n'\times n'}\)</span> over the edges in the allocation network;</li>
-<li>The allocations to the basins <span class="math display">\[
-  A^\text{basin}_{i} \ge 0, \quad B_S.
-\]</span></li>
+<li>The flows <span class="math inline">\(F^\text{basin out}_{i}, F^\text{basin in}_{i} \geq 0\)</span> for all <span class="math inline">\(i \in B_S\)</span> supplied and consumed by the basins respectively.</li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Currently the basin allocations are not taken into account in the implementation.</p>
-</div>
-</div>
 </section>
 <section id="the-optimization-objective" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="the-optimization-objective"><span class="header-section-number">4.2</span> The optimization objective</h2>
-<p>The goal of allocation is to get the flow to the users as close as possible to their demand. To achieve this, the following objectives are supported:</p>
+<p>The goal of allocation is to get the flow to nodes with demands as close as possible to these demands. To achieve this, a sum error of terms is minimized. The form of these error terms is determined by the choice of one of the supported objective function types, which are discussed further below.</p>
+<p><span class="math display">\[
+    \min E_{\text{user}} + E_{\text{basin}}
+\]</span></p>
+<section id="user-demands-1" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="user-demands-1"><span class="header-section-number">4.2.1</span> User demands</h3>
 <ul>
 <li><code>quadratic_absolute</code>: <span class="math display">\[
-  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left( F_{ij} - d_j^p(t)\right)^2
+  E_{\text{user}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left( F_{ij} - d_j^p(t)\right)^2
 \]</span></li>
 <li><code>quadratic_relative</code>: <span class="math display">\[
-  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left( 1 - \frac{F_{ij}}{d_j^p(t)}\right)^2
+  E_{\text{user}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left( 1 - \frac{F_{ij}}{d_j^p(t)}\right)^2
 \]</span></li>
 <li><code>linear_absolute</code> (default): <span class="math display">\[
-  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left| F_{ij} - d_j^p(t)\right|
+  E_{\text{user}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left| F_{ij} - d_j^p(t)\right|
 \]</span></li>
 <li><code>linear_relative</code>: <span class="math display">\[
-  \min \sum_{(i,j)\in E_S\;:\; i\in U_S} \left|1 - \frac{F_{ij}}{d_j^p(t)}\right|
+  E_{\text{user}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left|1 - \frac{F_{ij}}{d_j^p(t)}\right|
 \]</span></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -472,16 +472,52 @@ Note
 </div>
 </div>
 </section>
+<section id="basin-demands" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="basin-demands"><span class="header-section-number">4.2.2</span> Basin demands</h3>
+<ul>
+<li><code>quadratic_absolute</code>: <span class="math display">\[
+  E_{\text{basin}} = \sum_{i \in B_S} \left( F_i^\text{basin in} - d_i^p(t)\right)^2
+\]</span></li>
+<li><code>quadratic_relative</code>: <span class="math display">\[
+  E_{\text{basin}} = \sum_{i \in B_S} \left( 1 - \frac{F_i^\text{basin in}}{d_i^p(t)}\right)^2
+\]</span></li>
+<li><code>linear_absolute</code> (default): <span class="math display">\[
+  E_{\text{basin}} = \sum_{i \in B_S} \left| F_i^\text{basin in} - d_i^p(t)\right|
+\]</span></li>
+<li><code>linear_relative</code>: <span class="math display">\[
+  E_{\text{basin}} = \sum_{i \in B_S} \left|1 - \frac{F_i^\text{basin in}}{d_i^p(t)}\right|
+\]</span></li>
+</ul>
+</section>
+</section>
 <section id="the-optimization-constraints" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="the-optimization-constraints"><span class="header-section-number">4.3</span> The optimization constraints</h2>
 <ul>
 <li>Flow conservation: For the basins in the allocation network we have that <span id="eq-flowconservationconstraint"><span class="math display">\[
-  \sum_{j=1}^{n'} F_{kj} = \sum_{i=1}^{n'} F_{ik}, \quad \forall k \in B_S.
-\tag{1}\]</span></span></li>
+  F^\text{basin in}_k + \sum_{j=1}^{n'} F_{kj} = F^\text{basin out}_k + \sum_{i=1}^{n'} F_{ik}, \quad \forall k \in B_S .
+\tag{1}\]</span></span> Note that we do not require equality here; in the allocation we do not mind that excess flow is ‘forgotten’ if it cannot contribute to the allocation to the users.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In <a href="#eq-flowconservationconstraint">Equation&nbsp;1</a>, the placement of the basin flows might seem counter-intuitive. Think of the basin storage as a separate node connected to the basin node.</p>
+</div>
+</div>
+<ul>
 <li>Capacity: the flows over the edges are positive and bounded by the edge capacity: <span id="eq-capacityconstraint"><span class="math display">\[
   F_{ij} \le \left(C_S\right)_{ij}, \quad \forall(i,j) \in E_S.
-\tag{2}\]</span></span> By the definition of <span class="math inline">\(C_S\)</span> this also includes the source flows.</li>
+\tag{2}\]</span></span> By the definition of <span class="math inline">\(C_S\)</span> this also includes the source flows. The same holds for the basin outflows:</li>
 </ul>
+<p><span class="math display">\[
+    F^{\text{basin out}}_{i} \le F^{\text{basin out}}_{\max, i}, \quad \forall i \in B_S.
+\]</span></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -557,47 +593,64 @@ Note
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span>: NodeID</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">SQLite</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>toml_path <span class="op">=</span> <span class="fu">normpath</span>(<span class="pp">@__DIR__</span>, <span class="st">"../../generated_testmodels/allocation_example/ribasim.toml"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Ribasim.<span class="fu">Model</span>(toml_path).integrator.p</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>allocation_model <span class="op">=</span> p.allocation.allocation_models[<span class="fl">1</span>]</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>priority_idx <span class="op">=</span> <span class="fl">1</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">set_flow!</span>(p.graph, <span class="fu">NodeID</span>(<span class="op">:</span>FlowBoundary, <span class="fl">1</span>), <span class="fu">NodeID</span>(<span class="op">:</span>Basin, <span class="fl">2</span>), <span class="fl">1.0</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">ComponentArrays</span>: ComponentVector</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>toml_path <span class="op">=</span> <span class="fu">normpath</span>(<span class="pp">@__DIR__</span>, <span class="st">"../../generated_testmodels/allocation_example/ribasim.toml"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Ribasim.<span class="fu">Model</span>(toml_path).integrator.p</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>u <span class="op">=</span> <span class="fu">ComponentVector</span>(; storage <span class="op">=</span> <span class="fu">zeros</span>(<span class="fu">length</span>(p.basin.node_id)))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>allocation_model <span class="op">=</span> p.allocation.allocation_models[<span class="fl">1</span>]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>priority_idx <span class="op">=</span> <span class="fl">1</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">adjust_source_capacities!</span>(allocation_model, p, priority_idx)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">adjust_edge_capacities!</span>(allocation_model, p, priority_idx)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">set_objective_priority!</span>(allocation_model, p, t, priority_idx)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">set_flow!</span>(p.graph, <span class="fu">NodeID</span>(<span class="op">:</span>FlowBoundary, <span class="fl">1</span>), <span class="fu">NodeID</span>(<span class="op">:</span>Basin, <span class="fl">2</span>), <span class="fl">1.0</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">adjust_source_capacities!</span>(allocation_model, p, priority_idx)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">adjust_edge_capacities!</span>(allocation_model, p, priority_idx)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">set_objective_priority!</span>(allocation_model, p, u, t, priority_idx)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Min F_abs[User #13] + F_abs[User #6] + F_abs[User #3]
+<pre><code>Min F_abs_user[User #3] + F_abs_user[User #6] + F_abs_user[User #13] + F_abs_basin[Basin #2] + F_abs_basin[Basin #5] + F_abs_basin[Basin #12]
 Subject to
- flow_conservation[Basin #12] : -F[(TabulatedRatingCurve #7, Basin #12)] + F[(Basin #12, User #13)] = 0
- flow_conservation[Basin #5] : F[(Basin #5, User #6)] + F[(Basin #5, Basin #2)] + F[(Basin #5, TabulatedRatingCurve #7)] - F[(Basin #2, Basin #5)] = 0
- flow_conservation[Basin #2] : F[(Basin #2, User #3)] - F[(Basin #5, Basin #2)] - F[(FlowBoundary #1, Basin #2)] + F[(Basin #2, Basin #5)] = 0
- abs_positive[User #13] : -F[(Basin #12, User #13)] + F_abs[User #13] ≥ 0
- abs_positive[User #6] : -F[(Basin #5, User #6)] + F_abs[User #6] ≥ -1.5
- abs_positive[User #3] : -F[(Basin #2, User #3)] + F_abs[User #3] ≥ 0
- abs_negative[User #13] : F[(Basin #12, User #13)] + F_abs[User #13] ≥ 0
- abs_negative[User #6] : F[(Basin #5, User #6)] + F_abs[User #6] ≥ 1.5
- abs_negative[User #3] : F[(Basin #2, User #3)] + F_abs[User #3] ≥ 0
+ abs_positive_user[User #3] : -F[(Basin #2, User #3)] + F_abs_user[User #3] ≥ 0
+ abs_positive_user[User #6] : -F[(Basin #5, User #6)] + F_abs_user[User #6] ≥ -1.5
+ abs_positive_user[User #13] : -F[(Basin #12, User #13)] + F_abs_user[User #13] ≥ 0
+ abs_negative_user[User #3] : F[(Basin #2, User #3)] + F_abs_user[User #3] ≥ 0
+ abs_negative_user[User #6] : F[(Basin #5, User #6)] + F_abs_user[User #6] ≥ 1.5
+ abs_negative_user[User #13] : F[(Basin #12, User #13)] + F_abs_user[User #13] ≥ 0
+ abs_positive_basin[Basin #2] : -F_basin_in[Basin #2] + F_abs_basin[Basin #2] ≥ 0
+ abs_positive_basin[Basin #5] : -F_basin_in[Basin #5] + F_abs_basin[Basin #5] ≥ 0
+ abs_positive_basin[Basin #12] : -F_basin_in[Basin #12] + F_abs_basin[Basin #12] ≥ 0
+ abs_negative_basin[Basin #2] : F_basin_in[Basin #2] + F_abs_basin[Basin #2] ≥ 0
+ abs_negative_basin[Basin #5] : F_basin_in[Basin #5] + F_abs_basin[Basin #5] ≥ 0
+ abs_negative_basin[Basin #12] : F_basin_in[Basin #12] + F_abs_basin[Basin #12] ≥ 0
  source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 1
  return_flow[User #13] : F[(User #13, Terminal #10)] ≤ 0
- fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : F[(TabulatedRatingCurve #7, Basin #12)] - 0.4 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0
- F[(Basin #2, User #3)] ≥ 0
- F[(Basin #5, User #6)] ≥ 0
- F[(TabulatedRatingCurve #7, Basin #12)] ≥ 0
- F[(User #13, Terminal #10)] ≥ 0
+ fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : -0.4 F[(Basin #5, TabulatedRatingCurve #7)] + F[(TabulatedRatingCurve #7, Basin #12)] ≤ 0
+ basin_outflow[Basin #2] : F_basin_out[Basin #2] ≤ 0
+ basin_outflow[Basin #5] : F_basin_out[Basin #5] ≤ 0
+ basin_outflow[Basin #12] : F_basin_out[Basin #12] ≤ 0
+ flow_conservation[Basin #2] : -F[(Basin #5, Basin #2)] + F[(Basin #2, Basin #5)] - F[(FlowBoundary #1, Basin #2)] + F[(Basin #2, User #3)] + F_basin_in[Basin #2] - F_basin_out[Basin #2] = 0
+ flow_conservation[Basin #5] : F[(Basin #5, Basin #2)] - F[(Basin #2, Basin #5)] + F[(Basin #5, TabulatedRatingCurve #7)] + F[(Basin #5, User #6)] + F_basin_in[Basin #5] - F_basin_out[Basin #5] = 0
+ flow_conservation[Basin #12] : F[(Basin #12, User #13)] - F[(TabulatedRatingCurve #7, Basin #12)] + F_basin_in[Basin #12] - F_basin_out[Basin #12] = 0
  F[(Basin #5, Basin #2)] ≥ 0
- F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
- F[(FlowBoundary #1, Basin #2)] ≥ 0
- F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
+ F[(User #13, Terminal #10)] ≥ 0
  F[(Basin #2, Basin #5)] ≥ 0
+ F[(FlowBoundary #1, Basin #2)] ≥ 0
  F[(Basin #12, User #13)] ≥ 0
+ F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
+ F[(Basin #5, User #6)] ≥ 0
+ F[(Basin #2, User #3)] ≥ 0
+ F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
+ F[(TabulatedRatingCurve #7, Basin #12)] ≥ 0
+ F_basin_in[Basin #2] ≥ 0
+ F_basin_in[Basin #5] ≥ 0
+ F_basin_in[Basin #12] ≥ 0
+ F_basin_out[Basin #2] ≥ 0
+ F_basin_out[Basin #5] ≥ 0
+ F_basin_out[Basin #12] ≥ 0
 </code></pre>
 </div>
 </div>
