@@ -417,7 +417,7 @@ window.Quarto = {
 <span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="kw">[results]</span></span>
 <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co"># These results files are always written</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="dt">compression</span> <span class="op">=</span> <span class="st">"zstd"</span>  <span class="co"># optional, default "zstd", also supports "lz4"</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="dt">compression</span> <span class="op">=</span> <span class="cn">true</span>  <span class="co"># optional, default true, using zstd compression</span></span>
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="dt">compression_level</span> <span class="op">=</span> <span class="dv">6</span> <span class="co"># optional, default 6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="sec-solver-settings" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="sec-solver-settings"><span class="header-section-number">1.1</span> Solver settings</h2>
@@ -453,13 +453,13 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>compression</td>
-<td>String</td>
-<td>Compression algorithm: zstd or lz4.</td>
+<td>Bool</td>
+<td>Whether to apply compression or not.</td>
 </tr>
 <tr class="even">
 <td>compression_level</td>
 <td>Int</td>
-<td>Compression level. Higher is more compression.</td>
+<td>Zstandard compression level. Default is 6, higher compresses more.</td>
 </tr>
 <tr class="odd">
 <td>subgrid</td>
