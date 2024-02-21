@@ -1998,8 +1998,18 @@ window.Quarto = {
 <td>-</td>
 </tr>
 <tr class="odd">
+<td>from_node_type</td>
+<td>String</td>
+<td>-</td>
+</tr>
+<tr class="even">
 <td>from_node_id</td>
 <td>Int</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>to_node_type</td>
+<td>String</td>
 <td>-</td>
 </tr>
 <tr class="even">
@@ -2008,7 +2018,7 @@ window.Quarto = {
 <td>-</td>
 </tr>
 <tr class="odd">
-<td>flow</td>
+<td>flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 </tr>
@@ -2048,7 +2058,7 @@ window.Quarto = {
 </section>
 <section id="allocation---allocation.arrow" class="level2" data-number="19.4">
 <h2 data-number="19.4" class="anchored" data-anchor-id="allocation---allocation.arrow"><span class="header-section-number">19.4</span> Allocation - <code>allocation.arrow</code></h2>
-<p>The allocation table contains a record of allocation results: when it happened, for which user node, in which allocation network, and what the demand, allocated flow and abstracted flow were.</p>
+<p>The allocation table contains a record of allocation results: when it happened, for which node, in which allocation network, and what the demand, allocated flow and realized flow were.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -2066,27 +2076,32 @@ window.Quarto = {
 <td>Int</td>
 </tr>
 <tr class="odd">
-<td>user_node_id</td>
-<td>Int</td>
+<td>node_type</td>
+<td>String</td>
 </tr>
 <tr class="even">
+<td>node_id</td>
+<td>Int</td>
+</tr>
+<tr class="odd">
 <td>priority</td>
 <td>Int</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>demand</td>
 <td>Float64</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>allocated</td>
 <td>Float64</td>
 </tr>
-<tr class="odd">
-<td>abstracted</td>
+<tr class="even">
+<td>realized</td>
 <td>Float64</td>
 </tr>
 </tbody>
 </table>
+<p>For Basins the values <code>demand</code>, <code>allocated</code> and <code>realized</code> are positive if the Basin level is below the minimum level given by a <code>TargetLevel</code> node. The values are negative if the Basin supplies due to a surplus of water.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -2121,8 +2136,16 @@ Note
 <td>Int</td>
 </tr>
 <tr class="odd">
+<td>from_node_type</td>
+<td>String</td>
+</tr>
+<tr class="even">
 <td>from_node_id</td>
 <td>Int</td>
+</tr>
+<tr class="odd">
+<td>to_node_type</td>
+<td>String</td>
 </tr>
 <tr class="even">
 <td>to_node_id</td>
@@ -2137,7 +2160,7 @@ Note
 <td>Int</td>
 </tr>
 <tr class="odd">
-<td>flow</td>
+<td>flow_rate</td>
 <td>Float64</td>
 </tr>
 <tr class="even">

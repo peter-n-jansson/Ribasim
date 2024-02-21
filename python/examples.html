@@ -103,6 +103,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -211,7 +240,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#update-the-basic-model-with-transient-forcing" id="toc-update-the-basic-model-with-transient-forcing" class="nav-link" data-scroll-target="#update-the-basic-model-with-transient-forcing"><span class="header-section-number">2</span> Update the basic model with transient forcing</a></li>
   <li><a href="#model-with-discrete-control" id="toc-model-with-discrete-control" class="nav-link" data-scroll-target="#model-with-discrete-control"><span class="header-section-number">3</span> Model with discrete control</a></li>
   <li><a href="#model-with-pid-control" id="toc-model-with-pid-control" class="nav-link" data-scroll-target="#model-with-pid-control"><span class="header-section-number">4</span> Model with PID control</a></li>
-  <li><a href="#model-with-allocation" id="toc-model-with-allocation" class="nav-link" data-scroll-target="#model-with-allocation"><span class="header-section-number">5</span> Model with allocation</a></li>
+  <li><a href="#model-with-allocation-user-demand" id="toc-model-with-allocation-user-demand" class="nav-link" data-scroll-target="#model-with-allocation-user-demand"><span class="header-section-number">5</span> Model with allocation (user demand)</a></li>
+  <li><a href="#model-with-allocation-basin-supplydemand" id="toc-model-with-allocation-basin-supplydemand" class="nav-link" data-scroll-target="#model-with-allocation-basin-supplydemand"><span class="header-section-number">6</span> Model with allocation (basin supply/demand)</a></li>
   </ul>
 </nav>
     </div>
@@ -559,7 +589,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="cell-44" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df_flow <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"basic_transient/results/flow.arrow"</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"edge"</span>] <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(df_flow.from_node_id, df_flow.to_node_id))</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"flow_m3d"</span>] <span class="op">=</span> df_flow.flow <span class="op">*</span> <span class="dv">86400</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"flow_m3d"</span>] <span class="op">=</span> df_flow.flow_rate <span class="op">*</span> <span class="dv">86400</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df_flow.pivot_table(index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"edge"</span>, values<span class="op">=</span><span class="st">"flow_m3d"</span>).plot()</span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>ax.legend(bbox_to_anchor<span class="op">=</span>(<span class="fl">1.3</span>, <span class="dv">1</span>), title<span class="op">=</span><span class="st">"Edge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1052,8 +1082,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="model-with-allocation" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Model with allocation</h1>
+<section id="model-with-allocation-user-demand" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Model with allocation (user demand)</h1>
 <p>Setup the nodes:</p>
 <div id="cell-107" class="cell" data-execution_count="55">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>xy <span class="op">=</span> np.array(</span>
@@ -1294,8 +1324,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>df_allocation <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"allocation_example/results/allocation.arrow"</span>)</span>
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>df_allocation_wide <span class="op">=</span> df_allocation.pivot_table(</span>
 <span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"time"</span>,</span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">"user_node_id"</span>, <span class="st">"priority"</span>],</span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span>[<span class="st">"demand"</span>, <span class="st">"allocated"</span>, <span class="st">"abstracted"</span>],</span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>[<span class="st">"node_type"</span>, <span class="st">"node_id"</span>, <span class="st">"priority"</span>],</span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span>[<span class="st">"demand"</span>, <span class="st">"allocated"</span>, <span class="st">"realized"</span>],</span>
 <span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>df_allocation_wide <span class="op">=</span> df_allocation_wide.loc[:, (df_allocation_wide <span class="op">!=</span> <span class="dv">0</span>).<span class="bu">any</span>(axis<span class="op">=</span><span class="dv">0</span>)]</span>
 <span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a></span>
@@ -1304,7 +1334,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb72-14"><a href="#cb72-14" aria-hidden="true" tabindex="-1"></a>df_allocation_wide[<span class="st">"demand"</span>].plot(ax<span class="op">=</span>axs[<span class="dv">0</span>], ls<span class="op">=</span><span class="st">":"</span>)</span>
 <span id="cb72-15"><a href="#cb72-15" aria-hidden="true" tabindex="-1"></a>df_allocation_wide[<span class="st">"allocated"</span>].plot(ax<span class="op">=</span>axs[<span class="dv">1</span>], ls<span class="op">=</span><span class="st">"--"</span>)</span>
-<span id="cb72-16"><a href="#cb72-16" aria-hidden="true" tabindex="-1"></a>df_allocation_wide[<span class="st">"abstracted"</span>].plot(ax<span class="op">=</span>axs[<span class="dv">2</span>])</span>
+<span id="cb72-16"><a href="#cb72-16" aria-hidden="true" tabindex="-1"></a>df_allocation_wide[<span class="st">"realized"</span>].plot(ax<span class="op">=</span>axs[<span class="dv">2</span>])</span>
 <span id="cb72-17"><a href="#cb72-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb72-18"><a href="#cb72-18" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
 <span id="cb72-19"><a href="#cb72-19" aria-hidden="true" tabindex="-1"></a>loc <span class="op">=</span> plticker.MultipleLocator(<span class="dv">2</span>)</span>
@@ -1348,6 +1378,182 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section>
+<section id="model-with-allocation-basin-supplydemand" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Model with allocation (basin supply/demand)</h1>
+<p>Setup the nodes:</p>
+<div id="cell-141" class="cell" data-execution_count="72">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>xy <span class="op">=</span> np.array(</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">0.0</span>, <span class="fl">0.0</span>),  <span class="co"># 1: FlowBoundary</span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">1.0</span>, <span class="fl">0.0</span>),  <span class="co"># 2: Basin</span></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">2.0</span>, <span class="fl">0.0</span>),  <span class="co"># 3: User</span></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">1.0</span>, <span class="op">-</span><span class="fl">1.0</span>),  <span class="co"># 4: TargetLevel</span></span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">2.0</span>, <span class="op">-</span><span class="fl">1.0</span>),  <span class="co"># 5: Basin</span></span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>node_xy <span class="op">=</span> gpd.points_from_xy(x<span class="op">=</span>xy[:, <span class="dv">0</span>], y<span class="op">=</span>xy[:, <span class="dv">1</span>])</span>
+<span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>node_type <span class="op">=</span> [<span class="st">"FlowBoundary"</span>, <span class="st">"Basin"</span>, <span class="st">"User"</span>, <span class="st">"TargetLevel"</span>, <span class="st">"Basin"</span>]</span>
+<span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure the feature id starts at 1: explicitly give an index.</span></span>
+<span id="cb75-15"><a href="#cb75-15" aria-hidden="true" tabindex="-1"></a>node <span class="op">=</span> ribasim.Node(</span>
+<span id="cb75-16"><a href="#cb75-16" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>gpd.GeoDataFrame(</span>
+<span id="cb75-17"><a href="#cb75-17" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
+<span id="cb75-18"><a href="#cb75-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"type"</span>: node_type,</span>
+<span id="cb75-19"><a href="#cb75-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"subnetwork_id"</span>: <span class="dv">5</span> <span class="op">*</span> [<span class="dv">2</span>],</span>
+<span id="cb75-20"><a href="#cb75-20" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb75-21"><a href="#cb75-21" aria-hidden="true" tabindex="-1"></a>        index<span class="op">=</span>pd.Index(np.arange(<span class="bu">len</span>(xy)) <span class="op">+</span> <span class="dv">1</span>, name<span class="op">=</span><span class="st">"fid"</span>),</span>
+<span id="cb75-22"><a href="#cb75-22" aria-hidden="true" tabindex="-1"></a>        geometry<span class="op">=</span>node_xy,</span>
+<span id="cb75-23"><a href="#cb75-23" aria-hidden="true" tabindex="-1"></a>        crs<span class="op">=</span><span class="st">"EPSG:28992"</span>,</span>
+<span id="cb75-24"><a href="#cb75-24" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb75-25"><a href="#cb75-25" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the edges:</p>
+<div id="cell-143" class="cell" data-execution_count="73">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>from_id <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>to_id <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">5</span>])</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>edge_type <span class="op">=</span> [<span class="st">"flow"</span>, <span class="st">"flow"</span>, <span class="st">"control"</span>, <span class="st">"flow"</span>, <span class="st">"control"</span>]</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>subnetwork_id <span class="op">=</span> [<span class="dv">2</span>, <span class="va">None</span>, <span class="va">None</span>, <span class="va">None</span>, <span class="va">None</span>]</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>lines <span class="op">=</span> node.geometry_from_connectivity(from_id.tolist(), to_id.tolist())</span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>edge <span class="op">=</span> ribasim.Edge(</span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>gpd.GeoDataFrame(</span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"from_node_id"</span>: from_id,</span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">"to_node_id"</span>: to_id,</span>
+<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"edge_type"</span>: edge_type,</span>
+<span id="cb76-13"><a href="#cb76-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"subnetwork_id"</span>: subnetwork_id,</span>
+<span id="cb76-14"><a href="#cb76-14" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb76-15"><a href="#cb76-15" aria-hidden="true" tabindex="-1"></a>        geometry<span class="op">=</span>lines,</span>
+<span id="cb76-16"><a href="#cb76-16" aria-hidden="true" tabindex="-1"></a>        crs<span class="op">=</span><span class="st">"EPSG:28992"</span>,</span>
+<span id="cb76-17"><a href="#cb76-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb76-18"><a href="#cb76-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the basins:</p>
+<div id="cell-145" class="cell" data-execution_count="74">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>profile <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{<span class="st">"node_id"</span>: [<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">5</span>], <span class="st">"area"</span>: <span class="fl">1e3</span>, <span class="st">"level"</span>: [<span class="fl">0.0</span>, <span class="fl">1.0</span>, <span class="fl">0.0</span>, <span class="fl">1.0</span>]}</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>static <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: [<span class="dv">5</span>],</span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"drainage"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"potential_evaporation"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"infiltration"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"precipitation"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"urban_runoff"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb77-12"><a href="#cb77-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb77-13"><a href="#cb77-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb77-14"><a href="#cb77-14" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb77-15"><a href="#cb77-15" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{</span>
+<span id="cb77-16"><a href="#cb77-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"node_id"</span>: <span class="dv">2</span>,</span>
+<span id="cb77-17"><a href="#cb77-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"time"</span>: [<span class="st">"2020-01-01 00:00:00"</span>, <span class="st">"2020-01-16 00:00:00"</span>],</span>
+<span id="cb77-18"><a href="#cb77-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"drainage"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb77-19"><a href="#cb77-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"potential_evaporation"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb77-20"><a href="#cb77-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"infiltration"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb77-21"><a href="#cb77-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"precipitation"</span>: [<span class="fl">1e-6</span>, <span class="fl">0.0</span>],</span>
+<span id="cb77-22"><a href="#cb77-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"urban_runoff"</span>: <span class="fl">0.0</span>,</span>
+<span id="cb77-23"><a href="#cb77-23" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb77-24"><a href="#cb77-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb77-25"><a href="#cb77-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-26"><a href="#cb77-26" aria-hidden="true" tabindex="-1"></a>state <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>{<span class="st">"node_id"</span>: [<span class="dv">2</span>, <span class="dv">5</span>], <span class="st">"level"</span>: <span class="fl">0.5</span>})</span>
+<span id="cb77-27"><a href="#cb77-27" aria-hidden="true" tabindex="-1"></a>basin <span class="op">=</span> ribasim.Basin(profile<span class="op">=</span>profile, static<span class="op">=</span>static, time<span class="op">=</span>time, state<span class="op">=</span>state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the flow boundary:</p>
+<div id="cell-147" class="cell" data-execution_count="75">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>flow_boundary <span class="op">=</span> ribasim.FlowBoundary(</span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>    static<span class="op">=</span>pd.DataFrame(data<span class="op">=</span>{<span class="st">"node_id"</span>: [<span class="dv">1</span>], <span class="st">"flow_rate"</span>: <span class="fl">1e-3</span>})</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup allocation level control:</p>
+<div id="cell-149" class="cell" data-execution_count="76">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>target_level <span class="op">=</span> ribasim.TargetLevel(</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>    static<span class="op">=</span>pd.DataFrame(</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"node_id"</span>: [<span class="dv">4</span>], <span class="st">"priority"</span>: <span class="dv">1</span>, <span class="st">"min_level"</span>: <span class="fl">1.0</span>, <span class="st">"max_level"</span>: <span class="fl">1.5</span>}</span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the users:</p>
+<div id="cell-151" class="cell" data-execution_count="77">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>user <span class="op">=</span> ribasim.User(</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>    static<span class="op">=</span>pd.DataFrame(</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_id"</span>: [<span class="dv">3</span>],</span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"priority"</span>: [<span class="dv">2</span>],</span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"demand"</span>: [<span class="fl">1.5e-3</span>],</span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"return_factor"</span>: [<span class="fl">0.2</span>],</span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"min_level"</span>: [<span class="fl">0.2</span>],</span>
+<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb80-10"><a href="#cb80-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb80-11"><a href="#cb80-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup the allocation:</p>
+<div id="cell-153" class="cell" data-execution_count="78">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>allocation <span class="op">=</span> ribasim.Allocation(use_allocation<span class="op">=</span><span class="va">True</span>, timestep<span class="op">=</span><span class="fl">1e5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Setup a model:</p>
+<div id="cell-155" class="cell" data-execution_count="79">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> ribasim.Model(</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>    network<span class="op">=</span>ribasim.Network(node<span class="op">=</span>node, edge<span class="op">=</span>edge),</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>    basin<span class="op">=</span>basin,</span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>    flow_boundary<span class="op">=</span>flow_boundary,</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>    target_level<span class="op">=</span>target_level,</span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>    user<span class="op">=</span>user,</span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>    allocation<span class="op">=</span>allocation,</span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>    starttime<span class="op">=</span><span class="st">"2020-01-01 00:00:00"</span>,</span>
+<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>    endtime<span class="op">=</span><span class="st">"2020-02-01 00:00:00"</span>,</span>
+<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s take a look at the model:</p>
+<div id="cell-157" class="cell" data-execution_count="80">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>model.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="examples_files/figure-html/cell-81-output-1.png" width="689" height="298" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Write the model to a TOML and GeoPackage:</p>
+<div id="cell-159" class="cell" data-execution_count="81">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>model.write(datadir <span class="op">/</span> <span class="st">"target_level/ribasim.toml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="81">
+<pre><code>PosixPath('data/target_level/ribasim.toml')</code></pre>
+</div>
+</div>
+<p>Now run the model with <code>ribasim target_level/ribasim.toml</code>. After running the model, read back the results:</p>
+<div id="cell-162" class="cell" data-execution_count="83">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>df_basin <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"target_level/results/basin.arrow"</span>)</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>df_basin <span class="op">=</span> df_basin[df_basin.node_id <span class="op">==</span> <span class="dv">2</span>]</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>df_basin_wide <span class="op">=</span> df_basin.pivot_table(</span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"node_id"</span>, values<span class="op">=</span>[<span class="st">"storage"</span>, <span class="st">"level"</span>]</span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df_basin_wide[<span class="st">"level"</span>].plot()</span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a>where_allocation <span class="op">=</span> (</span>
+<span id="cb86-8"><a href="#cb86-8" aria-hidden="true" tabindex="-1"></a>    df_basin_wide.index <span class="op">-</span> df_basin_wide.index[<span class="dv">0</span>]</span>
+<span id="cb86-9"><a href="#cb86-9" aria-hidden="true" tabindex="-1"></a>).total_seconds() <span class="op">%</span> model.allocation.timestep <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb86-10"><a href="#cb86-10" aria-hidden="true" tabindex="-1"></a>where_allocation[<span class="dv">0</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb86-11"><a href="#cb86-11" aria-hidden="true" tabindex="-1"></a>df_basin_wide[where_allocation][<span class="st">"level"</span>].plot(</span>
+<span id="cb86-12"><a href="#cb86-12" aria-hidden="true" tabindex="-1"></a>    style<span class="op">=</span><span class="st">"o"</span>,</span>
+<span id="cb86-13"><a href="#cb86-13" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax,</span>
+<span id="cb86-14"><a href="#cb86-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb86-15"><a href="#cb86-15" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"level [m]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="83">
+<pre><code>Text(0, 0.5, 'level [m]')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="examples_files/figure-html/cell-84-output-2.png" width="590" height="423" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In the plot above, the line denotes the level of basin #2 over time and the dots denote the times at which allocation optimization was run, with intervals of <span class="math inline">\(\Delta t_{\text{alloc}}\)</span>. The basin level is a piecewise linear function of time, with several stages explained below.</p>
+<p>Constants: - <span class="math inline">\(d\)</span>: user #3 demand, - <span class="math inline">\(\phi\)</span>: precipitation rate on basin #2, - <span class="math inline">\(q\)</span>: flow of the level boundary.</p>
+<p>Stages: - In the first stage the user abstracts fully, so the net change of basin #2 is <span class="math inline">\(q + \phi - d\)</span>; - In the second stage the basin takes precedence so the user doesn’t abstract, hence the net change of basin #2 is <span class="math inline">\(q + \phi\)</span>; - In the third stage (and following stages) the basin has no longer a positive demand, since precipitation provides enough water to get the basin to its target level. The FlowBoundary flow gets fully allocated to the user, hence the net change of basin #2 is <span class="math inline">\(\phi\)</span>; - In the fourth stage the basin enters its surplus stage, even though initially the level is below the maximum level. This is because the simulation anticipates that the current precipitation is going to bring the basin level over its maximum level. The net change of basin #2 is now <span class="math inline">\(q + \phi - d\)</span>; - At the start of the fifth stage the precipitation stops, and so the user partly uses surplus water from the basin to fulfill its demand. The net change of basin #2 becomes <span class="math inline">\(q - d\)</span>. - In the final stage the basin is in a dynamical equilibrium, since the basin has no supply so the user abstracts precisely the flow from the level boundary.</p>
 
 
 </section>
