@@ -437,7 +437,7 @@ window.Quarto = {
 <span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure the feature id starts at 1: explicitly give an index.</span></span>
 <span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>node <span class="op">=</span> ribasim.Node(</span>
 <span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>gpd.GeoDataFrame(</span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"type"</span>: node_type},</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"node_type"</span>: node_type},</span>
 <span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>        index<span class="op">=</span>pd.Index(node_id, name<span class="op">=</span><span class="st">"fid"</span>),</span>
 <span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>        geometry<span class="op">=</span>node_xy,</span>
 <span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>        crs<span class="op">=</span><span class="st">"EPSG:28992"</span>,</span>
@@ -639,7 +639,7 @@ window.Quarto = {
 <span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure the feature id starts at 1: explicitly give an index.</span></span>
 <span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>node <span class="op">=</span> ribasim.Node(</span>
 <span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>gpd.GeoDataFrame(</span>
-<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"type"</span>: node_type},</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"node_type"</span>: node_type},</span>
 <span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>        index<span class="op">=</span>pd.Index(np.arange(<span class="bu">len</span>(xy)) <span class="op">+</span> <span class="dv">1</span>, name<span class="op">=</span><span class="st">"fid"</span>),</span>
 <span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>        geometry<span class="op">=</span>node_xy,</span>
 <span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>        crs<span class="op">=</span><span class="st">"EPSG:28992"</span>,</span>
@@ -916,7 +916,7 @@ window.Quarto = {
 <span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure the feature id starts at 1: explicitly give an index.</span></span>
 <span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a>node <span class="op">=</span> ribasim.Node(</span>
 <span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>gpd.GeoDataFrame(</span>
-<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"type"</span>: node_type},</span>
+<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"node_type"</span>: node_type},</span>
 <span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a>        index<span class="op">=</span>pd.Index(np.arange(<span class="bu">len</span>(xy)) <span class="op">+</span> <span class="dv">1</span>, name<span class="op">=</span><span class="st">"fid"</span>),</span>
 <span id="cb44-30"><a href="#cb44-30" aria-hidden="true" tabindex="-1"></a>        geometry<span class="op">=</span>node_xy,</span>
 <span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a>        crs<span class="op">=</span><span class="st">"EPSG:28992"</span>,</span>
@@ -1124,7 +1124,7 @@ window.Quarto = {
 <span id="cb57-36"><a href="#cb57-36" aria-hidden="true" tabindex="-1"></a><span class="co"># All nodes belong to allocation network id 1</span></span>
 <span id="cb57-37"><a href="#cb57-37" aria-hidden="true" tabindex="-1"></a>node <span class="op">=</span> ribasim.Node(</span>
 <span id="cb57-38"><a href="#cb57-38" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>gpd.GeoDataFrame(</span>
-<span id="cb57-39"><a href="#cb57-39" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"type"</span>: node_type, <span class="st">"subnetwork_id"</span>: <span class="dv">1</span>},</span>
+<span id="cb57-39"><a href="#cb57-39" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"node_type"</span>: node_type, <span class="st">"subnetwork_id"</span>: <span class="dv">1</span>},</span>
 <span id="cb57-40"><a href="#cb57-40" aria-hidden="true" tabindex="-1"></a>        index<span class="op">=</span>pd.Index(np.arange(<span class="bu">len</span>(xy)) <span class="op">+</span> <span class="dv">1</span>, name<span class="op">=</span><span class="st">"fid"</span>),</span>
 <span id="cb57-41"><a href="#cb57-41" aria-hidden="true" tabindex="-1"></a>        geometry<span class="op">=</span>node_xy,</span>
 <span id="cb57-42"><a href="#cb57-42" aria-hidden="true" tabindex="-1"></a>        crs<span class="op">=</span><span class="st">"EPSG:28992"</span>,</span>
@@ -1400,7 +1400,7 @@ window.Quarto = {
 <span id="cb75-15"><a href="#cb75-15" aria-hidden="true" tabindex="-1"></a>node <span class="op">=</span> ribasim.Node(</span>
 <span id="cb75-16"><a href="#cb75-16" aria-hidden="true" tabindex="-1"></a>    df<span class="op">=</span>gpd.GeoDataFrame(</span>
 <span id="cb75-17"><a href="#cb75-17" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
-<span id="cb75-18"><a href="#cb75-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"type"</span>: node_type,</span>
+<span id="cb75-18"><a href="#cb75-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_type"</span>: node_type,</span>
 <span id="cb75-19"><a href="#cb75-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"subnetwork_id"</span>: <span class="dv">5</span> <span class="op">*</span> [<span class="dv">2</span>],</span>
 <span id="cb75-20"><a href="#cb75-20" aria-hidden="true" tabindex="-1"></a>        },</span>
 <span id="cb75-21"><a href="#cb75-21" aria-hidden="true" tabindex="-1"></a>        index<span class="op">=</span>pd.Index(np.arange(<span class="bu">len</span>(xy)) <span class="op">+</span> <span class="dv">1</span>, name<span class="op">=</span><span class="st">"fid"</span>),</span>
