@@ -302,7 +302,7 @@ window.Quarto = {
   <li><a href="#manning-connection" id="toc-manning-connection" class="nav-link" data-scroll-target="#manning-connection"><span class="header-section-number">2.5.8</span> Manning connection</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#user-allocation" id="toc-user-allocation" class="nav-link" data-scroll-target="#user-allocation"><span class="header-section-number">3</span> User allocation</a></li>
+  <li><a href="#userdemand-allocation" id="toc-userdemand-allocation" class="nav-link" data-scroll-target="#userdemand-allocation"><span class="header-section-number">3</span> UserDemand allocation</a></li>
   <li><a href="#sec-PID" id="toc-sec-PID" class="nav-link" data-scroll-target="#sec-PID"><span class="header-section-number">4</span> PID controller</a>
   <ul class="collapse">
   <li><a href="#the-derivative-term" id="toc-the-derivative-term" class="nav-link" data-scroll-target="#the-derivative-term"><span class="header-section-number">4.1</span> The derivative term</a></li>
@@ -346,7 +346,7 @@ window.Quarto = {
 </ol>
 <p>Additionally, Ribasim simulates the following “allocated” water balance terms:</p>
 <ol type="1">
-<li>General user</li>
+<li>UserDemand</li>
 <li>Flushing</li>
 </ol>
 <p>Depending on the type of boundary conditions, Ribasim requires relation between storage volume and wetted area <span class="math inline">\(A\)</span>, and between the storage volume and the water level <span class="math inline">\(h\)</span>. These are (currently) represented by piecewise linear relationships.</p>
@@ -427,7 +427,7 @@ Note
     \end{cases}
 \end{align}\]</span></p>
 <p>Here <span class="math inline">\(p &gt; 0\)</span> is the threshold value which determines the interval <span class="math inline">\([0,p]\)</span> of the smooth transition between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, see the plot below.</p>
-<div id="2748c121" class="cell" data-execution_count="1">
+<div id="c32a399b" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -693,22 +693,22 @@ B = w + 2 d \sqrt{\left(\frac{\Delta y}{\Delta z}\right)^2 + 1}
 </section>
 </section>
 </section>
-<section id="user-allocation" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> User allocation</h1>
-<p>Users have an allocated flow rate <span class="math inline">\(F^p\)</span> per priority <span class="math inline">\(p=1,2,\ldots, p_{\max}\)</span>, which is either determined by <a href="../core/allocation.html">allocation optimization</a> or simply equal to the demand at time <span class="math inline">\(t\)</span>; <span class="math inline">\(F^p = d^p(t)\)</span>. The actual abstraction rate of a user is given by <span class="math display">\[
-    Q_\text{user, in} = \phi(u, 10.0)\phi(h-l_{\min}, 0.1)\sum_{p=1}^{p_{\max}} \min\left(F^p, d^p(t)\right).
+<section id="userdemand-allocation" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> UserDemand allocation</h1>
+<p>UserDemands have an allocated flow rate <span class="math inline">\(F^p\)</span> per priority <span class="math inline">\(p=1,2,\ldots, p_{\max}\)</span>, which is either determined by <a href="../core/allocation.html">allocation optimization</a> or simply equal to the demand at time <span class="math inline">\(t\)</span>; <span class="math inline">\(F^p = d^p(t)\)</span>. The actual abstraction rate of a UserDemand is given by <span class="math display">\[
+    Q_\text{user_demand, in} = \phi(u, 10.0)\phi(h-l_{\min}, 0.1)\sum_{p=1}^{p_{\max}} \min\left(F^p, d^p(t)\right).
 \]</span></p>
 <p>From left to right:</p>
 <ul>
-<li>The first reduction factor lets the user abstraction go smoothly to <span class="math inline">\(0\)</span> as the source basin dries out;</li>
-<li>The second reduction factor lets the user abstraction go smoothly to <span class="math inline">\(0\)</span> as the source basin level approaches the minimum source basin level (from above);</li>
+<li>The first reduction factor lets the UserDemand abstraction go smoothly to <span class="math inline">\(0\)</span> as the source Basin dries out;</li>
+<li>The second reduction factor lets the UserDemand abstraction go smoothly to <span class="math inline">\(0\)</span> as the source Basin level approaches the minimum source Basin level (from above);</li>
 <li>The last term is the sum of the allocations over the priorities. If the current demand happens to be lower than the allocation at some priority, the demand is taken instead.</li>
 </ul>
-<p>Users also have a return factor <span class="math inline">\(0 \le r \le 1\)</span>, which determines the return flow (outflow) of the user:</p>
+<p>UserDemands also have a return factor <span class="math inline">\(0 \le r \le 1\)</span>, which determines the return flow (outflow) of the UserDemand:</p>
 <p><span class="math display">\[
-Q_\text{user, out} = r \cdot Q_\text{user, in}.
+Q_\text{user_demand, out} = r \cdot Q_\text{user_demand, in}.
 \]</span></p>
-<p>Note that this means that the user has a consumption rate of <span class="math inline">\((1-r)Q_\text{user, in}\)</span>.</p>
+<p>Note that this means that the user_demand has a consumption rate of <span class="math inline">\((1-r)Q_\text{user_demand, in}\)</span>.</p>
 </section>
 <section id="sec-PID" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> PID controller</h1>

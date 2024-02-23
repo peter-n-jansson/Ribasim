@@ -292,7 +292,7 @@ window.Quarto = {
   <li><a href="#the-optimization-constraints" id="toc-the-optimization-constraints" class="nav-link" data-scroll-target="#the-optimization-constraints"><span class="header-section-number">4.3</span> The optimization constraints</a></li>
   <li><a href="#final-notes-on-the-allocation-problem" id="toc-final-notes-on-the-allocation-problem" class="nav-link" data-scroll-target="#final-notes-on-the-allocation-problem"><span class="header-section-number">4.4</span> Final notes on the allocation problem</a>
   <ul class="collapse">
-  <li><a href="#users-using-their-own-return-flow" id="toc-users-using-their-own-return-flow" class="nav-link" data-scroll-target="#users-using-their-own-return-flow"><span class="header-section-number">4.4.1</span> Users using their own return flow</a></li>
+  <li><a href="#userdemands-using-their-own-return-flow" id="toc-userdemands-using-their-own-return-flow" class="nav-link" data-scroll-target="#userdemands-using-their-own-return-flow"><span class="header-section-number">4.4.1</span> UserDemands using their own return flow</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#sec-solving-allocation" id="toc-sec-solving-allocation" class="nav-link" data-scroll-target="#sec-solving-allocation"><span class="header-section-number">5</span> Solving the allocation problem</a>
@@ -326,7 +326,7 @@ window.Quarto = {
 
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>Allocation is the process of assigning an allocated abstraction flow rate to user nodes in the physical layer of the model based on information about sources, user demands over various priorities, constraints introduced by nodes, local water availability and graph topology. The allocation procedure implemented in Ribasim is heavily inspired by the <a href="https://en.wikipedia.org/wiki/Maximum_flow_problem">maximum flow problem</a>.</p>
+<p>Allocation is the process of assigning an allocated abstraction flow rate to demand nodes in the physical layer of the model based on information about sources, the different demand nodes over various priorities, constraints introduced by nodes, local water availability and graph topology. The allocation procedure implemented in Ribasim is heavily inspired by the <a href="https://en.wikipedia.org/wiki/Maximum_flow_problem">maximum flow problem</a>.</p>
 <p>The allocation problem is solved per subnetwork of the Ribasim model. The subnetwork is used to formulate an optimization problem with the <a href="https://jump.dev/JuMP.jl/stable/">JuMP</a> package, which is solved using the <a href="https://highs.dev/">HiGHS solver</a>. For more in-depth information see also the example of solving the maximum flow problem with <code>JuMP.jl</code> <a href="https://jump.dev/JuMP.jl/stable/tutorials/linear/network_flows/#The-max-flow-problem">here</a>.</p>
 </section>
 <section id="the-high-level-algorithm" class="level1" data-number="2">
@@ -334,8 +334,8 @@ window.Quarto = {
 <p>The allocation algorithm consists of 3 types of optimization problems:</p>
 <ol type="1">
 <li><strong>Subnetwork demand collection</strong>: Collect the demands of a subnetwork from the main network by optimizing with unlimited capacity from the main network;</li>
-<li><strong>Main network allocation</strong>: Allocate to subnetworks with the above collected demand, and users in the main network;</li>
-<li><strong>Subnetwork allocation</strong>: Allocate to users in the subnetworks with the flows allocated to the subnetwork in the main network allocation.</li>
+<li><strong>Main network allocation</strong>: Allocate to subnetworks with the above collected demand, and demands in the main network;</li>
+<li><strong>Subnetwork allocation</strong>: Allocate to demands in the subnetworks with the flows allocated to the subnetwork in the main network allocation.</li>
 </ol>
 <p>The total allocation algorithm consists of performing 1 for all subnetworks, then performing 2, then performing 3 for all subnetworks. Not having a main network is also supported, then 1 and 2 are skipped.</p>
 </section>
@@ -356,7 +356,7 @@ E_S^\text{source} \subset \left(S \times S\right) \cap E.
 </section>
 <section id="user-demands" class="level3" data-number="3.1.3">
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="user-demands"><span class="header-section-number">3.1.3</span> User demands</h3>
-<p>The subnetwork contains a subset of user nodes <span class="math inline">\(U_S \subset S\)</span>, who all have time varying demands over various priorities <span class="math inline">\(p\)</span>: <span class="math display">\[
+<p>The subnetwork contains a subset of UserDemand nodes <span class="math inline">\(U_S \subset S\)</span>, who all have time varying demands over various priorities <span class="math inline">\(p\)</span>: <span class="math display">\[
     d^p_i(t), \quad i \in U_S, p = 1,2,\ldots, p_{\max}.
 \]</span></p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -396,9 +396,9 @@ Note
 <h4 data-number="3.2.2.1" class="anchored" data-anchor-id="flow-magnitude-and-direction-constraints"><span class="header-section-number">3.2.2.1</span> Flow magnitude and direction constraints</h4>
 <p>Nodes in the Ribasim model that have a <code>max_flow_rate</code>, i.e.&nbsp;pumps and outlets, put a constraint on the flow through that node. Some nodes only allow flow in one direction, like pumps, outlets and tabulated rating curves.</p>
 </section>
-<section id="fractional-flows-and-user-return-flows" class="level4" data-number="3.2.2.2">
-<h4 data-number="3.2.2.2" class="anchored" data-anchor-id="fractional-flows-and-user-return-flows"><span class="header-section-number">3.2.2.2</span> Fractional flows and user return flows</h4>
-<p>Both fractional flow nodes and user nodes dictate proportional relationships between flows over edges in the subnetwork. Users have a return factor <span class="math inline">\(0 \le r_i \le 1, i \in U_S\)</span>.</p>
+<section id="fractionalflow-and-userdemand-return-flows" class="level4" data-number="3.2.2.2">
+<h4 data-number="3.2.2.2" class="anchored" data-anchor-id="fractionalflow-and-userdemand-return-flows"><span class="header-section-number">3.2.2.2</span> FractionalFlow and UserDemand return flows</h4>
+<p>Both FractionalFlow and UserDemand nodes dictate proportional relationships between flows over edges in the subnetwork. UserDemands have a return factor <span class="math inline">\(0 \le r_i \le 1, i \in U_S\)</span>.</p>
 </section>
 </section>
 </section>
@@ -409,7 +409,7 @@ Note
 <h3 data-number="3.3.1" class="anchored" data-anchor-id="nodes-and-edges"><span class="header-section-number">3.3.1</span> Nodes and edges</h3>
 <p>The allocation network consists of:</p>
 <ul>
-<li>Nodes <span class="math inline">\(V'_S \subset V_S\)</span>, where each basin, source and user in the subnetwork get a node in the allocation network. Also nodes that have fractional flow outneighbors get a node in the allocation network.</li>
+<li>Nodes <span class="math inline">\(V'_S \subset V_S\)</span>, where each Basin, source and demand in the subnetwork get a node in the allocation network. Also nodes that have FractionalFlow outneighbors get a node in the allocation network.</li>
 <li>Edges <span class="math inline">\(E_S\)</span>, which are either edges that also appear between nodes in the subnetwork or represent a sequence of those, creating a shortcut.</li>
 </ul>
 <p>For notational convenience, we use the notation</p>
@@ -447,22 +447,22 @@ Note
 <h2 data-number="4.2" class="anchored" data-anchor-id="the-optimization-objective"><span class="header-section-number">4.2</span> The optimization objective</h2>
 <p>The goal of allocation is to get the flow to nodes with demands as close as possible to these demands. To achieve this, a sum error of terms is minimized. The form of these error terms is determined by the choice of one of the supported objective function types, which are discussed further below.</p>
 <p><span class="math display">\[
-    \min E_{\text{user}} + E_{\text{basin}}
+    \min E_{\text{user_demand}} + E_{\text{basin}}
 \]</span></p>
 <section id="user-demands-1" class="level3" data-number="4.2.1">
 <h3 data-number="4.2.1" class="anchored" data-anchor-id="user-demands-1"><span class="header-section-number">4.2.1</span> User demands</h3>
 <ul>
 <li><code>quadratic_absolute</code>: <span class="math display">\[
-  E_{\text{user}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left( F_{ij} - d_j^p(t)\right)^2
+  E_{\text{user_demand}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left( F_{ij} - d_j^p(t)\right)^2
 \]</span></li>
 <li><code>quadratic_relative</code>: <span class="math display">\[
-  E_{\text{user}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left( 1 - \frac{F_{ij}}{d_j^p(t)}\right)^2
+  E_{\text{user_demand}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left( 1 - \frac{F_{ij}}{d_j^p(t)}\right)^2
 \]</span></li>
 <li><code>linear_absolute</code> (default): <span class="math display">\[
-  E_{\text{user}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left| F_{ij} - d_j^p(t)\right|
+  E_{\text{user_demand}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left| F_{ij} - d_j^p(t)\right|
 \]</span></li>
 <li><code>linear_relative</code>: <span class="math display">\[
-  E_{\text{user}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left|1 - \frac{F_{ij}}{d_j^p(t)}\right|
+  E_{\text{user_demand}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left|1 - \frac{F_{ij}}{d_j^p(t)}\right|
 \]</span></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -475,11 +475,11 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>When performing main network allocation, the connections to subnetworks are also interpreted as users with demands determined by subnetwork demand collection.</p>
+<p>When performing main network allocation, the connections to subnetworks are also interpreted as UserDemand with demands determined by subnetwork demand collection.</p>
 </div>
 </div>
 <p>To avoid division by <span class="math inline">\(0\)</span> errors, if a <code>*_relative</code> objective is used and a demand is <span class="math inline">\(0\)</span>, the coefficient of the flow <span class="math inline">\(F_{ij}\)</span> is set to <span class="math inline">\(0\)</span>.</p>
-<p>For <code>*_absolute</code> objectives the optimizer cares about the actual amount of water allocated to a user, for <code>*_relative</code> objectives it cares about the fraction of the demand allocated to the user. For <code>quadratic_*</code> objectives the optimizer cares about avoiding large shortages, for <code>linear_*</code> objectives it treats all deviations equally.</p>
+<p>For <code>*_absolute</code> objectives the optimizer cares about the actual amount of water allocated to a demand, for <code>*_relative</code> objectives it cares about the fraction of the demand allocated. For <code>quadratic_*</code> objectives the optimizer cares about avoiding large shortages, for <code>linear_*</code> objectives it treats all deviations equally.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -490,7 +490,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>These options for objectives for allocation to users have not been tested thoroughly, and might change in the future.</p>
+<p>These options for objectives for allocation to demands have not been tested thoroughly, and might change in the future.</p>
 </div>
 </div>
 <p>The absolute value applied here is not supported in a linear programming context directly; this requires introduction of new variables and constraints. For more details see <a href="https://optimization.cbe.cornell.edu/index.php?title=Optimization_with_absolute_values">here</a>.</p>
@@ -531,7 +531,7 @@ Note
 <ul>
 <li>Flow conservation: For the basins in the allocation network we have that <span id="eq-flowconservationconstraint"><span class="math display">\[
   F^\text{basin in}_k + \sum_{j=1}^{n'} F_{kj} = F^\text{basin out}_k + \sum_{i=1}^{n'} F_{ik}, \quad \forall k \in B_S .
-\tag{1}\]</span></span> Note that we do not require equality here; in the allocation we do not mind that excess flow is ‘forgotten’ if it cannot contribute to the allocation to the users.</li>
+\tag{1}\]</span></span> Note that we do not require equality here; in the allocation we do not mind that excess flow is ‘forgotten’ if it cannot contribute to the allocation to the demands.</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -568,13 +568,13 @@ Note
 </div>
 </div>
 <ul>
-<li><p>User outflow: The outflow of the user is dictated by the inflow and the return factor: <span id="eq-returnflowconstraint"><span class="math display">\[
+<li><p>UserDemand outflow: The outflow of the UserDemand is dictated by the inflow and the return factor: <span id="eq-returnflowconstraint"><span class="math display">\[
   F_{ik} = r_k \cdot F_{kj} \quad
   \quad \forall k \in U_S, \quad
   V^{\text{in}}_S(k) = \{i\},\;
    V^{\text{out}}_S(k) = \{j\}.
-\tag{3}\]</span></span> Here we use that each user node in the allocation network has a unique in-edge and out-edge.</p></li>
-<li><p>User demand: user demand constraints are discussed in <a href="../core/allocation.html#sec-solving-allocation">the next section</a>.</p></li>
+\tag{3}\]</span></span> Here we use that each UserDemand node in the allocation network has a unique in-edge and out-edge.</p></li>
+<li><p>User demand: UserDemand demand constraints are discussed in <a href="../core/allocation.html#sec-solving-allocation">the next section</a>.</p></li>
 <li><p>Fractional flow: Let <span class="math inline">\(L_S \subset V_S\)</span> be the set of nodes in the max flow graph with fractional flow outneighbors, and <span class="math inline">\(f_j\)</span> the flow fraction associated with fractional flow node <span class="math inline">\(j \in V_S\)</span>. Then <span id="eq-fractionalflowconstraint"><span class="math display">\[
   F_{ij} \le f_j \sum_{k\in V^\text{in}_S(i)} F_{ki} \qquad
   \forall i \in L_S, \;
@@ -585,9 +585,9 @@ Note
 </section>
 <section id="final-notes-on-the-allocation-problem" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="final-notes-on-the-allocation-problem"><span class="header-section-number">4.4</span> Final notes on the allocation problem</h2>
-<section id="users-using-their-own-return-flow" class="level3" data-number="4.4.1">
-<h3 data-number="4.4.1" class="anchored" data-anchor-id="users-using-their-own-return-flow"><span class="header-section-number">4.4.1</span> Users using their own return flow</h3>
-<p>If not explicitly avoided, users can use their own return flow in this allocation problem formulation. Therefore, return flow of users is only taken into account by allocation if that return flow is downstream of the user where it comes from. That is, if there is no path in the directed allocation network from the user outflow node back to the user.</p>
+<section id="userdemands-using-their-own-return-flow" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="userdemands-using-their-own-return-flow"><span class="header-section-number">4.4.1</span> UserDemands using their own return flow</h3>
+<p>If not explicitly avoided, UserDemands can use their own return flow in this allocation problem formulation. Therefore, return flow of UserDemand is only taken into account by allocation if that return flow is downstream of the UserDemand where it comes from. That is, if there is no path in the directed allocation network from the UserDemand outflow node back to the UserDemand.</p>
 </section>
 </section>
 </section>
@@ -598,7 +598,7 @@ Note
 <li>Define a capacity matrix with capacities as described above, that will be updated for each priority: <span class="math display">\[
 C_S^p \leftarrow C_S;
 \]</span></li>
-<li>Set the capacities of the edges that end in an user to their priority 1 demands: <span class="math display">\[
+<li>Set the capacities of the edges that end in a UserDemand to their priority 1 demands: <span class="math display">\[
 (C_S^p)_{i,j} \leftarrow d_j^1(t) \quad\text{ for all } (i,j) \in U_S;
 \]</span></li>
 <li>Maximize the objective function given the constraints;</li>
@@ -617,13 +617,13 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In the future there will be 2 more optimization solves: - One before optimizing for users, taking the demand/supply from basins into account; - One after optimizing for users, taking preferences over sources into account.</p>
+<p>In the future there will be 2 more optimization solves: - One before optimizing for demands, taking the demand/supply from basins into account; - One after optimizing for demands, taking preferences over sources into account.</p>
 </div>
 </div>
 <section id="example" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="example"><span class="header-section-number">5.1</span> Example</h2>
 <p>The following is an example of an optimization problem for the example shown <a href="../python/examples.html#model-with-allocation">here</a>:</p>
-<div id="b7ccfdc9" class="cell" data-execution_count="1">
+<div id="355e8725" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -648,45 +648,45 @@ Note
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Min F_abs_user[User #13] + F_abs_user[User #3] + F_abs_user[User #6] + F_abs_basin[Basin #5] + F_abs_basin[Basin #12] + F_abs_basin[Basin #2]
+<pre><code>Min F_abs_user_demand[UserDemand #13] + F_abs_user_demand[UserDemand #3] + F_abs_user_demand[UserDemand #6] + F_abs_basin[Basin #2] + F_abs_basin[Basin #5] + F_abs_basin[Basin #12]
 Subject to
- flow_conservation[Basin #5] : F[(Basin #5, Basin #2)] - F[(Basin #2, Basin #5)] + F[(Basin #5, User #6)] + F[(Basin #5, TabulatedRatingCurve #7)] + F_basin_in[Basin #5] - F_basin_out[Basin #5] = 0
- flow_conservation[Basin #12] : F[(Basin #12, User #13)] - F[(TabulatedRatingCurve #7, Basin #12)] + F_basin_in[Basin #12] - F_basin_out[Basin #12] = 0
- flow_conservation[Basin #2] : -F[(Basin #5, Basin #2)] + F[(Basin #2, Basin #5)] - F[(FlowBoundary #1, Basin #2)] + F[(Basin #2, User #3)] + F_basin_in[Basin #2] - F_basin_out[Basin #2] = 0
- abs_positive_user[User #13] : -F[(Basin #12, User #13)] + F_abs_user[User #13] ≥ 0
- abs_positive_user[User #3] : -F[(Basin #2, User #3)] + F_abs_user[User #3] ≥ 0
- abs_positive_user[User #6] : -F[(Basin #5, User #6)] + F_abs_user[User #6] ≥ -1.5
- abs_negative_user[User #13] : F[(Basin #12, User #13)] + F_abs_user[User #13] ≥ 0
- abs_negative_user[User #3] : F[(Basin #2, User #3)] + F_abs_user[User #3] ≥ 0
- abs_negative_user[User #6] : F[(Basin #5, User #6)] + F_abs_user[User #6] ≥ 1.5
+ flow_conservation[Basin #2] : -F[(FlowBoundary #1, Basin #2)] + F[(Basin #2, UserDemand #3)] - F[(Basin #5, Basin #2)] + F[(Basin #2, Basin #5)] + F_basin_in[Basin #2] - F_basin_out[Basin #2] = 0
+ flow_conservation[Basin #5] : F[(Basin #5, UserDemand #6)] + F[(Basin #5, Basin #2)] + F[(Basin #5, TabulatedRatingCurve #7)] - F[(Basin #2, Basin #5)] + F_basin_in[Basin #5] - F_basin_out[Basin #5] = 0
+ flow_conservation[Basin #12] : -F[(TabulatedRatingCurve #7, Basin #12)] + F[(Basin #12, UserDemand #13)] + F_basin_in[Basin #12] - F_basin_out[Basin #12] = 0
+ abs_positive_user_demand[UserDemand #13] : -F[(Basin #12, UserDemand #13)] + F_abs_user_demand[UserDemand #13] ≥ 0
+ abs_positive_user_demand[UserDemand #3] : -F[(Basin #2, UserDemand #3)] + F_abs_user_demand[UserDemand #3] ≥ 0
+ abs_positive_user_demand[UserDemand #6] : -F[(Basin #5, UserDemand #6)] + F_abs_user_demand[UserDemand #6] ≥ -1.5
+ abs_negative_user_demand[UserDemand #13] : F[(Basin #12, UserDemand #13)] + F_abs_user_demand[UserDemand #13] ≥ 0
+ abs_negative_user_demand[UserDemand #3] : F[(Basin #2, UserDemand #3)] + F_abs_user_demand[UserDemand #3] ≥ 0
+ abs_negative_user_demand[UserDemand #6] : F[(Basin #5, UserDemand #6)] + F_abs_user_demand[UserDemand #6] ≥ 1.5
+ abs_positive_basin[Basin #2] : -F_basin_in[Basin #2] + F_abs_basin[Basin #2] ≥ 0
  abs_positive_basin[Basin #5] : -F_basin_in[Basin #5] + F_abs_basin[Basin #5] ≥ 0
  abs_positive_basin[Basin #12] : -F_basin_in[Basin #12] + F_abs_basin[Basin #12] ≥ 0
- abs_positive_basin[Basin #2] : -F_basin_in[Basin #2] + F_abs_basin[Basin #2] ≥ 0
+ abs_negative_basin[Basin #2] : F_basin_in[Basin #2] + F_abs_basin[Basin #2] ≥ 0
  abs_negative_basin[Basin #5] : F_basin_in[Basin #5] + F_abs_basin[Basin #5] ≥ 0
  abs_negative_basin[Basin #12] : F_basin_in[Basin #12] + F_abs_basin[Basin #12] ≥ 0
- abs_negative_basin[Basin #2] : F_basin_in[Basin #2] + F_abs_basin[Basin #2] ≥ 0
  source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 1
- return_flow[User #13] : F[(User #13, Terminal #10)] ≤ 0
- fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : -0.4 F[(Basin #5, TabulatedRatingCurve #7)] + F[(TabulatedRatingCurve #7, Basin #12)] ≤ 0
+ return_flow[UserDemand #13] : F[(UserDemand #13, Terminal #10)] ≤ 0
+ fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : F[(TabulatedRatingCurve #7, Basin #12)] - 0.4 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0
+ basin_outflow[Basin #2] : F_basin_out[Basin #2] ≤ 0
  basin_outflow[Basin #5] : F_basin_out[Basin #5] ≤ 0
  basin_outflow[Basin #12] : F_basin_out[Basin #12] ≤ 0
- basin_outflow[Basin #2] : F_basin_out[Basin #2] ≤ 0
- F[(Basin #5, Basin #2)] ≥ 0
- F[(Basin #2, Basin #5)] ≥ 0
- F[(User #13, Terminal #10)] ≥ 0
- F[(Basin #5, User #6)] ≥ 0
- F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
- F[(Basin #12, User #13)] ≥ 0
  F[(FlowBoundary #1, Basin #2)] ≥ 0
- F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
+ F[(Basin #5, UserDemand #6)] ≥ 0
+ F[(Basin #2, UserDemand #3)] ≥ 0
+ F[(Basin #5, Basin #2)] ≥ 0
  F[(TabulatedRatingCurve #7, Basin #12)] ≥ 0
- F[(Basin #2, User #3)] ≥ 0
+ F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
+ F[(UserDemand #13, Terminal #10)] ≥ 0
+ F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
+ F[(Basin #2, Basin #5)] ≥ 0
+ F[(Basin #12, UserDemand #13)] ≥ 0
+ F_basin_in[Basin #2] ≥ 0
  F_basin_in[Basin #5] ≥ 0
  F_basin_in[Basin #12] ≥ 0
- F_basin_in[Basin #2] ≥ 0
+ F_basin_out[Basin #2] ≥ 0
  F_basin_out[Basin #5] ≥ 0
  F_basin_out[Basin #12] ≥ 0
- F_basin_out[Basin #2] ≥ 0
 </code></pre>
 </div>
 </div>

@@ -198,7 +198,7 @@ ul.task-list li input[type="checkbox"] {
 physical:::layer
 rbc:::layer
 allocation:::layer
-user
+user_demand
 basin
 connector[basin connector]
 control[control rules]
@@ -206,7 +206,7 @@ condition
 alloc[global allocation]
 
 subgraph physical[physical layer]
-    user--&gt;|abstraction| basin
+    user_demand--&gt;|abstraction| basin
     basin&lt;--&gt;|flow| connector
 end
 
@@ -218,8 +218,8 @@ subgraph allocation[allocation layer]
     alloc
 end
 
-user--&gt;|request demand| alloc
-alloc--&gt;|assign allocation| user
+user_demand--&gt;|request demand| alloc
+alloc--&gt;|assign allocation| user_demand
 basin--&gt;|volume| alloc
 basin --&gt; |volume or level| condition
 alloc --&gt; |optional flow update| control

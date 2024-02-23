@@ -268,7 +268,7 @@ ul.task-list li input[type="checkbox"] {
                 Param--&gt;&gt;Optim: Input
                 State--&gt;&gt;Optim: Input
                 Optim-&gt;&gt;Optim: Optimize Basin allocations if below target level
-                Optim-&gt;&gt;Optim: Optimize User allocation, per priority
+                Optim-&gt;&gt;Optim: Optimize UserDemand allocation, per priority
                 Optim--&gt;&gt;Param: Set allocated flow rates
                 deactivate Optim
             end
@@ -311,9 +311,9 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li>conduct an inventory of demands from the sub-networks to inlets from the main network,</li>
 <li>allocate the available water in the main network to the subnetworks inlets,</li>
-<li>allocate the assigned water within each subnetwork to the individual water users.</li>
+<li>allocate the assigned water within each subnetwork to the individual demand nodes.</li>
 </ol>
-<p>The users then will request this updated demand from the rule-based simulation. Whether this updated demand is indeed abstracted depends on all dry-fall control mechanism implemented in the rule-based simulation.</p>
+<p>The demand nodes then will request this updated demand from the rule-based simulation. Whether this updated demand is indeed abstracted depends on all dry-fall control mechanism implemented in the rule-based simulation.</p>
 <p>The following sequence diagram illustrates this calculation process within then allocation phase.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -323,25 +323,25 @@ ul.task-list li input[type="checkbox"] {
 <pre class="mermaid mermaid-js">sequenceDiagram
 participant boundary
 participant basin
-participant user
+participant user_demand
 participant allocation_subNetwork
 participant allocation_mainNetwork
 
-user-&gt;&gt;allocation_subNetwork: demand
+user_demand-&gt;&gt;allocation_subNetwork: demand
 loop
    allocation_subNetwork--&gt;&gt;allocation_mainNetwork: demand inventory at inlets
 end
-user-&gt;&gt;allocation_mainNetwork: demand
+user_demand-&gt;&gt;allocation_mainNetwork: demand
 boundary-&gt;&gt;allocation_mainNetwork: source availability
 basin-&gt;&gt;allocation_mainNetwork: source availability
-allocation_mainNetwork--&gt;&gt;allocation_mainNetwork: allocate to inlets (and users)
-allocation_mainNetwork-&gt;&gt;user: allocated
+allocation_mainNetwork--&gt;&gt;allocation_mainNetwork: allocate to inlets (and user_demands)
+allocation_mainNetwork-&gt;&gt;user_demand: allocated
 allocation_mainNetwork-&gt;&gt;allocation_subNetwork: allocated
 loop
-   allocation_subNetwork--&gt;&gt;allocation_subNetwork: allocate to users
+   allocation_subNetwork--&gt;&gt;allocation_subNetwork: allocate to user_demands
 end
-allocation_subNetwork-&gt;&gt;user: allocated
-user-&gt;&gt;basin: abstracted
+allocation_subNetwork-&gt;&gt;user_demand: allocated
+user_demand-&gt;&gt;basin: abstracted
 </pre>
 </div>
 <p></p></figure><p></p>

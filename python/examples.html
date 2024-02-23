@@ -1090,17 +1090,17 @@ window.Quarto = {
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    [</span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">0.0</span>, <span class="fl">0.0</span>),  <span class="co"># 1: FlowBoundary</span></span>
 <span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">1.0</span>, <span class="fl">0.0</span>),  <span class="co"># 2: Basin</span></span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">1.0</span>, <span class="fl">1.0</span>),  <span class="co"># 3: User</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">1.0</span>, <span class="fl">1.0</span>),  <span class="co"># 3: UserDemand</span></span>
 <span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">2.0</span>, <span class="fl">0.0</span>),  <span class="co"># 4: LinearResistance</span></span>
 <span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">3.0</span>, <span class="fl">0.0</span>),  <span class="co"># 5: Basin</span></span>
-<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">3.0</span>, <span class="fl">1.0</span>),  <span class="co"># 6: User</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">3.0</span>, <span class="fl">1.0</span>),  <span class="co"># 6: UserDemand</span></span>
 <span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">4.0</span>, <span class="fl">0.0</span>),  <span class="co"># 7: TabulatedRatingCurve</span></span>
 <span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">4.5</span>, <span class="fl">0.0</span>),  <span class="co"># 8: FractionalFlow</span></span>
 <span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">4.5</span>, <span class="fl">0.5</span>),  <span class="co"># 9: FractionalFlow</span></span>
 <span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">5.0</span>, <span class="fl">0.0</span>),  <span class="co"># 10: Terminal</span></span>
 <span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">4.5</span>, <span class="fl">0.25</span>),  <span class="co"># 11: DiscreteControl</span></span>
 <span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">4.5</span>, <span class="fl">1.0</span>),  <span class="co"># 12: Basin</span></span>
-<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">5.0</span>, <span class="fl">1.0</span>),  <span class="co"># 13: User</span></span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">5.0</span>, <span class="fl">1.0</span>),  <span class="co"># 13: UserDemand</span></span>
 <span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>    ]</span>
 <span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>node_xy <span class="op">=</span> gpd.points_from_xy(x<span class="op">=</span>xy[:, <span class="dv">0</span>], y<span class="op">=</span>xy[:, <span class="dv">1</span>])</span>
@@ -1108,17 +1108,17 @@ window.Quarto = {
 <span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>node_type <span class="op">=</span> [</span>
 <span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FlowBoundary"</span>,</span>
 <span id="cb57-22"><a href="#cb57-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Basin"</span>,</span>
-<span id="cb57-23"><a href="#cb57-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"User"</span>,</span>
+<span id="cb57-23"><a href="#cb57-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"UserDemand"</span>,</span>
 <span id="cb57-24"><a href="#cb57-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"LinearResistance"</span>,</span>
 <span id="cb57-25"><a href="#cb57-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Basin"</span>,</span>
-<span id="cb57-26"><a href="#cb57-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"User"</span>,</span>
+<span id="cb57-26"><a href="#cb57-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"UserDemand"</span>,</span>
 <span id="cb57-27"><a href="#cb57-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"TabulatedRatingCurve"</span>,</span>
 <span id="cb57-28"><a href="#cb57-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FractionalFlow"</span>,</span>
 <span id="cb57-29"><a href="#cb57-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"FractionalFlow"</span>,</span>
 <span id="cb57-30"><a href="#cb57-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Terminal"</span>,</span>
 <span id="cb57-31"><a href="#cb57-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DiscreteControl"</span>,</span>
 <span id="cb57-32"><a href="#cb57-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Basin"</span>,</span>
-<span id="cb57-33"><a href="#cb57-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"User"</span>,</span>
+<span id="cb57-33"><a href="#cb57-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"UserDemand"</span>,</span>
 <span id="cb57-34"><a href="#cb57-34" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb57-35"><a href="#cb57-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-36"><a href="#cb57-36" aria-hidden="true" tabindex="-1"></a><span class="co"># All nodes belong to allocation network id 1</span></span>
@@ -1252,7 +1252,7 @@ window.Quarto = {
 </div>
 <p>Setup the users:</p>
 <div id="cell-125" class="cell" data-execution_count="64">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>user <span class="op">=</span> ribasim.User(</span>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>user_demand <span class="op">=</span> ribasim.UserDemand(</span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    static<span class="op">=</span>pd.DataFrame(</span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
 <span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_id"</span>: [<span class="dv">6</span>, <span class="dv">13</span>],</span>
@@ -1290,7 +1290,7 @@ window.Quarto = {
 <span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>    linear_resistance<span class="op">=</span>linear_resistance,</span>
 <span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>    tabulated_rating_curve<span class="op">=</span>tabulated_rating_curve,</span>
 <span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>    terminal<span class="op">=</span>terminal,</span>
-<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a>    user<span class="op">=</span>user,</span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a>    user_demand<span class="op">=</span>user_demand,</span>
 <span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a>    discrete_control<span class="op">=</span>discrete_control,</span>
 <span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a>    fractional_flow<span class="op">=</span>fractional_flow,</span>
 <span id="cb68-14"><a href="#cb68-14" aria-hidden="true" tabindex="-1"></a>    allocation<span class="op">=</span>allocation,</span>
@@ -1387,14 +1387,14 @@ window.Quarto = {
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>    [</span>
 <span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">0.0</span>, <span class="fl">0.0</span>),  <span class="co"># 1: FlowBoundary</span></span>
 <span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">1.0</span>, <span class="fl">0.0</span>),  <span class="co"># 2: Basin</span></span>
-<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">2.0</span>, <span class="fl">0.0</span>),  <span class="co"># 3: User</span></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">2.0</span>, <span class="fl">0.0</span>),  <span class="co"># 3: UserDemand</span></span>
 <span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">1.0</span>, <span class="op">-</span><span class="fl">1.0</span>),  <span class="co"># 4: LevelDemand</span></span>
 <span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">2.0</span>, <span class="op">-</span><span class="fl">1.0</span>),  <span class="co"># 5: Basin</span></span>
 <span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>    ]</span>
 <span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>node_xy <span class="op">=</span> gpd.points_from_xy(x<span class="op">=</span>xy[:, <span class="dv">0</span>], y<span class="op">=</span>xy[:, <span class="dv">1</span>])</span>
 <span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>node_type <span class="op">=</span> [<span class="st">"FlowBoundary"</span>, <span class="st">"Basin"</span>, <span class="st">"User"</span>, <span class="st">"LevelDemand"</span>, <span class="st">"Basin"</span>]</span>
+<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>node_type <span class="op">=</span> [<span class="st">"FlowBoundary"</span>, <span class="st">"Basin"</span>, <span class="st">"UserDemand"</span>, <span class="st">"LevelDemand"</span>, <span class="st">"Basin"</span>]</span>
 <span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure the feature id starts at 1: explicitly give an index.</span></span>
 <span id="cb75-15"><a href="#cb75-15" aria-hidden="true" tabindex="-1"></a>node <span class="op">=</span> ribasim.Node(</span>
@@ -1476,7 +1476,7 @@ window.Quarto = {
 </div>
 <p>Setup the users:</p>
 <div id="cell-151" class="cell" data-execution_count="77">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>user <span class="op">=</span> ribasim.User(</span>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>user_demand <span class="op">=</span> ribasim.UserDemand(</span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>    static<span class="op">=</span>pd.DataFrame(</span>
 <span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{</span>
 <span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"node_id"</span>: [<span class="dv">3</span>],</span>
@@ -1499,7 +1499,7 @@ window.Quarto = {
 <span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>    basin<span class="op">=</span>basin,</span>
 <span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>    flow_boundary<span class="op">=</span>flow_boundary,</span>
 <span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>    level_demand<span class="op">=</span>level_demand,</span>
-<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>    user<span class="op">=</span>user,</span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>    user_demand<span class="op">=</span>user_demand,</span>
 <span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>    allocation<span class="op">=</span>allocation,</span>
 <span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>    starttime<span class="op">=</span><span class="st">"2020-01-01 00:00:00"</span>,</span>
 <span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>    endtime<span class="op">=</span><span class="st">"2020-02-01 00:00:00"</span>,</span>
@@ -1551,9 +1551,9 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>In the plot above, the line denotes the level of basin #2 over time and the dots denote the times at which allocation optimization was run, with intervals of <span class="math inline">\(\Delta t_{\text{alloc}}\)</span>. The basin level is a piecewise linear function of time, with several stages explained below.</p>
-<p>Constants: - <span class="math inline">\(d\)</span>: user #3 demand, - <span class="math inline">\(\phi\)</span>: precipitation rate on basin #2, - <span class="math inline">\(q\)</span>: flow of the level boundary.</p>
-<p>Stages: - In the first stage the user abstracts fully, so the net change of basin #2 is <span class="math inline">\(q + \phi - d\)</span>; - In the second stage the basin takes precedence so the user doesn’t abstract, hence the net change of basin #2 is <span class="math inline">\(q + \phi\)</span>; - In the third stage (and following stages) the basin has no longer a positive demand, since precipitation provides enough water to get the basin to its target level. The FlowBoundary flow gets fully allocated to the user, hence the net change of basin #2 is <span class="math inline">\(\phi\)</span>; - In the fourth stage the basin enters its surplus stage, even though initially the level is below the maximum level. This is because the simulation anticipates that the current precipitation is going to bring the basin level over its maximum level. The net change of basin #2 is now <span class="math inline">\(q + \phi - d\)</span>; - At the start of the fifth stage the precipitation stops, and so the user partly uses surplus water from the basin to fulfill its demand. The net change of basin #2 becomes <span class="math inline">\(q - d\)</span>. - In the final stage the basin is in a dynamical equilibrium, since the basin has no supply so the user abstracts precisely the flow from the level boundary.</p>
+<p>In the plot above, the line denotes the level of Basin #2 over time and the dots denote the times at which allocation optimization was run, with intervals of <span class="math inline">\(\Delta t_{\text{alloc}}\)</span>. The Basin level is a piecewise linear function of time, with several stages explained below.</p>
+<p>Constants: - <span class="math inline">\(d\)</span>: UserDemand #3 demand, - <span class="math inline">\(\phi\)</span>: Basin #2 precipitation rate, - <span class="math inline">\(q\)</span>: LevelBoundary flow.</p>
+<p>Stages: - In the first stage the UserDemand abstracts fully, so the net change of Basin #2 is <span class="math inline">\(q + \phi - d\)</span>; - In the second stage the Basin takes precedence so the UserDemand doesn’t abstract, hence the net change of Basin #2 is <span class="math inline">\(q + \phi\)</span>; - In the third stage (and following stages) the Basin no longer has a positive demand, since precipitation provides enough water to get the Basin to its target level. The FlowBoundary flow gets fully allocated to the UserDemand, hence the net change of Basin #2 is <span class="math inline">\(\phi\)</span>; - In the fourth stage the Basin enters its surplus stage, even though initially the level is below the maximum level. This is because the simulation anticipates that the current precipitation is going to bring the Basin level over its maximum level. The net change of Basin #2 is now <span class="math inline">\(q + \phi - d\)</span>; - At the start of the fifth stage the precipitation stops, and so the UserDemand partly uses surplus water from the Basin to fulfill its demand. The net change of Basin #2 becomes <span class="math inline">\(q - d\)</span>. - In the final stage the Basin is in a dynamical equilibrium, since the Basin has no supply so the user abstracts precisely the flow from the LevelBoundary.</p>
 
 
 </section>

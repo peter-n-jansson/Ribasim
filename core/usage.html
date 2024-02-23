@@ -308,9 +308,9 @@ window.Quarto = {
   </ul></li>
   <li><a href="#sec-pump" id="toc-sec-pump" class="nav-link" data-scroll-target="#sec-pump"><span class="header-section-number">8</span> Pump</a></li>
   <li><a href="#sec-outlet" id="toc-sec-outlet" class="nav-link" data-scroll-target="#sec-outlet"><span class="header-section-number">9</span> Outlet</a></li>
-  <li><a href="#sec-user" id="toc-sec-user" class="nav-link" data-scroll-target="#sec-user"><span class="header-section-number">10</span> User</a>
+  <li><a href="#sec-user-demand" id="toc-sec-user-demand" class="nav-link" data-scroll-target="#sec-user-demand"><span class="header-section-number">10</span> UserDemand</a>
   <ul class="collapse">
-  <li><a href="#user-time" id="toc-user-time" class="nav-link" data-scroll-target="#user-time"><span class="header-section-number">10.1</span> User / time</a></li>
+  <li><a href="#userdemand-time" id="toc-userdemand-time" class="nav-link" data-scroll-target="#userdemand-time"><span class="header-section-number">10.1</span> UserDemand / time</a></li>
   </ul></li>
   <li><a href="#sec-level_demand" id="toc-sec-level_demand" class="nav-link" data-scroll-target="#sec-level_demand"><span class="header-section-number">11</span> LevelDemand</a>
   <ul class="collapse">
@@ -626,10 +626,10 @@ window.Quarto = {
 <ul>
 <li><code>Outlet / static</code>: flow rate, minimum crest level</li>
 </ul></li>
-<li>User: sets water usage demands at certain priorities
+<li>UserDemand: sets water usage demands at certain priorities
 <ul>
-<li><code>User / static</code>: demands</li>
-<li><code>User / time</code>: dynamic demands</li>
+<li><code>UserDemand / static</code>: demands</li>
+<li><code>UserDemand / time</code>: dynamic demands</li>
 </ul></li>
 <li>LevelDemand: Indicates minimum and maximum target level of connected basins for allocation
 <ul>
@@ -1251,9 +1251,9 @@ window.Quarto = {
 </tbody>
 </table>
 </section>
-<section id="sec-user" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> User</h1>
-<p>A user can demand a certain flow from the basin that supplies it, distributed over multiple priorities 1,2,3,… where priority 1 denotes the most important demand. Currently the user attempts to extract the complete demand from the Basin. Only if the Basin is almost empty or reaches the minimum level at which the user can extract water (<code>min_level</code>), will it take less than the demand. In the future water can be allocated to users based on their priority. Users need an outgoing flow edge along which they can send their return flow, this can also be to the same basin from which it extracts water. The amount of return flow is always a fraction of the inflow into the user. The difference is consumed by the user.</p>
+<section id="sec-user-demand" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> UserDemand</h1>
+<p>A UserDemand can demand a certain flow from the basin that supplies it, distributed over multiple priorities 1,2,3,… where priority 1 denotes the most important demand. Currently the UserDemand attempts to extract the complete demand from the Basin. Only if the Basin is almost empty or reaches the minimum level at which the UserDemand can extract water (<code>min_level</code>), will it take less than the demand. When allocation is used, water can be allocated to UserDemand based on their priority. UserDemands need an outgoing flow edge along which they can send their return flow, this can also be to the same basin from which it extracts water. The amount of return flow is always a fraction of the inflow into the UserDemand. The difference is consumed by the UserDemand.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -1302,9 +1302,9 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<section id="user-time" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="user-time"><span class="header-section-number">10.1</span> User / time</h2>
-<p>This table is the transient form of the <code>User</code> table. The only difference is that a time column is added and activity is assumed to be true. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the demand can be updated over time. In between the given times the demand is interpolated linearly, and outside the demand is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
+<section id="userdemand-time" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="userdemand-time"><span class="header-section-number">10.1</span> UserDemand / time</h2>
+<p>This table is the transient form of the <code>UserDemand</code> table. The only difference is that a time column is added and activity is assumed to be true. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the demand can be updated over time. In between the given times the demand is interpolated linearly, and outside the demand is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
 <table class="table">
 <colgroup>
 <col style="width: 29%">
