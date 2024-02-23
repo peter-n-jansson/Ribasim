@@ -312,9 +312,9 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#user-time" id="toc-user-time" class="nav-link" data-scroll-target="#user-time"><span class="header-section-number">10.1</span> User / time</a></li>
   </ul></li>
-  <li><a href="#sec-target_level" id="toc-sec-target_level" class="nav-link" data-scroll-target="#sec-target_level"><span class="header-section-number">11</span> TargetLevel</a>
+  <li><a href="#sec-level_demand" id="toc-sec-level_demand" class="nav-link" data-scroll-target="#sec-level_demand"><span class="header-section-number">11</span> LevelDemand</a>
   <ul class="collapse">
-  <li><a href="#targetlevel-time" id="toc-targetlevel-time" class="nav-link" data-scroll-target="#targetlevel-time"><span class="header-section-number">11.1</span> TargetLevel / time</a></li>
+  <li><a href="#leveldemand-time" id="toc-leveldemand-time" class="nav-link" data-scroll-target="#leveldemand-time"><span class="header-section-number">11.1</span> LevelDemand / time</a></li>
   </ul></li>
   <li><a href="#sec-level-boundary" id="toc-sec-level-boundary" class="nav-link" data-scroll-target="#sec-level-boundary"><span class="header-section-number">12</span> LevelBoundary</a>
   <ul class="collapse">
@@ -631,10 +631,10 @@ window.Quarto = {
 <li><code>User / static</code>: demands</li>
 <li><code>User / time</code>: dynamic demands</li>
 </ul></li>
-<li>TargetLevel: Indicates minimum and maximum target level of connected basins for allocation
+<li>LevelDemand: Indicates minimum and maximum target level of connected basins for allocation
 <ul>
-<li><code>TargetLevel / static</code>: static target levels</li>
-<li><code>TargetLevel / time</code>: dynamic target levels</li>
+<li><code>LevelDemand / static</code>: static target levels</li>
+<li><code>LevelDemand / time</code>: dynamic target levels</li>
 </ul></li>
 <li>Terminal: Water sink without state or properties
 <ul>
@@ -1361,9 +1361,9 @@ window.Quarto = {
 </table>
 </section>
 </section>
-<section id="sec-target_level" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> TargetLevel</h1>
-<p>An <code>TargetLevel</code> node associates a minimum and a maximum level with connected basins to be used by the allocation algorithm. Below the minimum level the basin has a demand of the supplied priority, above the maximum level the basin acts as a source, used by all nodes with demands in order of priority. The same <code>TargetLevel</code> node can be used for basins in different subnetworks.</p>
+<section id="sec-level_demand" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> LevelDemand</h1>
+<p>An <code>LevelDemand</code> node associates a minimum and a maximum level with connected basins to be used by the allocation algorithm. Below the minimum level the basin has a demand of the supplied priority, above the maximum level the basin acts as a source, used by all nodes with demands in order of priority. The same <code>LevelDemand</code> node can be used for basins in different subnetworks.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -1400,9 +1400,9 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<section id="targetlevel-time" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="targetlevel-time"><span class="header-section-number">11.1</span> TargetLevel / time</h2>
-<p>This table is the transient form of the <code>TargetLevel</code> table, in which time-dependent minimum and maximum levels can be supplied. Similar to the static version, only a single priority per <code>TargetLevel</code> node can be provided.</p>
+<section id="leveldemand-time" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="leveldemand-time"><span class="header-section-number">11.1</span> LevelDemand / time</h2>
+<p>This table is the transient form of the <code>LevelDemand</code> table, in which time-dependent minimum and maximum levels can be supplied. Similar to the static version, only a single priority per <code>LevelDemand</code> node can be provided.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -2100,7 +2100,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>For Basins the values <code>demand</code>, <code>allocated</code> and <code>realized</code> are positive if the Basin level is below the minimum level given by a <code>TargetLevel</code> node. The values are negative if the Basin supplies due to a surplus of water.</p>
+<p>For Basins the values <code>demand</code>, <code>allocated</code> and <code>realized</code> are positive if the Basin level is below the minimum level given by a <code>LevelDemand</code> node. The values are negative if the Basin supplies due to a surplus of water.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

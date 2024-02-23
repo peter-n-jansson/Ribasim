@@ -1069,9 +1069,9 @@ window.Quarto = {
 <span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"level [m]"</span>)</span>
 <span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot target level</span></span>
-<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>target_levels <span class="op">=</span> model.pid_control.time.df.target.to_numpy()[:<span class="dv">4</span>]</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>level_demands <span class="op">=</span> model.pid_control.time.df.target.to_numpy()[:<span class="dv">4</span>]</span>
 <span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>times <span class="op">=</span> date2num(model.pid_control.time.df.time)[:<span class="dv">4</span>]</span>
-<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>ax.plot(times, target_levels, color<span class="op">=</span><span class="st">"k"</span>, ls<span class="op">=</span><span class="st">":"</span>, label<span class="op">=</span><span class="st">"target level"</span>)</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>ax.plot(times, level_demands, color<span class="op">=</span><span class="st">"k"</span>, ls<span class="op">=</span><span class="st">":"</span>, label<span class="op">=</span><span class="st">"target level"</span>)</span>
 <span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1388,13 +1388,13 @@ window.Quarto = {
 <span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">0.0</span>, <span class="fl">0.0</span>),  <span class="co"># 1: FlowBoundary</span></span>
 <span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">1.0</span>, <span class="fl">0.0</span>),  <span class="co"># 2: Basin</span></span>
 <span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">2.0</span>, <span class="fl">0.0</span>),  <span class="co"># 3: User</span></span>
-<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">1.0</span>, <span class="op">-</span><span class="fl">1.0</span>),  <span class="co"># 4: TargetLevel</span></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">1.0</span>, <span class="op">-</span><span class="fl">1.0</span>),  <span class="co"># 4: LevelDemand</span></span>
 <span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">2.0</span>, <span class="op">-</span><span class="fl">1.0</span>),  <span class="co"># 5: Basin</span></span>
 <span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a>    ]</span>
 <span id="cb75-9"><a href="#cb75-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb75-10"><a href="#cb75-10" aria-hidden="true" tabindex="-1"></a>node_xy <span class="op">=</span> gpd.points_from_xy(x<span class="op">=</span>xy[:, <span class="dv">0</span>], y<span class="op">=</span>xy[:, <span class="dv">1</span>])</span>
 <span id="cb75-11"><a href="#cb75-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>node_type <span class="op">=</span> [<span class="st">"FlowBoundary"</span>, <span class="st">"Basin"</span>, <span class="st">"User"</span>, <span class="st">"TargetLevel"</span>, <span class="st">"Basin"</span>]</span>
+<span id="cb75-12"><a href="#cb75-12" aria-hidden="true" tabindex="-1"></a>node_type <span class="op">=</span> [<span class="st">"FlowBoundary"</span>, <span class="st">"Basin"</span>, <span class="st">"User"</span>, <span class="st">"LevelDemand"</span>, <span class="st">"Basin"</span>]</span>
 <span id="cb75-13"><a href="#cb75-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-14"><a href="#cb75-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure the feature id starts at 1: explicitly give an index.</span></span>
 <span id="cb75-15"><a href="#cb75-15" aria-hidden="true" tabindex="-1"></a>node <span class="op">=</span> ribasim.Node(</span>
@@ -1468,7 +1468,7 @@ window.Quarto = {
 </div>
 <p>Setup allocation level control:</p>
 <div id="cell-149" class="cell" data-execution_count="76">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>target_level <span class="op">=</span> ribasim.TargetLevel(</span>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>level_demand <span class="op">=</span> ribasim.LevelDemand(</span>
 <span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>    static<span class="op">=</span>pd.DataFrame(</span>
 <span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>{<span class="st">"node_id"</span>: [<span class="dv">4</span>], <span class="st">"priority"</span>: <span class="dv">1</span>, <span class="st">"min_level"</span>: <span class="fl">1.0</span>, <span class="st">"max_level"</span>: <span class="fl">1.5</span>}</span>
 <span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>    )</span>
@@ -1498,7 +1498,7 @@ window.Quarto = {
 <span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>    network<span class="op">=</span>ribasim.Network(node<span class="op">=</span>node, edge<span class="op">=</span>edge),</span>
 <span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>    basin<span class="op">=</span>basin,</span>
 <span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>    flow_boundary<span class="op">=</span>flow_boundary,</span>
-<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>    target_level<span class="op">=</span>target_level,</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>    level_demand<span class="op">=</span>level_demand,</span>
 <span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>    user<span class="op">=</span>user,</span>
 <span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>    allocation<span class="op">=</span>allocation,</span>
 <span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>    starttime<span class="op">=</span><span class="st">"2020-01-01 00:00:00"</span>,</span>
@@ -1518,14 +1518,14 @@ window.Quarto = {
 </div>
 <p>Write the model to a TOML and GeoPackage:</p>
 <div id="cell-159" class="cell" data-execution_count="81">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>model.write(datadir <span class="op">/</span> <span class="st">"target_level/ribasim.toml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>model.write(datadir <span class="op">/</span> <span class="st">"level_demand/ribasim.toml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="81">
-<pre><code>PosixPath('data/target_level/ribasim.toml')</code></pre>
+<pre><code>PosixPath('data/level_demand/ribasim.toml')</code></pre>
 </div>
 </div>
-<p>Now run the model with <code>ribasim target_level/ribasim.toml</code>. After running the model, read back the results:</p>
+<p>Now run the model with <code>ribasim level_demand/ribasim.toml</code>. After running the model, read back the results:</p>
 <div id="cell-162" class="cell" data-execution_count="83">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>df_basin <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"target_level/results/basin.arrow"</span>)</span>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>df_basin <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"level_demand/results/basin.arrow"</span>)</span>
 <span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>df_basin <span class="op">=</span> df_basin[df_basin.node_id <span class="op">==</span> <span class="dv">2</span>]</span>
 <span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>df_basin_wide <span class="op">=</span> df_basin.pivot_table(</span>
 <span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"node_id"</span>, values<span class="op">=</span>[<span class="st">"storage"</span>, <span class="st">"level"</span>]</span>
