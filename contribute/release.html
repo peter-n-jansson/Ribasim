@@ -268,14 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="update-version-numbers-of-the-components" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="update-version-numbers-of-the-components"><span class="header-section-number">2.2</span> Update version numbers of the components</h2>
 <p>Determine the new version number like <code>2023.1.0</code>, filling in the current year, a bumped <code>MINOR</code> number for normal releases and a bumped <code>MICRO</code> number for non-breaking, hotfix releases. This follows <code>YYYY.MINOR.MICRO</code> from <a href="https://calver.org/">calver</a>.</p>
-<p>Update the version numbers in the repository to the new version number. A single find and replace can update all 5 locations:</p>
-<ul>
-<li><code>pixi.toml</code></li>
-<li><code>core/Project.toml</code></li>
-<li><code>python/ribasim/ribasim/__init__.py</code></li>
-<li><code>python/ribasim_api/ribasim_api/__init__.py</code></li>
-<li><code>ribasim_qgis/metadata.txt</code></li>
-</ul>
+<p>Update the version numbers in the repository to the new version number. A single find and replace can update all locations. The Ribasim version number is not in <code>pixi.lock</code>, that file does not need updating.</p>
 <p>Now submit a pull request to update the version numbers.</p>
 </section>
 <section id="create-a-new-release" class="level2" data-number="2.3">
