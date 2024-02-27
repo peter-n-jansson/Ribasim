@@ -567,8 +567,8 @@ window.Quarto = {
 <td>known node type</td>
 </tr>
 <tr class="odd">
-<td>geometry</td>
-<td>geoarrow</td>
+<td>geom</td>
+<td>Point</td>
 <td>(optional)</td>
 </tr>
 <tr class="even">
@@ -664,9 +664,9 @@ window.Quarto = {
 </ol>
 <table class="table">
 <colgroup>
-<col style="width: 42%">
-<col style="width: 24%">
-<col style="width: 33%">
+<col style="width: 25%">
+<col style="width: 53%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -677,46 +677,41 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td>fid</td>
-<td>Int</td>
-<td>unique, sorted</td>
-</tr>
-<tr class="even">
 <td>from_node_type</td>
 <td>String</td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>from_node_id</td>
 <td>Int</td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>to_node_type</td>
 <td>String</td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>to_node_id</td>
 <td>Int</td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>edge_type</td>
 <td>String</td>
 <td>must be “flow” or “control”</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>geom</td>
-<td>geometry</td>
+<td>LineString or MultiLineString</td>
 <td>(optional)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>name</td>
 <td>String</td>
 <td>(optional, does not have to be unique)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>subnetwork_id</td>
 <td>Int</td>
 <td>(optional, denotes source in allocation network)</td>
@@ -2025,7 +2020,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>The table is sorted by time, and per time the same <code>edge_id</code> order is used, though not sorted. Flows that are added to the model at a node, have a missing <code>edge_id</code>, and identical <code>from_node_id</code> and <code>to_node_id</code>. Flows out of the model always have a negative sign, and additions a positive sign.</p>
+<p>The table is sorted by time, and per time the same <code>edge_id</code> order is used, though not sorted. The <code>edge_id</code> value is the same as the <code>fid</code> written to the Edge table, and can be used to directly look up the Edge geometry. Flows that are added to the model at a node, have a missing <code>edge_id</code>, and identical <code>from_node_id</code> and <code>to_node_id</code>. Flows out of the model always have a negative sign, and additions a positive sign.</p>
 </section>
 <section id="discretecontrol---control.arrow" class="level2" data-number="19.3">
 <h2 data-number="19.3" class="anchored" data-anchor-id="discretecontrol---control.arrow"><span class="header-section-number">19.3</span> DiscreteControl - <code>control.arrow</code></h2>
