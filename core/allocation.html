@@ -623,7 +623,7 @@ Note
 <section id="example" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="example"><span class="header-section-number">5.1</span> Example</h2>
 <p>The following is an example of an optimization problem for the example shown <a href="../python/examples.html#model-with-allocation">here</a>:</p>
-<div id="ffe77baa" class="cell" data-execution_count="1">
+<div id="c2febe4a" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -648,45 +648,45 @@ Note
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Min F_abs_user_demand[UserDemand #6] + F_abs_user_demand[UserDemand #13] + F_abs_user_demand[UserDemand #3] + F_abs_basin[Basin #5] + F_abs_basin[Basin #12] + F_abs_basin[Basin #2]
+<pre><code>Min F_abs_user_demand[UserDemand #6] + F_abs_user_demand[UserDemand #3] + F_abs_user_demand[UserDemand #13] + F_abs_basin[Basin #5] + F_abs_basin[Basin #2] + F_abs_basin[Basin #12]
 Subject to
- flow_conservation[Basin #5] : F[(Basin #5, UserDemand #6)] - F[(Basin #2, Basin #5)] + F[(Basin #5, Basin #2)] + F[(Basin #5, TabulatedRatingCurve #7)] + F_basin_in[Basin #5] - F_basin_out[Basin #5] = 0
+ flow_conservation[Basin #5] : -F[(Basin #2, Basin #5)] + F[(Basin #5, TabulatedRatingCurve #7)] + F[(Basin #5, UserDemand #6)] + F[(Basin #5, Basin #2)] + F_basin_in[Basin #5] - F_basin_out[Basin #5] = 0
+ flow_conservation[Basin #2] : F[(Basin #2, Basin #5)] + F[(Basin #2, UserDemand #3)] - F[(Basin #5, Basin #2)] - F[(FlowBoundary #1, Basin #2)] + F_basin_in[Basin #2] - F_basin_out[Basin #2] = 0
  flow_conservation[Basin #12] : -F[(TabulatedRatingCurve #7, Basin #12)] + F[(Basin #12, UserDemand #13)] + F_basin_in[Basin #12] - F_basin_out[Basin #12] = 0
- flow_conservation[Basin #2] : F[(Basin #2, Basin #5)] - F[(Basin #5, Basin #2)] + F[(Basin #2, UserDemand #3)] - F[(FlowBoundary #1, Basin #2)] + F_basin_in[Basin #2] - F_basin_out[Basin #2] = 0
  abs_positive_user_demand[UserDemand #6] : -F[(Basin #5, UserDemand #6)] + F_abs_user_demand[UserDemand #6] ≥ -1.5
- abs_positive_user_demand[UserDemand #13] : -F[(Basin #12, UserDemand #13)] + F_abs_user_demand[UserDemand #13] ≥ 0
  abs_positive_user_demand[UserDemand #3] : -F[(Basin #2, UserDemand #3)] + F_abs_user_demand[UserDemand #3] ≥ 0
+ abs_positive_user_demand[UserDemand #13] : -F[(Basin #12, UserDemand #13)] + F_abs_user_demand[UserDemand #13] ≥ 0
  abs_negative_user_demand[UserDemand #6] : F[(Basin #5, UserDemand #6)] + F_abs_user_demand[UserDemand #6] ≥ 1.5
- abs_negative_user_demand[UserDemand #13] : F[(Basin #12, UserDemand #13)] + F_abs_user_demand[UserDemand #13] ≥ 0
  abs_negative_user_demand[UserDemand #3] : F[(Basin #2, UserDemand #3)] + F_abs_user_demand[UserDemand #3] ≥ 0
+ abs_negative_user_demand[UserDemand #13] : F[(Basin #12, UserDemand #13)] + F_abs_user_demand[UserDemand #13] ≥ 0
  abs_positive_basin[Basin #5] : -F_basin_in[Basin #5] + F_abs_basin[Basin #5] ≥ 0
- abs_positive_basin[Basin #12] : -F_basin_in[Basin #12] + F_abs_basin[Basin #12] ≥ 0
  abs_positive_basin[Basin #2] : -F_basin_in[Basin #2] + F_abs_basin[Basin #2] ≥ 0
+ abs_positive_basin[Basin #12] : -F_basin_in[Basin #12] + F_abs_basin[Basin #12] ≥ 0
  abs_negative_basin[Basin #5] : F_basin_in[Basin #5] + F_abs_basin[Basin #5] ≥ 0
- abs_negative_basin[Basin #12] : F_basin_in[Basin #12] + F_abs_basin[Basin #12] ≥ 0
  abs_negative_basin[Basin #2] : F_basin_in[Basin #2] + F_abs_basin[Basin #2] ≥ 0
+ abs_negative_basin[Basin #12] : F_basin_in[Basin #12] + F_abs_basin[Basin #12] ≥ 0
  source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 1
  return_flow[UserDemand #13] : F[(UserDemand #13, Terminal #10)] ≤ 0
  fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : F[(TabulatedRatingCurve #7, Basin #12)] - 0.4 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0
  basin_outflow[Basin #5] : F_basin_out[Basin #5] ≤ 0
- basin_outflow[Basin #12] : F_basin_out[Basin #12] ≤ 0
  basin_outflow[Basin #2] : F_basin_out[Basin #2] ≤ 0
+ basin_outflow[Basin #12] : F_basin_out[Basin #12] ≤ 0
  F[(TabulatedRatingCurve #7, Basin #12)] ≥ 0
- F[(Basin #5, UserDemand #6)] ≥ 0
  F[(Basin #2, Basin #5)] ≥ 0
- F[(Basin #5, Basin #2)] ≥ 0
- F[(Basin #2, UserDemand #3)] ≥ 0
- F[(UserDemand #13, Terminal #10)] ≥ 0
  F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
- F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
- F[(FlowBoundary #1, Basin #2)] ≥ 0
  F[(Basin #12, UserDemand #13)] ≥ 0
+ F[(Basin #2, UserDemand #3)] ≥ 0
+ F[(Basin #5, UserDemand #6)] ≥ 0
+ F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
+ F[(Basin #5, Basin #2)] ≥ 0
+ F[(FlowBoundary #1, Basin #2)] ≥ 0
+ F[(UserDemand #13, Terminal #10)] ≥ 0
  F_basin_in[Basin #5] ≥ 0
- F_basin_in[Basin #12] ≥ 0
  F_basin_in[Basin #2] ≥ 0
+ F_basin_in[Basin #12] ≥ 0
  F_basin_out[Basin #5] ≥ 0
- F_basin_out[Basin #12] ≥ 0
  F_basin_out[Basin #2] ≥ 0
+ F_basin_out[Basin #12] ≥ 0
 </code></pre>
 </div>
 </div>
