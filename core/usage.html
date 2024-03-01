@@ -299,7 +299,8 @@ window.Quarto = {
   <li><a href="#basin-time" id="toc-basin-time" class="nav-link" data-scroll-target="#basin-time"><span class="header-section-number">5.1</span> Basin / time</a></li>
   <li><a href="#basin-state" id="toc-basin-state" class="nav-link" data-scroll-target="#basin-state"><span class="header-section-number">5.2</span> Basin / state</a></li>
   <li><a href="#basin-profile" id="toc-basin-profile" class="nav-link" data-scroll-target="#basin-profile"><span class="header-section-number">5.3</span> Basin / profile</a></li>
-  <li><a href="#basin-subgrid" id="toc-basin-subgrid" class="nav-link" data-scroll-target="#basin-subgrid"><span class="header-section-number">5.4</span> Basin / subgrid</a></li>
+  <li><a href="#basin-area" id="toc-basin-area" class="nav-link" data-scroll-target="#basin-area"><span class="header-section-number">5.4</span> Basin / area</a></li>
+  <li><a href="#basin-subgrid" id="toc-basin-subgrid" class="nav-link" data-scroll-target="#basin-subgrid"><span class="header-section-number">5.5</span> Basin / subgrid</a></li>
   </ul></li>
   <li><a href="#sec-fractional-flow" id="toc-sec-fractional-flow" class="nav-link" data-scroll-target="#sec-fractional-flow"><span class="header-section-number">6</span> FractionalFlow</a></li>
   <li><a href="#sec-tabulated-rating-curve" id="toc-sec-tabulated-rating-curve" class="nav-link" data-scroll-target="#sec-tabulated-rating-curve"><span class="header-section-number">7</span> TabulatedRatingCurve</a>
@@ -877,8 +878,33 @@ window.Quarto = {
 </table>
 <p>We use the symbol <span class="math inline">\(A\)</span> for area, <span class="math inline">\(h\)</span> for level and <span class="math inline">\(S\)</span> for storage. The profile provides a function <span class="math inline">\(A(h)\)</span> for each basin. Internally this get converted to two functions, <span class="math inline">\(A(S)\)</span> and <span class="math inline">\(h(S)\)</span>, by integrating over the function, setting the storage to zero for the bottom of the profile. The minimum area cannot be zero to avoid numerical issues. The maximum area is used to convert the precipitation flux into an inflow.</p>
 </section>
-<section id="basin-subgrid" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="basin-subgrid"><span class="header-section-number">5.4</span> Basin / subgrid</h2>
+<section id="basin-area" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="basin-area"><span class="header-section-number">5.4</span> Basin / area</h2>
+<p>The optional area table is not used during computation, but provides a place to associate areas in the form of polygons to Basins. Using this makes it easier to recognize which water or land surfaces are represented by Basins.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>geom</td>
+<td>Polygon or MultiPolygon</td>
+<td>(optional)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="basin-subgrid" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="basin-subgrid"><span class="header-section-number">5.5</span> Basin / subgrid</h2>
 <p>The subgrid_level table defines a piecewise linear interpolation from a basin water level to a subgrid element water level. Many subgrid elements may be associated with a single basin, each with distinct interpolation functions. This functionality can be used to translate a single lumped basin level to a more spatially detailed representation (e.g comparable to the output of a hydrodynamic simulation).</p>
 <table class="table">
 <thead>
@@ -1762,15 +1788,28 @@ window.Quarto = {
 </section>
 <section id="discretecontrol-logic" class="level2" data-number="17.2">
 <h2 data-number="17.2" class="anchored" data-anchor-id="discretecontrol-logic"><span class="header-section-number">17.2</span> DiscreteControl / logic</h2>
-<p>The logic schema defines which control states are triggered based on the truth of the conditions a discrete_control node listens to. DiscreteControl is applied in the Julia core as follows:</p>
+<p>The logic schema defines which control states are triggered based on the truth of the conditions a DiscreteControl node listens to. DiscreteControl is applied in the Julia core as follows:</p>
 <ul>
 <li>During the simulation it is checked whether the truth of any of the conditions changes.</li>
-<li>When a condition changes, the corresponding discrete_control node id is retrieved (node_id in the condition schema above).</li>
-<li>The truth value of all the conditions this discrete_control node listens to are retrieved, in the order as they are specified in the condition schema. This is then converted into a string of “T” for true and “F” for false. This string we call the truth state.*</li>
-<li>The table below determines for the given discrete_control node ID and truth state what the corresponding control state is.</li>
-<li>For all the nodes this discrete_control node affects (as given by the “control” edges in <a href="../core/usage.html#edge">Edges / static</a>), their parameters are set to those parameters in <code>NodeType / static</code> corresponding to the determined control state.</li>
+<li>When a condition changes, the corresponding DiscreteControl node ID is retrieved (node_id in the condition schema above).</li>
+<li>The truth value of all the conditions this DiscreteControl node listens to are retrieved, <strong>in the sorted order as specified in the condition schema</strong>. This is then converted into a string of “T” for true and “F” for false. This string we call the truth state.*</li>
+<li>The table below determines for the given DiscreteControl node ID and truth state what the corresponding control state is.</li>
+<li>For all the nodes this DiscreteControl node affects (as given by the “control” edges in <a href="../core/usage.html#edge">Edges / static</a>), their parameters are set to those parameters in <code>NodeType / static</code> corresponding to the determined control state.</li>
 </ul>
 <p>*. There is also a second truth state created in which for the last condition that changed it is specified whether it was an upcrossing (“U”) or downcrossing (“D”) of the threshold (greater than) value. If a control state is specified for a truth state that is crossing-specific, this takes precedence over the control state for the truth state that contains only “T” and “F”.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When creating truth states, it is important to not use the order of the condition table as you provide it, but the order as it is written to the file. Users can provide tables in any order, but when writing the model it gets sorted in the required order as specified in the schema.</p>
+</div>
+</div>
 <table class="table">
 <colgroup>
 <col style="width: 37%">
