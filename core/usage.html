@@ -1738,10 +1738,10 @@ window.Quarto = {
 <p>The condition schema defines conditions of the form ‘the discrete_control node with this node id listens to whether the given variable of the node with the given listen feature id is grater than the given value’. If the condition variable comes from a time-series, a look ahead <span class="math inline">\(\Delta t\)</span> can be supplied.</p>
 <table class="table">
 <colgroup>
-<col style="width: 39%">
-<col style="width: 18%">
-<col style="width: 16%">
-<col style="width: 25%">
+<col style="width: 42%">
+<col style="width: 17%">
+<col style="width: 15%">
+<col style="width: 24%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1765,18 +1765,24 @@ window.Quarto = {
 <td>sorted per node_id</td>
 </tr>
 <tr class="odd">
+<td>listen_feature_type</td>
+<td>String</td>
+<td>-</td>
+<td>known node type</td>
+</tr>
+<tr class="even">
 <td>variable</td>
 <td>String</td>
 <td>-</td>
 <td>must be “level” or “flow_rate”, sorted per listen_feature_id</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>greater_than</td>
 <td>Float64</td>
 <td>various</td>
 <td>sorted per variable</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>look_ahead</td>
 <td>Float64</td>
 <td><span class="math inline">\(s\)</span></td>
