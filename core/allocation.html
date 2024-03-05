@@ -284,11 +284,7 @@ window.Quarto = {
   <li><a href="#the-optimization-problem" id="toc-the-optimization-problem" class="nav-link" data-scroll-target="#the-optimization-problem"><span class="header-section-number">4</span> The optimization problem</a>
   <ul class="collapse">
   <li><a href="#the-optimization-variables" id="toc-the-optimization-variables" class="nav-link" data-scroll-target="#the-optimization-variables"><span class="header-section-number">4.1</span> The optimization variables</a></li>
-  <li><a href="#the-optimization-objective" id="toc-the-optimization-objective" class="nav-link" data-scroll-target="#the-optimization-objective"><span class="header-section-number">4.2</span> The optimization objective</a>
-  <ul class="collapse">
-  <li><a href="#user-demands-1" id="toc-user-demands-1" class="nav-link" data-scroll-target="#user-demands-1"><span class="header-section-number">4.2.1</span> User demands</a></li>
-  <li><a href="#basin-demands" id="toc-basin-demands" class="nav-link" data-scroll-target="#basin-demands"><span class="header-section-number">4.2.2</span> Basin demands</a></li>
-  </ul></li>
+  <li><a href="#the-optimization-objective" id="toc-the-optimization-objective" class="nav-link" data-scroll-target="#the-optimization-objective"><span class="header-section-number">4.2</span> The optimization objective</a></li>
   <li><a href="#the-optimization-constraints" id="toc-the-optimization-constraints" class="nav-link" data-scroll-target="#the-optimization-constraints"><span class="header-section-number">4.3</span> The optimization constraints</a></li>
   <li><a href="#final-notes-on-the-allocation-problem" id="toc-final-notes-on-the-allocation-problem" class="nav-link" data-scroll-target="#final-notes-on-the-allocation-problem"><span class="header-section-number">4.4</span> Final notes on the allocation problem</a>
   <ul class="collapse">
@@ -445,26 +441,13 @@ Note
 </section>
 <section id="the-optimization-objective" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="the-optimization-objective"><span class="header-section-number">4.2</span> The optimization objective</h2>
-<p>The goal of allocation is to get the flow to nodes with demands as close as possible to these demands. To achieve this, a sum error of terms is minimized. The form of these error terms is determined by the choice of one of the supported objective function types, which are discussed further below.</p>
+<p>The goal of allocation is to get the flow to nodes with demands as close as possible to these demands. To achieve this, a sum error of terms is minimized.</p>
 <p><span class="math display">\[
-    \min E_{\text{user_demand}} + E_{\text{basin}}
+    \min E_{\text{user demand}} + E_{\text{basin}}
 \]</span></p>
-<section id="user-demands-1" class="level3" data-number="4.2.1">
-<h3 data-number="4.2.1" class="anchored" data-anchor-id="user-demands-1"><span class="header-section-number">4.2.1</span> User demands</h3>
-<ul>
-<li><code>quadratic_absolute</code>: <span class="math display">\[
-  E_{\text{user_demand}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left( F_{ij} - d_j^p(t)\right)^2
-\]</span></li>
-<li><code>quadratic_relative</code>: <span class="math display">\[
-  E_{\text{user_demand}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left( 1 - \frac{F_{ij}}{d_j^p(t)}\right)^2
-\]</span></li>
-<li><code>linear_absolute</code> (default): <span class="math display">\[
-  E_{\text{user_demand}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left| F_{ij} - d_j^p(t)\right|
-\]</span></li>
-<li><code>linear_relative</code>: <span class="math display">\[
-  E_{\text{user_demand}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left|1 - \frac{F_{ij}}{d_j^p(t)}\right|
-\]</span></li>
-</ul>
+<p>The error between the flows and user demands is denoted by <span class="math inline">\(E_{\text{user demand}}\)</span>, where <span class="math display">\[
+    E_{\text{user demand}} = \sum_{(i,j)\in E_S\;:\; i\in U_S} \left| F_{ij} - d_j^p(t)\right|
+\]</span></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -478,53 +461,11 @@ Note
 <p>When performing main network allocation, the connections to subnetworks are also interpreted as UserDemand with demands determined by subnetwork demand collection.</p>
 </div>
 </div>
-<p>To avoid division by <span class="math inline">\(0\)</span> errors, if a <code>*_relative</code> objective is used and a demand is <span class="math inline">\(0\)</span>, the coefficient of the flow <span class="math inline">\(F_{ij}\)</span> is set to <span class="math inline">\(0\)</span>.</p>
-<p>For <code>*_absolute</code> objectives the optimizer cares about the actual amount of water allocated to a demand, for <code>*_relative</code> objectives it cares about the fraction of the demand allocated. For <code>quadratic_*</code> objectives the optimizer cares about avoiding large shortages, for <code>linear_*</code> objectives it treats all deviations equally.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>These options for objectives for allocation to demands have not been tested thoroughly, and might change in the future.</p>
-</div>
-</div>
+<p>This type of objective cares about the absolute amount of water allocated to a demand. It treats all deviations equally which means it doesn’t give larger punishment per flow unit if deviations increase.</p>
 <p>The absolute value applied here is not supported in a linear programming context directly; this requires introduction of new variables and constraints. For more details see <a href="https://optimization.cbe.cornell.edu/index.php?title=Optimization_with_absolute_values">here</a>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>In the future new optimization objectives will be introduced, for demands of basins and priorities over sources. These will be used in combination with the above, in the form of goal programming.</p>
-</div>
-</div>
-</section>
-<section id="basin-demands" class="level3" data-number="4.2.2">
-<h3 data-number="4.2.2" class="anchored" data-anchor-id="basin-demands"><span class="header-section-number">4.2.2</span> Basin demands</h3>
-<ul>
-<li><code>quadratic_absolute</code>: <span class="math display">\[
-  E_{\text{basin}} = \sum_{i \in B_S} \left( F_i^\text{basin in} - d_i^p(t)\right)^2
-\]</span></li>
-<li><code>quadratic_relative</code>: <span class="math display">\[
-  E_{\text{basin}} = \sum_{i \in B_S} \left( 1 - \frac{F_i^\text{basin in}}{d_i^p(t)}\right)^2
-\]</span></li>
-<li><code>linear_absolute</code> (default): <span class="math display">\[
-  E_{\text{basin}} = \sum_{i \in B_S} \left| F_i^\text{basin in} - d_i^p(t)\right|
-\]</span></li>
-<li><code>linear_relative</code>: <span class="math display">\[
-  E_{\text{basin}} = \sum_{i \in B_S} \left|1 - \frac{F_i^\text{basin in}}{d_i^p(t)}\right|
-\]</span></li>
-</ul>
-</section>
+<p>Likewise, the error of basin demands is the absolute difference between flows consumed by basins and basin demands. <span class="math display">\[
+    E_{\text{basin}} = \sum_{i \in B_S} \left| F_i^\text{basin in} - d_i^p(t)\right|
+\]</span></p>
 </section>
 <section id="the-optimization-constraints" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="the-optimization-constraints"><span class="header-section-number">4.3</span> The optimization constraints</h2>
@@ -623,7 +564,7 @@ Note
 <section id="example" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="example"><span class="header-section-number">5.1</span> Example</h2>
 <p>The following is an example of an optimization problem for the example shown <a href="../python/examples.html#model-with-allocation">here</a>:</p>
-<div id="5ad1dc07" class="cell" data-execution_count="1">
+<div id="24f3b296" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -648,45 +589,45 @@ Note
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Min F_abs_user_demand[UserDemand #3] + F_abs_user_demand[UserDemand #6] + F_abs_user_demand[UserDemand #13] + F_abs_basin[Basin #12] + F_abs_basin[Basin #2] + F_abs_basin[Basin #5]
+<pre><code>Min F_abs_user_demand[UserDemand #13] + F_abs_user_demand[UserDemand #6] + F_abs_user_demand[UserDemand #3] + F_abs_basin[Basin #2] + F_abs_basin[Basin #5] + F_abs_basin[Basin #12]
 Subject to
- F[(Basin #12, UserDemand #13)] ≥ 0
- F[(Basin #5, Basin #2)] ≥ 0
- F[(Basin #5, UserDemand #6)] ≥ 0
- F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
  F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
- F[(UserDemand #13, Terminal #10)] ≥ 0
  F[(Basin #2, UserDemand #3)] ≥ 0
- F[(Basin #2, Basin #5)] ≥ 0
+ F[(Basin #12, UserDemand #13)] ≥ 0
+ F[(Basin #5, UserDemand #6)] ≥ 0
+ F[(UserDemand #13, Terminal #10)] ≥ 0
  F[(FlowBoundary #1, Basin #2)] ≥ 0
+ F[(Basin #5, Basin #2)] ≥ 0
+ F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
+ F[(Basin #2, Basin #5)] ≥ 0
  F[(TabulatedRatingCurve #7, Basin #12)] ≥ 0
- F_basin_in[Basin #12] ≥ 0
  F_basin_in[Basin #2] ≥ 0
  F_basin_in[Basin #5] ≥ 0
- F_basin_out[Basin #12] ≥ 0
+ F_basin_in[Basin #12] ≥ 0
  F_basin_out[Basin #2] ≥ 0
  F_basin_out[Basin #5] ≥ 0
- abs_positive_user_demand[UserDemand #3] : -F[(Basin #2, UserDemand #3)] + F_abs_user_demand[UserDemand #3] ≥ 0
- abs_positive_user_demand[UserDemand #6] : -F[(Basin #5, UserDemand #6)] + F_abs_user_demand[UserDemand #6] ≥ -1.5
+ F_basin_out[Basin #12] ≥ 0
  abs_positive_user_demand[UserDemand #13] : -F[(Basin #12, UserDemand #13)] + F_abs_user_demand[UserDemand #13] ≥ 0
- abs_negative_user_demand[UserDemand #3] : F[(Basin #2, UserDemand #3)] + F_abs_user_demand[UserDemand #3] ≥ 0
- abs_negative_user_demand[UserDemand #6] : F[(Basin #5, UserDemand #6)] + F_abs_user_demand[UserDemand #6] ≥ 1.5
+ abs_positive_user_demand[UserDemand #6] : -F[(Basin #5, UserDemand #6)] + F_abs_user_demand[UserDemand #6] ≥ -1.5
+ abs_positive_user_demand[UserDemand #3] : -F[(Basin #2, UserDemand #3)] + F_abs_user_demand[UserDemand #3] ≥ 0
  abs_negative_user_demand[UserDemand #13] : F[(Basin #12, UserDemand #13)] + F_abs_user_demand[UserDemand #13] ≥ 0
- abs_positive_basin[Basin #12] : -F_basin_in[Basin #12] + F_abs_basin[Basin #12] ≥ 0
+ abs_negative_user_demand[UserDemand #6] : F[(Basin #5, UserDemand #6)] + F_abs_user_demand[UserDemand #6] ≥ 1.5
+ abs_negative_user_demand[UserDemand #3] : F[(Basin #2, UserDemand #3)] + F_abs_user_demand[UserDemand #3] ≥ 0
  abs_positive_basin[Basin #2] : -F_basin_in[Basin #2] + F_abs_basin[Basin #2] ≥ 0
  abs_positive_basin[Basin #5] : -F_basin_in[Basin #5] + F_abs_basin[Basin #5] ≥ 0
- abs_negative_basin[Basin #12] : F_basin_in[Basin #12] + F_abs_basin[Basin #12] ≥ 0
+ abs_positive_basin[Basin #12] : -F_basin_in[Basin #12] + F_abs_basin[Basin #12] ≥ 0
  abs_negative_basin[Basin #2] : F_basin_in[Basin #2] + F_abs_basin[Basin #2] ≥ 0
  abs_negative_basin[Basin #5] : F_basin_in[Basin #5] + F_abs_basin[Basin #5] ≥ 0
+ abs_negative_basin[Basin #12] : F_basin_in[Basin #12] + F_abs_basin[Basin #12] ≥ 0
+ flow_conservation[Basin #2] : F[(Basin #2, UserDemand #3)] - F[(FlowBoundary #1, Basin #2)] - F[(Basin #5, Basin #2)] + F[(Basin #2, Basin #5)] + F_basin_in[Basin #2] - F_basin_out[Basin #2] = 0
+ flow_conservation[Basin #5] : F[(Basin #5, TabulatedRatingCurve #7)] + F[(Basin #5, UserDemand #6)] + F[(Basin #5, Basin #2)] - F[(Basin #2, Basin #5)] + F_basin_in[Basin #5] - F_basin_out[Basin #5] = 0
  flow_conservation[Basin #12] : F[(Basin #12, UserDemand #13)] - F[(TabulatedRatingCurve #7, Basin #12)] + F_basin_in[Basin #12] - F_basin_out[Basin #12] = 0
- flow_conservation[Basin #2] : -F[(Basin #5, Basin #2)] + F[(Basin #2, UserDemand #3)] + F[(Basin #2, Basin #5)] - F[(FlowBoundary #1, Basin #2)] + F_basin_in[Basin #2] - F_basin_out[Basin #2] = 0
- flow_conservation[Basin #5] : F[(Basin #5, Basin #2)] + F[(Basin #5, UserDemand #6)] + F[(Basin #5, TabulatedRatingCurve #7)] - F[(Basin #2, Basin #5)] + F_basin_in[Basin #5] - F_basin_out[Basin #5] = 0
  source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 1
  return_flow[UserDemand #13] : F[(UserDemand #13, Terminal #10)] ≤ 0
  fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : -0.4 F[(Basin #5, TabulatedRatingCurve #7)] + F[(TabulatedRatingCurve #7, Basin #12)] ≤ 0
- basin_outflow[Basin #12] : F_basin_out[Basin #12] ≤ 0
  basin_outflow[Basin #2] : F_basin_out[Basin #2] ≤ 0
  basin_outflow[Basin #5] : F_basin_out[Basin #5] ≤ 0
+ basin_outflow[Basin #12] : F_basin_out[Basin #12] ≤ 0
 </code></pre>
 </div>
 </div>

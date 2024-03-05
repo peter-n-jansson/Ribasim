@@ -1333,25 +1333,24 @@ window.Quarto = {
 <span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>df_allocation_wide <span class="op">=</span> df_allocation_wide.loc[:, (df_allocation_wide <span class="op">!=</span> <span class="dv">0</span>).<span class="bu">any</span>(axis<span class="op">=</span><span class="dv">0</span>)]</span>
 <span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
-<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="ss">f"Objective type: </span><span class="sc">{</span>model<span class="sc">.</span>allocation<span class="sc">.</span>objective_type<span class="sc">}</span><span class="ss">"</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
-<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-14"><a href="#cb73-14" aria-hidden="true" tabindex="-1"></a>df_allocation_wide[<span class="st">"demand"</span>].plot(ax<span class="op">=</span>axs[<span class="dv">0</span>], ls<span class="op">=</span><span class="st">":"</span>)</span>
-<span id="cb73-15"><a href="#cb73-15" aria-hidden="true" tabindex="-1"></a>df_allocation_wide[<span class="st">"allocated"</span>].plot(ax<span class="op">=</span>axs[<span class="dv">1</span>], ls<span class="op">=</span><span class="st">"--"</span>)</span>
-<span id="cb73-16"><a href="#cb73-16" aria-hidden="true" tabindex="-1"></a>df_allocation_wide[<span class="st">"realized"</span>].plot(ax<span class="op">=</span>axs[<span class="dv">2</span>])</span>
-<span id="cb73-17"><a href="#cb73-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-18"><a href="#cb73-18" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
-<span id="cb73-19"><a href="#cb73-19" aria-hidden="true" tabindex="-1"></a>loc <span class="op">=</span> plticker.MultipleLocator(<span class="dv">2</span>)</span>
-<span id="cb73-20"><a href="#cb73-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-21"><a href="#cb73-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylabel(<span class="st">"level [m]"</span>)</span>
-<span id="cb73-22"><a href="#cb73-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-23"><a href="#cb73-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, title <span class="kw">in</span> <span class="bu">zip</span>(axs, [<span class="st">"Demand"</span>, <span class="st">"Allocated"</span>, <span class="st">"Abstracted"</span>]):</span>
-<span id="cb73-24"><a href="#cb73-24" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title)</span>
-<span id="cb73-25"><a href="#cb73-25" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(<span class="fl">0.0</span>, <span class="fl">1.6</span>)</span>
-<span id="cb73-26"><a href="#cb73-26" aria-hidden="true" tabindex="-1"></a>    ax.xaxis.set_major_locator(loc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a>df_allocation_wide[<span class="st">"demand"</span>].plot(ax<span class="op">=</span>axs[<span class="dv">0</span>], ls<span class="op">=</span><span class="st">":"</span>)</span>
+<span id="cb73-14"><a href="#cb73-14" aria-hidden="true" tabindex="-1"></a>df_allocation_wide[<span class="st">"allocated"</span>].plot(ax<span class="op">=</span>axs[<span class="dv">1</span>], ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb73-15"><a href="#cb73-15" aria-hidden="true" tabindex="-1"></a>df_allocation_wide[<span class="st">"realized"</span>].plot(ax<span class="op">=</span>axs[<span class="dv">2</span>])</span>
+<span id="cb73-16"><a href="#cb73-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-17"><a href="#cb73-17" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
+<span id="cb73-18"><a href="#cb73-18" aria-hidden="true" tabindex="-1"></a>loc <span class="op">=</span> plticker.MultipleLocator(<span class="dv">2</span>)</span>
+<span id="cb73-19"><a href="#cb73-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-20"><a href="#cb73-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylabel(<span class="st">"level [m]"</span>)</span>
+<span id="cb73-21"><a href="#cb73-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-22"><a href="#cb73-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, title <span class="kw">in</span> <span class="bu">zip</span>(axs, [<span class="st">"Demand"</span>, <span class="st">"Allocated"</span>, <span class="st">"Abstracted"</span>]):</span>
+<span id="cb73-23"><a href="#cb73-23" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title)</span>
+<span id="cb73-24"><a href="#cb73-24" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(<span class="fl">0.0</span>, <span class="fl">1.6</span>)</span>
+<span id="cb73-25"><a href="#cb73-25" aria-hidden="true" tabindex="-1"></a>    ax.xaxis.set_major_locator(loc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="examples_files/figure-html/cell-71-output-1.png" width="777" height="441" class="figure-img"></p>
+<p><img src="examples_files/figure-html/cell-71-output-1.png" width="777" height="456" class="figure-img"></p>
 </figure>
 </div>
 </div>
