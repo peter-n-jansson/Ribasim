@@ -1738,10 +1738,10 @@ window.Quarto = {
 <p>The condition schema defines conditions of the form ‘the discrete_control node with this node id listens to whether the given variable of the node with the given listen feature id is grater than the given value’. If the condition variable comes from a time-series, a look ahead <span class="math inline">\(\Delta t\)</span> can be supplied.</p>
 <table class="table">
 <colgroup>
-<col style="width: 42%">
-<col style="width: 17%">
-<col style="width: 15%">
-<col style="width: 24%">
+<col style="width: 39%">
+<col style="width: 18%">
+<col style="width: 16%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1759,22 +1759,22 @@ window.Quarto = {
 <td>sorted</td>
 </tr>
 <tr class="even">
-<td>listen_feature_id</td>
-<td>Int</td>
-<td>-</td>
-<td>sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>listen_feature_type</td>
+<td>listen_node_type</td>
 <td>String</td>
 <td>-</td>
 <td>known node type</td>
+</tr>
+<tr class="odd">
+<td>listen_node_id</td>
+<td>Int</td>
+<td>-</td>
+<td>sorted per node_id</td>
 </tr>
 <tr class="even">
 <td>variable</td>
 <td>String</td>
 <td>-</td>
-<td>must be “level” or “flow_rate”, sorted per listen_feature_id</td>
+<td>must be “level” or “flow_rate”, sorted per listen_node_id</td>
 </tr>
 <tr class="odd">
 <td>greater_than</td>
@@ -1886,30 +1886,36 @@ Note
 <td>(optional, default true)</td>
 </tr>
 <tr class="even">
+<td>listen_node_type</td>
+<td>Int</td>
+<td>-</td>
+<td>known node type</td>
+</tr>
+<tr class="odd">
 <td>listen_node_id</td>
 <td>Int</td>
 <td>-</td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>target</td>
 <td>Float64</td>
 <td><span class="math inline">\(m\)</span></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>proportional</td>
 <td>Float64</td>
 <td><span class="math inline">\(s^{-1}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>integral</td>
 <td>Float64</td>
 <td><span class="math inline">\(s^{-2}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>derivative</td>
 <td>Float64</td>
 <td>-</td>
@@ -1943,30 +1949,36 @@ Note
 <td>sorted per node_id</td>
 </tr>
 <tr class="odd">
+<td>listen_node_type</td>
+<td>Int</td>
+<td>-</td>
+<td>known node type</td>
+</tr>
+<tr class="even">
 <td>listen_node_id</td>
 <td>Int</td>
 <td>-</td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>target</td>
 <td>Float64</td>
 <td><span class="math inline">\(m\)</span></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>proportional</td>
 <td>Float64</td>
 <td><span class="math inline">\(s^{-1}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>integral</td>
 <td>Float64</td>
 <td><span class="math inline">\(s^{-2}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>derivative</td>
 <td>Float64</td>
 <td>-</td>

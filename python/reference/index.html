@@ -176,7 +176,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#api-reference" id="toc-api-reference" class="nav-link active" data-scroll-target="#api-reference"><span class="header-section-number">1</span> API Reference</a>
   <ul class="collapse">
   <li><a href="#model" id="toc-model" class="nav-link" data-scroll-target="#model"><span class="header-section-number">1.1</span> Model</a></li>
-  <li><a href="#network" id="toc-network" class="nav-link" data-scroll-target="#network"><span class="header-section-number">1.2</span> Network</a></li>
+  <li><a href="#edge" id="toc-edge" class="nav-link" data-scroll-target="#edge"><span class="header-section-number">1.2</span> Edge</a></li>
   <li><a href="#node-types" id="toc-node-types" class="nav-link" data-scroll-target="#node-types"><span class="header-section-number">1.3</span> Node types</a></li>
   </ul></li>
   </ul>
@@ -197,22 +197,18 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><a href="../../python/reference/Model.html#ribasim.Model">Model</a></td>
-<td>A full Ribasim model schematisation with all input.</td>
+<td></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="network" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="network"><span class="header-section-number">1.2</span> Network</h2>
-<p>The Node and Edge database layers define the network layout.</p>
+<section id="edge" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="edge"><span class="header-section-number">1.2</span> Edge</h2>
+<p>The Edge database layer.</p>
 <table class="table">
 <tbody>
 <tr class="odd">
-<td><a href="../../python/reference/Node.html#ribasim.Node">Node</a></td>
-<td>The Ribasim nodes as Point geometries.</td>
-</tr>
-<tr class="even">
-<td><a href="../../python/reference/Edge.html#ribasim.Edge">Edge</a></td>
+<td><a href="../../python/reference/EdgeTable.html#ribasim.EdgeTable">EdgeTable</a></td>
 <td>Defines the connections between nodes.</td>
 </tr>
 </tbody>
@@ -224,55 +220,55 @@ ul.task-list li input[type="checkbox"] {
 <table class="table">
 <tbody>
 <tr class="odd">
-<td><a href="../../python/reference/Basin.html#ribasim.Basin">Basin</a></td>
+<td><a href="../../python/reference/nodes.basin.html#ribasim.nodes.basin">nodes.basin</a></td>
 <td></td>
 </tr>
 <tr class="even">
-<td><a href="../../python/reference/FractionalFlow.html#ribasim.FractionalFlow">FractionalFlow</a></td>
+<td><a href="../../python/reference/nodes.fractional_flow.html#ribasim.nodes.fractional_flow">nodes.fractional_flow</a></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><a href="../../python/reference/TabulatedRatingCurve.html#ribasim.TabulatedRatingCurve">TabulatedRatingCurve</a></td>
+<td><a href="../../python/reference/nodes.tabulated_rating_curve.html#ribasim.nodes.tabulated_rating_curve">nodes.tabulated_rating_curve</a></td>
 <td></td>
 </tr>
 <tr class="even">
-<td><a href="../../python/reference/Pump.html#ribasim.Pump">Pump</a></td>
+<td><a href="../../python/reference/nodes.pump.html#ribasim.nodes.pump">nodes.pump</a></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><a href="../../python/reference/Outlet.html#ribasim.Outlet">Outlet</a></td>
+<td><a href="../../python/reference/nodes.outlet.html#ribasim.nodes.outlet">nodes.outlet</a></td>
 <td></td>
 </tr>
 <tr class="even">
-<td><a href="../../python/reference/UserDemand.html#ribasim.UserDemand">UserDemand</a></td>
+<td><a href="../../python/reference/nodes.user_demand.html#ribasim.nodes.user_demand">nodes.user_demand</a></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><a href="../../python/reference/LevelBoundary.html#ribasim.LevelBoundary">LevelBoundary</a></td>
+<td><a href="../../python/reference/nodes.level_boundary.html#ribasim.nodes.level_boundary">nodes.level_boundary</a></td>
 <td></td>
 </tr>
 <tr class="even">
-<td><a href="../../python/reference/FlowBoundary.html#ribasim.FlowBoundary">FlowBoundary</a></td>
+<td><a href="../../python/reference/nodes.flow_boundary.html#ribasim.nodes.flow_boundary">nodes.flow_boundary</a></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><a href="../../python/reference/LinearResistance.html#ribasim.LinearResistance">LinearResistance</a></td>
+<td><a href="../../python/reference/nodes.linear_resistance.html#ribasim.nodes.linear_resistance">nodes.linear_resistance</a></td>
 <td></td>
 </tr>
 <tr class="even">
-<td><a href="../../python/reference/ManningResistance.html#ribasim.ManningResistance">ManningResistance</a></td>
+<td><a href="../../python/reference/nodes.manning_resistance.html#ribasim.nodes.manning_resistance">nodes.manning_resistance</a></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><a href="../../python/reference/Terminal.html#ribasim.Terminal">Terminal</a></td>
+<td><a href="../../python/reference/nodes.terminal.html#ribasim.nodes.terminal">nodes.terminal</a></td>
 <td></td>
 </tr>
 <tr class="even">
-<td><a href="../../python/reference/DiscreteControl.html#ribasim.DiscreteControl">DiscreteControl</a></td>
+<td><a href="../../python/reference/nodes.discrete_control.html#ribasim.nodes.discrete_control">nodes.discrete_control</a></td>
 <td></td>
 </tr>
 <tr class="odd">
-<td><a href="../../python/reference/PidControl.html#ribasim.PidControl">PidControl</a></td>
+<td><a href="../../python/reference/nodes.pid_control.html#ribasim.nodes.pid_control">nodes.pid_control</a></td>
 <td></td>
 </tr>
 </tbody>
