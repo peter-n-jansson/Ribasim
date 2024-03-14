@@ -521,7 +521,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -533,7 +533,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>This means that two columns are required, one named <code>node_id</code>, that contained elements of type <code>Int</code>, and a column named <code>storage</code> that contains elements of type <code>Float64</code>. The order of the columns does not matter. In some cases there may be restrictions on the values. This is indicated under <code>restriction</code>.</p>
+<p>This means that two columns are required, one named <code>node_id</code>, that contained elements of type <code>Int32</code>, and a column named <code>storage</code> that contains elements of type <code>Float64</code>. The order of the columns does not matter. In some cases there may be restrictions on the values. This is indicated under <code>restriction</code>.</p>
 <p>Tables are also allowed to have rows for timestamps that are not part of the simulation, these will be ignored. That makes it easy to prepare data for a larger period, and test models on a shorted period.</p>
 <p>When preparing the model for simulation, input validation is performed in the Julia core. The validation rules are described in the <a href="../core/validation.html">validation</a> section.</p>
 </section>
@@ -557,7 +557,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 </tr>
 <tr class="even">
@@ -577,7 +577,7 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td>subnetwork_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>(optional)</td>
 </tr>
 </tbody>
@@ -682,7 +682,7 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td>from_node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 </tr>
 <tr class="odd">
@@ -692,7 +692,7 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td>to_node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 </tr>
 <tr class="odd">
@@ -712,7 +712,7 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td>subnetwork_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>(optional, denotes source in allocation network)</td>
 </tr>
 </tbody>
@@ -734,7 +734,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -790,7 +790,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -825,7 +825,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -891,7 +891,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>sorted</td>
 </tr>
 <tr class="even">
@@ -917,13 +917,13 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>subgrid_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
 <tr class="even">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>constant per subgrid_id</td>
 </tr>
@@ -1009,7 +1009,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1043,7 +1043,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1124,7 +1124,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1171,7 +1171,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1229,7 +1229,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1287,7 +1287,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1317,7 +1317,7 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td>priority</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>positive, sorted per node id</td>
 </tr>
@@ -1344,13 +1344,13 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
 <tr class="even">
 <td>priority</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>positive, sorted per node id</td>
 </tr>
@@ -1397,7 +1397,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1415,7 +1415,7 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td>priority</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>positive</td>
 </tr>
@@ -1436,7 +1436,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1460,7 +1460,7 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td>priority</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>positive</td>
 </tr>
@@ -1483,7 +1483,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1516,7 +1516,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1551,7 +1551,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1584,7 +1584,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1619,7 +1619,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1665,7 +1665,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1723,7 +1723,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1754,7 +1754,7 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1766,7 +1766,7 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td>listen_node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted per node_id</td>
 </tr>
@@ -1833,7 +1833,7 @@ Note
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1869,7 +1869,7 @@ Note
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1887,13 +1887,13 @@ Note
 </tr>
 <tr class="even">
 <td>listen_node_type</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>known node type</td>
 </tr>
 <tr class="odd">
 <td>listen_node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>-</td>
 </tr>
@@ -1938,7 +1938,7 @@ Note
 <tbody>
 <tr class="odd">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
@@ -1950,13 +1950,13 @@ Note
 </tr>
 <tr class="odd">
 <td>listen_node_type</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>known node type</td>
 </tr>
 <tr class="even">
 <td>listen_node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 <td>-</td>
 </tr>
@@ -2009,7 +2009,7 @@ Note
 </tr>
 <tr class="even">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 </tr>
 <tr class="odd">
@@ -2045,7 +2045,7 @@ Note
 </tr>
 <tr class="even">
 <td>edge_id</td>
-<td>Union{Int, Missing}</td>
+<td>Union{Int32, Missing}</td>
 <td>-</td>
 </tr>
 <tr class="odd">
@@ -2055,7 +2055,7 @@ Note
 </tr>
 <tr class="even">
 <td>from_node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 </tr>
 <tr class="odd">
@@ -2065,7 +2065,7 @@ Note
 </tr>
 <tr class="even">
 <td>to_node_id</td>
-<td>Int</td>
+<td>Int32</td>
 <td>-</td>
 </tr>
 <tr class="odd">
@@ -2094,7 +2094,7 @@ Note
 </tr>
 <tr class="even">
 <td>control_node_id</td>
-<td>Int</td>
+<td>Int32</td>
 </tr>
 <tr class="odd">
 <td>truth_state</td>
@@ -2124,7 +2124,7 @@ Note
 </tr>
 <tr class="even">
 <td>subnetwork_id</td>
-<td>Int</td>
+<td>Int32</td>
 </tr>
 <tr class="odd">
 <td>node_type</td>
@@ -2132,11 +2132,11 @@ Note
 </tr>
 <tr class="even">
 <td>node_id</td>
-<td>Int</td>
+<td>Int32</td>
 </tr>
 <tr class="odd">
 <td>priority</td>
-<td>Int</td>
+<td>Int32</td>
 </tr>
 <tr class="even">
 <td>demand</td>
@@ -2184,7 +2184,7 @@ Note
 </tr>
 <tr class="even">
 <td>edge_id</td>
-<td>Int</td>
+<td>Int32</td>
 </tr>
 <tr class="odd">
 <td>from_node_type</td>
@@ -2192,7 +2192,7 @@ Note
 </tr>
 <tr class="even">
 <td>from_node_id</td>
-<td>Int</td>
+<td>Int32</td>
 </tr>
 <tr class="odd">
 <td>to_node_type</td>
@@ -2200,15 +2200,15 @@ Note
 </tr>
 <tr class="even">
 <td>to_node_id</td>
-<td>Int</td>
+<td>Int32</td>
 </tr>
 <tr class="odd">
 <td>subnetwork_id</td>
-<td>Int</td>
+<td>Int32</td>
 </tr>
 <tr class="even">
 <td>priority</td>
-<td>Int</td>
+<td>Int32</td>
 </tr>
 <tr class="odd">
 <td>flow_rate</td>
