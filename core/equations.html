@@ -427,7 +427,7 @@ Note
     \end{cases}
 \end{align}\]</span></p>
 <p>Here <span class="math inline">\(p &gt; 0\)</span> is the threshold value which determines the interval <span class="math inline">\([0,p]\)</span> of the smooth transition between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, see the plot below.</p>
-<div id="0bbdab4e" class="cell" data-execution_count="1">
+<div id="25c25b5f" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -696,7 +696,7 @@ B = w + 2 d \sqrt{\left(\frac{\Delta y}{\Delta z}\right)^2 + 1}
 <section id="userdemand-allocation" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> UserDemand allocation</h1>
 <p>UserDemands have an allocated flow rate <span class="math inline">\(F^p\)</span> per priority <span class="math inline">\(p=1,2,\ldots, p_{\max}\)</span>, which is either determined by <a href="../core/allocation.html">allocation optimization</a> or simply equal to the demand at time <span class="math inline">\(t\)</span>; <span class="math inline">\(F^p = d^p(t)\)</span>. The actual abstraction rate of a UserDemand is given by <span class="math display">\[
-    Q_\text{user_demand, in} = \phi(u, 10.0)\phi(h-l_{\min}, 0.1)\sum_{p=1}^{p_{\max}} \min\left(F^p, d^p(t)\right).
+    Q_\text{userdemand, in} = \phi(u, 10.0)\phi(h-l_{\min}, 0.1)\sum_{p=1}^{p_{\max}} \min\left(F^p, d^p(t)\right).
 \]</span></p>
 <p>From left to right:</p>
 <ul>
@@ -706,9 +706,9 @@ B = w + 2 d \sqrt{\left(\frac{\Delta y}{\Delta z}\right)^2 + 1}
 </ul>
 <p>UserDemands also have a return factor <span class="math inline">\(0 \le r \le 1\)</span>, which determines the return flow (outflow) of the UserDemand:</p>
 <p><span class="math display">\[
-Q_\text{user_demand, out} = r \cdot Q_\text{user_demand, in}.
+Q_\text{user_demand, out} = r \cdot Q_\text{userdemand, in}.
 \]</span></p>
-<p>Note that this means that the user_demand has a consumption rate of <span class="math inline">\((1-r)Q_\text{user_demand, in}\)</span>.</p>
+<p>Note that this means that the user_demand has a consumption rate of <span class="math inline">\((1-r)Q_\text{userdemand, in}\)</span>.</p>
 </section>
 <section id="sec-PID" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> PID controller</h1>
