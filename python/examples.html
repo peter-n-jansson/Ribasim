@@ -405,23 +405,23 @@ window.Quarto = {
 </div>
 <p>Setup the edges:</p>
 <div id="cell-25" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">1</span>], model.manning_resistance[<span class="dv">2</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.manning_resistance[<span class="dv">2</span>], model.basin[<span class="dv">3</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">3</span>], model.tabulated_rating_curve[<span class="dv">4</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.tabulated_rating_curve[<span class="dv">4</span>], model.fractional_flow[<span class="dv">5</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.tabulated_rating_curve[<span class="dv">4</span>], model.fractional_flow[<span class="dv">8</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.fractional_flow[<span class="dv">5</span>], model.basin[<span class="dv">6</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">6</span>], model.pump[<span class="dv">7</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.fractional_flow[<span class="dv">8</span>], model.basin[<span class="dv">9</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pump[<span class="dv">7</span>], model.basin[<span class="dv">9</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">9</span>], model.linear_resistance[<span class="dv">10</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_boundary[<span class="dv">11</span>], model.linear_resistance[<span class="dv">12</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.linear_resistance[<span class="dv">12</span>], model.basin[<span class="dv">3</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.tabulated_rating_curve[<span class="dv">4</span>], model.fractional_flow[<span class="dv">13</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.fractional_flow[<span class="dv">13</span>], model.terminal[<span class="dv">14</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">15</span>], model.basin[<span class="dv">6</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">16</span>], model.basin[<span class="dv">1</span>], <span class="st">"flow"</span>)</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.linear_resistance[<span class="dv">10</span>], model.level_boundary[<span class="dv">17</span>], <span class="st">"flow"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">1</span>], model.manning_resistance[<span class="dv">2</span>])</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.manning_resistance[<span class="dv">2</span>], model.basin[<span class="dv">3</span>])</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">3</span>], model.tabulated_rating_curve[<span class="dv">4</span>])</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.tabulated_rating_curve[<span class="dv">4</span>], model.fractional_flow[<span class="dv">5</span>])</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.tabulated_rating_curve[<span class="dv">4</span>], model.fractional_flow[<span class="dv">8</span>])</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.fractional_flow[<span class="dv">5</span>], model.basin[<span class="dv">6</span>])</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">6</span>], model.pump[<span class="dv">7</span>])</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.fractional_flow[<span class="dv">8</span>], model.basin[<span class="dv">9</span>])</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pump[<span class="dv">7</span>], model.basin[<span class="dv">9</span>])</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">9</span>], model.linear_resistance[<span class="dv">10</span>])</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_boundary[<span class="dv">11</span>], model.linear_resistance[<span class="dv">12</span>])</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.linear_resistance[<span class="dv">12</span>], model.basin[<span class="dv">3</span>])</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.tabulated_rating_curve[<span class="dv">4</span>], model.fractional_flow[<span class="dv">13</span>])</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.fractional_flow[<span class="dv">13</span>], model.terminal[<span class="dv">14</span>])</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">15</span>], model.basin[<span class="dv">6</span>])</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">16</span>], model.basin[<span class="dv">1</span>])</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.linear_resistance[<span class="dv">10</span>], model.level_boundary[<span class="dv">17</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s take a look at the model:</p>
 <div id="cell-27" class="cell" data-execution_count="15">
@@ -568,14 +568,14 @@ window.Quarto = {
 </div>
 <p>Setup edges:</p>
 <div id="cell-51" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">1</span>], model.pump[<span class="dv">3</span>], <span class="st">"flow"</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pump[<span class="dv">3</span>], model.level_boundary[<span class="dv">4</span>], <span class="st">"flow"</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_boundary[<span class="dv">4</span>], model.pump[<span class="dv">2</span>], <span class="st">"flow"</span>)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pump[<span class="dv">2</span>], model.basin[<span class="dv">1</span>], <span class="st">"flow"</span>)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">1</span>], model.tabulated_rating_curve[<span class="dv">5</span>], <span class="st">"flow"</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.tabulated_rating_curve[<span class="dv">5</span>], model.terminal[<span class="dv">6</span>], <span class="st">"flow"</span>)</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.discrete_control[<span class="dv">7</span>], model.pump[<span class="dv">2</span>], <span class="st">"control"</span>)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.discrete_control[<span class="dv">7</span>], model.pump[<span class="dv">3</span>], <span class="st">"control"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">1</span>], model.pump[<span class="dv">3</span>])</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pump[<span class="dv">3</span>], model.level_boundary[<span class="dv">4</span>])</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_boundary[<span class="dv">4</span>], model.pump[<span class="dv">2</span>])</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pump[<span class="dv">2</span>], model.basin[<span class="dv">1</span>])</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">1</span>], model.tabulated_rating_curve[<span class="dv">5</span>])</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.tabulated_rating_curve[<span class="dv">5</span>], model.terminal[<span class="dv">6</span>])</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.discrete_control[<span class="dv">7</span>], model.pump[<span class="dv">2</span>])</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.discrete_control[<span class="dv">7</span>], model.pump[<span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s take a look at the model:</p>
 <div id="cell-53" class="cell" data-execution_count="28">
@@ -713,13 +713,13 @@ window.Quarto = {
 <p>Note that the coefficients for the pump and the outlet are equal in magnitude but opposite in sign. This way the pump and the outlet equally work towards the same goal, while having opposite effects on the controlled basin due to their connectivity to this basin.</p>
 <p>Setup the edges:</p>
 <div id="cell-77" class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>], <span class="st">"flow"</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.pump[<span class="dv">3</span>], <span class="st">"flow"</span>)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pump[<span class="dv">3</span>], model.level_boundary[<span class="dv">4</span>], <span class="st">"flow"</span>)</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_boundary[<span class="dv">4</span>], model.outlet[<span class="dv">6</span>], <span class="st">"flow"</span>)</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.outlet[<span class="dv">6</span>], model.basin[<span class="dv">2</span>], <span class="st">"flow"</span>)</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pid_control[<span class="dv">5</span>], model.pump[<span class="dv">3</span>], <span class="st">"control"</span>)</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pid_control[<span class="dv">7</span>], model.outlet[<span class="dv">6</span>], <span class="st">"control"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>])</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.pump[<span class="dv">3</span>])</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pump[<span class="dv">3</span>], model.level_boundary[<span class="dv">4</span>])</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_boundary[<span class="dv">4</span>], model.outlet[<span class="dv">6</span>])</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.outlet[<span class="dv">6</span>], model.basin[<span class="dv">2</span>])</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pid_control[<span class="dv">5</span>], model.pump[<span class="dv">3</span>])</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pid_control[<span class="dv">7</span>], model.outlet[<span class="dv">6</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s take a look at the model:</p>
 <div id="cell-79" class="cell" data-execution_count="40">
@@ -883,22 +883,22 @@ window.Quarto = {
 </div>
 <p>Setup the edges:</p>
 <div id="cell-107" class="cell" data-execution_count="54">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>], <span class="st">"flow"</span>, subnetwork_id<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.user_demand[<span class="dv">3</span>], <span class="st">"flow"</span>)</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.linear_resistance[<span class="dv">4</span>], <span class="st">"flow"</span>)</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.linear_resistance[<span class="dv">4</span>], model.basin[<span class="dv">5</span>], <span class="st">"flow"</span>)</span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">5</span>], model.user_demand[<span class="dv">6</span>], <span class="st">"flow"</span>)</span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">5</span>], model.tabulated_rating_curve[<span class="dv">7</span>], <span class="st">"flow"</span>)</span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.tabulated_rating_curve[<span class="dv">7</span>], model.fractional_flow[<span class="dv">8</span>], <span class="st">"flow"</span>)</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.user_demand[<span class="dv">3</span>], model.basin[<span class="dv">2</span>], <span class="st">"flow"</span>)</span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.user_demand[<span class="dv">6</span>], model.basin[<span class="dv">5</span>], <span class="st">"flow"</span>)</span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.tabulated_rating_curve[<span class="dv">7</span>], model.fractional_flow[<span class="dv">9</span>], <span class="st">"flow"</span>)</span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.fractional_flow[<span class="dv">8</span>], model.terminal[<span class="dv">10</span>], <span class="st">"flow"</span>)</span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.fractional_flow[<span class="dv">9</span>], model.basin[<span class="dv">12</span>], <span class="st">"flow"</span>)</span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">12</span>], model.user_demand[<span class="dv">13</span>], <span class="st">"flow"</span>)</span>
-<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.user_demand[<span class="dv">13</span>], model.terminal[<span class="dv">10</span>], <span class="st">"flow"</span>)</span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.discrete_control[<span class="dv">11</span>], model.fractional_flow[<span class="dv">8</span>], <span class="st">"control"</span>)</span>
-<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.discrete_control[<span class="dv">11</span>], model.fractional_flow[<span class="dv">9</span>], <span class="st">"control"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>], subnetwork_id<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.user_demand[<span class="dv">3</span>])</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.linear_resistance[<span class="dv">4</span>])</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.linear_resistance[<span class="dv">4</span>], model.basin[<span class="dv">5</span>])</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">5</span>], model.user_demand[<span class="dv">6</span>])</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">5</span>], model.tabulated_rating_curve[<span class="dv">7</span>])</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.tabulated_rating_curve[<span class="dv">7</span>], model.fractional_flow[<span class="dv">8</span>])</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.user_demand[<span class="dv">3</span>], model.basin[<span class="dv">2</span>])</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.user_demand[<span class="dv">6</span>], model.basin[<span class="dv">5</span>])</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.tabulated_rating_curve[<span class="dv">7</span>], model.fractional_flow[<span class="dv">9</span>])</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.fractional_flow[<span class="dv">8</span>], model.terminal[<span class="dv">10</span>])</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.fractional_flow[<span class="dv">9</span>], model.basin[<span class="dv">12</span>])</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">12</span>], model.user_demand[<span class="dv">13</span>])</span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.user_demand[<span class="dv">13</span>], model.terminal[<span class="dv">10</span>])</span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.discrete_control[<span class="dv">11</span>], model.fractional_flow[<span class="dv">8</span>])</span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.discrete_control[<span class="dv">11</span>], model.fractional_flow[<span class="dv">9</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s take a look at the model:</p>
 <div id="cell-109" class="cell" data-execution_count="55">
@@ -1056,11 +1056,11 @@ window.Quarto = {
 </div>
 <p>Setup the edges:</p>
 <div id="cell-131" class="cell" data-execution_count="66">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>], <span class="st">"flow"</span>, subnetwork_id<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.user_demand[<span class="dv">3</span>], <span class="st">"flow"</span>)</span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_demand[<span class="dv">4</span>], model.basin[<span class="dv">2</span>], <span class="st">"control"</span>)</span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.user_demand[<span class="dv">3</span>], model.basin[<span class="dv">5</span>], <span class="st">"flow"</span>)</span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_demand[<span class="dv">4</span>], model.basin[<span class="dv">5</span>], <span class="st">"control"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>], subnetwork_id<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.user_demand[<span class="dv">3</span>])</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_demand[<span class="dv">4</span>], model.basin[<span class="dv">2</span>])</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.user_demand[<span class="dv">3</span>], model.basin[<span class="dv">5</span>])</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_demand[<span class="dv">4</span>], model.basin[<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s take a look at the model:</p>
 <div id="cell-133" class="cell" data-execution_count="67">
