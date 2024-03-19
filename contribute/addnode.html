@@ -294,7 +294,7 @@ window.Quarto = {
 <h1 data-number="1"><span class="header-section-number">1</span> The Julia core</h1>
 <section id="parameters" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.1</span> Parameters</h2>
-<p>The parameters object (defined in <code>solve.jl</code>) passed to the ODE solver must be made aware of the new node type. Therefore define a struct in <code>solve.jl</code> which holds the data for each node of the new node type:</p>
+<p>The parameters object (defined in <code>parameter.jl</code>) passed to the ODE solver must be made aware of the new node type. Therefore define a struct in <code>parameter.jl</code> which holds the data for each node of the new node type:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> NewNodeType</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    node_id<span class="op">::</span><span class="dt">Vector{NodeID}</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Other fields</span></span>
@@ -302,12 +302,12 @@ window.Quarto = {
 <p>These fields do not have to correspond 1:1 with the input tables (see below). The vector with all node IDs that are of the new type in a given model is a mandatory field. Now you can:</p>
 <ul>
 <li>Add <code>new_node_type::NewNodeType</code> to the Parameters object;</li>
-<li>Add <code>new_node_type = NewNodeType(db,config)</code> to the function <code>Parameters</code> in <code>create.jl</code> and add new_node_type at the proper location in the <code>Parameters</code> constructor call.</li>
+<li>Add <code>new_node_type = NewNodeType(db,config)</code> to the function <code>Parameters</code> in <code>read.jl</code> and add new_node_type at the proper location in the <code>Parameters</code> constructor call.</li>
 </ul>
 </section>
 <section id="reading-from-configuration" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="reading-from-configuration"><span class="header-section-number">1.2</span> Reading from configuration</h2>
-<p>There can be several schemas associated with a single node type. To define a schema for the new node type, add the following to <code>validation.jl</code>:</p>
+<p>There can be several schemas associated with a single node type. To define a schema for the new node type, add the following to <code>schema.jl</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@schema</span> <span class="st">"ribasim.newnodetype.static"</span> NewNodeTypeStatic</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
@@ -317,14 +317,14 @@ window.Quarto = {
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    node_id<span class="op">::</span><span class="dt">Int32</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Other fields</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Here <code>Static</code> refers to data that does not change over time. For naming conventions of these schemas see <a href="../core/usage.html#sec-node">Node usage</a>.</p>
-<p><code>validation.jl</code> also deals with checking and applying a specific sorting order for the tabular data (default is sorting by node ID only), see <code>sort_by_function</code> and <code>sorted_table!</code>.</p>
-<p>Now we define the function that is called in the second bullet above, in <code>create.jl</code>:</p>
+<p>Here <code>static</code> refers to data that does not change over time. For naming conventions of these schemas see <a href="../core/usage.html#sec-node">Node usage</a>. If a new schema contains a <code>priority</code> column for allocation, it must also be added to the list of all such schemas in the function <code>get_all_priorities</code> in <code>util.jl</code>.</p>
+<p><code>validation.jl</code> deals with checking and applying a specific sorting order for the tabular data (default is sorting by node ID only), see <code>sort_by_function</code> and <code>sorted_table!</code>.</p>
+<p>Now we define the function that is called in the second bullet above, in <code>read.jl</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">NewNodeType</span>(db<span class="op">::</span><span class="dt">DB</span>, config<span class="op">::</span><span class="dt">Config</span>)<span class="op">::</span><span class="dt">NewNodeType</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    static <span class="op">=</span> <span class="fu">load_structvector</span>(db, config, NewNodeTypeStaticV1)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    defaults <span class="op">=</span> (; foo <span class="op">=</span> <span class="fl">1</span>, bar <span class="op">=</span> <span class="cn">false</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Process potential control states in the static data</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    parsed_parameters, valid <span class="op">=</span> <span class="fu">parse_static_and_time</span>(db, config, <span class="st">"Outlet"</span>; static, defaults)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    parsed_parameters, valid <span class="op">=</span> <span class="fu">parse_static_and_time</span>(db, config, <span class="st">"NewNodeType"</span>; static, defaults)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> !valid</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">error</span>(<span class="st">"Errors occurred when parsing NewNodeType data."</span>)</span>
@@ -357,7 +357,7 @@ window.Quarto = {
 <section id="the-jacobian" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="the-jacobian"><span class="header-section-number">1.4</span> The Jacobian</h2>
 <p>See <a href="../core/equations.html#the-jacobian">Equations</a> for a mathematical description of the Jacobian.</p>
-<p>Before the Julia core runs its simulation, the sparsity structure <code>jac_prototype</code> of <span class="math inline">\(J\)</span> is determined with <code>get_jac_prototype</code> in <code>utils.jl</code>. This function runs trough all node types and looks for nodes that create dependencies between states. It creates a sparse matrix of zeros and ones, where the ones denote locations of possible non-zeros in <span class="math inline">\(J\)</span>.</p>
+<p>Before the Julia core runs its simulation, the sparsity structure <code>jac_prototype</code> of <span class="math inline">\(J\)</span> is determined with <code>get_jac_prototype</code> in <code>sparsity.jl</code>. This function runs trough all node types and looks for nodes that create dependencies between states. It creates a sparse matrix of zeros and ones, where the ones denote locations of possible non-zeros in <span class="math inline">\(J\)</span>. Note that only nodes that set flows in the physical layer (or have their own state like <code>PidControl</code>) affect the sparsity structure.</p>
 <p>We divide the various node types in groups based on what type of state dependencies they yield, and these groups are discussed below. Each group has its own method <code>update_jac_prototype!</code> in <code>utils.jl</code> for the sparsity structure induced by nodes of that group. <code>NewNodeType</code> should be added to the signature of one these methods, or to the list of node types that do not contribute to the Jacobian in the method of <code>update_jac_prototype!</code> whose signature contains <code>node::AbstractParameterNode</code>. Of course it is also possible that a new method of <code>update_jac_prototype!</code> has to be introduced.</p>
 <p>The current dependency groups are:</p>
 <ul>
@@ -372,56 +372,24 @@ window.Quarto = {
 <h1 data-number="2"><span class="header-section-number">2</span> Python I/O</h1>
 <section id="python-class" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="python-class"><span class="header-section-number">2.1</span> Python class</h2>
-<p>Create a new file <code>python/ribasim/ribasim/node_types/new_node_type.py</code> which is structured as follows:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Optional</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandera <span class="im">as</span> pa</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandera.engines.pandas_engine <span class="im">import</span> PydanticModel</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandera.typing <span class="im">import</span> DataFrame</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydantic <span class="im">import</span> ConfigDict</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ribasim <span class="im">import</span> models</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ribasim.input_base <span class="im">import</span> TableModel</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>__all__ <span class="op">=</span> (<span class="st">"NewNodeType"</span>,)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> StaticSchema(pa.SchemaModel):</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Config:</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Config with dataframe-level data type."""</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        dtype <span class="op">=</span> PydanticModel(models.NewNodeTypeStatic)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Possible other schemas</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NewNodeType(TableModel):</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">    Description of this node type.</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">    static: pandas.DataFrame</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">        table with data for this node type.</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">    possible other schemas</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    static: DataFrame[StaticSchema] <span class="op">|</span> <span class="va">None</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># possible other schemas</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    model_config <span class="op">=</span> ConfigDict(validate_assignment<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> sort(<span class="va">self</span>):</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.static.sort_values(<span class="st">"node_id"</span>, ignore_index<span class="op">=</span><span class="va">True</span>, inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The <code>sort</code> method should implement the same sorting as in <code>validation.jl</code>.</p>
-<p>Now in both <code>python/ribasim/ribasim/__init__.py</code> and <code>python/ribasim/ribasim/node_types/__init__.py</code> add</p>
+<p>In <code>python/ribasim/ribasim/config.py</code> add</p>
 <ul>
-<li><code>from ribasim.node_types.new_node_type import NewNodeType</code>;</li>
+<li>the above defined schemas to the imports from <code>ribasim.schemas</code>. This requires code generation to work, see <a href="#finishing-up">Finishing up</a>;</li>
+<li>a class of the following form with all schemas associated with the node type:</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NewNodeType(NodeModel):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    static: TableModel[NewNodeTypeStaticSchema] <span class="op">=</span> Field(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        default_factory<span class="op">=</span>TableModel[NewNodeTypeStaticSchema],</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        json_schema_extra<span class="op">=</span>{<span class="st">"sort_keys"</span>: [<span class="st">"node_id"</span>]},</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In <code>python/ribasim/ribasim/__init__.py</code> add</p>
+<ul>
+<li><code>NewNodeType</code> to the imports from <code>ribasim.config</code>;</li>
 <li><code>"NewNodeType"</code> to <code>__all__</code>.</li>
 </ul>
 <p>In <code>python/ribasim/ribasim/model.py</code>, add</p>
 <ul>
-<li><code>from ribasim.new_node_type import NewNodeType</code>;</li>
+<li><code>NewNodeType</code> to the imports from <code>ribasim.config</code>;</li>
 <li>new_node_type as a parameter and in the docstring of the <code>Model</code> class.</li>
 </ul>
 <p>In <code>python/ribasim/ribasim/geometry/node.py</code> add a color and shape description in the <code>MARKERS</code> and <code>COLORS</code> dictionaries.</p>
@@ -477,7 +445,8 @@ window.Quarto = {
 <h1 data-number="6"><span class="header-section-number">6</span> Documentation</h1>
 <p>There are several parts of the documentation which should be updated with the new node type:</p>
 <ul>
-<li><code>docs/core/equations</code> should contain a short explanation and if possible an analytical expression for the behaviour of the new node;</li>
+<li>If the node has a rol in the physical layer, <code>docs/core/equations</code> should contain a short explanation and if possible an analytical expression for the behaviour of the new node;</li>
+<li>If the node has a role in allocation, <code>docs/core/allocation</code> should make this role clear;</li>
 <li><code>docs/core/usage.qmd</code> should contain a short explanation of the node and the possible schemas associated with it;</li>
 <li>The example models constructed in <code>docs/python/examples.ipynb</code> should be extended with the new node type or a new example model with the new node type should be made.</li>
 <li>In <code>_quarto.yml</code> add <code>NewNodeType</code> to the “Node types” contents for the Python API reference.</li>
