@@ -622,22 +622,26 @@ window.Quarto = {
 <span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>y_min, y_max <span class="op">=</span> ax.get_ybound()</span>
-<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>ax.fill_between(df_control.time[:<span class="dv">2</span>], <span class="dv">2</span> <span class="op">*</span> [y_min], <span class="dv">2</span> <span class="op">*</span> [y_max], alpha<span class="op">=</span><span class="fl">0.2</span>, color<span class="op">=</span><span class="st">"C0"</span>)</span>
-<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>ax.fill_between(df_control.time[<span class="dv">2</span>:<span class="dv">4</span>], <span class="dv">2</span> <span class="op">*</span> [y_min], <span class="dv">2</span> <span class="op">*</span> [y_max], alpha<span class="op">=</span><span class="fl">0.2</span>, color<span class="op">=</span><span class="st">"C0"</span>)</span>
-<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(</span>
-<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>    date2num(df_control.time).tolist(),</span>
-<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>    df_control.control_state.tolist(),</span>
-<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a>    rotation<span class="op">=</span><span class="dv">50</span>,</span>
-<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a>ax.set_yticks(greater_than, [<span class="st">"min"</span>, <span class="st">"setpoint"</span>, <span class="st">"max"</span>])</span>
-<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"level"</span>)</span>
-<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>ax.fill_between(</span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>    df_control.time[:<span class="dv">2</span>].to_numpy(), <span class="dv">2</span> <span class="op">*</span> [y_min], <span class="dv">2</span> <span class="op">*</span> [y_max], alpha<span class="op">=</span><span class="fl">0.2</span>, color<span class="op">=</span><span class="st">"C0"</span></span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>ax.fill_between(</span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>    df_control.time[<span class="dv">2</span>:<span class="dv">4</span>].to_numpy(), <span class="dv">2</span> <span class="op">*</span> [y_min], <span class="dv">2</span> <span class="op">*</span> [y_max], alpha<span class="op">=</span><span class="fl">0.2</span>, color<span class="op">=</span><span class="st">"C0"</span></span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(</span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a>    date2num(df_control.time).tolist(),</span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a>    df_control.control_state.tolist(),</span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a>    rotation<span class="op">=</span><span class="dv">50</span>,</span>
+<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a>ax.set_yticks(greater_than, [<span class="st">"min"</span>, <span class="st">"setpoint"</span>, <span class="st">"max"</span>])</span>
+<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"level"</span>)</span>
+<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="examples_files/figure-html/cell-32-output-1.png" width="622" height="407" class="figure-img"></p>
+<p><img src="examples_files/figure-html/cell-32-output-1.png" width="622" height="450" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -973,7 +977,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="examples_files/figure-html/cell-60-output-2.png" width="590" height="443" class="figure-img"></p>
+<p><img src="examples_files/figure-html/cell-60-output-2.png" width="597" height="479" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1086,28 +1090,16 @@ window.Quarto = {
 <span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>df_basin_wide <span class="op">=</span> df_basin.pivot_table(</span>
 <span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"node_id"</span>, values<span class="op">=</span>[<span class="st">"storage"</span>, <span class="st">"level"</span>]</span>
 <span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df_basin_wide[<span class="st">"level"</span>].plot()</span>
-<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>where_allocation <span class="op">=</span> (</span>
-<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>    df_basin_wide.index <span class="op">-</span> df_basin_wide.index[<span class="dv">0</span>]</span>
-<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>).total_seconds() <span class="op">%</span> model.allocation.timestep <span class="op">==</span> <span class="dv">0</span></span>
-<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>where_allocation[<span class="dv">0</span>] <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>df_basin_wide[where_allocation][<span class="st">"level"</span>].plot(</span>
-<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>    style<span class="op">=</span><span class="st">"o"</span>,</span>
-<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax,</span>
-<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb70-15"><a href="#cb70-15" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"level [m]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="70">
-<pre><code>Text(0, 0.5, 'level [m]')</code></pre>
-</div>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df_basin_wide[<span class="st">"level"</span>].plot(ylabel<span class="op">=</span><span class="st">"level [m]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="examples_files/figure-html/cell-71-output-2.png" width="590" height="423" class="figure-img"></p>
+<p><img src="examples_files/figure-html/cell-71-output-1.png" width="601" height="474" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>In the plot above, the line denotes the level of Basin #2 over time and the dots denote the times at which allocation optimization was run, with intervals of <span class="math inline">\(\Delta t_{\text{alloc}}\)</span>. The Basin level is a piecewise linear function of time, with several stages explained below.</p>
+<p>In the plot above, the line denotes the level of Basin #2 over time. The Basin level is a piecewise linear function of time, with several stages explained below.</p>
 <p>Constants:</p>
 <ul>
 <li><span class="math inline">\(d\)</span>: UserDemand #3 demand,</li>
