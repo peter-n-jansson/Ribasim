@@ -216,7 +216,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="set-up-the-developer-environment" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Set up the developer environment</h1>
-<p>After you have installed the environment as described <a href="../contribute/index.html">here</a> you must still activate the QGIS plugins. The simplest way to do this is by running <code>pixi run install-qgis-plugins</code>. It grabs the latest version of the iMOD QGIS plugin and it makes a symlink to the ribasim_qgis folder so that QGIS can find it. It also installs plugins that make it possible to reload and debug your plugin while QGIS is open.</p>
+<p>After you have installed the environment as described <a href="../contribute/index.html">here</a> you must still activate the QGIS plugins. The simplest way to do this is by running <code>pixi run --environment=dev install-qgis-plugins</code>. It grabs the latest version of the iMOD QGIS plugin and it makes a symlink to the ribasim_qgis folder so that QGIS can find it. It also installs plugins that make it possible to reload and debug your plugin while QGIS is open.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -256,7 +256,7 @@ Note
 </section>
 <section id="debugging" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Debugging</h1>
-<p>After installing the plugins via <code>pixi run install-qgis-plugins</code>. Extra debugging tools are also installed in QGIS that is installed within your pixi environment.</p>
+<p>After installing the plugins via <code>pixi run --environment=dev install-qgis-plugins</code>. Extra debugging tools are also installed in QGIS that is installed within your pixi environment.</p>
 <p>After you have started <code>pixi run qgis</code>, you can make alterations to the Python code and use the <a href="https://github.com/borysiasty/plugin_reloader">Plugin Reloader</a> to reload the plugin without restarting QGIS. The shortcut in QGIS is <code>CTRL+F5</code>.</p>
 <p>It is also possible to connect the debugger of Visual Studio Code. For this the <a href="https://github.com/lmotta/debug_vs_plugin">debugvs</a> plugin is installed in QGIS. In QGIS press the button to <em>Enable Debug for Visual Studio</em>. Then go to Visual Studio Code and start the launch task <em>Ribasim QGIS: Attach to QGIS</em>. Now you can place breakpoints.</p>
 <div class="callout callout-style-default callout-note callout-titled">
