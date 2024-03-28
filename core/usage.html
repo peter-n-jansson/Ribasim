@@ -2075,7 +2075,12 @@ Note
 <h1 data-number="20"><span class="header-section-number">20</span> Results</h1>
 <section id="basin---basin.arrow" class="level2" data-number="20.1">
 <h2 data-number="20.1" class="anchored" data-anchor-id="basin---basin.arrow"><span class="header-section-number">20.1</span> Basin - <code>basin.arrow</code></h2>
-<p>The basin table contains results of the storage and level of each basin at every solver timestep. The initial condition is also written to the file.</p>
+<p>The basin table contains:</p>
+<ul>
+<li>results of the storage and level of each basin, which are instantaneous values;</li>
+<li>results of the vertical fluxes on each basin, which are mean values over the <code>saveat</code> intervals. In the time column the start of the period is indicated. This means that for the final time in the table the mean vertical fluxes are not computed, and thus are <code>missing</code>.</li>
+</ul>
+<p>The initial condition is also written to the file.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -2105,13 +2110,33 @@ Note
 <td>Float64</td>
 <td><span class="math inline">\(m\)</span></td>
 </tr>
+<tr class="odd">
+<td>precipitation</td>
+<td>Union{Float64, Missing}</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+</tr>
+<tr class="even">
+<td>evaporation</td>
+<td>Union{Float64, Missing}</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+</tr>
+<tr class="odd">
+<td>drainage</td>
+<td>Union{Float64, Missing}</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+</tr>
+<tr class="even">
+<td>infiltration</td>
+<td>Union{Float64, Missing}</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+</tr>
 </tbody>
 </table>
 <p>The table is sorted by time, and per time it is sorted by <code>node_id</code>.</p>
 </section>
 <section id="flow---flow.arrow" class="level2" data-number="20.2">
 <h2 data-number="20.2" class="anchored" data-anchor-id="flow---flow.arrow"><span class="header-section-number">20.2</span> Flow - <code>flow.arrow</code></h2>
-<p>The flow table contains calculated mean flows for every flow edge in the model. In the time column the start of the period is indicated.</p>
+<p>The flow table contains calculated mean flows over the <code>saveat</code> intervals for every flow edge in the model. In the time column the start of the period is indicated.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -2128,7 +2153,7 @@ Note
 </tr>
 <tr class="even">
 <td>edge_id</td>
-<td>Union{Int32, Missing}</td>
+<td>Int32</td>
 <td>-</td>
 </tr>
 <tr class="odd">
@@ -2158,7 +2183,7 @@ Note
 </tr>
 </tbody>
 </table>
-<p>The table is sorted by time, and per time the same <code>edge_id</code> order is used, though not sorted. The <code>edge_id</code> value is the same as the <code>fid</code> written to the Edge table, and can be used to directly look up the Edge geometry. Flows that are added to the model at a node, have a missing <code>edge_id</code>, and identical <code>from_node_id</code> and <code>to_node_id</code>. Flows out of the model always have a negative sign, and additions a positive sign.</p>
+<p>The table is sorted by time, and per time the same <code>edge_id</code> order is used, though not sorted. The <code>edge_id</code> value is the same as the <code>fid</code> written to the Edge table, and can be used to directly look up the Edge geometry. Flows from the “from” to the “to” node have a positive sign, and if the flow is reversed it will be negative.</p>
 </section>
 <section id="discretecontrol---control.arrow" class="level2" data-number="20.3">
 <h2 data-number="20.3" class="anchored" data-anchor-id="discretecontrol---control.arrow"><span class="header-section-number">20.3</span> DiscreteControl - <code>control.arrow</code></h2>
