@@ -317,17 +317,36 @@ window.Quarto = {
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>Allocation is the process of assigning an allocated flow rate to demand nodes in the physical layer of the model based on information about sources, the different demand nodes over various priorities, constraints introduced by nodes, local water availability and graph topology. The allocation procedure implemented in Ribasim is heavily inspired by the <a href="https://en.wikipedia.org/wiki/Maximum_flow_problem">maximum flow problem</a>.</p>
-<p>The allocation problem is solved per subnetwork of the Ribasim model. The subnetwork is used to formulate an optimization problem with the <a href="https://jump.dev/JuMP.jl/stable/">JuMP</a> package, which is solved using the <a href="https://highs.dev/">HiGHS solver</a>. For more in-depth information see also the example of solving the maximum flow problem with <code>JuMP.jl</code> <a href="https://jump.dev/JuMP.jl/stable/tutorials/linear/network_flows/#The-max-flow-problem">here</a>.</p>
+<p>The allocation problem is solved per subnetwork (and main network) of the Ribasim model. Each subnetwork is used to formulate an optimization problem with the <a href="https://jump.dev/JuMP.jl/stable/">JuMP</a> package, which is solved using the <a href="https://highs.dev/">HiGHS solver</a>. For more in-depth information see also the example of solving the maximum flow problem with <code>JuMP.jl</code> <a href="https://jump.dev/JuMP.jl/stable/tutorials/linear/network_flows/#The-max-flow-problem">here</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>within this <em>Allocation</em> section the main network is also considered to be a subnetwork.</p>
+</div>
+</div>
 </section>
 <section id="the-high-level-algorithm" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> The high level algorithm</h1>
-<p>The allocation algorithm consists of 3 types of optimization problems:</p>
+<p>The allocation algorithm contains 3 types of optimization:</p>
+<ul>
+<li><code>internal_sources</code>, where flows are allocated within a subnetwork by only using sources inside the subnetwork;</li>
+<li><code>collect_demands</code>, where flows are allocated within a subnetwork by only using the main network inlet(s) as a source, with demands reduced by allocations in <code>internal_sources</code>. The allocated flows in this optimization type are not used. The goal is to see the flow through the main network inlet(s), which is interpreted as the subnetwork demand;</li>
+<li><code>allocate</code>, where all available sources are used and the final allocated flows for the users are determined.</li>
+</ul>
+<p>The full algorithm goes through the following steps:</p>
 <ol type="1">
-<li><strong>Subnetwork demand collection</strong>: Collect the demands of a subnetwork from the main network by optimizing with unlimited capacity from the main network;</li>
-<li><strong>Main network allocation</strong>: Allocate to subnetworks with the above collected demand, and demands in the main network;</li>
-<li><strong>Subnetwork allocation</strong>: Allocate to demands in the subnetworks with the flows allocated to the subnetwork in the main network allocation.</li>
+<li>Perform <code>internal_sources</code> followed by <code>collect_demands</code> for all subnetworks apart from the main network;</li>
+<li>Perform <code>allocate</code> for the main network;</li>
+<li>Perform <code>allocate</code> for the other subnetworks.</li>
 </ol>
-<p>The total allocation algorithm consists of performing 1 for all subnetworks, then performing 2, then performing 3 for all subnetworks. Not having a main network is also supported, then 1 and 2 are skipped.</p>
+<p>If no main network is present, then 1 and 2 are skipped.</p>
 </section>
 <section id="elements-of-allocation" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Elements of allocation</h1>
@@ -547,8 +566,8 @@ F_{ij} \le (C^{UD}_S)_i, \quad \forall i \in U_S, \quad V_S^{\text{out}}(i) = \{
 </section>
 <section id="example" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="example"><span class="header-section-number">4.4</span> Example</h2>
-<p>The following is an example of an optimization problem for the example shown <a href="../python/examples.html#model-with-allocation">here</a>:</p>
-<div id="6057336c" class="cell" data-execution_count="1">
+<p>The following is an example of an optimization problem for the example shown <a href="../python/examples.html#model-with-allocation-user-demand">here</a>:</p>
+<div id="7aa38728" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -565,42 +584,55 @@ F_{ij} \le (C^{UD}_S)_i, \quad \forall i \in U_S, \quad V_S^{\text{out}}(i) = \{
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>priority_idx <span class="op">=</span> <span class="fl">1</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">set_flow!</span>(p.graph, <span class="fu">NodeID</span>(<span class="op">:</span>FlowBoundary, <span class="fl">1</span>), <span class="fu">NodeID</span>(<span class="op">:</span>Basin, <span class="fl">2</span>), <span class="fl">1.0</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">adjust_capacities_edge!</span>(allocation_model, p, priority_idx)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">adjust_capacities_source!</span>(allocation_model, p, priority_idx)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">set_objective_priority!</span>(allocation_model, p, u, t, priority_idx)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">set_objective_priority!</span>(allocation_model, p, u, t, priority_idx)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>Ribasim.<span class="fu">set_initial_values!</span>(allocation_model, p, u, t)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Min F_abs_user_demand[UserDemand #3] + F_abs_user_demand[UserDemand #6] + F_abs_user_demand[UserDemand #13]
+<pre><code>Min F_abs_user_demand[UserDemand #6] + F_abs_user_demand[UserDemand #13] + F_abs_user_demand[UserDemand #3] + F_abs_level_demand[Basin #12] + F_abs_level_demand[Basin #2] + F_abs_level_demand[Basin #5]
 Subject to
- flow_conservation_basin[Basin #12] : F[(Basin #12, UserDemand #13)] - F[(TabulatedRatingCurve #7, Basin #12)] = 0
- flow_conservation_basin[Basin #2] : -F[(Basin #5, Basin #2)] + F[(Basin #2, Basin #5)] + F[(Basin #2, UserDemand #3)] - F[(UserDemand #3, Basin #2)] - F[(FlowBoundary #1, Basin #2)] = 0
- flow_conservation_basin[Basin #5] : F[(Basin #5, Basin #2)] + F[(Basin #5, TabulatedRatingCurve #7)] - F[(UserDemand #6, Basin #5)] - F[(Basin #2, Basin #5)] + F[(Basin #5, UserDemand #6)] = 0
- abs_positive_user_demand[UserDemand #3] : -F[(Basin #2, UserDemand #3)] + F_abs_user_demand[UserDemand #3] ≥ -1.5
+ flow_conservation_basin[Basin #12] : -F[(TabulatedRatingCurve #7, Basin #12)] + F[(Basin #12, UserDemand #13)] + F_basin_in[Basin #12] - F_basin_out[Basin #12] = 0
+ flow_conservation_basin[Basin #2] : F[(Basin #2, UserDemand #3)] - F[(Basin #5, Basin #2)] - F[(FlowBoundary #1, Basin #2)] - F[(UserDemand #3, Basin #2)] + F[(Basin #2, Basin #5)] + F_basin_in[Basin #2] - F_basin_out[Basin #2] = 0
+ flow_conservation_basin[Basin #5] : -F[(UserDemand #6, Basin #5)] + F[(Basin #5, TabulatedRatingCurve #7)] + F[(Basin #5, Basin #2)] + F[(Basin #5, UserDemand #6)] - F[(Basin #2, Basin #5)] + F_basin_in[Basin #5] - F_basin_out[Basin #5] = 0
  abs_positive_user_demand[UserDemand #6] : -F[(Basin #5, UserDemand #6)] + F_abs_user_demand[UserDemand #6] ≥ 0
  abs_positive_user_demand[UserDemand #13] : -F[(Basin #12, UserDemand #13)] + F_abs_user_demand[UserDemand #13] ≥ 0
- abs_negative_user_demand[UserDemand #3] : F[(Basin #2, UserDemand #3)] + F_abs_user_demand[UserDemand #3] ≥ 1.5
+ abs_positive_user_demand[UserDemand #3] : -F[(Basin #2, UserDemand #3)] + F_abs_user_demand[UserDemand #3] ≥ 0
  abs_negative_user_demand[UserDemand #6] : F[(Basin #5, UserDemand #6)] + F_abs_user_demand[UserDemand #6] ≥ 0
  abs_negative_user_demand[UserDemand #13] : F[(Basin #12, UserDemand #13)] + F_abs_user_demand[UserDemand #13] ≥ 0
+ abs_negative_user_demand[UserDemand #3] : F[(Basin #2, UserDemand #3)] + F_abs_user_demand[UserDemand #3] ≥ 0
+ abs_positive_basin[Basin #12] : -F_basin_in[Basin #12] + F_abs_level_demand[Basin #12] ≥ 0
+ abs_positive_basin[Basin #2] : -F_basin_in[Basin #2] + F_abs_level_demand[Basin #2] ≥ 0
+ abs_positive_basin[Basin #5] : -F_basin_in[Basin #5] + F_abs_level_demand[Basin #5] ≥ 0
+ abs_negative_basin[Basin #12] : F_basin_in[Basin #12] + F_abs_level_demand[Basin #12] ≥ 0
+ abs_negative_basin[Basin #2] : F_basin_in[Basin #2] + F_abs_level_demand[Basin #2] ≥ 0
+ abs_negative_basin[Basin #5] : F_basin_in[Basin #5] + F_abs_level_demand[Basin #5] ≥ 0
  source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 1
- F[(UserDemand #3, Basin #2)] ≤ 0
  F[(UserDemand #6, Basin #5)] ≤ 0
  F[(UserDemand #13, Terminal #10)] ≤ 0
- fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : -0.4 F[(Basin #5, TabulatedRatingCurve #7)] + F[(TabulatedRatingCurve #7, Basin #12)] ≤ 0
- F[(UserDemand #13, Terminal #10)] ≥ 0
- F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
- F[(Basin #5, Basin #2)] ≥ 0
- F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
- F[(UserDemand #6, Basin #5)] ≥ 0
- F[(Basin #12, UserDemand #13)] ≥ 0
+ F[(UserDemand #3, Basin #2)] ≤ 0
+ fractional_flow[(TabulatedRatingCurve #7, Basin #12)] : F[(TabulatedRatingCurve #7, Basin #12)] - 0.4 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0
+ basin_outflow[Basin #12] : F_basin_out[Basin #12] ≤ 0
+ basin_outflow[Basin #2] : F_basin_out[Basin #2] ≤ 0
+ basin_outflow[Basin #5] : F_basin_out[Basin #5] ≤ 0
  F[(TabulatedRatingCurve #7, Basin #12)] ≥ 0
- F[(Basin #2, Basin #5)] ≥ 0
  F[(Basin #2, UserDemand #3)] ≥ 0
- F[(Basin #5, UserDemand #6)] ≥ 0
- F[(UserDemand #3, Basin #2)] ≥ 0
+ F[(UserDemand #6, Basin #5)] ≥ 0
+ F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
+ F[(Basin #5, Basin #2)] ≥ 0
+ F[(UserDemand #13, Terminal #10)] ≥ 0
  F[(FlowBoundary #1, Basin #2)] ≥ 0
+ F[(TabulatedRatingCurve #7, Terminal #10)] ≥ 0
+ F[(Basin #12, UserDemand #13)] ≥ 0
+ F[(UserDemand #3, Basin #2)] ≥ 0
+ F[(Basin #5, UserDemand #6)] ≥ 0
+ F[(Basin #2, Basin #5)] ≥ 0
+ F_basin_in[Basin #12] ≥ 0
+ F_basin_in[Basin #2] ≥ 0
+ F_basin_in[Basin #5] ≥ 0
+ F_basin_out[Basin #12] ≥ 0
+ F_basin_out[Basin #2] ≥ 0
+ F_basin_out[Basin #5] ≥ 0
 </code></pre>
 </div>
 </div>
