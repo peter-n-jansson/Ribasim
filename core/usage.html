@@ -2080,10 +2080,11 @@ Note
 <h1 data-number="20"><span class="header-section-number">20</span> Results</h1>
 <section id="basin---basin.arrow" class="level2" data-number="20.1">
 <h2 data-number="20.1" class="anchored" data-anchor-id="basin---basin.arrow"><span class="header-section-number">20.1</span> Basin - <code>basin.arrow</code></h2>
-<p>The basin table contains:</p>
+<p>The Basin table contains:</p>
 <ul>
-<li>results of the storage and level of each basin, which are instantaneous values;</li>
-<li>results of the vertical fluxes on each basin, which are mean values over the <code>saveat</code> intervals. In the time column the start of the period is indicated. This means that for the final time in the table the mean vertical fluxes are not computed, and thus are <code>missing</code>.</li>
+<li>Results of the storage and level of each basin, which are instantaneous values;</li>
+<li>Results of the vertical fluxes on each basin, which are mean values over the <code>saveat</code> intervals. In the time column the start of the period is indicated.</li>
+<li>The final state of the model is not part of this file, and will be placed in a separate output state file in the future.</li>
 </ul>
 <p>The initial condition is also written to the file.</p>
 <table class="table">
@@ -2117,22 +2118,22 @@ Note
 </tr>
 <tr class="odd">
 <td>precipitation</td>
-<td>Union{Float64, Missing}</td>
+<td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 </tr>
 <tr class="even">
 <td>evaporation</td>
-<td>Union{Float64, Missing}</td>
+<td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 </tr>
 <tr class="odd">
 <td>drainage</td>
-<td>Union{Float64, Missing}</td>
+<td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 </tr>
 <tr class="even">
 <td>infiltration</td>
-<td>Union{Float64, Missing}</td>
+<td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 </tr>
 </tbody>
