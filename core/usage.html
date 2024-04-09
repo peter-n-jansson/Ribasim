@@ -2082,11 +2082,14 @@ Note
 <h2 data-number="20.1" class="anchored" data-anchor-id="basin---basin.arrow"><span class="header-section-number">20.1</span> Basin - <code>basin.arrow</code></h2>
 <p>The Basin table contains:</p>
 <ul>
-<li>Results of the storage and level of each basin, which are instantaneous values;</li>
-<li>Results of the vertical fluxes on each basin, which are mean values over the <code>saveat</code> intervals. In the time column the start of the period is indicated.</li>
-<li>The final state of the model is not part of this file, and will be placed in a separate output state file in the future.</li>
+<li>Results of the storage and level of each Basin, which are instantaneous values;</li>
+<li>Results of the fluxes on each Basin, which are mean values over the <code>saveat</code> intervals. In the time column the start of the period is indicated.</li>
+<li>The initial condition is written to the file, but the final state is not. It will be placed in a separate output state file in the future.</li>
+<li>The <code>inflow_rate</code> and <code>outflow_rate</code> are the sum of the flows from other nodes into and out of the Basin respectively. The actual flows determine in which term they are counted, not the edge direction.</li>
+<li>The <code>storage_rate</code> is flow that adds to the storage in the Basin, increasing the water level. In the equations below this number is split out into two non-negative numbers, <code>storage_increase</code> and <code>storage_decrease</code>.</li>
+<li>The <code>balance_error</code> is the difference of all Basin inflows (<code>total_inflow</code>) and outflows (<code>total_outflow</code>), that is (<code>inflow_rate</code> + <code>precipitation</code> + <code>drainage</code> - <code>storage_increase</code>) - (<code>outflow_rate</code> + <code>evaporation</code> + <code>infiltration</code> - <code>storage_decrease</code>). It can be used to check if the numerical error when solving the water balance is sufficiently small.</li>
+<li>The <code>relative_error</code> is the fraction of the <code>balance_error</code> over the mean of the <code>total_inflow</code> and <code>total_outflow</code>.</li>
 </ul>
-<p>The initial condition is also written to the file.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -2117,24 +2120,49 @@ Note
 <td><span class="math inline">\(m\)</span></td>
 </tr>
 <tr class="odd">
-<td>precipitation</td>
+<td>inflow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 </tr>
 <tr class="even">
-<td>evaporation</td>
+<td>outflow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 </tr>
 <tr class="odd">
-<td>drainage</td>
+<td>storage_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 </tr>
 <tr class="even">
+<td>precipitation</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+</tr>
+<tr class="odd">
+<td>evaporation</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+</tr>
+<tr class="even">
+<td>drainage</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+</tr>
+<tr class="odd">
 <td>infiltration</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+</tr>
+<tr class="even">
+<td>balance_error</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+</tr>
+<tr class="odd">
+<td>relative_error</td>
+<td>Float64</td>
+<td>-</td>
 </tr>
 </tbody>
 </table>
