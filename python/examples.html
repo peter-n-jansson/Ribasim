@@ -690,33 +690,36 @@ window.Quarto = {
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    [flow_boundary.Static(flow_rate<span class="op">=</span>[<span class="fl">1e-3</span>])],</span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Setup flow boundary:</p>
+<p>Setup level boundary:</p>
 <div id="cell-72" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>model.level_boundary.add(</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">4</span>, Point(<span class="fl">3.0</span>, <span class="fl">0.0</span>)),</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    [level_boundary.Static(level<span class="op">=</span>[<span class="dv">1</span>])],</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    [level_boundary.Static(level<span class="op">=</span>[<span class="fl">5.0</span>])],</span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Setup PID control:</p>
 <div id="cell-74" class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>pid_control_data <span class="op">=</span> [</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    pid_control.Time(</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>        time<span class="op">=</span>[</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"2020-01-01"</span>,</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"2020-05-01"</span>,</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"2020-07-01"</span>,</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"2020-12-01"</span>,</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>        ],</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>        listen_node_id<span class="op">=</span>[<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>],</span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>        listen_node_type<span class="op">=</span>[<span class="st">"Basin"</span>, <span class="st">"Basin"</span>, <span class="st">"Basin"</span>, <span class="st">"Basin"</span>],</span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>        target<span class="op">=</span>[<span class="fl">5.0</span>, <span class="fl">5.0</span>, <span class="fl">7.5</span>, <span class="fl">7.5</span>],</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>        proportional<span class="op">=</span>[<span class="op">-</span><span class="fl">1e-3</span>, <span class="fl">1e-3</span>, <span class="fl">1e-3</span>, <span class="fl">1e-3</span>],</span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>        integral<span class="op">=</span>[<span class="op">-</span><span class="fl">1e-7</span>, <span class="fl">1e-7</span>, <span class="op">-</span><span class="fl">1e-7</span>, <span class="fl">1e-7</span>],</span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>        derivative<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>],</span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>model.pid_control.add(Node(<span class="dv">5</span>, Point(<span class="fl">1.5</span>, <span class="fl">1.0</span>)), pid_control_data)</span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>model.pid_control.add(Node(<span class="dv">7</span>, Point(<span class="fl">1.5</span>, <span class="op">-</span><span class="fl">1.0</span>)), pid_control_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> node, proportional, integral <span class="kw">in</span> [</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    (Node(<span class="dv">5</span>, Point(<span class="fl">1.5</span>, <span class="fl">1.0</span>)), <span class="op">-</span><span class="fl">1e-3</span>, <span class="op">-</span><span class="fl">1e-7</span>),</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    (Node(<span class="dv">7</span>, Point(<span class="fl">1.5</span>, <span class="op">-</span><span class="fl">1.0</span>)), <span class="fl">1e-3</span>, <span class="fl">1e-7</span>),</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>]:</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    pid_control_data <span class="op">=</span> [</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>        pid_control.Time(</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>            time<span class="op">=</span>[</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>                <span class="st">"2020-01-01"</span>,</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>                <span class="st">"2020-05-01"</span>,</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">"2020-07-01"</span>,</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">"2020-12-01"</span>,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>            ],</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>            listen_node_id<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>            listen_node_type<span class="op">=</span><span class="st">"Basin"</span>,</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>            target<span class="op">=</span>[<span class="fl">5.0</span>, <span class="fl">5.0</span>, <span class="fl">7.5</span>, <span class="fl">7.5</span>],</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>            proportional<span class="op">=</span>proportional,</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>            integral<span class="op">=</span>integral,</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>            derivative<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>    model.pid_control.add(node, pid_control_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that the coefficients for the pump and the outlet are equal in magnitude but opposite in sign. This way the pump and the outlet equally work towards the same goal, while having opposite effects on the controlled basin due to their connectivity to this basin.</p>
 <p>Setup the edges:</p>
@@ -767,7 +770,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="examples_files/figure-html/cell-44-output-1.png" width="585" height="444" class="figure-img"></p>
+<p><img src="examples_files/figure-html/cell-44-output-1.png" width="589" height="444" class="figure-img"></p>
 </figure>
 </div>
 </div>
