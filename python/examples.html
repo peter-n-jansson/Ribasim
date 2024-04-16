@@ -499,18 +499,21 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>model.discrete_control.add(</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">7</span>, Point(<span class="fl">1.0</span>, <span class="fl">0.0</span>)),</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    [</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        discrete_control.Condition(</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>            listen_node_id<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>],</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>            listen_node_type<span class="op">=</span>[<span class="st">"Basin"</span>, <span class="st">"Basin"</span>, <span class="st">"Basin"</span>],</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>            variable<span class="op">=</span>[<span class="st">"level"</span>, <span class="st">"level"</span>, <span class="st">"level"</span>],</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>            greater_than<span class="op">=</span>[<span class="fl">5.0</span>, <span class="fl">10.0</span>, <span class="fl">15.0</span>],</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        discrete_control.Variable(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>            listen_node_id<span class="op">=</span>[<span class="dv">1</span>],</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>            listen_node_type<span class="op">=</span><span class="st">"Basin"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>            variable<span class="op">=</span><span class="st">"level"</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>            compound_variable_id<span class="op">=</span><span class="dv">1</span>,</span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        discrete_control.Logic(</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>            truth_state<span class="op">=</span>[<span class="st">"FFF"</span>, <span class="st">"U**"</span>, <span class="st">"T*F"</span>, <span class="st">"**D"</span>, <span class="st">"TTT"</span>],</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>            control_state<span class="op">=</span>[<span class="st">"in"</span>, <span class="st">"in"</span>, <span class="st">"none"</span>, <span class="st">"out"</span>, <span class="st">"out"</span>],</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        discrete_control.Condition(</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>            greater_than<span class="op">=</span>[<span class="fl">5.0</span>, <span class="fl">10.0</span>, <span class="fl">15.0</span>], compound_variable_id<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>        discrete_control.Logic(</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>            truth_state<span class="op">=</span>[<span class="st">"FFF"</span>, <span class="st">"U**"</span>, <span class="st">"T*F"</span>, <span class="st">"**D"</span>, <span class="st">"TTT"</span>],</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>            control_state<span class="op">=</span>[<span class="st">"in"</span>, <span class="st">"in"</span>, <span class="st">"none"</span>, <span class="st">"out"</span>, <span class="st">"out"</span>],</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The above control logic can be summarized as follows:</p>
 <ul>
@@ -603,7 +606,7 @@ window.Quarto = {
 <pre><code>PosixPath('data/level_setpoint_with_minmax/ribasim.toml')</code></pre>
 </div>
 </div>
-<p>Now run the model with <code>level_setpoint_with_minmax/ribasim.toml</code>. After running the model, read back the results:</p>
+<p>Now run the model with <code>ribasim level_setpoint_with_minmax/ribasim.toml</code>. After running the model, read back the results:</p>
 <div id="cell-58" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.dates <span class="im">import</span> date2num</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -842,17 +845,21 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>model.discrete_control.add(</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">11</span>, Point(<span class="fl">4.5</span>, <span class="fl">0.25</span>), subnetwork_id<span class="op">=</span><span class="dv">1</span>),</span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    [</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>        discrete_control.Condition(</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>            listen_node_id<span class="op">=</span>[<span class="dv">5</span>],</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>            listen_node_type<span class="op">=</span>[<span class="st">"Basin"</span>],</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>            variable<span class="op">=</span>[<span class="st">"level"</span>],</span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>            greater_than<span class="op">=</span>[<span class="fl">0.52</span>],</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>        discrete_control.Variable(</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>            compound_variable_id<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>            listen_node_id<span class="op">=</span>[<span class="dv">5</span>],</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>            listen_node_type<span class="op">=</span>[<span class="st">"Basin"</span>],</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>            variable<span class="op">=</span>[<span class="st">"level"</span>],</span>
 <span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>        discrete_control.Logic(</span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>            truth_state<span class="op">=</span>[<span class="st">"T"</span>, <span class="st">"F"</span>], control_state<span class="op">=</span>[<span class="st">"divert"</span>, <span class="st">"close"</span>]</span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>        discrete_control.Condition(</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>            compound_variable_id<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>            greater_than<span class="op">=</span>[<span class="fl">0.52</span>],</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>        discrete_control.Logic(</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>            truth_state<span class="op">=</span>[<span class="st">"T"</span>, <span class="st">"F"</span>], control_state<span class="op">=</span>[<span class="st">"divert"</span>, <span class="st">"close"</span>]</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Setup the users:</p>
 <div id="cell-103" class="cell" data-execution_count="52">

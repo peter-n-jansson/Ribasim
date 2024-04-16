@@ -334,8 +334,9 @@ window.Quarto = {
   <li><a href="#sec-terminal" id="toc-sec-terminal" class="nav-link" data-scroll-target="#sec-terminal"><span class="header-section-number">17</span> Terminal</a></li>
   <li><a href="#sec-discrete-control" id="toc-sec-discrete-control" class="nav-link" data-scroll-target="#sec-discrete-control"><span class="header-section-number">18</span> DisceteControl</a>
   <ul class="collapse">
-  <li><a href="#discretecontrol-condition" id="toc-discretecontrol-condition" class="nav-link" data-scroll-target="#discretecontrol-condition"><span class="header-section-number">18.1</span> DiscreteControl / condition</a></li>
-  <li><a href="#discretecontrol-logic" id="toc-discretecontrol-logic" class="nav-link" data-scroll-target="#discretecontrol-logic"><span class="header-section-number">18.2</span> DiscreteControl / logic</a></li>
+  <li><a href="#discretecontrol-variable" id="toc-discretecontrol-variable" class="nav-link" data-scroll-target="#discretecontrol-variable"><span class="header-section-number">18.1</span> DiscreteControl / variable</a></li>
+  <li><a href="#discretecontrol-condition" id="toc-discretecontrol-condition" class="nav-link" data-scroll-target="#discretecontrol-condition"><span class="header-section-number">18.2</span> DiscreteControl / condition</a></li>
+  <li><a href="#discretecontrol-logic" id="toc-discretecontrol-logic" class="nav-link" data-scroll-target="#discretecontrol-logic"><span class="header-section-number">18.3</span> DiscreteControl / logic</a></li>
   </ul></li>
   <li><a href="#sec-pid-control" id="toc-sec-pid-control" class="nav-link" data-scroll-target="#sec-pid-control"><span class="header-section-number">19</span> PidControl</a>
   <ul class="collapse">
@@ -657,7 +658,8 @@ window.Quarto = {
 </ul></li>
 <li>DiscreteControl: Set parameters of other nodes based on model state conditions (e.g.&nbsp;basin level)
 <ul>
-<li><code>DisceteControl / condition</code>: Conditions of the form ‘the level in the basin with node id <code>n</code> is bigger than 2.0 m’</li>
+<li><code>DiscreteControl / variable</code> : Linear combinations of variables, e.g.&nbsp;averages or differences of levels</li>
+<li><code>DisceteControl / condition</code>: Conditions of the form ‘the compound variable with ID <code>n</code> is bigger than 2.0’</li>
 <li><code>DisceteControl / logic</code>: Translates the truth value of a set of conditions to parameter values for a controlled node</li>
 </ul></li>
 <li>PidControl: Controls the level in a basin by continuously controlling the flow rate of a connected pump or outlet. See also <a href="https://en.wikipedia.org/wiki/PID_controller">Wikipedia</a> and <a href="../core/equations.html#sec-PID">PID controller in equations</a>.
@@ -1821,15 +1823,18 @@ window.Quarto = {
 <section id="sec-discrete-control" class="level1" data-number="18">
 <h1 data-number="18"><span class="header-section-number">18</span> DisceteControl</h1>
 <p>DiscreteControl is implemented based on <a href="https://docs.sciml.ai/DiffEqDocs/stable/features/callback_functions/#VectorContinuousCallback">VectorContinuousCallback</a>.</p>
-<section id="discretecontrol-condition" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="discretecontrol-condition"><span class="header-section-number">18.1</span> DiscreteControl / condition</h2>
-<p>The condition schema defines conditions of the form ‘the discrete_control node with this node id listens to whether the given variable of the node with the given listen feature id is grater than the given value’. If the condition variable comes from a time-series, a look ahead <span class="math inline">\(\Delta t\)</span> can be supplied.</p>
+<section id="discretecontrol-variable" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="discretecontrol-variable"><span class="header-section-number">18.1</span> DiscreteControl / variable</h2>
+<p>The compound variable schema defines linear combinations of variables which can be used in conditions. This means that this schema defines new variables with the given <code>compound_variable_id</code> that look like <span class="math display">\[
+\text{weight}_1 * \text{variable}_1 + \text{weight}_2 * \text{variable}_2 + \ldots,
+\]</span></p>
+<p>which can be for instance an average or a difference of variables. If a variable comes from a time-series, a look ahead <span class="math inline">\(\Delta t\)</span> can be supplied.</p>
 <table class="table">
 <colgroup>
-<col style="width: 39%">
-<col style="width: 18%">
-<col style="width: 16%">
-<col style="width: 25%">
+<col style="width: 43%">
+<col style="width: 17%">
+<col style="width: 15%">
+<col style="width: 23%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1847,22 +1852,68 @@ window.Quarto = {
 <td>sorted</td>
 </tr>
 <tr class="even">
+<td>compound_variable_id</td>
+<td>Int32</td>
+<td>-</td>
+<td>sorted per node_id</td>
+</tr>
+<tr class="odd">
 <td>listen_node_type</td>
 <td>String</td>
 <td>-</td>
 <td>known node type</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>listen_node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>sorted per node_id</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>variable</td>
 <td>String</td>
 <td>-</td>
 <td>must be “level” or “flow_rate”, sorted per listen_node_id</td>
+</tr>
+<tr class="even">
+<td>weight</td>
+<td>Float64</td>
+<td>-</td>
+<td>(optional, default 1.0)</td>
+</tr>
+<tr class="odd">
+<td>look_ahead</td>
+<td>Float64</td>
+<td><span class="math inline">\(s\)</span></td>
+<td>Only on transient boundary conditions, non-negative (optional, default 0.0).</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="discretecontrol-condition" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="discretecontrol-condition"><span class="header-section-number">18.2</span> DiscreteControl / condition</h2>
+<p>The condition schema defines conditions of the form ‘the <code>discrete_control</code> node with this <code>node_id</code>listens to whether the variable given by the <code>node_id</code> and <code>compound_variable_id</code> is greater than <code>greater_than</code>’. Multiple conditions with different <code>greater_than</code> values can be defined on the same compound_variable.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int32</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>compound_variable_id</td>
+<td>Int32</td>
+<td>-</td>
+<td>-</td>
 </tr>
 <tr class="odd">
 <td>greater_than</td>
@@ -1870,17 +1921,11 @@ window.Quarto = {
 <td>various</td>
 <td>sorted per variable</td>
 </tr>
-<tr class="even">
-<td>look_ahead</td>
-<td>Float64</td>
-<td><span class="math inline">\(s\)</span></td>
-<td>Only on transient boundary conditions, non-negative (optional, default 0)</td>
-</tr>
 </tbody>
 </table>
 </section>
-<section id="discretecontrol-logic" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="discretecontrol-logic"><span class="header-section-number">18.2</span> DiscreteControl / logic</h2>
+<section id="discretecontrol-logic" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="discretecontrol-logic"><span class="header-section-number">18.3</span> DiscreteControl / logic</h2>
 <p>The logic schema defines which control states are triggered based on the truth of the conditions a DiscreteControl node listens to. DiscreteControl is applied in the Julia core as follows:</p>
 <ul>
 <li>During the simulation it is checked whether the truth of any of the conditions changes.</li>
