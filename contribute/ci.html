@@ -225,7 +225,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Continuous integration (CI) is about commits being merged frequently. When proposing new changes to the code base a <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests">pull request</a> is opened. When a new commit in that pull request, a series of tests will be done to make sure that this commit is error-free and robust in different environments. This process drive each new development through building, testing, quality checking.</p>
+<p>Continuous integration (CI) is about commits being merged frequently, resulting in new features being released frequently. When proposing new changes to the code base a <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests">pull request</a> is opened. When a new commit in that pull request, a series of tests will be done to make sure that this commit is error-free and robust in different environments. This process drive each new development through building, testing, quality checking.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -274,9 +274,9 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="conditions-of-using-teamcity" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="conditions-of-using-teamcity"><span class="header-section-number">2.1</span> Conditions of using TeamCity</h2>
-<p>TeamCity is not always triggered by every new development. For a certain workflow, TeamCity is only used under the following conditions:</p>
+<p>TeamCity only runs workflows with the following conditions:</p>
 <ul>
-<li>When the workflow takes too long to run on Github Action</li>
+<li>When the workflow would take too long to run on Github Action</li>
 <li>When the release depends on the artifacts of the workflow.</li>
 <li>When other TeamCity projects depend on artifacts of Ribasim (e.g.&nbsp;iMOD coupler)</li>
 </ul>

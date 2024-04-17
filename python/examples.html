@@ -1008,7 +1008,7 @@ window.Quarto = {
 <span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>    basin.State(level<span class="op">=</span>[<span class="fl">0.5</span>]),</span>
 <span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>model.basin.add(</span>
-<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">2</span>, Point(<span class="fl">1.0</span>, <span class="fl">0.0</span>)),</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">2</span>, Point(<span class="fl">1.0</span>, <span class="fl">0.0</span>), subnetwork_id<span class="op">=</span><span class="dv">2</span>),</span>
 <span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>    [</span>
 <span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span>basin_data,</span>
 <span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>        basin.Time(</span>
@@ -1022,7 +1022,7 @@ window.Quarto = {
 <span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb63-19"><a href="#cb63-19" aria-hidden="true" tabindex="-1"></a>model.basin.add(</span>
-<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">5</span>, Point(<span class="fl">2.0</span>, <span class="op">-</span><span class="fl">1.0</span>)),</span>
+<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">5</span>, Point(<span class="fl">2.0</span>, <span class="op">-</span><span class="fl">1.0</span>), subnetwork_id<span class="op">=</span><span class="dv">2</span>),</span>
 <span id="cb63-21"><a href="#cb63-21" aria-hidden="true" tabindex="-1"></a>    [</span>
 <span id="cb63-22"><a href="#cb63-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span>basin_data,</span>
 <span id="cb63-23"><a href="#cb63-23" aria-hidden="true" tabindex="-1"></a>        basin.Static(</span>
@@ -1033,28 +1033,25 @@ window.Quarto = {
 <span id="cb63-28"><a href="#cb63-28" aria-hidden="true" tabindex="-1"></a>            urban_runoff<span class="op">=</span>[<span class="fl">0.0</span>],</span>
 <span id="cb63-29"><a href="#cb63-29" aria-hidden="true" tabindex="-1"></a>        ),</span>
 <span id="cb63-30"><a href="#cb63-30" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb63-31"><a href="#cb63-31" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb63-32"><a href="#cb63-32" aria-hidden="true" tabindex="-1"></a>profile <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb63-33"><a href="#cb63-33" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>{<span class="st">"node_id"</span>: [<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">5</span>], <span class="st">"area"</span>: <span class="fl">1e3</span>, <span class="st">"level"</span>: [<span class="fl">0.0</span>, <span class="fl">1.0</span>, <span class="fl">0.0</span>, <span class="fl">1.0</span>]}</span>
-<span id="cb63-34"><a href="#cb63-34" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb63-31"><a href="#cb63-31" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Setup the flow boundary:</p>
 <div id="cell-123" class="cell" data-execution_count="62">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>model.flow_boundary.add(</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">1</span>, Point(<span class="fl">0.0</span>, <span class="fl">0.0</span>)), [flow_boundary.Static(flow_rate<span class="op">=</span>[<span class="fl">1e-3</span>])]</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">1</span>, Point(<span class="fl">0.0</span>, <span class="fl">0.0</span>), subnetwork_id<span class="op">=</span><span class="dv">2</span>), [flow_boundary.Static(flow_rate<span class="op">=</span>[<span class="fl">1e-3</span>])]</span>
 <span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Setup allocation level control:</p>
+<p>Setup level demand:</p>
 <div id="cell-125" class="cell" data-execution_count="63">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>model.level_demand.add(</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">4</span>, Point(<span class="fl">1.0</span>, <span class="op">-</span><span class="fl">1.0</span>)),</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">4</span>, Point(<span class="fl">1.0</span>, <span class="op">-</span><span class="fl">1.0</span>), subnetwork_id<span class="op">=</span><span class="dv">2</span>),</span>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>    [level_demand.Static(priority<span class="op">=</span>[<span class="dv">1</span>], min_level<span class="op">=</span>[<span class="fl">1.0</span>], max_level<span class="op">=</span>[<span class="fl">1.5</span>])],</span>
 <span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Setup the users:</p>
 <div id="cell-127" class="cell" data-execution_count="64">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>model.user_demand.add(</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">3</span>, Point(<span class="fl">2.0</span>, <span class="fl">0.0</span>)),</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">3</span>, Point(<span class="fl">2.0</span>, <span class="fl">0.0</span>), subnetwork_id<span class="op">=</span><span class="dv">2</span>),</span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    [</span>
 <span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>        user_demand.Static(</span>
 <span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>            priority<span class="op">=</span>[<span class="dv">2</span>], demand<span class="op">=</span>[<span class="fl">1.5e-3</span>], return_factor<span class="op">=</span>[<span class="fl">0.2</span>], min_level<span class="op">=</span>[<span class="fl">0.2</span>]</span>
@@ -1080,7 +1077,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="examples_files/figure-html/cell-68-output-1.png" width="689" height="280" class="figure-img"></p>
+<p><img src="examples_files/figure-html/cell-68-output-1.png" width="689" height="298" class="figure-img"></p>
 </figure>
 </div>
 </div>
