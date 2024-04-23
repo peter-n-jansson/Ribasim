@@ -288,10 +288,8 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Generate Testmodels: produces generated_testmodels artifact which is part of the release.</li>
 <li>Make GitHub Release: uses artifacts and makes the release. TeamCity constantly monitors the Github repository. When a tag starts with <code>v20</code> is added, it triggers the release process.</li>
-<li>Build libribasim: builds library of Ribasim on Linux and Windows. The artifact is tested in <code>Test ribasim_api</code> and used by iMOD Coupler</li>
-<li>Build ribasim_cli: builds CLI application on Linux and Windows, its artifact is tested in <code>Test ribasim_cli</code> and used by release</li>
-<li>Test ribasim_api: tests libribasim artifact on Linux and Windows</li>
-<li>Test ribasim_cli: tests ribasim_cli artifact on Linux and Windows</li>
+<li>Build Ribasim: builds library and executable of Ribasim on Linux and Windows. The artifacts are tested in <code>Test Ribasim Binaries</code> and used by iMOD Coupler.</li>
+<li>Test Ribasim Binaries: tests libribasim artifact and ribasim_cli artifact on Linux and Windows</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -303,7 +301,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Make Github Release does not publish artifacts of “Test libribasim” and “Test ribasim_cli”. It only publishes artifacts of “Build libribasim” and “Build ribasim_cli” if the beforementioned tests pass.</p>
+<p>Make Github Release does not publish artifacts of “Test Ribasim Binaries”. It only publishes artifacts of “Build Ribasim” if the beforementioned tests pass.</p>
 </div>
 </div>
 <div class="cell" data-layout-align="default">
@@ -315,10 +313,8 @@ Note
     A[Make Github Release]--&gt;B(Release)
     F[Generate Testmodels]--&gt;A
     G[Make QGIS plugin]--&gt;A
-    H[Build libribasim]---D[Test libribasim]
+    H[Build Ribasim]---D[Test Ribasim Binaries]
     D--&gt;A
-    C[Build ribasim_cli] --- E[Test ribasim_cli]
-    E--&gt;A
 </pre>
 </div>
 <p></p></figure><p></p>
