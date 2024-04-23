@@ -194,7 +194,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#github-actions" id="toc-github-actions" class="nav-link active" data-scroll-target="#github-actions"><span class="header-section-number">1</span> Github actions</a></li>
+  <li><a href="#github-actions" id="toc-github-actions" class="nav-link active" data-scroll-target="#github-actions"><span class="header-section-number">1</span> GitHub Actions</a></li>
   <li><a href="#teamcity" id="toc-teamcity" class="nav-link" data-scroll-target="#teamcity"><span class="header-section-number">2</span> TeamCity</a>
   <ul class="collapse">
   <li><a href="#conditions-of-using-teamcity" id="toc-conditions-of-using-teamcity" class="nav-link" data-scroll-target="#conditions-of-using-teamcity"><span class="header-section-number">2.1</span> Conditions of using TeamCity</a></li>
@@ -242,8 +242,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>This page contains an extensive explanation on how the Ribasim continuous integration works.</p>
 <section id="github-actions" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Github actions</h1>
-<p>With <a href="https://docs.github.com/en/actions">GitHub Actions</a>, Github provides their own continuous integration service. They include the following checks:</p>
+<h1 data-number="1"><span class="header-section-number">1</span> GitHub Actions</h1>
+<p>With <a href="https://docs.github.com/en/actions">GitHub Actions</a>, GitHub provides their own continuous integration service. They include the following checks:</p>
 <ul>
 <li>Julia Run Testmodels: This is to make sure all the test models can be run successfully</li>
 <li>Julia Tests: Runs Julia unit tests on multiple platforms</li>
@@ -257,14 +257,14 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="teamcity" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> TeamCity</h1>
-<p>Ribasim has another cloud-based CI service based on <a href="https://www.jetbrains.com/teamcity/">TeamCity</a>. TeamCity interacts with Github and manages the release process.</p>
+<p>Ribasim has another cloud-based CI service based on <a href="https://www.jetbrains.com/teamcity/">TeamCity</a>. TeamCity interacts with GitHub and manages the release process.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">graph LR
-    A[TeamCity]--&gt;|Monitoring|B[Github]
+    A[TeamCity]--&gt;|Monitoring|B[GitHub]
     A--&gt;C(Release)
 </pre>
 </div>
@@ -276,7 +276,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="2.1" class="anchored" data-anchor-id="conditions-of-using-teamcity"><span class="header-section-number">2.1</span> Conditions of using TeamCity</h2>
 <p>TeamCity only runs workflows with the following conditions:</p>
 <ul>
-<li>When the workflow would take too long to run on Github Action</li>
+<li>When the workflow would take too long to run on GitHub Action</li>
 <li>When the release depends on the artifacts of the workflow.</li>
 <li>When other TeamCity projects depend on artifacts of Ribasim (e.g.&nbsp;iMOD coupler)</li>
 </ul>
@@ -287,7 +287,7 @@ ul.task-list li input[type="checkbox"] {
 <p>We have the following pipeline to generate artifects for releasing:</p>
 <ul>
 <li>Generate Testmodels: produces generated_testmodels artifact which is part of the release.</li>
-<li>Make GitHub Release: uses artifacts and makes the release. TeamCity constantly monitors the Github repository. When a tag starts with <code>v20</code> is added, it triggers the release process.</li>
+<li>Make GitHub Release: uses artifacts and makes the release. TeamCity constantly monitors the GitHub repository. When a tag starts with <code>v20</code> is added, it triggers the release process.</li>
 <li>Build Ribasim: builds library and executable of Ribasim on Linux and Windows. The artifacts are tested in <code>Test Ribasim Binaries</code> and used by iMOD Coupler.</li>
 <li>Test Ribasim Binaries: tests libribasim artifact and ribasim_cli artifact on Linux and Windows</li>
 </ul>
@@ -301,7 +301,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Make Github Release does not publish artifacts of “Test Ribasim Binaries”. It only publishes artifacts of “Build Ribasim” if the beforementioned tests pass.</p>
+<p>Make GitHub Release does not publish artifacts of “Test Ribasim Binaries”. It only publishes artifacts of “Build Ribasim” if the beforementioned tests pass.</p>
 </div>
 </div>
 <div class="cell" data-layout-align="default">
@@ -310,7 +310,7 @@ Note
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">graph LR
-    A[Make Github Release]--&gt;B(Release)
+    A[Make GitHub Release]--&gt;B(Release)
     F[Generate Testmodels]--&gt;A
     G[Make QGIS plugin]--&gt;A
     H[Build Ribasim]---D[Test Ribasim Binaries]
