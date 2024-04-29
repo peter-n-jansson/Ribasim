@@ -1400,7 +1400,8 @@ window.Quarto = {
 </section>
 <section id="sec-level_demand" class="level1" data-number="11">
 <h1 data-number="11"><span class="header-section-number">11</span> LevelDemand</h1>
-<p>A <code>LevelDemand</code> node associates a minimum and a maximum level with connected basins to be used by the allocation algorithm. Below the minimum level the basin has a demand of the supplied priority, above the maximum level the basin acts as a source, used by all nodes with demands in order of priority. The same <code>LevelDemand</code> node can be used for basins in different subnetworks.</p>
+<p>A <code>LevelDemand</code> node associates a minimum and a maximum level with connected basins to be used by the allocation algorithm. Below the minimum level the basin has a demand of the supplied priority, above the maximum level the basin has a surplus and acts as a source, used by all nodes with demands in order of priority. The same <code>LevelDemand</code> node can be used for Basins in different subnetworks.</p>
+<p>Both <code>min_level</code> and <code>max_level</code> are optional, to be able to handle only the demand or surplus side. If both are missing, <code>LevelDemand</code> won’t have any effects on allocation.</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -1421,13 +1422,13 @@ window.Quarto = {
 <td>min_level</td>
 <td>Float64</td>
 <td><span class="math inline">\(m\)</span></td>
-<td>-</td>
+<td>(optional, default -Inf)</td>
 </tr>
 <tr class="odd">
 <td>max_level</td>
 <td>Float64</td>
 <td><span class="math inline">\(m\)</span></td>
-<td>-</td>
+<td>(optional, default Inf)</td>
 </tr>
 <tr class="even">
 <td>priority</td>
