@@ -301,7 +301,7 @@ window.Quarto = {
 <section id="parameters" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.1</span> Parameters</h2>
 <p>The parameters object (defined in <code>parameter.jl</code>) passed to the ODE solver must be made aware of the new node type. Therefore define a struct in <code>parameter.jl</code> which holds the data for each node of the new node type:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> NewNodeType</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> NewNodeType <span class="op">&lt;:</span><span class="dt"> AbstractParameterNode</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    node_id<span class="op">::</span><span class="dt">Vector{NodeID}</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Other fields</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

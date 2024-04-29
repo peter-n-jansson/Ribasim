@@ -262,7 +262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="connectivity" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Connectivity</h1>
 <p>In the table below, each column shows which node types are allowed to be downstream (or ‘down-control’) of the node type at the top of the column.</p>
-<div id="b9a8acce" class="cell" data-execution_count="1">
+<div id="1e75a41b" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -296,20 +296,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 12%">
-<col style="width: 3%">
-<col style="width: 8%">
-<col style="width: 9%">
-<col style="width: 11%">
-<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 2%">
 <col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 10%">
 <col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 6%">
 <col style="width: 2%">
 <col style="width: 3%">
 <col style="width: 4%">
-<col style="width: 8%">
-<col style="width: 6%">
-<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -327,6 +329,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th>discrete_control</th>
 <th>pid_control</th>
 <th>user_demand</th>
+<th>level_demand</th>
+<th>flow_demand</th>
 </tr>
 </thead>
 <tbody>
@@ -345,6 +349,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>x</td>
 <td>x</td>
 <td>✓</td>
+<td>✓</td>
+<td>x</td>
 </tr>
 <tr class="even">
 <td><code>linear_resistance</code></td>
@@ -361,6 +367,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>✓</td>
 <td>x</td>
 <td>x</td>
+<td>x</td>
+<td>✓</td>
 </tr>
 <tr class="odd">
 <td><code>manning_resistance</code></td>
@@ -377,6 +385,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>✓</td>
 <td>x</td>
 <td>x</td>
+<td>x</td>
+<td>✓</td>
 </tr>
 <tr class="even">
 <td><code>tabulated_rating_curve</code></td>
@@ -393,6 +403,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>✓</td>
 <td>x</td>
 <td>x</td>
+<td>x</td>
+<td>✓</td>
 </tr>
 <tr class="odd">
 <td><code>fractional_flow</code></td>
@@ -409,6 +421,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>✓</td>
 <td>x</td>
 <td>✓</td>
+<td>x</td>
+<td>x</td>
 </tr>
 <tr class="even">
 <td><code>level_boundary</code></td>
@@ -425,9 +439,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>x</td>
 <td>x</td>
 <td>✓</td>
+<td>x</td>
+<td>x</td>
 </tr>
 <tr class="odd">
 <td><code>flow_boundary</code></td>
+<td>x</td>
+<td>x</td>
 <td>x</td>
 <td>x</td>
 <td>x</td>
@@ -457,6 +475,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>✓</td>
 <td>✓</td>
 <td>x</td>
+<td>x</td>
+<td>✓</td>
 </tr>
 <tr class="odd">
 <td><code>outlet</code></td>
@@ -473,6 +493,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>✓</td>
 <td>✓</td>
 <td>x</td>
+<td>x</td>
+<td>✓</td>
 </tr>
 <tr class="even">
 <td><code>terminal</code></td>
@@ -489,9 +511,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>x</td>
 <td>x</td>
 <td>✓</td>
+<td>x</td>
+<td>x</td>
 </tr>
 <tr class="odd">
 <td><code>discrete_control</code></td>
+<td>x</td>
+<td>x</td>
 <td>x</td>
 <td>x</td>
 <td>x</td>
@@ -521,10 +547,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>✓</td>
 <td>x</td>
 <td>x</td>
+<td>x</td>
+<td>x</td>
 </tr>
 <tr class="odd">
 <td><code>user_demand</code></td>
 <td>✓</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr class="even">
+<td><code>level_demand</code></td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr class="odd">
+<td><code>flow_demand</code></td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
 <td>x</td>
 <td>x</td>
 <td>x</td>
@@ -546,7 +612,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="neighbor-amounts" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Neighbor amounts</h1>
 <p>The table below shows for each node type between which bounds the amount of in- and outneighbors must be, for both flow and control edges.</p>
-<div id="a2de2ba7" class="cell" data-execution_count="2">
+<div id="5d6faf6e" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>flow_in_min <span class="op">=</span> <span class="fu">Vector</span><span class="dt">{String}</span>()</span>
@@ -628,14 +694,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 <td>1</td>
 <td>0</td>
-<td>∞</td>
+<td>0</td>
 </tr>
 <tr class="even">
 <td><code>linear_resistance</code></td>
 <td>1</td>
 <td>1</td>
 <td>1</td>
-<td>∞</td>
+<td>1</td>
 <td>0</td>
 <td>1</td>
 <td>0</td>
@@ -646,7 +712,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1</td>
 <td>1</td>
 <td>1</td>
-<td>∞</td>
+<td>1</td>
 <td>0</td>
 <td>1</td>
 <td>0</td>
@@ -761,6 +827,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>0</td>
 <td>0</td>
 <td>0</td>
+</tr>
+<tr class="even">
+<td><code>level_demand</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>∞</td>
+</tr>
+<tr class="odd">
+<td><code>flow_demand</code></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
 </tr>
 </tbody>
 </table>
