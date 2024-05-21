@@ -1192,8 +1192,14 @@ window.Quarto = {
 </section>
 <section id="sec-tabulated-rating-curve" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> TabulatedRatingCurve</h1>
-<p>This table is similar in structure to the Basin profile. The TabulatedRatingCurve gives a relation between the storage of a connected Basin (via the outlet level) and its outflow.</p>
+<p>This table is similar in structure to the Basin profile. The TabulatedRatingCurve gives a relation between the level of a directly upstream Basin or LevelBoundary and its outflow.</p>
 <table class="table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 16%">
+<col style="width: 27%">
+<col style="width: 25%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>column</th>
@@ -1225,16 +1231,17 @@ window.Quarto = {
 <td>level</td>
 <td>Float64</td>
 <td><span class="math inline">\(m\)</span></td>
-<td>sorted per control_state</td>
+<td>sorted per control_state, unique</td>
 </tr>
 <tr class="odd">
 <td>flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
+<td>start at 0, increasing</td>
 </tr>
 </tbody>
 </table>
+<p>Thus a single rating curve can be given by the following table:</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -1247,30 +1254,26 @@ window.Quarto = {
 <tr class="odd">
 <td>2</td>
 <td>0.0</td>
-<td>-0.105</td>
+<td>-0.10</td>
 </tr>
 <tr class="even">
 <td>2</td>
-<td>0.0</td>
-<td>0.095</td>
+<td>0.0001</td>
+<td>0.09</td>
 </tr>
 <tr class="odd">
 <td>2</td>
-<td>0.00942702</td>
-<td>0.295</td>
+<td>0.01</td>
+<td>0.29</td>
 </tr>
 <tr class="even">
 <td>2</td>
-<td>0.942702</td>
-<td>20.095</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>0.0</td>
-<td>2.129</td>
+<td>0.9</td>
+<td>20.09</td>
 </tr>
 </tbody>
 </table>
+<p>Below the lowest given level of -0.10, the flow rate is kept at 0. Between given levels the flow rate is interpolated linearly. Above the maximum given level of 20.09, the flow rate keeps increases linearly according to the slope of the last segment.</p>
 <section id="tabulatedratingcurve-time" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="tabulatedratingcurve-time"><span class="header-section-number">7.1</span> TabulatedRatingCurve / time</h2>
 <p>This table is the transient form of the <code>TabulatedRatingCurve</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the rating curves can be updated over time. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
