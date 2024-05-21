@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim - Test models</title>
+<title>Ribasim - Coupling</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,7 +30,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../python/reference/index.html" rel="prev">
+<link href="../core/numerics.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -101,6 +67,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../assets/styles.css">
@@ -127,11 +96,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../core/index.html"> 
+    <a class="nav-link active" href="../core/index.html" aria-current="page"> 
 <span class="menu-text">Julia core</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../python/index.html" aria-current="page"> 
+    <a class="nav-link" href="../python/index.html"> 
 <span class="menu-text">Python tooling</span></a>
   </li>  
   <li class="nav-item">
@@ -160,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../python/test-models.html">Test models</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../core/coupling.html">Coupling</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -174,26 +143,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../python/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Python tooling</span></a>
+  <a href="../core/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Julia core</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../python/examples.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Examples</span></a>
+  <a href="../core/modelconcept.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Model concept</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../python/reference/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">API Reference</span></a>
+  <a href="../core/usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Usage</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../python/test-models.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Test models</span></a>
+  <a href="../core/validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/allocation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Allocation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/numerics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Numerical considerations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/coupling.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Coupling</span></a>
   </div>
 </li>
     </ul>
@@ -202,14 +195,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#coupling" id="toc-coupling" class="nav-link active" data-scroll-target="#coupling"><span class="header-section-number">1</span> Coupling</a>
+  <ul class="collapse">
+  <li><a href="#imod" id="toc-imod" class="nav-link" data-scroll-target="#imod"><span class="header-section-number">1.1</span> iMOD</a></li>
+  <li><a href="#water-quality" id="toc-water-quality" class="nav-link" data-scroll-target="#water-quality"><span class="header-section-number">1.2</span> Water quality</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">1.2.1</span> Setup</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Test models</h1>
+<h1 class="title">Coupling</h1>
 </div>
 
 
@@ -226,281 +232,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Ribasim developers use the following models in their testbench and in order to test new features.</p>
-<div id="05f65ec0" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ribasim_testmodels</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> model_name, model_constructor <span class="kw">in</span> ribasim_testmodels.constructors.items():</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> model_name.startswith(<span class="st">"invalid"</span>):</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> model_constructor()</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    model.plot(ax)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    ax.set_title(label<span class="op">=</span>model_name, loc<span class="op">=</span><span class="st">"left"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    fig.text(<span class="dv">0</span>, <span class="dv">1</span>, model_constructor.__doc__)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    fig.tight_layout()</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    plt.close(fig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
+<section id="coupling" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Coupling</h1>
+<section id="imod" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="imod"><span class="header-section-number">1.1</span> iMOD</h2>
+<p>Ribasim can also be (online) coupled to other kernels with the help of iMOD Coupler. The corresponding documentation can be found within the <a href="https://deltares.github.io/iMOD-Documentation/coupler.html">iMOD Suite Documentation</a>.</p>
+</section>
+<section id="water-quality" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="water-quality"><span class="header-section-number">1.2</span> Water quality</h2>
+<p>Ribasim can be offline coupled to Delwaq, the Deltares Water Quality model. Note that this functionality is still in active development.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-1.png" width="676" height="370" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
+<p></p><figure class="figure"><p></p>
 <div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-2.png" width="677" height="292" class="figure-img"></p>
-</figure>
+<pre class="mermaid mermaid-js">flowchart LR
+    Ribasim --&gt; Delwaq
+</pre>
 </div>
+<p></p></figure><p></p>
 </div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-3.png" width="724" height="457" class="figure-img"></p>
-</figure>
 </div>
 </div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-4.png" width="724" height="457" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-5.png" width="724" height="494" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-6.png" width="677" height="494" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-7.png" width="677" height="412" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-8.png" width="676" height="359" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-9.png" width="677" height="303" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-10.png" width="677" height="367" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-11.png" width="676" height="420" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-12.png" width="713" height="524" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-13.png" width="677" height="494" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-14.png" width="677" height="353" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-15.png" width="677" height="367" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-16.png" width="676" height="455" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-17.png" width="677" height="403" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-18.png" width="677" height="302" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-19.png" width="711" height="494" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-20.png" width="649" height="524" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-21.png" width="676" height="452" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-22.png" width="677" height="302" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-23.png" width="606" height="494" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-24.png" width="607" height="494" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-25.png" width="676" height="303" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-26.png" width="676" height="409" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-27.png" width="676" height="438" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-28.png" width="681" height="539" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-29.png" width="676" height="301" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-30.png" width="627" height="524" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-31.png" width="676" height="452" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-32.png" width="676" height="469" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-33.png" width="697" height="569" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-34.png" width="676" height="332" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-35.png" width="676" height="427" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="test-models_files/figure-html/cell-2-output-36.png" width="677" height="406" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
+<section id="setup" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">1.2.1</span> Setup</h3>
+<p>Delwaq can calculate the concentration of substances in Ribasim Basin nodes over time, based on initial concentrations in basins, and of boundary flows. Ribasim exposes the <a href="../core/usage.html#sec-basin-conc">Basin / concentration</a>, <a href="../core/usage.html#sec-basin-conc-state">Basin / concentrationstate</a>, <a href="../core/usage.html#sec-flow-boundary-conc">FlowBoundary / concentration</a>, and <a href="../core/usage.html#sec-level-boundary-conc">LevelBoundary / concentration</a> tables to setup these substances and concentrations.</p>
+<p>When a Ribasim model has been run with the above tables, one can use the utilities in the <code>coupling/delwaq</code> folder to generate the input required for Delwaq to run, as well as to parse the output from Delwaq into a Ribasim compatible format. For more information see the <code>README.md</code> in the same folder.</p>
 
 
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -892,8 +654,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../python/reference/index.html" class="pagination-link" aria-label="API Reference">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">API Reference</span>
+      <a href="../core/numerics.html" class="pagination-link" aria-label="Numerical considerations">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Numerical considerations</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
