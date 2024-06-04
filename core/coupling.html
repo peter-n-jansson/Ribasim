@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../core/node/basin.html" rel="next">
 <link href="../core/numerics.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -189,6 +190,107 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Coupling</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Nodes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/basin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basin</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/tabulated-rating-curve.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TabulatedRatingCurve</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/pump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pump</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/outlet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Outlet</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/user-demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">UserDemand</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/flow-demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlowDemand</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/level-demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LevelDemand</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/flow-boundary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlowBoundary</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/level-boundary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LevelBoundary</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/linear-resistance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LinearResistance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/manning-resistance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ManningResistance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/fractional-flow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FractionalFlow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Terminal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/discrete-control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DiscreteControl</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/pid-control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PidControl</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -256,8 +358,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <section id="setup" class="level3" data-number="1.2.1">
 <h3 data-number="1.2.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">1.2.1</span> Setup</h3>
-<p>Delwaq can calculate the concentration of substances in Ribasim Basin nodes over time, based on initial concentrations in basins, and of boundary flows. Ribasim exposes the <a href="../core/usage.html#sec-basin-conc">Basin / concentration</a>, <a href="../core/usage.html#sec-basin-conc-state">Basin / concentrationstate</a>, <a href="../core/usage.html#sec-flow-boundary-conc">FlowBoundary / concentration</a>, and <a href="../core/usage.html#sec-level-boundary-conc">LevelBoundary / concentration</a> tables to setup these substances and concentrations.</p>
-<p>When a Ribasim model has been run with the above tables, one can use the utilities in the <code>coupling/delwaq</code> folder to generate the input required for Delwaq to run, as well as to parse the output from Delwaq into a Ribasim compatible format. For more information see the <code>README.md</code> in the same folder.</p>
+<p>Delwaq can calculate the concentration of substances in <a href="../core/node/basin.html">Basin</a> nodes over time, based on initial concentrations, and of <a href="../core/node/flow-boundary.html">FlowBoundary</a> nodes. Ribasim exposes the <code>Basin / concentration</code>, <code>Basin / concentration_state</code>, <code>FlowBoundary / concentration</code>, and <code>LevelBoundary / concentration</code> tables to setup these substances and concentrations.</p>
+<p>When a Ribasim model ran with the above tables, one can use the utilities in the <code>coupling/delwaq</code> folder to generate the input required for Delwaq to run, as well as to parse the output from Delwaq into a Ribasim compatible format. For more information see the <code>README.md</code> in the same folder.</p>
 
 
 </section>
@@ -659,6 +761,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../core/node/basin.html" class="pagination-link" aria-label="Basin">
+        <span class="nav-page-text">Basin</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

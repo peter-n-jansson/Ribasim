@@ -239,6 +239,107 @@ window.Quarto = {
  <span class="menu-text">Coupling</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Nodes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/basin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basin</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/tabulated-rating-curve.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TabulatedRatingCurve</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/pump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pump</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/outlet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Outlet</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/user-demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">UserDemand</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/flow-demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlowDemand</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/level-demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LevelDemand</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/flow-boundary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlowBoundary</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/level-boundary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LevelBoundary</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/linear-resistance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LinearResistance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/manning-resistance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ManningResistance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/fractional-flow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FractionalFlow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Terminal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/discrete-control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DiscreteControl</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/pid-control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PidControl</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -400,12 +501,12 @@ Figure&nbsp;3: Hupsel: tertiary surface water.
 <h2 data-number="1.4" class="anchored" data-anchor-id="structures-in-a-water-system"><span class="header-section-number">1.4</span> Structures in a water system</h2>
 <p>In addition to free flowing waterbodies, a watersystem typically has structures to control the flow of water. Ribasim uses connector nodes which simplify the hydraulic behaviour for the free flowing conditions or structures. The following type of connector nodes are available for this purpose:</p>
 <ul>
-<li><a href="../core/usage.html#sec-tabulated-rating-curve">TabulatedRatingCurve</a>: one-directional flow based on upstream head. Node type typically used for gravity flow conditions either free flowing open water channels or over a fixed structure.</li>
-<li><a href="../core/usage.html#sec-linear-resistance">LinearResistance</a>: bi-directional flow based on head difference and linear resistance. Node type typically used for bi-directional flow situations or situations where head difference over a structure determines its actual flow capacity.</li>
-<li><a href="../core/usage.html#sec-manning-resistance">ManningResistance</a>: bi-directional flow based on head difference and resistance using Manning-Gauckler formula. Same usage as LinearResistance, providing a better hydrological meaning to the resistance parameterization.</li>
-<li><a href="../core/usage.html#sec-pump">Pump</a>: one-directional structure with a set flow rate. Node type typically used in combination with control to force water over the edge.</li>
-<li><a href="../core/usage.html#sec-outlet">Outlet</a>: one-directional gravity structure with a set flow rate. Node type typically used in combination with control to force water over the edge, even if their is a mismatch in actual hydraulic capacity. The node type has an automated mechanism to stop the flow when the head difference is zero.</li>
-<li><a href="../core/usage.html#sec-fractional-flow">FractionalFlow</a>: to split an outflow over multiple edges based on a flow fraction. Node type is typically used for diversions or bifurcations with a known and fixed ratio.</li>
+<li><a href="../core/node/tabulated-rating-curve.html">TabulatedRatingCurve</a>: one-directional flow based on upstream head. Node type typically used for gravity flow conditions either free flowing open water channels or over a fixed structure.</li>
+<li><a href="../core/node/linear-resistance.html">LinearResistance</a>: bi-directional flow based on head difference and linear resistance. Node type typically used for bi-directional flow situations or situations where head difference over a structure determines its actual flow capacity.</li>
+<li><a href="../core/node/manning-resistance.html">ManningResistance</a>: bi-directional flow based on head difference and resistance using Manning-Gauckler formula. Same usage as LinearResistance, providing a better hydrological meaning to the resistance parameterization.</li>
+<li><a href="../core/node/pump.html">Pump</a>: one-directional structure with a set flow rate. Node type typically used in combination with control to force water over the edge.</li>
+<li><a href="../core/node/outlet.html">Outlet</a>: one-directional gravity structure with a set flow rate. Node type typically used in combination with control to force water over the edge, even if their is a mismatch in actual hydraulic capacity. The node type has an automated mechanism to stop the flow when the head difference is zero.</li>
+<li><a href="../core/node/fractional-flow.html">FractionalFlow</a>: to split an outflow over multiple edges based on a flow fraction. Node type is typically used for diversions or bifurcations with a known and fixed ratio.</li>
 </ul>
 <p>The control layer can activate or deactivate nodes, set flow rates for the Pump and Outlet, or choose different parameterizations for TabulatedRatingCurve, LinearResistance, ManningResistance or FractionalFlow.</p>
 <p>Connector nodes are required within a Ribasim network to determine the flow exchange between basins.</p>

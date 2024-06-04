@@ -270,6 +270,107 @@ window.Quarto = {
  <span class="menu-text">Coupling</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Nodes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/basin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basin</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/tabulated-rating-curve.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TabulatedRatingCurve</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/pump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pump</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/outlet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Outlet</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/user-demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">UserDemand</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/flow-demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlowDemand</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/level-demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LevelDemand</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/flow-boundary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlowBoundary</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/level-boundary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LevelBoundary</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/linear-resistance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LinearResistance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/manning-resistance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ManningResistance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/fractional-flow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FractionalFlow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Terminal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/discrete-control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DiscreteControl</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/pid-control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PidControl</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -294,66 +395,13 @@ window.Quarto = {
   </ul></li>
   <li><a href="#sec-node" id="toc-sec-node" class="nav-link" data-scroll-target="#sec-node"><span class="header-section-number">3</span> Node</a></li>
   <li><a href="#sec-edge" id="toc-sec-edge" class="nav-link" data-scroll-target="#sec-edge"><span class="header-section-number">4</span> Edge</a></li>
-  <li><a href="#sec-basin" id="toc-sec-basin" class="nav-link" data-scroll-target="#sec-basin"><span class="header-section-number">5</span> Basin</a>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">5</span> Results</a>
   <ul class="collapse">
-  <li><a href="#basin-time" id="toc-basin-time" class="nav-link" data-scroll-target="#basin-time"><span class="header-section-number">5.1</span> Basin / time</a></li>
-  <li><a href="#basin-state" id="toc-basin-state" class="nav-link" data-scroll-target="#basin-state"><span class="header-section-number">5.2</span> Basin / state</a></li>
-  <li><a href="#basin-profile" id="toc-basin-profile" class="nav-link" data-scroll-target="#basin-profile"><span class="header-section-number">5.3</span> Basin / profile</a></li>
-  <li><a href="#basin-area" id="toc-basin-area" class="nav-link" data-scroll-target="#basin-area"><span class="header-section-number">5.4</span> Basin / area</a></li>
-  <li><a href="#basin-subgrid" id="toc-basin-subgrid" class="nav-link" data-scroll-target="#basin-subgrid"><span class="header-section-number">5.5</span> Basin / subgrid</a></li>
-  <li><a href="#sec-basin-conc" id="toc-sec-basin-conc" class="nav-link" data-scroll-target="#sec-basin-conc"><span class="header-section-number">5.6</span> Basin / concentration</a></li>
-  <li><a href="#sec-basin-conc-state" id="toc-sec-basin-conc-state" class="nav-link" data-scroll-target="#sec-basin-conc-state"><span class="header-section-number">5.7</span> Basin / concentrationstate</a></li>
-  <li><a href="#basin-concentrationexternal" id="toc-basin-concentrationexternal" class="nav-link" data-scroll-target="#basin-concentrationexternal"><span class="header-section-number">5.8</span> Basin / concentrationexternal</a></li>
-  </ul></li>
-  <li><a href="#sec-fractional-flow" id="toc-sec-fractional-flow" class="nav-link" data-scroll-target="#sec-fractional-flow"><span class="header-section-number">6</span> FractionalFlow</a></li>
-  <li><a href="#sec-tabulated-rating-curve" id="toc-sec-tabulated-rating-curve" class="nav-link" data-scroll-target="#sec-tabulated-rating-curve"><span class="header-section-number">7</span> TabulatedRatingCurve</a>
-  <ul class="collapse">
-  <li><a href="#tabulatedratingcurve-time" id="toc-tabulatedratingcurve-time" class="nav-link" data-scroll-target="#tabulatedratingcurve-time"><span class="header-section-number">7.1</span> TabulatedRatingCurve / time</a></li>
-  </ul></li>
-  <li><a href="#sec-pump" id="toc-sec-pump" class="nav-link" data-scroll-target="#sec-pump"><span class="header-section-number">8</span> Pump</a></li>
-  <li><a href="#sec-outlet" id="toc-sec-outlet" class="nav-link" data-scroll-target="#sec-outlet"><span class="header-section-number">9</span> Outlet</a></li>
-  <li><a href="#sec-user-demand" id="toc-sec-user-demand" class="nav-link" data-scroll-target="#sec-user-demand"><span class="header-section-number">10</span> UserDemand</a>
-  <ul class="collapse">
-  <li><a href="#userdemand-time" id="toc-userdemand-time" class="nav-link" data-scroll-target="#userdemand-time"><span class="header-section-number">10.1</span> UserDemand / time</a></li>
-  </ul></li>
-  <li><a href="#sec-level_demand" id="toc-sec-level_demand" class="nav-link" data-scroll-target="#sec-level_demand"><span class="header-section-number">11</span> LevelDemand</a>
-  <ul class="collapse">
-  <li><a href="#leveldemand-time" id="toc-leveldemand-time" class="nav-link" data-scroll-target="#leveldemand-time"><span class="header-section-number">11.1</span> LevelDemand / time</a></li>
-  </ul></li>
-  <li><a href="#sec-flow_demand" id="toc-sec-flow_demand" class="nav-link" data-scroll-target="#sec-flow_demand"><span class="header-section-number">12</span> FlowDemand</a>
-  <ul class="collapse">
-  <li><a href="#flowdemand-time" id="toc-flowdemand-time" class="nav-link" data-scroll-target="#flowdemand-time"><span class="header-section-number">12.1</span> FlowDemand / time</a></li>
-  </ul></li>
-  <li><a href="#sec-level-boundary" id="toc-sec-level-boundary" class="nav-link" data-scroll-target="#sec-level-boundary"><span class="header-section-number">13</span> LevelBoundary</a>
-  <ul class="collapse">
-  <li><a href="#levelboundary-time" id="toc-levelboundary-time" class="nav-link" data-scroll-target="#levelboundary-time"><span class="header-section-number">13.1</span> LevelBoundary / time</a></li>
-  <li><a href="#sec-level-boundary-conc" id="toc-sec-level-boundary-conc" class="nav-link" data-scroll-target="#sec-level-boundary-conc"><span class="header-section-number">13.2</span> LevelBoundary / concentration</a></li>
-  </ul></li>
-  <li><a href="#sec-flow-boundary" id="toc-sec-flow-boundary" class="nav-link" data-scroll-target="#sec-flow-boundary"><span class="header-section-number">14</span> FlowBoundary</a>
-  <ul class="collapse">
-  <li><a href="#flowboundary-time" id="toc-flowboundary-time" class="nav-link" data-scroll-target="#flowboundary-time"><span class="header-section-number">14.1</span> FlowBoundary / time</a></li>
-  <li><a href="#sec-flow-boundary-conc" id="toc-sec-flow-boundary-conc" class="nav-link" data-scroll-target="#sec-flow-boundary-conc"><span class="header-section-number">14.2</span> FlowBoundary / concentration</a></li>
-  </ul></li>
-  <li><a href="#sec-linear-resistance" id="toc-sec-linear-resistance" class="nav-link" data-scroll-target="#sec-linear-resistance"><span class="header-section-number">15</span> LinearResistance</a></li>
-  <li><a href="#sec-manning-resistance" id="toc-sec-manning-resistance" class="nav-link" data-scroll-target="#sec-manning-resistance"><span class="header-section-number">16</span> ManningResistance</a></li>
-  <li><a href="#sec-terminal" id="toc-sec-terminal" class="nav-link" data-scroll-target="#sec-terminal"><span class="header-section-number">17</span> Terminal</a></li>
-  <li><a href="#sec-discrete-control" id="toc-sec-discrete-control" class="nav-link" data-scroll-target="#sec-discrete-control"><span class="header-section-number">18</span> DisceteControl</a>
-  <ul class="collapse">
-  <li><a href="#discretecontrol-variable" id="toc-discretecontrol-variable" class="nav-link" data-scroll-target="#discretecontrol-variable"><span class="header-section-number">18.1</span> DiscreteControl / variable</a></li>
-  <li><a href="#discretecontrol-condition" id="toc-discretecontrol-condition" class="nav-link" data-scroll-target="#discretecontrol-condition"><span class="header-section-number">18.2</span> DiscreteControl / condition</a></li>
-  <li><a href="#discretecontrol-logic" id="toc-discretecontrol-logic" class="nav-link" data-scroll-target="#discretecontrol-logic"><span class="header-section-number">18.3</span> DiscreteControl / logic</a></li>
-  </ul></li>
-  <li><a href="#sec-pid-control" id="toc-sec-pid-control" class="nav-link" data-scroll-target="#sec-pid-control"><span class="header-section-number">19</span> PidControl</a>
-  <ul class="collapse">
-  <li><a href="#pidcontrol-time" id="toc-pidcontrol-time" class="nav-link" data-scroll-target="#pidcontrol-time"><span class="header-section-number">19.1</span> PidControl / time</a></li>
-  </ul></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">20</span> Results</a>
-  <ul class="collapse">
-  <li><a href="#basin---basin.arrow" id="toc-basin---basin.arrow" class="nav-link" data-scroll-target="#basin---basin.arrow"><span class="header-section-number">20.1</span> Basin - <code>basin.arrow</code></a></li>
-  <li><a href="#flow---flow.arrow" id="toc-flow---flow.arrow" class="nav-link" data-scroll-target="#flow---flow.arrow"><span class="header-section-number">20.2</span> Flow - <code>flow.arrow</code></a></li>
-  <li><a href="#discretecontrol---control.arrow" id="toc-discretecontrol---control.arrow" class="nav-link" data-scroll-target="#discretecontrol---control.arrow"><span class="header-section-number">20.3</span> DiscreteControl - <code>control.arrow</code></a></li>
-  <li><a href="#allocation---allocation.arrow" id="toc-allocation---allocation.arrow" class="nav-link" data-scroll-target="#allocation---allocation.arrow"><span class="header-section-number">20.4</span> Allocation - <code>allocation.arrow</code></a></li>
-  <li><a href="#allocation-flow---allocation_flow.arrow" id="toc-allocation-flow---allocation_flow.arrow" class="nav-link" data-scroll-target="#allocation-flow---allocation_flow.arrow"><span class="header-section-number">20.5</span> Allocation flow - <code>allocation_flow.arrow</code></a></li>
+  <li><a href="#basin---basin.arrow" id="toc-basin---basin.arrow" class="nav-link" data-scroll-target="#basin---basin.arrow"><span class="header-section-number">5.1</span> Basin - <code>basin.arrow</code></a></li>
+  <li><a href="#flow---flow.arrow" id="toc-flow---flow.arrow" class="nav-link" data-scroll-target="#flow---flow.arrow"><span class="header-section-number">5.2</span> Flow - <code>flow.arrow</code></a></li>
+  <li><a href="#discretecontrol---control.arrow" id="toc-discretecontrol---control.arrow" class="nav-link" data-scroll-target="#discretecontrol---control.arrow"><span class="header-section-number">5.3</span> DiscreteControl - <code>control.arrow</code></a></li>
+  <li><a href="#allocation---allocation.arrow" id="toc-allocation---allocation.arrow" class="nav-link" data-scroll-target="#allocation---allocation.arrow"><span class="header-section-number">5.4</span> Allocation - <code>allocation.arrow</code></a></li>
+  <li><a href="#allocation-flow---allocation_flow.arrow" id="toc-allocation-flow---allocation_flow.arrow" class="nav-link" data-scroll-target="#allocation-flow---allocation_flow.arrow"><span class="header-section-number">5.5</span> Allocation flow - <code>allocation_flow.arrow</code></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -571,14 +619,14 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-</tr>
-<tr class="even">
 <td>node_type</td>
 <td>String</td>
-<td>known node type</td>
+<td>sorted, known node type</td>
+</tr>
+<tr class="even">
+<td>node_id</td>
+<td>Int32</td>
+<td>sorted per node_type</td>
 </tr>
 <tr class="odd">
 <td>geom</td>
@@ -597,90 +645,14 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>The available node types as of this writing are listed as the top level bullets below. The sub-bullets indicate which tables are associated to the node type. The table name is the name it must have in the database if it is stored there.</p>
-<ul>
-<li>Basin: stores water
-<ul>
-<li><code>Basin / static</code>: default forcing values, used if no dynamic data given in the forcing table</li>
-<li><code>Basin / profile</code>: geometries of the basins</li>
-<li><code>Basin / time</code>: time series of the forcing values</li>
-<li><code>Basin / state</code>: used as initial condition of the basins</li>
-<li><code>Basin / subgrid</code>: used to interpolate basin levels to a more detailed spatial representation</li>
-</ul></li>
-<li>FractionalFlow: connect two of these from a Basin to get a fixed ratio bifurcation
-<ul>
-<li><code>FractionalFlow / static</code>: fractions</li>
-</ul></li>
-<li>LevelBoundary: stores water at a given level unaffected by flow, like an infinitely large basin
-<ul>
-<li><code>LevelBoundary / static</code>: levels</li>
-<li><code>LevelBoundary / time</code>: dynamic levels</li>
-</ul></li>
-<li>FlowBoundary: sets a precribed flow into the model
-<ul>
-<li><code>FlowBoundary / static</code>: flow rate</li>
-<li><code>FlowBoundary / time</code>: dynamic flow rate</li>
-</ul></li>
-<li>LinearResistance: bidirectional flow based on water level difference between Basins
-<ul>
-<li><code>LinearResistance / static</code>: conductances</li>
-</ul></li>
-<li>ManningResistance: Flow through this connection is estimated by conservation of energy and the Manning-Gauckler formula to estimate friction losses
-<ul>
-<li><code>ManningResistance / static</code>: properties</li>
-</ul></li>
-<li>TabulatedRatingCurve: Basin outflow relation
-<ul>
-<li><code>TabulatedRatingCurve / static</code>: rating curve</li>
-<li><code>TabulatedRatingCurve / time</code>: dynamic rating curve</li>
-</ul></li>
-<li>Pump: pump water from a source node to a destination node
-<ul>
-<li><code>Pump / static</code>: flow rate</li>
-</ul></li>
-<li>Outlet: let water flow with a prescribed flux under the conditions of positive head difference and the upstream level being higher than the minimum crest level
-<ul>
-<li><code>Outlet / static</code>: flow rate, minimum crest level</li>
-</ul></li>
-<li>UserDemand: sets water usage demands at certain priorities
-<ul>
-<li><code>UserDemand / static</code>: demands</li>
-<li><code>UserDemand / time</code>: dynamic demands</li>
-</ul></li>
-<li>LevelDemand: Indicates minimum and maximum target level of connected basins for allocation
-<ul>
-<li><code>LevelDemand / static</code>: static target levels</li>
-<li><code>LevelDemand / time</code>: dynamic target levels</li>
-</ul></li>
-<li>FlowDemand: sets non-consuming flow demand
-<ul>
-<li><code>FlowDemand / static</code>: flow demands</li>
-<li><code>FlowDemand / time</code>: dynamic flow demands</li>
-</ul></li>
-<li>Terminal: Water sink without state or properties
-<ul>
-<li><code>Terminal / static</code>: - (only node IDs)</li>
-</ul></li>
-<li>DiscreteControl: Set parameters of other nodes based on model state conditions (e.g.&nbsp;basin level)
-<ul>
-<li><code>DiscreteControl / variable</code> : Linear combinations of variables, e.g.&nbsp;averages or differences of levels</li>
-<li><code>DisceteControl / condition</code>: Conditions of the form ‘the compound variable with ID <code>n</code> is bigger than 2.0’</li>
-<li><code>DisceteControl / logic</code>: Translates the truth value of a set of conditions to parameter values for a controlled node</li>
-</ul></li>
-<li>PidControl: Controls the level in a basin by continuously controlling the flow rate of a connected pump or outlet. See also <a href="https://en.wikipedia.org/wiki/PID_controller">Wikipedia</a> and <a href="../core/equations.html#sec-PID">PID controller in equations</a>.
-<ul>
-<li><code>PidControl / static</code>: The proportional, integral, and derivative parameters, the target value and which basin should be controlled</li>
-<li><code>PidControl / time</code>: same as <code>static</code> but varying over time.</li>
-</ul></li>
-</ul>
-<p>Adding a geometry to the node table can be helpful to examine models in <a href="https://qgis.org/en/site/">QGIS</a>, as it will show the location of the nodes on the map. The geometry is not used by Ribasim.</p>
+<p>Adding a point geometry to the node table can be helpful to examine models in <a href="https://qgis.org/en/site/">QGIS</a>, as it will show the location of the nodes on the map. The geometry is not used by Ribasim.</p>
 </section>
 <section id="sec-edge" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Edge</h1>
 <p>Edges define connections between nodes. The only thing that defines an edge is the nodes it connects, and in what direction. There are currently 2 possible edge types:</p>
 <ol type="1">
 <li>“flow”: Flows between nodes are stored on edges. The effect of the edge direction depends on the node type, Node types that have a notion of an upstream and downstream side use the incoming edge as the upstream side, and the outgoing edge as the downstream side. This means that edges should generally be drawn in the main flow direction. But for instance between two <code>LinearResistances</code> the edge direction does not affect anything, other than the sign of the flow on the edge. The sign of the flow follows the edge direction; a positive flow flows along the edge direction, a negative flow in the opposite way.</li>
-<li>“control”: The control edges define which nodes are controlled by a particular control node. Control edges should always point away from the control node. The edges between the control node and the nodes it <em>listens</em> to are <em>not</em> present in <code>Edge</code>, these are defined in <a href="../core/usage.html#sec-discrete-control"><code>DiscreteControl / condition</code></a></li>
+<li>“control”: The control edges define which nodes are controlled by a particular control node. Control edges should always point away from the control node. The edges between the control node and the nodes it <em>listens</em> to are <em>not</em> present in <code>Edge</code>, these are defined in <a href="../core/node/discrete-control.html"><code>DiscreteControl / condition</code></a></li>
 </ol>
 <table class="table">
 <colgroup>
@@ -740,1635 +712,10 @@ window.Quarto = {
 </table>
 <p>Similarly to the node table, you can use a geometry to visualize the connections between the nodes in QGIS. For instance, you can draw a line connecting the two node coordinates.</p>
 </section>
-<section id="sec-basin" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Basin</h1>
-<p>The Basin table can be used to set the static value of variables. The time table has a similar schema, with the time column added. A static value for a variable is only used if there is no dynamic forcing data for that variable. Specifically, if there is either no time table, it is empty, or all timestamps of that variable are missing.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>precipitation</td>
-<td>Float64</td>
-<td><span class="math inline">\(m s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-<tr class="odd">
-<td>potential_evaporation</td>
-<td>Float64</td>
-<td><span class="math inline">\(m s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-<tr class="even">
-<td>drainage</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-<tr class="odd">
-<td>infiltration</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-<tr class="even">
-<td>urban_runoff</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-</tbody>
-</table>
-<p>Note that if variables are not set in the static table, default values are used when possible. These are generally zero, e.g.&nbsp;no precipitation, no inflow. If it is not possible to have a reasonable and safe default, a value must be provided in the static table.</p>
-<section id="basin-time" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="basin-time"><span class="header-section-number">5.1</span> Basin / time</h2>
-<p>This table is the transient form of the <code>Basin</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. At the given timestamps the values are set in the simulation, such that the timeseries can be seen as forward filled.</p>
-</section>
-<section id="basin-state" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="basin-state"><span class="header-section-number">5.2</span> Basin / state</h2>
-<p>The state table aims to capture the full state of the Basin, such that it can be used as an initial condition, potentially the outcome of an earlier simulation. Currently only the Basin node types have state.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td><span class="math inline">\(\ge\)</span> basin bottom</td>
-</tr>
-</tbody>
-</table>
-<p>Each Basin ID needs to be in the table.</p>
-</section>
-<section id="basin-profile" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="basin-profile"><span class="header-section-number">5.3</span> Basin / profile</h2>
-<p>The profile table defines the physical dimensions of the storage reservoir of each basin.</p>
-<table class="table">
-<colgroup>
-<col style="width: 23%">
-<col style="width: 17%">
-<col style="width: 30%">
-<col style="width: 28%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>area</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^2\)</span></td>
-<td>non-negative, per node_id: start positive and not decreasing</td>
-</tr>
-<tr class="odd">
-<td>level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>per node_id: increasing</td>
-</tr>
-</tbody>
-</table>
-<p>The level is the level at the basin outlet. All levels are defined in meters above a datum that is the same for the entire model. An example of the first 5 rows of such a table is given below. The first 4 rows define the profile of ID <code>2</code>. The number of rows can vary per ID, and must be at least 2. Using a very large number of rows may impact performance.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>node_id</th>
-<th>area</th>
-<th>level</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2</td>
-<td>1.0</td>
-<td>6.0</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>1000.0</td>
-<td>7.0</td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>1000.0</td>
-<td>9.0</td>
-</tr>
-<tr class="even">
-<td>3</td>
-<td>1.0</td>
-<td>2.2</td>
-</tr>
-</tbody>
-</table>
-<p>We use the symbol <span class="math inline">\(A\)</span> for area, <span class="math inline">\(h\)</span> for level and <span class="math inline">\(S\)</span> for storage. The profile provides a function <span class="math inline">\(A(h)\)</span> for each basin. Internally this get converted to two functions, <span class="math inline">\(A(S)\)</span> and <span class="math inline">\(h(S)\)</span>, by integrating over the function, setting the storage to zero for the bottom of the profile. The minimum area cannot be zero to avoid numerical issues. The maximum area is used to convert the precipitation flux into an inflow.</p>
-</section>
-<section id="basin-area" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="basin-area"><span class="header-section-number">5.4</span> Basin / area</h2>
-<p>The optional area table is not used during computation, but provides a place to associate areas in the form of polygons to Basins. Using this makes it easier to recognize which water or land surfaces are represented by Basins.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>geom</td>
-<td>Polygon or MultiPolygon</td>
-<td>(optional)</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="basin-subgrid" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="basin-subgrid"><span class="header-section-number">5.5</span> Basin / subgrid</h2>
-<p>The subgrid_level table defines a piecewise linear interpolation from a basin water level to a subgrid element water level. Many subgrid elements may be associated with a single basin, each with distinct interpolation functions. This functionality can be used to translate a single lumped basin level to a more spatially detailed representation (e.g comparable to the output of a hydrodynamic simulation).</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>subgrid_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>constant per subgrid_id</td>
-</tr>
-<tr class="odd">
-<td>basin_level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>sorted per subgrid_id</td>
-</tr>
-<tr class="even">
-<td>subgrid_level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>sorted per subgrid_id</td>
-</tr>
-</tbody>
-</table>
-<p>The table below shows example input for two subgrid elements:</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>subgrid_id</th>
-<th>node_id</th>
-<th>basin_level</th>
-<th>subgrid_level</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>9</td>
-<td>0.0</td>
-<td>0.0</td>
-</tr>
-<tr class="even">
-<td>1</td>
-<td>9</td>
-<td>1.0</td>
-<td>1.0</td>
-</tr>
-<tr class="odd">
-<td>1</td>
-<td>9</td>
-<td>2.0</td>
-<td>2.0</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>9</td>
-<td>0.0</td>
-<td>0.5</td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>9</td>
-<td>1.0</td>
-<td>1.5</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>9</td>
-<td>2.0</td>
-<td>2.5</td>
-</tr>
-</tbody>
-</table>
-<p>Both subgrid elements use the water level of the basin with <code>node_id</code> 9 to interpolate to their respective water levels. The first element has a one to one connection with the water level; the second also has a one to one connection, but is offset by half a meter. A basin water level of 0.3 would be translated to a water level of 0.3 for the first subgrid element, and 0.8 for the second. Water levels beyond the last <code>basin_level</code> are linearly extrapolated.</p>
-<p>Note that the interpolation to subgrid water level is not constrained by any water balance within Ribasim. Generally, to create physically meaningful subgrid water levels, the subgrid table must be parametrized properly such that the spatially integrated water volume of the subgrid elements agrees with the total storage volume of the basin.</p>
-</section>
-<section id="sec-basin-conc" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="sec-basin-conc"><span class="header-section-number">5.6</span> Basin / concentration</h2>
-<p>This table defines the concentration(s) of (a) substance(s) for the inflow boundaries of a Basin node.</p>
-<table class="table">
-<colgroup>
-<col style="width: 27%">
-<col style="width: 17%">
-<col style="width: 31%">
-<col style="width: 23%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>time</td>
-<td>DateTime</td>
-<td>-</td>
-<td>sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>substance</td>
-<td>String</td>
-<td></td>
-<td>can correspond to known Delwaq substances</td>
-</tr>
-<tr class="even">
-<td>drainage</td>
-<td>Float64</td>
-<td><span class="math inline">\(g m^{-3}\)</span></td>
-<td>(optional)</td>
-</tr>
-<tr class="odd">
-<td>precipitation</td>
-<td>Float64</td>
-<td><span class="math inline">\(g m^{-3}\)</span></td>
-<td>(optional)</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="sec-basin-conc-state" class="level2" data-number="5.7">
-<h2 data-number="5.7" class="anchored" data-anchor-id="sec-basin-conc-state"><span class="header-section-number">5.7</span> Basin / concentrationstate</h2>
-<p>This table defines the concentration(s) of (a) substance(s) in the basin at the start of the simulation.</p>
-<table class="table">
-<colgroup>
-<col style="width: 31%">
-<col style="width: 17%">
-<col style="width: 26%">
-<col style="width: 24%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>time</td>
-<td>DateTime</td>
-<td>-</td>
-<td>sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>substance</td>
-<td>String</td>
-<td>-</td>
-<td>can correspond to known Delwaq substances</td>
-</tr>
-<tr class="even">
-<td>concentration</td>
-<td>Float64</td>
-<td><span class="math inline">\(g m^{-3}\)</span></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="basin-concentrationexternal" class="level2" data-number="5.8">
-<h2 data-number="5.8" class="anchored" data-anchor-id="basin-concentrationexternal"><span class="header-section-number">5.8</span> Basin / concentrationexternal</h2>
-<p>This table is used for (external) concentrations, that can be used for Control lookups.</p>
-<table class="table">
-<colgroup>
-<col style="width: 31%">
-<col style="width: 17%">
-<col style="width: 26%">
-<col style="width: 24%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>time</td>
-<td>DateTime</td>
-<td>-</td>
-<td>sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>substance</td>
-<td>String</td>
-<td>-</td>
-<td>can correspond to known Delwaq substances</td>
-</tr>
-<tr class="even">
-<td>concentration</td>
-<td>Float64</td>
-<td><span class="math inline">\(g m^{-3}\)</span></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="sec-fractional-flow" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> FractionalFlow</h1>
-<p>Lets a fraction (in [0,1]) of the incoming flow trough.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>control_state</td>
-<td>String</td>
-<td>-</td>
-<td>(optional) sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>fraction</td>
-<td>Float64</td>
-<td>-</td>
-<td>in the interval [0,1]</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="sec-tabulated-rating-curve" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> TabulatedRatingCurve</h1>
-<p>This table is similar in structure to the Basin profile. The TabulatedRatingCurve gives a relation between the level of a directly upstream Basin or LevelBoundary and its outflow.</p>
-<table class="table">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 16%">
-<col style="width: 27%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>control_state</td>
-<td>String</td>
-<td>-</td>
-<td>(optional) sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>active</td>
-<td>Bool</td>
-<td>-</td>
-<td>(optional, default true)</td>
-</tr>
-<tr class="even">
-<td>level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>sorted per control_state, unique</td>
-</tr>
-<tr class="odd">
-<td>flow_rate</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>start at 0, increasing</td>
-</tr>
-</tbody>
-</table>
-<p>Thus a single rating curve can be given by the following table:</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>node_id</th>
-<th>flow_rate</th>
-<th>level</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2</td>
-<td>0.0</td>
-<td>-0.10</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>0.0001</td>
-<td>0.09</td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>0.01</td>
-<td>0.29</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>0.9</td>
-<td>20.09</td>
-</tr>
-</tbody>
-</table>
-<p>Below the lowest given level of -0.10, the flow rate is kept at 0. Between given levels the flow rate is interpolated linearly. Above the maximum given level of 20.09, the flow rate keeps increases linearly according to the slope of the last segment.</p>
-<section id="tabulatedratingcurve-time" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="tabulatedratingcurve-time"><span class="header-section-number">7.1</span> TabulatedRatingCurve / time</h2>
-<p>This table is the transient form of the <code>TabulatedRatingCurve</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the rating curves can be updated over time. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>time</td>
-<td>DateTime</td>
-<td>-</td>
-<td>sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>sorted per node_id per time</td>
-</tr>
-<tr class="even">
-<td>flow_rate</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="sec-pump" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Pump</h1>
-<p>Pump water from a source node to a destination node. The set flow rate will be pumped unless the intake storage is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. The intake must be either a Basin or LevelBoundary. When PID controlled, the pump must point away from the controlled basin in terms of edges.</p>
-<table class="table">
-<colgroup>
-<col style="width: 23%">
-<col style="width: 17%">
-<col style="width: 30%">
-<col style="width: 28%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>control_state</td>
-<td>String</td>
-<td>-</td>
-<td>(optional) sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>active</td>
-<td>Bool</td>
-<td>-</td>
-<td>(optional, default true)</td>
-</tr>
-<tr class="even">
-<td>flow_rate</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-<tr class="odd">
-<td>min_flow_rate</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>(optional, default 0.0)</td>
-</tr>
-<tr class="even">
-<td>max_flow_rate</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>(optional)</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="sec-outlet" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Outlet</h1>
-<p>The outlet is very similar to the pump. The outlet has two additional physical constraints: water only flows trough the outlet when the head difference is positive (i.e.&nbsp;water flows down by gravity), and the upstream level must be above the minimum crest level if the upstream level is defined. When PID controlled, the outlet must point towards the controlled basin in terms of edges.</p>
-<table class="table">
-<colgroup>
-<col style="width: 23%">
-<col style="width: 17%">
-<col style="width: 30%">
-<col style="width: 28%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>control_state</td>
-<td>String</td>
-<td>-</td>
-<td>(optional) sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>active</td>
-<td>Bool</td>
-<td>-</td>
-<td>(optional, default true)</td>
-</tr>
-<tr class="even">
-<td>flow_rate</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-<tr class="odd">
-<td>min_flow_rate</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>(optional, default 0.0)</td>
-</tr>
-<tr class="even">
-<td>max_flow_rate</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>(optional)</td>
-</tr>
-<tr class="odd">
-<td>min_crest_level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>(optional)</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="sec-user-demand" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> UserDemand</h1>
-<p>A UserDemand can demand a certain flow from the basin that supplies it, distributed over multiple priorities 1,2,3,… where priority 1 denotes the most important demand. Currently the UserDemand attempts to extract the complete demand from the Basin. Only if the Basin is almost empty or reaches the minimum level at which the UserDemand can extract water (<code>min_level</code>), will it take less than the demand. When allocation is used, water can be allocated to UserDemand based on their priority. UserDemands need an outgoing flow edge along which they can send their return flow, this can also be to the same basin from which it extracts water. The amount of return flow is always a fraction of the inflow into the UserDemand. The difference is consumed by the UserDemand.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>active</td>
-<td>Bool</td>
-<td>-</td>
-<td>(optional, default true)</td>
-</tr>
-<tr class="odd">
-<td>demand</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-<tr class="even">
-<td>return_factor</td>
-<td>Float64</td>
-<td>-</td>
-<td>between [0 - 1]</td>
-</tr>
-<tr class="odd">
-<td>min_level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>priority</td>
-<td>Int32</td>
-<td>-</td>
-<td>positive, sorted per node id</td>
-</tr>
-</tbody>
-</table>
-<section id="userdemand-time" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="userdemand-time"><span class="header-section-number">10.1</span> UserDemand / time</h2>
-<p>This table is the transient form of the <code>UserDemand</code> table. The only difference is that a time column is added and activity is assumed to be true. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the demand can be updated over time. In between the given times the demand is interpolated linearly, and outside the demand is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
-<table class="table">
-<colgroup>
-<col style="width: 29%">
-<col style="width: 18%">
-<col style="width: 27%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>priority</td>
-<td>Int32</td>
-<td>-</td>
-<td>positive, sorted per node id</td>
-</tr>
-<tr class="odd">
-<td>time</td>
-<td>DateTime</td>
-<td>-</td>
-<td>sorted per priority per node id</td>
-</tr>
-<tr class="even">
-<td>demand</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-<tr class="odd">
-<td>return_factor</td>
-<td>Float64</td>
-<td>-</td>
-<td>between [0 - 1]</td>
-</tr>
-<tr class="even">
-<td>min_level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="sec-level_demand" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> LevelDemand</h1>
-<p>A <code>LevelDemand</code> node associates a minimum and a maximum level with connected Basins to be used by the allocation algorithm. Since this connection conveys information rather than flow, an outgoing control edge must be used. Below the minimum level the basin has a demand of the supplied priority, above the maximum level the basin has a surplus and acts as a source, used by all nodes with demands in order of priority. The same <code>LevelDemand</code> node can be used for Basins in different subnetworks.</p>
-<p>Both <code>min_level</code> and <code>max_level</code> are optional, to be able to handle only the demand or surplus side. If both are missing, <code>LevelDemand</code> won’t have any effects on allocation.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>min_level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>(optional, default -Inf)</td>
-</tr>
-<tr class="odd">
-<td>max_level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>(optional, default Inf)</td>
-</tr>
-<tr class="even">
-<td>priority</td>
-<td>Int32</td>
-<td>-</td>
-<td>positive</td>
-</tr>
-</tbody>
-</table>
-<section id="leveldemand-time" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="leveldemand-time"><span class="header-section-number">11.1</span> LevelDemand / time</h2>
-<p>This table is the transient form of the <code>LevelDemand</code> table, in which time-dependent minimum and maximum levels can be supplied. Similar to the static version, only a single priority per <code>LevelDemand</code> node can be provided.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>time</td>
-<td>DateTime</td>
-<td>-</td>
-<td>sorted per node id</td>
-</tr>
-<tr class="odd">
-<td>min_level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>max_level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>priority</td>
-<td>Int32</td>
-<td>-</td>
-<td>positive</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="sec-flow_demand" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> FlowDemand</h1>
-<p>A <code>FlowDemand</code> node associates a non-consuming flow demand to a connector node (e.g.&nbsp;<code>Pump</code>, <code>TabulatedRatingCurve</code>) for one single priority. FlowDemand nodes can set a flow demand only for a single connector node.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>priority</td>
-<td>Int32</td>
-<td>-</td>
-<td>positive</td>
-</tr>
-<tr class="odd">
-<td>demand</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-</tbody>
-</table>
-<section id="flowdemand-time" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="flowdemand-time"><span class="header-section-number">12.1</span> FlowDemand / time</h2>
-<p>This table is the transient form of the <code>FlowDemand</code> table, in which a time-dependent demand can be supplied. Similar to the static version, only a single priority per <code>FlowDemand</code> node can be provided.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>time</td>
-<td>DateTime</td>
-<td>-</td>
-<td>sorted per node id</td>
-</tr>
-<tr class="odd">
-<td>priority</td>
-<td>Int32</td>
-<td>-</td>
-<td>positive</td>
-</tr>
-<tr class="even">
-<td>demand</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="sec-level-boundary" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> LevelBoundary</h1>
-<p>Acts like an infinitely large basin where the level does not change by flow. This can be connected to a basin via a <code>LinearResistance</code>. This boundary node will then exchange water with the basin based on the difference in water level between the two.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>active</td>
-<td>Bool</td>
-<td>-</td>
-<td>(optional, default true)</td>
-</tr>
-<tr class="odd">
-<td>level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-<section id="levelboundary-time" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="levelboundary-time"><span class="header-section-number">13.1</span> LevelBoundary / time</h2>
-<p>This table is the transient form of the <code>LevelBoundary</code> table. The only difference is that a time column is added and activity is assumed to be true. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the levels can be updated over time. In between the given times the level is interpolated linearly, and outside the flow rate is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>time</td>
-<td>DateTime</td>
-<td>-</td>
-<td>sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>level</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="sec-level-boundary-conc" class="level2" data-number="13.2">
-<h2 data-number="13.2" class="anchored" data-anchor-id="sec-level-boundary-conc"><span class="header-section-number">13.2</span> LevelBoundary / concentration</h2>
-<p>This table defines the concentration(s) of (a) substance(s) for the flow from the LevelBoundary.</p>
-<table class="table">
-<colgroup>
-<col style="width: 31%">
-<col style="width: 17%">
-<col style="width: 26%">
-<col style="width: 24%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>time</td>
-<td>DateTime</td>
-<td>-</td>
-<td>sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>substance</td>
-<td>String</td>
-<td>-</td>
-<td>can correspond to known Delwaq substances</td>
-</tr>
-<tr class="even">
-<td>concentration</td>
-<td>Float64</td>
-<td><span class="math inline">\(g m^{-3}\)</span></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="sec-flow-boundary" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> FlowBoundary</h1>
-<p>Pump water to a destination node. We require that the edge connecting the flow boundary to the Basin should point towards the basin, so that positive flow corresponds to water being added to the model. The set flow rate will be pumped unless the intake storage (for a negative flow rate) is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. Note that the connected node must always be a Basin.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>active</td>
-<td>Bool</td>
-<td>-</td>
-<td>(optional, default true)</td>
-</tr>
-<tr class="odd">
-<td>flow_rate</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-</tbody>
-</table>
-<section id="flowboundary-time" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="flowboundary-time"><span class="header-section-number">14.1</span> FlowBoundary / time</h2>
-<p>This table is the transient form of the <code>FlowBoundary</code> table. The only differences are that a time column is added and the nodes are assumed to be active so this column is removed. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the flow rates can be updated over time. In between the given times the flow rate is interpolated linearly, and outside the flow rate is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>time</td>
-<td>DateTime</td>
-<td>-</td>
-<td>sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>flow_rate</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="sec-flow-boundary-conc" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="sec-flow-boundary-conc"><span class="header-section-number">14.2</span> FlowBoundary / concentration</h2>
-<p>This table defines the concentration(s) of (a) substance(s) for the flow from the FlowBoundary.</p>
-<table class="table">
-<colgroup>
-<col style="width: 31%">
-<col style="width: 17%">
-<col style="width: 26%">
-<col style="width: 24%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>time</td>
-<td>DateTime</td>
-<td>-</td>
-<td>sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>substance</td>
-<td>String</td>
-<td>-</td>
-<td>can correspond to known Delwaq substances</td>
-</tr>
-<tr class="even">
-<td>concentration</td>
-<td>Float64</td>
-<td><span class="math inline">\(g m^{-3}\)</span></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="sec-linear-resistance" class="level1" data-number="15">
-<h1 data-number="15"><span class="header-section-number">15</span> LinearResistance</h1>
-<p>Flow proportional to the level difference between the connected basins.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>control_state</td>
-<td>String</td>
-<td>-</td>
-<td>(optional) sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>active</td>
-<td>Bool</td>
-<td>-</td>
-<td>(optional, default true)</td>
-</tr>
-<tr class="even">
-<td>resistance</td>
-<td>Float64</td>
-<td><span class="math inline">\(sm^{-2}\)</span></td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>max_flow_rate</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="sec-manning-resistance" class="level1" data-number="16">
-<h1 data-number="16"><span class="header-section-number">16</span> ManningResistance</h1>
-<p>Flow through this connection is estimated by conservation of energy and the Manning-Gauckler formula to estimate friction losses.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>control_state</td>
-<td>String</td>
-<td>-</td>
-<td>(optional) sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>active</td>
-<td>Bool</td>
-<td>-</td>
-<td>(optional, default true)</td>
-</tr>
-<tr class="even">
-<td>length</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>positive</td>
-</tr>
-<tr class="odd">
-<td>manning_n</td>
-<td>Float64</td>
-<td><span class="math inline">\(s m^{-\frac{1}{3}}\)</span></td>
-<td>positive</td>
-</tr>
-<tr class="even">
-<td>profile_width</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>positive</td>
-</tr>
-<tr class="odd">
-<td>profile_slope</td>
-<td>Float64</td>
-<td>-</td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="sec-terminal" class="level1" data-number="17">
-<h1 data-number="17"><span class="header-section-number">17</span> Terminal</h1>
-<p>A terminal is a water sink without state or properties. Any water that flows into a terminal node is removed from the model. No water can come into the model from a terminal node. For example, terminal nodes can be used as a downstream boundary.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="sec-discrete-control" class="level1" data-number="18">
-<h1 data-number="18"><span class="header-section-number">18</span> DisceteControl</h1>
-<section id="discretecontrol-variable" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="discretecontrol-variable"><span class="header-section-number">18.1</span> DiscreteControl / variable</h2>
-<p>The compound variable schema defines linear combinations of variables which can be used in conditions. This means that this schema defines new variables with the given <code>compound_variable_id</code> that look like <span class="math display">\[
-\text{weight}_1 * \text{variable}_1 + \text{weight}_2 * \text{variable}_2 + \ldots,
-\]</span></p>
-<p>which can be for instance an average or a difference of variables. If a variable comes from a time-series, a look ahead <span class="math inline">\(\Delta t\)</span> can be supplied.</p>
-<table class="table">
-<colgroup>
-<col style="width: 43%">
-<col style="width: 17%">
-<col style="width: 15%">
-<col style="width: 23%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>compound_variable_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>listen_node_type</td>
-<td>String</td>
-<td>-</td>
-<td>known node type</td>
-</tr>
-<tr class="even">
-<td>listen_node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>variable</td>
-<td>String</td>
-<td>-</td>
-<td>must be “level” or “flow_rate”, sorted per listen_node_id</td>
-</tr>
-<tr class="even">
-<td>weight</td>
-<td>Float64</td>
-<td>-</td>
-<td>(optional, default 1.0)</td>
-</tr>
-<tr class="odd">
-<td>look_ahead</td>
-<td>Float64</td>
-<td><span class="math inline">\(s\)</span></td>
-<td>Only on transient boundary conditions, non-negative (optional, default 0.0).</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="discretecontrol-condition" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="discretecontrol-condition"><span class="header-section-number">18.2</span> DiscreteControl / condition</h2>
-<p>The condition schema defines conditions of the form ‘the <code>discrete_control</code> node with this <code>node_id</code>listens to whether the variable given by the <code>node_id</code> and <code>compound_variable_id</code> is greater than <code>greater_than</code>’. Multiple conditions with different <code>greater_than</code> values can be defined on the same compound_variable.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>compound_variable_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>greater_than</td>
-<td>Float64</td>
-<td>various</td>
-<td>sorted per variable</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="discretecontrol-logic" class="level2" data-number="18.3">
-<h2 data-number="18.3" class="anchored" data-anchor-id="discretecontrol-logic"><span class="header-section-number">18.3</span> DiscreteControl / logic</h2>
-<p>The logic schema defines which control states are triggered based on the truth of the conditions a DiscreteControl node listens to. DiscreteControl is applied in the Julia core as follows:</p>
-<ul>
-<li>During the simulation it is checked whether the truth of any of the conditions changes.</li>
-<li>When a condition changes, the corresponding DiscreteControl node ID is retrieved (node_id in the condition schema above).</li>
-<li>The truth value of all the conditions this DiscreteControl node listens to are retrieved, <strong>in the sorted order as specified in the condition schema</strong>. This is then converted into a string of “T” for true and “F” for false. This string we call the truth state.*</li>
-<li>The table below determines for the given DiscreteControl node ID and truth state what the corresponding control state is.</li>
-<li>For all the nodes this DiscreteControl node affects (as given by the “control” edges in <a href="../core/usage.html#edge">Edges / static</a>), their parameters are set to those parameters in <code>NodeType / static</code> corresponding to the determined control state.</li>
-</ul>
-<p>*. There is also a second truth state created in which for the last condition that changed it is specified whether it was an upcrossing (“U”) or downcrossing (“D”) of the threshold (greater than) value. If a control state is specified for a truth state that is crossing-specific, this takes precedence over the control state for the truth state that contains only “T” and “F”.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>When creating truth states, it is important to not use the order of the condition table as you provide it, but the order as it is written to the file. Users can provide tables in any order, but when writing the model it gets sorted in the required order as specified in the schema.</p>
-</div>
-</div>
-<table class="table">
-<colgroup>
-<col style="width: 37%">
-<col style="width: 21%">
-<col style="width: 10%">
-<col style="width: 29%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>control_state</td>
-<td>String</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>truth_state</td>
-<td>String</td>
-<td>-</td>
-<td>Consists of the characters “T” (true), “F” (false), “U” (upcrossing), “D” (downcrossing) and “*” (any), sorted per node_id</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="sec-pid-control" class="level1" data-number="19">
-<h1 data-number="19"><span class="header-section-number">19</span> PidControl</h1>
-<p>The PidControl node controls the level in a basin by continuously controlling the flow rate of a connected pump or outlet. See also <a href="https://en.wikipedia.org/wiki/PID_controller">PID controller</a>. When A PidControl node is made inactive, the node under its control retains the last flow rate value, and the error integral is reset to 0.</p>
-<p>In the future controlling the flow on a particular edge could be supported.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>control_state</td>
-<td>String</td>
-<td>-</td>
-<td>(optional) sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>active</td>
-<td>Bool</td>
-<td>-</td>
-<td>(optional, default true)</td>
-</tr>
-<tr class="even">
-<td>listen_node_type</td>
-<td>String</td>
-<td>-</td>
-<td>known node type</td>
-</tr>
-<tr class="odd">
-<td>listen_node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>target</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>proportional</td>
-<td>Float64</td>
-<td><span class="math inline">\(s^{-1}\)</span></td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>integral</td>
-<td>Float64</td>
-<td><span class="math inline">\(s^{-2}\)</span></td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>derivative</td>
-<td>Float64</td>
-<td>-</td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-<section id="pidcontrol-time" class="level2" data-number="19.1">
-<h2 data-number="19.1" class="anchored" data-anchor-id="pidcontrol-time"><span class="header-section-number">19.1</span> PidControl / time</h2>
-<p>This table is the transient form of the <code>PidControl</code> table. The differences are that a time column is added and the nodes are assumed to be active so this column is removed. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the target level and PID coefficients can be updated over time. In between the given times the these values interpolated linearly, and outside these values area constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>time</td>
-<td>DateTime</td>
-<td>-</td>
-<td>sorted per node_id</td>
-</tr>
-<tr class="odd">
-<td>listen_node_type</td>
-<td>Int32</td>
-<td>-</td>
-<td>known node type</td>
-</tr>
-<tr class="even">
-<td>listen_node_id</td>
-<td>Int32</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>target</td>
-<td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>proportional</td>
-<td>Float64</td>
-<td><span class="math inline">\(s^{-1}\)</span></td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td>integral</td>
-<td>Float64</td>
-<td><span class="math inline">\(s^{-2}\)</span></td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td>derivative</td>
-<td>Float64</td>
-<td>-</td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="results" class="level1" data-number="20">
-<h1 data-number="20"><span class="header-section-number">20</span> Results</h1>
-<section id="basin---basin.arrow" class="level2" data-number="20.1">
-<h2 data-number="20.1" class="anchored" data-anchor-id="basin---basin.arrow"><span class="header-section-number">20.1</span> Basin - <code>basin.arrow</code></h2>
+<section id="results" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Results</h1>
+<section id="basin---basin.arrow" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="basin---basin.arrow"><span class="header-section-number">5.1</span> Basin - <code>basin.arrow</code></h2>
 <p>The Basin table contains:</p>
 <ul>
 <li>Results of the storage and level of each Basin, which are instantaneous values;</li>
@@ -2457,8 +804,8 @@ Note
 </table>
 <p>The table is sorted by time, and per time it is sorted by <code>node_id</code>.</p>
 </section>
-<section id="flow---flow.arrow" class="level2" data-number="20.2">
-<h2 data-number="20.2" class="anchored" data-anchor-id="flow---flow.arrow"><span class="header-section-number">20.2</span> Flow - <code>flow.arrow</code></h2>
+<section id="flow---flow.arrow" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="flow---flow.arrow"><span class="header-section-number">5.2</span> Flow - <code>flow.arrow</code></h2>
 <p>The flow table contains calculated mean flows over the <code>saveat</code> intervals for every flow edge in the model. In the time column the start of the period is indicated.</p>
 <table class="table">
 <thead>
@@ -2508,8 +855,8 @@ Note
 </table>
 <p>The table is sorted by time, and per time the same <code>edge_id</code> order is used, though not sorted. The <code>edge_id</code> value is the same as the <code>fid</code> written to the Edge table, and can be used to directly look up the Edge geometry. Flows from the “from” to the “to” node have a positive sign, and if the flow is reversed it will be negative.</p>
 </section>
-<section id="discretecontrol---control.arrow" class="level2" data-number="20.3">
-<h2 data-number="20.3" class="anchored" data-anchor-id="discretecontrol---control.arrow"><span class="header-section-number">20.3</span> DiscreteControl - <code>control.arrow</code></h2>
+<section id="discretecontrol---control.arrow" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="discretecontrol---control.arrow"><span class="header-section-number">5.3</span> DiscreteControl - <code>control.arrow</code></h2>
 <p>The control table contains a record of each change of control state: when it happened, which control node was involved, to which control state it changed and based on which truth state.</p>
 <table class="table">
 <thead>
@@ -2538,8 +885,8 @@ Note
 </tbody>
 </table>
 </section>
-<section id="allocation---allocation.arrow" class="level2" data-number="20.4">
-<h2 data-number="20.4" class="anchored" data-anchor-id="allocation---allocation.arrow"><span class="header-section-number">20.4</span> Allocation - <code>allocation.arrow</code></h2>
+<section id="allocation---allocation.arrow" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="allocation---allocation.arrow"><span class="header-section-number">5.4</span> Allocation - <code>allocation.arrow</code></h2>
 <p>The allocation table contains a record of allocation results: when it happened, for which node, in which allocation network, and what the demand, allocated flow and realized flow were. The realized values at the starting time of the simulation can be ignored.</p>
 <table class="table">
 <thead>
@@ -2611,8 +958,8 @@ Note
 </div>
 </div>
 </section>
-<section id="allocation-flow---allocation_flow.arrow" class="level2" data-number="20.5">
-<h2 data-number="20.5" class="anchored" data-anchor-id="allocation-flow---allocation_flow.arrow"><span class="header-section-number">20.5</span> Allocation flow - <code>allocation_flow.arrow</code></h2>
+<section id="allocation-flow---allocation_flow.arrow" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="allocation-flow---allocation_flow.arrow"><span class="header-section-number">5.5</span> Allocation flow - <code>allocation_flow.arrow</code></h2>
 <p>The allocation flow table contains results of the optimized allocation flow on every edge in the model that is part of a subnetwork, for each time an optimization problem is solved (see also <a href="../core/allocation.html#the-high-level-algorithm">here</a>). If in the model a main network and subnetwork(s) are specified, there are 2 different types of optimization for the subnetwork: collecting its total demand per priority (for allocating flow from the main network to the subnetwork), and allocating flow within the subnetwork. The column <code>collect_demands</code> provides the distinction between these two optimization types.</p>
 <table class="table">
 <thead>

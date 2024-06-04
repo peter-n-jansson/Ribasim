@@ -270,6 +270,107 @@ window.Quarto = {
  <span class="menu-text">Coupling</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Nodes</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/basin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basin</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/tabulated-rating-curve.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TabulatedRatingCurve</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/pump.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pump</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/outlet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Outlet</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/user-demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">UserDemand</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/flow-demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlowDemand</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/level-demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LevelDemand</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/flow-boundary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FlowBoundary</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/level-boundary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LevelBoundary</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/linear-resistance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LinearResistance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/manning-resistance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ManningResistance</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/fractional-flow.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FractionalFlow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/terminal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Terminal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/discrete-control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DiscreteControl</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../core/node/pid-control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PidControl</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -427,7 +528,7 @@ Note
     \end{cases}
 \end{align}\]</span></p>
 <p>Here <span class="math inline">\(p &gt; 0\)</span> is the threshold value which determines the interval <span class="math inline">\([0,p]\)</span> of the smooth transition between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, see the plot below.</p>
-<div id="ee5da6e2" class="cell" data-execution_count="1">
+<div id="7bdb72b0" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -515,20 +616,19 @@ derivative.
 </section>
 <section id="upstream-and-downstream-flow" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="upstream-and-downstream-flow"><span class="header-section-number">2.5</span> Upstream and downstream flow</h2>
-<p>Ribasim’s basins can be connected to each other, and each basin expects an explicit connection. These connections are currently available for inter-basin flows:</p>
-<!-- Is the pump a natural water balance term? -->
+<p>Ribasim’s Basins can be connected to each other, and each Basin expects an explicit connection. These connections are currently available for inter-Basin flows:</p>
 <ol type="1">
-<li><code>Pump</code></li>
-<li><code>TabulatedRatingCurve</code></li>
-<li><code>LinearResistance</code></li>
-<li><code>ManningResistance</code></li>
+<li>Pump</li>
+<li>TabulatedRatingCurve</li>
+<li>LinearResistance</li>
+<li>ManningResistance</li>
 </ol>
-<p>The flow direction of the basin is not pre-determined: flow directions may freely reverse, provided the connection allows it. Currently, a <code>LinearResistance</code> allows bidirectional flow, but the</p>
+<p>The flow direction of the Basin is not pre-determined: flow directions may freely reverse, provided the connection allows it. Currently only LinearResistance and ManningResistance allow bidirectional flow.</p>
 <p>Additionally, three additional “connections” area available for the “outmost” basins (external nodes) in a network.</p>
 <ol type="1">
-<li><code>Terminal</code></li>
-<li><code>LevelBoundary</code></li>
-<li><code>FlowBoundary</code></li>
+<li>Terminal</li>
+<li>LevelBoundary</li>
+<li>FlowBoundary</li>
 </ol>
 <section id="sec-pump" class="level3" data-number="2.5.1">
 <h3 data-number="2.5.1" class="anchored" data-anchor-id="sec-pump"><span class="header-section-number">2.5.1</span> Pump</h3>
@@ -563,19 +663,19 @@ Note
 </section>
 <section id="linearresistance" class="level3" data-number="2.5.4">
 <h3 data-number="2.5.4" class="anchored" data-anchor-id="linearresistance"><span class="header-section-number">2.5.4</span> LinearResistance</h3>
-<p>A <code>LinearResistance</code> connects two basins together. The flow between the two basins is determined by a linear relationship, up to an optional maximum flow rate:</p>
+<p>A LinearResistance connects two Basins together. The flow between the two Basins is determined by a linear relationship, up to an optional maximum flow rate:</p>
 <p><span id="eq-basinflow"><span class="math display">\[
     Q = \mathrm{clamp}(\frac{h_a - h_b}{R}, -Q_{\max}, Q_{\max})
 \tag{6}\]</span></span></p>
-<p>Here <span class="math inline">\(h_a\)</span> is the water level in the first basin and <span class="math inline">\(h_b\)</span> is the water level in the second basin. <span class="math inline">\(R\)</span> is the resistance of the link, and <span class="math inline">\(Q_{\max}\)</span> is the maximum flow rate. A <code>LinearResistance</code> makes no assumptions about the direction of the flow: water flows from high to low.</p>
+<p>Here <span class="math inline">\(h_a\)</span> is the water level in the first basin and <span class="math inline">\(h_b\)</span> is the water level in the second basin. <span class="math inline">\(R\)</span> is the resistance of the link, and <span class="math inline">\(Q_{\max}\)</span> is the maximum flow rate. A LinearResistance makes no assumptions about the direction of the flow: water flows from high to low.</p>
 </section>
 <section id="terminal" class="level3" data-number="2.5.5">
 <h3 data-number="2.5.5" class="anchored" data-anchor-id="terminal"><span class="header-section-number">2.5.5</span> Terminal</h3>
-<p>This only allows outflow from a basin into a terminal node.</p>
+<p>This only allows outflow from a Basin into a Terminal node.</p>
 </section>
 <section id="levelboundary" class="level3" data-number="2.5.6">
 <h3 data-number="2.5.6" class="anchored" data-anchor-id="levelboundary"><span class="header-section-number">2.5.6</span> LevelBoundary</h3>
-<p>This can be connected to a basin via a <code>LinearResistance</code>. This boundary node will then exchange water with the basin based on the difference in water level between the two.</p>
+<p>This can be connected to a basin via a LinearResistance. This boundary node will then exchange water with the basin based on the difference in water level between the two.</p>
 </section>
 <section id="flowboundary" class="level3" data-number="2.5.7">
 <h3 data-number="2.5.7" class="anchored" data-anchor-id="flowboundary"><span class="header-section-number">2.5.7</span> FlowBoundary</h3>
