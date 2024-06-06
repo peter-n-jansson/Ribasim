@@ -402,6 +402,7 @@ window.Quarto = {
   <li><a href="#discretecontrol---control.arrow" id="toc-discretecontrol---control.arrow" class="nav-link" data-scroll-target="#discretecontrol---control.arrow"><span class="header-section-number">5.3</span> DiscreteControl - <code>control.arrow</code></a></li>
   <li><a href="#allocation---allocation.arrow" id="toc-allocation---allocation.arrow" class="nav-link" data-scroll-target="#allocation---allocation.arrow"><span class="header-section-number">5.4</span> Allocation - <code>allocation.arrow</code></a></li>
   <li><a href="#allocation-flow---allocation_flow.arrow" id="toc-allocation-flow---allocation_flow.arrow" class="nav-link" data-scroll-target="#allocation-flow---allocation_flow.arrow"><span class="header-section-number">5.5</span> Allocation flow - <code>allocation_flow.arrow</code></a></li>
+  <li><a href="#subgrid-level---subgrid_level.arrow" id="toc-subgrid-level---subgrid_level.arrow" class="nav-link" data-scroll-target="#subgrid-level---subgrid_level.arrow"><span class="header-section-number">5.6</span> Subgrid level - <code>subgrid_level.arrow</code></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1008,6 +1009,32 @@ Note
 <tr class="even">
 <td>collect_demands</td>
 <td>Bool</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="subgrid-level---subgrid_level.arrow" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="subgrid-level---subgrid_level.arrow"><span class="header-section-number">5.6</span> Subgrid level - <code>subgrid_level.arrow</code></h2>
+<p>This result file is only written if the model contains a <a href="../core/node/basin.html#subgrid">Basin / subgrid</a> table. See there for more information on the meaning of this output.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>time</td>
+<td>DateTime</td>
+</tr>
+<tr class="even">
+<td>subgrid_id</td>
+<td>Int32</td>
+</tr>
+<tr class="odd">
+<td>subgrid_level</td>
+<td>Float64</td>
 </tr>
 </tbody>
 </table>
