@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim - Ribasim quick overview</title>
+<title>Ribasim</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,9 +66,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="assets/styles.css">
@@ -95,20 +92,28 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./core/index.html"> 
-<span class="menu-text">Julia core</span></a>
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./python/index.html"> 
-<span class="menu-text">Python tooling</span></a>
+    <a class="nav-link" href="./tutorials/index.html"> 
+<span class="menu-text">Get Started</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./qgis/index.html"> 
-<span class="menu-text">QGIS plugin</span></a>
+    <a class="nav-link" href="./guides/index.html"> 
+<span class="menu-text">Guides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./contribute/index.html"> 
-<span class="menu-text">Contributing</span></a>
+    <a class="nav-link" href="./background/concept.html"> 
+<span class="menu-text">Background</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./reference/index.html"> 
+<span class="menu-text">Reference</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./changelog.html"> 
+<span class="menu-text">Changelog</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -129,29 +134,14 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#sec-introduction" id="toc-sec-introduction" class="nav-link active" data-scroll-target="#sec-introduction"><span class="header-section-number">1</span> Introduction</a></li>
-  <li><a href="#sec-concept" id="toc-sec-concept" class="nav-link" data-scroll-target="#sec-concept"><span class="header-section-number">2</span> Concept</a>
-  <ul class="collapse">
-  <li><a href="#sec-physical" id="toc-sec-physical" class="nav-link" data-scroll-target="#sec-physical"><span class="header-section-number">2.1</span> Physical layer</a></li>
-  <li><a href="#sec-control" id="toc-sec-control" class="nav-link" data-scroll-target="#sec-control"><span class="header-section-number">2.2</span> Control layer</a></li>
-  <li><a href="#sec-allocation" id="toc-sec-allocation" class="nav-link" data-scroll-target="#sec-allocation"><span class="header-section-number">2.3</span> Allocation layer</a></li>
-  </ul></li>
-  <li><a href="#sec-components" id="toc-sec-components" class="nav-link" data-scroll-target="#sec-components"><span class="header-section-number">3</span> About the components</a></li>
-  <li><a href="#sec-download" id="toc-sec-download" class="nav-link" data-scroll-target="#sec-download"><span class="header-section-number">4</span> Download</a></li>
-  <li><a href="#acknowledgment" id="toc-acknowledgment" class="nav-link" data-scroll-target="#acknowledgment"><span class="header-section-number">5</span> Acknowledgment</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Ribasim quick overview</h1>
+<h1 class="title">Ribasim</h1>
 </div>
 
 
@@ -168,153 +158,24 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="sec-introduction" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>Decision makers need to balance the supply and demand of water at the river basin scale, under increasing environmental pressure. Ribasim allows users to model basins under current and changing conditions to evaluate and design and management of the water system. It is available as free and open source software under the MIT license. Besides a model simulation core, Ribasim also includes tooling to assist in building models from basic datasets and visualize results. The model and its results provides insights to decision makers, enabling them to build consensus amongst water users and make informed decisions about how to manage water resources optimally.</p>
-<p>The model concept of Ribasim is composed of multiple layers: - a physical layer representing water bodies and associated infrastructure as well as abstractions, - a rule-based control layer to manage the infrastructure, and - (optionally) a priority-based allocation layer to take centralized decisions on user abstractions. - (optionally) a coupling layer to exchange fluxes and heads with other kernels</p>
-<p>Typically hydrological processes on land will be represented in detail by other models which can be coupled (online) to Ribasim with the help of iMOD Coupler. Currently, an online coupling with MODFLOW 6 (groundwater) and with Metaswap + MODFLOW 6 (unsaturated zone + groundwater) is available. The corresponding documentation can be found within the <a href="https://deltares.github.io/iMOD-Documentation/coupler.html">iMOD Suite Documentation</a>.</p>
-<p>This version of Ribasim is the follow up of the legacy Fortran kernel of Ribasim (version 7) applied world wide, the Fortran kernel SIMRES applied in the Netherlands, and the surface water models Distribution Model and Mozart of the Dutch National Hydrological Instrument.</p>
-</section>
-<section id="sec-concept" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Concept</h1>
-<section id="sec-physical" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="sec-physical"><span class="header-section-number">2.1</span> Physical layer</h2>
-<p>To represent the physical characteristics of the water system in an area, Ribasim allows you to divide the area into a network of connected representative elementary watersheds (<a href="https://deltares.github.io/Ribasim/#ref-REGGIANI1998367">Reggiani, Sivapalan, and Majid Hassanizadeh 1998</a>). Within Ribasim, these elements are called basins, which are essentially buckets or reservoirs holding an aggregated volume of water bodies in an area. Basins are chained in a graph with connector nodes determining the exchange of water between the basins. These connector nodes can represent open water connections (e.g.&nbsp;bifurcations or resistance in a free flowing open water channel) or infrastructure elements such as pumps, gates or weirs. An overview of node types and associated data inputs is provided on the <a href="./core/usage.html">usage page</a>, while the associated mathematical formations are described on the <a href="./core/equations.html">equations page</a>.</p>
-</section>
-<section id="sec-control" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="sec-control"><span class="header-section-number">2.2</span> Control layer</h2>
-<p>Infrastructure elements are often controlled by humans to implement a certain water management strategy. Ribasim allows the configuration of conditional rules to influence the exchange of water between basins, either by setting inflow or outflow, or by controlling a water level. Control rules evaluate one or multiple conditions to change a parameter setting of an infrastructure element when the conditional criteria are met. Conditions can be either calculated values within the network as well as boundary conditions or (todo) external observations, i.e.&nbsp;observation values external to the model. An overview of node types and associated data inputs is provided on the <a href="./core/usage.html">usage page</a>, while the associated mathematical formations are described on the <a href="./core/equations.html">equations page</a>.</p>
-</section>
-<section id="sec-allocation" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="sec-allocation"><span class="header-section-number">2.3</span> Allocation layer</h2>
-<p>Ribasim allows water users (water demands) to abstract water from the basins (i.e.&nbsp;from the physical layer) unless the water level drops below a minimum level. Under dry conditions, water managers may want to prioritize some abstractions over other abstractions. The Ribasim allocation layer can take care of this prioritization by reducing the abstraction rates of lower-priority demands to ensure that sufficient water remains available in the system for the higher-priority demands. The associated mathematical formulations are described on the <a href="./core/allocation.html">allocation page</a>. In case of large networks, a subdivision in a main network with subnetworks is recommended. For more details see the explanation of the <a href="./core/index.html#sec-nested-allocation">simulation loop</a> at the Julia core home page.</p>
-<p>The layers and the main components and dataflows between the layers are shown in the next figure:</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart TB
-physical:::layer
-rbc:::layer
-allocation:::layer
-user_demand
-basin
-connector[basin connector]
-control[control rules]
-condition
-alloc[global allocation]
-
-subgraph physical[physical layer]
-    user_demand--&gt;|abstraction| basin
-    basin&lt;--&gt;|flow| connector
-end
-
-subgraph rbc[rule based control layer]
-   condition --&gt; control
-end
-
-subgraph allocation[allocation layer]
-    alloc
-end
-
-user_demand--&gt;|request demand| alloc
-alloc--&gt;|assign allocation| user_demand
-basin--&gt;|volume| alloc
-basin --&gt; |volume or level| condition
-alloc --&gt; |optional flow update| control
-control --&gt; |action| connector
-
-%% class definitions for C4 model
-classDef layer fill:transparent,stroke-dasharray:5 5
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="sec-components" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> About the components</h1>
-<p>The figure below illustrates the relation between the various components of the Ribasim software package.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart TB
-modeler([Modeler]):::user
-
-api["Ribasim Python\n[python]"]
-modeler--&gt;|prepare model|api
-
-ribasim["Ribasim\n[julia]"]
-modeler--&gt;|start|ribasim
-
-subgraph qgisBoundary[QGIS]
-    QGIS[QGIS Application]:::system_ext
-    qgisPlugin["Ribasim QGIS plugin\n[python]"]
-    QGIS--&gt;qgisPlugin
-end
-modeler--&gt;|prepare model|qgisBoundary
-
-model[("input model data\n[toml + geopackage + arrow]")]
-qgisPlugin--&gt;|read/write|model
-api--&gt;|read/write|model
-ribasim--&gt;|simulate|model
-
-output[("simulation results\n[arrow]")]
-ribasim--&gt;|write|output
-
-class qgisBoundary boundary
-
-%% class definitions for C4 model
-classDef user fill:#ABD0BC
-classDef system_ext fill:#D2D2D2
-classDef boundary fill:transparent,stroke-dasharray:5 5
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>The kernel of Ribasim is written in the <a href="https://julialang.org/">Julia programming language</a> and is built on top of the <a href="https://sciml.ai/">SciML: Open Source Software for Scientific Machine Learning</a> libraries, notably <a href="https://docs.sciml.ai/DiffEqDocs/stable/">DifferentialEquations.jl</a>.</p>
-<p>The <a href="https://deltares.github.io/Ribasim/python/">Ribasim Python package</a> is available to build, update and analyze Ribasim models programmatically. For runtime data exchange and coupling with other kernels, the Julia kernel is wrapped in a Python API (<code>ribasim_api</code>) which implements the Basic Modelling Interface <a href="https://bmi-spec.readthedocs.io/en/latest/">BMI</a>.</p>
-<p>The Ribasim QGIS plugin allows users to view or edit a model without programming. For specific tasks, like adding long timeseries, using Python is strongly recommended.</p>
-<p>One can also use Ribasim Python to build entire models from base data, such that your model setup is fully reproducible.</p>
-<p>See <a href="https://deltares.github.io/Ribasim/core/usage.html">usage</a> for more information.</p>
-</section>
-<section id="sec-download" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Download</h1>
-<ul>
-<li>Ribasim executable - Linux: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_cli_linux.zip">ribasim_cli_linux.zip</a></li>
-<li>Ribasim executable - Windows: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_cli_windows.zip">ribasim_cli_windows.zip</a></li>
-<li>QGIS plugin: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_qgis.zip">ribasim_qgis.zip</a>.</li>
-<li>Generated testmodels: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/generated_testmodels.zip">generated_testmodels.zip</a></li>
-</ul>
-<p>The Ribasim Python package is <a href="https://pypi.org/project/ribasim/">registered in PyPI</a> and can therefore be installed with <a href="https://docs.python.org/3/installing/index.html">pip</a>:</p>
-<pre><code>pip install ribasim</code></pre>
-</section>
-<section id="acknowledgment" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Acknowledgment</h1>
-<p>Ribasim is supported by:</p>
 <div>
 
 </div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row quarto-layout-valign-bottom">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p><a href="https://www.deltares.nl/"> <img alt="Deltares logo" src="https://user-images.githubusercontent.com/4471859/187672447-adb9cb11-16ca-488b-bef9-08e059fe6d55.svg" height="60"> </a></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-layout-panel" data-layout="[ 50, 50 ]">
+<div class="quarto-layout-row">
+<div id="first-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>Ribasim is a water resources model, designed to be the replacement of the regional surface water modules Mozart and SIMRES in the Netherlands Hydrological Instrument (NHI). <br></p>
+<p>Ribasim is written in the <a href="https://julialang.org/">Julia programming language</a> and is built on top of the <a href="https://sciml.ai/">SciML: Open Source Software for Scientific Machine Learning</a> libraries.</p>
+<p><br> Ribasim is supported and developed by: <br> <a href="https://www.deltares.nl/"> <img alt="Deltares logo" src="https://user-images.githubusercontent.com/4471859/187672447-adb9cb11-16ca-488b-bef9-08e059fe6d55.svg" height="60"> </a></p>
 <p><a href="https://nhi.nu/"> <img alt="NHI logo" src="https://user-images.githubusercontent.com/4471859/187672456-874b344a-9ad3-42b5-af6a-93517f7fbbe8.png" height="60"> </a></p>
 </div>
+<div id="second-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><img alt="Ribasim HWS model" src="https://github.com/Deltares/Ribasim/assets/8655030/70c3ee66-75a8-48a7-8675-35e2dc6d63eb"></p>
+</div>
 </div>
 </div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
