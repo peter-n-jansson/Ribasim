@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim - QGIS plugin development</title>
+<title>Ribasim</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../dev/python.html" rel="next">
-<link href="../guides/core.html" rel="prev">
+<link href="../guides/release.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -69,6 +68,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -135,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guides/core.html">For developers</a></li><li class="breadcrumb-item"><a href="../guides/qgis.html">QGIS plugin development</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guides/core.html">For developers</a></li><li class="breadcrumb-item"><a href="../guides/bmi.html">Basic Model Interface (BMI)</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -199,7 +227,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guides/qgis.html" class="sidebar-item-text sidebar-link active">
+  <a href="../guides/qgis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">QGIS plugin development</span></a>
   </div>
 </li>
@@ -223,7 +251,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guides/bmi.html" class="sidebar-item-text sidebar-link">
+  <a href="../guides/bmi.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Basic Model Interface (BMI)</span></a>
   </div>
 </li>
@@ -239,95 +267,201 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#set-up-the-developer-environment" id="toc-set-up-the-developer-environment" class="nav-link active" data-scroll-target="#set-up-the-developer-environment"><span class="header-section-number">1</span> Set up the developer environment</a></li>
-  <li><a href="#running-qgis" id="toc-running-qgis" class="nav-link" data-scroll-target="#running-qgis"><span class="header-section-number">2</span> Running QGIS</a></li>
-  <li><a href="#running-tests" id="toc-running-tests" class="nav-link" data-scroll-target="#running-tests"><span class="header-section-number">3</span> Running tests</a></li>
-  <li><a href="#debugging" id="toc-debugging" class="nav-link" data-scroll-target="#debugging"><span class="header-section-number">4</span> Debugging</a></li>
+  <li><a href="#basic-model-interface-bmi" id="toc-basic-model-interface-bmi" class="nav-link active" data-scroll-target="#basic-model-interface-bmi"><span class="header-section-number">1</span> Basic Model Interface (BMI)</a>
+  <ul class="collapse">
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions"><span class="header-section-number">1.1</span> Functions</a></li>
+  <li><a href="#memory-pointers" id="toc-memory-pointers" class="nav-link" data-scroll-target="#memory-pointers"><span class="header-section-number">1.2</span> Memory pointers</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guides/core.html">For developers</a></li><li class="breadcrumb-item"><a href="../guides/qgis.html">QGIS plugin development</a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title">QGIS plugin development</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="set-up-the-developer-environment" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Set up the developer environment</h1>
-<p>After you have installed the environment as described <a href="../guides/core.html">here</a> you must still activate the QGIS plugins. The simplest way to do this is by running <code>pixi run install-qgis-plugins</code>. It grabs the latest version of the iMOD QGIS plugin and it makes a symlink to the ribasim_qgis folder so that QGIS can find it. It also installs plugins that make it possible to reload and debug your plugin while QGIS is open.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>On Windows you need to have Developer mode enabled. Otherwise you will not have enough access rights to create symlinks. For more info, see this <a href="https://blogs.windows.com/windowsdeveloper/2016/12/02/symlinks-windows-10/">Windows blog</a>.</p>
-<p>We wanted to implement this via <code>pip install --editable</code>, but QGIS doesn’t find the <code>metadata.txt</code> and therefore cannot load the plugin on startup.</p>
-</div>
-</div>
+<section id="basic-model-interface-bmi" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Basic Model Interface (BMI)</h1>
+<p>For runtime data exchange and coupling with other kernels, the Julia kernel is wrapped in a Python API (<code>ribasim_api</code>) which implements the Basic Modelling Interface <a href="https://bmi-spec.readthedocs.io/en/latest/">BMI</a>.</p>
+<section id="functions" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="functions"><span class="header-section-number">1.1</span> Functions</h2>
+<p>The following functions are available to interact with the Ribasim model”</p>
+<table class="table">
+<colgroup>
+<col style="width: 65%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>signature</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>initialize(config_path)</code></td>
+<td>Initialize a model from the path to the TOML configuration file</td>
+</tr>
+<tr class="even">
+<td><code>finalize()</code></td>
+<td>Write all results to the configured files</td>
+</tr>
+<tr class="odd">
+<td><code>get_current_time()</code></td>
+<td>Get the current time of the Ribasim simulation</td>
+</tr>
+<tr class="even">
+<td><code>get_end_time()</code></td>
+<td>Get the final time of the Ribasim simulation in seconds</td>
+</tr>
+<tr class="odd">
+<td><code>get_start_time()</code></td>
+<td>Get the start time of the Ribasim simulation (<code>0.0</code>)</td>
+</tr>
+<tr class="even">
+<td><code>get_time_step()</code></td>
+<td>Get the proposed next internal Ribasim timestep</td>
+</tr>
+<tr class="odd">
+<td><code>get_time_units()</code></td>
+<td>Get the time unit (<code>s</code>)</td>
+</tr>
+<tr class="even">
+<td><code>get_value_ptr(string)</code></td>
+<td>Get the pointer to a Ribasim internal array (see below)</td>
+</tr>
+<tr class="odd">
+<td><code>update()</code></td>
+<td>Perform a Ribasim internal time step</td>
+</tr>
+<tr class="even">
+<td><code>update_until(time)</code></td>
+<td>Set Ribasim internal timesteps until the specified time</td>
+</tr>
+</tbody>
+</table>
+<p>Depending on what is specified in the Ribasim TOML configuration file, Ribasim can internally have adaptive (non-constant) timesteps. <code>update_until</code> will always try to progress the Ribasim simulation to exactly the time specified. This however can fail for algorithms that only support a fixed timestep if that timestep does not fit into the interval until the specified time an integer amount of times.</p>
 </section>
-<section id="running-qgis" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Running QGIS</h1>
-<p>In order to run QGIS with the plugins, simply call <code>pixi run qgis</code>. You will find the Ribasim and iMOD plugins in the tool bars.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>On Windows, running QGIS from the start menu will disable Python, and thus the plugins. QGIS needs some more paths during the startup and the Pixi environment provides those.</p>
-</div>
-</div>
-</section>
-<section id="running-tests" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Running tests</h1>
-<p>To run the QGIS plugin tests in the application environment of QGIS, it is best to make use of the Docker environment provided in this repository. Make sure that docker is installed and available in your path.</p>
-<p>Then simply call <code>pixi run test-ribasim-qgis</code>.</p>
-</section>
-<section id="debugging" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Debugging</h1>
-<p>After installing the plugins via <code>pixi run install-qgis-plugins</code>. Extra debugging tools are also installed in QGIS that is installed within your pixi environment.</p>
-<p>After you have started <code>pixi run qgis</code>, you can make alterations to the Python code and use the <a href="https://github.com/borysiasty/plugin_reloader">Plugin Reloader</a> to reload the plugin without restarting QGIS. The shortcut in QGIS is <code>CTRL+F5</code>.</p>
-<p>It is also possible to connect the debugger of Visual Studio Code. For this the <a href="https://github.com/lmotta/debug_vs_plugin">debugvs</a> plugin is installed in QGIS. In QGIS press the button to <em>Enable Debug for Visual Studio</em>. Then go to Visual Studio Code and start the launch task <em>Ribasim QGIS: Attach to QGIS</em>. Now you can place breakpoints.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>We are currently using debugvs 0.7 with ptvsd as service, since there is an <a href="https://github.com/lmotta/debug_vs_plugin/issues/12">open issue</a> that breaks debugvs 0.8 with debugpy.</p>
-</div>
-</div>
+<section id="memory-pointers" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="memory-pointers"><span class="header-section-number">1.2</span> Memory pointers</h2>
+<p>The following pointers to memory containing Ribasim internal arrays are given via the BMI using <code>get_value_ptr(string)</code>:</p>
+<table class="table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 29%">
+<col style="width: 5%">
+<col style="width: 9%">
+<col style="width: 16%">
+<col style="width: 6%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>string</th>
+<th>meaning</th>
+<th>type</th>
+<th>unit</th>
+<th>temporal type</th>
+<th>writable</th>
+<th>sorted by</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>basin.storage</code></td>
+<td>storage per basin</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
+<td>instantaneous</td>
+<td>no</td>
+<td>basin node ID</td>
+</tr>
+<tr class="even">
+<td><code>basin.level</code></td>
+<td>level per basin</td>
+<td>Float64</td>
+<td><span class="math inline">\(m\)</span></td>
+<td>instantaneous</td>
+<td>no</td>
+<td>basin node ID</td>
+</tr>
+<tr class="odd">
+<td><code>basin.infiltration</code></td>
+<td>infiltration flux per basin</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>forward fill</td>
+<td>yes</td>
+<td>basin node ID</td>
+</tr>
+<tr class="even">
+<td><code>basin.drainage</code></td>
+<td>drainage flux per basin</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>forward fill</td>
+<td>yes</td>
+<td>basin node ID</td>
+</tr>
+<tr class="odd">
+<td><code>basin.infiltration_integrated</code></td>
+<td>cumulative infiltration per basin</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
+<td>integrated from start</td>
+<td>yes</td>
+<td>basin node ID</td>
+</tr>
+<tr class="even">
+<td><code>basin.drainage_integrated</code></td>
+<td>cumulative drainage per basin</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
+<td>integrated from start</td>
+<td>yes</td>
+<td>basin node ID</td>
+</tr>
+<tr class="odd">
+<td><code>basin.subgrid_level</code></td>
+<td>subgrid level</td>
+<td>Float64</td>
+<td><span class="math inline">\(m\)</span></td>
+<td>instantaneous</td>
+<td>no</td>
+<td>subgrid ID</td>
+</tr>
+<tr class="even">
+<td><code>user_demand.demand</code></td>
+<td>demand per node ID per priority</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td>forward fill</td>
+<td>yes</td>
+<td>user_demand node ID, priority index</td>
+</tr>
+<tr class="odd">
+<td><code>user_demand.realized</code></td>
+<td>cumulative intake flow per user</td>
+<td>Float64</td>
+<td><span class="math inline">\(m^3\)</span></td>
+<td>integrated from start</td>
+<td>yes</td>
+<td>user_demand node ID</td>
+</tr>
+</tbody>
+</table>
+<p>Additional notes:</p>
+<ul>
+<li><code>user_demand.demand</code> yields the only 2D array, the other arrays are 1D. This array is indexed as <code>(node_idx, priority_idx)</code> in Julia, which stores arrays column-major</li>
+<li>The index of e.g.&nbsp;basins and user demand nodes needs to be inferred from the Ribasim input. The same holds for <code>priority_idx</code>, which is global over all subnetworks</li>
+<li>The data being writable means that Ribasim takes into account the possibility that the data is updated outiside the Ribasim core</li>
+<li>Although the <code>*_integrated</code> and <code>*_realized</code> data is writable, this doesn’t affect the Ribasim simulation. This integrated data is only computed for the BMI, and can be set to <span class="math inline">\(0\)</span> via the BMI to avoid accuracy problems when the values get too large.</li>
+<li>Different from what is exposed via the BMI, the basin forcings and realized user demands are averaged over the allocation timestep and saveat interval respectively.</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -720,14 +854,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../guides/core.html" class="pagination-link" aria-label="Julia core development">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Julia core development</span>
+      <a href="../guides/release.html" class="pagination-link" aria-label="Release process">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Release process</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../dev/python.html" class="pagination-link" aria-label="Python tooling development">
-        <span class="nav-page-text">Python tooling development</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
