@@ -316,8 +316,8 @@ window.Quarto = {
   <li><a href="#infiltration-and-drainage" id="toc-infiltration-and-drainage" class="nav-link" data-scroll-target="#infiltration-and-drainage"><span class="header-section-number">2.4</span> Infiltration and Drainage</a></li>
   <li><a href="#upstream-and-downstream-flow" id="toc-upstream-and-downstream-flow" class="nav-link" data-scroll-target="#upstream-and-downstream-flow"><span class="header-section-number">2.5</span> Upstream and downstream flow</a>
   <ul class="collapse">
-  <li><a href="#sec-pump" id="toc-sec-pump" class="nav-link" data-scroll-target="#sec-pump"><span class="header-section-number">2.5.1</span> Pump</a></li>
-  <li><a href="#sec-outlet" id="toc-sec-outlet" class="nav-link" data-scroll-target="#sec-outlet"><span class="header-section-number">2.5.2</span> Outlet</a></li>
+  <li><a href="#sec-equation-pump" id="toc-sec-equation-pump" class="nav-link" data-scroll-target="#sec-equation-pump"><span class="header-section-number">2.5.1</span> Pump</a></li>
+  <li><a href="#sec-equation-outlet" id="toc-sec-equation-outlet" class="nav-link" data-scroll-target="#sec-equation-outlet"><span class="header-section-number">2.5.2</span> Outlet</a></li>
   <li><a href="#tabulatedratingcurve" id="toc-tabulatedratingcurve" class="nav-link" data-scroll-target="#tabulatedratingcurve"><span class="header-section-number">2.5.3</span> TabulatedRatingCurve</a></li>
   <li><a href="#linearresistance" id="toc-linearresistance" class="nav-link" data-scroll-target="#linearresistance"><span class="header-section-number">2.5.4</span> LinearResistance</a></li>
   <li><a href="#terminal" id="toc-terminal" class="nav-link" data-scroll-target="#terminal"><span class="header-section-number">2.5.5</span> Terminal</a></li>
@@ -451,7 +451,7 @@ Note
     \end{cases}
 \end{align}\]</span></p>
 <p>Here <span class="math inline">\(p &gt; 0\)</span> is the threshold value which determines the interval <span class="math inline">\([0,p]\)</span> of the smooth transition between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, see the plot below.</p>
-<div id="d204ae62" class="cell" data-execution_count="1">
+<div id="84ab374d" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -553,15 +553,15 @@ derivative.
 <li>LevelBoundary</li>
 <li>FlowBoundary</li>
 </ol>
-<section id="sec-pump" class="level3" data-number="2.5.1">
-<h3 data-number="2.5.1" class="anchored" data-anchor-id="sec-pump"><span class="header-section-number">2.5.1</span> Pump</h3>
+<section id="sec-equation-pump" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="sec-equation-pump"><span class="header-section-number">2.5.1</span> Pump</h3>
 <p>The behaviour of pumps is very straight forward if these nodes are not PID controlled. Their flow is given by a fixed flow rate <span class="math inline">\(q\)</span>, multiplied by a reduction factor: <span class="math display">\[
 Q_\text{pump} = \phi(u; 10.0)q
 \]</span></p>
 <p>Here <span class="math inline">\(u\)</span> is the storage of the upstream basin. The <a href="../concept/equations.html#sec-reduction_factor">reduction factor</a> <span class="math inline">\(\phi\)</span> makes sure that the flow of the pump goes smootly to <span class="math inline">\(0\)</span> as the upstream basin dries out.</p>
 </section>
-<section id="sec-outlet" class="level3" data-number="2.5.2">
-<h3 data-number="2.5.2" class="anchored" data-anchor-id="sec-outlet"><span class="header-section-number">2.5.2</span> Outlet</h3>
+<section id="sec-equation-outlet" class="level3" data-number="2.5.2">
+<h3 data-number="2.5.2" class="anchored" data-anchor-id="sec-equation-outlet"><span class="header-section-number">2.5.2</span> Outlet</h3>
 <p>The outlet is very similar to the pump, but it has a few extra <a href="../concept/equations.html#sec-reduction_factor">reduction factors</a> for physical constraints: <span class="math display">\[
 Q_\text{outlet} = \phi(u_a; 10.0)\phi(\Delta h; 0.1) \phi(h_a-h_\text{min};0.1)q.
 \]</span> The subscript <span class="math inline">\(a\)</span> denotes the upstream node and <span class="math inline">\(b\)</span> the downstream node. The first reduction factor is equivalent to the one for the pump. The second one makes sure that the outlet flow goes to zero as the head difference <span class="math inline">\(\Delta h = h_a - h_b\)</span> goes to zero. The last one makes sure that the outlet only produces flow when the upstream level is above the minimum chrest level <span class="math inline">\(h_\text{min}\)</span>.</p>
@@ -744,7 +744,7 @@ e(t) = \text{SP}(t) - y(t).
 <p>for given constant parameters <span class="math inline">\(K_p,K_i,K_d\)</span>. The pump or outlet can have associated minimum and maximum flow rates <span class="math inline">\(Q_{\min}, Q_{\max}\)</span>, and so <span class="math display">\[
 Q_\text{pump/outlet} = \text{clip}(\Phi Q_\text{PID}; Q_{\min}, Q_{\max}).
 \]</span></p>
-<p>Here <span class="math inline">\(u_\text{us}\)</span> is the storage of the basin upstream of the pump or outlet, <span class="math inline">\(\Phi\)</span> is the product of <a href="../concept/equations.html#sec-reduction_factor">reduction factors</a> associated with the <a href="../concept/equations.html#sec-pump">pump</a> or <a href="../concept/equations.html#sec-outlet">outlet</a> and</p>
+<p>Here <span class="math inline">\(u_\text{us}\)</span> is the storage of the basin upstream of the pump or outlet, <span class="math inline">\(\Phi\)</span> is the product of <a href="../concept/equations.html#sec-reduction_factor">reduction factors</a> associated with the <a href="../concept/equations.html#sec-equation-pump">pump</a> or <a href="../concept/equations.html#sec-equation-outlet">outlet</a> and</p>
 <p><span class="math display">\[\begin{align}
     \text{clip}(Q; Q_{\min}, Q_{\max}) =
     \begin{cases}
