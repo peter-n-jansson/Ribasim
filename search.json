@@ -1,68 +1,5 @@
 [
   {
-    "objectID": "python/reference/nodes.flow_boundary.html",
-    "href": "python/reference/nodes.flow_boundary.html",
-    "title": "1 nodes.flow_boundary",
-    "section": "",
-    "text": "1 nodes.flow_boundary\nnodes.flow_boundary"
-  },
-  {
-    "objectID": "python/reference/nodes.fractional_flow.html",
-    "href": "python/reference/nodes.fractional_flow.html",
-    "title": "1 nodes.fractional_flow",
-    "section": "",
-    "text": "1 nodes.fractional_flow\nnodes.fractional_flow"
-  },
-  {
-    "objectID": "python/reference/nodes.basin.html",
-    "href": "python/reference/nodes.basin.html",
-    "title": "1 nodes.basin",
-    "section": "",
-    "text": "1 nodes.basin\nnodes.basin"
-  },
-  {
-    "objectID": "python/reference/nodes.pid_control.html",
-    "href": "python/reference/nodes.pid_control.html",
-    "title": "1 nodes.pid_control",
-    "section": "",
-    "text": "1 nodes.pid_control\nnodes.pid_control"
-  },
-  {
-    "objectID": "python/reference/nodes.tabulated_rating_curve.html",
-    "href": "python/reference/nodes.tabulated_rating_curve.html",
-    "title": "1 nodes.tabulated_rating_curve",
-    "section": "",
-    "text": "1 nodes.tabulated_rating_curve\nnodes.tabulated_rating_curve"
-  },
-  {
-    "objectID": "python/reference/EdgeTable.html",
-    "href": "python/reference/EdgeTable.html",
-    "title": "1 EdgeTable",
-    "section": "",
-    "text": "1 EdgeTable\nEdgeTable()\nDefines the connections between nodes."
-  },
-  {
-    "objectID": "python/reference/Model.html",
-    "href": "python/reference/Model.html",
-    "title": "1 Model",
-    "section": "",
-    "text": "1 Model\nModel()"
-  },
-  {
-    "objectID": "python/reference/nodes.user_demand.html",
-    "href": "python/reference/nodes.user_demand.html",
-    "title": "1 nodes.user_demand",
-    "section": "",
-    "text": "1 nodes.user_demand\nnodes.user_demand"
-  },
-  {
-    "objectID": "python/reference/nodes.pump.html",
-    "href": "python/reference/nodes.pump.html",
-    "title": "1 nodes.pump",
-    "section": "",
-    "text": "1 nodes.pump\nnodes.pump"
-  },
-  {
     "objectID": "install.html",
     "href": "install.html",
     "title": "Installation",
@@ -314,6 +251,69 @@
       "Overview",
       "Changelog"
     ]
+  },
+  {
+    "objectID": "reference/python/nodes.flow_boundary.html",
+    "href": "reference/python/nodes.flow_boundary.html",
+    "title": "1 nodes.flow_boundary",
+    "section": "",
+    "text": "1 nodes.flow_boundary\nnodes.flow_boundary"
+  },
+  {
+    "objectID": "reference/python/nodes.fractional_flow.html",
+    "href": "reference/python/nodes.fractional_flow.html",
+    "title": "1 nodes.fractional_flow",
+    "section": "",
+    "text": "1 nodes.fractional_flow\nnodes.fractional_flow"
+  },
+  {
+    "objectID": "reference/python/nodes.basin.html",
+    "href": "reference/python/nodes.basin.html",
+    "title": "1 nodes.basin",
+    "section": "",
+    "text": "1 nodes.basin\nnodes.basin"
+  },
+  {
+    "objectID": "reference/python/nodes.pid_control.html",
+    "href": "reference/python/nodes.pid_control.html",
+    "title": "1 nodes.pid_control",
+    "section": "",
+    "text": "1 nodes.pid_control\nnodes.pid_control"
+  },
+  {
+    "objectID": "reference/python/nodes.tabulated_rating_curve.html",
+    "href": "reference/python/nodes.tabulated_rating_curve.html",
+    "title": "1 nodes.tabulated_rating_curve",
+    "section": "",
+    "text": "1 nodes.tabulated_rating_curve\nnodes.tabulated_rating_curve"
+  },
+  {
+    "objectID": "reference/python/EdgeTable.html",
+    "href": "reference/python/EdgeTable.html",
+    "title": "1 EdgeTable",
+    "section": "",
+    "text": "1 EdgeTable\nEdgeTable()\nDefines the connections between nodes."
+  },
+  {
+    "objectID": "reference/python/Model.html",
+    "href": "reference/python/Model.html",
+    "title": "1 Model",
+    "section": "",
+    "text": "1 Model\nModel()"
+  },
+  {
+    "objectID": "reference/python/nodes.user_demand.html",
+    "href": "reference/python/nodes.user_demand.html",
+    "title": "1 nodes.user_demand",
+    "section": "",
+    "text": "1 nodes.user_demand\nnodes.user_demand"
+  },
+  {
+    "objectID": "reference/python/nodes.pump.html",
+    "href": "reference/python/nodes.pump.html",
+    "title": "1 nodes.pump",
+    "section": "",
+    "text": "1 nodes.pump\nnodes.pump"
   },
   {
     "objectID": "reference/validation.html",
@@ -1304,6 +1304,106 @@
     ]
   },
   {
+    "objectID": "reference/python/nodes.level_demand.html",
+    "href": "reference/python/nodes.level_demand.html",
+    "title": "1 nodes.level_demand",
+    "section": "",
+    "text": "1 nodes.level_demand\nnodes.level_demand"
+  },
+  {
+    "objectID": "reference/python/nodes.level_boundary.html",
+    "href": "reference/python/nodes.level_boundary.html",
+    "title": "1 nodes.level_boundary",
+    "section": "",
+    "text": "1 nodes.level_boundary\nnodes.level_boundary"
+  },
+  {
+    "objectID": "reference/python/index.html",
+    "href": "reference/python/index.html",
+    "title": "1 Python API",
+    "section": "",
+    "text": "The Model class represents an entire Ribasim model.\n\n\n\nModel\n\n\n\n\n\n\n\nThe Edge database layer.\n\n\n\nEdgeTable\nDefines the connections between nodes.\n\n\n\n\n\n\nAvailable node types to model different situations.\n\n\n\nnodes.basin\n\n\n\nnodes.fractional_flow\n\n\n\nnodes.tabulated_rating_curve\n\n\n\nnodes.pump\n\n\n\nnodes.outlet\n\n\n\nnodes.user_demand\n\n\n\nnodes.level_boundary\n\n\n\nnodes.flow_boundary\n\n\n\nnodes.linear_resistance\n\n\n\nnodes.manning_resistance\n\n\n\nnodes.terminal\n\n\n\nnodes.discrete_control\n\n\n\nnodes.pid_control\n\n\n\nnodes.flow_demand\n\n\n\nnodes.level_demand",
+    "crumbs": [
+      "Reference",
+      "Python API"
+    ]
+  },
+  {
+    "objectID": "reference/python/index.html#model",
+    "href": "reference/python/index.html#model",
+    "title": "1 Python API",
+    "section": "",
+    "text": "The Model class represents an entire Ribasim model.\n\n\n\nModel",
+    "crumbs": [
+      "Reference",
+      "Python API"
+    ]
+  },
+  {
+    "objectID": "reference/python/index.html#edge",
+    "href": "reference/python/index.html#edge",
+    "title": "1 Python API",
+    "section": "",
+    "text": "The Edge database layer.\n\n\n\nEdgeTable\nDefines the connections between nodes.",
+    "crumbs": [
+      "Reference",
+      "Python API"
+    ]
+  },
+  {
+    "objectID": "reference/python/index.html#node-types",
+    "href": "reference/python/index.html#node-types",
+    "title": "1 Python API",
+    "section": "",
+    "text": "Available node types to model different situations.\n\n\n\nnodes.basin\n\n\n\nnodes.fractional_flow\n\n\n\nnodes.tabulated_rating_curve\n\n\n\nnodes.pump\n\n\n\nnodes.outlet\n\n\n\nnodes.user_demand\n\n\n\nnodes.level_boundary\n\n\n\nnodes.flow_boundary\n\n\n\nnodes.linear_resistance\n\n\n\nnodes.manning_resistance\n\n\n\nnodes.terminal\n\n\n\nnodes.discrete_control\n\n\n\nnodes.pid_control\n\n\n\nnodes.flow_demand\n\n\n\nnodes.level_demand",
+    "crumbs": [
+      "Reference",
+      "Python API"
+    ]
+  },
+  {
+    "objectID": "reference/python/nodes.terminal.html",
+    "href": "reference/python/nodes.terminal.html",
+    "title": "1 nodes.terminal",
+    "section": "",
+    "text": "1 nodes.terminal\nnodes.terminal"
+  },
+  {
+    "objectID": "reference/python/nodes.manning_resistance.html",
+    "href": "reference/python/nodes.manning_resistance.html",
+    "title": "1 nodes.manning_resistance",
+    "section": "",
+    "text": "1 nodes.manning_resistance\nnodes.manning_resistance"
+  },
+  {
+    "objectID": "reference/python/nodes.outlet.html",
+    "href": "reference/python/nodes.outlet.html",
+    "title": "1 nodes.outlet",
+    "section": "",
+    "text": "1 nodes.outlet\nnodes.outlet"
+  },
+  {
+    "objectID": "reference/python/nodes.linear_resistance.html",
+    "href": "reference/python/nodes.linear_resistance.html",
+    "title": "1 nodes.linear_resistance",
+    "section": "",
+    "text": "1 nodes.linear_resistance\nnodes.linear_resistance"
+  },
+  {
+    "objectID": "reference/python/nodes.flow_demand.html",
+    "href": "reference/python/nodes.flow_demand.html",
+    "title": "1 nodes.flow_demand",
+    "section": "",
+    "text": "1 nodes.flow_demand\nnodes.flow_demand"
+  },
+  {
+    "objectID": "reference/python/nodes.discrete_control.html",
+    "href": "reference/python/nodes.discrete_control.html",
+    "title": "1 nodes.discrete_control",
+    "section": "",
+    "text": "1 nodes.discrete_control\nnodes.discrete_control"
+  },
+  {
     "objectID": "reference/usage.html",
     "href": "reference/usage.html",
     "title": "Usage",
@@ -1699,7 +1799,7 @@
     "href": "concept/allocation.html#example",
     "title": "Allocation",
     "section": "4.4 Example",
-    "text": "4.4 Example\nThe following is an example of an optimization problem for the example shown here:\n\n\nCode\nusing Ribasim\nusing Ribasim: NodeID\nusing SQLite\nusing ComponentArrays: ComponentVector\n\ntoml_path = normpath(@__DIR__, \"../../generated_testmodels/allocation_example/ribasim.toml\")\np = Ribasim.Model(toml_path).integrator.p\nu = ComponentVector(; storage = zeros(length(p.basin.node_id)))\n\nallocation_model = p.allocation.allocation_models[1]\nt = 0.0\npriority_idx = 1\n\nRibasim.set_flow!(p.graph, NodeID(:FlowBoundary, 1), NodeID(:Basin, 2), 1.0)\nRibasim.set_objective_priority!(allocation_model, p, u, t, priority_idx)\nRibasim.set_initial_values!(allocation_model, p, u, t)\n\nprintln(p.allocation.allocation_models[1].problem)\n\n\nMin F[(Basin #5, UserDemand #6)]² + F[(Basin #12, UserDemand #13)]² + F[(Basin #2, UserDemand #3)]²\nSubject to\n flow_conservation[Basin #5] : F[(UserDemand #6, Basin #5)] - F[(Basin #5, UserDemand #6)] - F[(Basin #5, TabulatedRatingCurve #7)] + F[(LinearResistance #4, Basin #5)] - F[(Basin #5, LinearResistance #4)] = 0\n flow_conservation[FractionalFlow #8] : F[(TabulatedRatingCurve #7, FractionalFlow #8)] - F[(FractionalFlow #8, Terminal #10)] = 0\n flow_conservation[TabulatedRatingCurve #7] : -F[(TabulatedRatingCurve #7, FractionalFlow #8)] + F[(Basin #5, TabulatedRatingCurve #7)] - F[(TabulatedRatingCurve #7, FractionalFlow #9)] - F_flow_buffer_in[TabulatedRatingCurve #7] + F_flow_buffer_out[TabulatedRatingCurve #7] = 0\n flow_conservation[FractionalFlow #9] : -F[(FractionalFlow #9, Basin #12)] + F[(TabulatedRatingCurve #7, FractionalFlow #9)] = 0\n flow_conservation[Basin #12] : F[(FractionalFlow #9, Basin #12)] - F[(Basin #12, UserDemand #13)] = 0\n flow_conservation[Terminal #10] : F[(FractionalFlow #8, Terminal #10)] + F[(UserDemand #13, Terminal #10)] = 0\n flow_conservation[LinearResistance #4] : F[(Basin #2, LinearResistance #4)] - F[(LinearResistance #4, Basin #2)] - F[(LinearResistance #4, Basin #5)] + F[(Basin #5, LinearResistance #4)] = 0\n flow_conservation[Basin #2] : F[(UserDemand #3, Basin #2)] - F[(Basin #2, LinearResistance #4)] + F[(LinearResistance #4, Basin #2)] - F[(Basin #2, UserDemand #3)] + F[(FlowBoundary #1, Basin #2)] = 0\n source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 172800\n source_user[UserDemand #13] : F[(UserDemand #13, Terminal #10)] ≤ 0\n source_user[UserDemand #3] : F[(UserDemand #3, Basin #2)] ≤ 0\n source_user[UserDemand #6] : F[(UserDemand #6, Basin #5)] ≤ 0\n fractional_flow[(TabulatedRatingCurve #7, FractionalFlow #8)] : F[(TabulatedRatingCurve #7, FractionalFlow #8)] - 0.6 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0\n fractional_flow[(TabulatedRatingCurve #7, FractionalFlow #9)] : -0.4 F[(Basin #5, TabulatedRatingCurve #7)] + F[(TabulatedRatingCurve #7, FractionalFlow #9)] ≤ 0\n flow_buffer_outflow[TabulatedRatingCurve #7] : F_flow_buffer_out[TabulatedRatingCurve #7] ≤ 0\n F[(TabulatedRatingCurve #7, FractionalFlow #8)] ≥ 0\n F[(UserDemand #6, Basin #5)] ≥ 0\n F[(FractionalFlow #9, Basin #12)] ≥ 0\n F[(Basin #5, UserDemand #6)] ≥ 0\n F[(FractionalFlow #8, Terminal #10)] ≥ 0\n F[(UserDemand #3, Basin #2)] ≥ 0\n F[(UserDemand #13, Terminal #10)] ≥ 0\n F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0\n F[(Basin #12, UserDemand #13)] ≥ 0\n F[(Basin #2, LinearResistance #4)] ≥ 0\n F[(LinearResistance #4, Basin #2)] ≥ 0\n F[(TabulatedRatingCurve #7, FractionalFlow #9)] ≥ 0\n F[(Basin #2, UserDemand #3)] ≥ 0\n F[(LinearResistance #4, Basin #5)] ≥ 0\n F[(Basin #5, LinearResistance #4)] ≥ 0\n F[(FlowBoundary #1, Basin #2)] ≥ 0\n F_flow_buffer_in[TabulatedRatingCurve #7] ≥ 0\n F_flow_buffer_out[TabulatedRatingCurve #7] ≥ 0",
+    "text": "4.4 Example\nThe following is an example of an optimization problem for the example shown here:\n\n\nCode\nusing Ribasim\nusing Ribasim: NodeID\nusing SQLite\nusing ComponentArrays: ComponentVector\n\ntoml_path = normpath(@__DIR__, \"../../generated_testmodels/allocation_example/ribasim.toml\")\np = Ribasim.Model(toml_path).integrator.p\nu = ComponentVector(; storage = zeros(length(p.basin.node_id)))\n\nallocation_model = p.allocation.allocation_models[1]\nt = 0.0\npriority_idx = 1\n\nRibasim.set_flow!(p.graph, NodeID(:FlowBoundary, 1), NodeID(:Basin, 2), 1.0)\nRibasim.set_objective_priority!(allocation_model, p, u, t, priority_idx)\nRibasim.set_initial_values!(allocation_model, p, u, t)\n\nprintln(p.allocation.allocation_models[1].problem)\n\n\nMin F[(Basin #12, UserDemand #13)]² + F[(Basin #5, UserDemand #6)]² + F[(Basin #2, UserDemand #3)]²\nSubject to\n flow_conservation[LinearResistance #4] : F[(Basin #2, LinearResistance #4)] - F[(LinearResistance #4, Basin #2)] - F[(LinearResistance #4, Basin #5)] + F[(Basin #5, LinearResistance #4)] = 0\n flow_conservation[Basin #5] : F[(UserDemand #6, Basin #5)] + F[(LinearResistance #4, Basin #5)] - F[(Basin #5, LinearResistance #4)] - F[(Basin #5, UserDemand #6)] - F[(Basin #5, TabulatedRatingCurve #7)] = 0\n flow_conservation[Basin #12] : F[(FractionalFlow #9, Basin #12)] - F[(Basin #12, UserDemand #13)] = 0\n flow_conservation[Terminal #10] : F[(FractionalFlow #8, Terminal #10)] + F[(UserDemand #13, Terminal #10)] = 0\n flow_conservation[FractionalFlow #8] : -F[(FractionalFlow #8, Terminal #10)] + F[(TabulatedRatingCurve #7, FractionalFlow #8)] = 0\n flow_conservation[FractionalFlow #9] : F[(TabulatedRatingCurve #7, FractionalFlow #9)] - F[(FractionalFlow #9, Basin #12)] = 0\n flow_conservation[Basin #2] : -F[(Basin #2, LinearResistance #4)] + F[(LinearResistance #4, Basin #2)] + F[(UserDemand #3, Basin #2)] + F[(FlowBoundary #1, Basin #2)] - F[(Basin #2, UserDemand #3)] = 0\n flow_conservation[TabulatedRatingCurve #7] : -F[(TabulatedRatingCurve #7, FractionalFlow #9)] - F[(TabulatedRatingCurve #7, FractionalFlow #8)] + F[(Basin #5, TabulatedRatingCurve #7)] - F_flow_buffer_in[TabulatedRatingCurve #7] + F_flow_buffer_out[TabulatedRatingCurve #7] = 0\n source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 172800\n source_user[UserDemand #13] : F[(UserDemand #13, Terminal #10)] ≤ 0\n source_user[UserDemand #6] : F[(UserDemand #6, Basin #5)] ≤ 0\n source_user[UserDemand #3] : F[(UserDemand #3, Basin #2)] ≤ 0\n fractional_flow[(TabulatedRatingCurve #7, FractionalFlow #8)] : F[(TabulatedRatingCurve #7, FractionalFlow #8)] - 0.6 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0\n fractional_flow[(TabulatedRatingCurve #7, FractionalFlow #9)] : F[(TabulatedRatingCurve #7, FractionalFlow #9)] - 0.4 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0\n flow_buffer_outflow[TabulatedRatingCurve #7] : F_flow_buffer_out[TabulatedRatingCurve #7] ≤ 0\n F[(TabulatedRatingCurve #7, FractionalFlow #9)] ≥ 0\n F[(FractionalFlow #8, Terminal #10)] ≥ 0\n F[(FractionalFlow #9, Basin #12)] ≥ 0\n F[(Basin #12, UserDemand #13)] ≥ 0\n F[(UserDemand #6, Basin #5)] ≥ 0\n F[(Basin #2, LinearResistance #4)] ≥ 0\n F[(LinearResistance #4, Basin #2)] ≥ 0\n F[(UserDemand #3, Basin #2)] ≥ 0\n F[(LinearResistance #4, Basin #5)] ≥ 0\n F[(Basin #5, LinearResistance #4)] ≥ 0\n F[(Basin #5, UserDemand #6)] ≥ 0\n F[(TabulatedRatingCurve #7, FractionalFlow #8)] ≥ 0\n F[(FlowBoundary #1, Basin #2)] ≥ 0\n F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0\n F[(Basin #2, UserDemand #3)] ≥ 0\n F[(UserDemand #13, Terminal #10)] ≥ 0\n F_flow_buffer_in[TabulatedRatingCurve #7] ≥ 0\n F_flow_buffer_out[TabulatedRatingCurve #7] ≥ 0",
     "crumbs": [
       "Concepts",
       "Implementation",
@@ -1749,89 +1849,5 @@
       "How-to guides",
       "Coupling"
     ]
-  },
-  {
-    "objectID": "python/reference/nodes.level_demand.html",
-    "href": "python/reference/nodes.level_demand.html",
-    "title": "1 nodes.level_demand",
-    "section": "",
-    "text": "1 nodes.level_demand\nnodes.level_demand"
-  },
-  {
-    "objectID": "python/reference/nodes.level_boundary.html",
-    "href": "python/reference/nodes.level_boundary.html",
-    "title": "1 nodes.level_boundary",
-    "section": "",
-    "text": "1 nodes.level_boundary\nnodes.level_boundary"
-  },
-  {
-    "objectID": "python/reference/index.html",
-    "href": "python/reference/index.html",
-    "title": "1 API Reference",
-    "section": "",
-    "text": "The Model class represents an entire Ribasim model.\n\n\n\nModel\n\n\n\n\n\n\n\nThe Edge database layer.\n\n\n\nEdgeTable\nDefines the connections between nodes.\n\n\n\n\n\n\nAvailable node types to model different situations.\n\n\n\nnodes.basin\n\n\n\nnodes.fractional_flow\n\n\n\nnodes.tabulated_rating_curve\n\n\n\nnodes.pump\n\n\n\nnodes.outlet\n\n\n\nnodes.user_demand\n\n\n\nnodes.level_boundary\n\n\n\nnodes.flow_boundary\n\n\n\nnodes.linear_resistance\n\n\n\nnodes.manning_resistance\n\n\n\nnodes.terminal\n\n\n\nnodes.discrete_control\n\n\n\nnodes.pid_control\n\n\n\nnodes.flow_demand\n\n\n\nnodes.level_demand"
-  },
-  {
-    "objectID": "python/reference/index.html#model",
-    "href": "python/reference/index.html#model",
-    "title": "1 API Reference",
-    "section": "",
-    "text": "The Model class represents an entire Ribasim model.\n\n\n\nModel"
-  },
-  {
-    "objectID": "python/reference/index.html#edge",
-    "href": "python/reference/index.html#edge",
-    "title": "1 API Reference",
-    "section": "",
-    "text": "The Edge database layer.\n\n\n\nEdgeTable\nDefines the connections between nodes."
-  },
-  {
-    "objectID": "python/reference/index.html#node-types",
-    "href": "python/reference/index.html#node-types",
-    "title": "1 API Reference",
-    "section": "",
-    "text": "Available node types to model different situations.\n\n\n\nnodes.basin\n\n\n\nnodes.fractional_flow\n\n\n\nnodes.tabulated_rating_curve\n\n\n\nnodes.pump\n\n\n\nnodes.outlet\n\n\n\nnodes.user_demand\n\n\n\nnodes.level_boundary\n\n\n\nnodes.flow_boundary\n\n\n\nnodes.linear_resistance\n\n\n\nnodes.manning_resistance\n\n\n\nnodes.terminal\n\n\n\nnodes.discrete_control\n\n\n\nnodes.pid_control\n\n\n\nnodes.flow_demand\n\n\n\nnodes.level_demand"
-  },
-  {
-    "objectID": "python/reference/nodes.terminal.html",
-    "href": "python/reference/nodes.terminal.html",
-    "title": "1 nodes.terminal",
-    "section": "",
-    "text": "1 nodes.terminal\nnodes.terminal"
-  },
-  {
-    "objectID": "python/reference/nodes.manning_resistance.html",
-    "href": "python/reference/nodes.manning_resistance.html",
-    "title": "1 nodes.manning_resistance",
-    "section": "",
-    "text": "1 nodes.manning_resistance\nnodes.manning_resistance"
-  },
-  {
-    "objectID": "python/reference/nodes.outlet.html",
-    "href": "python/reference/nodes.outlet.html",
-    "title": "1 nodes.outlet",
-    "section": "",
-    "text": "1 nodes.outlet\nnodes.outlet"
-  },
-  {
-    "objectID": "python/reference/nodes.linear_resistance.html",
-    "href": "python/reference/nodes.linear_resistance.html",
-    "title": "1 nodes.linear_resistance",
-    "section": "",
-    "text": "1 nodes.linear_resistance\nnodes.linear_resistance"
-  },
-  {
-    "objectID": "python/reference/nodes.flow_demand.html",
-    "href": "python/reference/nodes.flow_demand.html",
-    "title": "1 nodes.flow_demand",
-    "section": "",
-    "text": "1 nodes.flow_demand\nnodes.flow_demand"
-  },
-  {
-    "objectID": "python/reference/nodes.discrete_control.html",
-    "href": "python/reference/nodes.discrete_control.html",
-    "title": "1 nodes.discrete_control",
-    "section": "",
-    "text": "1 nodes.discrete_control\nnodes.discrete_control"
   }
 ]
