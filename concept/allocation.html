@@ -64,8 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../background/ci.html" rel="next">
-<link href="../background/validation.html" rel="prev">
+<link href="../concept/core.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -158,30 +157,30 @@ window.Quarto = {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tutorials/index.html"> 
-<span class="menu-text">Get Started</span></a>
+    <a class="nav-link" href="../tutorial/index.html"> 
+<span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../guides/index.html"> 
-<span class="menu-text">Guides</span></a>
+    <a class="nav-link" href="../guide/index.html"> 
+<span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../background/concept.html" aria-current="page"> 
-<span class="menu-text">Background</span></a>
+    <a class="nav-link active" href="../concept/index.html" aria-current="page"> 
+<span class="menu-text">Concepts</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../reference/index.html"> 
 <span class="menu-text">Reference</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../changelog.html"> 
-<span class="menu-text">Changelog</span></a>
-  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../dev/index.html"> 
+<span class="menu-text">Contributing</span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/Deltares/Ribasim"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
@@ -198,7 +197,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../background/core.html">Implementation</a></li><li class="breadcrumb-item"><a href="../background/allocation.html">Allocation</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../concept/core.html">Implementation</a></li><li class="breadcrumb-item"><a href="../concept/allocation.html">Allocation</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -212,14 +211,14 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/concept.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+  <a href="../concept/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Concepts</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/usage.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Usage</span></a>
+  <a href="../concept/concept.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -233,19 +232,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/modelconcept.html" class="sidebar-item-text sidebar-link">
+  <a href="../concept/modelconcept.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Model concept</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/equations.html" class="sidebar-item-text sidebar-link">
+  <a href="../concept/equations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Equations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/numerics.html" class="sidebar-item-text sidebar-link">
+  <a href="../concept/numerics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Numerical considerations</span></a>
   </div>
 </li>
@@ -262,26 +261,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/core.html" class="sidebar-item-text sidebar-link">
+  <a href="../concept/core.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Julia core</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Validation</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/allocation.html" class="sidebar-item-text sidebar-link active">
+  <a href="../concept/allocation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Allocation</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/ci.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Continuous integration</span></a>
   </div>
 </li>
       </ul>
@@ -330,7 +317,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../background/core.html">Implementation</a></li><li class="breadcrumb-item"><a href="../background/allocation.html">Allocation</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../concept/core.html">Implementation</a></li><li class="breadcrumb-item"><a href="../concept/allocation.html">Allocation</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Allocation</h1>
 </div>
@@ -398,7 +385,7 @@ Note
 E_S^\text{source} \subset E.
 \]</span> That is, if <span class="math inline">\((i,j) \in E_S^\text{source}\)</span>, then the average over the last allocation interval <span class="math inline">\(\Delta t_{\text{alloc}}\)</span> of the of the flow over this edge <span class="math display">\[
     \frac{1}{\Delta t_{\text{alloc}}}\int_{t - \Delta t_{\text{alloc}}}^tQ_{ij}(t') dt'
-\]</span> is treated as a source flow in the allocation problem. These edges are either coming from a boundary/source node (e.g.&nbsp;a level or flow boundary) or connect the main network to a subnetwork. For the definition of <span class="math inline">\(Q_{ij}\)</span> see <a href="../background/equations.html#formal-model-description">the formal model description</a>.</p>
+\]</span> is treated as a source flow in the allocation problem. These edges are either coming from a boundary/source node (e.g.&nbsp;a level or flow boundary) or connect the main network to a subnetwork. For the definition of <span class="math inline">\(Q_{ij}\)</span> see <a href="../concept/equations.html#formal-model-description">the formal model description</a>.</p>
 </section>
 <section id="user-demands" class="level3" data-number="3.1.3">
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="user-demands"><span class="header-section-number">3.1.3</span> User demands</h3>
@@ -437,7 +424,7 @@ Note
 <p>Apart from the source flows denoted by edges, there are other sources of water in the subnetwork, associated with the basins in the subnetwork <span class="math inline">\(B_S = B \cap S\)</span>. Firstly there is the average over the last allocation interval <span class="math inline">\(\Delta t_{\text{alloc}}\)</span> of the vertical fluxes (precipitation, evaporation, infiltration and drainage) for each basin: <span class="math display">\[
     \phi_i(t) = \frac{1}{\Delta t_{\text{alloc}}}\int_{t - \Delta t_{\text{alloc}}}^t \left[Q_{P,i}(t') - Q_{E,i}(t') + Q_{\text{drn},i}(t') - Q_{\text{inf},i}(t') \right] dt', \quad \forall i \in B_S.
 \]</span></p>
-<p>We consider fluxes into the basin to be positive and out of the basin to be negative. For more information see <a href="../background/equations.html#natural-water-balance-terms">the natural water balance terms</a>.</p>
+<p>We consider fluxes into the basin to be positive and out of the basin to be negative. For more information see <a href="../concept/equations.html#natural-water-balance-terms">the natural water balance terms</a>.</p>
 <p>Secondly, there is either a supply or demand from the storage in the basin. Given a minimum level <span class="math inline">\(\ell_{\min, i}\)</span> and a maximum level <span class="math inline">\(\ell_{\max, i}\)</span> which correspond to a minimum storage <span class="math inline">\(s_{\min, i}\)</span> and maximum storage <span class="math inline">\(s_{\max, i}\)</span> respectively, we get a flow supply of <span class="math display">\[
     F^{\text{basin out}}_{\max, i} = \max\left(0.0, \frac{u_i(t)-s_{\max,i}}{\Delta t_{\text{alloc}}} + \phi_i(t)\right)
 \]</span></p>
@@ -595,13 +582,13 @@ F_{ij} \le (C^{UD}_S)_i, \quad \forall i \in U_S, \quad V_S^{\text{out}}(i) = \{
   \forall i \in L_S, \;
   j \in V_S^\text{out}(i).
 \tag{3}\]</span></span></p></li>
-<li><p>Flow sign: Furthermore there are the non-negativity constraints for the flows and allocations, see <a href="../background/allocation.html#the-optimization-variables">The optimization variables</a>.</p></li>
+<li><p>Flow sign: Furthermore there are the non-negativity constraints for the flows and allocations, see <a href="../concept/allocation.html#the-optimization-variables">The optimization variables</a>.</p></li>
 </ul>
 </section>
 <section id="example" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="example"><span class="header-section-number">4.4</span> Example</h2>
-<p>The following is an example of an optimization problem for the example shown <a href="../python/examples.ipynb#model-with-allocation-user-demand">here</a>:</p>
-<div id="e5fcfffd" class="cell" data-execution_count="1">
+<p>The following is an example of an optimization problem for the example shown <a href="../guide/examples.html#model-with-allocation-user-demand">here</a>:</p>
+<div id="c7c1e69f" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -624,39 +611,39 @@ F_{ij} \le (C^{UD}_S)_i, \quad \forall i \in U_S, \quad V_S^{\text{out}}(i) = \{
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Min F[(Basin #2, UserDemand #3)]² + F[(Basin #12, UserDemand #13)]² + F[(Basin #5, UserDemand #6)]²
+<pre><code>Min F[(Basin #5, UserDemand #6)]² + F[(Basin #12, UserDemand #13)]² + F[(Basin #2, UserDemand #3)]²
 Subject to
- flow_conservation[Terminal #10] : F[(FractionalFlow #8, Terminal #10)] + F[(UserDemand #13, Terminal #10)] = 0
- flow_conservation[FractionalFlow #8] : -F[(FractionalFlow #8, Terminal #10)] + F[(TabulatedRatingCurve #7, FractionalFlow #8)] = 0
- flow_conservation[Basin #2] : F[(FlowBoundary #1, Basin #2)] - F[(Basin #2, UserDemand #3)] - F[(Basin #2, LinearResistance #4)] + F[(LinearResistance #4, Basin #2)] + F[(UserDemand #3, Basin #2)] = 0
- flow_conservation[LinearResistance #4] : -F[(LinearResistance #4, Basin #5)] + F[(Basin #5, LinearResistance #4)] + F[(Basin #2, LinearResistance #4)] - F[(LinearResistance #4, Basin #2)] = 0
- flow_conservation[Basin #12] : -F[(Basin #12, UserDemand #13)] + F[(FractionalFlow #9, Basin #12)] = 0
+ flow_conservation[Basin #5] : F[(UserDemand #6, Basin #5)] - F[(Basin #5, UserDemand #6)] - F[(Basin #5, TabulatedRatingCurve #7)] + F[(LinearResistance #4, Basin #5)] - F[(Basin #5, LinearResistance #4)] = 0
+ flow_conservation[FractionalFlow #8] : F[(TabulatedRatingCurve #7, FractionalFlow #8)] - F[(FractionalFlow #8, Terminal #10)] = 0
+ flow_conservation[TabulatedRatingCurve #7] : -F[(TabulatedRatingCurve #7, FractionalFlow #8)] + F[(Basin #5, TabulatedRatingCurve #7)] - F[(TabulatedRatingCurve #7, FractionalFlow #9)] - F_flow_buffer_in[TabulatedRatingCurve #7] + F_flow_buffer_out[TabulatedRatingCurve #7] = 0
  flow_conservation[FractionalFlow #9] : -F[(FractionalFlow #9, Basin #12)] + F[(TabulatedRatingCurve #7, FractionalFlow #9)] = 0
- flow_conservation[Basin #5] : F[(LinearResistance #4, Basin #5)] - F[(Basin #5, LinearResistance #4)] - F[(Basin #5, TabulatedRatingCurve #7)] - F[(Basin #5, UserDemand #6)] + F[(UserDemand #6, Basin #5)] = 0
- flow_conservation[TabulatedRatingCurve #7] : F[(Basin #5, TabulatedRatingCurve #7)] - F[(TabulatedRatingCurve #7, FractionalFlow #8)] - F[(TabulatedRatingCurve #7, FractionalFlow #9)] - F_flow_buffer_in[TabulatedRatingCurve #7] + F_flow_buffer_out[TabulatedRatingCurve #7] = 0
+ flow_conservation[Basin #12] : F[(FractionalFlow #9, Basin #12)] - F[(Basin #12, UserDemand #13)] = 0
+ flow_conservation[Terminal #10] : F[(FractionalFlow #8, Terminal #10)] + F[(UserDemand #13, Terminal #10)] = 0
+ flow_conservation[LinearResistance #4] : F[(Basin #2, LinearResistance #4)] - F[(LinearResistance #4, Basin #2)] - F[(LinearResistance #4, Basin #5)] + F[(Basin #5, LinearResistance #4)] = 0
+ flow_conservation[Basin #2] : F[(UserDemand #3, Basin #2)] - F[(Basin #2, LinearResistance #4)] + F[(LinearResistance #4, Basin #2)] - F[(Basin #2, UserDemand #3)] + F[(FlowBoundary #1, Basin #2)] = 0
  source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 172800
  source_user[UserDemand #13] : F[(UserDemand #13, Terminal #10)] ≤ 0
  source_user[UserDemand #3] : F[(UserDemand #3, Basin #2)] ≤ 0
  source_user[UserDemand #6] : F[(UserDemand #6, Basin #5)] ≤ 0
- fractional_flow[(TabulatedRatingCurve #7, FractionalFlow #8)] : -0.6 F[(Basin #5, TabulatedRatingCurve #7)] + F[(TabulatedRatingCurve #7, FractionalFlow #8)] ≤ 0
+ fractional_flow[(TabulatedRatingCurve #7, FractionalFlow #8)] : F[(TabulatedRatingCurve #7, FractionalFlow #8)] - 0.6 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0
  fractional_flow[(TabulatedRatingCurve #7, FractionalFlow #9)] : -0.4 F[(Basin #5, TabulatedRatingCurve #7)] + F[(TabulatedRatingCurve #7, FractionalFlow #9)] ≤ 0
  flow_buffer_outflow[TabulatedRatingCurve #7] : F_flow_buffer_out[TabulatedRatingCurve #7] ≤ 0
- F[(FractionalFlow #8, Terminal #10)] ≥ 0
- F[(FlowBoundary #1, Basin #2)] ≥ 0
- F[(LinearResistance #4, Basin #5)] ≥ 0
- F[(Basin #5, LinearResistance #4)] ≥ 0
- F[(Basin #2, UserDemand #3)] ≥ 0
- F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
- F[(Basin #12, UserDemand #13)] ≥ 0
- F[(FractionalFlow #9, Basin #12)] ≥ 0
- F[(Basin #2, LinearResistance #4)] ≥ 0
- F[(LinearResistance #4, Basin #2)] ≥ 0
  F[(TabulatedRatingCurve #7, FractionalFlow #8)] ≥ 0
- F[(Basin #5, UserDemand #6)] ≥ 0
- F[(TabulatedRatingCurve #7, FractionalFlow #9)] ≥ 0
  F[(UserDemand #6, Basin #5)] ≥ 0
+ F[(FractionalFlow #9, Basin #12)] ≥ 0
+ F[(Basin #5, UserDemand #6)] ≥ 0
+ F[(FractionalFlow #8, Terminal #10)] ≥ 0
  F[(UserDemand #3, Basin #2)] ≥ 0
  F[(UserDemand #13, Terminal #10)] ≥ 0
+ F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
+ F[(Basin #12, UserDemand #13)] ≥ 0
+ F[(Basin #2, LinearResistance #4)] ≥ 0
+ F[(LinearResistance #4, Basin #2)] ≥ 0
+ F[(TabulatedRatingCurve #7, FractionalFlow #9)] ≥ 0
+ F[(Basin #2, UserDemand #3)] ≥ 0
+ F[(LinearResistance #4, Basin #5)] ≥ 0
+ F[(Basin #5, LinearResistance #4)] ≥ 0
+ F[(FlowBoundary #1, Basin #2)] ≥ 0
  F_flow_buffer_in[TabulatedRatingCurve #7] ≥ 0
  F_flow_buffer_out[TabulatedRatingCurve #7] ≥ 0
 </code></pre>
@@ -1057,14 +1044,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../background/validation.html" class="pagination-link" aria-label="Validation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Validation</span>
+      <a href="../concept/core.html" class="pagination-link" aria-label="Julia core">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Julia core</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../background/ci.html" class="pagination-link" aria-label="Continuous integration">
-        <span class="nav-page-text">Continuous integration</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

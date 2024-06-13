@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim - Model concept</title>
+<title>Ribasim - Release process</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -50,8 +64,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../background/equations.html" rel="next">
-<link href="../background/usage.html" rel="prev">
+<link href="../dev/ci.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -88,39 +101,7 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
-<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -147,30 +128,30 @@ window.Quarto = {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tutorials/index.html"> 
-<span class="menu-text">Get Started</span></a>
+    <a class="nav-link" href="../tutorial/index.html"> 
+<span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../guides/index.html"> 
-<span class="menu-text">Guides</span></a>
+    <a class="nav-link" href="../guide/index.html"> 
+<span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../background/concept.html" aria-current="page"> 
-<span class="menu-text">Background</span></a>
+    <a class="nav-link" href="../concept/index.html"> 
+<span class="menu-text">Concepts</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../reference/index.html"> 
 <span class="menu-text">Reference</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../changelog.html"> 
-<span class="menu-text">Changelog</span></a>
-  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../dev/index.html" aria-current="page"> 
+<span class="menu-text">Contributing</span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/Deltares/Ribasim"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
@@ -187,7 +168,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../background/modelconcept.html">Numerics</a></li><li class="breadcrumb-item"><a href="../background/modelconcept.html">Model concept</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../dev/release.html">Release process</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -201,80 +182,52 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/concept.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+  <a href="../dev/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Contributing</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/usage.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Usage</span></a>
+  <a href="../dev/core.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Julia core development</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Numerics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/modelconcept.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Model concept</span></a>
+  <a href="../dev/addnode.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Adding node types</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/equations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Equations</span></a>
+  <a href="../dev/python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python tooling development</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/numerics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Numerical considerations</span></a>
+  <a href="../dev/qgis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QGIS plugin development</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Implementation</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/core.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Julia core</span></a>
+  <a href="../dev/bmi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic Model Interface (BMI)</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Validation</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/allocation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Allocation</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/ci.html" class="sidebar-item-text sidebar-link">
+  <a href="../dev/ci.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Continuous integration</span></a>
   </div>
 </li>
-      </ul>
-  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/release.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Release process</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -285,12 +238,15 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#physical-layer" id="toc-physical-layer" class="nav-link active" data-scroll-target="#physical-layer"><span class="header-section-number">1</span> Physical layer</a>
+  <li><a href="#what-is-a-release" id="toc-what-is-a-release" class="nav-link active" data-scroll-target="#what-is-a-release"><span class="header-section-number">1</span> What is a release</a></li>
+  <li><a href="#release-steps" id="toc-release-steps" class="nav-link" data-scroll-target="#release-steps"><span class="header-section-number">2</span> Release steps</a>
   <ul class="collapse">
-  <li><a href="#water-balance-equations" id="toc-water-balance-equations" class="nav-link" data-scroll-target="#water-balance-equations"><span class="header-section-number">1.1</span> Water balance equations</a></li>
-  <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="header-section-number">1.2</span> Time</a></li>
-  <li><a href="#sec-space" id="toc-sec-space" class="nav-link" data-scroll-target="#sec-space"><span class="header-section-number">1.3</span> Space</a></li>
-  <li><a href="#structures-in-a-water-system" id="toc-structures-in-a-water-system" class="nav-link" data-scroll-target="#structures-in-a-water-system"><span class="header-section-number">1.4</span> Structures in a water system</a></li>
+  <li><a href="#pre-release-checks" id="toc-pre-release-checks" class="nav-link" data-scroll-target="#pre-release-checks"><span class="header-section-number">2.1</span> Pre-release checks</a></li>
+  <li><a href="#update-version-numbers-of-the-components" id="toc-update-version-numbers-of-the-components" class="nav-link" data-scroll-target="#update-version-numbers-of-the-components"><span class="header-section-number">2.2</span> Update version numbers of the components</a></li>
+  <li><a href="#create-a-new-release" id="toc-create-a-new-release" class="nav-link" data-scroll-target="#create-a-new-release"><span class="header-section-number">2.3</span> Create a new release</a></li>
+  <li><a href="#release-the-ribasim-python-packages-to-pypi" id="toc-release-the-ribasim-python-packages-to-pypi" class="nav-link" data-scroll-target="#release-the-ribasim-python-packages-to-pypi"><span class="header-section-number">2.4</span> Release the Ribasim Python packages to PyPI</a></li>
+  <li><a href="#do-manual-checks" id="toc-do-manual-checks" class="nav-link" data-scroll-target="#do-manual-checks"><span class="header-section-number">2.5</span> Do manual checks</a></li>
+  <li><a href="#announce-release" id="toc-announce-release" class="nav-link" data-scroll-target="#announce-release"><span class="header-section-number">2.6</span> Announce release</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -298,9 +254,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../background/modelconcept.html">Numerics</a></li><li class="breadcrumb-item"><a href="../background/modelconcept.html">Model concept</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Model concept</h1>
+<h1 class="title">Release process</h1>
 </div>
 
 
@@ -317,151 +273,68 @@ window.Quarto = {
 </header>
 
 
-<p>A brief summary of the concept is given <a href="../background/concept.html#sec-concept">introduction</a>. As indicated, the model concept is organized in three layers:</p>
-<ul>
-<li>a physical layer representing water bodies and associated infrastructure,</li>
-<li>a rule-based control layer to manage the infrastructure, and</li>
-<li>a priority-based allocation layer to take centralized decisions on user_demand abstractions.</li>
-</ul>
-<section id="physical-layer" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Physical layer</h1>
-<section id="water-balance-equations" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="water-balance-equations"><span class="header-section-number">1.1</span> Water balance equations</h2>
-<p>The water balance equation for a drainage basin <span class="citation" data-cites="enwiki:1099736933">(<a href="#ref-enwiki:1099736933" role="doc-biblioref">Wikipedia contributors 2022</a>)</span> can be defined by a first-order ordinary differential equation (ODE), where the change of the storage <span class="math inline">\(S\)</span> over time is determined by the inflow fluxes minus the outflow fluxes.</p>
-<p><span class="math display">\[
-\frac{\mathrm{d}S}{\mathrm{d}t} = Q_{in} - Q_{out}
-\]</span></p>
-<p>We can split out the fluxes into separate terms, such as precipitation <span class="math inline">\(P\)</span>, evapotranspiration <span class="math inline">\(ET\)</span> and runoff <span class="math inline">\(R\)</span>. For now other fluxes are combined into <span class="math inline">\(Q_{rest}\)</span>. If we define all fluxes entering our reservoir as positive, and those leaving the system as negative, all fluxes can be summed up.</p>
-<p><span class="math display">\[
-\frac{\mathrm{d}S}{\mathrm{d}t} = R + P + ET + Q_{rest}
-\]</span></p>
+<section id="what-is-a-release" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> What is a release</h1>
+<p>The <a href="https://github.com/Deltares/Ribasim">Ribasim repository</a> contains several components, e.g., the Julia core, the Python tooling and QGIS plugin. The components are currently only guaranteed to work together if they have the same version number. Therefore we release Ribasim as a collection of all the components at once, all carrying the same version number. For maximum interoperability it is suggested to only release all components together, and not individually.</p>
+<p>For these releases we use <a href="https://calver.org/">Calender Versioning</a>, which makes it clear in which month the release was made.</p>
 </section>
-<section id="time" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="time"><span class="header-section-number">1.2</span> Time</h2>
-<p>The water balance equation can be applied on many timescales; years, weeks, days or hours. Depending on the application and available data any of these can be the best choice. In Ribasim, we make use of DifferentialEquations.jl and its <a href="https://diffeq.sciml.ai/stable/solvers/ode_solve/">ODE solvers</a>. Many of these solvers are based on adaptive time stepping, which means the solver will decide how large the time steps can be depending on the state of the system.</p>
-<p>The forcing, like precipitation, is generally provided as a time series. Ribasim is set up to support unevenly spaced timeseries. The solver will stop on timestamps where new forcing values are available, so they can be loaded as the new value.</p>
-<p>Ribasim is essentially a continuous model, rather than daily or hourly. If you want to use hourly forcing, you only need to make sure that your forcing data contains hourly updates. The output frequency can be configured independently. To be able to write a closed water balance, we accumulate the fluxes. This way any variations in between timesteps are also included, and we can output in <code>m³</code> rather than <code>m³s⁻¹</code>.</p>
+<section id="release-steps" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Release steps</h1>
+<p>This section provides a guide for developers to follow when preparing a new release.</p>
+<section id="pre-release-checks" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="pre-release-checks"><span class="header-section-number">2.1</span> Pre-release checks</h2>
+<p>Before starting the release process, ensure that all tests are passing and that all features intended for the release are complete and merged into the main branch.</p>
 </section>
-<section id="sec-space" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="sec-space"><span class="header-section-number">1.3</span> Space</h2>
-<p>The water balance equation can be applied on different spatial scales. Besides modelling a single lumped watershed, it allows you to divide the area into a network of connected representative elementary watersheds (REWs) <span class="citation" data-cites="REGGIANI1998367">(<a href="#ref-REGGIANI1998367" role="doc-biblioref">Reggiani, Sivapalan, and Majid Hassanizadeh 1998</a>)</span>. At this scale global water balance laws can be formulated by means of integration of point-scale conservation equations over control volumes. Such an approach makes Ribasim a semi-distributed model. In this document we typically use the term “basin” to refer to the REW. Each basin has an associated polygon, and the set of basins is connected to each other as described by a graph, which we call the network. Below is a representation of both on the map.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/185932183-62c305e6-bc14-4f3c-a74c-437f831c9145.png" class="img-fluid figure-img"></p>
-<figcaption>Mozart Local Surface Water polygons and their drainage.</figcaption>
-</figure>
-</div>
-<p>The network is described as graph. Flow can be bi-directional, and the graph does not have to be acyclic.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph LR;
-    A["basin A"] --- B["basin B"];
-    A --- C["basin C"];
-    B --- D["basin D"];
-    C --- D;
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>Internally a directed graph is used. The direction is defined to be the positive flow direction, and is generally set in the dominant flow direction. The basins are the nodes of the network graph. Basin states and properties such storage volume and wetted area are associated with the nodes (A, B, C, D), as are most forcing data such as precipitation, evaporation, or water demand. Basin connection properties and interbasin flows are associated with the edges (the lines between A, B, C, and D) instead.</p>
-<p>Multiple basins may exist within the same spatial polygon, representing different aspects of the surface water system (perennial ditches, ephemeral ditches, or even surface ponding). <a href="#fig-p" class="quarto-xref">Figure&nbsp;1</a>, <a href="#fig-s" class="quarto-xref">Figure&nbsp;2</a>, <a href="#fig-t" class="quarto-xref">Figure&nbsp;3</a> show the 25.0 m rasterized primary, secondary, and tertiary surface waters as identified by BRT TOP10NL <span class="citation" data-cites="pdoktopnl">(<a href="#ref-pdoktopnl" role="doc-biblioref">PDOK 2022</a>)</span> in the Hupsel basin. These systems may represented in multiple ways.</p>
-<div id="fig-p" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-p-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="https://user-images.githubusercontent.com/13662783/187625163-d0a81bb6-7f55-4ad1-83e2-90ec1ee79740.PNG" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-p-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Hupsel: primary surface water.
-</figcaption>
-</figure>
-</div>
-<div id="fig-s" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-s-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="https://user-images.githubusercontent.com/13662783/187625170-1acdfb41-7077-443f-b140-ae18cbf21e53.PNG" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-s-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Hupsel: secondary surface water.
-</figcaption>
-</figure>
-</div>
-<div id="fig-t" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-t-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="https://user-images.githubusercontent.com/13662783/187625174-3eec28b5-ddbb-4870-94c3-d9e9a43f8eb4.PNG" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-t-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Hupsel: tertiary surface water.
-</figcaption>
-</figure>
-</div>
-<p>As a single basin (A) containing all surface water, discharging to its downstream basin to the west (B):</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph LR;
-    A["basin A"] --&gt; B["basin B"];
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>Such a system may be capable of representing discharge, but it cannot represent residence times or differences in solute concentrations: within a single basin, a drop of water is mixed instantaneously. Instead, we may the group primary (P), secondary (S), and tertiary (T) surface waters. Then T may flow into S, S into P, and P discharges to the downstream basin (B.)</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph LR;
-    T["basin T"] --&gt; S["basin S"];
-    S --&gt; P["basin P"];
-    P --&gt; B["basin B"];
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>As each (sub)basin has its own volume, low throughput (high volume, low discharge, long residence time) and high throughput (low volume, high discharge, short residence time) systems can be represented in a lumped manner; of course, more detail requires more parameters.</p>
+<section id="update-version-numbers-of-the-components" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="update-version-numbers-of-the-components"><span class="header-section-number">2.2</span> Update version numbers of the components</h2>
+<p>Determine the new version number like <code>2023.1.0</code>, filling in the current year, a bumped <code>MINOR</code> number for normal releases and a bumped <code>MICRO</code> number for non-breaking, hotfix releases. This follows <code>YYYY.MINOR.MICRO</code> from <a href="https://calver.org/">calver</a>.</p>
+<p>Update the version numbers in the repository to the new version number. A single find and replace can update all locations. The Ribasim version number is not in <code>pixi.lock</code>, that file does not need updating.</p>
+<p>Now submit a pull request to update the version numbers.</p>
 </section>
-<section id="structures-in-a-water-system" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="structures-in-a-water-system"><span class="header-section-number">1.4</span> Structures in a water system</h2>
-<p>In addition to free flowing waterbodies, a watersystem typically has structures to control the flow of water. Ribasim uses connector nodes which simplify the hydraulic behaviour for the free flowing conditions or structures. The following type of connector nodes are available for this purpose:</p>
-<ul>
-<li><a href="../reference/node/tabulated-rating-curve.html">TabulatedRatingCurve</a>: one-directional flow based on upstream head. Node type typically used for gravity flow conditions either free flowing open water channels or over a fixed structure.</li>
-<li><a href="../reference/node/linear-resistance.html">LinearResistance</a>: bi-directional flow based on head difference and linear resistance. Node type typically used for bi-directional flow situations or situations where head difference over a structure determines its actual flow capacity.</li>
-<li><a href="../reference/node/manning-resistance.html">ManningResistance</a>: bi-directional flow based on head difference and resistance using Manning-Gauckler formula. Same usage as LinearResistance, providing a better hydrological meaning to the resistance parameterization.</li>
-<li><a href="../reference/node/pump.html">Pump</a>: one-directional structure with a set flow rate. Node type typically used in combination with control to force water over the edge.</li>
-<li><a href="../reference/node/outlet.html">Outlet</a>: one-directional gravity structure with a set flow rate. Node type typically used in combination with control to force water over the edge, even if their is a mismatch in actual hydraulic capacity. The node type has an automated mechanism to stop the flow when the head difference is zero.</li>
-<li><a href="../reference/node/fractional-flow.html">FractionalFlow</a>: to split an outflow over multiple edges based on a flow fraction. Node type is typically used for diversions or bifurcations with a known and fixed ratio.</li>
-</ul>
-<p>The control layer can activate or deactivate nodes, set flow rates for the Pump and Outlet, or choose different parameterizations for TabulatedRatingCurve, LinearResistance, ManningResistance or FractionalFlow.</p>
-<p>Connector nodes are required within a Ribasim network to determine the flow exchange between basins.</p>
+<section id="create-a-new-release" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="create-a-new-release"><span class="header-section-number">2.3</span> Create a new release</h2>
+<p>When the pull request is merged to main, checkout the commit that updates the version numbers.</p>
+<p>Create a new tag, which is the letter <code>v</code> followed by the version number, like, <code>v2023.8.0</code>.</p>
+<p>This can be done by executing:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag <span class="op">&lt;</span>tagname<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then push the tags:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">--tags</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will trigger a workflow on TeamCity that will publish a new release on GitHub as soon as it is finished. You can follow the progress <a href="https://dpcbuild.deltares.nl/buildConfiguration/Ribasim_Ribasim_MakeGitHubRelease?mode=builds">here</a>. It also auto-generates a changelog. You’ll probably want to curate that by rearranging the most important changes for users to the top in the form of <a href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>. The possibly long list of generated release notes can put below an “All changes” collapsed item as such:</p>
+<pre><code>&lt;details&gt;
+&lt;summary&gt;
+All changes
+&lt;/summary&gt;
 
+# Put GitHub flavored markdown here
+
+&lt;/details&gt;
+</code></pre>
+</section>
+<section id="release-the-ribasim-python-packages-to-pypi" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="release-the-ribasim-python-packages-to-pypi"><span class="header-section-number">2.4</span> Release the Ribasim Python packages to PyPI</h2>
+<p>To be able to install packages with <code>pip</code>, they need to be released on the Python Package Index (PyPI). In order to publish Ribasim Python or Ribasim API follow the following steps:</p>
+<ol type="1">
+<li><p>Open a terminal and run <code>pixi run publish-ribasim-python</code></p></li>
+<li><p>Open a terminal and run <code>pixi run publish-ribasim-api</code></p></li>
+</ol>
+</section>
+<section id="do-manual-checks" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="do-manual-checks"><span class="header-section-number">2.5</span> Do manual checks</h2>
+<p>Our continuous integration (CI) should have caught most issues. A current weak spot in our testing is the QGIS plugin, so it is a good idea to do some manual checks to see if it works properly. Start with running the automated task to see if it can be correctly installed.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This test might give a fatal error on the first run, this is most likely a timing issue.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Try to run it again when that happens.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run test-ribasim-qgis-ui</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It is a good idea to load new test models if there are any, or test any other changed functionality.</p>
+</section>
+<section id="announce-release" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="announce-release"><span class="header-section-number">2.6</span> Announce release</h2>
+<p>Announce the release in appropriate channels. Include a link to the release notes and assets, which is whatever <a href="https://github.com/Deltares/Ribasim/releases/latest">this</a> resolves to at that time. Also include a link to the <a href="https://deltares.github.io/Ribasim/">documentation</a>.</p>
 
 
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-pdoktopnl" class="csl-entry" role="listitem">
-PDOK. 2022. <span>“Dataset: Basisregistratie Topografie (BRT) TOPNL.”</span> <a href="https://www.pdok.nl/downloads/-/article/basisregistratie-topografie-brt-topnl">https://www.pdok.nl/downloads/-/article/basisregistratie-topografie-brt-topnl</a>.
-</div>
-<div id="ref-REGGIANI1998367" class="csl-entry" role="listitem">
-Reggiani, Paolo, Murugesu Sivapalan, and S. Majid Hassanizadeh. 1998. <span>“A Unifying Framework for Watershed Thermodynamics: Balance Equations for Mass, Momentum, Energy and Entropy, and the Second Law of Thermodynamics.”</span> <em>Advances in Water Resources</em> 22 (4): 367–98. https://doi.org/<a href="https://doi.org/10.1016/S0309-1708(98)00012-8">https://doi.org/10.1016/S0309-1708(98)00012-8</a>.
-</div>
-<div id="ref-enwiki:1099736933" class="csl-entry" role="listitem">
-Wikipedia contributors. 2022. <span>“Drainage Basin — <span>Wikipedia</span><span>,</span> the Free Encyclopedia.”</span> <a href="https://en.wikipedia.org/w/index.php?title=Drainage_basin&amp;oldid=1099736933">https://en.wikipedia.org/w/index.php?title=Drainage_basin&amp;oldid=1099736933</a>.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -851,14 +724,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../background/usage.html" class="pagination-link" aria-label="Usage">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Usage</span>
+      <a href="../dev/ci.html" class="pagination-link" aria-label="Continuous integration">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Continuous integration</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../background/equations.html" class="pagination-link" aria-label="Equations">
-        <span class="nav-page-text">Equations</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

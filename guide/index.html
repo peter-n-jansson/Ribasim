@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim - Continuous integration</title>
+<title>Ribasim - How-to guides</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../background/allocation.html" rel="prev">
+<link href="../guide/examples.html" rel="next">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -67,9 +67,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../assets/styles.css">
@@ -97,30 +94,30 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tutorials/index.html"> 
-<span class="menu-text">Get Started</span></a>
+    <a class="nav-link" href="../tutorial/index.html"> 
+<span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../guides/index.html"> 
-<span class="menu-text">Guides</span></a>
+    <a class="nav-link active" href="../guide/index.html" aria-current="page"> 
+<span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../background/concept.html" aria-current="page"> 
-<span class="menu-text">Background</span></a>
+    <a class="nav-link" href="../concept/index.html"> 
+<span class="menu-text">Concepts</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../reference/index.html"> 
 <span class="menu-text">Reference</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../changelog.html"> 
-<span class="menu-text">Changelog</span></a>
-  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../dev/index.html"> 
+<span class="menu-text">Contributing</span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/Deltares/Ribasim"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
@@ -137,7 +134,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../background/core.html">Implementation</a></li><li class="breadcrumb-item"><a href="../background/ci.html">Continuous integration</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guide/index.html">How-to guides</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -151,105 +148,36 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/concept.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+  <a href="../guide/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">How-to guides</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/usage.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Usage</span></a>
+  <a href="../guide/examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Examples</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Numerics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/modelconcept.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Model concept</span></a>
+  <a href="../guide/coupling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Coupling</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/equations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Equations</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/numerics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Numerical considerations</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Implementation</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/core.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Julia core</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Validation</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/allocation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Allocation</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/ci.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Continuous integration</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#github-actions" id="toc-github-actions" class="nav-link active" data-scroll-target="#github-actions"><span class="header-section-number">1</span> GitHub Actions</a></li>
-  <li><a href="#teamcity" id="toc-teamcity" class="nav-link" data-scroll-target="#teamcity"><span class="header-section-number">2</span> TeamCity</a>
-  <ul class="collapse">
-  <li><a href="#conditions-of-using-teamcity" id="toc-conditions-of-using-teamcity" class="nav-link" data-scroll-target="#conditions-of-using-teamcity"><span class="header-section-number">2.1</span> Conditions of using TeamCity</a></li>
-  <li><a href="#release-process" id="toc-release-process" class="nav-link" data-scroll-target="#release-process"><span class="header-section-number">2.2</span> Release process</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../background/core.html">Implementation</a></li><li class="breadcrumb-item"><a href="../background/ci.html">Continuous integration</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Continuous integration</h1>
+<h1 class="title">How-to guides</h1>
 </div>
 
 
@@ -266,106 +194,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Continuous integration (CI) is about commits being merged frequently, resulting in new features being released frequently. When proposing new changes to the code base a <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests">pull request</a> is opened. When a new commit in that pull request, a series of tests will be done to make sure that this commit is error-free and robust in different environments. This process drive each new development through building, testing, quality checking.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph LR
-    A[New development]--&gt;B[Continuous integration]
-    B--&gt;C[Merge]
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>This page contains an extensive explanation on how the Ribasim continuous integration works.</p>
-<section id="github-actions" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> GitHub Actions</h1>
-<p>With <a href="https://docs.github.com/en/actions">GitHub Actions</a>, GitHub provides their own continuous integration service. They include the following checks:</p>
-<ul>
-<li>Julia Run Testmodels: This is to make sure all the test models can be run successfully</li>
-<li>Julia Tests: Runs Julia unit tests on multiple platforms</li>
-<li>Docs: Builds the documentation and executes the examples</li>
-<li>Pre-commit: Checks Python code quality with linters and enforces formatting</li>
-<li>Python codegen: Makes sure code generation is still up to date by checking that code generation wouldn’t change any files</li>
-<li>Mypy: Runs mypy on our Python codebase to check types</li>
-<li>Ribasim Python tests: Runs Ribasim Python tests on multiple platforms and multiple Python versions</li>
-<li>QGIS Tests: Runs QGIS unit tests</li>
-</ul>
-</section>
-<section id="teamcity" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> TeamCity</h1>
-<p>Ribasim has another cloud-based CI service based on <a href="https://www.jetbrains.com/teamcity/">TeamCity</a>. TeamCity interacts with GitHub and manages the release process.</p>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph LR
-    A[TeamCity]--&gt;|Monitoring|B[GitHub]
-    A--&gt;C(Release)
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<section id="conditions-of-using-teamcity" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="conditions-of-using-teamcity"><span class="header-section-number">2.1</span> Conditions of using TeamCity</h2>
-<p>TeamCity only runs workflows with the following conditions:</p>
-<ul>
-<li>When the workflow would take too long to run on GitHub Action</li>
-<li>When the release depends on the artifacts of the workflow.</li>
-<li>When other TeamCity projects depend on artifacts of Ribasim (e.g.&nbsp;iMOD coupler)</li>
-</ul>
-</section>
-<section id="release-process" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="release-process"><span class="header-section-number">2.2</span> Release process</h2>
-<p>In the release, we include the generated testmodels, Ribasim CLI on Windows and Linux, Ribasim QGIS, and the source code.</p>
-<p>We have the following pipeline to generate artifects for releasing:</p>
-<ul>
-<li>Generate Testmodels: produces generated_testmodels artifact which is part of the release.</li>
-<li>Make GitHub Release: uses artifacts and makes the release. TeamCity constantly monitors the GitHub repository. When a tag starts with <code>v20</code> is added, it triggers the release process.</li>
-<li>Build Ribasim: builds library and executable of Ribasim on Linux and Windows. The artifacts are tested in <code>Test Ribasim Binaries</code> and used by iMOD Coupler.</li>
-<li>Test Ribasim Binaries: tests libribasim artifact and ribasim_cli artifact on Linux and Windows</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Make GitHub Release does not publish artifacts of “Test Ribasim Binaries”. It only publishes artifacts of “Build Ribasim” if the beforementioned tests pass.</p>
-</div>
-</div>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">graph LR
-    A[Make GitHub Release]--&gt;B(Release)
-    F[Generate Testmodels]--&gt;A
-    G[Make QGIS plugin]--&gt;A
-    H[Build Ribasim]---D[Test Ribasim Binaries]
-    D--&gt;A
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -757,11 +587,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../background/allocation.html" class="pagination-link" aria-label="Allocation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Allocation</span>
-      </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../guide/examples.html" class="pagination-link" aria-label="Examples">
+        <span class="nav-page-text">Examples</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

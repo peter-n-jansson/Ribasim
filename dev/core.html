@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim - Contributing</title>
+<title>Ribasim - Julia core development</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,6 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../dev/addnode.html" rel="next">
+<link href="../dev/index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -105,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -127,30 +129,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tutorials/index.html"> 
-<span class="menu-text">Get Started</span></a>
+    <a class="nav-link" href="../tutorial/index.html"> 
+<span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../guides/index.html"> 
-<span class="menu-text">Guides</span></a>
+    <a class="nav-link" href="../guide/index.html"> 
+<span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../background/concept.html"> 
-<span class="menu-text">Background</span></a>
+    <a class="nav-link" href="../concept/index.html"> 
+<span class="menu-text">Concepts</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../reference/index.html"> 
 <span class="menu-text">Reference</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../changelog.html"> 
-<span class="menu-text">Changelog</span></a>
-  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../dev/index.html" aria-current="page"> 
+<span class="menu-text">Contributing</span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/Deltares/Ribasim"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
@@ -162,20 +164,94 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../dev/core.html">Julia core development</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Contributing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/core.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Julia core development</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/addnode.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Adding node types</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python tooling development</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/qgis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QGIS plugin development</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/bmi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic Model Interface (BMI)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/ci.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Continuous integration</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/release.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Release process</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#set-up-the-developer-environment" id="toc-set-up-the-developer-environment" class="nav-link active" data-scroll-target="#set-up-the-developer-environment"><span class="header-section-number">1</span> Set up the developer environment</a>
+  <li><a href="#julia-core-overview" id="toc-julia-core-overview" class="nav-link active" data-scroll-target="#julia-core-overview"><span class="header-section-number">1</span> Julia core overview</a></li>
+  <li><a href="#set-up-the-developer-environment" id="toc-set-up-the-developer-environment" class="nav-link" data-scroll-target="#set-up-the-developer-environment"><span class="header-section-number">2</span> Set up the developer environment</a>
   <ul class="collapse">
-  <li><a href="#clone-ribasim" id="toc-clone-ribasim" class="nav-link" data-scroll-target="#clone-ribasim"><span class="header-section-number">1.1</span> Clone Ribasim</a></li>
-  <li><a href="#setting-up-pixi" id="toc-setting-up-pixi" class="nav-link" data-scroll-target="#setting-up-pixi"><span class="header-section-number">1.2</span> Setting up pixi</a></li>
+  <li><a href="#install-optional-julia-libraries" id="toc-install-optional-julia-libraries" class="nav-link" data-scroll-target="#install-optional-julia-libraries"><span class="header-section-number">2.1</span> Install optional Julia libraries</a></li>
+  <li><a href="#setup-revise.jl" id="toc-setup-revise.jl" class="nav-link" data-scroll-target="#setup-revise.jl"><span class="header-section-number">2.2</span> Setup Revise.jl</a></li>
+  <li><a href="#install-visual-studio-code-optional" id="toc-install-visual-studio-code-optional" class="nav-link" data-scroll-target="#install-visual-studio-code-optional"><span class="header-section-number">2.3</span> Install Visual Studio Code (optional)</a></li>
+  </ul></li>
+  <li><a href="#developing-on-ribasim" id="toc-developing-on-ribasim" class="nav-link" data-scroll-target="#developing-on-ribasim"><span class="header-section-number">3</span> Developing on Ribasim</a>
+  <ul class="collapse">
+  <li><a href="#sec-test" id="toc-sec-test" class="nav-link" data-scroll-target="#sec-test"><span class="header-section-number">3.1</span> Running tests</a></li>
+  <li><a href="#render-documentation" id="toc-render-documentation" class="nav-link" data-scroll-target="#render-documentation"><span class="header-section-number">3.2</span> Render documentation</a></li>
+  <li><a href="#run-ribasim-simulations" id="toc-run-ribasim-simulations" class="nav-link" data-scroll-target="#run-ribasim-simulations"><span class="header-section-number">3.3</span> Run Ribasim simulations</a></li>
+  <li><a href="#build-ribasim" id="toc-build-ribasim" class="nav-link" data-scroll-target="#build-ribasim"><span class="header-section-number">3.4</span> Build Ribasim</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -185,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Contributing</h1>
+<h1 class="title">Julia core development</h1>
 </div>
 
 
@@ -202,24 +278,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Ribasim welcomes contributions.</p>
-<p>There is developer documentation for the <a href="../guides/core.html">Julia core</a>, the <a href="../guides/bmi.html">Basic Model Interface (BMI)</a>, <a href="../guides/python.html">Python tooling</a>, and the <a href="../guides/qgis.html">QGIS plugin</a>. A guide on how to add a new node type to both is written in <a href="../guides/addnode.html">adding node types</a>. <a href="../guides/release.html">Release process</a> describes the steps to follow when creating a new Ribasim release.</p>
-<section id="set-up-the-developer-environment" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Set up the developer environment</h1>
-<section id="clone-ribasim" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="clone-ribasim"><span class="header-section-number">1.1</span> Clone Ribasim</h2>
-<p>In order to have the Ribasim repository locally available, you can clone it with Git. Git can be installed from <a href="https://git-scm.com/downloads">git-scm.com</a>. Once installed, run the following command at a directory of your choice:</p>
-<p>In order to have the Ribasim repository locally available, run the following command at a directory of your choice:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/Deltares/Ribasim.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>To continue with the following steps, make the root of the repository your working directory by running</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Ribasim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="julia-core-overview" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Julia core overview</h1>
+<p>The computational core is one of the components of Ribasim as illustrated in the <a href="../tutorial/index.html#sec-components">component overview</a>.</p>
+<p>The computational process can be divided in three phases:</p>
+<ul>
+<li>Model initialization</li>
+<li>Running the simulation loop</li>
+<li>Writing the output files</li>
+</ul>
+<p>A more detailed sequence diagram of the simulation loop is available at the <a href="../concept/core.html#sec-simulationloop">core</a> home page.</p>
 </section>
-<section id="setting-up-pixi" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="setting-up-pixi"><span class="header-section-number">1.2</span> Setting up pixi</h2>
-<p>First, set up pixi as described on their getting started <a href="https://prefix.dev/docs/pixi/overview">page</a>.</p>
-<p>Then set up the environment by running the following commands:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will automatically install all required packages for development. Our pixi environment also provides an instance of Julia and QGIS. These will not conflict with any pre-installed applications, as long as you have the pixi environment enabled. You can do this in a terminal by calling <code>pixi shell</code>, or starting programs with <code>pixi run julia</code>, or <code>pixi run qgis</code>. This is also the way that we start visual studio code: <code>pixi run code .</code>.</p>
+<section id="set-up-the-developer-environment" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Set up the developer environment</h1>
+<section id="install-optional-julia-libraries" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="install-optional-julia-libraries"><span class="header-section-number">2.1</span> Install optional Julia libraries</h2>
+<p>Start the Julia <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">REPL</a> by executing <code>pixi run julia</code> in your terminal. Within the REPL type <code>]</code> to enter the Pkg REPL. For more information on how to use <code>Pkg</code>, see the <a href="https://pkgdocs.julialang.org/v1/getting-started/">Getting Started</a> page in its documentation. There you can add <code>Revise</code> to your global environment.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pkg<span class="op">&gt;</span> add Revise</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="setup-revise.jl" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="setup-revise.jl"><span class="header-section-number">2.2</span> Setup Revise.jl</h2>
+<p>Revise.jl is a library that allows you to modify code and use the changes without restarting Julia. You can let it start automatically by following these <a href="https://timholy.github.io/Revise.jl/stable/config/#Using-Revise-by-default-1">instructions</a>.</p>
+</section>
+<section id="install-visual-studio-code-optional" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="install-visual-studio-code-optional"><span class="header-section-number">2.3</span> Install Visual Studio Code (optional)</h2>
+<p>There is a section on editors and IDEs for Julia on <a href="https://julialang.org/" class="uri">https://julialang.org/</a>, scroll down to see it. We use and recommend Microsoft’s free editor <a href="https://code.visualstudio.com/">Visual Studio Code</a>. When combined with the <a href="https://www.julia-vscode.org/">Julia extension</a> it provides a powerful and interactive development experience. Make sure to have the correct environment when opening your IDE by running <code>open-vscode.bat</code>, or opening a <code>pixi shell</code> and then calling the command to open the editor of your choice.</p>
+</section>
+</section>
+<section id="developing-on-ribasim" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Developing on Ribasim</h1>
+<section id="sec-test" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sec-test"><span class="header-section-number">3.1</span> Running tests</h2>
+<p>You will want to run the testsuite on a regular basis to check if your changes had unexpected side effects. It is also a good way to find out if your development environment is set up correctly.</p>
+<p>Before the tests can run, you need to <a href="../dev/python.html#prepare-model-input">prepare model input</a>.</p>
+<p>With the root of the repository as your working directory you can start the REPL with activated <code>root</code> environment by running the following:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">julia</span> <span class="at">--project</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>While not technically required, it is advised to import Ribasim first to catch installation issues early on.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> <span class="im">using</span> <span class="bu">Ribasim</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then open the Pkg REPL by typing <code>]</code> and execute:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pkg<span class="op">&gt;</span> test Ribasim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In order to debug tests, you can run individual test items from Visual Studio Code. Click the green play icon in front of a test item, as show in the image below. The first run will be slow.</p>
+<p><img src="https://github.com/Deltares/Ribasim/assets/4471859/58077f71-11d0-4c45-8d95-4eba8c0a0139.png" class="img-fluid"></p>
+</section>
+<section id="render-documentation" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="render-documentation"><span class="header-section-number">3.2</span> Render documentation</h2>
+<p>Example models are created and simulated as part of the rendering of the documentation.</p>
+<p>In order to preview documentation you can run the following command from the <code>docs/</code> folder. Afterwards, a browser tab will open with the rendered documentation, updating it as you make changes.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run quarto-preview</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The documentation also includes <a href="https://jupyter.org/">Jupyter notebooks</a>. Note that they are stored in the repository without any output, and this should stay this way to keep the repository small. The documentation rendering process adds the output by running the notebooks.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Jupyter VS Code <a href="https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter">extension</a> allows you to run Jupyter notebooks directly in VS Code.</p>
+</div>
+</div>
+</section>
+<section id="run-ribasim-simulations" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="run-ribasim-simulations"><span class="header-section-number">3.3</span> Run Ribasim simulations</h2>
+<p>Assuming your working directory is the root of the repository, you can activate this project by entering the Pkg mode of the REPL with <code>]</code> and execute:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pkg<span class="op">&gt;</span> activate .</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>pkg<span class="op">&gt;</span> instantiate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Press backspace to go back to the Julia REPL. There you can run a model with:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>julia<span class="op">&gt;</span> Ribasim.<span class="fu">run</span>(<span class="st">"path/to/model/ribasim.toml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Julia VS Code extension allows you to <a href="https://www.julia-vscode.org/docs/stable/userguide/runningcode/#Running-code-in-the-Julia-REPL">execute code cells in REPL</a>. This is a very convenient way of executing only parts of your source file.</p>
+</div>
+</div>
+</section>
+<section id="build-ribasim" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="build-ribasim"><span class="header-section-number">3.4</span> Build Ribasim</h2>
+<p>The Ribasim core can be built into an executable with a command line interface (CLI) and a shared library, libribasim. These products will run without a Julia installation. To create both these products at once, run:</p>
+<pre><code>pixi run build</code></pre>
+<p>To verify that the build was successful, you can run both these commands.</p>
+<pre><code>pixi run test-ribasim-api
+pixi run test-ribasim-cli</code></pre>
+<p>During development these steps are normally done <a href="../dev/ci.html#TeamCity">on TeamCity</a>, though in some cases it can be more convenient to build locally.</p>
 
 
 </section>
@@ -613,6 +762,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../dev/index.html" class="pagination-link" aria-label="Contributing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Contributing</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../dev/addnode.html" class="pagination-link" aria-label="Adding node types">
+        <span class="nav-page-text">Adding node types</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

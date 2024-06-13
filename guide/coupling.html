@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim - Numerical considerations</title>
+<title>Ribasim - Coupling</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../background/core.html" rel="next">
-<link href="../background/equations.html" rel="prev">
+<link href="../guide/examples.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -68,36 +67,10 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../assets/styles.css">
 </head>
@@ -124,30 +97,30 @@ window.Quarto = {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tutorials/index.html"> 
-<span class="menu-text">Get Started</span></a>
+    <a class="nav-link" href="../tutorial/index.html"> 
+<span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../guides/index.html"> 
-<span class="menu-text">Guides</span></a>
+    <a class="nav-link active" href="../guide/index.html" aria-current="page"> 
+<span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../background/concept.html" aria-current="page"> 
-<span class="menu-text">Background</span></a>
+    <a class="nav-link" href="../concept/index.html"> 
+<span class="menu-text">Concepts</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../reference/index.html"> 
 <span class="menu-text">Reference</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../changelog.html"> 
-<span class="menu-text">Changelog</span></a>
-  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../dev/index.html"> 
+<span class="menu-text">Contributing</span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/Deltares/Ribasim"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
@@ -164,7 +137,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../background/modelconcept.html">Numerics</a></li><li class="breadcrumb-item"><a href="../background/numerics.html">Numerical considerations</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guide/coupling.html">Coupling</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -178,80 +151,22 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/concept.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+  <a href="../guide/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How-to guides</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/usage.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Usage</span></a>
+  <a href="../guide/examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Examples</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Numerics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../background/modelconcept.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Model concept</span></a>
+  <a href="../guide/coupling.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Coupling</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/equations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Equations</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/numerics.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Numerical considerations</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Implementation</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/core.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Julia core</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Validation</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/allocation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Allocation</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../background/ci.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Continuous integration</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -262,18 +177,13 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#example-numerical-methods" id="toc-example-numerical-methods" class="nav-link active" data-scroll-target="#example-numerical-methods"><span class="header-section-number">1</span> Example numerical methods</a>
+  <li><a href="#coupling" id="toc-coupling" class="nav-link active" data-scroll-target="#coupling"><span class="header-section-number">1</span> Coupling</a>
   <ul class="collapse">
-  <li><a href="#euler-forward" id="toc-euler-forward" class="nav-link" data-scroll-target="#euler-forward"><span class="header-section-number">1.1</span> Euler forward</a></li>
-  <li><a href="#euler-backward" id="toc-euler-backward" class="nav-link" data-scroll-target="#euler-backward"><span class="header-section-number">1.2</span> Euler backward</a></li>
+  <li><a href="#imod" id="toc-imod" class="nav-link" data-scroll-target="#imod"><span class="header-section-number">1.1</span> iMOD</a></li>
+  <li><a href="#water-quality" id="toc-water-quality" class="nav-link" data-scroll-target="#water-quality"><span class="header-section-number">1.2</span> Water quality</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">1.2.1</span> Setup</a></li>
   </ul></li>
-  <li><a href="#the-advantage-of-implicit-methods" id="toc-the-advantage-of-implicit-methods" class="nav-link" data-scroll-target="#the-advantage-of-implicit-methods"><span class="header-section-number">2</span> The advantage of implicit methods</a></li>
-  <li><a href="#jacobian-computations" id="toc-jacobian-computations" class="nav-link" data-scroll-target="#jacobian-computations"><span class="header-section-number">3</span> Jacobian computations</a></li>
-  <li><a href="#continuity-considerations" id="toc-continuity-considerations" class="nav-link" data-scroll-target="#continuity-considerations"><span class="header-section-number">4</span> Continuity considerations</a>
-  <ul class="collapse">
-  <li><a href="#basin-profiles" id="toc-basin-profiles" class="nav-link" data-scroll-target="#basin-profiles"><span class="header-section-number">4.1</span> Basin profiles</a></li>
-  <li><a href="#qh-relations" id="toc-qh-relations" class="nav-link" data-scroll-target="#qh-relations"><span class="header-section-number">4.2</span> Q(h) relations</a></li>
-  <li><a href="#empty-basins" id="toc-empty-basins" class="nav-link" data-scroll-target="#empty-basins"><span class="header-section-number">4.3</span> Empty basins</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -281,9 +191,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../background/modelconcept.html">Numerics</a></li><li class="breadcrumb-item"><a href="../background/numerics.html">Numerical considerations</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Numerical considerations</h1>
+<h1 class="title">Coupling</h1>
 </div>
 
 
@@ -300,99 +210,35 @@ window.Quarto = {
 </header>
 
 
-<p>We want to solve the following initial value problem: <span id="eq-prob"><span class="math display">\[
-\begin{cases}
-    \frac{\text{d}\mathbf{u}}{\text{d}t} = \mathbf{f}(\mathbf{u},t) \quad t_0 &lt; t &lt; t_\text{end} \\
-    \mathbf{u}(t_0) = \mathbf{u}_0
-\end{cases},
-\tag{1}\]</span></span></p>
-<p>where <span class="math inline">\(\mathbf{f}\)</span> denotes <code>water_balance!</code> and <span class="math inline">\(\mathbf{u_0}\)</span> the initial storages (and the PID integrals which start out at <span class="math inline">\(0\)</span>).</p>
-<p>In general <span class="math inline">\(\mathbf{f}\)</span> is a non-linear function in <span class="math inline">\(\mathbf{u}\)</span>. These non-linearities are introduced by:</p>
-<ul>
-<li><code>ManningResistance</code> nodes;</li>
-<li><code>Basin</code> profiles;</li>
-<li><code>TabulatedRatingCurve</code> Q(h) relations.</li>
-</ul>
-<p>The problem <a href="#eq-prob" class="quarto-xref">Equation&nbsp;1</a> can be solved by various numerical time-integration methods. To do this the time interval <span class="math inline">\([t_0,t_\text{end}]\)</span> is discretized into a finite number of time points <span class="math inline">\(t_0 &lt; t_1 &lt; \ldots &lt; t_N = t_\text{end}\)</span> for which approximate solutions <span class="math inline">\(\mathbf{w}_n \approx \mathbf{u}(t_n)\)</span> are computed. In general we do not assume a fixed timestep (the interval between successive points in time). Rather, the solver attempts to make as large a step as possible while keeping error tolerances within requirements. The <a href="../background/usage.html#sec-solver-settings">solver settings</a> section details the available configuration options.</p>
-<section id="example-numerical-methods" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Example numerical methods</h1>
-<p>This section discusses two relatively simple numerical methods, mainly to demonstrate the difference between explicit and implicit methods.</p>
-<section id="euler-forward" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="euler-forward"><span class="header-section-number">1.1</span> Euler forward</h2>
-<p>The simplest numerical method is Euler forward: <span id="eq-eulerforward"><span class="math display">\[
-\mathbf{w}_{n+1} = \mathbf{w}_n + (t_{n+1}-t_n)\mathbf{f}(\mathbf{w}_n, t_n).
-\tag{2}\]</span></span></p>
-<p>Here <span class="math inline">\(\mathbf{w}_{n+1}\)</span> is given as a simple explicit function of <span class="math inline">\(\mathbf{w}_n\)</span>.</p>
+<section id="coupling" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Coupling</h1>
+<section id="imod" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="imod"><span class="header-section-number">1.1</span> iMOD</h2>
+<p>Ribasim can also be (online) coupled to other kernels with the help of iMOD Coupler. The corresponding documentation can be found within the <a href="https://deltares.github.io/iMOD-Documentation/coupler.html">iMOD Suite Documentation</a>.</p>
 </section>
-<section id="euler-backward" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="euler-backward"><span class="header-section-number">1.2</span> Euler backward</h2>
-<p>Euler backward is formulated as follows: <span id="eq-eulerbackward"><span class="math display">\[
-\mathbf{w}_{n+1} = \mathbf{w}_n + (t_{n+1}-t_n)\mathbf{f}(\mathbf{w}_{n+1},t_{n+1}).
-\tag{3}\]</span></span></p>
-<p>Note that this is an implicit equation for <span class="math inline">\(\mathbf{w}_{n+1}\)</span>, which is non-linear because of the non-linearity of <span class="math inline">\(\mathbf{f}\)</span>.</p>
-<p>Generally one of the following iterative methods is used for finding solutions to non-linear equations like this:</p>
-<ul>
-<li>Picard iteration for fixed points. This method aims to approximate <span class="math inline">\(\mathbf{w}_{n+1}\)</span> as a fixed point of the function <span class="math display">\[
-\mathbf{g}(\mathbf{x}) = \mathbf{w}_n + (t_{n+1}-t_n)\mathbf{f}(\mathbf{x},t_{n+1})
-\]</span> by iterating <span class="math inline">\(\mathbf{g}\)</span> on an initial guess of <span class="math inline">\(\mathbf{w}_{n+1}\)</span>;</li>
-<li>Newton iterations: approximate <span class="math inline">\(\mathbf{w}_{n+1}\)</span> as a root of the function <span class="math display">\[
-\mathbf{h}(\mathbf{x}) = \mathbf{w}_n + (t_{n+1}-t_n)\mathbf{f}(\mathbf{x},t_{n+1}) - \mathbf{x},
-\]</span> by iteratively finding the root of its linearized form:</li>
-</ul>
-<p><span class="math display">\[\begin{align}
-\mathbf{0} =&amp; \mathbf{h}(\mathbf{w}_{n+1}^k) + \mathbf{J}(\mathbf{h})(\mathbf{w}_{n+1}^k)(\mathbf{w}_{n+1}^{k+1}-\mathbf{w}_{n+1}^k) \\
-=&amp; \mathbf{w}_n + (t_{n+1}-t_n)\mathbf{f}(\mathbf{w}_{n+1}^k,t_{n+1}) - \mathbf{w}_{n+1}^k \\ +&amp;\left[(t_{n+1}-t_n)\mathbf{J}(\mathbf{f})(\mathbf{w}_{n+1}^k)-\mathbf{I}\right](\mathbf{w}_{n+1}^{k+1}-\mathbf{w}_{n+1}^k).
-\end{align}\]</span> Note that this thus requires an evaluation of the Jacobian of <span class="math inline">\(\mathbf{f}\)</span> and solving a linear system per iteration.</p>
-</section>
-</section>
-<section id="the-advantage-of-implicit-methods" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> The advantage of implicit methods</h1>
-<p>The implicit method <a href="#eq-eulerbackward" class="quarto-xref">Equation&nbsp;3</a> is a coupled system of equations for <span class="math inline">\(\mathbf{w}_{n+1}\)</span>, while the explicit <a href="#eq-eulerforward" class="quarto-xref">Equation&nbsp;2</a> is fully decoupled. This means in general that in a time integration step with an implicit method the basins communicate information with eachother, while in an explicit method this does not happen. A consequence of this is that local events (e.g.&nbsp;a pump turns on) propagate slowly trough the model using an explicit method but quickly using an implicit method, making implicit methods more stable.</p>
-</section>
-<section id="jacobian-computations" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Jacobian computations</h1>
-<p>The Newton iterations above require an evaluation of the Jacobian of <span class="math inline">\(\mathbf{f}\)</span>. The Jacobian of <code>water_balance!</code> is discussed <a href="../background/equations.html#the-jacobian">here</a>.</p>
-<p>There are several ways to compute the Jacobian:</p>
-<ul>
-<li>Using <a href="https://en.wikipedia.org/wiki/Numerical_differentiation#Finite_differences">finite difference methods</a>; however these are relatively expensive to compute and introduce truncation errors.</li>
-<li>Hardcoding analytical expressions for the partial derivatives; these have the advantages over finite difference methods that they are cheaper to compute and don’t introduce truncation errors. However, computing and coding these partial derivatives is complex and thus error prone, and requires maintenance for every adjustment of <span class="math inline">\(\mathbf{f}\)</span>.</li>
-<li>Using <a href="https://juliadiff.org/ForwardDiff.jl/stable/dev/how_it_works/">automatic differentiation</a>; this has the advantages of being fast to compute and not requiring much extra implementation other than implementing <span class="math inline">\(\mathbf{f}\)</span> in a way that is compatible with an automatic differentiation package, in the case of Ribasim that is <code>ForwardDiff.jl</code>. What remains is supplying the sparsity structure of the Jacobian of <span class="math inline">\(\mathbf{f}\)</span>, to make the computation of the Jacobian efficient in terms of usage of memory and computation time.</li>
-</ul>
-</section>
-<section id="continuity-considerations" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Continuity considerations</h1>
-<p>The convergence of the Newton method can be <a href="https://en.wikipedia.org/wiki/Newton%27s_method#Proof_of_quadratic_convergence_for_Newton's_iterative_method">proven</a> given certain properties of <span class="math inline">\(\mathbf{f}\)</span> around the initial guess and root to find. An important aspect is the smoothness of <span class="math inline">\(\mathbf{f}\)</span>. The basin profiles and <span class="math inline">\(Q(h)\)</span> relations are given by interpolated data, and thus we have some control over the smoothness of these functions by the choice of interpolation method. This is discussed further below. the Manning resistance is not mentioned here since it is given by an analytical expression.</p>
-<p>Control mechanisms can change parameters of <span class="math inline">\(\mathbf{f}\)</span> discontinuously, leading to discontinuities of <span class="math inline">\(\mathbf{f}\)</span>. This however does not yield problems for the time integration methods in <code>DifferentialEquations.jl</code>, since the <a href="https://docs.sciml.ai/DiffEqDocs/stable/features/callback_functions/">callback mechanisms</a> used to change these parameters make the solver take these discontinuities into account.</p>
-<section id="basin-profiles" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="basin-profiles"><span class="header-section-number">4.1</span> Basin profiles</h2>
-<p>The basin profiles affect <span class="math inline">\(\mathbf{f}\)</span> in many ways, anywhere where a basin level or area is required.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="water-quality" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="water-quality"><span class="header-section-number">1.2</span> Water quality</h2>
+<p>Ribasim can be offline coupled to Delwaq, the Deltares Water Quality model. Note that this functionality is still in active development.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    Ribasim --&gt; Delwaq
+</pre>
 </div>
-<div class="callout-title-container flex-fill">
-Note
+<p></p></figure><p></p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>This section needs to be updated and extended after once <a href="https://github.com/Deltares/Ribasim/issues/566">this issue</a> is resolved.</p>
 </div>
-</div>
-</section>
-<section id="qh-relations" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="qh-relations"><span class="header-section-number">4.2</span> Q(h) relations</h2>
-<p><code>TabulatedRatingCurve</code> nodes contribute to <span class="math inline">\(\mathbf{f}\)</span> with terms of the following form:</p>
-<p><span class="math display">\[
-    Q(h(u))
-\]</span></p>
-<p>where the continuity of this term is given by the least continuous of <span class="math inline">\(Q\)</span> and <span class="math inline">\(h\)</span>.</p>
-</section>
-<section id="empty-basins" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="empty-basins"><span class="header-section-number">4.3</span> Empty basins</h2>
-<p><a href="../background/equations.html#the-reduction-factor">Reduction factors</a> are introduced at several points in the definition of <span class="math inline">\(\mathbf{f}\)</span> to smooth out otherwise discontinuous transitions (e.g.&nbsp;the flow rate of a pump going to zero when the source basin dries out). If flows are not too large with respect to basin storage, this will prevent basins from reaching 0. Rather, the basin gets a very small storage. The reduction factors help with performance, but are also an important tool to avoid getting negative storage in basins. Negative storage needs to be avoided since it is not a real solution, and would introduce water into the model that doesn’t exist. Another tool used to avoid negative storage is the <a href="https://docs.sciml.ai/DiffEqDocs/stable/basics/common_solver_opts/"><code>isoutoutofdomain</code></a> option, which Ribasim makes use of. This rejects timesteps that lead to negative storage, instead retrying with a smaller timestep.</p>
+<section id="setup" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">1.2.1</span> Setup</h3>
+<p>Delwaq can calculate the concentration of substances in <a href="../reference/node/basin.html">Basin</a> nodes over time, based on initial concentrations, and of <a href="../reference/node/flow-boundary.html">FlowBoundary</a> nodes. Ribasim exposes the <code>Basin / concentration</code>, <code>Basin / concentration_state</code>, <code>FlowBoundary / concentration</code>, and <code>LevelBoundary / concentration</code> tables to setup these substances and concentrations.</p>
+<p>When a Ribasim model ran with the above tables, one can use the utilities in the <code>coupling/delwaq</code> folder to generate the input required for Delwaq to run, as well as to parse the output from Delwaq into a Ribasim compatible format. For more information see the <code>README.md</code> in the same folder.</p>
 
 
+</section>
 </section>
 </section>
 
@@ -786,14 +632,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../background/equations.html" class="pagination-link" aria-label="Equations">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Equations</span>
+      <a href="../guide/examples.html" class="pagination-link" aria-label="Examples">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Examples</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../background/core.html" class="pagination-link" aria-label="Julia core">
-        <span class="nav-page-text">Julia core</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

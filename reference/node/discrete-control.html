@@ -124,30 +124,30 @@ window.Quarto = {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../tutorials/index.html"> 
-<span class="menu-text">Get Started</span></a>
+    <a class="nav-link" href="../../tutorial/index.html"> 
+<span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../guides/index.html"> 
-<span class="menu-text">Guides</span></a>
+    <a class="nav-link" href="../../guide/index.html"> 
+<span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../background/concept.html"> 
-<span class="menu-text">Background</span></a>
+    <a class="nav-link" href="../../concept/index.html"> 
+<span class="menu-text">Concepts</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="../../reference/index.html" aria-current="page"> 
 <span class="menu-text">Reference</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../changelog.html"> 
-<span class="menu-text">Changelog</span></a>
-  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../dev/index.html"> 
+<span class="menu-text">Contributing</span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/Deltares/Ribasim"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
@@ -180,6 +180,18 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../../reference/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reference</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../reference/usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Usage</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../reference/validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Validation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -442,7 +454,7 @@ window.Quarto = {
 <li>When a condition changes, the corresponding DiscreteControl node ID is retrieved (node_id in the condition schema above).</li>
 <li>The truth value of all the conditions this DiscreteControl node listens to are retrieved, <strong>in the sorted order as specified in the condition schema</strong>. This is then converted into a string of “T” for true and “F” for false. This string we call the truth state.*</li>
 <li>The table below determines for the given DiscreteControl node ID and truth state what the corresponding control state is.</li>
-<li>For all the nodes this DiscreteControl node affects (as given by the “control” edges in <a href="usage.qmd#edge">Edges / static</a>), their parameters are set to those parameters in <code>NodeType / static</code> corresponding to the determined control state.</li>
+<li>For all the nodes this DiscreteControl node affects (as given by the “control” edges in <a href="../../reference/usage.html#edge">Edges / static</a>), their parameters are set to those parameters in <code>NodeType / static</code> corresponding to the determined control state.</li>
 </ul>
 <p>*. There is also a second truth state created in which for the last condition that changed it is specified whether it was an upcrossing (“U”) or downcrossing (“D”) of the threshold (greater than) value. If a control state is specified for a truth state that is crossing-specific, this takes precedence over the control state for the truth state that contains only “T” and “F”.</p>
 <div class="callout callout-style-default callout-note callout-titled">

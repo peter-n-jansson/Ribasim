@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim - Python tooling</title>
+<title>Ribasim - Installation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +23,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../guides/coupling.html" rel="next">
-<link href="../guides/examples.html" rel="prev">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./changelog.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,9 +68,12 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
-<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -80,10 +83,10 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
     <img src="https://user-images.githubusercontent.com/4471859/224825908-bee7e044-bc6b-4561-8b08-5d330cce3ed5.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Ribasim</span>
     </a>
   </div>
@@ -94,31 +97,31 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
-<span class="menu-text">About</span></a>
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tutorials/index.html"> 
-<span class="menu-text">Get Started</span></a>
+    <a class="nav-link" href="./tutorial/index.html"> 
+<span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../guides/index.html" aria-current="page"> 
-<span class="menu-text">Guides</span></a>
+    <a class="nav-link" href="./guide/index.html"> 
+<span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../background/concept.html"> 
-<span class="menu-text">Background</span></a>
+    <a class="nav-link" href="./concept/index.html"> 
+<span class="menu-text">Concepts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../reference/index.html"> 
+    <a class="nav-link" href="./reference/index.html"> 
 <span class="menu-text">Reference</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../changelog.html"> 
-<span class="menu-text">Changelog</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./dev/index.html"> 
+<span class="menu-text">Contributing</span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/Deltares/Ribasim"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
@@ -135,7 +138,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guides/examples.html">For end-users</a></li><li class="breadcrumb-item"><a href="../guides/python.html">Python tooling</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./install.html">Installation</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -149,100 +152,45 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guides/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Guides</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ribasim</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">For end-users</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guides/examples.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Examples</span></a>
+  <a href="./install.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Installation</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guides/python.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Python tooling</span></a>
+  <a href="./changelog.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Changelog</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../guides/coupling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Coupling</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">For developers</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../guides/core.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Julia core development</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../guides/qgis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">QGIS plugin development</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../dev/python.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Python tooling development</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../guides/addnode.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Adding node types</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../guides/release.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Release process</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../guides/bmi.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Basic Model Interface (BMI)</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-components" id="toc-sec-components" class="nav-link active" data-scroll-target="#sec-components"><span class="header-section-number">1</span> Components</a></li>
+  <li><a href="#sec-download" id="toc-sec-download" class="nav-link" data-scroll-target="#sec-download"><span class="header-section-number">2</span> Download</a></li>
+  <li><a href="#ribasim-core" id="toc-ribasim-core" class="nav-link" data-scroll-target="#ribasim-core"><span class="header-section-number">3</span> Ribasim core</a></li>
+  <li><a href="#ribasim-python" id="toc-ribasim-python" class="nav-link" data-scroll-target="#ribasim-python"><span class="header-section-number">4</span> Ribasim Python</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../guides/examples.html">For end-users</a></li><li class="breadcrumb-item"><a href="../guides/python.html">Python tooling</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Python tooling</h1>
+<h1 class="title">Installation</h1>
 </div>
 
 
@@ -259,16 +207,83 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="sec-components" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Components</h1>
+<p>The figure below illustrates the relation between the various components of the Ribasim software package.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+modeler([Modeler]):::user
+
+api["Ribasim Python\n[python]"]
+modeler--&gt;|prepare model|api
+
+ribasim["Ribasim\n[julia]"]
+modeler--&gt;|start|ribasim
+
+subgraph qgisBoundary[QGIS]
+    QGIS[QGIS Application]:::system_ext
+    qgisPlugin["Ribasim QGIS plugin\n[python]"]
+    QGIS--&gt;qgisPlugin
+end
+modeler--&gt;|prepare model|qgisBoundary
+
+model[("input model data\n[toml + geopackage + arrow]")]
+qgisPlugin--&gt;|read/write|model
+api--&gt;|read/write|model
+ribasim--&gt;|simulate|model
+
+output[("simulation results\n[arrow]")]
+ribasim--&gt;|write|output
+
+class qgisBoundary boundary
+
+%% class definitions for C4 model
+classDef user fill:#ABD0BC
+classDef system_ext fill:#D2D2D2
+classDef boundary fill:transparent,stroke-dasharray:5 5
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>The kernel of Ribasim is written in the <a href="https://julialang.org/">Julia programming language</a> and is built on top of the <a href="https://sciml.ai/">SciML: Open Source Software for Scientific Machine Learning</a> libraries, notably <a href="https://docs.sciml.ai/DiffEqDocs/stable/">DifferentialEquations.jl</a>.</p>
+<p>The <a href="./install.html">Ribasim Python package</a> is available to build, update and analyze Ribasim models programmatically. For runtime data exchange and coupling with other kernels, the Julia kernel is wrapped in a Python API (<code>ribasim_api</code>) which implements the Basic Modelling Interface <a href="https://bmi-spec.readthedocs.io/en/latest/">BMI</a>.</p>
+<p>The Ribasim QGIS plugin allows users to view or edit a model without programming. For specific tasks, like adding long timeseries, using Python is strongly recommended.</p>
+<p>One can also use Ribasim Python to build entire models from base data, such that your model setup is fully reproducible.</p>
+</section>
+<section id="sec-download" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Download</h1>
+<ul>
+<li>Ribasim executable - Windows: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_windows.zip">ribasim_windows.zip</a></li>
+<li>Ribasim executable - Linux: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_linux.zip">ribasim_linux.zip</a></li>
+<li>QGIS plugin: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_qgis.zip">ribasim_qgis.zip</a>.</li>
+<li>Generated testmodels: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/generated_testmodels.zip">generated_testmodels.zip</a></li>
+</ul>
+<p>The Ribasim Python package is <a href="https://pypi.org/project/ribasim/">registered in PyPI</a> and <a href="https://prefix.dev/channels/conda-forge/packages/ribasim">conda-forge</a> and can therefore be installed with <a href="https://docs.python.org/3/installing/index.html">pip</a>, <a href="https://docs.conda.io/">conda</a> or <a href="https://pixi.sh/">pixi</a>:</p>
+<pre><code>pip install ribasim</code></pre>
+</section>
+<section id="ribasim-core" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Ribasim core</h1>
+<p>Ribasim is typically used as a command-line interface (CLI). It is distributed as a <code>.zip</code> archive, that must be downloaded and unpacked. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The Ribasim CLI executable is in the <code>bin</code> directory.</p>
+<p>To check whether the installation was performed successfully, run <code>ribasim</code> with no arguments in the command line. This will give the following message:</p>
+<pre><code>Usage: ribasim 'path/to/model/ribasim.toml'</code></pre>
+</section>
+<section id="ribasim-python" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Ribasim Python</h1>
 <p>The Ribasim Python package (named <code>ribasim</code>) aims to make it easy to build, update and analyze Ribasim models programmatically.</p>
 <p>The Ribasim QGIS plugin allows users to construct a model from scratch without programming. For specific tasks, like adding observed rainfall timeseries, it can be faster to use Python instead.</p>
 <p>One can also use Ribasim Python to build entire models from base data, such that your model setup is fully reproducible.</p>
 <p>The package is <a href="https://pypi.org/project/ribasim/">registered in PyPI</a> and can therefore be installed with <a href="https://docs.python.org/3/installing/index.html">pip</a>:</p>
 <pre><code>pip install ribasim</code></pre>
-<p>For wheel (<code>.whl</code>) downloads, including nightly builds, see the <a href="../index.html#sec-download">download section</a>. After downloading wheels can be installed by referring to the correct path:</p>
-<pre><code>pip install path/to/ribasim-*.whl</code></pre>
-<p>For documentation please see the <a href="../guides/examples.html">examples</a> and <a href="../reference/reference">API reference</a>.</p>
+<p>For documentation please see the <a href="./guide/examples.html">examples</a> and <a href="./reference/reference">API reference</a>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -660,13 +675,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../guides/examples.html" class="pagination-link" aria-label="Examples">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Examples</span>
+      <a href="./index.html" class="pagination-link" aria-label="Ribasim">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Ribasim</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../guides/coupling.html" class="pagination-link" aria-label="Coupling">
-        <span class="nav-page-text">Coupling</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./changelog.html" class="pagination-link" aria-label="Changelog">
+        <span class="nav-page-text">Changelog</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

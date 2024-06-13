@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim - Get started</title>
+<title>Ribasim - Continuous integration</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../tutorials/julia.html" rel="next">
+<link href="../dev/release.html" rel="next">
+<link href="../dev/bmi.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -97,30 +98,30 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../tutorials/index.html" aria-current="page"> 
-<span class="menu-text">Get Started</span></a>
+    <a class="nav-link" href="../tutorial/index.html"> 
+<span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../guides/index.html"> 
-<span class="menu-text">Guides</span></a>
+    <a class="nav-link" href="../guide/index.html"> 
+<span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../background/concept.html"> 
-<span class="menu-text">Background</span></a>
+    <a class="nav-link" href="../concept/index.html"> 
+<span class="menu-text">Concepts</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../reference/index.html"> 
 <span class="menu-text">Reference</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../changelog.html"> 
-<span class="menu-text">Changelog</span></a>
-  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../dev/index.html" aria-current="page"> 
+<span class="menu-text">Contributing</span></a>
+  </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/Deltares/Ribasim"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
@@ -137,7 +138,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../tutorials/index.html">Get started</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../dev/ci.html">Continuous integration</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -151,26 +152,50 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tutorials/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Get started</span></a>
+  <a href="../dev/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Contributing</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tutorials/julia.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Julia kernel</span></a>
+  <a href="../dev/core.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Julia core development</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tutorials/python.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Python plugin</span></a>
+  <a href="../dev/addnode.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Adding node types</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../tutorials/qgis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">QGIS plugin</span></a>
+  <a href="../dev/python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python tooling development</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/qgis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QGIS plugin development</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/bmi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic Model Interface (BMI)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/ci.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Continuous integration</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/release.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Release process</span></a>
   </div>
 </li>
     </ul>
@@ -183,8 +208,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#sec-download" id="toc-sec-download" class="nav-link active" data-scroll-target="#sec-download"><span class="header-section-number">1</span> Download</a></li>
-  <li><a href="#sec-components" id="toc-sec-components" class="nav-link" data-scroll-target="#sec-components"><span class="header-section-number">2</span> About the components</a></li>
+  <li><a href="#github-actions" id="toc-github-actions" class="nav-link active" data-scroll-target="#github-actions"><span class="header-section-number">1</span> GitHub Actions</a></li>
+  <li><a href="#teamcity" id="toc-teamcity" class="nav-link" data-scroll-target="#teamcity"><span class="header-section-number">2</span> TeamCity</a>
+  <ul class="collapse">
+  <li><a href="#conditions-of-using-teamcity" id="toc-conditions-of-using-teamcity" class="nav-link" data-scroll-target="#conditions-of-using-teamcity"><span class="header-section-number">2.1</span> Conditions of using TeamCity</a></li>
+  <li><a href="#release-process" id="toc-release-process" class="nav-link" data-scroll-target="#release-process"><span class="header-section-number">2.2</span> Release process</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -193,7 +222,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Get started</h1>
+<h1 class="title">Continuous integration</h1>
 </div>
 
 
@@ -210,68 +239,105 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="sec-download" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Download</h1>
-<ul>
-<li>Ribasim executable - Linux: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_cli_linux.zip">ribasim_cli_linux.zip</a></li>
-<li>Ribasim executable - Windows: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_cli_windows.zip">ribasim_cli_windows.zip</a></li>
-<li>QGIS plugin: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/ribasim_qgis.zip">ribasim_qgis.zip</a>.</li>
-<li>Generated testmodels: <a href="https://github.com/Deltares/Ribasim/releases/latest/download/generated_testmodels.zip">generated_testmodels.zip</a></li>
-</ul>
-<p>The Ribasim Python package is <a href="https://pypi.org/project/ribasim/">registered in PyPI</a> and can therefore be installed with <a href="https://docs.python.org/3/installing/index.html">pip</a>:</p>
-<pre><code>pip install ribasim</code></pre>
-</section>
-<section id="sec-components" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> About the components</h1>
-<p>The figure below illustrates the relation between the various components of the Ribasim software package.</p>
+<p>Continuous integration (CI) is about commits being merged frequently, resulting in new features being released frequently. When proposing new changes to the code base a <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests">pull request</a> is opened. When a new commit in that pull request, a series of tests will be done to make sure that this commit is error-free and robust in different environments. This process drive each new development through building, testing, quality checking.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart TB
-modeler([Modeler]):::user
-
-api["Ribasim Python\n[python]"]
-modeler--&gt;|prepare model|api
-
-ribasim["Ribasim\n[julia]"]
-modeler--&gt;|start|ribasim
-
-subgraph qgisBoundary[QGIS]
-    QGIS[QGIS Application]:::system_ext
-    qgisPlugin["Ribasim QGIS plugin\n[python]"]
-    QGIS--&gt;qgisPlugin
-end
-modeler--&gt;|prepare model|qgisBoundary
-
-model[("input model data\n[toml + geopackage + arrow]")]
-qgisPlugin--&gt;|read/write|model
-api--&gt;|read/write|model
-ribasim--&gt;|simulate|model
-
-output[("simulation results\n[arrow]")]
-ribasim--&gt;|write|output
-
-class qgisBoundary boundary
-
-%% class definitions for C4 model
-classDef user fill:#ABD0BC
-classDef system_ext fill:#D2D2D2
-classDef boundary fill:transparent,stroke-dasharray:5 5
+<pre class="mermaid mermaid-js">graph LR
+    A[New development]--&gt;B[Continuous integration]
+    B--&gt;C[Merge]
 </pre>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
-<p>The kernel of Ribasim is written in the <a href="https://julialang.org/">Julia programming language</a> and is built on top of the <a href="https://sciml.ai/">SciML: Open Source Software for Scientific Machine Learning</a> libraries, notably <a href="https://docs.sciml.ai/DiffEqDocs/stable/">DifferentialEquations.jl</a>.</p>
-<p>The <a href="../guides/python.html">Ribasim Python package</a> is available to build, update and analyze Ribasim models programmatically. For runtime data exchange and coupling with other kernels, the Julia kernel is wrapped in a Python API (<code>ribasim_api</code>) which implements the Basic Modelling Interface <a href="https://bmi-spec.readthedocs.io/en/latest/">BMI</a>.</p>
-<p>The Ribasim QGIS plugin allows users to view or edit a model without programming. For specific tasks, like adding long timeseries, using Python is strongly recommended.</p>
-<p>One can also use Ribasim Python to build entire models from base data, such that your model setup is fully reproducible.</p>
-<p>See <a href="../background/usage.html">usage</a> for more information.</p>
+<p>This page contains an extensive explanation on how the Ribasim continuous integration works.</p>
+<section id="github-actions" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> GitHub Actions</h1>
+<p>With <a href="https://docs.github.com/en/actions">GitHub Actions</a>, GitHub provides their own continuous integration service. They include the following checks:</p>
+<ul>
+<li>Julia Run Testmodels: This is to make sure all the test models can be run successfully</li>
+<li>Julia Tests: Runs Julia unit tests on multiple platforms</li>
+<li>Docs: Builds the documentation and executes the examples</li>
+<li>Pre-commit: Checks Python code quality with linters and enforces formatting</li>
+<li>Python codegen: Makes sure code generation is still up to date by checking that code generation wouldn’t change any files</li>
+<li>Mypy: Runs mypy on our Python codebase to check types</li>
+<li>Ribasim Python tests: Runs Ribasim Python tests on multiple platforms and multiple Python versions</li>
+<li>QGIS Tests: Runs QGIS unit tests</li>
+</ul>
+</section>
+<section id="teamcity" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> TeamCity</h1>
+<p>Ribasim has another cloud-based CI service based on <a href="https://www.jetbrains.com/teamcity/">TeamCity</a>. TeamCity interacts with GitHub and manages the release process.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A[TeamCity]--&gt;|Monitoring|B[GitHub]
+    A--&gt;C(Release)
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<section id="conditions-of-using-teamcity" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="conditions-of-using-teamcity"><span class="header-section-number">2.1</span> Conditions of using TeamCity</h2>
+<p>TeamCity only runs workflows with the following conditions:</p>
+<ul>
+<li>When the workflow would take too long to run on GitHub Action</li>
+<li>When the release depends on the artifacts of the workflow.</li>
+<li>When other TeamCity projects depend on artifacts of Ribasim (e.g.&nbsp;iMOD coupler)</li>
+</ul>
+</section>
+<section id="release-process" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="release-process"><span class="header-section-number">2.2</span> Release process</h2>
+<p>In the release, we include the generated testmodels, Ribasim CLI on Windows and Linux, Ribasim QGIS, and the source code.</p>
+<p>We have the following pipeline to generate artifects for releasing:</p>
+<ul>
+<li>Generate Testmodels: produces generated_testmodels artifact which is part of the release.</li>
+<li>Make GitHub Release: uses artifacts and makes the release. TeamCity constantly monitors the GitHub repository. When a tag starts with <code>v20</code> is added, it triggers the release process.</li>
+<li>Build Ribasim: builds library and executable of Ribasim on Linux and Windows. The artifacts are tested in <code>Test Ribasim Binaries</code> and used by iMOD Coupler.</li>
+<li>Test Ribasim Binaries: tests libribasim artifact and ribasim_cli artifact on Linux and Windows</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Make GitHub Release does not publish artifacts of “Test Ribasim Binaries”. It only publishes artifacts of “Build Ribasim” if the beforementioned tests pass.</p>
+</div>
+</div>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    A[Make GitHub Release]--&gt;B(Release)
+    F[Generate Testmodels]--&gt;A
+    G[Make QGIS plugin]--&gt;A
+    H[Build Ribasim]---D[Test Ribasim Binaries]
+    D--&gt;A
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -664,10 +730,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../dev/bmi.html" class="pagination-link" aria-label="Basic Model Interface (BMI)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Basic Model Interface (BMI)</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../tutorials/julia.html" class="pagination-link" aria-label="Julia kernel">
-        <span class="nav-page-text">Julia kernel</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../dev/release.html" class="pagination-link" aria-label="Release process">
+        <span class="nav-page-text">Release process</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
