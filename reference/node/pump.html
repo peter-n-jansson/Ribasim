@@ -321,6 +321,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#static" id="toc-static" class="nav-link" data-scroll-target="#static"><span class="header-section-number">1.1</span> Static</a></li>
   </ul></li>
+  <li><a href="#equations" id="toc-equations" class="nav-link" data-scroll-target="#equations"><span class="header-section-number">2</span> Equations</a></li>
   </ul>
 </nav>
     </div>
@@ -405,9 +406,17 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-
-
 </section>
+</section>
+<section id="equations" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Equations</h1>
+<p>The behavior of a Pump is simple if these nodes are not PID controlled. Their flow is given by a fixed flow rate <span class="math inline">\(q\)</span>, multiplied by a reduction factor:</p>
+<p><span class="math display">\[
+Q = \mathrm{clamp}(\phi(u; 10.0) Q_\text{set}, Q_{\min}, Q_{\max})
+\]</span></p>
+<p><span class="math inline">\(Q\)</span> is the realized Pump flow rate. <span class="math inline">\(Q_\text{set}\)</span> is the Pump’s target <code>flow_rate</code>. <span class="math inline">\(Q_{\min}\)</span> and <span class="math inline">\(Q_{\max}\)</span> are the Pump <code>min_flow_rate</code> and <code>max_flow_rate</code>. <span class="math inline">\(u\)</span> is the storage of the incoming Basin. The <a href="../../concept/equations.html#sec-reduction_factor">reduction factor</a> <span class="math inline">\(\phi\)</span> makes sure that the flow of the Pump goes smoothly to <span class="math inline">\(0\)</span> as the incoming Basin dries out.</p>
+
+
 </section>
 
 </main> <!-- /main -->

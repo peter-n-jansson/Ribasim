@@ -321,6 +321,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#static" id="toc-static" class="nav-link" data-scroll-target="#static"><span class="header-section-number">1.1</span> Static</a></li>
   </ul></li>
+  <li><a href="#equations" id="toc-equations" class="nav-link" data-scroll-target="#equations"><span class="header-section-number">2</span> Equations</a></li>
   </ul>
 </nav>
     </div>
@@ -405,9 +406,119 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-
-
 </section>
+</section>
+<section id="equations" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Equations</h1>
+<p>ManningResistance simulates steady flow between Basins through a reach described by a trapezoidal profile and a Manning roughness coefficient.</p>
+<p>We describe the discharge from Basin <span class="math inline">\(a\)</span> to Basin <span class="math inline">\(b\)</span> solely as a function of the water levels in <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+<p><span class="math display">\[
+Q = f(h_a, h_b)
+\]</span></p>
+<p>Where:</p>
+<ul>
+<li>The subscripts <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> denotes two different Basins</li>
+<li><span class="math inline">\(h\)</span> is the hydraulic head, or water level</li>
+</ul>
+<p>The energy equation for open channel flow is:</p>
+<p><span class="math display">\[
+H = h + \frac{v^2}{2g}
+\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(H\)</span> is total head</li>
+<li><span class="math inline">\(v\)</span> is average water velocity</li>
+<li><span class="math inline">\(g\)</span> is gravitational acceleration</li>
+</ul>
+<p>The discharge <span class="math inline">\(Q\)</span> is defined as:</p>
+<p><span class="math display">\[
+Q = Av
+\]</span></p>
+<p>where <span class="math inline">\(A\)</span> is cross-sectional area.</p>
+<p>We use conservation of energy to relate the total head at <span class="math inline">\(a\)</span> to <span class="math inline">\(b\)</span>, with <span class="math inline">\(H_a &gt; H_b\)</span> as follows:</p>
+<p><span class="math display">\[
+H_a = H_b + h_{\text{loss}}
+\]</span></p>
+<p>Or:</p>
+<p><span class="math display">\[
+h_a + \frac{v_a^2}{2g} = h_b + \frac{v_b^2}{2g} + h_{\text{loss}}
+\]</span></p>
+<p>Where <span class="math inline">\(v\)</span> is the average water velocity. <span class="math inline">\(h_{\text{loss}}\)</span> is a combination of friction and contraction/expansion losses:</p>
+<p><span class="math display">\[
+h_{\text{loss}} = S_f L + \frac{C}{2g} \left(v_b^2 - v_a^2\right)
+\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(L\)</span> is the reach length</li>
+<li><span class="math inline">\(S_f\)</span> is the representative friction slope</li>
+<li><span class="math inline">\(C\)</span> is the expansion or contraction coefficient, <span class="math inline">\(0 \le C \le1\)</span></li>
+</ul>
+<p>We assume velocity differences in a connection are negligible (<span class="math inline">\(v_a = v_b\)</span>):</p>
+<p><span class="math display">\[
+h_a = h_b + S_f L
+\]</span></p>
+<p>Friction losses are computed with the Gauckler-Manning formula:</p>
+<p><span class="math display">\[
+Q = \frac{A}{n} R_h^\frac{2}{3} \sqrt{S_f}
+\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(A\)</span> is the <strong>representative</strong> area.</li>
+<li><span class="math inline">\(R_h\)</span> is the <strong>representative</strong> wetted radius.</li>
+<li><span class="math inline">\(S_f\)</span> is the <strong>representative</strong> friction slope.</li>
+<li><span class="math inline">\(n\)</span> is Manning’s roughness coefficient.</li>
+</ul>
+<p>We can rewrite to express <span class="math inline">\(S_f\)</span> in terms of Q:</p>
+<p><span class="math display">\[
+S_f = Q^2 \frac{n^2}{A^2 R_h^{4/3}}
+\]</span></p>
+<p>No water is added or removed in a connection:</p>
+<p><span class="math display">\[
+Q_a = Q_b = Q
+\]</span></p>
+<p>Substituting:</p>
+<p><span class="math display">\[
+h_a = h_b + Q^2 \frac{n^2}{A^2 R_h^{4/3}} L
+\]</span></p>
+<p>We can then express <span class="math inline">\(Q\)</span> as a function of head difference <span class="math inline">\(\Delta h\)</span>:</p>
+<p><span class="math display">\[
+Q = \textrm{sign}(\Delta h) \frac{A}{n} R_h^{2/3}\sqrt{\frac{|\Delta h|}{L} }
+\]</span></p>
+<p>The <span class="math inline">\(\textrm{sign}(\Delta h)\)</span> term causes the direction of the flow to reverse if the head in basin <span class="math inline">\(b\)</span> is larger than in basin <span class="math inline">\(a\)</span>.</p>
+<p>This expression however leads to problems in simulation since the derivative of <span class="math inline">\(Q\)</span> with respect to <span class="math inline">\(\Delta h\)</span> tends to <span class="math inline">\(\pm \infty\)</span> as <span class="math inline">\(\Delta h\)</span> tends to 0. Therefore we use the slightly modified expression</p>
+<p><span class="math display">\[
+Q = \textrm{sign}(\Delta h) \frac{A}{n} R_h^{2/3}\sqrt{\frac{\Delta h}{L} s(\Delta h)}
+\]</span></p>
+<p>to smooth out this problem. Here <span class="math inline">\(s(x) = \frac{2}{\pi}\arctan{1000x}\)</span> can be thought of as a smooth approximation of the sign function.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The computation of <span class="math inline">\(S_f\)</span> is not exact: we base it on a representative area and hydraulic radius, rather than integrating <span class="math inline">\(S_f\)</span> along the length of a reach. Direct analytic solutions exist for e.g.&nbsp;parabolic profiles (Tolkmitt), but other profiles requires relatively complicated approaches (such as approximating the profile with a polynomial).</p>
+<p>We use the average value of the cross-sectional area, the average value of the water depth, and the average value of the hydraulic radius to compute a friction slope. The size of the resulting error will depend on the water depth difference between the upstream and downstream Basin.</p>
+</div>
+</div>
+<p>The cross sectional area for a trapezoidal or rectangular profile:</p>
+<p><span class="math display">\[
+A = w d + \frac{\Delta y}{\Delta z} d^2
+\]</span></p>
+<p>Where</p>
+<ul>
+<li><span class="math inline">\(w\)</span> is the width at <span class="math inline">\(d = 0\)</span> (A triangular profile has <span class="math inline">\(w = 0\)</span>)</li>
+<li><span class="math inline">\(\frac{\Delta y}{\Delta z}\)</span> is the slope of the profile expressed as the horizontal length for one unit in the vertical (A slope of 45 degrees has <span class="math inline">\(\frac{\Delta y}{\Delta z} = 1\)</span>; a rectangular profile 0).</li>
+</ul>
+<p>Accordingly, the wetted perimeter is:</p>
+<p><span class="math display">\[
+B = w + 2 d \sqrt{\left(\frac{\Delta y}{\Delta z}\right)^2 + 1}
+\]</span></p>
+
+
 </section>
 
 </main> <!-- /main -->

@@ -321,6 +321,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#static" id="toc-static" class="nav-link" data-scroll-target="#static"><span class="header-section-number">1.1</span> Static</a></li>
   </ul></li>
+  <li><a href="#equations" id="toc-equations" class="nav-link" data-scroll-target="#equations"><span class="header-section-number">2</span> Equations</a></li>
   </ul>
 </nav>
     </div>
@@ -393,9 +394,17 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-
-
 </section>
+</section>
+<section id="equations" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Equations</h1>
+<p>A LinearResistance connects two Basins together. The flow between the two Basins is determined by a linear relationship, up to an optional maximum flow rate:</p>
+<p><span class="math display">\[
+Q_\text{linear_resistance} = \mathrm{clamp}(\frac{h_a - h_b}{R}, -Q_{\max}, Q_{\max})
+\]</span></p>
+<p>Here <span class="math inline">\(h_a\)</span> is the water level in the incoming Basin and <span class="math inline">\(h_b\)</span> is the water level in the outgoing Basin. <span class="math inline">\(R\)</span> is the resistance of the link, and <span class="math inline">\(Q_{\max}\)</span> is the maximum flow rate. Water flows from high to low; either direction is possible.</p>
+
+
 </section>
 
 </main> <!-- /main -->

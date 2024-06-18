@@ -322,6 +322,7 @@ window.Quarto = {
   <li><a href="#static" id="toc-static" class="nav-link" data-scroll-target="#static"><span class="header-section-number">1.1</span> Static</a></li>
   <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="header-section-number">1.2</span> Time</a></li>
   </ul></li>
+  <li><a href="#equations" id="toc-equations" class="nav-link" data-scroll-target="#equations"><span class="header-section-number">2</span> Equations</a></li>
   </ul>
 </nav>
     </div>
@@ -461,9 +462,26 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-
-
 </section>
+</section>
+<section id="equations" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Equations</h1>
+<p>UserDemand receive an allocated flow rate <span class="math inline">\(F^p\)</span> per priority <span class="math inline">\(p=1,2,\ldots, p_{\max}\)</span>, which is either determined by <a href="../../concept/allocation.html">allocation optimization</a> or simply equal to the demand at time <span class="math inline">\(t\)</span>; <span class="math inline">\(F^p = d^p(t)\)</span>. The realized abstraction rate of a UserDemand is given by <span class="math display">\[
+    Q_\text{in} = \phi(u, 10.0)\phi(h-l_{\min}, 0.1)\sum_{p=1}^{p_{\max}} \min\left(F^p, d^p(t)\right).
+\]</span></p>
+<p>From left to right:</p>
+<ul>
+<li>The first reduction factor lets the UserDemand abstraction go smoothly to <span class="math inline">\(0\)</span> as the source Basin dries out;</li>
+<li>The second reduction factor lets the UserDemand abstraction go smoothly to <span class="math inline">\(0\)</span> as the source Basin level approaches the minimum source Basin level (from above);</li>
+<li>The last term is the sum of the allocations over the priorities. If the current demand happens to be lower than the allocation at some priority, the demand is taken instead.</li>
+</ul>
+<p>UserDemands also have a return factor <span class="math inline">\(0 \le r \le 1\)</span>, which determines the return flow (outflow) of the UserDemand:</p>
+<p><span class="math display">\[
+Q_\text{out} = r \cdot Q_\text{in}.
+\]</span></p>
+<p>Note that this means that the UserDemand has a consumption rate of <span class="math inline">\((1-r)Q_\text{in}\)</span>.</p>
+
+
 </section>
 
 </main> <!-- /main -->
