@@ -243,10 +243,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#pre-release-checks" id="toc-pre-release-checks" class="nav-link" data-scroll-target="#pre-release-checks"><span class="header-section-number">2.1</span> Pre-release checks</a></li>
   <li><a href="#update-version-numbers-of-the-components" id="toc-update-version-numbers-of-the-components" class="nav-link" data-scroll-target="#update-version-numbers-of-the-components"><span class="header-section-number">2.2</span> Update version numbers of the components</a></li>
-  <li><a href="#create-a-new-release" id="toc-create-a-new-release" class="nav-link" data-scroll-target="#create-a-new-release"><span class="header-section-number">2.3</span> Create a new release</a></li>
-  <li><a href="#release-the-ribasim-python-packages-to-pypi" id="toc-release-the-ribasim-python-packages-to-pypi" class="nav-link" data-scroll-target="#release-the-ribasim-python-packages-to-pypi"><span class="header-section-number">2.4</span> Release the Ribasim Python packages to PyPI</a></li>
-  <li><a href="#do-manual-checks" id="toc-do-manual-checks" class="nav-link" data-scroll-target="#do-manual-checks"><span class="header-section-number">2.5</span> Do manual checks</a></li>
-  <li><a href="#announce-release" id="toc-announce-release" class="nav-link" data-scroll-target="#announce-release"><span class="header-section-number">2.6</span> Announce release</a></li>
+  <li><a href="#update-the-changelog" id="toc-update-the-changelog" class="nav-link" data-scroll-target="#update-the-changelog"><span class="header-section-number">2.3</span> Update the changelog</a></li>
+  <li><a href="#submit-a-pull-request" id="toc-submit-a-pull-request" class="nav-link" data-scroll-target="#submit-a-pull-request"><span class="header-section-number">2.4</span> Submit a pull request</a></li>
+  <li><a href="#create-a-new-release" id="toc-create-a-new-release" class="nav-link" data-scroll-target="#create-a-new-release"><span class="header-section-number">2.5</span> Create a new release</a></li>
+  <li><a href="#release-the-ribasim-python-packages-to-pypi" id="toc-release-the-ribasim-python-packages-to-pypi" class="nav-link" data-scroll-target="#release-the-ribasim-python-packages-to-pypi"><span class="header-section-number">2.6</span> Release the Ribasim Python packages to PyPI</a></li>
+  <li><a href="#do-manual-checks" id="toc-do-manual-checks" class="nav-link" data-scroll-target="#do-manual-checks"><span class="header-section-number">2.7</span> Do manual checks</a></li>
+  <li><a href="#announce-release" id="toc-announce-release" class="nav-link" data-scroll-target="#announce-release"><span class="header-section-number">2.8</span> Announce release</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -276,7 +278,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="what-is-a-release" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> What is a release</h1>
 <p>The <a href="https://github.com/Deltares/Ribasim">Ribasim repository</a> contains several components, e.g., the Julia core, the Python tooling and QGIS plugin. The components are currently only guaranteed to work together if they have the same version number. Therefore we release Ribasim as a collection of all the components at once, all carrying the same version number. For maximum interoperability it is suggested to only release all components together, and not individually.</p>
-<p>For these releases we use <a href="https://calver.org/">Calender Versioning</a>, which makes it clear in which month the release was made.</p>
 </section>
 <section id="release-steps" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Release steps</h1>
@@ -288,11 +289,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="update-version-numbers-of-the-components" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="update-version-numbers-of-the-components"><span class="header-section-number">2.2</span> Update version numbers of the components</h2>
 <p>Determine the new version number like <code>2023.1.0</code>, filling in the current year, a bumped <code>MINOR</code> number for normal releases and a bumped <code>MICRO</code> number for non-breaking, hotfix releases. This follows <code>YYYY.MINOR.MICRO</code> from <a href="https://calver.org/">calver</a>.</p>
-<p>Update the version numbers in the repository to the new version number. A single find and replace can update all locations. The Ribasim version number is not in <code>pixi.lock</code>, that file does not need updating.</p>
-<p>Now submit a pull request to update the version numbers.</p>
+<p>Create a branch that starts with <code>release</code>, like <code>release-2023-1.0</code>. It needs to start with <code>release</code> to trigger extra TeamCity checks.</p>
+<p>Update the version numbers in the repository to the new version number. See also the <a href="https://github.com/Deltares/Ribasim/releases/latest">latest Ribasim release</a>. Use find and replace to update all locations. Only update the lines in <code>pixi.lock</code> that refer to Ribasim packages, to avoid accidentally changing the version number of dependencies that happen to have the same version number. Don’t change the old version numbers in <code>changelog.qmd</code>.</p>
 </section>
-<section id="create-a-new-release" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="create-a-new-release"><span class="header-section-number">2.3</span> Create a new release</h2>
+<section id="update-the-changelog" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="update-the-changelog"><span class="header-section-number">2.3</span> Update the changelog</h2>
+<p>The <code>docs/changelog.qmd</code> file, hosted on https://deltares.github.io/Ribasim/changelog, records the most important changes for users. Review the commits since the <a href="https://github.com/Deltares/Ribasim/releases/latest">latest Ribasim release</a> to make sure these are listed. Change the “Unreleased” section to the new version number and date, and create a new empty “Unreleased” section at the top.</p>
+</section>
+<section id="submit-a-pull-request" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="submit-a-pull-request"><span class="header-section-number">2.4</span> Submit a pull request</h2>
+<p>Now submit a pull request with the updated the version numbers and changelog.</p>
+</section>
+<section id="create-a-new-release" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="create-a-new-release"><span class="header-section-number">2.5</span> Create a new release</h2>
 <p>When the pull request is merged to main, checkout the commit that updates the version numbers.</p>
 <p>Create a new tag, which is the letter <code>v</code> followed by the version number, like, <code>v2023.8.0</code>.</p>
 <p>This can be done by executing:</p>
@@ -310,24 +319,24 @@ All changes
 &lt;/details&gt;
 </code></pre>
 </section>
-<section id="release-the-ribasim-python-packages-to-pypi" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="release-the-ribasim-python-packages-to-pypi"><span class="header-section-number">2.4</span> Release the Ribasim Python packages to PyPI</h2>
+<section id="release-the-ribasim-python-packages-to-pypi" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="release-the-ribasim-python-packages-to-pypi"><span class="header-section-number">2.6</span> Release the Ribasim Python packages to PyPI</h2>
 <p>To be able to install packages with <code>pip</code>, they need to be released on the Python Package Index (PyPI). In order to publish Ribasim Python or Ribasim API follow the following steps:</p>
 <ol type="1">
 <li><p>Open a terminal and run <code>pixi run publish-ribasim-python</code></p></li>
 <li><p>Open a terminal and run <code>pixi run publish-ribasim-api</code></p></li>
 </ol>
 </section>
-<section id="do-manual-checks" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="do-manual-checks"><span class="header-section-number">2.5</span> Do manual checks</h2>
+<section id="do-manual-checks" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="do-manual-checks"><span class="header-section-number">2.7</span> Do manual checks</h2>
 <p>Our continuous integration (CI) should have caught most issues. A current weak spot in our testing is the QGIS plugin, so it is a good idea to do some manual checks to see if it works properly. Start with running the automated task to see if it can be correctly installed.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This test might give a fatal error on the first run, this is most likely a timing issue.</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Try to run it again when that happens.</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run test-ribasim-qgis-ui</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>It is a good idea to load new test models if there are any, or test any other changed functionality.</p>
 </section>
-<section id="announce-release" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="announce-release"><span class="header-section-number">2.6</span> Announce release</h2>
+<section id="announce-release" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="announce-release"><span class="header-section-number">2.8</span> Announce release</h2>
 <p>Announce the release in appropriate channels. Include a link to the release notes and assets, which is whatever <a href="https://github.com/Deltares/Ribasim/releases/latest">this</a> resolves to at that time. Also include a link to the <a href="https://deltares.github.io/Ribasim/">documentation</a>.</p>
 
 
