@@ -588,7 +588,7 @@ F_{ij} \le (C^{UD}_S)_i, \quad \forall i \in U_S, \quad V_S^{\text{out}}(i) = \{
 <section id="example" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="example"><span class="header-section-number">4.4</span> Example</h2>
 <p>The following is an example of an optimization problem for the example shown <a href="../guide/examples.html#model-with-allocation-user-demand">here</a>:</p>
-<div id="4bce8ff5" class="cell" data-execution_count="1">
+<div id="c2cf010b" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -611,41 +611,41 @@ F_{ij} \le (C^{UD}_S)_i, \quad \forall i \in U_S, \quad V_S^{\text{out}}(i) = \{
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Min F[(Basin #5, UserDemand #6)]² + F[(Basin #2, UserDemand #3)]² + F[(Basin #12, UserDemand #13)]²
+<pre><code>Min F[(Basin #5, UserDemand #6)]² + F[(Basin #12, UserDemand #13)]² + F[(Basin #2, UserDemand #3)]²
 Subject to
  source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 172800
  source_user[UserDemand #6] : F[(UserDemand #6, Basin #5)] ≤ 0
  source_user[UserDemand #13] : F[(UserDemand #13, Terminal #10)] ≤ 0
  source_user[UserDemand #3] : F[(UserDemand #3, Basin #2)] ≤ 0
- fractional_flow[(TabulatedRatingCurve #7, FractionalFlow #8)] : -0.6 F[(Basin #5, TabulatedRatingCurve #7)] + F[(TabulatedRatingCurve #7, FractionalFlow #8)] ≤ 0
- fractional_flow[(TabulatedRatingCurve #7, FractionalFlow #9)] : -0.4 F[(Basin #5, TabulatedRatingCurve #7)] + F[(TabulatedRatingCurve #7, FractionalFlow #9)] ≤ 0
+ fractional_flow[(TabulatedRatingCurve #7, FractionalFlow #8)] : F[(TabulatedRatingCurve #7, FractionalFlow #8)] - 0.6 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0
+ fractional_flow[(TabulatedRatingCurve #7, FractionalFlow #9)] : F[(TabulatedRatingCurve #7, FractionalFlow #9)] - 0.4 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0
  flow_buffer_outflow[TabulatedRatingCurve #7] : F_flow_buffer_out[TabulatedRatingCurve #7] ≤ 0
- F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
- F[(LinearResistance #4, Basin #5)] ≥ 0
- F[(Basin #5, LinearResistance #4)] ≥ 0
- F[(Basin #2, LinearResistance #4)] ≥ 0
- F[(LinearResistance #4, Basin #2)] ≥ 0
  F[(Basin #5, UserDemand #6)] ≥ 0
- F[(Basin #2, UserDemand #3)] ≥ 0
- F[(FractionalFlow #8, Terminal #10)] ≥ 0
+ F[(UserDemand #13, Terminal #10)] ≥ 0
+ F[(TabulatedRatingCurve #7, FractionalFlow #9)] ≥ 0
+ F[(Basin #12, UserDemand #13)] ≥ 0
  F[(UserDemand #6, Basin #5)] ≥ 0
  F[(TabulatedRatingCurve #7, FractionalFlow #8)] ≥ 0
- F[(Basin #12, UserDemand #13)] ≥ 0
- F[(UserDemand #13, Terminal #10)] ≥ 0
- F[(FractionalFlow #9, Basin #12)] ≥ 0
- F[(TabulatedRatingCurve #7, FractionalFlow #9)] ≥ 0
+ F[(LinearResistance #4, Basin #5)] ≥ 0
+ F[(Basin #5, LinearResistance #4)] ≥ 0
  F[(FlowBoundary #1, Basin #2)] ≥ 0
  F[(UserDemand #3, Basin #2)] ≥ 0
+ F[(Basin #2, UserDemand #3)] ≥ 0
+ F[(Basin #2, LinearResistance #4)] ≥ 0
+ F[(LinearResistance #4, Basin #2)] ≥ 0
+ F[(FractionalFlow #8, Terminal #10)] ≥ 0
+ F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
+ F[(FractionalFlow #9, Basin #12)] ≥ 0
  F_flow_buffer_in[TabulatedRatingCurve #7] ≥ 0
  F_flow_buffer_out[TabulatedRatingCurve #7] ≥ 0
- flow_conservation[TabulatedRatingCurve #7] : F[(Basin #5, TabulatedRatingCurve #7)] - F[(TabulatedRatingCurve #7, FractionalFlow #8)] - F[(TabulatedRatingCurve #7, FractionalFlow #9)] - F_flow_buffer_in[TabulatedRatingCurve #7] + F_flow_buffer_out[TabulatedRatingCurve #7] = 0
+ flow_conservation[FractionalFlow #8] : F[(TabulatedRatingCurve #7, FractionalFlow #8)] - F[(FractionalFlow #8, Terminal #10)] = 0
+ flow_conservation[Terminal #10] : F[(UserDemand #13, Terminal #10)] + F[(FractionalFlow #8, Terminal #10)] = 0
+ flow_conservation[Basin #5] : -F[(Basin #5, UserDemand #6)] + F[(UserDemand #6, Basin #5)] + F[(LinearResistance #4, Basin #5)] - F[(Basin #5, LinearResistance #4)] - F[(Basin #5, TabulatedRatingCurve #7)] = 0
+ flow_conservation[FractionalFlow #9] : F[(TabulatedRatingCurve #7, FractionalFlow #9)] - F[(FractionalFlow #9, Basin #12)] = 0
  flow_conservation[LinearResistance #4] : -F[(LinearResistance #4, Basin #5)] + F[(Basin #5, LinearResistance #4)] + F[(Basin #2, LinearResistance #4)] - F[(LinearResistance #4, Basin #2)] = 0
- flow_conservation[FractionalFlow #8] : -F[(FractionalFlow #8, Terminal #10)] + F[(TabulatedRatingCurve #7, FractionalFlow #8)] = 0
- flow_conservation[Basin #5] : -F[(Basin #5, TabulatedRatingCurve #7)] + F[(LinearResistance #4, Basin #5)] - F[(Basin #5, LinearResistance #4)] - F[(Basin #5, UserDemand #6)] + F[(UserDemand #6, Basin #5)] = 0
- flow_conservation[FractionalFlow #9] : -F[(FractionalFlow #9, Basin #12)] + F[(TabulatedRatingCurve #7, FractionalFlow #9)] = 0
- flow_conservation[Basin #2] : -F[(Basin #2, LinearResistance #4)] + F[(LinearResistance #4, Basin #2)] - F[(Basin #2, UserDemand #3)] + F[(FlowBoundary #1, Basin #2)] + F[(UserDemand #3, Basin #2)] = 0
+ flow_conservation[TabulatedRatingCurve #7] : -F[(TabulatedRatingCurve #7, FractionalFlow #9)] - F[(TabulatedRatingCurve #7, FractionalFlow #8)] + F[(Basin #5, TabulatedRatingCurve #7)] - F_flow_buffer_in[TabulatedRatingCurve #7] + F_flow_buffer_out[TabulatedRatingCurve #7] = 0
  flow_conservation[Basin #12] : -F[(Basin #12, UserDemand #13)] + F[(FractionalFlow #9, Basin #12)] = 0
- flow_conservation[Terminal #10] : F[(FractionalFlow #8, Terminal #10)] + F[(UserDemand #13, Terminal #10)] = 0
+ flow_conservation[Basin #2] : F[(FlowBoundary #1, Basin #2)] + F[(UserDemand #3, Basin #2)] - F[(Basin #2, UserDemand #3)] - F[(Basin #2, LinearResistance #4)] + F[(LinearResistance #4, Basin #2)] = 0
 </code></pre>
 </div>
 </div>
