@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -348,7 +382,81 @@ window.Quarto = {
 </header>
 
 
-<p>Set parameters of other nodes based on model state conditions (e.g.&nbsp;Basin level).</p>
+<p>Set parameters of other nodes based on model state conditions (e.g.&nbsp;Basin level). The table below shows which parameters are controllable for a given node type.</p>
+<div id="000ed883" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span>: DataFrame</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">MarkdownTables</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>node_names <span class="op">=</span> <span class="dt">Symbol</span>[]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>controllable_parameters <span class="op">=</span> <span class="dt">String</span>[]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> node_type <span class="kw">in</span> <span class="fu">fieldtypes</span>(Ribasim.Parameters)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> node_type <span class="op">&lt;:</span><span class="dt"> Ribasim.AbstractParameterNode</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        node_name <span class="op">=</span> <span class="fu">nameof</span>(node_type)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        controllable_fields <span class="op">=</span> Ribasim.<span class="fu">controllablefields</span>(node_name)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        controllable_fields <span class="op">=</span> <span class="fu">sort!</span>(<span class="fu">string</span>.(controllable_fields))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> node_name <span class="op">==</span> <span class="op">:</span>TabulatedRatingCurve</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>            controllable_fields <span class="op">=</span> <span class="fu">map</span>(s <span class="op">-&gt;</span> <span class="fu">replace</span>(s, <span class="st">"table"</span> <span class="op">=&gt;</span> <span class="st">"q(h) relationship (given by level, flow_rate)"</span>), controllable_fields)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> !<span class="fu">isempty</span>(controllable_fields)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(node_names, Ribasim.<span class="fu">snake_case</span>(node_name))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(controllable_parameters, <span class="fu">join</span>(controllable_fields, <span class="st">", "</span>))</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="fu">DataFrame</span>(<span class="op">:</span>node <span class="op">=&gt;</span> node_names, <span class="op">:</span>controllable_parameters <span class="op">=&gt;</span> controllable_parameters)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">markdown_table</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 67%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>node</th>
+<th>controllable_parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>linear_resistance</code></td>
+<td>active, resistance</td>
+</tr>
+<tr class="even">
+<td><code>manning_resistance</code></td>
+<td>active, manning_n</td>
+</tr>
+<tr class="odd">
+<td><code>tabulated_rating_curve</code></td>
+<td>active, q(h) relationship (given by level, flow_rate)</td>
+</tr>
+<tr class="even">
+<td><code>fractional_flow</code></td>
+<td>fraction</td>
+</tr>
+<tr class="odd">
+<td><code>pump</code></td>
+<td>active, flow_rate</td>
+</tr>
+<tr class="even">
+<td><code>outlet</code></td>
+<td>active, flow_rate</td>
+</tr>
+<tr class="odd">
+<td><code>pid_control</code></td>
+<td>active, derivative, integral, proportional, target</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <section id="tables" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Tables</h1>
 <section id="variable" class="level2" data-number="1.1">
