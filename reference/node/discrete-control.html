@@ -383,7 +383,7 @@ window.Quarto = {
 
 
 <p>Set parameters of other nodes based on model state conditions (e.g.&nbsp;Basin level). The table below shows which parameters are controllable for a given node type.</p>
-<div id="f4f9dd65" class="cell" data-execution_count="1">
+<div id="fa06011e" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -525,10 +525,16 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
+<p>These variables can be listened to: - The level of a Basin - The level of a LevelBoundary (supports look ahead) - The flow rate through one of these node types: Pump, Outlet, TabulatedRatingCurve, LinearResistance, ManningResistance - The flow rate of a FlowBoundary (supports look ahead)</p>
 </section>
 <section id="condition" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="condition"><span class="header-section-number">1.2</span> Condition</h2>
-<p>The condition schema defines conditions of the form ‘the <code>discrete_control</code> node with this <code>node_id</code> listens to whether the variable given by the <code>node_id</code> and <code>compound_variable_id</code> is greater than <code>greater_than</code>’. Multiple conditions with different <code>greater_than</code> values can be defined on the same compound_variable.</p>
+<p>The condition schema defines conditions of the form ‘the <code>discrete_control</code> node with this <code>node_id</code> listens to whether the variable given by the <code>node_id</code> and <code>compound_variable_id</code> is greater than <code>greater_than</code>’. In equation form:</p>
+<p><span class="math display">\[
+    \text{weight}_1 * \text{variable}_1 + \text{weight}_2 * \text{variable}_2 + \ldots &gt; \text{greater\_than}.
+\]</span></p>
+<p>Multiple conditions with different <code>greater_than</code> values can be defined on the same compound_variable.</p>
+<p>Note the strict inequality ‘<span class="math inline">\(&gt;\)</span>’ in the equation above. This means for instance that if a simulation starts with a compound variable exactly at the <code>greater_than</code> value, the condition is false.</p>
 <table class="table">
 <thead>
 <tr class="header">

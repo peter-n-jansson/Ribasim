@@ -377,7 +377,7 @@ window.Quarto = {
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="cn">nothing</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If the new node type is non-conservative, meaning it either adds or removes water from the model, these boundary flows also need to be recorded. This is done by storing it on the diagonal of the <code>flow[from, to]</code> matrix, e.g.&nbsp;<code>flow[id, id] = q</code>, where <code>q</code> is positive for water added to the model. Non-conservative node types need to be added to the <code>nonconservative_nodetypes</code> set such that this diagonal is set to a nonzero on creating the flow sparse matrix in the <code>Connectivity</code> constructor.</p>
+<p>If the new node type is non-conservative, meaning it either adds or removes water from the model, these boundary flows also need to be recorded. This is done by storing it on the diagonal of the <code>flow[from, to]</code> matrix, e.g.&nbsp;<code>flow[id, id] = q</code>, where <code>q</code> is positive for water added to the model.</p>
 </section>
 <section id="the-jacobian" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="the-jacobian"><span class="header-section-number">1.4</span> The Jacobian</h2>
