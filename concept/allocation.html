@@ -439,9 +439,9 @@ Note
 <h4 data-number="3.2.2.1" class="anchored" data-anchor-id="flow-magnitude-and-direction-constraints"><span class="header-section-number">3.2.2.1</span> Flow magnitude and direction constraints</h4>
 <p>Nodes in the Ribasim model that have a <code>max_flow_rate</code>, i.e.&nbsp;Pump, Outlet and LinearResistance, put a constraint on the flow through that node. Some nodes only allow flow in one direction, like Pump, Outlet and TabulatedRatingCurve.</p>
 </section>
-<section id="fractionalflow-and-userdemand-return-flows" class="level4" data-number="3.2.2.2">
-<h4 data-number="3.2.2.2" class="anchored" data-anchor-id="fractionalflow-and-userdemand-return-flows"><span class="header-section-number">3.2.2.2</span> FractionalFlow and UserDemand return flows</h4>
-<p>Both FractionalFlow and UserDemand nodes dictate proportional relationships between flows over edges in the subnetwork. UserDemands have a return factor <span class="math inline">\(0 \le r_i \le 1, i \in U_S\)</span>, and FractionalFlow nodes have an associated fraction <span class="math inline">\(f_j\)</span> which can be updated by DiscreteControl.</p>
+<section id="userdemand-return-flows" class="level4" data-number="3.2.2.2">
+<h4 data-number="3.2.2.2" class="anchored" data-anchor-id="userdemand-return-flows"><span class="header-section-number">3.2.2.2</span> UserDemand return flows</h4>
+<p>UserDemand nodes dictate proportional relationships between flows over edges in the subnetwork. The return factor is given by <span class="math inline">\(0 \le r_i \le 1, i \in U_S\)</span>.</p>
 </section>
 </section>
 </section>
@@ -480,7 +480,7 @@ Note
 <ul>
 <li>The flows <span class="math inline">\(F \in \mathbb{R}_{\ge 0}^{n\times n}\)</span> over the edges in the allocation network;</li>
 <li>The flows <span class="math inline">\(F^\text{basin out}_{i}, F^\text{basin in}_{i} \geq 0\)</span> for all <span class="math inline">\(i \in B_S\)</span> supplied and consumed by the basins with a level demand respectively;</li>
-<li>The flows <span class="math inline">\(F^\text{buffer out}_{i}, F^\text{buffer in}_{i} \ge 0\)</span> for all <span class="math inline">\(i \in FD_S \cup FF_S\)</span> supplied and consumed by the flow buffers of nodes with a flow demand or fractional flow outneighbors.</li>
+<li>The flows <span class="math inline">\(F^\text{buffer out}_{i}, F^\text{buffer in}_{i} \ge 0\)</span> for all <span class="math inline">\(i \in FD_S \cup FF_S\)</span> supplied and consumed by the flow buffers of nodes with a flow demand.</li>
 </ul>
 </section>
 <section id="the-optimization-objective" class="level2" data-number="4.2">
@@ -577,18 +577,13 @@ F_{ij} \le (C^{UD}_S)_i, \quad \forall i \in U_S, \quad V_S^{\text{out}}(i) = \{
     r_i \cdot F_{ki}, \quad V_S^{\text{in}}(i) = \{k\}.
 \]</span></p>
 <ul>
-<li><p>Fractional flow: Let <span class="math inline">\(L_S \subset V_S\)</span> be the set of nodes in the max flow graph with fractional flow outneighbors, and <span class="math inline">\(f_j\)</span> the flow fraction associated with fractional flow node <span class="math inline">\(j \in V_S\)</span>. Then <span id="eq-fractionalflowconstraint"><span class="math display">\[
-  F_{ij} \le f_j \sum_{k\in V^\text{in}_S(i)} F_{ki} \qquad
-  \forall i \in L_S, \;
-  j \in V_S^\text{out}(i).
-\tag{3}\]</span></span></p></li>
-<li><p>Flow sign: Furthermore there are the non-negativity constraints for the flows and allocations, see <a href="../concept/allocation.html#the-optimization-variables">The optimization variables</a>.</p></li>
+<li>Flow sign: Furthermore there are the non-negativity constraints for the flows and allocations, see <a href="../concept/allocation.html#the-optimization-variables">The optimization variables</a>.</li>
 </ul>
 </section>
 <section id="example" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="example"><span class="header-section-number">4.4</span> Example</h2>
 <p>The following is an example of an optimization problem for the example shown <a href="../guide/examples.html#model-with-allocation-user-demand">here</a>:</p>
-<div id="ff8c1934" class="cell" data-execution_count="1">
+<div id="a55a8c2a" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -611,41 +606,27 @@ F_{ij} \le (C^{UD}_S)_i, \quad \forall i \in U_S, \quad V_S^{\text{out}}(i) = \{
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(p.allocation.allocation_models[<span class="fl">1</span>].problem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Min F[(Basin #2, UserDemand #3)]² + F[(Basin #5, UserDemand #6)]² + F[(Basin #12, UserDemand #13)]²
+<pre><code>Min F[(Basin #5, UserDemand #6)]² + F[(Basin #2, UserDemand #3)]²
 Subject to
  source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 172800
- source_user[UserDemand #13] : F[(UserDemand #13, Terminal #10)] ≤ 0
  source_user[UserDemand #3] : F[(UserDemand #3, Basin #2)] ≤ 0
  source_user[UserDemand #6] : F[(UserDemand #6, Basin #5)] ≤ 0
- fractional_flow[(TabulatedRatingCurve #7, FractionalFlow #8)] : F[(TabulatedRatingCurve #7, FractionalFlow #8)] - 0.6 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0
- fractional_flow[(TabulatedRatingCurve #7, FractionalFlow #9)] : F[(TabulatedRatingCurve #7, FractionalFlow #9)] - 0.4 F[(Basin #5, TabulatedRatingCurve #7)] ≤ 0
- flow_buffer_outflow[TabulatedRatingCurve #7] : F_flow_buffer_out[TabulatedRatingCurve #7] ≤ 0
- flow_conservation[FractionalFlow #9] : F[(TabulatedRatingCurve #7, FractionalFlow #9)] - F[(FractionalFlow #9, Basin #12)] = 0
- flow_conservation[FractionalFlow #8] : -F[(FractionalFlow #8, Terminal #10)] + F[(TabulatedRatingCurve #7, FractionalFlow #8)] = 0
+ flow_conservation[Basin #2] : F[(FlowBoundary #1, Basin #2)] - F[(Basin #2, LinearResistance #4)] + F[(LinearResistance #4, Basin #2)] + F[(UserDemand #3, Basin #2)] - F[(Basin #2, UserDemand #3)] = 0
+ flow_conservation[Terminal #1] : F[(TabulatedRatingCurve #7, Terminal #1)] = 0
+ flow_conservation[TabulatedRatingCurve #7] : -F[(TabulatedRatingCurve #7, Terminal #1)] + F[(Basin #5, TabulatedRatingCurve #7)] = 0
+ flow_conservation[Basin #5] : -F[(Basin #5, TabulatedRatingCurve #7)] + F[(LinearResistance #4, Basin #5)] - F[(Basin #5, LinearResistance #4)] - F[(Basin #5, UserDemand #6)] + F[(UserDemand #6, Basin #5)] = 0
  flow_conservation[LinearResistance #4] : F[(Basin #2, LinearResistance #4)] - F[(LinearResistance #4, Basin #2)] - F[(LinearResistance #4, Basin #5)] + F[(Basin #5, LinearResistance #4)] = 0
- flow_conservation[TabulatedRatingCurve #7] : -F[(TabulatedRatingCurve #7, FractionalFlow #8)] - F[(TabulatedRatingCurve #7, FractionalFlow #9)] + F[(Basin #5, TabulatedRatingCurve #7)] - F_flow_buffer_in[TabulatedRatingCurve #7] + F_flow_buffer_out[TabulatedRatingCurve #7] = 0
- flow_conservation[Basin #5] : F[(LinearResistance #4, Basin #5)] - F[(Basin #5, LinearResistance #4)] - F[(Basin #5, UserDemand #6)] + F[(UserDemand #6, Basin #5)] - F[(Basin #5, TabulatedRatingCurve #7)] = 0
- flow_conservation[Basin #2] : -F[(Basin #2, UserDemand #3)] - F[(Basin #2, LinearResistance #4)] + F[(LinearResistance #4, Basin #2)] + F[(FlowBoundary #1, Basin #2)] + F[(UserDemand #3, Basin #2)] = 0
- flow_conservation[Basin #12] : F[(FractionalFlow #9, Basin #12)] - F[(Basin #12, UserDemand #13)] = 0
- flow_conservation[Terminal #10] : F[(FractionalFlow #8, Terminal #10)] + F[(UserDemand #13, Terminal #10)] = 0
- F[(FractionalFlow #8, Terminal #10)] ≥ 0
- F[(Basin #2, UserDemand #3)] ≥ 0
+ F[(TabulatedRatingCurve #7, Terminal #1)] ≥ 0
+ F[(FlowBoundary #1, Basin #2)] ≥ 0
+ F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
  F[(Basin #2, LinearResistance #4)] ≥ 0
  F[(LinearResistance #4, Basin #2)] ≥ 0
- F[(FlowBoundary #1, Basin #2)] ≥ 0
  F[(LinearResistance #4, Basin #5)] ≥ 0
  F[(Basin #5, LinearResistance #4)] ≥ 0
  F[(UserDemand #3, Basin #2)] ≥ 0
- F[(TabulatedRatingCurve #7, FractionalFlow #8)] ≥ 0
- F[(TabulatedRatingCurve #7, FractionalFlow #9)] ≥ 0
- F[(FractionalFlow #9, Basin #12)] ≥ 0
  F[(Basin #5, UserDemand #6)] ≥ 0
- F[(UserDemand #13, Terminal #10)] ≥ 0
  F[(UserDemand #6, Basin #5)] ≥ 0
- F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
- F[(Basin #12, UserDemand #13)] ≥ 0
- F_flow_buffer_in[TabulatedRatingCurve #7] ≥ 0
- F_flow_buffer_out[TabulatedRatingCurve #7] ≥ 0
+ F[(Basin #2, UserDemand #3)] ≥ 0
 </code></pre>
 </div>
 </div>
