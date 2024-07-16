@@ -327,15 +327,14 @@ window.Quarto = {
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        potential_evaporation<span class="op">=</span>evaporation,</span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        infiltration<span class="op">=</span><span class="fl">0.0</span>,</span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        precipitation<span class="op">=</span>precipitation,</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        urban_runoff<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    basin.State(level<span class="op">=</span>[<span class="fl">1.4</span>]),</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>model.basin.add(Node(<span class="dv">1</span>, Point(<span class="fl">0.0</span>, <span class="fl">0.0</span>)), basin_data)</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>model.basin.add(Node(<span class="dv">3</span>, Point(<span class="fl">2.0</span>, <span class="fl">0.0</span>)), basin_data)</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>model.basin.add(Node(<span class="dv">6</span>, Point(<span class="fl">3.0</span>, <span class="fl">2.0</span>)), basin_data)</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>model.basin.add(Node(<span class="dv">9</span>, Point(<span class="fl">5.0</span>, <span class="fl">0.0</span>)), basin_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    basin.State(level<span class="op">=</span>[<span class="fl">1.4</span>]),</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>model.basin.add(Node(<span class="dv">1</span>, Point(<span class="fl">0.0</span>, <span class="fl">0.0</span>)), basin_data)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>model.basin.add(Node(<span class="dv">3</span>, Point(<span class="fl">2.0</span>, <span class="fl">0.0</span>)), basin_data)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>model.basin.add(Node(<span class="dv">6</span>, Point(<span class="fl">3.0</span>, <span class="fl">2.0</span>)), basin_data)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>model.basin.add(Node(<span class="dv">9</span>, Point(<span class="fl">5.0</span>, <span class="fl">0.0</span>)), basin_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Setup linear resistance:</p>
 <div id="cell-9" class="cell" data-execution_count="6">
@@ -1004,23 +1003,21 @@ window.Quarto = {
 <span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>            potential_evaporation<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">0.0</span>],</span>
 <span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a>            infiltration<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">0.0</span>],</span>
 <span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>            precipitation<span class="op">=</span>[<span class="fl">1e-6</span>, <span class="fl">0.0</span>],</span>
-<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>            urban_runoff<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">0.0</span>],</span>
-<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb63-19"><a href="#cb63-19" aria-hidden="true" tabindex="-1"></a>model.basin.add(</span>
-<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">5</span>, Point(<span class="fl">2.0</span>, <span class="op">-</span><span class="fl">1.0</span>), subnetwork_id<span class="op">=</span><span class="dv">2</span>),</span>
-<span id="cb63-21"><a href="#cb63-21" aria-hidden="true" tabindex="-1"></a>    [</span>
-<span id="cb63-22"><a href="#cb63-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span>basin_data,</span>
-<span id="cb63-23"><a href="#cb63-23" aria-hidden="true" tabindex="-1"></a>        basin.Static(</span>
-<span id="cb63-24"><a href="#cb63-24" aria-hidden="true" tabindex="-1"></a>            drainage<span class="op">=</span>[<span class="fl">0.0</span>],</span>
-<span id="cb63-25"><a href="#cb63-25" aria-hidden="true" tabindex="-1"></a>            potential_evaporation<span class="op">=</span>[<span class="fl">0.0</span>],</span>
-<span id="cb63-26"><a href="#cb63-26" aria-hidden="true" tabindex="-1"></a>            infiltration<span class="op">=</span>[<span class="fl">0.0</span>],</span>
-<span id="cb63-27"><a href="#cb63-27" aria-hidden="true" tabindex="-1"></a>            precipitation<span class="op">=</span>[<span class="fl">0.0</span>],</span>
-<span id="cb63-28"><a href="#cb63-28" aria-hidden="true" tabindex="-1"></a>            urban_runoff<span class="op">=</span>[<span class="fl">0.0</span>],</span>
-<span id="cb63-29"><a href="#cb63-29" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb63-30"><a href="#cb63-30" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb63-31"><a href="#cb63-31" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a>model.basin.add(</span>
+<span id="cb63-19"><a href="#cb63-19" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">5</span>, Point(<span class="fl">2.0</span>, <span class="op">-</span><span class="fl">1.0</span>), subnetwork_id<span class="op">=</span><span class="dv">2</span>),</span>
+<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb63-21"><a href="#cb63-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span>basin_data,</span>
+<span id="cb63-22"><a href="#cb63-22" aria-hidden="true" tabindex="-1"></a>        basin.Static(</span>
+<span id="cb63-23"><a href="#cb63-23" aria-hidden="true" tabindex="-1"></a>            drainage<span class="op">=</span>[<span class="fl">0.0</span>],</span>
+<span id="cb63-24"><a href="#cb63-24" aria-hidden="true" tabindex="-1"></a>            potential_evaporation<span class="op">=</span>[<span class="fl">0.0</span>],</span>
+<span id="cb63-25"><a href="#cb63-25" aria-hidden="true" tabindex="-1"></a>            infiltration<span class="op">=</span>[<span class="fl">0.0</span>],</span>
+<span id="cb63-26"><a href="#cb63-26" aria-hidden="true" tabindex="-1"></a>            precipitation<span class="op">=</span>[<span class="fl">0.0</span>],</span>
+<span id="cb63-27"><a href="#cb63-27" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb63-28"><a href="#cb63-28" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb63-29"><a href="#cb63-29" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Setup the flow boundary:</p>
 <div id="cell-123" class="cell" data-execution_count="62">
@@ -1150,66 +1147,62 @@ window.Quarto = {
 <span id="cb74-27"><a href="#cb74-27" aria-hidden="true" tabindex="-1"></a>        potential_evaporation<span class="op">=</span>evaporation,</span>
 <span id="cb74-28"><a href="#cb74-28" aria-hidden="true" tabindex="-1"></a>        infiltration<span class="op">=</span><span class="fl">0.0</span>,</span>
 <span id="cb74-29"><a href="#cb74-29" aria-hidden="true" tabindex="-1"></a>        precipitation<span class="op">=</span>precipitation,</span>
-<span id="cb74-30"><a href="#cb74-30" aria-hidden="true" tabindex="-1"></a>        urban_runoff<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb74-31"><a href="#cb74-31" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb74-32"><a href="#cb74-32" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb74-33"><a href="#cb74-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-34"><a href="#cb74-34" aria-hidden="true" tabindex="-1"></a>basin_time4 <span class="op">=</span> [</span>
-<span id="cb74-35"><a href="#cb74-35" aria-hidden="true" tabindex="-1"></a>    basin.Time(</span>
-<span id="cb74-36"><a href="#cb74-36" aria-hidden="true" tabindex="-1"></a>        time<span class="op">=</span>pd.date_range(model.starttime, model.endtime),</span>
-<span id="cb74-37"><a href="#cb74-37" aria-hidden="true" tabindex="-1"></a>        drainage<span class="op">=</span>drainage_4,</span>
-<span id="cb74-38"><a href="#cb74-38" aria-hidden="true" tabindex="-1"></a>        potential_evaporation<span class="op">=</span>evaporation,</span>
-<span id="cb74-39"><a href="#cb74-39" aria-hidden="true" tabindex="-1"></a>        infiltration<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb74-40"><a href="#cb74-40" aria-hidden="true" tabindex="-1"></a>        precipitation<span class="op">=</span>precipitation,</span>
-<span id="cb74-41"><a href="#cb74-41" aria-hidden="true" tabindex="-1"></a>        urban_runoff<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb74-42"><a href="#cb74-42" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb74-43"><a href="#cb74-43" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb74-44"><a href="#cb74-44" aria-hidden="true" tabindex="-1"></a>basin_time3 <span class="op">=</span> [</span>
-<span id="cb74-45"><a href="#cb74-45" aria-hidden="true" tabindex="-1"></a>    basin.Time(</span>
-<span id="cb74-46"><a href="#cb74-46" aria-hidden="true" tabindex="-1"></a>        time<span class="op">=</span>pd.date_range(model.starttime, model.endtime),</span>
-<span id="cb74-47"><a href="#cb74-47" aria-hidden="true" tabindex="-1"></a>        drainage<span class="op">=</span>drainage_3,</span>
-<span id="cb74-48"><a href="#cb74-48" aria-hidden="true" tabindex="-1"></a>        potential_evaporation<span class="op">=</span>evaporation,</span>
-<span id="cb74-49"><a href="#cb74-49" aria-hidden="true" tabindex="-1"></a>        infiltration<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb74-50"><a href="#cb74-50" aria-hidden="true" tabindex="-1"></a>        precipitation<span class="op">=</span>precipitation,</span>
-<span id="cb74-51"><a href="#cb74-51" aria-hidden="true" tabindex="-1"></a>        urban_runoff<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb74-52"><a href="#cb74-52" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb74-53"><a href="#cb74-53" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb74-54"><a href="#cb74-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-55"><a href="#cb74-55" aria-hidden="true" tabindex="-1"></a>model.basin.add(</span>
-<span id="cb74-56"><a href="#cb74-56" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">1</span>, Point(<span class="fl">2.0</span>, <span class="fl">0.0</span>)),</span>
-<span id="cb74-57"><a href="#cb74-57" aria-hidden="true" tabindex="-1"></a>    [</span>
-<span id="cb74-58"><a href="#cb74-58" aria-hidden="true" tabindex="-1"></a>        basin.State(level<span class="op">=</span>[<span class="fl">2.5</span>]),</span>
-<span id="cb74-59"><a href="#cb74-59" aria-hidden="true" tabindex="-1"></a>        basin.Profile(area<span class="op">=</span>[<span class="dv">1000</span>, <span class="dv">1000</span>], level<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">3.0</span>]),</span>
-<span id="cb74-60"><a href="#cb74-60" aria-hidden="true" tabindex="-1"></a>        basin.Time(</span>
-<span id="cb74-61"><a href="#cb74-61" aria-hidden="true" tabindex="-1"></a>            time<span class="op">=</span>pd.date_range(model.starttime, model.endtime),</span>
-<span id="cb74-62"><a href="#cb74-62" aria-hidden="true" tabindex="-1"></a>            drainage<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb74-63"><a href="#cb74-63" aria-hidden="true" tabindex="-1"></a>            potential_evaporation<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb74-64"><a href="#cb74-64" aria-hidden="true" tabindex="-1"></a>            infiltration<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb74-65"><a href="#cb74-65" aria-hidden="true" tabindex="-1"></a>            precipitation<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb74-66"><a href="#cb74-66" aria-hidden="true" tabindex="-1"></a>            urban_runoff<span class="op">=</span><span class="fl">0.0</span>,</span>
-<span id="cb74-67"><a href="#cb74-67" aria-hidden="true" tabindex="-1"></a>        ),</span>
-<span id="cb74-68"><a href="#cb74-68" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb74-30"><a href="#cb74-30" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb74-31"><a href="#cb74-31" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb74-32"><a href="#cb74-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-33"><a href="#cb74-33" aria-hidden="true" tabindex="-1"></a>basin_time4 <span class="op">=</span> [</span>
+<span id="cb74-34"><a href="#cb74-34" aria-hidden="true" tabindex="-1"></a>    basin.Time(</span>
+<span id="cb74-35"><a href="#cb74-35" aria-hidden="true" tabindex="-1"></a>        time<span class="op">=</span>pd.date_range(model.starttime, model.endtime),</span>
+<span id="cb74-36"><a href="#cb74-36" aria-hidden="true" tabindex="-1"></a>        drainage<span class="op">=</span>drainage_4,</span>
+<span id="cb74-37"><a href="#cb74-37" aria-hidden="true" tabindex="-1"></a>        potential_evaporation<span class="op">=</span>evaporation,</span>
+<span id="cb74-38"><a href="#cb74-38" aria-hidden="true" tabindex="-1"></a>        infiltration<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb74-39"><a href="#cb74-39" aria-hidden="true" tabindex="-1"></a>        precipitation<span class="op">=</span>precipitation,</span>
+<span id="cb74-40"><a href="#cb74-40" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb74-41"><a href="#cb74-41" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb74-42"><a href="#cb74-42" aria-hidden="true" tabindex="-1"></a>basin_time3 <span class="op">=</span> [</span>
+<span id="cb74-43"><a href="#cb74-43" aria-hidden="true" tabindex="-1"></a>    basin.Time(</span>
+<span id="cb74-44"><a href="#cb74-44" aria-hidden="true" tabindex="-1"></a>        time<span class="op">=</span>pd.date_range(model.starttime, model.endtime),</span>
+<span id="cb74-45"><a href="#cb74-45" aria-hidden="true" tabindex="-1"></a>        drainage<span class="op">=</span>drainage_3,</span>
+<span id="cb74-46"><a href="#cb74-46" aria-hidden="true" tabindex="-1"></a>        potential_evaporation<span class="op">=</span>evaporation,</span>
+<span id="cb74-47"><a href="#cb74-47" aria-hidden="true" tabindex="-1"></a>        infiltration<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb74-48"><a href="#cb74-48" aria-hidden="true" tabindex="-1"></a>        precipitation<span class="op">=</span>precipitation,</span>
+<span id="cb74-49"><a href="#cb74-49" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb74-50"><a href="#cb74-50" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb74-51"><a href="#cb74-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-52"><a href="#cb74-52" aria-hidden="true" tabindex="-1"></a>model.basin.add(</span>
+<span id="cb74-53"><a href="#cb74-53" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">1</span>, Point(<span class="fl">2.0</span>, <span class="fl">0.0</span>)),</span>
+<span id="cb74-54"><a href="#cb74-54" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb74-55"><a href="#cb74-55" aria-hidden="true" tabindex="-1"></a>        basin.State(level<span class="op">=</span>[<span class="fl">2.5</span>]),</span>
+<span id="cb74-56"><a href="#cb74-56" aria-hidden="true" tabindex="-1"></a>        basin.Profile(area<span class="op">=</span>[<span class="dv">1000</span>, <span class="dv">1000</span>], level<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">3.0</span>]),</span>
+<span id="cb74-57"><a href="#cb74-57" aria-hidden="true" tabindex="-1"></a>        basin.Time(</span>
+<span id="cb74-58"><a href="#cb74-58" aria-hidden="true" tabindex="-1"></a>            time<span class="op">=</span>pd.date_range(model.starttime, model.endtime),</span>
+<span id="cb74-59"><a href="#cb74-59" aria-hidden="true" tabindex="-1"></a>            drainage<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb74-60"><a href="#cb74-60" aria-hidden="true" tabindex="-1"></a>            potential_evaporation<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb74-61"><a href="#cb74-61" aria-hidden="true" tabindex="-1"></a>            infiltration<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb74-62"><a href="#cb74-62" aria-hidden="true" tabindex="-1"></a>            precipitation<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb74-63"><a href="#cb74-63" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb74-64"><a href="#cb74-64" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb74-65"><a href="#cb74-65" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb74-66"><a href="#cb74-66" aria-hidden="true" tabindex="-1"></a>model.basin.add(</span>
+<span id="cb74-67"><a href="#cb74-67" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">4</span>, Point(<span class="fl">0.0</span>, <span class="op">-</span><span class="fl">2.0</span>)),</span>
+<span id="cb74-68"><a href="#cb74-68" aria-hidden="true" tabindex="-1"></a>    [basin.State(level<span class="op">=</span>[<span class="fl">1.5</span>]), polder_profile, <span class="op">*</span>basin_time],</span>
 <span id="cb74-69"><a href="#cb74-69" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb74-70"><a href="#cb74-70" aria-hidden="true" tabindex="-1"></a>model.basin.add(</span>
-<span id="cb74-71"><a href="#cb74-71" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">4</span>, Point(<span class="fl">0.0</span>, <span class="op">-</span><span class="fl">2.0</span>)),</span>
-<span id="cb74-72"><a href="#cb74-72" aria-hidden="true" tabindex="-1"></a>    [basin.State(level<span class="op">=</span>[<span class="fl">1.5</span>]), polder_profile, <span class="op">*</span>basin_time],</span>
+<span id="cb74-71"><a href="#cb74-71" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">6</span>, Point(<span class="fl">0.0</span>, <span class="op">-</span><span class="fl">4.0</span>)),</span>
+<span id="cb74-72"><a href="#cb74-72" aria-hidden="true" tabindex="-1"></a>    [basin.State(level<span class="op">=</span>[<span class="fl">1.0</span>]), polder_profile, <span class="op">*</span>basin_time],</span>
 <span id="cb74-73"><a href="#cb74-73" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb74-74"><a href="#cb74-74" aria-hidden="true" tabindex="-1"></a>model.basin.add(</span>
-<span id="cb74-75"><a href="#cb74-75" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">6</span>, Point(<span class="fl">0.0</span>, <span class="op">-</span><span class="fl">4.0</span>)),</span>
-<span id="cb74-76"><a href="#cb74-76" aria-hidden="true" tabindex="-1"></a>    [basin.State(level<span class="op">=</span>[<span class="fl">1.0</span>]), polder_profile, <span class="op">*</span>basin_time],</span>
+<span id="cb74-75"><a href="#cb74-75" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">8</span>, Point(<span class="fl">2.0</span>, <span class="op">-</span><span class="fl">4.0</span>)),</span>
+<span id="cb74-76"><a href="#cb74-76" aria-hidden="true" tabindex="-1"></a>    [basin.State(level<span class="op">=</span>[<span class="fl">1.5</span>]), polder_profile, <span class="op">*</span>basin_time3],</span>
 <span id="cb74-77"><a href="#cb74-77" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb74-78"><a href="#cb74-78" aria-hidden="true" tabindex="-1"></a>model.basin.add(</span>
-<span id="cb74-79"><a href="#cb74-79" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">8</span>, Point(<span class="fl">2.0</span>, <span class="op">-</span><span class="fl">4.0</span>)),</span>
-<span id="cb74-80"><a href="#cb74-80" aria-hidden="true" tabindex="-1"></a>    [basin.State(level<span class="op">=</span>[<span class="fl">1.5</span>]), polder_profile, <span class="op">*</span>basin_time3],</span>
+<span id="cb74-79"><a href="#cb74-79" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">10</span>, Point(<span class="fl">4.0</span>, <span class="op">-</span><span class="fl">4.0</span>)),</span>
+<span id="cb74-80"><a href="#cb74-80" aria-hidden="true" tabindex="-1"></a>    [basin.State(level<span class="op">=</span>[<span class="fl">1.3</span>]), polder_profile, <span class="op">*</span>basin_time4],</span>
 <span id="cb74-81"><a href="#cb74-81" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb74-82"><a href="#cb74-82" aria-hidden="true" tabindex="-1"></a>model.basin.add(</span>
-<span id="cb74-83"><a href="#cb74-83" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">10</span>, Point(<span class="fl">4.0</span>, <span class="op">-</span><span class="fl">4.0</span>)),</span>
-<span id="cb74-84"><a href="#cb74-84" aria-hidden="true" tabindex="-1"></a>    [basin.State(level<span class="op">=</span>[<span class="fl">1.3</span>]), polder_profile, <span class="op">*</span>basin_time4],</span>
-<span id="cb74-85"><a href="#cb74-85" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb74-86"><a href="#cb74-86" aria-hidden="true" tabindex="-1"></a>model.basin.add(</span>
-<span id="cb74-87"><a href="#cb74-87" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">12</span>, Point(<span class="fl">4.0</span>, <span class="op">-</span><span class="fl">2.0</span>)),</span>
-<span id="cb74-88"><a href="#cb74-88" aria-hidden="true" tabindex="-1"></a>    [basin.State(level<span class="op">=</span>[<span class="fl">0.1</span>]), polder_profile, <span class="op">*</span>basin_time],</span>
-<span id="cb74-89"><a href="#cb74-89" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb74-83"><a href="#cb74-83" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">12</span>, Point(<span class="fl">4.0</span>, <span class="op">-</span><span class="fl">2.0</span>)),</span>
+<span id="cb74-84"><a href="#cb74-84" aria-hidden="true" tabindex="-1"></a>    [basin.State(level<span class="op">=</span>[<span class="fl">0.1</span>]), polder_profile, <span class="op">*</span>basin_time],</span>
+<span id="cb74-85"><a href="#cb74-85" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>After all the basins are defined the connecting component inbetween the basins needs to be determined. For polder basin 5 (node 12), the water level needs to be maintain at 0.0 meter. This means that either there should be no water in this basin, or the basin bottom is lower than the reference level, and the water level should be maintained at the reference level.</p>
 <p>Since the water level of the main system is at 2.5 meter above the reference level a pump is needed to remove the water from polder basin 5.</p>

@@ -441,12 +441,6 @@ window.Quarto = {
 <td><span class="math inline">\(m^3 s^{-1}\)</span></td>
 <td>non-negative</td>
 </tr>
-<tr class="even">
-<td>urban_runoff</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
 </tbody>
 </table>
 <p>Note that if variables are not set in the static table, default values are used when possible. These are generally zero, e.g.&nbsp;no precipitation, no inflow. If it is not possible to have a reasonable and safe default, a value must be provided in the static table.</p>
@@ -832,7 +826,7 @@ window.Quarto = {
     \end{cases}
 \end{align}\]</span></p>
 <p>Here <span class="math inline">\(p &gt; 0\)</span> is the threshold value which determines the interval <span class="math inline">\([0,p]\)</span> of the smooth transition between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>, see the plot below.</p>
-<div id="b3ae6264" class="cell" data-execution_count="1">
+<div id="42519dab" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
