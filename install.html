@@ -269,9 +269,15 @@ classDef boundary fill:transparent,stroke-dasharray:5 5
 </section>
 <section id="ribasim-core" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Ribasim core</h1>
-<p>Ribasim is typically used as a command-line interface (CLI). It is distributed as a <code>.zip</code> archive, that must be downloaded and unpacked. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The Ribasim CLI executable is in the <code>bin</code> directory.</p>
-<p>To check whether the installation was performed successfully, run <code>ribasim</code> with no arguments in the command line. This will give the following message:</p>
-<pre><code>Usage: ribasim 'path/to/model/ribasim.toml'</code></pre>
+<p>Ribasim is typically used as a command-line interface (CLI). It is distributed as a <code>.zip</code> archive, that must be downloaded and unpacked. It can be placed anywhere, however it is important that the contents of the zip file are kept together in a directory. The Ribasim executable is in the main folder.</p>
+<p>To check whether the installation was performed successfully, open a terminal and go to the path where the executable is for example ’C:_windows’. If you are using cmd.exe type <code>ribasim</code>, or for PowerShell <code>./ribasim</code>.</p>
+<p>This will give the following message:</p>
+<pre><code>error: the following required arguments were not provided:
+  &lt;TOML_PATH&gt;
+
+Usage: ribasim &lt;TOML_PATH&gt;
+
+For more information, try '--help'.'</code></pre>
 </section>
 <section id="ribasim-python" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Ribasim Python</h1>
