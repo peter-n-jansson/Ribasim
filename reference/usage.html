@@ -389,10 +389,11 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#basin---basin.arrow" id="toc-basin---basin.arrow" class="nav-link" data-scroll-target="#basin---basin.arrow"><span class="header-section-number">5.1</span> Basin - <code>basin.arrow</code></a></li>
   <li><a href="#flow---flow.arrow" id="toc-flow---flow.arrow" class="nav-link" data-scroll-target="#flow---flow.arrow"><span class="header-section-number">5.2</span> Flow - <code>flow.arrow</code></a></li>
-  <li><a href="#discretecontrol---control.arrow" id="toc-discretecontrol---control.arrow" class="nav-link" data-scroll-target="#discretecontrol---control.arrow"><span class="header-section-number">5.3</span> DiscreteControl - <code>control.arrow</code></a></li>
-  <li><a href="#allocation---allocation.arrow" id="toc-allocation---allocation.arrow" class="nav-link" data-scroll-target="#allocation---allocation.arrow"><span class="header-section-number">5.4</span> Allocation - <code>allocation.arrow</code></a></li>
-  <li><a href="#allocation-flow---allocation_flow.arrow" id="toc-allocation-flow---allocation_flow.arrow" class="nav-link" data-scroll-target="#allocation-flow---allocation_flow.arrow"><span class="header-section-number">5.5</span> Allocation flow - <code>allocation_flow.arrow</code></a></li>
-  <li><a href="#subgrid-level---subgrid_level.arrow" id="toc-subgrid-level---subgrid_level.arrow" class="nav-link" data-scroll-target="#subgrid-level---subgrid_level.arrow"><span class="header-section-number">5.6</span> Subgrid level - <code>subgrid_level.arrow</code></a></li>
+  <li><a href="#sec-state" id="toc-sec-state" class="nav-link" data-scroll-target="#sec-state"><span class="header-section-number">5.3</span> State - <code>basin_state.arrow</code></a></li>
+  <li><a href="#discretecontrol---control.arrow" id="toc-discretecontrol---control.arrow" class="nav-link" data-scroll-target="#discretecontrol---control.arrow"><span class="header-section-number">5.4</span> DiscreteControl - <code>control.arrow</code></a></li>
+  <li><a href="#allocation---allocation.arrow" id="toc-allocation---allocation.arrow" class="nav-link" data-scroll-target="#allocation---allocation.arrow"><span class="header-section-number">5.5</span> Allocation - <code>allocation.arrow</code></a></li>
+  <li><a href="#allocation-flow---allocation_flow.arrow" id="toc-allocation-flow---allocation_flow.arrow" class="nav-link" data-scroll-target="#allocation-flow---allocation_flow.arrow"><span class="header-section-number">5.6</span> Allocation flow - <code>allocation_flow.arrow</code></a></li>
+  <li><a href="#subgrid-level---subgrid_level.arrow" id="toc-subgrid-level---subgrid_level.arrow" class="nav-link" data-scroll-target="#subgrid-level---subgrid_level.arrow"><span class="header-section-number">5.7</span> Subgrid level - <code>subgrid_level.arrow</code></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -842,8 +843,34 @@ window.Quarto = {
 </table>
 <p>The table is sorted by time, and per time the same <code>edge_id</code> order is used, though not sorted. The <code>edge_id</code> value is the same as the <code>fid</code> written to the Edge table, and can be used to directly look up the Edge geometry. Flows from the “from” to the “to” node have a positive sign, and if the flow is reversed it will be negative.</p>
 </section>
-<section id="discretecontrol---control.arrow" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="discretecontrol---control.arrow"><span class="header-section-number">5.3</span> DiscreteControl - <code>control.arrow</code></h2>
+<section id="sec-state" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="sec-state"><span class="header-section-number">5.3</span> State - <code>basin_state.arrow</code></h2>
+<p>The Basin state table contains the water levels in each Basin at the end of the simulation.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int32</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>level</td>
+<td>Float64</td>
+<td><span class="math inline">\(m\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>To use this result as the initial condition of another simulation, see the <a href="../reference/node/basin.html#sec-state">Basin / state</a> table reference.</p>
+</section>
+<section id="discretecontrol---control.arrow" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="discretecontrol---control.arrow"><span class="header-section-number">5.4</span> DiscreteControl - <code>control.arrow</code></h2>
 <p>The control table contains a record of each change of control state: when it happened, which control node was involved, to which control state it changed and based on which truth state.</p>
 <table class="table">
 <thead>
@@ -872,8 +899,8 @@ window.Quarto = {
 </tbody>
 </table>
 </section>
-<section id="allocation---allocation.arrow" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="allocation---allocation.arrow"><span class="header-section-number">5.4</span> Allocation - <code>allocation.arrow</code></h2>
+<section id="allocation---allocation.arrow" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="allocation---allocation.arrow"><span class="header-section-number">5.5</span> Allocation - <code>allocation.arrow</code></h2>
 <p>The allocation table contains a record of allocation results: when it happened, for which node, in which allocation network, and what the demand, allocated flow and realized flow were. The realized values at the starting time of the simulation can be ignored.</p>
 <table class="table">
 <thead>
@@ -945,8 +972,8 @@ Note
 </div>
 </div>
 </section>
-<section id="allocation-flow---allocation_flow.arrow" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="allocation-flow---allocation_flow.arrow"><span class="header-section-number">5.5</span> Allocation flow - <code>allocation_flow.arrow</code></h2>
+<section id="allocation-flow---allocation_flow.arrow" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="allocation-flow---allocation_flow.arrow"><span class="header-section-number">5.6</span> Allocation flow - <code>allocation_flow.arrow</code></h2>
 <p>The allocation flow table contains results of the optimized allocation flow on every edge in the model that is part of a subnetwork, for each time an optimization problem is solved (see also <a href="../concept/allocation.html#the-high-level-algorithm">here</a>). If in the model a main network and subnetwork(s) are specified, there are 2 different types of optimization for the subnetwork: collecting its total demand per priority (for allocating flow from the main network to the subnetwork), and allocating flow within the subnetwork. The column <code>collect_demands</code> provides the distinction between these two optimization types.</p>
 <table class="table">
 <thead>
@@ -999,8 +1026,8 @@ Note
 </tbody>
 </table>
 </section>
-<section id="subgrid-level---subgrid_level.arrow" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="subgrid-level---subgrid_level.arrow"><span class="header-section-number">5.6</span> Subgrid level - <code>subgrid_level.arrow</code></h2>
+<section id="subgrid-level---subgrid_level.arrow" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="subgrid-level---subgrid_level.arrow"><span class="header-section-number">5.7</span> Subgrid level - <code>subgrid_level.arrow</code></h2>
 <p>This result file is only written if the model contains a <a href="../reference/node/basin.html#subgrid">Basin / subgrid</a> table. See there for more information on the meaning of this output.</p>
 <table class="table">
 <thead>
