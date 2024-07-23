@@ -209,7 +209,7 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td><a href="#ribasim.EdgeTable.add">add</a></td>
-<td></td>
+<td>Add an edge between nodes. The type of the edge (flow or control)</td>
 </tr>
 <tr class="even">
 <td><a href="#ribasim.EdgeTable.check_dataframe">check_dataframe</a></td>
@@ -268,6 +268,64 @@ ul.task-list li input[type="checkbox"] {
 <section id="ribasim.EdgeTable.add" class="level3" data-number="1.2.1">
 <h3 data-number="1.2.1" class="anchored" data-anchor-id="ribasim.EdgeTable.add"><span class="header-section-number">1.2.1</span> add</h3>
 <p><code>EdgeTable.add(from_node, to_node, geometry=None, name='', subnetwork_id=None, **kwargs)</code></p>
+<p>Add an edge between nodes. The type of the edge (flow or control) is automatically inferred from the type of the <code>from_node</code>.</p>
+<section id="parameters" class="level4" data-number="1.2.1.1">
+<h4 data-number="1.2.1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.2.1.1</span> Parameters</h4>
+<table class="table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 17%">
+<col style="width: 70%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>from_node</code></td>
+<td>NodeData</td>
+<td>A node indexed by its node ID, e.g.&nbsp;<code>model.basin[1]</code></td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td><code>to_node</code></td>
+<td>NodeData</td>
+<td>A node indexed by its node ID, e.g.&nbsp;<code>model.linear_resistance[1]</code></td>
+<td><em>required</em></td>
+</tr>
+<tr class="odd">
+<td><code>geometry</code></td>
+<td>LineString | MultiLineString | None</td>
+<td>The geometry of a line. If not supplied, it creates a straight line between the nodes.</td>
+<td><code>None</code></td>
+</tr>
+<tr class="even">
+<td><code>name</code></td>
+<td>str</td>
+<td>An optional name for the edge.</td>
+<td><code>''</code></td>
+</tr>
+<tr class="odd">
+<td><code>subnetwork_id</code></td>
+<td>int | None</td>
+<td>An optional subnetwork id for the edge. This edge indicates a source for the allocation algorithm, and should thus not be set for every edge in a subnetwork.</td>
+<td><code>None</code></td>
+</tr>
+<tr class="even">
+<td><code>**kwargs</code></td>
+<td>Dict</td>
+<td></td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 <section id="ribasim.EdgeTable.check_dataframe" class="level3" data-number="1.2.2">
 <h3 data-number="1.2.2" class="anchored" data-anchor-id="ribasim.EdgeTable.check_dataframe"><span class="header-section-number">1.2.2</span> check_dataframe</h3>

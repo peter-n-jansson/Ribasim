@@ -159,63 +159,77 @@ ul.task-list li input[type="checkbox"] {
 <section id="ribasim.Solver" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Solver</h1>
 <p><code>Solver()</code></p>
+<p>Defines the numerical solver options. For more details see <a href="https://docs.sciml.ai/DiffEqDocs/stable/basics/common_solver_opts/#solver_options" class="uri">https://docs.sciml.ai/DiffEqDocs/stable/basics/common_solver_opts/#solver_options</a>.</p>
 <section id="attributes" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="attributes"><span class="header-section-number">1.1</span> Attributes</h2>
 <table class="table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 4%">
+<col style="width: 87%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#ribasim.Solver.abstol">abstol</a></td>
-<td></td>
+<td>algorithm</td>
+<td>str</td>
+<td>The used numerical time integration algorithm (Optional, defaults to QNDF)</td>
 </tr>
 <tr class="even">
-<td><a href="#ribasim.Solver.algorithm">algorithm</a></td>
-<td></td>
+<td>saveat</td>
+<td>float</td>
+<td>Time interval in seconds between saves of output data. 0 saves every timestep, inf only saves at start- and endtime. (Optional, defaults to 86400)</td>
 </tr>
 <tr class="odd">
-<td><a href="#ribasim.Solver.autodiff">autodiff</a></td>
-<td></td>
+<td>dt</td>
+<td>float</td>
+<td>Timestep of the solver. (Optional, defaults to None which implies adaptive timestepping)</td>
 </tr>
 <tr class="even">
-<td><a href="#ribasim.Solver.dt">dt</a></td>
-<td></td>
+<td>dtmin</td>
+<td>float</td>
+<td>The minimum allowed timestep of the solver (Optional, defaults to 0.0)</td>
 </tr>
 <tr class="odd">
-<td><a href="#ribasim.Solver.dtmax">dtmax</a></td>
-<td></td>
+<td>dtmax</td>
+<td>float</td>
+<td>The maximum allowed timestep size (Optional, defaults to 0.0 which implies the total length of the simulation)</td>
 </tr>
 <tr class="even">
-<td><a href="#ribasim.Solver.dtmin">dtmin</a></td>
-<td></td>
+<td>force_dtmin</td>
+<td>bool</td>
+<td>If a smaller dt than dtmin is needed to meet the set error tolerances, the simulation stops, unless force_dtmin = true (Optional, defaults to False)</td>
 </tr>
 <tr class="odd">
-<td><a href="#ribasim.Solver.force_dtmin">force_dtmin</a></td>
-<td></td>
+<td>abstol</td>
+<td>float</td>
+<td>The absolute tolerance for adaptive timestepping (Optional, defaults to 1e-6)</td>
 </tr>
 <tr class="even">
-<td><a href="#ribasim.Solver.maxiters">maxiters</a></td>
-<td></td>
+<td>reltol</td>
+<td>float</td>
+<td>The relative tolerance for adaptive timestepping (Optional, defaults to 1e-5)</td>
 </tr>
 <tr class="odd">
-<td><a href="#ribasim.Solver.model_config">model_config</a></td>
-<td></td>
+<td>maxiters</td>
+<td>int</td>
+<td>The total number of linear iterations over the whole simulation. (Defaults to 1e9, only needs to be increased for extremely long simulations)</td>
 </tr>
 <tr class="even">
-<td><a href="#ribasim.Solver.reltol">reltol</a></td>
-<td></td>
+<td>sparse</td>
+<td>bool</td>
+<td>Whether a sparse Jacobian matrix is used, which gives a significant speedup for models with &gt;~10 basins.</td>
 </tr>
 <tr class="odd">
-<td><a href="#ribasim.Solver.saveat">saveat</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><a href="#ribasim.Solver.sparse">sparse</a></td>
-<td></td>
+<td>autodiff</td>
+<td>bool</td>
+<td>Whether automatic differentiation instead of fine difference is used to compute the Jacobian. (Optional, defaults to true)</td>
 </tr>
 </tbody>
 </table>

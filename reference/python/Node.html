@@ -158,35 +158,42 @@ ul.task-list li input[type="checkbox"] {
 <section id="ribasim.Node" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Node</h1>
 <p><code>Node(self, node_id, geometry, **kwargs)</code></p>
+<p>Defines a node for the model.</p>
 <section id="attributes" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="attributes"><span class="header-section-number">1.1</span> Attributes</h2>
 <table class="table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 18%">
+<col style="width: 69%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="#ribasim.Node.geometry">geometry</a></td>
-<td></td>
+<td>node_id</td>
+<td>NonNegativeInt</td>
+<td>Integer ID of the node. Must be unique within the same node type.</td>
 </tr>
 <tr class="even">
-<td><a href="#ribasim.Node.model_config">model_config</a></td>
-<td></td>
+<td>geometry</td>
+<td>shapely.geometry.Point</td>
+<td>The coordinates of the node.</td>
 </tr>
 <tr class="odd">
-<td><a href="#ribasim.Node.name">name</a></td>
-<td></td>
+<td>name</td>
+<td>str</td>
+<td>An optional name of the node.</td>
 </tr>
 <tr class="even">
-<td><a href="#ribasim.Node.node_id">node_id</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><a href="#ribasim.Node.subnetwork_id">subnetwork_id</a></td>
-<td></td>
+<td>subnetwork_id</td>
+<td>int</td>
+<td>Optionally adds this node to a subnetwork, which is input for the allocation algorithm.</td>
 </tr>
 </tbody>
 </table>
