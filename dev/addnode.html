@@ -402,20 +402,20 @@ window.Quarto = {
 <li>the above defined schemas to the imports from <code>ribasim.schemas</code>. This requires code generation to work, see <a href="#finishing-up">Finishing up</a>;</li>
 <li>a class of the following form with all schemas associated with the node type:</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NewNodeType(NodeModel):</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NewNodeType(MultiNodeModel):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    static: TableModel[NewNodeTypeStaticSchema] <span class="op">=</span> Field(</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        default_factory<span class="op">=</span>TableModel[NewNodeTypeStaticSchema],</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        json_schema_extra<span class="op">=</span>{<span class="st">"sort_keys"</span>: [<span class="st">"node_id"</span>]},</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>In <code>python/ribasim/ribasim/__init__.py</code> add</p>
+<p>In <code>python/ribasim/ribasim/nodes/__init__.py</code> add</p>
 <ul>
-<li><code>NewNodeType</code> to the imports from <code>ribasim.config</code>;</li>
+<li><code>NewNodeType</code> to the imports from <code>ribasim.nodes</code>;</li>
 <li><code>"NewNodeType"</code> to <code>__all__</code>.</li>
 </ul>
 <p>In <code>python/ribasim/ribasim/model.py</code>, add</p>
 <ul>
 <li><code>NewNodeType</code> to the imports from <code>ribasim.config</code>;</li>
-<li>new_node_type as a parameter and in the docstring of the <code>Model</code> class.</li>
+<li>new_node_type as a parameter of the <code>Model</code> class.</li>
 </ul>
 <p>In <code>python/ribasim/ribasim/geometry/node.py</code> add a color and shape description in the <code>MARKERS</code> and <code>COLORS</code> dictionaries.</p>
 </section>

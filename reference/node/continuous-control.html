@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ribasim - FlowBoundary</title>
+<title>Ribasim - ContinuousControl</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../reference/node/level-boundary.html" rel="next">
-<link href="../../reference/node/level-demand.html" rel="prev">
+<link href="../../reference/node/pid-control.html" rel="next">
+<link href="../../reference/node/discrete-control.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -164,7 +164,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../reference/node/basin.html">Nodes</a></li><li class="breadcrumb-item"><a href="../../reference/node/flow-boundary.html">FlowBoundary</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../reference/node/basin.html">Nodes</a></li><li class="breadcrumb-item"><a href="../../reference/node/continuous-control.html">ContinuousControl</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -259,7 +259,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../reference/node/flow-boundary.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../reference/node/flow-boundary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FlowBoundary</span></a>
   </div>
 </li>
@@ -295,7 +295,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../reference/node/continuous-control.html" class="sidebar-item-text sidebar-link">
+  <a href="../../reference/node/continuous-control.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">ContinuousControl</span></a>
   </div>
 </li>
@@ -319,20 +319,18 @@ window.Quarto = {
   <ul>
   <li><a href="#tables" id="toc-tables" class="nav-link active" data-scroll-target="#tables"><span class="header-section-number">1</span> Tables</a>
   <ul class="collapse">
-  <li><a href="#static" id="toc-static" class="nav-link" data-scroll-target="#static"><span class="header-section-number">1.1</span> Static</a></li>
-  <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="header-section-number">1.2</span> Time</a></li>
-  <li><a href="#sec-flow-boundary-conc" id="toc-sec-flow-boundary-conc" class="nav-link" data-scroll-target="#sec-flow-boundary-conc"><span class="header-section-number">1.3</span> Concentration</a></li>
+  <li><a href="#variable" id="toc-variable" class="nav-link" data-scroll-target="#variable"><span class="header-section-number">1.1</span> Variable</a></li>
+  <li><a href="#function" id="toc-function" class="nav-link" data-scroll-target="#function"><span class="header-section-number">1.2</span> Function</a></li>
   </ul></li>
-  <li><a href="#equations" id="toc-equations" class="nav-link" data-scroll-target="#equations"><span class="header-section-number">2</span> Equations</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../reference/node/basin.html">Nodes</a></li><li class="breadcrumb-item"><a href="../../reference/node/flow-boundary.html">FlowBoundary</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../reference/node/basin.html">Nodes</a></li><li class="breadcrumb-item"><a href="../../reference/node/continuous-control.html">ContinuousControl</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">FlowBoundary</h1>
+<h1 class="title">ContinuousControl</h1>
 </div>
 
 
@@ -349,13 +347,39 @@ window.Quarto = {
 </header>
 
 
-<p>A FlowBoundary adds water to the model at a specified flow rate. It can be used as a boundary condition like a measured upstream flow rate, or lateral inflow.</p>
+<p>The <code>ContinuousControl</code> node allows for fine control of a controllable property of a connector node, which is updated at each time step. This control can be set up as follows:</p>
+<ol type="1">
+<li>Define a compound variable. This is a linear combination of variables in the model the <code>ContinuousControl</code> node can listen to, i.e.&nbsp;flows and levels.;</li>
+<li>Define a piecewise linear function by providing datapoints which get interpolated. The controlled parameter is then set to the outcome of this function given the value of the compound variable.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Having <code>ContinuousControl</code> nodes depend on eachother or <code>PidControl</code> nodes does <em>not</em> work. For instance, if one <code>ContinuousControl</code> node sets the flow rate of a pump, this flow rate cannot be used as the input of another <code>ContinuousControl</code> node. This will not throw an error but will produce incorrect results.</p>
+</div>
+</div>
 <section id="tables" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Tables</h1>
-<section id="static" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="static"><span class="header-section-number">1.1</span> Static</h2>
-<p>We require that the edge connecting the FlowBoundary to the Basin should point towards the Basin, so that positive flow corresponds to water being added to the model. The set flow rate will be pumped unless the intake storage (for a negative flow rate) is less than <span class="math inline">\(10~m^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~m^3/s\)</span>. Note that the connected node must always be a Basin.</p>
+<section id="variable" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="variable"><span class="header-section-number">1.1</span> Variable</h2>
+<p>The compound variable schema defines linear combinations of variables which can be used in conditions. This means that this schema defines new variables with the given <code>compound_variable_id</code> that look like <span class="math display">\[
+    \text{weight}_1 * \text{variable}_1 + \text{weight}_2 * \text{variable}_2 + \ldots,
+\]</span></p>
+<p>which can be for instance an average or a difference of variables. If a variable comes from a timeseries, a look ahead <span class="math inline">\(\Delta t\)</span> can be supplied. There is only one compound variable per <code>ContinuousControl</code> node.</p>
 <table class="table">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 17%">
+<col style="width: 15%">
+<col style="width: 23%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>column</th>
@@ -372,62 +396,49 @@ window.Quarto = {
 <td>sorted</td>
 </tr>
 <tr class="even">
-<td>active</td>
-<td>Bool</td>
+<td>listen_node_type</td>
+<td>String</td>
 <td>-</td>
-<td>(optional, default true)</td>
+<td>known node type</td>
 </tr>
 <tr class="odd">
-<td>flow_rate</td>
-<td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="time" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="time"><span class="header-section-number">1.2</span> Time</h2>
-<p>This table is the transient form of the <code>FlowBoundary</code> table. The only differences are that a time column is added and the nodes are assumed to be active so this column is removed. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the flow rates can be updated over time. In between the given times the flow rate is interpolated linearly, and outside the flow rate is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th>column</th>
-<th>type</th>
-<th>unit</th>
-<th>restriction</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>node_id</td>
+<td>listen_node_id</td>
 <td>Int32</td>
-<td>-</td>
-<td>sorted</td>
-</tr>
-<tr class="even">
-<td>time</td>
-<td>DateTime</td>
 <td>-</td>
 <td>sorted per node_id</td>
 </tr>
+<tr class="even">
+<td>variable</td>
+<td>String</td>
+<td>-</td>
+<td>must be “level” or “flow_rate”, sorted per listen_node_id</td>
+</tr>
 <tr class="odd">
-<td>flow_rate</td>
+<td>weight</td>
 <td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
-<td>non-negative</td>
+<td>-</td>
+<td>(optional, default 1.0)</td>
+</tr>
+<tr class="even">
+<td>look_ahead</td>
+<td>Float64</td>
+<td><span class="math inline">\(s\)</span></td>
+<td>Only on transient boundary conditions, non-negative (optional, default 0.0).</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="sec-flow-boundary-conc" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="sec-flow-boundary-conc"><span class="header-section-number">1.3</span> Concentration</h2>
-<p>This table defines the concentration(s) of (a) substance(s) for the flow from the FlowBoundary.</p>
+<section id="function" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="function"><span class="header-section-number">1.2</span> Function</h2>
+<p>The function table defines a piecewise linear function <span class="math inline">\(f\)</span> interpolating between <code>(input, output)</code> datapoints for each <code>ContinuousControl</code> node. The total computation thus looks like</p>
+<p><span class="math display">\[
+    f(\text{weight}_1 * \text{variable}_1 + \text{weight}_2 * \text{variable}_2 + \ldots).
+\]</span></p>
 <table class="table">
 <colgroup>
-<col style="width: 31%">
-<col style="width: 17%">
-<col style="width: 26%">
+<col style="width: 44%">
+<col style="width: 15%">
+<col style="width: 15%">
 <col style="width: 24%">
 </colgroup>
 <thead>
@@ -446,32 +457,28 @@ window.Quarto = {
 <td>sorted</td>
 </tr>
 <tr class="even">
-<td>time</td>
-<td>DateTime</td>
+<td>input</td>
+<td>Float64</td>
 <td>-</td>
 <td>sorted per node_id</td>
 </tr>
 <tr class="odd">
-<td>substance</td>
-<td>String</td>
+<td>output</td>
+<td>Float64</td>
 <td>-</td>
-<td>can correspond to known Delwaq substances</td>
+<td>-</td>
 </tr>
 <tr class="even">
-<td>concentration</td>
-<td>Float64</td>
-<td><span class="math inline">\(g m^{-3}\)</span></td>
-<td></td>
+<td>controlled_variable</td>
+<td>String</td>
+<td>-</td>
+<td>must be “level” or “flow_rate”</td>
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="equations" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Equations</h1>
-<p>A FlowBoundary can be connected directly to a Basin and prescribes the flow to that Basin. Since the <code>flow_rate</code> cannot be negative a FlowBoundary can only add water to the model.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -864,13 +871,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../reference/node/level-demand.html" class="pagination-link" aria-label="LevelDemand">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">LevelDemand</span>
+      <a href="../../reference/node/discrete-control.html" class="pagination-link" aria-label="DiscreteControl">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">DiscreteControl</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../reference/node/level-boundary.html" class="pagination-link" aria-label="LevelBoundary">
-        <span class="nav-page-text">LevelBoundary</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../reference/node/pid-control.html" class="pagination-link" aria-label="PidControl">
+        <span class="nav-page-text">PidControl</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

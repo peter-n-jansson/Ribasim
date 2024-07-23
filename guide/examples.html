@@ -244,6 +244,7 @@ window.Quarto = {
   <li><a href="#model-with-allocation-user-demand" id="toc-model-with-allocation-user-demand" class="nav-link" data-scroll-target="#model-with-allocation-user-demand"><span class="header-section-number">4</span> Model with allocation (user demand)</a></li>
   <li><a href="#model-with-allocation-basin-supplydemand" id="toc-model-with-allocation-basin-supplydemand" class="nav-link" data-scroll-target="#model-with-allocation-basin-supplydemand"><span class="header-section-number">5</span> Model with allocation (basin supply/demand)</a></li>
   <li><a href="#guidance-of-modelling-a-cascade-of-polder-basins" id="toc-guidance-of-modelling-a-cascade-of-polder-basins" class="nav-link" data-scroll-target="#guidance-of-modelling-a-cascade-of-polder-basins"><span class="header-section-number">6</span> Guidance of modelling a cascade of polder basins</a></li>
+  <li><a href="#model-with-continuous-control" id="toc-model-with-continuous-control" class="nav-link" data-scroll-target="#model-with-continuous-control"><span class="header-section-number">7</span> Model with continuous control</a></li>
   </ul>
 </nav>
     </div>
@@ -281,19 +282,20 @@ window.Quarto = {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ribasim <span class="im">import</span> Allocation, Model, Node</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ribasim.nodes <span class="im">import</span> (</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    basin,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    discrete_control,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    flow_boundary,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    level_boundary,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    level_demand,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    linear_resistance,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    manning_resistance,</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    outlet,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    pid_control,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    pump,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    tabulated_rating_curve,</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    user_demand,</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.geometry <span class="im">import</span> Point</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    continuous_control,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    discrete_control,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    flow_boundary,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    level_boundary,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    level_demand,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    linear_resistance,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    manning_resistance,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    outlet,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    pid_control,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    pump,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    tabulated_rating_curve,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    user_demand,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.geometry <span class="im">import</span> Point</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>datadir <span class="op">=</span> Path(<span class="st">"data"</span>)</span>
@@ -464,11 +466,15 @@ window.Quarto = {
 <pre><code>PosixPath('data/basic/ribasim.toml')</code></pre>
 </div>
 </div>
-<p>Now run the model. From Python you can run it with:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>subprocess.run([cli_path, toml_path], check<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Or similarly you can from the terminal with:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ribasim</span> basic/ribasim.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now run the model. You can open a terminal and run it from there::</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ribasim</span> basic/ribasim.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>From Python you can run it with:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> subprocess.run([cli_path, toml_path], capture_output<span class="op">=</span><span class="va">True</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result.stderr)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>result.check_returncode()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Where <code>cli_path</code> is a string with either the full path to the Ribasim executable, like <code>r"c:\ribasim_windows\ribasim"</code>, or just <code>"ribasim"</code> in case you added the <code>ribasim_windows</code> folder to your PATH.</p>
+<p>The <code>print(result.stderr)</code> ensures you see the same logging and error messages that you would see in the terminal. And <code>result.check_returncode()</code> will throw an error when the simulation was not successful.</p>
 <p>After running the model, read back the results:</p>
 <div id="cell-30" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df_basin <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"basic/results/basin.arrow"</span>)</span>
@@ -1331,6 +1337,153 @@ window.Quarto = {
 <div>
 <figure class="figure">
 <p><img src="examples_files/figure-html/cell-81-output-1.png" width="571" height="444" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="model-with-continuous-control" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Model with continuous control</h1>
+<div id="cell-168" class="cell" data-execution_count="81">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model(starttime<span class="op">=</span><span class="st">"2020-01-01"</span>, endtime<span class="op">=</span><span class="st">"2021-01-01"</span>, crs<span class="op">=</span><span class="st">"EPSG:28992"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Set up the transient level boundary:</p>
+<div id="cell-170" class="cell" data-execution_count="82">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>model.level_boundary.add(</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">1</span>, Point(<span class="dv">0</span>, <span class="dv">0</span>)),</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>        level_boundary.Time(</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>            time<span class="op">=</span>pd.date_range(start<span class="op">=</span><span class="st">"2020-01-01"</span>, end<span class="op">=</span><span class="st">"2021-01-01"</span>, periods<span class="op">=</span><span class="dv">100</span>),</span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>            level<span class="op">=</span><span class="fl">6.0</span> <span class="op">+</span> np.sin(np.linspace(<span class="dv">0</span>, <span class="dv">6</span> <span class="op">*</span> np.pi, <span class="dv">100</span>)),</span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Set up the linear resistance:</p>
+<div id="cell-172" class="cell" data-execution_count="83">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>model.linear_resistance.add(</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">1</span>, Point(<span class="dv">1</span>, <span class="dv">0</span>)), [linear_resistance.Static(resistance<span class="op">=</span>[<span class="fl">10.0</span>])]</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Set up the basin:</p>
+<div id="cell-174" class="cell" data-execution_count="84">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>model.basin.add(</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">1</span>, Point(<span class="dv">2</span>, <span class="dv">0</span>)),</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>        basin.Profile(area<span class="op">=</span><span class="fl">10000.0</span>, level<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1.0</span>]),</span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>        basin.State(level<span class="op">=</span>[<span class="fl">10.0</span>]),</span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb86-7"><a href="#cb86-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Set up the outlets:</p>
+<div id="cell-176" class="cell" data-execution_count="85">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>model.outlet.add(Node(<span class="dv">1</span>, Point(<span class="dv">3</span>, <span class="dv">1</span>)), [outlet.Static(flow_rate<span class="op">=</span>[<span class="fl">1.0</span>])])</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>model.outlet.add(Node(<span class="dv">2</span>, Point(<span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>)), [outlet.Static(flow_rate<span class="op">=</span>[<span class="fl">1.0</span>])])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Set up the terminals:</p>
+<div id="cell-178" class="cell" data-execution_count="86">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>model.terminal.add(Node(<span class="dv">1</span>, Point(<span class="dv">4</span>, <span class="dv">1</span>)))</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>model.terminal.add(Node(<span class="dv">2</span>, Point(<span class="dv">4</span>, <span class="op">-</span><span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Set up the continuous control:</p>
+<div id="cell-180" class="cell" data-execution_count="87">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>model.continuous_control.add(</span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">1</span>, Point(<span class="dv">2</span>, <span class="dv">1</span>)),</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>        continuous_control.Variable(</span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>            listen_node_type<span class="op">=</span><span class="st">"LinearResistance"</span>,</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>            listen_node_id<span class="op">=</span>[<span class="dv">1</span>],</span>
+<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>            variable<span class="op">=</span><span class="st">"flow_rate"</span>,</span>
+<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a>        continuous_control.Function(</span>
+<span id="cb89-10"><a href="#cb89-10" aria-hidden="true" tabindex="-1"></a>            <span class="bu">input</span><span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1.0</span>],</span>
+<span id="cb89-11"><a href="#cb89-11" aria-hidden="true" tabindex="-1"></a>            output<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">0.6</span>],</span>
+<span id="cb89-12"><a href="#cb89-12" aria-hidden="true" tabindex="-1"></a>            controlled_variable<span class="op">=</span><span class="st">"flow_rate"</span>,</span>
+<span id="cb89-13"><a href="#cb89-13" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb89-14"><a href="#cb89-14" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb89-15"><a href="#cb89-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb89-16"><a href="#cb89-16" aria-hidden="true" tabindex="-1"></a>model.continuous_control.add(</span>
+<span id="cb89-17"><a href="#cb89-17" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">2</span>, Point(<span class="dv">2</span>, <span class="op">-</span><span class="dv">1</span>)),</span>
+<span id="cb89-18"><a href="#cb89-18" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb89-19"><a href="#cb89-19" aria-hidden="true" tabindex="-1"></a>        continuous_control.Variable(</span>
+<span id="cb89-20"><a href="#cb89-20" aria-hidden="true" tabindex="-1"></a>            listen_node_type<span class="op">=</span><span class="st">"LinearResistance"</span>,</span>
+<span id="cb89-21"><a href="#cb89-21" aria-hidden="true" tabindex="-1"></a>            listen_node_id<span class="op">=</span>[<span class="dv">1</span>],</span>
+<span id="cb89-22"><a href="#cb89-22" aria-hidden="true" tabindex="-1"></a>            variable<span class="op">=</span><span class="st">"flow_rate"</span>,</span>
+<span id="cb89-23"><a href="#cb89-23" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb89-24"><a href="#cb89-24" aria-hidden="true" tabindex="-1"></a>        continuous_control.Function(</span>
+<span id="cb89-25"><a href="#cb89-25" aria-hidden="true" tabindex="-1"></a>            <span class="bu">input</span><span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1.0</span>],</span>
+<span id="cb89-26"><a href="#cb89-26" aria-hidden="true" tabindex="-1"></a>            output<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">0.4</span>],</span>
+<span id="cb89-27"><a href="#cb89-27" aria-hidden="true" tabindex="-1"></a>            controlled_variable<span class="op">=</span><span class="st">"flow_rate"</span>,</span>
+<span id="cb89-28"><a href="#cb89-28" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb89-29"><a href="#cb89-29" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb89-30"><a href="#cb89-30" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This defines:</p>
+<ul>
+<li>A <code>ContinuousControl</code> node with ID 1, which listens to the flow rate of the <code>LinearResistance</code> node with ID 1, puts that trough the function <span class="math inline">\(f(x) = \max(0, 0.6x)\)</span>, and assigns the result to the flow rate of the node this <code>ContinuousControl</code> node is controlling, which is defined by a (control) edge;</li>
+<li>A <code>ContinuousControl</code> node with ID 2, which listens to the flow rate of the <code>LinearResistance</code> node with ID 1, puts that through the function <span class="math inline">\(f(x) = \max(0, 0.4x)\)</span>, and assigns the result to the flow rate of the node this <code>ContinuousControl</code> node is controlling, which is defined by a (control) edge.</li>
+</ul>
+<div id="cell-182" class="cell" data-execution_count="88">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_boundary[<span class="dv">1</span>], model.linear_resistance[<span class="dv">1</span>])</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.linear_resistance[<span class="dv">1</span>], model.basin[<span class="dv">1</span>])</span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">1</span>], model.outlet[<span class="dv">1</span>])</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">1</span>], model.outlet[<span class="dv">2</span>])</span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.outlet[<span class="dv">1</span>], model.terminal[<span class="dv">1</span>])</span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.outlet[<span class="dv">2</span>], model.terminal[<span class="dv">2</span>])</span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Define which node is controlled by each continuous control node</span></span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.continuous_control[<span class="dv">1</span>], model.outlet[<span class="dv">1</span>])</span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.continuous_control[<span class="dv">2</span>], model.outlet[<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s take a look at the model:</p>
+<div id="cell-184" class="cell" data-execution_count="89">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>model.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="examples_files/figure-html/cell-90-output-1.png" width="718" height="337" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>With this setup we want to split the flow coming into the basin into a 60% - 40% ratio.</p>
+<p>Write the model to a TOML and GeoPackage:</p>
+<div id="cell-187" class="cell" data-execution_count="90">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>toml_path <span class="op">=</span> datadir <span class="op">/</span> <span class="st">"outlet_continuous_control/ribasim.toml"</span></span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>model.write(toml_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="90">
+<pre><code>PosixPath('data/outlet_continuous_control/ribasim.toml')</code></pre>
+</div>
+</div>
+<p>Now run the model with <code>ribasim outlet_continuous_control/ribasim.toml</code>. After running the model, read back the results:</p>
+<div id="cell-190" class="cell" data-execution_count="92">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>df_flow <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"outlet_continuous_control/results/flow.arrow"</span>)</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_edge_flow(from_node_type, from_node_id, to_node_type, to_node_id):</span>
+<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>    df_flow_filtered <span class="op">=</span> df_flow[</span>
+<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>        (df_flow[<span class="st">"from_node_type"</span>] <span class="op">==</span> from_node_type)</span>
+<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span> (df_flow[<span class="st">"from_node_id"</span>] <span class="op">==</span> from_node_id)</span>
+<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span> (df_flow[<span class="st">"to_node_type"</span>] <span class="op">==</span> to_node_type)</span>
+<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span> (df_flow[<span class="st">"to_node_id"</span>] <span class="op">==</span> to_node_id)</span>
+<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>    df_flow_filtered.plot(</span>
+<span id="cb94-14"><a href="#cb94-14" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"time"</span>,</span>
+<span id="cb94-15"><a href="#cb94-15" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">"flow_rate"</span>,</span>
+<span id="cb94-16"><a href="#cb94-16" aria-hidden="true" tabindex="-1"></a>        ax<span class="op">=</span>ax,</span>
+<span id="cb94-17"><a href="#cb94-17" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>from_node_type<span class="sc">}</span><span class="ss"> #</span><span class="sc">{</span>from_node_id<span class="sc">}</span><span class="ss"> -&gt; </span><span class="sc">{</span>to_node_type<span class="sc">}</span><span class="ss"> #</span><span class="sc">{</span>to_node_id<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb94-18"><a href="#cb94-18" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb94-19"><a href="#cb94-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-20"><a href="#cb94-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-21"><a href="#cb94-21" aria-hidden="true" tabindex="-1"></a>plot_edge_flow(<span class="st">"LinearResistance"</span>, <span class="dv">1</span>, <span class="st">"Basin"</span>, <span class="dv">1</span>)</span>
+<span id="cb94-22"><a href="#cb94-22" aria-hidden="true" tabindex="-1"></a>plot_edge_flow(<span class="st">"Basin"</span>, <span class="dv">1</span>, <span class="st">"Outlet"</span>, <span class="dv">1</span>)</span>
+<span id="cb94-23"><a href="#cb94-23" aria-hidden="true" tabindex="-1"></a>plot_edge_flow(<span class="st">"Basin"</span>, <span class="dv">1</span>, <span class="st">"Outlet"</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="examples_files/figure-html/cell-93-output-1.png" width="582" height="444" class="figure-img"></p>
 </figure>
 </div>
 </div>
