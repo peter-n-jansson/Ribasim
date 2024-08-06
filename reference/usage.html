@@ -397,6 +397,7 @@ window.Quarto = {
   <li><a href="#allocation---allocation.arrow" id="toc-allocation---allocation.arrow" class="nav-link" data-scroll-target="#allocation---allocation.arrow"><span class="header-section-number">5.5</span> Allocation - <code>allocation.arrow</code></a></li>
   <li><a href="#allocation-flow---allocation_flow.arrow" id="toc-allocation-flow---allocation_flow.arrow" class="nav-link" data-scroll-target="#allocation-flow---allocation_flow.arrow"><span class="header-section-number">5.6</span> Allocation flow - <code>allocation_flow.arrow</code></a></li>
   <li><a href="#subgrid-level---subgrid_level.arrow" id="toc-subgrid-level---subgrid_level.arrow" class="nav-link" data-scroll-target="#subgrid-level---subgrid_level.arrow"><span class="header-section-number">5.7</span> Subgrid level - <code>subgrid_level.arrow</code></a></li>
+  <li><a href="#solver-statistics---solver_stats.arrow" id="toc-solver-statistics---solver_stats.arrow" class="nav-link" data-scroll-target="#solver-statistics---solver_stats.arrow"><span class="header-section-number">5.8</span> Solver statistics - <code>solver_stats.arrow</code></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1051,6 +1052,40 @@ Note
 <tr>
 <td>subgrid_level</td>
 <td>Float64</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="solver-statistics---solver_stats.arrow" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="solver-statistics---solver_stats.arrow"><span class="header-section-number">5.8</span> Solver statistics - <code>solver_stats.arrow</code></h2>
+<p>This result file contains statistics about the solver, which can give an insight into how well the solver is performing over time. The data is solved by <code>saveat</code> (see <a href="#configuration-file">configuration file</a>). <code>water_balance</code> refers to the right-hand-side function of the system of differential equations solved by the Ribasim core.</p>
+<table class="caption-top">
+<thead>
+<tr>
+<th>column</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>time</td>
+<td>DateTime</td>
+</tr>
+<tr>
+<td>water_balance_calls</td>
+<td>Int</td>
+</tr>
+<tr>
+<td>linear_solves</td>
+<td>Int</td>
+</tr>
+<tr>
+<td>accepted_timesteps</td>
+<td>Int</td>
+</tr>
+<tr>
+<td>rejected_timesteps</td>
+<td>Int</td>
 </tr>
 </tbody>
 </table>
