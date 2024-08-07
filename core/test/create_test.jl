@@ -24,7 +24,7 @@
     push!(node_ids[0], NodeID(:Basin, 1, 1))
     push!(node_ids[-1], NodeID(:Basin, 2, 1))
 
-    graph_data = (; node_ids,)
+    graph_data = (; node_ids)
     graph = @set graph.graph_data = graph_data
 
     logger = TestLogger()
@@ -35,10 +35,10 @@
     @test length(logger.logs) == 2
     @test logger.logs[1].level == Error
     @test logger.logs[1].message ==
-          "Allocation network id 0 needs to be a positive integer."
+        "Allocation network id 0 needs to be a positive integer."
     @test logger.logs[2].level == Error
     @test logger.logs[2].message ==
-          "Allocation network id -1 needs to be a positive integer."
+        "Allocation network id -1 needs to be a positive integer."
 end
 
 @testitem "Incomplete subnetwork" begin

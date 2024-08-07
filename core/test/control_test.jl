@@ -16,7 +16,7 @@
     pump_control_mapping = p.pump.control_mapping
     @test only(pump_control_mapping[(NodeID(:Pump, 4, p), "off")].scalar_update).value == 0
     @test only(pump_control_mapping[(NodeID(:Pump, 4, p), "on")].scalar_update).value ==
-          1.0e-5
+        1.0e-5
 
     logic_mapping::Vector{Dict{Vector{Bool}, String}} = [
         Dict(
@@ -42,7 +42,7 @@
     @test discrete_control.record.truth_state == ["TF", "F", "FF", "FT", "T"]
     @test discrete_control.record.truth_state == control.truth_state
     @test discrete_control.record.control_state ==
-          ["off", "active", "on", "off", "inactive"]
+        ["off", "active", "on", "off", "inactive"]
     @test discrete_control.record.control_state == control.control_state
 
     level = Ribasim.get_storages_and_levels(model).level
@@ -135,12 +135,12 @@ end
     a = abs(Δlevel / cos(phi))
     # This bound is the exact envelope of the analytical solution
     bound = @. a * exp(alpha * t[1:idx_target_change])
-    eps = 5e-3
+    eps = 5.0e-3
     # Initial convergence to target level
     @test all(@. abs(level[1:idx_target_change] - level_demand) < bound + eps)
     # Later closeness to target level
     @test all(
-        @. abs(level[idx_target_change:end] - target_itp(t[idx_target_change:end])) < 5e-2
+        @. abs(level[idx_target_change:end] - target_itp(t[idx_target_change:end])) < 5.0e-2
     )
 end
 
@@ -180,20 +180,24 @@ end
     t = Ribasim.tsaves(model)
     level = Ribasim.get_storages_and_levels(model).level[1, :]
 
-    target_high = pid_control.control_mapping[(
-        NodeID(:PidControl, 6, p),
-        "target_high",
-    )].itp_update[1].value.u[1]
-    target_low = pid_control.control_mapping[(
-        NodeID(:PidControl, 6, p),
-        "target_low",
-    )].itp_update[1].value.u[1]
+    target_high = pid_control.control_mapping[
+        (
+            NodeID(:PidControl, 6, p),
+            "target_high",
+        ),
+    ].itp_update[1].value.u[1]
+    target_low = pid_control.control_mapping[
+        (
+            NodeID(:PidControl, 6, p),
+            "target_low",
+        ),
+    ].itp_update[1].value.u[1]
 
     t_target_jump = discrete_control.record.time[2]
     t_idx_target_jump = searchsortedlast(t, t_target_jump)
 
-    @test isapprox(level[t_idx_target_jump], target_high, atol = 1e-1)
-    @test isapprox(level[end], target_low, atol = 1e-1)
+    @test isapprox(level[t_idx_target_jump], target_high, atol = 1.0e-1)
+    @test isapprox(level[end], target_low, atol = 1.0e-1)
 end
 
 @testitem "Compound condition" begin
@@ -266,20 +270,20 @@ end
         data = filter(
             [:from_node_type, :from_node_id, :to_node_type, :to_node_id] =>
                 (a, b, c, d) ->
-                    (a == from_node_type) &&
-                        (b == from_node_id) &&
-                        (c == to_node_type) &&
-                        (d == to_node_id),
+                (a == from_node_type) &&
+                (b == from_node_id) &&
+                (c == to_node_type) &&
+                (d == to_node_id),
             flow_data,
         )
         return data.flow_rate
     end
 
     inflow = get_edge_flow("LinearResistance", 1, "Basin", 1)
-    @test get_edge_flow("Basin", 1, "Outlet", 1) ≈ max.(0.6 .* inflow, 0) rtol = 1e-4
-    @test get_edge_flow("Outlet", 1, "Terminal", 1) ≈ max.(0.6 .* inflow, 0) rtol = 1e-4
-    @test get_edge_flow("Basin", 1, "Outlet", 2) ≈ max.(0.4 .* inflow, 0) rtol = 1e-4
-    @test get_edge_flow("Outlet", 2, "Terminal", 2) ≈ max.(0.4 .* inflow, 0) rtol = 1e-4
+    @test get_edge_flow("Basin", 1, "Outlet", 1) ≈ max.(0.6 .* inflow, 0) rtol = 1.0e-4
+    @test get_edge_flow("Outlet", 1, "Terminal", 1) ≈ max.(0.6 .* inflow, 0) rtol = 1.0e-4
+    @test get_edge_flow("Basin", 1, "Outlet", 2) ≈ max.(0.4 .* inflow, 0) rtol = 1.0e-4
+    @test get_edge_flow("Outlet", 2, "Terminal", 2) ≈ max.(0.4 .* inflow, 0) rtol = 1.0e-4
 end
 
 @testitem "Concentration discrete control" begin
@@ -299,6 +303,6 @@ end
     concentration = itp.(t)
     threshold = 0.5
     above_threshold = concentration .> threshold
-    @test all(isapprox.(flow_edge_0.flow_rate[above_threshold], 1e-3, rtol = 1e-2))
-    @test all(isapprox.(flow_edge_0.flow_rate[.!above_threshold], 0.0, atol = 1e-5))
+    @test all(isapprox.(flow_edge_0.flow_rate[above_threshold], 1.0e-3, rtol = 1.0e-2))
+    @test all(isapprox.(flow_edge_0.flow_rate[.!above_threshold], 0.0, atol = 1.0e-5))
 end

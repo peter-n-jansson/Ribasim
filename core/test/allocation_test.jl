@@ -62,9 +62,9 @@ end
     @test objective.aff.terms[to_user_5] ≈ -2.0
     @test objective.aff.terms[to_user_6] ≈ -2.0
     @test objective.terms[JuMP.UnorderedPair(to_user_5, to_user_5)] ≈
-          1 / user_demand.demand[1]
+        1 / user_demand.demand[1]
     @test objective.terms[JuMP.UnorderedPair(to_user_6, to_user_6)] ≈
-          1 / user_demand.demand[2]
+        1 / user_demand.demand[2]
 end
 
 @testitem "main allocation network initialization" begin
@@ -103,11 +103,11 @@ end
     # In each subnetwork, the connection from the main network to the subnetwork is
     # interpreted as a source
     @test Ribasim.get_allocation_model(p, Int32(3)).problem[:source].axes[1] ==
-          [(NodeID(:Basin, 2, p), NodeID(:Pump, 11, p))]
+        [(NodeID(:Basin, 2, p), NodeID(:Pump, 11, p))]
     @test Ribasim.get_allocation_model(p, Int32(5)).problem[:source].axes[1] ==
-          [(NodeID(:Basin, 6, p), NodeID(:Pump, 24, p))]
+        [(NodeID(:Basin, 6, p), NodeID(:Pump, 24, p))]
     @test Ribasim.get_allocation_model(p, Int32(7)).problem[:source].axes[1] ==
-          [(NodeID(:Basin, 10, p), NodeID(:Pump, 38, p))]
+        [(NodeID(:Basin, 10, p), NodeID(:Pump, 38, p))]
 end
 
 @testitem "Allocation with main network optimization problem" begin
@@ -147,11 +147,11 @@ end
     # See the difference between these values here and in
     # "subnetworks_with_sources"
     @test subnetwork_demands[(NodeID(:Basin, 2, p), NodeID(:Pump, 11, p))] ≈ [4.0, 4.0, 0.0] atol =
-        1e-4
+        1.0e-4
     @test subnetwork_demands[(NodeID(:Basin, 6, p), NodeID(:Pump, 24, p))] ≈
-          [0.001, 0.0, 0.0] atol = 1e-4
+        [0.001, 0.0, 0.0] atol = 1.0e-4
     @test subnetwork_demands[(NodeID(:Basin, 10, p), NodeID(:Pump, 38, p))][1:2] ≈
-          [0.001, 0.002] atol = 1e-4
+        [0.001, 0.002] atol = 1.0e-4
 
     # Solving for the main network, containing subnetworks as UserDemands
     allocation_model = allocation_models[1]
@@ -177,11 +177,11 @@ end
     Ribasim.update_allocation!((; p, t, u))
 
     @test subnetwork_allocateds[NodeID(:Basin, 2, p), NodeID(:Pump, 11, p)] ≈
-          [4, 0.49775, 0.0] atol = 1e-4
+        [4, 0.49775, 0.0] atol = 1.0e-4
     @test subnetwork_allocateds[NodeID(:Basin, 6, p), NodeID(:Pump, 24, p)] ≈
-          [0.001, 0.0, 0.0] rtol = 1e-3
+        [0.001, 0.0, 0.0] rtol = 1.0e-3
     @test subnetwork_allocateds[NodeID(:Basin, 10, p), NodeID(:Pump, 38, p)] ≈
-          [0.001, 0.00024888, 0.0] rtol = 1e-3
+        [0.001, 0.00024888, 0.0] rtol = 1.0e-3
 
     # Test for existence of edges in allocation flow record
     allocation_flow = DataFrame(record_flow)
@@ -189,14 +189,14 @@ end
         allocation_flow,
         [:from_node_type, :from_node_id, :to_node_type, :to_node_id] =>
             ByRow(
-                (a, b, c, d) ->
-                    haskey(graph, NodeID(Symbol(a), b, p), NodeID(Symbol(c), d, p)),
-            ) => :edge_exists,
+            (a, b, c, d) ->
+            haskey(graph, NodeID(Symbol(a), b, p), NodeID(Symbol(c), d, p)),
+        ) => :edge_exists,
     )
     @test all(allocation_flow.edge_exists)
 
-    @test user_demand.allocated[2, :] ≈ [4.0, 0.0, 0.0] atol = 1e-3
-    @test user_demand.allocated[7, :] ≈ [0.0, 0.0, 0.000112] atol = 1e-5
+    @test user_demand.allocated[2, :] ≈ [4.0, 0.0, 0.0] atol = 1.0e-3
+    @test user_demand.allocated[7, :] ≈ [0.0, 0.0, 0.000112] atol = 1.0e-5
 end
 
 @testitem "Subnetworks with sources" begin
@@ -223,7 +223,7 @@ end
 
     # Set flows of sources in
     mean_input_flows[(NodeID(:FlowBoundary, 58, p), NodeID(:Basin, 16, p))] = 1.0
-    mean_input_flows[(NodeID(:FlowBoundary, 59, p), NodeID(:Basin, 44, p))] = 1e-3
+    mean_input_flows[(NodeID(:FlowBoundary, 59, p), NodeID(:Basin, 44, p))] = 1.0e-3
 
     # Collecting demands
     u = ComponentVector(; storage = zeros(length(basin.node_id)))
@@ -235,11 +235,11 @@ end
     # "allocation with main network optimization problem", internal sources
     # lower the subnetwork demands
     @test subnetwork_demands[(NodeID(:Basin, 2, p), NodeID(:Pump, 11, p))] ≈ [4.0, 4.0, 0.0] rtol =
-        1e-4
+        1.0e-4
     @test subnetwork_demands[(NodeID(:Basin, 6, p), NodeID(:Pump, 24, p))] ≈
-          [0.001, 0.0, 0.0] rtol = 1e-4
+        [0.001, 0.0, 0.0] rtol = 1.0e-4
     @test subnetwork_demands[(NodeID(:Basin, 10, p), NodeID(:Pump, 38, p))][1:2] ≈
-          [0.001, 0.001] rtol = 1e-4
+        [0.001, 0.001] rtol = 1.0e-4
 end
 
 @testitem "Allocation level control" begin
@@ -256,7 +256,7 @@ end
     (; user_demand, graph, allocation, basin, level_demand) = p
 
     # Initial "integrated" vertical flux
-    @test allocation.mean_input_flows[(NodeID(:Basin, 2, p), NodeID(:Basin, 2, p))] ≈ 1e2
+    @test allocation.mean_input_flows[(NodeID(:Basin, 2, p), NodeID(:Basin, 2, p))] ≈ 1.0e2
 
     Ribasim.solve!(model)
 
@@ -264,7 +264,7 @@ end
     t = Ribasim.tsaves(model)
 
     d = user_demand.demand_itp[1][2](0)
-    ϕ = 1e-3 # precipitation
+    ϕ = 1.0e-3 # precipitation
     q = Ribasim.get_flow(
         graph,
         Ribasim.NodeID(:FlowBoundary, 1, p),
@@ -278,7 +278,7 @@ end
     # In this section the Basin leaves no supply for the UserDemand
     stage_1 = t .<= 2 * Δt_allocation
     u_stage_1(τ) = storage[1] + (q + ϕ) * τ
-    @test storage[stage_1] ≈ u_stage_1.(t[stage_1]) rtol = 1e-4
+    @test storage[stage_1] ≈ u_stage_1.(t[stage_1]) rtol = 1.0e-4
 
     # In this section (and following sections) the basin has no longer a (positive) demand,
     # since precipitation provides enough water to get the basin to its target level
@@ -286,7 +286,7 @@ end
     stage_2 = 2 * Δt_allocation .<= t .<= 9 * Δt_allocation
     stage_2_start_idx = findfirst(stage_2)
     u_stage_2(τ) = storage[stage_2_start_idx] + ϕ * (τ - t[stage_2_start_idx])
-    @test storage[stage_2] ≈ u_stage_2.(t[stage_2]) rtol = 1e-4
+    @test storage[stage_2] ≈ u_stage_2.(t[stage_2]) rtol = 1.0e-4
 
     # In this section the basin enters its surplus stage,
     # even though initially the level is below the maximum level. This is because the simulation
@@ -295,14 +295,14 @@ end
     stage_3 = 9 * Δt_allocation .<= t .<= 13 * Δt_allocation
     stage_3_start_idx = findfirst(stage_3)
     u_stage_3(τ) = storage[stage_3_start_idx] + (q + ϕ - d) * (τ - t[stage_3_start_idx])
-    @test storage[stage_3] ≈ u_stage_3.(t[stage_3]) rtol = 1e-4
+    @test storage[stage_3] ≈ u_stage_3.(t[stage_3]) rtol = 1.0e-4
 
     # At the start of this section precipitation stops, and so the UserDemand
     # partly uses surplus water from the basin to fulfill its demand
     stage_4 = 13 * Δt_allocation .<= t .<= 15 * Δt_allocation
     stage_4_start_idx = findfirst(stage_4)
     u_stage_4(τ) = storage[stage_4_start_idx] + (q - d) * (τ - t[stage_4_start_idx])
-    @test storage[stage_4] ≈ u_stage_4.(t[stage_4]) rtol = 1e-4
+    @test storage[stage_4] ≈ u_stage_4.(t[stage_4]) rtol = 1.0e-4
 
     # From this point the basin is in a dynamical equilibrium,
     # since the basin has no supply so the UserDemand abstracts precisely
@@ -310,7 +310,7 @@ end
     stage_5 = 16 * Δt_allocation .<= t
     stage_5_start_idx = findfirst(stage_5)
     u_stage_5(τ) = storage[stage_5_start_idx]
-    @test storage[stage_5] ≈ u_stage_5.(t[stage_5]) rtol = 1e-4
+    @test storage[stage_5] ≈ u_stage_5.(t[stage_5]) rtol = 1.0e-4
 
     # Isolated LevelDemand + Basin pair to test optional min_level
     problem = allocation.allocation_models[2].problem
@@ -325,7 +325,7 @@ end
     df_basin_2 = record_demand[record_demand.node_id .== 2, :]
     itp_basin_2 = t -> model.integrator.sol(t)[1]
     realized_numeric = diff(itp_basin_2.(df_basin_2.time)) / Δt_allocation
-    @test all(isapprox.(realized_numeric, df_basin_2.realized[2:end], atol = 2e-4))
+    @test all(isapprox.(realized_numeric, df_basin_2.realized[2:end], atol = 2.0e-4))
 
     # Realized user demand
     flow_table = DataFrame(Ribasim.flow_table(model))
@@ -337,7 +337,7 @@ end
     df_user_3 =
         record_demand[(record_demand.node_id .== 3) .&& (record_demand.priority .== 1), :]
     realized_numeric = diff(integral.(Ref(itp_user_3), df_user_3.time)) ./ Δt_allocation
-    @test all(isapprox.(realized_numeric[3:end], df_user_3.realized[4:end], atol = 5e-4))
+    @test all(isapprox.(realized_numeric[3:end], df_user_3.realized[4:end], atol = 5.0e-4))
 end
 
 @testitem "Flow demand" begin
@@ -380,15 +380,15 @@ end
     constraint_with_flow_buffer =
         JuMP.constraint_object(problem[:flow_conservation][node_id_with_flow_demand])
     @test constraint_with_flow_buffer.func ==
-          F[(NodeID(:LevelBoundary, 1, p), node_id_with_flow_demand)] -
-          F[(node_id_with_flow_demand, NodeID(:Basin, 3, p))] -
-          F_flow_buffer_in[node_id_with_flow_demand] +
-          F_flow_buffer_out[node_id_with_flow_demand]
+        F[(NodeID(:LevelBoundary, 1, p), node_id_with_flow_demand)] -
+        F[(node_id_with_flow_demand, NodeID(:Basin, 3, p))] -
+        F_flow_buffer_in[node_id_with_flow_demand] +
+        F_flow_buffer_out[node_id_with_flow_demand]
 
     constraint_flow_demand_outflow =
         JuMP.constraint_object(problem[:flow_demand_outflow][node_id_with_flow_demand])
     @test constraint_flow_demand_outflow.func ==
-          F[(node_id_with_flow_demand, NodeID(:Basin, 3, p))] + 0.0
+        F[(node_id_with_flow_demand, NodeID(:Basin, 3, p))] + 0.0
     @test constraint_flow_demand_outflow.set.upper == 0.0
 
     t = 0.0
@@ -408,7 +408,7 @@ end
     objective = JuMP.objective_function(problem)
 
     # Reduced demand
-    @test flow_demand.demand[1] ≈ flow_demand.demand_itp[1](t) - 0.001 rtol = 1e-3
+    @test flow_demand.demand[1] ≈ flow_demand.demand_itp[1](t) - 0.001 rtol = 1.0e-3
     @test JuMP.normalized_rhs(constraint_flow_out) == Inf
 
     ## Priority 2
@@ -421,9 +421,9 @@ end
         optimization_type,
     )
     # No demand left
-    @test flow_demand.demand[1] < 1e-10
+    @test flow_demand.demand[1] < 1.0e-10
     # Allocated
-    @test JuMP.value(only(F_flow_buffer_in)) ≈ 0.001 rtol = 1e-3
+    @test JuMP.value(only(F_flow_buffer_in)) ≈ 0.001 rtol = 1.0e-3
     @test JuMP.normalized_rhs(constraint_flow_out) == 0.0
 
     ## Priority 3
@@ -438,14 +438,14 @@ end
     @test JuMP.normalized_rhs(constraint_flow_out) == Inf
     # The flow from the source is used up in previous priorities
     @test JuMP.value(F[(NodeID(:LevelBoundary, 1, p), node_id_with_flow_demand)]) ≈ 0 atol =
-        1e-10
+        1.0e-10
     # So flow from the flow buffer is used for UserDemand #4
-    @test JuMP.value(F_flow_buffer_out[node_id_with_flow_demand]) ≈ 0.001 rtol = 1e-3
+    @test JuMP.value(F_flow_buffer_out[node_id_with_flow_demand]) ≈ 0.001 rtol = 1.0e-3
     # Flow taken from buffer
-    @test JuMP.value(only(F_flow_buffer_out)) ≈ user_demand.demand_itp[1][3](t) rtol = 1e-3
+    @test JuMP.value(only(F_flow_buffer_out)) ≈ user_demand.demand_itp[1][3](t) rtol = 1.0e-3
     # No flow coming from level boundary
     @test JuMP.value(F[(only(level_boundary.node_id), node_id_with_flow_demand)]) ≈ 0 atol =
-        1e-10
+        1.0e-10
 
     ## Priority 4
     Ribasim.optimize_priority!(
@@ -459,13 +459,13 @@ end
     # Get demand from buffers
     d = user_demand.demand_itp[3][4](t)
     @test JuMP.value(F[(NodeID(:UserDemand, 4, p), NodeID(:Basin, 7, p))]) +
-          JuMP.value(F[(NodeID(:UserDemand, 6, p), NodeID(:Basin, 7, p))]) ≈ d rtol = 1e-3
+        JuMP.value(F[(NodeID(:UserDemand, 6, p), NodeID(:Basin, 7, p))]) ≈ d rtol = 1.0e-3
 
     # Realized flow demand
     model = Ribasim.run(toml_path)
     record_demand = DataFrame(model.integrator.p.allocation.record_demand)
     df_rating_curve_2 = record_demand[record_demand.node_id .== 2, :]
-    @test all(df_rating_curve_2.realized .≈ 2e-3)
+    @test all(df_rating_curve_2.realized .≈ 2.0e-3)
 
     @testset "Results" begin
         allocation_bytes = read(normpath(dirname(toml_path), "results/allocation.arrow"))
@@ -546,9 +546,9 @@ end
         push!(fractions, frac)
     end
 
-    @test all(isapprox.(fractions[1], fractions[2], atol = 1e-4))
-    @test all(isapprox.(fractions[1], fractions[3], atol = 1e-4))
-    @test all(isapprox.(fractions[1], fractions[4], atol = 1e-4))
+    @test all(isapprox.(fractions[1], fractions[2], atol = 1.0e-4))
+    @test all(isapprox.(fractions[1], fractions[3], atol = 1.0e-4))
+    @test all(isapprox.(fractions[1], fractions[4], atol = 1.0e-4))
 end
 
 @testitem "direct_basin_allocation" begin

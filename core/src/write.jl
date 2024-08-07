@@ -66,13 +66,13 @@ const RESULTS_FILENAME = (
 
 "Get the storage and level of all basins as matrices of nbasin × ntime"
 function get_storages_and_levels(
-    model::Model,
-)::@NamedTuple{
-    time::Vector{DateTime},
-    node_id::Vector{NodeID},
-    storage::Matrix{Float64},
-    level::Matrix{Float64},
-}
+        model::Model,
+    )::@NamedTuple{
+        time::Vector{DateTime},
+        node_id::Vector{NodeID},
+        storage::Matrix{Float64},
+        level::Matrix{Float64},
+    }
     (; config, integrator) = model
     (; sol, p) = integrator
 
@@ -91,8 +91,8 @@ end
 
 "Create the basin state table from the saved data"
 function basin_state_table(
-    model::Model,
-)::@NamedTuple{node_id::Vector{Int32}, level::Vector{Float64}}
+        model::Model,
+    )::@NamedTuple{node_id::Vector{Int32}, level::Vector{Float64}}
     (; storage) = model.integrator.u
     (; basin) = model.integrator.p
 
@@ -104,22 +104,22 @@ end
 
 "Create the basin result table from the saved data"
 function basin_table(
-    model::Model,
-)::@NamedTuple{
-    time::Vector{DateTime},
-    node_id::Vector{Int32},
-    storage::Vector{Float64},
-    level::Vector{Float64},
-    inflow_rate::Vector{Float64},
-    outflow_rate::Vector{Float64},
-    storage_rate::Vector{Float64},
-    precipitation::Vector{Float64},
-    evaporation::Vector{Float64},
-    drainage::Vector{Float64},
-    infiltration::Vector{Float64},
-    balance_error::Vector{Float64},
-    relative_error::Vector{Float64},
-}
+        model::Model,
+    )::@NamedTuple{
+        time::Vector{DateTime},
+        node_id::Vector{Int32},
+        storage::Vector{Float64},
+        level::Vector{Float64},
+        inflow_rate::Vector{Float64},
+        outflow_rate::Vector{Float64},
+        storage_rate::Vector{Float64},
+        precipitation::Vector{Float64},
+        evaporation::Vector{Float64},
+        drainage::Vector{Float64},
+        infiltration::Vector{Float64},
+        balance_error::Vector{Float64},
+        relative_error::Vector{Float64},
+    }
     (; saved) = model
     # The last timestep is not included; there is no period over which to compute flows.
     data = get_storages_and_levels(model)
@@ -143,7 +143,7 @@ function basin_table(
     idx_row = 0
     for cvec in saved.vertical_flux.saveval
         for (precipitation_, evaporation_, drainage_, infiltration_) in
-            zip(cvec.precipitation, cvec.evaporation, cvec.drainage, cvec.infiltration)
+                zip(cvec.precipitation, cvec.evaporation, cvec.drainage, cvec.infiltration)
             idx_row += 1
             precipitation[idx_row] = precipitation_
             evaporation[idx_row] = evaporation_
@@ -190,14 +190,14 @@ function basin_table(
 end
 
 function solver_stats_table(
-    model::Model,
-)::@NamedTuple{
-    time::Vector{DateTime},
-    rhs_calls::Vector{Int},
-    linear_solves::Vector{Int},
-    accepted_timesteps::Vector{Int},
-    rejected_timesteps::Vector{Int},
-}
+        model::Model,
+    )::@NamedTuple{
+        time::Vector{DateTime},
+        rhs_calls::Vector{Int},
+        linear_solves::Vector{Int},
+        accepted_timesteps::Vector{Int},
+        rejected_timesteps::Vector{Int},
+    }
     solver_stats = StructVector(model.saved.solver_stats.saveval)
     (;
         time = datetime_since.(
@@ -213,16 +213,16 @@ end
 
 "Create a flow result table from the saved data"
 function flow_table(
-    model::Model,
-)::@NamedTuple{
-    time::Vector{DateTime},
-    edge_id::Vector{Union{Int32, Missing}},
-    from_node_type::Vector{String},
-    from_node_id::Vector{Int32},
-    to_node_type::Vector{String},
-    to_node_id::Vector{Int32},
-    flow_rate::FlatVector{Float64},
-}
+        model::Model,
+    )::@NamedTuple{
+        time::Vector{DateTime},
+        edge_id::Vector{Union{Int32, Missing}},
+        from_node_type::Vector{String},
+        from_node_id::Vector{Int32},
+        to_node_type::Vector{String},
+        to_node_id::Vector{Int32},
+        flow_rate::FlatVector{Float64},
+    }
     (; config, saved, integrator) = model
     (; t, saveval) = saved.flow
     (; graph) = integrator.p
@@ -276,13 +276,13 @@ end
 
 "Create a discrete control result table from the saved data"
 function discrete_control_table(
-    model::Model,
-)::@NamedTuple{
-    time::Vector{DateTime},
-    control_node_id::Vector{Int32},
-    truth_state::Vector{String},
-    control_state::Vector{String},
-}
+        model::Model,
+    )::@NamedTuple{
+        time::Vector{DateTime},
+        control_node_id::Vector{Int32},
+        truth_state::Vector{String},
+        control_state::Vector{String},
+    }
     (; config) = model
     (; record) = model.integrator.p.discrete_control
 
@@ -292,17 +292,17 @@ end
 
 "Create an allocation result table for the saved data"
 function allocation_table(
-    model::Model,
-)::@NamedTuple{
-    time::Vector{DateTime},
-    subnetwork_id::Vector{Int32},
-    node_type::Vector{String},
-    node_id::Vector{Int32},
-    priority::Vector{Int32},
-    demand::Vector{Float64},
-    allocated::Vector{Float64},
-    realized::Vector{Float64},
-}
+        model::Model,
+    )::@NamedTuple{
+        time::Vector{DateTime},
+        subnetwork_id::Vector{Int32},
+        node_type::Vector{String},
+        node_id::Vector{Int32},
+        priority::Vector{Int32},
+        demand::Vector{Float64},
+        allocated::Vector{Float64},
+        realized::Vector{Float64},
+    }
     (; config) = model
     (; record_demand) = model.integrator.p.allocation
 
@@ -320,19 +320,19 @@ function allocation_table(
 end
 
 function allocation_flow_table(
-    model::Model,
-)::@NamedTuple{
-    time::Vector{DateTime},
-    edge_id::Vector{Int32},
-    from_node_type::Vector{String},
-    from_node_id::Vector{Int32},
-    to_node_type::Vector{String},
-    to_node_id::Vector{Int32},
-    subnetwork_id::Vector{Int32},
-    priority::Vector{Int32},
-    flow_rate::Vector{Float64},
-    optimization_type::Vector{String},
-}
+        model::Model,
+    )::@NamedTuple{
+        time::Vector{DateTime},
+        edge_id::Vector{Int32},
+        from_node_type::Vector{String},
+        from_node_id::Vector{Int32},
+        to_node_type::Vector{String},
+        to_node_id::Vector{Int32},
+        subnetwork_id::Vector{Int32},
+        priority::Vector{Int32},
+        flow_rate::Vector{Float64},
+        optimization_type::Vector{String},
+    }
     (; config) = model
     (; record_flow) = model.integrator.p.allocation
 
@@ -353,12 +353,12 @@ function allocation_flow_table(
 end
 
 function subgrid_level_table(
-    model::Model,
-)::@NamedTuple{
-    time::Vector{DateTime},
-    subgrid_id::Vector{Int32},
-    subgrid_level::Vector{Float64},
-}
+        model::Model,
+    )::@NamedTuple{
+        time::Vector{DateTime},
+        subgrid_id::Vector{Int32},
+        subgrid_level::Vector{Float64},
+    }
     (; config, saved, integrator) = model
     (; t, saveval) = saved.subgrid_level
     subgrid = integrator.p.subgrid
@@ -374,11 +374,11 @@ end
 
 "Write a result table to disk as an Arrow file"
 function write_arrow(
-    path::AbstractString,
-    table::NamedTuple,
-    compress::Union{ZstdCompressor, Nothing};
-    remove_empty_table::Bool = false,
-)::Nothing
+        path::AbstractString,
+        table::NamedTuple,
+        compress::Union{ZstdCompressor, Nothing};
+        remove_empty_table::Bool = false,
+    )::Nothing
     # At the start of the simulation, write an empty table to ensure we have permissions
     # and fail early.
     # At the end of the simulation, write all non-empty tables, and remove existing empty ones.

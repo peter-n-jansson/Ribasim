@@ -32,10 +32,10 @@ Add nonzeros for basins connected to eachother via 1 node.
 Basins are also assumed to depend on themselves (main diagonal terms)
 """
 function update_jac_prototype!(
-    jac_prototype::SparseMatrixCSC{Float64, Int64},
-    basin::Basin,
-    graph::MetaGraph,
-)::Nothing
+        jac_prototype::SparseMatrixCSC{Float64, Int64},
+        basin::Basin,
+        graph::MetaGraph,
+    )::Nothing
     for id in basin.node_id
         for id_neighbor in inoutflow_ids(graph, id)
             for id_neighbor_neighbor in inoutflow_ids(graph, id_neighbor)
@@ -52,11 +52,11 @@ end
 Add nonzeros for the integral term and the basins on either side of the controlled node
 """
 function update_jac_prototype!(
-    jac_prototype::SparseMatrixCSC{Float64, Int64},
-    pid_control::PidControl,
-    basin::Basin,
-    graph::MetaGraph,
-)::Nothing
+        jac_prototype::SparseMatrixCSC{Float64, Int64},
+        pid_control::PidControl,
+        basin::Basin,
+        graph::MetaGraph,
+    )::Nothing
     for id in pid_control.node_id
         idx_integral = length(basin.node_id) + id.idx
         id_controlled = only(outneighbor_labels_type(graph, id, EdgeType.control))
@@ -71,10 +71,10 @@ function update_jac_prototype!(
 end
 
 function update_jac_prototype!(
-    jac_prototype::SparseMatrixCSC{Float64, Int64},
-    continuous_control::ContinuousControl,
-    graph::MetaGraph,
-)::Nothing
+        jac_prototype::SparseMatrixCSC{Float64, Int64},
+        continuous_control::ContinuousControl,
+        graph::MetaGraph,
+    )::Nothing
     (; compound_variable) = continuous_control
     for (i, id) in enumerate(continuous_control.node_id)
         affectees = Int[]

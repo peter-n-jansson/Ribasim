@@ -14,10 +14,10 @@
     @test length(logger.logs) == 3
     @test logger.logs[1].level == Error
     @test logger.logs[1].message ==
-          "Basin #1 profile has repeated levels, this cannot be interpolated."
+        "Basin #1 profile has repeated levels, this cannot be interpolated."
     @test logger.logs[2].level == Error
     @test logger.logs[2].message ==
-          "Basin #1 profile cannot start with area <= 0 at the bottom for numerical reasons."
+        "Basin #1 profile cannot start with area <= 0 at the bottom for numerical reasons."
     @test logger.logs[2].kwargs[:area] == 0
     @test logger.logs[3].level == Error
     @test logger.logs[3].message == "Basin #1 profile cannot have decreasing areas."
@@ -62,7 +62,7 @@ end
     @test logger.logs[2].message == "The `level` cannot be repeated."
     @test logger.logs[3].level == Error
     @test logger.logs[3].message ==
-          "The `flow_rate` cannot decrease with increasing `level`."
+        "The `flow_rate` cannot decrease with increasing `level`."
 end
 
 @testitem "Neighbor count validation" begin
@@ -110,10 +110,10 @@ end
     @test logger.logs[1].message == "Pump #1 can have at most 1 flow inneighbor(s) (got 2)."
     @test logger.logs[2].level == Error
     @test logger.logs[2].message ==
-          "Pump #1 must have at least 1 flow outneighbor(s) (got 0)."
+        "Pump #1 must have at least 1 flow outneighbor(s) (got 0)."
     @test logger.logs[3].level == Error
     @test logger.logs[3].message ==
-          "Pump #6 must have at least 1 flow inneighbor(s) (got 0)."
+        "Pump #6 must have at least 1 flow inneighbor(s) (got 0)."
 
     @test_throws "'n_neighbor_bounds_flow' not defined for Val{:foo}()." Ribasim.n_neighbor_bounds_flow(
         :foo,
@@ -179,10 +179,10 @@ end
     @test length(logger.logs) == 2
     @test logger.logs[1].level == Error
     @test logger.logs[1].message ==
-          "Listen node Terminal #3 of PidControl #1 is not a Basin"
+        "Listen node Terminal #3 of PidControl #1 is not a Basin"
     @test logger.logs[2].level == Error
     @test logger.logs[2].message ==
-          "PID listened Basin #5 is not on either side of controlled Pump #2."
+        "PID listened Basin #5 is not on either side of controlled Pump #2."
 end
 
 @testitem "DiscreteControl logic validation" begin
@@ -208,19 +208,19 @@ end
     @test length(logger.logs) == 5
     @test logger.logs[1].level == Error
     @test logger.logs[1].message ==
-          "DiscreteControl #5 has 3 condition(s), which is inconsistent with these truth state(s): [\"FFFF\"]."
+        "DiscreteControl #5 has 3 condition(s), which is inconsistent with these truth state(s): [\"FFFF\"]."
     @test logger.logs[2].level == Error
     @test logger.logs[2].message ==
-          "These control states from DiscreteControl #5 are not defined for controlled Pump #2: [\"foo\"]."
+        "These control states from DiscreteControl #5 are not defined for controlled Pump #2: [\"foo\"]."
     @test logger.logs[3].level == Error
     @test logger.logs[3].message ==
-          "Look ahead supplied for non-timeseries listen variable 'level' from listen node Basin #1."
+        "Look ahead supplied for non-timeseries listen variable 'level' from listen node Basin #1."
     @test logger.logs[4].level == Error
     @test logger.logs[4].message ==
-          "Look ahead for listen variable 'flow_rate' from listen node FlowBoundary #4 goes past timeseries end during simulation."
+        "Look ahead for listen variable 'flow_rate' from listen node FlowBoundary #4 goes past timeseries end during simulation."
     @test logger.logs[5].level == Error
     @test logger.logs[5].message ==
-          "Negative look ahead supplied for listen variable 'flow_rate' from listen node FlowBoundary #4."
+        "Negative look ahead supplied for listen variable 'flow_rate' from listen node FlowBoundary #4."
 end
 
 @testitem "Pump/outlet flow rate sign validation" begin
@@ -259,7 +259,7 @@ end
     @test length(logger.logs) == 1
     @test logger.logs[1].level == Error
     @test logger.logs[1].message ==
-          "Pump #1 flow rates must be non-negative, found -1.0 for control state 'foo'."
+        "Pump #1 flow rates must be non-negative, found -1.0 for control state 'foo'."
 end
 
 @testitem "Edge type validation" begin
@@ -281,10 +281,10 @@ end
     @test length(logger.logs) == 2
     @test logger.logs[1].level == Error
     @test logger.logs[1].message ==
-          "Invalid edge type 'foo' for edge #0 from node #1 to node #2."
+        "Invalid edge type 'foo' for edge #0 from node #1 to node #2."
     @test logger.logs[2].level == Error
     @test logger.logs[2].message ==
-          "Invalid edge type 'bar' for edge #1 from node #2 to node #3."
+        "Invalid edge type 'bar' for edge #1 from node #2 to node #3."
 end
 
 @testitem "Subgrid validation" begin
@@ -324,10 +324,10 @@ end
     @test length(logger.logs) == 2
     @test logger.logs[1].level == Error
     @test logger.logs[1].message ==
-          "Basin / subgrid subgrid_id 1 has repeated basin levels, this cannot be interpolated."
+        "Basin / subgrid subgrid_id 1 has repeated basin levels, this cannot be interpolated."
     @test logger.logs[2].level == Error
     @test logger.logs[2].message ==
-          "Basin / subgrid subgrid_id 1 has repeated element levels, this cannot be interpolated."
+        "Basin / subgrid subgrid_id 1 has repeated element levels, this cannot be interpolated."
 end
 
 @testitem "negative demand" begin
@@ -347,7 +347,7 @@ end
     @test length(logger.logs) == 1
     @test logger.logs[1].level == Error
     @test logger.logs[1].message ==
-          "Demand of UserDemand #1 with priority 1 should be non-negative"
+        "Demand of UserDemand #1 with priority 1 should be non-negative"
 end
 
 @testitem "negative storage" begin
@@ -355,7 +355,7 @@ end
     toml_path =
         normpath(@__DIR__, "../../generated_testmodels/linear_resistance/ribasim.toml")
     @test ispath(toml_path)
-    dt = 1e10
+    dt = 1.0e10
 
     config = Ribasim.Config(
         toml_path;
@@ -394,7 +394,7 @@ end
     @test length(logger.logs) == 1
     @test logger.logs[1].level == Error
     @test logger.logs[1].message ==
-          "Lowest levels of TabulatedRatingCurve #5 is lower than bottom of upstream Basin #1"
+        "Lowest levels of TabulatedRatingCurve #5 is lower than bottom of upstream Basin #1"
 end
 
 @testitem "Outlet upstream level validation" begin
@@ -424,7 +424,7 @@ end
     @test length(logger.logs) == 1
     @test logger.logs[1].level == Error
     @test logger.logs[1].message ==
-          "Minimum crest level of Outlet #4 is lower than bottom of upstream Basin #3"
+        "Minimum crest level of Outlet #4 is lower than bottom of upstream Basin #3"
 end
 
 @testitem "Convergence bottleneck" begin

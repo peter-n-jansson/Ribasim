@@ -46,8 +46,8 @@ nodetype(sv::Type{SchemaVersion{T, N}}) where {T, N} = nodetype(sv())
 From a SchemaVersion("ribasim.flowboundary.static", 1) return (:FlowBoundary, :static)
 """
 function nodetype(
-    sv::SchemaVersion{T, N},
-)::Tuple{Symbol, Union{Nothing, Symbol}} where {T, N}
+        sv::SchemaVersion{T, N},
+    )::Tuple{Symbol, Union{Nothing, Symbol}} where {T, N}
     # Names derived from a schema are in underscores (basintime),
     # so we parse the related record Ribasim.BasinTimeV1
     # to derive BasinTime from it.

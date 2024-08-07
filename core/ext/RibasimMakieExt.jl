@@ -24,17 +24,17 @@ function Ribasim.plot_basin_data(model::Model)
 end
 
 function Ribasim.plot_flow!(
-    model::Model,
-    ax::Axis,
-    edge_id::Int32;
-    skip_conservative_out = false,
-)
+        model::Model,
+        ax::Axis,
+        edge_id::Int32;
+        skip_conservative_out = false,
+    )
     flow_data = DataFrame(Ribasim.flow_table(model))
     flow_data = filter(:edge_id => ==(edge_id), flow_data)
     first_row = first(flow_data)
     # Skip outflows of conservative nodes because these are the same as the inflows
     if skip_conservative_out &&
-       Ribasim.NodeType.T(first_row.from_node_type) in Ribasim.conservative_nodetypes
+            Ribasim.NodeType.T(first_row.from_node_type) in Ribasim.conservative_nodetypes
         return nothing
     end
     label = "$(first_row.from_node_type) #$(first_row.from_node_id) → $(first_row.to_node_type) #$(first_row.to_node_id)"

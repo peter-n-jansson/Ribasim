@@ -20,10 +20,10 @@ struct Model{T}
     config::Config
     saved::SavedResults
     function Model(
-        integrator::T,
-        config,
-        saved,
-    ) where {T <: SciMLBase.AbstractODEIntegrator}
+            integrator::T,
+            config,
+            saved,
+        ) where {T <: SciMLBase.AbstractODEIntegrator}
         new{T}(integrator, config, saved)
     end
 end
@@ -84,14 +84,14 @@ function Model(config::Config)::Model
         # tell the solver to stop when new data comes in
         tstops = Vector{Float64}[]
         for schema_version in [
-            FlowBoundaryTimeV1,
-            LevelBoundaryTimeV1,
-            UserDemandTimeV1,
-            LevelDemandTimeV1,
-            FlowDemandTimeV1,
-            TabulatedRatingCurveTimeV1,
-            PidControlTimeV1,
-        ]
+                FlowBoundaryTimeV1,
+                LevelBoundaryTimeV1,
+                UserDemandTimeV1,
+                LevelDemandTimeV1,
+                FlowDemandTimeV1,
+                TabulatedRatingCurveTimeV1,
+                PidControlTimeV1,
+            ]
             time_schema = load_structvector(db, config, schema_version)
             push!(tstops, get_tstops(time_schema.time, config.starttime))
         end

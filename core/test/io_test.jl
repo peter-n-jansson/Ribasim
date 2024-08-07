@@ -13,7 +13,7 @@
     )
     config = Ribasim.Config(toml, "model")
     @test Ribasim.input_path(config, "path/to/file") ==
-          normpath("model", "path", "to", "file")
+        normpath("model", "path", "to", "file")
 
     # also relative to inputdir
     toml = Ribasim.Toml(;
@@ -27,7 +27,7 @@
     )
     config = Ribasim.Config(toml, "model")
     @test Ribasim.input_path(config, "path/to/file") ==
-          normpath("model", "input", "path", "to", "file")
+        normpath("model", "input", "path", "to", "file")
 
     # absolute path
     toml = Ribasim.Toml(;
@@ -78,9 +78,9 @@ end
 
     "Convert an in-memory table to a memory mapped Arrow table"
     function to_arrow_table(
-        path,
-        table::StructVector{T},
-    )::StructVector{T} where {T <: Legolas.AbstractRecord}
+            path,
+            table::StructVector{T},
+        )::StructVector{T} where {T <: Legolas.AbstractRecord}
         open(path; write = true) do io
             Arrow.write(io, table)
         end
@@ -136,7 +136,7 @@ end
     tbl = Arrow.Table(bytes)
     ribasim_version = string(pkgversion(Ribasim))
     @test Arrow.getmetadata(tbl) ===
-          Base.ImmutableDict("ribasim_version" => ribasim_version)
+        Base.ImmutableDict("ribasim_version" => ribasim_version)
 end
 
 @testitem "warm state" begin

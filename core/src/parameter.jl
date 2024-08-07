@@ -446,16 +446,16 @@ continuous_control_type: one of None, ContinuousControl, PidControl
         fill(ContinuousControlType.None, length(node_id))
 
     function Pump(
-        node_id,
-        inflow_edge,
-        outflow_edges,
-        active,
-        flow_rate::T,
-        min_flow_rate,
-        max_flow_rate,
-        control_mapping,
-        continuous_control_type,
-    ) where {T}
+            node_id,
+            inflow_edge,
+            outflow_edges,
+            active,
+            flow_rate::T,
+            min_flow_rate,
+            max_flow_rate,
+            control_mapping,
+            continuous_control_type,
+        ) where {T}
         if valid_flow_rates(node_id, get_tmp(flow_rate, 0), control_mapping)
             return new{T}(
                 node_id,
@@ -501,17 +501,17 @@ continuous_control_type: one of None, ContinuousControl, PidControl
         fill(ContinuousControlType.None, length(node_id))
 
     function Outlet(
-        node_id,
-        inflow_id,
-        outflow_ids,
-        active,
-        flow_rate::T,
-        min_flow_rate,
-        max_flow_rate,
-        min_crest_level,
-        control_mapping,
-        continuous_control_type,
-    ) where {T}
+            node_id,
+            inflow_id,
+            outflow_ids,
+            active,
+            flow_rate::T,
+            min_flow_rate,
+            max_flow_rate,
+            min_crest_level,
+            control_mapping,
+            continuous_control_type,
+        ) where {T}
         if valid_flow_rates(node_id, get_tmp(flow_rate, 0), control_mapping)
             return new{T}(
                 node_id,

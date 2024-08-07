@@ -4,14 +4,16 @@ neighbortypes(::Val{:pump}) = Set((:basin, :terminal, :level_boundary))
 neighbortypes(::Val{:outlet}) = Set((:basin, :terminal, :level_boundary))
 neighbortypes(::Val{:user_demand}) = Set((:basin, :terminal, :level_boundary))
 neighbortypes(::Val{:level_demand}) = Set((:basin,))
-neighbortypes(::Val{:basin}) = Set((
-    :linear_resistance,
-    :tabulated_rating_curve,
-    :manning_resistance,
-    :pump,
-    :outlet,
-    :user_demand,
-))
+neighbortypes(::Val{:basin}) = Set(
+    (
+        :linear_resistance,
+        :tabulated_rating_curve,
+        :manning_resistance,
+        :pump,
+        :outlet,
+        :user_demand,
+    ),
+)
 neighbortypes(::Val{:terminal}) = Set{Symbol}() # only endnode
 neighbortypes(::Val{:flow_boundary}) = Set((:basin, :terminal, :level_boundary))
 neighbortypes(::Val{:level_boundary}) =
@@ -19,14 +21,16 @@ neighbortypes(::Val{:level_boundary}) =
 neighbortypes(::Val{:linear_resistance}) = Set((:basin, :level_boundary))
 neighbortypes(::Val{:manning_resistance}) = Set((:basin,))
 neighbortypes(::Val{:continuous_control}) = Set((:pump, :outlet))
-neighbortypes(::Val{:discrete_control}) = Set((
-    :pump,
-    :outlet,
-    :tabulated_rating_curve,
-    :linear_resistance,
-    :manning_resistance,
-    :pid_control,
-))
+neighbortypes(::Val{:discrete_control}) = Set(
+    (
+        :pump,
+        :outlet,
+        :tabulated_rating_curve,
+        :linear_resistance,
+        :manning_resistance,
+        :pid_control,
+    ),
+)
 neighbortypes(::Val{:pid_control}) = Set((:pump, :outlet))
 neighbortypes(::Val{:tabulated_rating_curve}) = Set((:basin, :terminal, :level_boundary))
 neighbortypes(::Val{:flow_demand}) =
@@ -146,8 +150,8 @@ Tables loaded from the database into memory can be sorted.
 Tables loaded from Arrow files are memory mapped and can therefore not be sorted.
 """
 function sorted_table!(
-    table::StructVector{<:Legolas.AbstractRecord},
-)::StructVector{<:Legolas.AbstractRecord}
+        table::StructVector{<:Legolas.AbstractRecord},
+    )::StructVector{<:Legolas.AbstractRecord}
     by = sort_by_function(table)
     if any((typeof(col) <: Arrow.Primitive for col in Tables.columns(table)))
         et = eltype(table)
@@ -210,10 +214,10 @@ end
 Check whether the profile data has no repeats in the levels and the areas start positive.
 """
 function valid_profiles(
-    node_id::Vector{NodeID},
-    level::Vector{Vector{Float64}},
-    area::Vector{Vector{Float64}},
-)::Bool
+        node_id::Vector{NodeID},
+        level::Vector{Vector{Float64}},
+        area::Vector{Vector{Float64}},
+    )::Bool
     errors = false
     for (id, levels, areas) in zip(node_id, level, area)
         n = length(levels)
@@ -246,10 +250,10 @@ end
 Test whether static or discrete controlled flow rates are indeed non-negative.
 """
 function valid_flow_rates(
-    node_id::Vector{NodeID},
-    flow_rate::Vector,
-    control_mapping::Dict,
-)::Bool
+        node_id::Vector{NodeID},
+        flow_rate::Vector,
+        control_mapping::Dict,
+    )::Bool
     errors = false
 
     # Collect ids of discrete controlled nodes so that they do not give another error
@@ -284,10 +288,10 @@ function valid_flow_rates(
 end
 
 function valid_pid_connectivity(
-    pid_control_node_id::Vector{NodeID},
-    pid_control_listen_node_id::Vector{NodeID},
-    graph::MetaGraph,
-)::Bool
+        pid_control_node_id::Vector{NodeID},
+        pid_control_listen_node_id::Vector{NodeID},
+        graph::MetaGraph,
+    )::Bool
     errors = false
 
     for (pid_control_id, listen_id) in zip(pid_control_node_id, pid_control_listen_node_id)
@@ -316,12 +320,12 @@ end
 Validate the entries for a single subgrid element.
 """
 function valid_subgrid(
-    subgrid_id::Int32,
-    node_id::NodeID,
-    node_to_basin::Dict{NodeID, Int},
-    basin_level::Vector{Float64},
-    subgrid_level::Vector{Float64},
-)::Bool
+        subgrid_id::Int32,
+        node_id::NodeID,
+        node_to_basin::Dict{NodeID, Int},
+        basin_level::Vector{Float64},
+        subgrid_level::Vector{Float64},
+    )::Bool
     errors = false
 
     if !(node_id in keys(node_to_basin))
@@ -343,10 +347,10 @@ function valid_subgrid(
 end
 
 function valid_demand(
-    node_id::Vector{NodeID},
-    demand_itp::Vector{Vector{ScalarInterpolation}},
-    priorities::Vector{Int32},
-)::Bool
+        node_id::Vector{NodeID},
+        demand_itp::Vector{Vector{ScalarInterpolation}},
+        priorities::Vector{Int32},
+    )::Bool
     errors = false
 
     for (col, id) in zip(demand_itp, node_id)
@@ -381,10 +385,10 @@ function valid_outlet_crest_level!(graph::MetaGraph, outlet::Outlet, basin::Basi
 end
 
 function valid_tabulated_curve_level(
-    graph::MetaGraph,
-    tabulated_rating_curve::TabulatedRatingCurve,
-    basin::Basin,
-)::Bool
+        graph::MetaGraph,
+        tabulated_rating_curve::TabulatedRatingCurve,
+        basin::Basin,
+    )::Bool
     errors = false
     for (id, table) in zip(tabulated_rating_curve.node_id, tabulated_rating_curve.table)
         id_in = inflow_id(graph, id)
@@ -393,7 +397,7 @@ function valid_tabulated_curve_level(
             # the second level is the bottom, the first is added to control extrapolation
             if table.t[1] + 1.0 < basin_bottom_level
                 @error "Lowest levels of $id is lower than bottom of upstream $id_in" table.t[1] +
-                                                                                      1.0 basin_bottom_level
+                    1.0 basin_bottom_level
                 errors = true
             end
         end
@@ -479,7 +483,7 @@ function valid_n_neighbors(node_name::Symbol, graph::MetaGraph)::Bool
     for node_id in labels(graph)
         node_id.type == node_type || continue
         for (bounds, edge_type) in
-            zip((bounds_flow, bounds_control), (EdgeType.flow, EdgeType.control))
+                zip((bounds_flow, bounds_control), (EdgeType.flow, EdgeType.control))
             n_inneighbors =
                 count(x -> true, inneighbor_labels_type(graph, node_id, edge_type))
             n_outneighbors =
@@ -629,10 +633,10 @@ An allocation source edge is valid if either:
     - The edge comes from a source node
 """
 function valid_sources(
-    p::Parameters,
-    capacity::JuMP.Containers.SparseAxisArray{Float64, 2, Tuple{NodeID, NodeID}},
-    subnetwork_id::Int32,
-)::Bool
+        p::Parameters,
+        capacity::JuMP.Containers.SparseAxisArray{Float64, 2, Tuple{NodeID, NodeID}},
+        subnetwork_id::Int32,
+    )::Bool
     (; graph) = p
 
     errors = false

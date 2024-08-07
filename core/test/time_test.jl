@@ -64,7 +64,7 @@ end
         isapprox(
             basin_table.evaporation,
             time_table.mean_area .* time_table.potential_evaporation;
-            rtol = 1e-4,
+            rtol = 1.0e-4,
         ),
     )
 

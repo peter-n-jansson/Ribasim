@@ -12,10 +12,10 @@ function is_current_module(log)::Bool
 end
 
 function setup_logger(;
-    verbosity::LogLevel,
-    stream::IOStream,
-    module_filter_function::Function = is_current_module,
-)::AbstractLogger
+        verbosity::LogLevel,
+        stream::IOStream,
+        module_filter_function::Function = is_current_module,
+    )::AbstractLogger
     file_logger = LoggingExtras.MinLevelLogger(LoggingExtras.FileLogger(stream), verbosity)
     terminal_logger = LoggingExtras.MinLevelLogger(
         TerminalLogger(),

@@ -47,14 +47,14 @@ function create_graph(db::DB, config::Config, chunk_sizes::Vector{Int})::MetaGra
 
     errors = false
     for (;
-        fid,
-        from_node_type,
-        from_node_id,
-        to_node_type,
-        to_node_id,
-        edge_type,
-        subnetwork_id,
-    ) in edge_rows
+            fid,
+            from_node_type,
+            from_node_id,
+            to_node_type,
+            to_node_id,
+            edge_type,
+            subnetwork_id,
+        ) in edge_rows
         try
             # hasfield does not work
             edge_type = getfield(EdgeType, Symbol(edge_type))
@@ -234,10 +234,10 @@ Get the inneighbor node IDs of the given node ID (label)
 over the given edge type in the graph.
 """
 function inneighbor_labels_type(
-    graph::MetaGraph,
-    label::NodeID,
-    edge_type::EdgeType.T,
-)::InNeighbors
+        graph::MetaGraph,
+        label::NodeID,
+        edge_type::EdgeType.T,
+    )::InNeighbors
     return InNeighbors(graph, label, edge_type)
 end
 
@@ -246,10 +246,10 @@ Get the outneighbor node IDs of the given node ID (label)
 over the given edge type in the graph.
 """
 function outneighbor_labels_type(
-    graph::MetaGraph,
-    label::NodeID,
-    edge_type::EdgeType.T,
-)::OutNeighbors
+        graph::MetaGraph,
+        label::NodeID,
+        edge_type::EdgeType.T,
+    )::OutNeighbors
     return OutNeighbors(graph, label, edge_type)
 end
 
@@ -258,14 +258,16 @@ Get the in- and outneighbor node IDs of the given node ID (label)
 over the given edge type in the graph.
 """
 function all_neighbor_labels_type(
-    graph::MetaGraph,
-    label::NodeID,
-    edge_type::EdgeType.T,
-)::Iterators.Flatten
-    return Iterators.flatten((
-        outneighbor_labels_type(graph, label, edge_type),
-        inneighbor_labels_type(graph, label, edge_type),
-    ))
+        graph::MetaGraph,
+        label::NodeID,
+        edge_type::EdgeType.T,
+    )::Iterators.Flatten
+    return Iterators.flatten(
+        (
+            outneighbor_labels_type(graph, label, edge_type),
+            inneighbor_labels_type(graph, label, edge_type),
+        ),
+    )
 end
 
 """

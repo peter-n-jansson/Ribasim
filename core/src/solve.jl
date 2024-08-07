@@ -2,11 +2,11 @@
 The right hand side function of the system of ODEs set up by Ribasim.
 """
 function water_balance!(
-    du::ComponentVector,
-    u::ComponentVector,
-    p::Parameters,
-    t::Number,
-)::Nothing
+        du::ComponentVector,
+        u::ComponentVector,
+        p::Parameters,
+        t::Number,
+    )::Nothing
     (; graph, basin, pid_control) = p
 
     storage = u.storage
@@ -114,10 +114,10 @@ function update_vertical_flux!(basin::Basin, storage::AbstractVector)::Nothing
 end
 
 function formulate_basins!(
-    du::AbstractVector,
-    basin::Basin,
-    storage::AbstractVector,
-)::Nothing
+        du::AbstractVector,
+        basin::Basin,
+        storage::AbstractVector,
+    )::Nothing
     update_vertical_flux!(basin, storage)
     for id in basin.node_id
         # add all vertical fluxes that enter the Basin
@@ -140,13 +140,13 @@ function set_error!(pid_control::PidControl, p::Parameters, u::ComponentVector, 
 end
 
 function formulate_pid_control!(
-    u::ComponentVector,
-    du::ComponentVector,
-    pid_control::PidControl,
-    p::Parameters,
-    integral_value::SubArray,
-    t::Number,
-)::Nothing
+        u::ComponentVector,
+        du::ComponentVector,
+        pid_control::PidControl,
+        p::Parameters,
+        integral_value::SubArray,
+        t::Number,
+    )::Nothing
     (; basin) = p
     (; node_id, active, target, listen_node_id, error) = pid_control
     (; current_area) = basin
@@ -206,37 +206,37 @@ function formulate_pid_control!(
 end
 
 function formulate_flow!(
-    user_demand::UserDemand,
-    p::Parameters,
-    storage::AbstractVector,
-    t::Number,
-)::Nothing
+        user_demand::UserDemand,
+        p::Parameters,
+        storage::AbstractVector,
+        t::Number,
+    )::Nothing
     (; graph, allocation) = p
 
     for (
-        node_id,
-        inflow_edge,
-        outflow_edge,
-        active,
-        demand_itp,
-        demand,
-        allocated,
-        return_factor,
-        min_level,
-        demand_from_timeseries,
-    ) in zip(
-        user_demand.node_id,
-        user_demand.inflow_edge,
-        user_demand.outflow_edge,
-        user_demand.active,
-        user_demand.demand_itp,
-        # TODO permute these so the nodes are the last dimension, for performance
-        eachrow(user_demand.demand),
-        eachrow(user_demand.allocated),
-        user_demand.return_factor,
-        user_demand.min_level,
-        user_demand.demand_from_timeseries,
-    )
+            node_id,
+            inflow_edge,
+            outflow_edge,
+            active,
+            demand_itp,
+            demand,
+            allocated,
+            return_factor,
+            min_level,
+            demand_from_timeseries,
+        ) in zip(
+            user_demand.node_id,
+            user_demand.inflow_edge,
+            user_demand.outflow_edge,
+            user_demand.active,
+            user_demand.demand_itp,
+            # TODO permute these so the nodes are the last dimension, for performance
+            eachrow(user_demand.demand),
+            eachrow(user_demand.allocated),
+            user_demand.return_factor,
+            user_demand.min_level,
+            user_demand.demand_from_timeseries,
+        )
         if !active
             continue
         end
@@ -282,11 +282,11 @@ end
 Directed graph: outflow is positive!
 """
 function formulate_flow!(
-    linear_resistance::LinearResistance,
-    p::Parameters,
-    storage::AbstractVector,
-    t::Number,
-)::Nothing
+        linear_resistance::LinearResistance,
+        p::Parameters,
+        storage::AbstractVector,
+        t::Number,
+    )::Nothing
     (; graph) = p
     (; node_id, active, resistance, max_flow_rate) = linear_resistance
     for id in node_id
@@ -320,11 +320,11 @@ end
 Directed graph: outflow is positive!
 """
 function formulate_flow!(
-    tabulated_rating_curve::TabulatedRatingCurve,
-    p::Parameters,
-    storage::AbstractVector,
-    t::Number,
-)::Nothing
+        tabulated_rating_curve::TabulatedRatingCurve,
+        p::Parameters,
+        storage::AbstractVector,
+        t::Number,
+    )::Nothing
     (; graph) = p
     (; node_id, active, table, inflow_edge, outflow_edges) = tabulated_rating_curve
 
@@ -388,11 +388,11 @@ hydraulic radius. This ensures that a basin can receive water after it has gone
 dry.
 """
 function formulate_flow!(
-    manning_resistance::ManningResistance,
-    p::Parameters,
-    storage::AbstractVector{T},
-    t::Number,
-)::Nothing where {T}
+        manning_resistance::ManningResistance,
+        p::Parameters,
+        storage::AbstractVector{T},
+        t::Number,
+    )::Nothing where {T}
     (; graph) = p
     (;
         node_id,
@@ -444,7 +444,7 @@ function formulate_flow!(
         R_h::T = 0.5 * (R_h_a + R_h_b)
         k = 1000.0
         # This epsilon makes sure the AD derivative at Δh = 0 does not give NaN
-        eps = 1e-200
+        eps = 1.0e-200
 
         q = q_sign * A / n * ∛(R_h^2) * sqrt(Δh / L * 2 / π * atan(k * Δh) + eps)
 
@@ -455,11 +455,11 @@ function formulate_flow!(
 end
 
 function formulate_flow!(
-    flow_boundary::FlowBoundary,
-    p::Parameters,
-    storage::AbstractVector,
-    t::Number,
-)::Nothing
+        flow_boundary::FlowBoundary,
+        p::Parameters,
+        storage::AbstractVector,
+        t::Number,
+    )::Nothing
     (; graph) = p
     (; node_id, active, flow_rate, outflow_edges) = flow_boundary
 
@@ -476,33 +476,33 @@ function formulate_flow!(
 end
 
 function formulate_flow!(
-    pump::Pump,
-    p::Parameters,
-    storage::AbstractVector,
-    t::Number,
-    continuous_control_type_::ContinuousControlType.T,
-)::Nothing
+        pump::Pump,
+        p::Parameters,
+        storage::AbstractVector,
+        t::Number,
+        continuous_control_type_::ContinuousControlType.T,
+    )::Nothing
     (; graph) = p
 
     for (
-        node_id,
-        inflow_edge,
-        outflow_edges,
-        active,
-        flow_rate,
-        min_flow_rate,
-        max_flow_rate,
-        continuous_control_type,
-    ) in zip(
-        pump.node_id,
-        pump.inflow_edge,
-        pump.outflow_edges,
-        pump.active,
-        get_tmp(pump.flow_rate, storage),
-        pump.min_flow_rate,
-        pump.max_flow_rate,
-        pump.continuous_control_type,
-    )
+            node_id,
+            inflow_edge,
+            outflow_edges,
+            active,
+            flow_rate,
+            min_flow_rate,
+            max_flow_rate,
+            continuous_control_type,
+        ) in zip(
+            pump.node_id,
+            pump.inflow_edge,
+            pump.outflow_edges,
+            pump.active,
+            get_tmp(pump.flow_rate, storage),
+            pump.min_flow_rate,
+            pump.max_flow_rate,
+            pump.continuous_control_type,
+        )
         if !active || (continuous_control_type != continuous_control_type_)
             continue
         end
@@ -522,35 +522,35 @@ function formulate_flow!(
 end
 
 function formulate_flow!(
-    outlet::Outlet,
-    p::Parameters,
-    storage::AbstractVector,
-    t::Number,
-    continuous_control_type_::ContinuousControlType.T,
-)::Nothing
+        outlet::Outlet,
+        p::Parameters,
+        storage::AbstractVector,
+        t::Number,
+        continuous_control_type_::ContinuousControlType.T,
+    )::Nothing
     (; graph) = p
 
     for (
-        node_id,
-        inflow_edge,
-        outflow_edges,
-        active,
-        flow_rate,
-        min_flow_rate,
-        max_flow_rate,
-        continuous_control_type,
-        min_crest_level,
-    ) in zip(
-        outlet.node_id,
-        outlet.inflow_edge,
-        outlet.outflow_edges,
-        outlet.active,
-        get_tmp(outlet.flow_rate, storage),
-        outlet.min_flow_rate,
-        outlet.max_flow_rate,
-        outlet.continuous_control_type,
-        outlet.min_crest_level,
-    )
+            node_id,
+            inflow_edge,
+            outflow_edges,
+            active,
+            flow_rate,
+            min_flow_rate,
+            max_flow_rate,
+            continuous_control_type,
+            min_crest_level,
+        ) in zip(
+            outlet.node_id,
+            outlet.inflow_edge,
+            outlet.outflow_edges,
+            outlet.active,
+            get_tmp(outlet.flow_rate, storage),
+            outlet.min_flow_rate,
+            outlet.max_flow_rate,
+            outlet.continuous_control_type,
+            outlet.min_crest_level,
+        )
         if !active || (continuous_control_type != continuous_control_type_)
             continue
         end
@@ -587,10 +587,10 @@ function formulate_flow!(
 end
 
 function formulate_du!(
-    du::ComponentVector,
-    graph::MetaGraph,
-    storage::AbstractVector,
-)::Nothing
+        du::ComponentVector,
+        graph::MetaGraph,
+        storage::AbstractVector,
+    )::Nothing
     # loop over basins
     # subtract all outgoing flows
     # add all ingoing flows
@@ -609,11 +609,11 @@ function formulate_du!(
 end
 
 function formulate_du_pid_controlled!(
-    du::ComponentVector,
-    graph::MetaGraph,
-    pid_control::PidControl,
-    storage::AbstractVector,
-)::Nothing
+        du::ComponentVector,
+        graph::MetaGraph,
+        pid_control::PidControl,
+        storage::AbstractVector,
+    )::Nothing
     for id in pid_control.controlled_basins
         du[id.idx] = zero(eltype(du))
         for id_in in inflow_ids(graph, id)
@@ -627,11 +627,11 @@ function formulate_du_pid_controlled!(
 end
 
 function formulate_flows!(
-    p::Parameters,
-    storage::AbstractVector,
-    t::Number;
-    continuous_control_type::ContinuousControlType.T = ContinuousControlType.None,
-)::Nothing
+        p::Parameters,
+        storage::AbstractVector,
+        t::Number;
+        continuous_control_type::ContinuousControlType.T = ContinuousControlType.None,
+    )::Nothing
     (;
         linear_resistance,
         manning_resistance,

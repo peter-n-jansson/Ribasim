@@ -8,14 +8,14 @@ This function currently does not support node states that are defined by more
 than one row in a table, as is the case for TabulatedRatingCurve.
 """
 function parse_static_and_time(
-    db::DB,
-    config::Config,
-    node_type::Type;
-    static::Union{StructVector, Nothing} = nothing,
-    time::Union{StructVector, Nothing} = nothing,
-    defaults::NamedTuple = (; active = true),
-    time_interpolatables::Vector{Symbol} = Symbol[],
-)::Tuple{NamedTuple, Bool}
+        db::DB,
+        config::Config,
+        node_type::Type;
+        static::Union{StructVector, Nothing} = nothing,
+        time::Union{StructVector, Nothing} = nothing,
+        defaults::NamedTuple = (; active = true),
+        time_interpolatables::Vector{Symbol} = Symbol[],
+    )::Tuple{NamedTuple, Bool}
     # E.g. `PumpStatic`
     static_type = eltype(static)
     columnnames_static = collect(fieldnames(static_type))
@@ -158,7 +158,7 @@ function parse_static_and_time(
                         node_id,
                         parameter_name;
                         default_value = hasproperty(defaults, parameter_name) ?
-                                        defaults[parameter_name] : NaN,
+                            defaults[parameter_name] : NaN,
                     )
                     if !is_valid
                         errors = true
@@ -184,11 +184,11 @@ function parse_static_and_time(
 end
 
 function static_and_time_node_ids(
-    db::DB,
-    static::StructVector,
-    time::StructVector,
-    node_type::String,
-)::Tuple{Set{NodeID}, Set{NodeID}, Vector{NodeID}, Bool}
+        db::DB,
+        static::StructVector,
+        time::StructVector,
+        node_type::String,
+    )::Tuple{Set{NodeID}, Set{NodeID}, Vector{NodeID}, Bool}
     ids = get_ids(db, node_type)
     idx = searchsortedfirst.(Ref(ids), static.node_id)
     static_node_ids = Set(NodeID.(Ref(node_type), static.node_id, idx))
@@ -208,13 +208,15 @@ function static_and_time_node_ids(
     return static_node_ids, time_node_ids, node_ids, !errors
 end
 
-const conservative_nodetypes = Set{NodeType.T}([
-    NodeType.Pump,
-    NodeType.Outlet,
-    NodeType.TabulatedRatingCurve,
-    NodeType.LinearResistance,
-    NodeType.ManningResistance,
-])
+const conservative_nodetypes = Set{NodeType.T}(
+    [
+        NodeType.Pump,
+        NodeType.Outlet,
+        NodeType.TabulatedRatingCurve,
+        NodeType.LinearResistance,
+        NodeType.ManningResistance,
+    ],
+)
 
 function initialize_allocation!(p::Parameters, config::Config)::Nothing
     (; graph, allocation) = p
@@ -275,10 +277,10 @@ function LinearResistance(db::DB, config::Config, graph::MetaGraph)::LinearResis
 end
 
 function TabulatedRatingCurve(
-    db::DB,
-    config::Config,
-    graph::MetaGraph,
-)::TabulatedRatingCurve
+        db::DB,
+        config::Config,
+        graph::MetaGraph,
+    )::TabulatedRatingCurve
     static = load_structvector(db, config, TabulatedRatingCurveStaticV1)
     time = load_structvector(db, config, TabulatedRatingCurveTimeV1)
 
@@ -310,7 +312,7 @@ function TabulatedRatingCurve(
             local is_active, interpolation
             # coalesce control_state to nothing to avoid boolean groupby logic on missing
             for group in
-                IterTools.groupby(row -> coalesce(row.control_state, nothing), static_id)
+                    IterTools.groupby(row -> coalesce(row.control_state, nothing), static_id)
                 control_state = first(group).control_state
                 is_active = coalesce(first(group).active, true)
                 table = StructVector(group)
@@ -323,10 +325,12 @@ function TabulatedRatingCurve(
                     LinearInterpolation(Float64[], Float64[])
                 end
                 if !ismissing(control_state)
-                    control_mapping[(
-                        NodeID(NodeType.TabulatedRatingCurve, node_id, node_id.idx),
-                        control_state,
-                    )] = ControlStateUpdate(
+                    control_mapping[
+                        (
+                            NodeID(NodeType.TabulatedRatingCurve, node_id, node_id.idx),
+                            control_state,
+                        ),
+                    ] = ControlStateUpdate(
                         ParameterUpdate(:active, is_active),
                         ParameterUpdate{Float64}[],
                         [ParameterUpdate(:table, interpolation)],
@@ -367,11 +371,11 @@ function TabulatedRatingCurve(
 end
 
 function ManningResistance(
-    db::DB,
-    config::Config,
-    graph::MetaGraph,
-    basin::Basin,
-)::ManningResistance
+        db::DB,
+        config::Config,
+        graph::MetaGraph,
+        basin::Basin,
+    )::ManningResistance
     static = load_structvector(db, config, ManningResistanceStaticV1)
     parsed_parameters, valid = parse_static_and_time(db, config, ManningResistance; static)
 
@@ -440,7 +444,7 @@ function FlowBoundary(db::DB, config::Config, graph::MetaGraph)::FlowBoundary
     for itp in parsed_parameters.flow_rate
         if any(itp.u .< 0.0)
             @error(
-                "Currently negative flow rates are not supported, found some in dynamic flow boundary."
+                "Currently negative flow rates are not supported, found some in dynamic flow boundary.",
             )
             valid = false
         end
@@ -507,10 +511,10 @@ function Outlet(db::DB, config::Config, graph::MetaGraph, chunk_sizes::Vector{In
 
     node_id =
         NodeID.(
-            NodeType.Outlet,
-            parsed_parameters.node_id,
-            eachindex(parsed_parameters.node_id),
-        )
+        NodeType.Outlet,
+        parsed_parameters.node_id,
+        eachindex(parsed_parameters.node_id),
+    )
 
     return Outlet(;
         node_id,
@@ -646,12 +650,12 @@ Get a CompoundVariable object given its definition in the input data.
 References to listened parameters are added later.
 """
 function CompoundVariable(
-    compound_variable_data,
-    node_type::NodeType.T,
-    db::DB;
-    greater_than = Float64[],
-    placeholder_vector = Float64[],
-)::CompoundVariable
+        compound_variable_data,
+        node_type::NodeType.T,
+        db::DB;
+        greater_than = Float64[],
+        placeholder_vector = Float64[],
+    )::CompoundVariable
     subvariables = @NamedTuple{
         listen_node_id::NodeID,
         variable_ref::PreallocationRef{typeof(placeholder_vector)},
@@ -742,7 +746,7 @@ function DiscreteControl(db::DB, config::Config, graph::MetaGraph)::DiscreteCont
     logic_mapping = [Dict{String, String}() for _ in eachindex(node_id)]
 
     for (node_id, truth_state, control_state_) in
-        zip(logic.node_id, logic.truth_state, logic.control_state)
+            zip(logic.node_id, logic.truth_state, logic.control_state)
         logic_mapping[findsorted(ids, node_id)][truth_state] = control_state_
     end
 
@@ -805,11 +809,11 @@ function continuous_control_functions(db, config, ids)
 end
 
 function continuous_control_compound_variables(
-    db::DB,
-    config::Config,
-    ids,
-    graph::MetaGraph,
-)
+        db::DB,
+        config::Config,
+        ids,
+        graph::MetaGraph,
+    )
     # This is a vector that is known to have a DiffCache if automatic differentiation
     # is used. Therefore this vector is used as a placeholder with the correct type
     placeholder_vector = graph[].flow
@@ -860,11 +864,11 @@ function ContinuousControl(db::DB, config::Config, graph::MetaGraph)::Continuous
 end
 
 function PidControl(
-    db::DB,
-    config::Config,
-    graph::MetaGraph,
-    chunk_sizes::Vector{Int},
-)::PidControl
+        db::DB,
+        config::Config,
+        graph::MetaGraph,
+        chunk_sizes::Vector{Int},
+    )::PidControl
     static = load_structvector(db, config, PidControlStaticV1)
     time = load_structvector(db, config, PidControlTimeV1)
 
@@ -920,15 +924,15 @@ function PidControl(
 end
 
 function user_demand_static!(
-    active::Vector{Bool},
-    demand::Matrix{Float64},
-    demand_itp::Vector{Vector{ScalarInterpolation}},
-    return_factor::Vector{Float64},
-    min_level::Vector{Float64},
-    static::StructVector{UserDemandStaticV1},
-    ids::Vector{Int32},
-    priorities::Vector{Int32},
-)::Nothing
+        active::Vector{Bool},
+        demand::Matrix{Float64},
+        demand_itp::Vector{Vector{ScalarInterpolation}},
+        return_factor::Vector{Float64},
+        min_level::Vector{Float64},
+        static::StructVector{UserDemandStaticV1},
+        ids::Vector{Int32},
+        priorities::Vector{Int32},
+    )::Nothing
     for group in IterTools.groupby(row -> row.node_id, static)
         first_row = first(group)
         user_demand_idx = searchsortedfirst(ids, first_row.node_id)
@@ -953,17 +957,17 @@ function user_demand_static!(
 end
 
 function user_demand_time!(
-    active::Vector{Bool},
-    demand::Matrix{Float64},
-    demand_itp::Vector{Vector{ScalarInterpolation}},
-    demand_from_timeseries::Vector{Bool},
-    return_factor::Vector{Float64},
-    min_level::Vector{Float64},
-    time::StructVector{UserDemandTimeV1},
-    ids::Vector{Int32},
-    priorities::Vector{Int32},
-    config::Config,
-)::Bool
+        active::Vector{Bool},
+        demand::Matrix{Float64},
+        demand_itp::Vector{Vector{ScalarInterpolation}},
+        demand_from_timeseries::Vector{Bool},
+        return_factor::Vector{Float64},
+        min_level::Vector{Float64},
+        time::StructVector{UserDemandTimeV1},
+        ids::Vector{Int32},
+        priorities::Vector{Int32},
+        config::Config,
+    )::Bool
     errors = false
     t_end = seconds_since(config.endtime, config.starttime)
 
@@ -1217,7 +1221,7 @@ and t (the latter only if a Rosenbrock algorithm is used).
 function get_chunk_sizes(config::Config, n_states::Int)::Vector{Int}
     chunk_sizes = [pickchunksize(n_states)]
     if Ribasim.config.algorithms[config.solver.algorithm] <:
-       OrdinaryDiffEqRosenbrockAdaptiveAlgorithm
+        OrdinaryDiffEqRosenbrockAdaptiveAlgorithm
         push!(chunk_sizes, 1)
     end
     return chunk_sizes
@@ -1335,10 +1339,10 @@ Load data from Arrow files if available, otherwise the database.
 Returns either an `Arrow.Table`, `SQLite.Query` or `nothing` if the data is not present.
 """
 function load_data(
-    db::DB,
-    config::Config,
-    record::Type{<:Legolas.AbstractRecord},
-)::Union{Table, Query, Nothing}
+        db::DB,
+        config::Config,
+        record::Type{<:Legolas.AbstractRecord},
+    )::Union{Table, Query, Nothing}
     # TODO load_data doesn't need both config and db, use config to check which one is needed
 
     schema = Legolas._schema_version_from_record_type(record)
@@ -1372,10 +1376,10 @@ Always returns a StructVector of the given struct type T, which is empty if the 
 not found. This function validates the schema, and enforces the required sort order.
 """
 function load_structvector(
-    db::DB,
-    config::Config,
-    ::Type{T},
-)::StructVector{T} where {T <: AbstractRow}
+        db::DB,
+        config::Config,
+        ::Type{T},
+    )::StructVector{T} where {T <: AbstractRow}
     table = load_data(db, config, T)
 
     if table === nothing
@@ -1392,7 +1396,7 @@ function load_structvector(
                 time = DateTime.(
                     replace.(nt.time, r"(\.\d{3})\d+$" => s"\1"),  # remove sub ms precision
                     dateformat"yyyy-mm-dd HH:MM:SS.s",
-                )
+                ),
             ),
         )
     end
@@ -1411,9 +1415,9 @@ end
 
 "Read the Basin / profile table and return all area and level and computed storage values"
 function create_storage_tables(
-    db::DB,
-    config::Config,
-)::Tuple{Vector{Vector{Float64}}, Vector{Vector{Float64}}}
+        db::DB,
+        config::Config,
+    )::Tuple{Vector{Vector{Float64}}, Vector{Vector{Float64}}}
     profiles = load_structvector(db, config, BasinProfileV1)
     area = Vector{Vector{Float64}}()
     level = Vector{Vector{Float64}}()

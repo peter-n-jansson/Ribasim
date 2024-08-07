@@ -81,13 +81,13 @@ end
 
 "Linear interpolation of a scalar with constant extrapolation."
 function get_scalar_interpolation(
-    starttime::DateTime,
-    t_end::Float64,
-    time::AbstractVector,
-    node_id::NodeID,
-    param::Symbol;
-    default_value::Float64 = 0.0,
-)::Tuple{ScalarInterpolation, Bool}
+        starttime::DateTime,
+        t_end::Float64,
+        time::AbstractVector,
+        node_id::NodeID,
+        param::Symbol;
+        default_value::Float64 = 0.0,
+    )::Tuple{ScalarInterpolation, Bool}
     nodetype = node_id.type
     rows = searchsorted(NodeID.(nodetype, time.node_id, Ref(0)), node_id)
     parameter = getfield.(time, param)[rows]
@@ -160,10 +160,10 @@ Load data from a source table `static` into a destination `table`.
 Data is matched based on the node_id, which is sorted.
 """
 function set_static_value!(
-    table::NamedTuple,
-    node_id::Vector{Int32},
-    static::StructVector,
-)::NamedTuple
+        table::NamedTuple,
+        node_id::Vector{Int32},
+        static::StructVector,
+    )::NamedTuple
     for (i, id) in enumerate(node_id)
         idx = findsorted(static.node_id, id)
         idx === nothing && continue
@@ -179,11 +179,11 @@ From a timeseries table `time`, load the most recent applicable data into `table
 The most recent applicable data is non-NaN data for a given ID that is on or before `t`.
 """
 function set_current_value!(
-    table::NamedTuple,
-    node_id::Vector{Int32},
-    time::StructVector,
-    t::DateTime,
-)::NamedTuple
+        table::NamedTuple,
+        node_id::Vector{Int32},
+        time::StructVector,
+        t::DateTime,
+    )::NamedTuple
     idx_starttime = searchsortedlast(time.time, t)
     pre_table = view(time, 1:idx_starttime)
 
@@ -221,11 +221,11 @@ The ID can belong to either a Basin or a LevelBoundary.
 storage: tells ForwardDiff whether this call is for differentiation or not
 """
 function get_level(
-    p::Parameters,
-    node_id::NodeID,
-    t::Number;
-    storage::Union{AbstractArray, Number} = 0,
-)::Tuple{Bool, Number}
+        p::Parameters,
+        node_id::NodeID,
+        t::Number;
+        storage::Union{AbstractArray, Number} = 0,
+    )::Tuple{Bool, Number}
     (; basin, level_boundary) = p
     if node_id.type == NodeType.Basin
         # The edge metadata is only used to obtain the Basin index
@@ -256,9 +256,9 @@ Replace the truth states in the logic mapping which contain wildcards with
 all possible explicit truth states.
 """
 function expand_logic_mapping(
-    logic_mapping::Vector{Dict{String, String}},
-    node_ids::Vector{NodeID},
-)::Vector{Dict{Vector{Bool}, String}}
+        logic_mapping::Vector{Dict{String, String}},
+        node_ids::Vector{NodeID},
+    )::Vector{Dict{Vector{Bool}, String}}
     logic_mapping_expanded = [Dict{Vector{Bool}, String}() for _ in eachindex(node_ids)]
     pattern = r"^[TF\*]+$"
 
@@ -360,10 +360,10 @@ end
 
 "If id is a Basin with storage below the threshold, return a reduction factor != 1"
 function low_storage_factor(
-    storage::AbstractVector{T},
-    id::NodeID,
-    threshold::Real,
-)::T where {T <: Real}
+        storage::AbstractVector{T},
+        id::NodeID,
+        threshold::Real,
+    )::T where {T <: Real}
     if id.type == NodeType.Basin
         reduction_factor(storage[id.idx], threshold)
     else
@@ -404,13 +404,13 @@ function get_all_priorities(db::DB, config::Config)::Vector{Int32}
 
     # TODO: Is there a way to automatically grab all tables with a priority column?
     for type in [
-        UserDemandStaticV1,
-        UserDemandTimeV1,
-        LevelDemandStaticV1,
-        LevelDemandTimeV1,
-        FlowDemandStaticV1,
-        FlowDemandTimeV1,
-    ]
+            UserDemandStaticV1,
+            UserDemandTimeV1,
+            LevelDemandStaticV1,
+            LevelDemandTimeV1,
+            FlowDemandStaticV1,
+            FlowDemandTimeV1,
+        ]
         union!(priorities, load_structvector(db, config, type).priority)
     end
     return sort(collect(priorities))
@@ -458,10 +458,10 @@ function set_continuous_control_type!(p::Parameters)::Nothing
 end
 
 function set_continuous_control_type!(
-    p::Parameters,
-    node_id::Vector{NodeID},
-    continuous_control_type::ContinuousControlType.T,
-)::Bool
+        p::Parameters,
+        node_id::Vector{NodeID},
+        continuous_control_type::ContinuousControlType.T,
+    )::Bool
     (; graph, pump, outlet) = p
     errors = false
 
@@ -480,10 +480,10 @@ function set_continuous_control_type!(
 end
 
 function has_external_demand(
-    graph::MetaGraph,
-    node_id::NodeID,
-    node_type::Symbol,
-)::Tuple{Bool, Union{NodeID, Nothing}}
+        graph::MetaGraph,
+        node_id::NodeID,
+        node_type::Symbol,
+    )::Tuple{Bool, Union{NodeID, Nothing}}
     control_inneighbors = inneighbor_labels_type(graph, node_id, EdgeType.control)
     for id in control_inneighbors
         if graph[id].type == node_type
@@ -494,9 +494,9 @@ function has_external_demand(
 end
 
 function Base.get(
-    constraints::JuMP.Containers.DenseAxisArray,
-    node_id::NodeID,
-)::Union{JuMP.ConstraintRef, Nothing}
+        constraints::JuMP.Containers.DenseAxisArray,
+        node_id::NodeID,
+    )::Union{JuMP.ConstraintRef, Nothing}
     if node_id in only(constraints.axes)
         constraints[node_id]
     else
@@ -539,7 +539,7 @@ function get_influx(basin::Basin, basin_idx::Int; prev::Bool = false)::Float64
     flux_vector = prev ? vertical_flux_prev : vertical_flux
     (; precipitation, evaporation, drainage, infiltration) = flux_vector
     return precipitation[basin_idx] - evaporation[basin_idx] + drainage[basin_idx] -
-           infiltration[basin_idx]
+        infiltration[basin_idx]
 end
 
 inflow_edge(graph, node_id)::EdgeMetadata = graph[inflow_id(graph, node_id), node_id]
@@ -607,11 +607,11 @@ end
 Get the reference to a parameter
 """
 function get_variable_ref(
-    p::Parameters{T},
-    node_id::NodeID,
-    variable::String;
-    listen::Bool = true,
-)::Tuple{PreallocationRef{T}, Bool} where {T}
+        p::Parameters{T},
+        node_id::NodeID,
+        variable::String;
+        listen::Bool = true,
+    )::Tuple{PreallocationRef{T}, Bool} where {T}
     (; basin, graph) = p
     errors = false
 
@@ -708,9 +708,9 @@ function set_continuously_controlled_variable_refs!(p::Parameters)::Nothing
     (; continuous_control, pid_control, graph) = p
     errors = false
     for (node, controlled_variable) in (
-        (continuous_control, continuous_control.controlled_variable),
-        (pid_control, fill("flow_rate", length(pid_control.node_id))),
-    )
+            (continuous_control, continuous_control.controlled_variable),
+            (pid_control, fill("flow_rate", length(pid_control.node_id))),
+        )
         for (id, controlled_variable) in zip(node.node_id, controlled_variable)
             controlled_node_id = only(outneighbor_labels_type(graph, id, EdgeType.control))
             ref, error =
@@ -731,14 +731,14 @@ Add a control state to a logic mapping. The references to the targets in memory
 for the parameter values are added later when these references are known
 """
 function add_control_state!(
-    control_mapping,
-    time_interpolatables,
-    parameter_names,
-    parameter_values,
-    node_type,
-    control_state,
-    node_id,
-)::Nothing
+        control_mapping,
+        time_interpolatables,
+        parameter_names,
+        parameter_values,
+        node_type,
+        control_state,
+        node_id,
+    )::Nothing
     control_state_key = coalesce(control_state, "")
 
     # Control state is only added if a control state update can be defined
@@ -756,7 +756,7 @@ function add_control_state!(
     control_state_update = ControlStateUpdate(; active)
     for (parameter_name, parameter_value) in zip(parameter_names, parameter_values)
         if parameter_name in controllablefields(Symbol(node_type)) &&
-           parameter_name !== :active
+                parameter_name !== :active
             add_control_state = true
             parameter_update = ParameterUpdate(parameter_name, parameter_value)
 

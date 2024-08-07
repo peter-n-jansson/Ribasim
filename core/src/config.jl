@@ -34,9 +34,9 @@ export algorithm,
 
 const schemas =
     getfield.(
-        Ref(Ribasim),
-        filter!(x -> endswith(string(x), "SchemaVersion"), names(Ribasim; all = true)),
-    )
+    Ref(Ribasim),
+    filter!(x -> endswith(string(x), "SchemaVersion"), names(Ribasim; all = true)),
+)
 
 # Find all nodetypes and possible nodekinds
 nodekinds = DefaultDict{Symbol, Vector{Symbol}}(() -> Symbol[])  # require lambda to avoid sharing
@@ -98,9 +98,9 @@ const nodetypes = collect(keys(nodekinds))
     dtmin::Float64 = 0.0
     dtmax::Union{Float64, Nothing} = nothing
     force_dtmin::Bool = false
-    abstol::Float64 = 1e-6
-    reltol::Float64 = 1e-5
-    maxiters::Int = 1e9
+    abstol::Float64 = 1.0e-6
+    reltol::Float64 = 1.0e-5
+    maxiters::Int = 1.0e9
     sparse::Bool = true
     autodiff::Bool = true
 end

@@ -5,10 +5,10 @@ are combined to a CallbackSet that goes to the integrator.
 Returns the CallbackSet and the SavedValues for flow.
 """
 function create_callbacks(
-    parameters::Parameters,
-    config::Config,
-    saveat,
-)::Tuple{CallbackSet, SavedResults}
+        parameters::Parameters,
+        config::Config,
+        saveat,
+    )::Tuple{CallbackSet, SavedResults}
     (; starttime, basin, tabulated_rating_curve) = parameters
     callbacks = SciMLBase.DECallback[]
 
@@ -149,9 +149,9 @@ function integrate_flows!(u, t, integrator)::Nothing
                 value +
                 0.5 *
                 (
-                    get_influx(basin, edge[1].idx) +
+                get_influx(basin, edge[1].idx) +
                     get_influx(basin, edge[1].idx; prev = true)
-                ) *
+            ) *
                 dt
         else
             # Horizontal flows
@@ -268,7 +268,7 @@ function apply_discrete_control!(u, t, integrator)::Nothing
             # Update the truth values in the truth states for the current discrete control node
             # corresponding to the conditions on the current variable
             for truth_value_idx in
-                truth_value_variable_idx:(truth_value_variable_idx + n_greater_than - 1)
+                    truth_value_variable_idx:(truth_value_variable_idx + n_greater_than - 1)
                 new_truth_state = (truth_value_idx <= largest_true_index)
                 # If no truth state change was detected yet, check whether there is a change
                 # at this position
@@ -293,10 +293,10 @@ function apply_discrete_control!(u, t, integrator)::Nothing
 end
 
 function set_new_control_state!(
-    integrator,
-    discrete_control_id::NodeID,
-    truth_state::Vector{Bool},
-)::Nothing
+        integrator,
+        discrete_control_id::NodeID,
+        truth_state::Vector{Bool},
+    )::Nothing
     (; p) = integrator
     (; discrete_control) = p
 

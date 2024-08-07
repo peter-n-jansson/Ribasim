@@ -109,13 +109,13 @@
         @test basin.storage[1] ≈ 1.0
         @test basin.level[1] ≈ 0.044711584
         @test basin.storage_rate[1] ≈
-              (basin.storage[2] - basin.storage[1]) / config.solver.saveat
+            (basin.storage[2] - basin.storage[1]) / config.solver.saveat
         @test all(==(0), basin.inflow_rate)
         @test all(>(0), basin.outflow_rate)
         @test flow.flow_rate[1] == basin.outflow_rate[1]
         @test all(==(0), basin.drainage)
         @test all(==(0), basin.infiltration)
-        @test all(q -> abs(q) < 1e-7, basin.balance_error)
+        @test all(q -> abs(q) < 1.0e-7, basin.balance_error)
         @test all(q -> abs(q) < 0.01, basin.relative_error)
 
         # The exporter interpolates 1:1 for three subgrid elements, but shifted by 1.0 meter.
@@ -124,7 +124,7 @@
         @test diff(p.subgrid.level) ≈ [-1.0, 2.0]
         @test subgrid.subgrid_id[1:3] == [11, 22, 33]
         @test subgrid.subgrid_level[1:3] ≈
-              [basin_level, basin_level - 1.0, basin_level + 1.0]
+            [basin_level, basin_level - 1.0, basin_level + 1.0]
         @test subgrid.subgrid_level[(end - 2):end] == p.subgrid.level
     end
 end
@@ -174,7 +174,7 @@ end
     @test infl == [0.001]
     stor ≈ Float32[init_stor + 86400 * (0.003 * 1.5 - 0.001 * 0.5)]
     BMI.update_until(model, 2.5 * 86400)
-    @test prec == [0.00]
+    @test prec == [0.0]
     @test evap == [0.0]
     @test drng == [0.001]
     @test infl == [0.002]
@@ -318,7 +318,7 @@ end
     storage = range(0.0, 1000.0, n_interpolations)
 
     # Covers interpolation for constant and non-constant area, extrapolation for constant area
-    A = [1e-9, 100.0, 100.0]
+    A = [1.0e-9, 100.0, 100.0]
     h = [0.0, 10.0, 15.0]
     S = integral.(Ref(LinearInterpolation(A, h)), h)
     profile = (; S, A, h)
@@ -346,7 +346,7 @@ end
     end
 
     # Covers extrapolation for non-constant area
-    A = [1e-9, 100.0]
+    A = [1.0e-9, 100.0]
     h = [0.0, 10.0]
     S = integral.(Ref(LinearInterpolation(A, h)), h)
 
@@ -388,7 +388,7 @@ end
     level_basin = Ribasim.get_storages_and_levels(model).level[:]
 
     # Basin level converges to stable level boundary level
-    all(isapprox.(level_basin[t .>= t_maximum_level], level.u[3], atol = 5e-2))
+    all(isapprox.(level_basin[t .>= t_maximum_level], level.u[3], atol = 5.0e-2))
 end
 
 @testitem "UserDemand" begin
@@ -485,7 +485,7 @@ end
     # Test for conservation of mass, flow at the beginning == flow at the end
     n_self_loops = length(p.graph[].flow_dict)
     @test Ribasim.get_flow(p.graph, NodeID(:FlowBoundary, 1, p), NodeID(:Basin, 2, p), 0) ≈
-          5.0 atol = 0.001 skip = Sys.isapple()
+        5.0 atol = 0.001 skip = Sys.isapple()
     @test Ribasim.get_flow(
         p.graph,
         NodeID(:ManningResistance, 101, p),
@@ -506,9 +506,9 @@ end
         df = DataFrame(Ribasim.flow_table(model))
         flow =
             filter(
-                [:from_node_id, :to_node_id] => (from, to) -> from == 3 && to == 2,
-                df,
-            ).flow_rate
+            [:from_node_id, :to_node_id] => (from, to) -> from == 3 && to == 2,
+            df,
+        ).flow_rate
         flow, Ribasim.tsaves(model)
     end
 

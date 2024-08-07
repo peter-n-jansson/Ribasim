@@ -90,7 +90,7 @@ end
     @test length(logger.logs) == 1
     @test logger.logs[1].level == Error
     @test logger.logs[1].message ==
-          "The initial level (-1.0) of Basin #1 is below the bottom (0.0)."
+        "The initial level (-1.0) of Basin #1 is below the bottom (0.0)."
 
     # Converting from storages to levels and back should return the same storages
     storages = range(0.0, 2 * storage_to_level.t[end], 50)
@@ -273,23 +273,25 @@ end
 @testitem "Node types" begin
     using Ribasim: nodetypes, NodeType, Parameters, AbstractParameterNode, snake_case
 
-    @test Set(nodetypes) == Set([
-        :Basin,
-        :ContinuousControl,
-        :DiscreteControl,
-        :FlowBoundary,
-        :FlowDemand,
-        :LevelBoundary,
-        :LevelDemand,
-        :LinearResistance,
-        :ManningResistance,
-        :Outlet,
-        :PidControl,
-        :Pump,
-        :TabulatedRatingCurve,
-        :Terminal,
-        :UserDemand,
-    ])
+    @test Set(nodetypes) == Set(
+        [
+            :Basin,
+            :ContinuousControl,
+            :DiscreteControl,
+            :FlowBoundary,
+            :FlowDemand,
+            :LevelBoundary,
+            :LevelDemand,
+            :LinearResistance,
+            :ManningResistance,
+            :Outlet,
+            :PidControl,
+            :Pump,
+            :TabulatedRatingCurve,
+            :Terminal,
+            :UserDemand,
+        ],
+    )
     for nodetype in nodetypes
         NodeType.T(nodetype)
         if nodetype != :Terminal
