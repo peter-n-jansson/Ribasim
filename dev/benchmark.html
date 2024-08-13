@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Release process – Ribasim</title>
+<title>Benchmark – Ribasim</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,7 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../dev/ci.html" rel="prev">
+<link href="../dev/addnode.html" rel="next">
+<link href="../dev/core.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -168,7 +135,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../dev/release.html">Release process</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../dev/benchmark.html">Benchmark</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -194,7 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../dev/benchmark.html" class="sidebar-item-text sidebar-link">
+  <a href="../dev/benchmark.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Benchmark</span></a>
   </div>
 </li>
@@ -236,7 +203,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../dev/release.html" class="sidebar-item-text sidebar-link active">
+  <a href="../dev/release.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Release process</span></a>
   </div>
 </li>
@@ -250,18 +217,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-is-a-release" id="toc-what-is-a-release" class="nav-link active" data-scroll-target="#what-is-a-release"><span class="header-section-number">1</span> What is a release</a></li>
-  <li><a href="#release-steps" id="toc-release-steps" class="nav-link" data-scroll-target="#release-steps"><span class="header-section-number">2</span> Release steps</a>
+  <li><a href="#benchmarking-of-the-test-models" id="toc-benchmarking-of-the-test-models" class="nav-link active" data-scroll-target="#benchmarking-of-the-test-models"><span class="header-section-number">1</span> Benchmarking of the test models</a>
   <ul class="collapse">
-  <li><a href="#pre-release-checks" id="toc-pre-release-checks" class="nav-link" data-scroll-target="#pre-release-checks"><span class="header-section-number">2.1</span> Pre-release checks</a></li>
-  <li><a href="#update-version-numbers-of-the-components" id="toc-update-version-numbers-of-the-components" class="nav-link" data-scroll-target="#update-version-numbers-of-the-components"><span class="header-section-number">2.2</span> Update version numbers of the components</a></li>
-  <li><a href="#update-the-changelog" id="toc-update-the-changelog" class="nav-link" data-scroll-target="#update-the-changelog"><span class="header-section-number">2.3</span> Update the changelog</a></li>
-  <li><a href="#submit-a-pull-request" id="toc-submit-a-pull-request" class="nav-link" data-scroll-target="#submit-a-pull-request"><span class="header-section-number">2.4</span> Submit a pull request</a></li>
-  <li><a href="#create-a-new-release" id="toc-create-a-new-release" class="nav-link" data-scroll-target="#create-a-new-release"><span class="header-section-number">2.5</span> Create a new release</a></li>
-  <li><a href="#release-the-ribasim-python-packages-to-pypi" id="toc-release-the-ribasim-python-packages-to-pypi" class="nav-link" data-scroll-target="#release-the-ribasim-python-packages-to-pypi"><span class="header-section-number">2.6</span> Release the Ribasim Python packages to PyPI</a></li>
-  <li><a href="#do-manual-checks" id="toc-do-manual-checks" class="nav-link" data-scroll-target="#do-manual-checks"><span class="header-section-number">2.7</span> Do manual checks</a></li>
-  <li><a href="#announce-release" id="toc-announce-release" class="nav-link" data-scroll-target="#announce-release"><span class="header-section-number">2.8</span> Announce release</a></li>
+  <li><a href="#benchmark-the-ode-solvers" id="toc-benchmark-the-ode-solvers" class="nav-link" data-scroll-target="#benchmark-the-ode-solvers"><span class="header-section-number">1.1</span> Benchmark the ODE solvers</a></li>
   </ul></li>
+  <li><a href="#benchmarking-of-the-production-model" id="toc-benchmarking-of-the-production-model" class="nav-link" data-scroll-target="#benchmarking-of-the-production-model"><span class="header-section-number">2</span> Benchmarking of the production model</a></li>
   </ul>
 </nav>
     </div>
@@ -270,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Release process</h1>
+<h1 class="title">Benchmark</h1>
 </div>
 
 
@@ -287,73 +247,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="what-is-a-release" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> What is a release</h1>
-<p>The <a href="https://github.com/Deltares/Ribasim">Ribasim repository</a> contains several components, e.g., the Julia core, the Python tooling and QGIS plugin. The components are currently only guaranteed to work together if they have the same version number. Therefore we release Ribasim as a collection of all the components at once, all carrying the same version number. For maximum interoperability it is suggested to only release all components together, and not individually.</p>
+<p>This document describes how the benchmarking and performance testing of Ribasim is handled. In Ribasim, the benchmarking includes and regression tests on the test models and regressive performance tests on the production models.</p>
+<p>The idea of regression tests on the test models is to run models with various solvers, run models with a sparse Jacobian and a dense one and compare the outputs. It will possibly involve production models in the future. And runtime performance test is lined up for the next step (in <a href="https://github.com/Deltares/Ribasim/issues/1698">issue #1698</a>).</p>
+<p>The idea of regressive performance tests on the production models is to test the performance of running the production models. It will report if the new changes in the code decrease the model’s performance or result in failed runs.</p>
+<section id="benchmarking-of-the-test-models" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Benchmarking of the test models</h1>
+<section id="benchmark-the-ode-solvers" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="benchmark-the-ode-solvers"><span class="header-section-number">1.1</span> Benchmark the ODE solvers</h2>
+<p>The benchmarking of the ODE solvers is done by running the test models with different ODE solvers and solver settings and comparing the output with the benchmark.</p>
+<p>The settings include toggling the <code>sparse</code> and <code>autodiff</code> solver settings. Currently, 4 models are chosen to undergo the regression tests. They are <code>trivial</code>, <code>basic</code>, <code>pid_control</code> and <code>subnetwork_with_sources</code>.</p>
+<p>The benchmark reference are the output files of a run of the test models with default solver settings. The output files <code>basin.arrow</code> and <code>flow.arrow</code> are used for comparison. Different margins are set for the comparison of the outputs, and the benchmark is considered passed if the output is within the margin. Since we are still in the process of evaluating the performance of different solvers, the margin is subject to change.</p>
+<p>The regression tests are run on a weekly basis.</p>
 </section>
-<section id="release-steps" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Release steps</h1>
-<p>This section provides a guide for developers to follow when preparing a new release.</p>
-<section id="pre-release-checks" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="pre-release-checks"><span class="header-section-number">2.1</span> Pre-release checks</h2>
-<p>Before starting the release process, ensure that all tests are passing and that all features intended for the release are complete and merged into the main branch.</p>
 </section>
-<section id="update-version-numbers-of-the-components" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="update-version-numbers-of-the-components"><span class="header-section-number">2.2</span> Update version numbers of the components</h2>
-<p>Determine the new version number like <code>2023.1.0</code>, filling in the current year, a bumped <code>MINOR</code> number for normal releases and a bumped <code>MICRO</code> number for non-breaking, hotfix releases. This follows <code>YYYY.MINOR.MICRO</code> from <a href="https://calver.org/">calver</a>.</p>
-<p>Create a branch that starts with <code>release</code>, like <code>release-2023-1.0</code>. It needs to start with <code>release</code> to trigger extra TeamCity checks.</p>
-<p>Update the version numbers in the repository to the new version number. See also the <a href="https://github.com/Deltares/Ribasim/releases/latest">latest Ribasim release</a>. Use find and replace to update all locations. Only update the lines in <code>pixi.lock</code> that refer to Ribasim packages, to avoid accidentally changing the version number of dependencies that happen to have the same version number. Don’t change the old version numbers in <code>changelog.qmd</code>.</p>
-</section>
-<section id="update-the-changelog" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="update-the-changelog"><span class="header-section-number">2.3</span> Update the changelog</h2>
-<p>The <code>docs/changelog.qmd</code> file, hosted on https://deltares.github.io/Ribasim/changelog, records the most important changes for users. Review the commits since the <a href="https://github.com/Deltares/Ribasim/releases/latest">latest Ribasim release</a> to make sure these are listed. Change the “Unreleased” section to the new version number and date, and create a new empty “Unreleased” section at the top.</p>
-</section>
-<section id="submit-a-pull-request" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="submit-a-pull-request"><span class="header-section-number">2.4</span> Submit a pull request</h2>
-<p>Now submit a pull request with the updated the version numbers and changelog.</p>
-</section>
-<section id="create-a-new-release" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="create-a-new-release"><span class="header-section-number">2.5</span> Create a new release</h2>
-<p>When the pull request is merged to main, checkout the commit that updates the version numbers.</p>
-<p>Create a new tag, which is the letter <code>v</code> followed by the version number, like, <code>v2023.8.0</code>.</p>
-<p>This can be done by executing:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag <span class="op">&lt;</span>tagname<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Then push the tags:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push <span class="at">--tags</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will trigger a workflow on TeamCity that will publish a new release on GitHub as soon as it is finished. You can follow the progress <a href="https://dpcbuild.deltares.nl/buildConfiguration/Ribasim_Ribasim_MakeGitHubRelease?mode=builds">here</a>. It also auto-generates a changelog. You need to edit that by moving the auto-generated contents, except the “Full Changelog” link, in a collapsed details block as shown below.</p>
-<pre><code>&lt;details&gt;
-&lt;summary&gt;
-All changes
-&lt;/summary&gt;
-
-# Put GitHub flavored markdown here
-
-&lt;/details&gt;
-</code></pre>
-<p>Now copy the manually edited changelog entry from changelog.qmd above the details, such that the edited changelog can be seen both from our documentation as well as GitHub releases.</p>
-</section>
-<section id="release-the-ribasim-python-packages-to-pypi" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="release-the-ribasim-python-packages-to-pypi"><span class="header-section-number">2.6</span> Release the Ribasim Python packages to PyPI</h2>
-<p>To be able to install packages with <code>pip</code>, they need to be released on the Python Package Index (PyPI). In order to publish Ribasim Python or Ribasim API follow the following steps:</p>
-<ol type="1">
-<li><p>Open a terminal and run <code>pixi run publish-ribasim-python</code></p></li>
-<li><p>Open a terminal and run <code>pixi run publish-ribasim-api</code></p></li>
-</ol>
-</section>
-<section id="do-manual-checks" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="do-manual-checks"><span class="header-section-number">2.7</span> Do manual checks</h2>
-<p>Our continuous integration (CI) should have caught most issues. A current weak spot in our testing is the QGIS plugin, so it is a good idea to do some manual checks to see if it works properly. Start with running the automated task to see if it can be correctly installed.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This test might give a fatal error on the first run, this is most likely a timing issue.</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Try to run it again when that happens.</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run test-ribasim-qgis-ui</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>It is a good idea to load new test models if there are any, or test any other changed functionality.</p>
-</section>
-<section id="announce-release" class="level2" data-number="2.8">
-<h2 data-number="2.8" class="anchored" data-anchor-id="announce-release"><span class="header-section-number">2.8</span> Announce release</h2>
-<p>Announce the release in appropriate channels. Include a link to the release notes and assets, which is whatever <a href="https://github.com/Deltares/Ribasim/releases/latest">this</a> resolves to at that time. Also include a link to the <a href="https://deltares.github.io/Ribasim/">documentation</a>.</p>
+<section id="benchmarking-of-the-production-model" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Benchmarking of the production model</h1>
+<p>Regressive performance tests on the production models are done by running the production models with the new changes of the code and comparing the runtime performance with the reference run. The references are the output files of a run of the production models with the default solver settings. The output file <code>basin_state.arrow</code> which records the end states of the basin is used for comparison. Since the development of the model is still ongoing, the benchmark is subject to change.</p>
+<p>The regressive performance tests are currently run on a weekly basis.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -779,11 +691,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../dev/ci.html" class="pagination-link" aria-label="Continuous integration">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Continuous integration</span>
+      <a href="../dev/core.html" class="pagination-link" aria-label="Julia core development">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Julia core development</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../dev/addnode.html" class="pagination-link" aria-label="Adding node types">
+        <span class="nav-page-text">Adding node types</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
