@@ -383,7 +383,7 @@ window.Quarto = {
 <div id="cell-13" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="dv">10</span> <span class="op">/</span> <span class="dv">86400</span>  <span class="co"># 10 m³/day</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tabulated_rating_curve4 <span class="op">=</span> model.tabulated_rating_curve.add(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">8</span>, Point(<span class="fl">4.0</span>, <span class="fl">0.0</span>)),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">8</span>, Point(<span class="fl">3.0</span>, <span class="op">-</span><span class="fl">1.0</span>)),</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    [</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        tabulated_rating_curve.Static(</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            level<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1.0</span>],</span>
@@ -401,7 +401,7 @@ window.Quarto = {
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>tabulated_rating_curve8 <span class="op">=</span> model.tabulated_rating_curve.add(</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">4</span>, Point(<span class="fl">3.0</span>, <span class="op">-</span><span class="fl">1.0</span>)),</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">4</span>, Point(<span class="fl">4.0</span>, <span class="fl">0.0</span>)),</span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    [</span>
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        tabulated_rating_curve.Static(</span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>            level<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1.0</span>],</span>
