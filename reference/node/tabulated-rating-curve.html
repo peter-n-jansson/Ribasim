@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -195,9 +229,6 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">reference/allocation.qmd</span>
-  </li>
-        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../reference/python/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Python API</span></a>
@@ -322,7 +353,10 @@ window.Quarto = {
   <ul>
   <li><a href="#tables" id="toc-tables" class="nav-link active" data-scroll-target="#tables"><span class="header-section-number">1</span> Tables</a>
   <ul class="collapse">
-  <li><a href="#static" id="toc-static" class="nav-link" data-scroll-target="#static"><span class="header-section-number">1.1</span> Static</a></li>
+  <li><a href="#static" id="toc-static" class="nav-link" data-scroll-target="#static"><span class="header-section-number">1.1</span> Static</a>
+  <ul class="collapse">
+  <li><a href="#interpolation" id="toc-interpolation" class="nav-link" data-scroll-target="#interpolation"><span class="header-section-number">1.1.1</span> Interpolation</a></li>
+  </ul></li>
   <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="header-section-number">1.2</span> Time</a></li>
   </ul></li>
   <li><a href="#equations" id="toc-equations" class="nav-link" data-scroll-target="#equations"><span class="header-section-number">2</span> Equations</a></li>
@@ -437,6 +471,110 @@ window.Quarto = {
 </tbody>
 </table>
 <p>Below the lowest given level of -0.10, the flow rate is kept at 0. Between given levels the flow rate is interpolated linearly. Above the maximum given level of 20.09, the flow rate keeps increases linearly according to the slope of the last segment.</p>
+<section id="interpolation" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="interpolation"><span class="header-section-number">1.1.1</span> Interpolation</h3>
+<p>The <span class="math inline">\(Q(h)\)</span> relationship of a tabulated rating curve is defined as a linear interpolation.</p>
+<div id="51ef148d" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">0</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>fontsize <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>level <span class="op">=</span> np.cumsum(np.random.rand(N))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>flow <span class="op">=</span> level<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> np.random.rand(N)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>flow[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>ax.set_xticks([])</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>ax.set_yticks([<span class="dv">0</span>])</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>ax.scatter(level, flow, label <span class="op">=</span> <span class="st">"data"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>ax.plot(level, flow, label <span class="op">=</span> <span class="st">"interpolation"</span>, color <span class="op">=</span> <span class="st">"C0"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>ax.plot([level[<span class="dv">0</span>] <span class="op">-</span> <span class="dv">1</span>, level[<span class="dv">0</span>]], [<span class="dv">0</span>, <span class="dv">0</span>], label <span class="op">=</span> <span class="st">"extrapolation"</span>, linestyle <span class="op">=</span> <span class="st">"dashed"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"level"</span>, fontsize <span class="op">=</span> fontsize)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"flow"</span>, fontsize <span class="op">=</span> fontsize)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>level_extrap <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> level[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> level[<span class="op">-</span><span class="dv">2</span>]</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>flow_extrap <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> flow[<span class="op">-</span><span class="dv">1</span>] <span class="op">-</span> flow[<span class="op">-</span><span class="dv">2</span>]</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>ax.plot([level[<span class="op">-</span><span class="dv">1</span>], level_extrap], [flow[<span class="op">-</span><span class="dv">1</span>], flow_extrap], color <span class="op">=</span> <span class="st">"C0"</span>, linestyle <span class="op">=</span> <span class="st">"dashed"</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(level[<span class="dv">0</span>] <span class="op">-</span> <span class="fl">0.5</span>, (level[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> level_extrap)<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>markdown_table <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> {</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"level"</span> : level,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>            <span class="st">"flow"</span> : flow</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    ).to_markdown(index <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>display(Markdown(markdown_table))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display cell-output-markdown">
+<table class="caption-top">
+<thead>
+<tr>
+<th style="text-align: right;">level</th>
+<th style="text-align: right;">flow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0.548814</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: right;">1.264</td>
+<td style="text-align: right;">2.1266</td>
+</tr>
+<tr>
+<td style="text-align: right;">1.86677</td>
+<td style="text-align: right;">4.05286</td>
+</tr>
+<tr>
+<td style="text-align: right;">2.41165</td>
+<td style="text-align: right;">6.74165</td>
+</tr>
+<tr>
+<td style="text-align: right;">2.8353</td>
+<td style="text-align: right;">8.10999</td>
+</tr>
+<tr>
+<td style="text-align: right;">3.4812</td>
+<td style="text-align: right;">12.2059</td>
+</tr>
+<tr>
+<td style="text-align: right;">3.91879</td>
+<td style="text-align: right;">15.3771</td>
+</tr>
+<tr>
+<td style="text-align: right;">4.81056</td>
+<td style="text-align: right;">23.9741</td>
+</tr>
+<tr>
+<td style="text-align: right;">5.77422</td>
+<td style="text-align: right;">34.1198</td>
+</tr>
+<tr>
+<td style="text-align: right;">6.15766</td>
+<td style="text-align: right;">38.7868</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tabulated-rating-curve_files/figure-html/cell-2-output-2.png" width="583" height="414" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here it is validated that the flow starts at <span class="math inline">\(0\)</span> and is non-decreasing. The flow is extrapolated as <span class="math inline">\(0\)</span> backward and linearly forward.</p>
+</section>
 </section>
 <section id="time" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="time"><span class="header-section-number">1.2</span> Time</h2>
