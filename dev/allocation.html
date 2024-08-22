@@ -254,11 +254,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview-of-allocation-implementation" id="toc-overview-of-allocation-implementation" class="nav-link active" data-scroll-target="#overview-of-allocation-implementation"><span class="header-section-number">1</span> Overview of allocation implementation</a>
+  <li><a href="#sec-allocation-overview" id="toc-sec-allocation-overview" class="nav-link active" data-scroll-target="#sec-allocation-overview"><span class="header-section-number">1</span> Overview of allocation implementation</a>
   <ul class="collapse">
-  <li><a href="#the-allocation-struct" id="toc-the-allocation-struct" class="nav-link" data-scroll-target="#the-allocation-struct"><span class="header-section-number">1.1</span> The <code>Allocation</code> struct</a></li>
-  <li><a href="#the-allocationmodel-struct" id="toc-the-allocationmodel-struct" class="nav-link" data-scroll-target="#the-allocationmodel-struct"><span class="header-section-number">1.2</span> The <code>AllocationModel</code> struct</a></li>
-  <li><a href="#jump.jl-problem-interaction" id="toc-jump.jl-problem-interaction" class="nav-link" data-scroll-target="#jump.jl-problem-interaction"><span class="header-section-number">1.3</span> <code>JuMP.jl</code> problem interaction</a></li>
+  <li><a href="#sec-allocation-struct" id="toc-sec-allocation-struct" class="nav-link" data-scroll-target="#sec-allocation-struct"><span class="header-section-number">1.1</span> The <code>Allocation</code> struct</a></li>
+  <li><a href="#sec-allocation-model-struct" id="toc-sec-allocation-model-struct" class="nav-link" data-scroll-target="#sec-allocation-model-struct"><span class="header-section-number">1.2</span> The <code>AllocationModel</code> struct</a></li>
+  <li><a href="#sec-jump-problem" id="toc-sec-jump-problem" class="nav-link" data-scroll-target="#sec-jump-problem"><span class="header-section-number">1.3</span> JuMP problem interaction</a></li>
   </ul></li>
   <li><a href="#initialization" id="toc-initialization" class="nav-link" data-scroll-target="#initialization"><span class="header-section-number">2</span> Initialization</a>
   <ul class="collapse">
@@ -267,10 +267,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#deriving-edge-capacities" id="toc-deriving-edge-capacities" class="nav-link" data-scroll-target="#deriving-edge-capacities"><span class="header-section-number">2.1.1</span> Deriving edge capacities</a></li>
   <li><a href="#handling-the-connection-between-the-main-network-and-subnetworks" id="toc-handling-the-connection-between-the-main-network-and-subnetworks" class="nav-link" data-scroll-target="#handling-the-connection-between-the-main-network-and-subnetworks"><span class="header-section-number">2.1.2</span> Handling the connection between the main network and subnetworks</a></li>
   </ul></li>
-  <li><a href="#the-optimization-problem" id="toc-the-optimization-problem" class="nav-link" data-scroll-target="#the-optimization-problem"><span class="header-section-number">2.2</span> The optimization problem</a>
+  <li><a href="#sec-optimization-problem" id="toc-sec-optimization-problem" class="nav-link" data-scroll-target="#sec-optimization-problem"><span class="header-section-number">2.2</span> The optimization problem</a>
   <ul class="collapse">
   <li><a href="#setting-up-the-optimization-variables" id="toc-setting-up-the-optimization-variables" class="nav-link" data-scroll-target="#setting-up-the-optimization-variables"><span class="header-section-number">2.2.1</span> Setting up the optimization variables</a></li>
-  <li><a href="#setting-up-initial-optimization-constraints" id="toc-setting-up-initial-optimization-constraints" class="nav-link" data-scroll-target="#setting-up-initial-optimization-constraints"><span class="header-section-number">2.2.2</span> Setting up initial optimization constraints</a></li>
+  <li><a href="#sec-initial-constraints" id="toc-sec-initial-constraints" class="nav-link" data-scroll-target="#sec-initial-constraints"><span class="header-section-number">2.2.2</span> Setting up initial optimization constraints</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#optimization" id="toc-optimization" class="nav-link" data-scroll-target="#optimization"><span class="header-section-number">3</span> Optimization</a>
@@ -282,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#looping-over-priorities" id="toc-looping-over-priorities" class="nav-link" data-scroll-target="#looping-over-priorities"><span class="header-section-number">3.2</span> Looping over priorities</a>
   <ul class="collapse">
-  <li><a href="#updating-capacities" id="toc-updating-capacities" class="nav-link" data-scroll-target="#updating-capacities"><span class="header-section-number">3.2.1</span> Updating capacities</a></li>
+  <li><a href="#sec-updating-capacities" id="toc-sec-updating-capacities" class="nav-link" data-scroll-target="#sec-updating-capacities"><span class="header-section-number">3.2.1</span> Updating capacities</a></li>
   </ul></li>
   <li><a href="#output-data" id="toc-output-data" class="nav-link" data-scroll-target="#output-data"><span class="header-section-number">3.3</span> Output data</a></li>
   <li><a href="#communicating-to-the-physical-layer" id="toc-communicating-to-the-physical-layer" class="nav-link" data-scroll-target="#communicating-to-the-physical-layer"><span class="header-section-number">3.4</span> Communicating to the physical layer</a>
@@ -316,7 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="overview-of-allocation-implementation" class="level1" data-number="1">
+<section id="sec-allocation-overview" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Overview of allocation implementation</h1>
 <p>In this document, the allocation workflow is explained. Below is an overview of it.</p>
 <div class="cell" data-layout-align="default">
@@ -341,18 +341,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>If allocation is used in a model, <a href="https://deltares.github.io/Ribasim/dev/allocation.html#the-allocation-struct">Allocation structs</a> are created. The allocation struct stores the data that is needed for the calculations and stores also the results of the calculation. In allocation, optimization is an essential part. <code>JuMP.jl</code> is used to model and solve the optimization problems that are defined by allocation. The <a href="https://deltares.github.io/Ribasim/dev/allocation.html#the-allocation-struct">AllocationModel struct</a> is used for constructing the JuMP model. When an instance of <code>AllocationModel</code> is created, a JuMP optimization model is defined and initialized in the instance. More details on how allocation interacts with <code>JuMP.jl</code> is explained <a href="https://deltares.github.io/Ribasim/dev/allocation.html#jump.jl-problem-interaction">here</a>.</p>
+<p>If allocation is used in a model, <a href="#sec-allocation-struct">Allocation structs</a> are created. The allocation struct stores the data that is needed for the calculations and stores also the results of the calculation. In allocation, optimization is an essential part. <code>JuMP.jl</code> is used to model and solve the optimization problems that are defined by allocation. The <a href="#sec-allocation-model-struct">AllocationModel struct</a> is used for constructing the JuMP model. When an instance of <code>AllocationModel</code> is created, a JuMP optimization model is defined and initialized in the instance. More details on how allocation interacts with <code>JuMP.jl</code> is explained <a href="#sec-jump-problem">here</a>.</p>
 <p>After initialization, as the simulation starts, the allocation problem is solved and updated after every allocation timestep (which is specified in the TOML). With every allocation timestep a new optimization problem is formulated and solved, using the latest available (simulation) model conditions and forcing and demand predictions.</p>
 <p>The update of allocation (<code>update_allocation</code>) is repeating and spread into three parts:</p>
 <ul>
 <li>Updating the mean flows. The mean flow data is only used only for output, not used by any internal functions.</li>
-<li><a href="https://deltares.github.io/Ribasim/concept/allocation.html#the-high-level-algorithm">“Collect demand”</a>. This step initialize and solve the optimization problems that collects the demand from the subnetworks.</li>
-<li><a href="https://deltares.github.io/Ribasim/concept/allocation.html#the-high-level-algorithm">“Allocate”</a>. This step solves the optimization problems that allocates the demand. For the main network this step allocates to the subnetworks and demand nodes that are in the main network. For the subnetwork this step allocates to the demand nodes.</li>
+<li><a href="../concept/allocation.html#sec-high-level-algorithm">“Collect demand”</a>. This step initialize and solve the optimization problems that collects the demand from the subnetworks.</li>
+<li><a href="../concept/allocation.html#sec-high-level-algorithm">“Allocate”</a>. This step solves the optimization problems that allocates the demand. For the main network this step allocates to the subnetworks and demand nodes that are in the main network. For the subnetwork this step allocates to the demand nodes.</li>
 </ul>
 <p>The steps “collect demand” and “allocate” correspond to the function <code>collect_demand</code> and <code>allocate_demand</code> in the code.</p>
 <p>The iteration stops when it reaches the end time step.</p>
-<section id="the-allocation-struct" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="the-allocation-struct"><span class="header-section-number">1.1</span> The <code>Allocation</code> struct</h2>
+<section id="sec-allocation-struct" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="sec-allocation-struct"><span class="header-section-number">1.1</span> The <code>Allocation</code> struct</h2>
 <p>The <code>Allocation</code> struct stores necessary data and calculation results.</p>
 <table class="caption-top">
 <colgroup>
@@ -421,8 +421,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="the-allocationmodel-struct" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="the-allocationmodel-struct"><span class="header-section-number">1.2</span> The <code>AllocationModel</code> struct</h2>
+<section id="sec-allocation-model-struct" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="sec-allocation-model-struct"><span class="header-section-number">1.2</span> The <code>AllocationModel</code> struct</h2>
 <p>The <code>AllocationModel</code> struct has all the data that is needed for the JuMP optimization problem.</p>
 <table class="caption-top">
 <colgroup>
@@ -461,16 +461,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="jump.jl-problem-interaction" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="jump.jl-problem-interaction"><span class="header-section-number">1.3</span> <code>JuMP.jl</code> problem interaction</h2>
+<section id="sec-jump-problem" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="sec-jump-problem"><span class="header-section-number">1.3</span> JuMP problem interaction</h2>
 <p>When working with optimization problems using JuMP, there are three fundamental components that need to be defined:</p>
 <ul>
 <li>Optimization variables: These are the <a href="https://jump.dev/JuMP.jl/stable/api/JuMP/#@constraints">variables</a> that are optimized in the allocation problem formulation. They are defined using the <a href="https://jump.dev/JuMP.jl/stable/api/JuMP/#@variables"><code>@variable</code></a> macro. For example, to specify the flow rates in all the edges in the allocation network as variables:</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>problem[<span class="op">:</span>F] <span class="op">=</span> JuMP.<span class="pp">@variable</span>(problem, F[edge <span class="op">=</span> edges] <span class="op">&gt;=</span> <span class="fl">0.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>More details about setting up variables in allocation can be found in the section <a href="https://deltares.github.io/Ribasim/dev/allocation.html#optimization-problem">below</a>.</p>
+<p>More details about setting up variables in allocation can be found in the section <a href="#sec-optimization-problem">below</a>.</p>
 <ul>
-<li><p>Constraints: These are the constraints that the optimization variables must satisfy. They are defined using the <a href="https://jump.dev/JuMP.jl/stable/api/JuMP/#@constraints"><code>@constraint</code></a> macro. The definition of the edge capacity constraints is shown in section <a href="https://deltares.github.io/Ribasim/dev/allocation.html#setting-the-constraints-and-capacities">below</a>. <code>add_constraints_...</code> functions are used to <a href="https://deltares.github.io/Ribasim/dev/allocation.html#setting-up-initial-optimization-constraints">add constraints</a> to the optimization problem. The <a href="https://deltares.github.io/Ribasim/dev/allocation.html#setting-the-constraints-and-capacities">initial value of the constraints</a> is set in the function <code>set_initial_values_...</code>. During the iteration, the constraints are updated based on the current state of the allocation network. When <a href="https://deltares.github.io/Ribasim/dev/allocation.html#updating-capacities">looping over priorities</a>, the constraints are updated by the function <code>adjust_...</code>.</p></li>
+<li><p>Constraints: These are the constraints that the optimization variables must satisfy. They are defined using the <a href="https://jump.dev/JuMP.jl/stable/api/JuMP/#@constraint"><code>@constraint</code></a> macro. The definition of the edge capacity constraints is shown in section <a href="#sec-constraints-and-capacities">below</a>. <code>add_constraints_...</code> functions are used to <a href="#sec-initial-constraints">add constraints</a> to the optimization problem. The <a href="#sec-constraints-and-capacities">initial value of the constraints</a> is set in the function <code>set_initial_values_...</code>. During the iteration, the constraints are updated based on the current state of the allocation network. When <a href="#updating-capacities">looping over priorities</a>, the constraints are updated by the function <code>adjust_...</code>.</p></li>
 <li><p>Objective function: This is the function that sets the objective of the optimization problem. It is defined using the <a href="https://jump.dev/JuMP.jl/stable/api/JuMP/#@objective"><code>@objective</code></a> macro.</p></li>
 </ul>
 <p>The functions <code>JuMP.normalized_rhs</code> and <code>JuMP.set_normalized_rhs</code> are used to read and write the constant right hand side of constraints.</p>
@@ -498,8 +498,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The function <code>find_subnetwork_connetions</code> finds the edges that connected the main network to a subnetwork. <code>subnetwork_demands</code> and <code>subnetwork_allocateds</code> will be created, which stores demands and allocated values for subnetworks as a whole. <code>main_network_connections</code> is a vector of edges that connect a subnetwork with the main network.</p>
 </section>
 </section>
-<section id="the-optimization-problem" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="the-optimization-problem"><span class="header-section-number">2.2</span> The optimization problem</h2>
+<section id="sec-optimization-problem" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-optimization-problem"><span class="header-section-number">2.2</span> The optimization problem</h2>
 <section id="setting-up-the-optimization-variables" class="level3" data-number="2.2.1">
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="setting-up-the-optimization-variables"><span class="header-section-number">2.2.1</span> Setting up the optimization variables</h3>
 <p>There are three types of variables in the optimization problems:</p>
@@ -524,8 +524,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    JuMP.<span class="pp">@variable</span>(problem, F_basin_out[node_id <span class="op">=</span> node_ids_basin,] <span class="op">&gt;=</span> <span class="fl">0.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The last set of optimization variables is the flow edges in and out of the buffer of nodes with a flow demand. It is defined in a similar way to the second set of variables.</p>
 </section>
-<section id="setting-up-initial-optimization-constraints" class="level3" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="setting-up-initial-optimization-constraints"><span class="header-section-number">2.2.2</span> Setting up initial optimization constraints</h3>
+<section id="sec-initial-constraints" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="sec-initial-constraints"><span class="header-section-number">2.2.2</span> Setting up initial optimization constraints</h3>
 <p>All the variables are greater and equal to 0. This is set when the variables are added to the optimization problem.</p>
 <p>Other constraints are <code>capacity</code>, <code>source_user</code>, <code>source</code>, <code>flow_conservation</code>, <code>fractional_flow</code>, <code>basin_outflow</code>, <code>flow_buffer_outflow</code> and <code>flow_demand_outflow</code>.</p>
 <p>For each set of constraints, a function named <code>add_constrains_[constraints name]</code> is created.</p>
@@ -599,8 +599,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="looping-over-priorities" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="looping-over-priorities"><span class="header-section-number">3.2</span> Looping over priorities</h2>
-<section id="updating-capacities" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="updating-capacities"><span class="header-section-number">3.2.1</span> Updating capacities</h3>
+<section id="sec-updating-capacities" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="sec-updating-capacities"><span class="header-section-number">3.2.1</span> Updating capacities</h3>
 <p>While optimizing a given priority, the function <code>set_capacities_flow_demand_outflow</code> updates the constraints <code>flow_demand_outflow</code>. If the current priority is the same as the priority of the flow demand, constraints will be infinite, otherwise 0. At priorities where there is no flow demand, flow can go freely trough the node. When there is flow demand, flow is directed into the buffer. This is to make sure that flow can go to the node with the flow demand, even though the flow might have nowhere to go after that node.</p>
 <p>The optimization objective function is updated based on the new demands and the given priority.</p>
 <p>If a solution is found by the solver, the allocation result will be updated. And it will be <a href="../dev/allocation.html#output-data">saved</a>, so the <a href="../dev/allocation.html#communicating-to-the-physical-layer">physical layer</a> can make use of it.</p>
@@ -628,7 +628,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The function <code>assign_allocations</code> updates the subnetwork demand if the optimization task is <code>collect_demands</code>. It assigns the allocated amount to the <code>UserDemand</code> nodes with the result of the optimization if the optimization task is <code>allocate</code>. Afterwards, it writes the resulting flow to the <code>Allocation</code> object.</p>
 <section id="userdemand-abstraction" class="level3" data-number="3.4.1">
 <h3 data-number="3.4.1" class="anchored" data-anchor-id="userdemand-abstraction"><span class="header-section-number">3.4.1</span> <code>UserDemand</code> abstraction</h3>
-<p>When allocation is active, the amount each <code>UserDemand</code> node is allowed to extract from its upstream basin is determined by the allocation algorithm. See <a href="https://deltares.github.io/Ribasim/reference/node/user-demand.html">here</a> for more details on how allocation updates the <code>UserDemand</code> node.</p>
+<p>When allocation is active, the amount each <code>UserDemand</code> node is allowed to extract from its upstream basin is determined by the allocation algorithm. See <a href="../reference/node/user-demand.html">here</a> for more details on how allocation updates the <code>UserDemand</code> node.</p>
 </section>
 <section id="controlling-pumpsweirs-based-on-allocation-results" class="level3" data-number="3.4.2">
 <h3 data-number="3.4.2" class="anchored" data-anchor-id="controlling-pumpsweirs-based-on-allocation-results"><span class="header-section-number">3.4.2</span> Controlling pumps/weirs based on allocation results</h3>

@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -267,7 +287,7 @@ ul.task-list li input[type="checkbox"] {
 <h1 data-number="2"><span class="header-section-number">2</span> Concept</h1>
 <section id="sec-physical" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="sec-physical"><span class="header-section-number">2.1</span> Physical layer</h2>
-<p>To represent the physical characteristics of the water system in an area, Ribasim allows you to divide the area into a network of connected representative elementary watersheds (<a href="https://deltares.github.io/Ribasim/#ref-REGGIANI1998367">Reggiani, Sivapalan, and Majid Hassanizadeh 1998</a>). Within Ribasim, these elements are called basins, which are essentially buckets or reservoirs holding an aggregated volume of water bodies in an area. Basins are chained in a graph with connector nodes determining the exchange of water between the basins. These connector nodes can represent open water connections (e.g.&nbsp;bifurcations or resistance in a free flowing open water channel) or infrastructure elements such as pumps, gates or weirs. An overview of node types and associated data inputs is provided on the <a href="../reference/usage.html">usage page</a>, while the associated mathematical formations are described on the <a href="../concept/equations.html">equations page</a>.</p>
+<p>To represent the physical characteristics of the water system in an area, Ribasim allows you to divide the area into a network of connected representative elementary watersheds <span class="citation" data-cites="REGGIANI1998367">(<a href="#ref-REGGIANI1998367" role="doc-biblioref">Reggiani, Sivapalan, and Majid Hassanizadeh 1998</a>)</span>. Within Ribasim, these elements are called basins, which are essentially buckets or reservoirs holding an aggregated volume of water bodies in an area. Basins are chained in a graph with connector nodes determining the exchange of water between the basins. These connector nodes can represent open water connections (e.g.&nbsp;bifurcations or resistance in a free flowing open water channel) or infrastructure elements such as pumps, gates or weirs. An overview of node types and associated data inputs is provided on the <a href="../reference/usage.html">usage page</a>, while the associated mathematical formations are described on the <a href="../concept/equations.html">equations page</a>.</p>
 </section>
 <section id="sec-control" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="sec-control"><span class="header-section-number">2.2</span> Control layer</h2>
@@ -323,10 +343,15 @@ classDef layer fill:transparent,stroke-dasharray:5 5
 </div>
 
 
+
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-REGGIANI1998367" class="csl-entry" role="listitem">
+Reggiani, Paolo, Murugesu Sivapalan, and S. Majid Hassanizadeh. 1998. <span>“A Unifying Framework for Watershed Thermodynamics: Balance Equations for Mass, Momentum, Energy and Entropy, and the Second Law of Thermodynamics.”</span> <em>Advances in Water Resources</em> 22 (4): 367–98. https://doi.org/<a href="https://doi.org/10.1016/S0309-1708(98)00012-8">https://doi.org/10.1016/S0309-1708(98)00012-8</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
