@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -485,11 +519,52 @@ h_a = h_b + Q^2 \frac{n^2}{A^2 R_h^{4/3}} L
 Q = \textrm{sign}(\Delta h) \frac{A}{n} R_h^{2/3}\sqrt{\frac{|\Delta h|}{L} }
 \]</span></p>
 <p>The <span class="math inline">\(\textrm{sign}(\Delta h)\)</span> term causes the direction of the flow to reverse if the head in basin <span class="math inline">\(b\)</span> is larger than in basin <span class="math inline">\(a\)</span>.</p>
-<p>This expression however leads to problems in simulation since the derivative of <span class="math inline">\(Q\)</span> with respect to <span class="math inline">\(\Delta h\)</span> tends to <span class="math inline">\(\pm \infty\)</span> as <span class="math inline">\(\Delta h\)</span> tends to 0. Therefore we use the slightly modified expression</p>
+<p>This expression however has a derivative which tends to <span class="math inline">\(\infty\)</span> as <span class="math inline">\(\Delta h\)</span> tends to <span class="math inline">\(0\)</span>, which can lead to instabilities in simulation. Therefore we use the modified expression</p>
 <p><span class="math display">\[
-Q = \textrm{sign}(\Delta h) \frac{A}{n} R_h^{2/3}\sqrt{\frac{\Delta h}{L} s(\Delta h)}
+Q = \frac{A}{n} R_h^{2/3}s\left(\frac{\Delta h}{L}; 10^{-3}\right),
 \]</span></p>
-<p>to smooth out this problem. Here <span class="math inline">\(s(x) = \frac{2}{\pi}\arctan{1000x}\)</span> can be thought of as a smooth approximation of the sign function.</p>
+<p>where <span class="math inline">\(s\)</span> is a relaxed square root function:</p>
+<p><span class="math display">\[
+s(x; x_0)
+\begin{align}
+  \begin{cases}
+    \frac{x}{4\sqrt{x_0}}\left(5-\left(\frac{x}{x_0}\right)^2\right) &amp;\text{ if } |x| &lt; x_0 \\
+    \textrm{sign}(x)\sqrt{|x|} &amp;\text{ if } |x| \ge x_0
+  \end{cases}
+\end{align}
+\]</span></p>
+<div id="3c1970df" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> s(x, threshold):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> np.<span class="bu">abs</span>(x) <span class="op">&lt;</span> threshold:</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">/</span><span class="dv">4</span> <span class="op">*</span> (x <span class="op">/</span> np.sqrt(threshold)) <span class="op">*</span> (<span class="fl">5.0</span> <span class="op">-</span> (x <span class="op">/</span> threshold)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>:</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sign(x)<span class="op">*</span>np.sqrt(np.<span class="bu">abs</span>(x))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="fl">0.0025</span>, <span class="fl">0.0025</span>, <span class="dv">100</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="fl">1e-3</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>y_o <span class="op">=</span> np.sign(x)<span class="op">*</span>np.sqrt(np.<span class="bu">abs</span>(x))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>y_s <span class="op">=</span> [s(x_, threshold) <span class="cf">for</span> x_ <span class="kw">in</span> x]</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>ax.plot(x, y_o, ls <span class="op">=</span> <span class="st">":"</span>, label <span class="op">=</span> <span class="vs">r"sign$(x)\sqrt{|x|}$"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>ax.plot(x, y_s, color <span class="op">=</span> <span class="st">"C0"</span>, label <span class="op">=</span> <span class="vs">r"$s\left(x; 10^{-3}\right)$"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>ax.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="manning-resistance_files/figure-html/cell-2-output-1.png" width="590" height="411" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
