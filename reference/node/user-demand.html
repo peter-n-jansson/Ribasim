@@ -349,13 +349,14 @@ window.Quarto = {
 
 
 <p>A UserDemand takes water from the Basin that supplies it.</p>
-<p>When allocation is not used, a <code>UserDemand</code> node attempts to extract the full demand from the connected Basin. When allocation is used, the amount a <code>UserDemand</code> node is allowed to abstract is determined by the <a href="../../concept/allocation.html">allocation algorithm</a>. This algorithm first tries to allocate from the directly connected basin, and then from other sources whose flow can reach the <code>UserDemand</code> node.</p>
+<p>When allocation is not used, a <code>UserDemand</code> node attempts to extract the full demand from the connected Basin. When allocation is used, the amount a <code>UserDemand</code> node is allowed to abstract is determined by the <a href="../../concept/allocation.html">allocation algorithm</a>. This algorithm first tries to allocate from the directly connected basin, and then from other sources whose flow can reach the <code>UserDemand</code> node. Note that <code>priority</code> is used to determine the order in which the UserDemands are allocated water. This parameter is only used when allocation is active and is optional when allocation is not active.</p>
 <p>When the connected Basin is almost empty or reaches the minimum level at which the UserDemand can extract water (<code>min_level</code>), it will stop extraction.</p>
 <p>UserDemands need an outgoing flow edge along which they can send their return flow, this can also be to the same Basin from which it extracts water. The amount of return flow is always a fraction of the inflow into the UserDemand. The difference is consumed by the UserDemand.</p>
 <section id="tables" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Tables</h1>
 <section id="static" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="static"><span class="header-section-number">1.1</span> Static</h2>
+<p>This table contains the static form of the <code>UserDemand</code> node.</p>
 <table class="caption-top">
 <thead>
 <tr>
@@ -407,7 +408,7 @@ window.Quarto = {
 </section>
 <section id="time" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="time"><span class="header-section-number">1.2</span> Time</h2>
-<p>This table is the transient form of the <code>UserDemand</code> table. The only difference is that a time column is added and activity is assumed to be true. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the demand can be updated over time. In between the given times the demand is interpolated linearly, and outside the demand is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
+<p>This table is the transient form of the <code>UserDemand</code> table. The only difference is that a time column is added and activity is assumed to be true. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the demand can be updated over time. In between the given times the demand is interpolated linearly, and outside the demand is constant given by the nearest time value. The <code>priority</code> is not allowed to change over time. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 29%">
