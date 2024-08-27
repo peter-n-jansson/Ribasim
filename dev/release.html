@@ -64,6 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../dev/qgis.html" rel="next">
 <link href="../dev/ci.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -131,15 +132,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tutorial/index.html"> 
-<span class="menu-text">Tutorials</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../guide/index.html"> 
+    <a class="nav-link" href="../guide/examples.html"> 
 <span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../concept/index.html"> 
+    <a class="nav-link" href="../concept/concept.html"> 
 <span class="menu-text">Concepts</span></a>
   </li>  
   <li class="nav-item">
@@ -212,12 +209,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../dev/qgis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">QGIS plugin development</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../dev/allocation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Allocation</span></a>
   </div>
@@ -240,6 +231,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Release process</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">QGIS</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/qgis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QGIS plugin development</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/qgis_test_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QGIS plugin manual test plan</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -259,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#submit-a-pull-request" id="toc-submit-a-pull-request" class="nav-link" data-scroll-target="#submit-a-pull-request"><span class="header-section-number">2.4</span> Submit a pull request</a></li>
   <li><a href="#create-a-new-release" id="toc-create-a-new-release" class="nav-link" data-scroll-target="#create-a-new-release"><span class="header-section-number">2.5</span> Create a new release</a></li>
   <li><a href="#release-the-ribasim-python-packages-to-pypi" id="toc-release-the-ribasim-python-packages-to-pypi" class="nav-link" data-scroll-target="#release-the-ribasim-python-packages-to-pypi"><span class="header-section-number">2.6</span> Release the Ribasim Python packages to PyPI</a></li>
-  <li><a href="#do-manual-checks" id="toc-do-manual-checks" class="nav-link" data-scroll-target="#do-manual-checks"><span class="header-section-number">2.7</span> Do manual checks</a></li>
+  <li><a href="#qgis-manual-testing" id="toc-qgis-manual-testing" class="nav-link" data-scroll-target="#qgis-manual-testing"><span class="header-section-number">2.7</span> QGIS manual testing</a></li>
   <li><a href="#announce-release" id="toc-announce-release" class="nav-link" data-scroll-target="#announce-release"><span class="header-section-number">2.8</span> Announce release</a></li>
   </ul></li>
   </ul>
@@ -340,13 +354,13 @@ All changes
 <li><p>Open a terminal and run <code>pixi run publish-ribasim-api</code></p></li>
 </ol>
 </section>
-<section id="do-manual-checks" class="level2" data-number="2.7">
-<h2 data-number="2.7" class="anchored" data-anchor-id="do-manual-checks"><span class="header-section-number">2.7</span> Do manual checks</h2>
-<p>Our continuous integration (CI) should have caught most issues. A current weak spot in our testing is the QGIS plugin, so it is a good idea to do some manual checks to see if it works properly. Start with running the automated task to see if it can be correctly installed.</p>
+<section id="qgis-manual-testing" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="qgis-manual-testing"><span class="header-section-number">2.7</span> QGIS manual testing</h2>
+<p>Our continuous integration (CI) should have caught most issues. A current weak spot in our testing is the QGIS plugin, so a manual test plan is in place. Start with running the automated task to see if it can be correctly installed.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This test might give a fatal error on the first run, this is most likely a timing issue.</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Try to run it again when that happens.</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run test-ribasim-qgis-ui</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>It is a good idea to load new test models if there are any, or test any other changed functionality.</p>
+<p>Then follow the instructions as described in the <a href="../dev/qgis_test_plan.html">QGIS manual test plan</a>.</p>
 </section>
 <section id="announce-release" class="level2" data-number="2.8">
 <h2 data-number="2.8" class="anchored" data-anchor-id="announce-release"><span class="header-section-number">2.8</span> Announce release</h2>
@@ -784,6 +798,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../dev/qgis.html" class="pagination-link" aria-label="QGIS plugin development">
+        <span class="nav-page-text">QGIS plugin development</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

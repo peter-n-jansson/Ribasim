@@ -31,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../guide/delwaq.html" rel="next">
-<link href="../guide/examples.html" rel="prev">
+<link href="../guide/qgis.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -101,15 +101,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tutorial/index.html"> 
-<span class="menu-text">Tutorials</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="../guide/index.html" aria-current="page"> 
+    <a class="nav-link active" href="../guide/examples.html" aria-current="page"> 
 <span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../concept/index.html"> 
+    <a class="nav-link" href="../concept/concept.html"> 
 <span class="menu-text">Concepts</span></a>
   </li>  
   <li class="nav-item">
@@ -152,14 +148,14 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">How-to guides</span></a>
+  <a href="../guide/examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Examples</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../guide/examples.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Examples</span></a>
+  <a href="../guide/qgis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QGIS plugin</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -195,13 +191,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#coupling" id="toc-coupling" class="nav-link active" data-scroll-target="#coupling"><span class="header-section-number">1</span> Coupling</a>
+  <li><a href="#imod" id="toc-imod" class="nav-link active" data-scroll-target="#imod"><span class="header-section-number">1</span> iMOD</a></li>
+  <li><a href="#water-quality" id="toc-water-quality" class="nav-link" data-scroll-target="#water-quality"><span class="header-section-number">2</span> Water quality</a>
   <ul class="collapse">
-  <li><a href="#imod" id="toc-imod" class="nav-link" data-scroll-target="#imod"><span class="header-section-number">1.1</span> iMOD</a></li>
-  <li><a href="#water-quality" id="toc-water-quality" class="nav-link" data-scroll-target="#water-quality"><span class="header-section-number">1.2</span> Water quality</a>
-  <ul class="collapse">
-  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">1.2.1</span> Setup</a></li>
-  </ul></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">2.1</span> Setup</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -228,14 +221,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="coupling" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Coupling</h1>
-<section id="imod" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="imod"><span class="header-section-number">1.1</span> iMOD</h2>
+<section id="imod" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> iMOD</h1>
 <p>Ribasim can also be (online) coupled to other kernels with the help of iMOD Coupler. The corresponding documentation can be found within the <a href="https://deltares.github.io/iMOD-Documentation/coupler.html">iMOD Suite Documentation</a>.</p>
 </section>
-<section id="water-quality" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="water-quality"><span class="header-section-number">1.2</span> Water quality</h2>
+<section id="water-quality" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Water quality</h1>
 <p>Ribasim can be offline coupled to Delwaq, the Deltares Water Quality model.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -250,13 +241,12 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<section id="setup" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">1.2.1</span> Setup</h3>
+<section id="setup" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">2.1</span> Setup</h2>
 <p>Delwaq can calculate the concentration of substances in <a href="../reference/node/basin.html">Basin</a> nodes over time, based on initial concentrations, and of <a href="../reference/node/flow-boundary.html">FlowBoundary</a> nodes. Ribasim exposes the <code>Basin / concentration</code>, <code>Basin / concentration_state</code>, <code>FlowBoundary / concentration</code>, and <code>LevelBoundary / concentration</code> tables to setup these substances and concentrations.</p>
 <p>When a Ribasim model ran with the above tables, one can use the utilities in the <code>delwaq</code> namespace of the Ribasim Python API to generate the input required for Delwaq to run, as well as to parse the output from Delwaq into a Ribasim compatible format. For more information see the <a href="../guide/delwaq.html">guide</a>.</p>
 
 
-</section>
 </section>
 </section>
 
@@ -683,8 +673,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../guide/examples.html" class="pagination-link" aria-label="Examples">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Examples</span>
+      <a href="../guide/qgis.html" class="pagination-link" aria-label="QGIS plugin">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">QGIS plugin</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

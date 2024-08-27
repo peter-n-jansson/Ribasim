@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../dev/allocation.html" rel="next">
-<link href="../dev/python.html" rel="prev">
+<link href="../dev/qgis_test_plan.html" rel="next">
+<link href="../dev/release.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -98,15 +98,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tutorial/index.html"> 
-<span class="menu-text">Tutorials</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../guide/index.html"> 
+    <a class="nav-link" href="../guide/examples.html"> 
 <span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../concept/index.html"> 
+    <a class="nav-link" href="../concept/concept.html"> 
 <span class="menu-text">Concepts</span></a>
   </li>  
   <li class="nav-item">
@@ -135,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../dev/qgis.html">QGIS plugin development</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../dev/qgis.html">QGIS</a></li><li class="breadcrumb-item"><a href="../dev/qgis.html">QGIS plugin development</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -179,12 +175,6 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../dev/qgis.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">QGIS plugin development</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../dev/allocation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Allocation</span></a>
   </div>
@@ -207,6 +197,29 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Release process</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">QGIS</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/qgis.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">QGIS plugin development</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../dev/qgis_test_plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">QGIS plugin manual test plan</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -227,7 +240,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../dev/qgis.html">QGIS</a></li><li class="breadcrumb-item"><a href="../dev/qgis.html">QGIS plugin development</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">QGIS plugin development</h1>
 </div>
@@ -731,13 +744,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../dev/python.html" class="pagination-link" aria-label="Python tooling development">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Python tooling development</span>
+      <a href="../dev/release.html" class="pagination-link" aria-label="Release process">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Release process</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../dev/allocation.html" class="pagination-link" aria-label="Allocation">
-        <span class="nav-page-text">Allocation</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../dev/qgis_test_plan.html" class="pagination-link" aria-label="QGIS plugin manual test plan">
+        <span class="nav-page-text">QGIS plugin manual test plan</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

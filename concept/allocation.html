@@ -160,15 +160,11 @@ window.Quarto = {
 <span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tutorial/index.html"> 
-<span class="menu-text">Tutorials</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../guide/index.html"> 
+    <a class="nav-link" href="../guide/examples.html"> 
 <span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../concept/index.html" aria-current="page"> 
+    <a class="nav-link active" href="../concept/concept.html" aria-current="page"> 
 <span class="menu-text">Concepts</span></a>
   </li>  
   <li class="nav-item">
@@ -209,12 +205,6 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../concept/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Concepts</span></a>
-  </div>
-</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../concept/concept.html" class="sidebar-item-text sidebar-link">
@@ -584,7 +574,7 @@ F_{ij} \le (C^{UD}_S)_i, \quad \forall i \in U_S, \quad V_S^{\text{out}}(i) = \{
 <section id="example" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="example"><span class="header-section-number">4.4</span> Example</h2>
 <p>The following is an example of an optimization problem for the example shown <a href="../guide/examples.html#model-with-allocation-user-demand">here</a>:</p>
-<div id="36ef53db" class="cell" data-execution_count="1">
+<div id="0e2cc4f3" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -609,25 +599,25 @@ F_{ij} \le (C^{UD}_S)_i, \quad \forall i \in U_S, \quad V_S^{\text{out}}(i) = \{
 <div class="cell-output cell-output-stdout">
 <pre><code>Min F[(Basin #2, UserDemand #3)]² + F[(Basin #5, UserDemand #6)]²
 Subject to
- F[(Basin #2, UserDemand #3)] ≥ 0
- F[(Basin #2, LinearResistance #4)] ≥ 0
- F[(LinearResistance #4, Basin #2)] ≥ 0
- F[(Basin #5, UserDemand #6)] ≥ 0
  F[(UserDemand #6, Basin #5)] ≥ 0
+ F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
  F[(FlowBoundary #1, Basin #2)] ≥ 0
+ F[(Basin #2, UserDemand #3)] ≥ 0
  F[(LinearResistance #4, Basin #5)] ≥ 0
  F[(Basin #5, LinearResistance #4)] ≥ 0
- F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
- F[(TabulatedRatingCurve #7, Terminal #8)] ≥ 0
  F[(UserDemand #3, Basin #2)] ≥ 0
+ F[(Basin #2, LinearResistance #4)] ≥ 0
+ F[(LinearResistance #4, Basin #2)] ≥ 0
+ F[(TabulatedRatingCurve #7, Terminal #8)] ≥ 0
+ F[(Basin #5, UserDemand #6)] ≥ 0
  source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 172800
- source_user[UserDemand #6] : F[(UserDemand #6, Basin #5)] ≤ 0
  source_user[UserDemand #3] : F[(UserDemand #3, Basin #2)] ≤ 0
- flow_conservation[TabulatedRatingCurve #7] : F[(Basin #5, TabulatedRatingCurve #7)] - F[(TabulatedRatingCurve #7, Terminal #8)] = 0
+ source_user[UserDemand #6] : F[(UserDemand #6, Basin #5)] ≤ 0
+ flow_conservation[LinearResistance #4] : -F[(LinearResistance #4, Basin #5)] + F[(Basin #5, LinearResistance #4)] + F[(Basin #2, LinearResistance #4)] - F[(LinearResistance #4, Basin #2)] = 0
+ flow_conservation[Basin #2] : F[(FlowBoundary #1, Basin #2)] - F[(Basin #2, UserDemand #3)] + F[(UserDemand #3, Basin #2)] - F[(Basin #2, LinearResistance #4)] + F[(LinearResistance #4, Basin #2)] = 0
+ flow_conservation[Basin #5] : F[(UserDemand #6, Basin #5)] - F[(Basin #5, TabulatedRatingCurve #7)] + F[(LinearResistance #4, Basin #5)] - F[(Basin #5, LinearResistance #4)] - F[(Basin #5, UserDemand #6)] = 0
  flow_conservation[Terminal #8] : F[(TabulatedRatingCurve #7, Terminal #8)] = 0
- flow_conservation[LinearResistance #4] : F[(Basin #2, LinearResistance #4)] - F[(LinearResistance #4, Basin #2)] - F[(LinearResistance #4, Basin #5)] + F[(Basin #5, LinearResistance #4)] = 0
- flow_conservation[Basin #5] : -F[(Basin #5, UserDemand #6)] + F[(UserDemand #6, Basin #5)] + F[(LinearResistance #4, Basin #5)] - F[(Basin #5, LinearResistance #4)] - F[(Basin #5, TabulatedRatingCurve #7)] = 0
- flow_conservation[Basin #2] : -F[(Basin #2, UserDemand #3)] - F[(Basin #2, LinearResistance #4)] + F[(LinearResistance #4, Basin #2)] + F[(FlowBoundary #1, Basin #2)] + F[(UserDemand #3, Basin #2)] = 0
+ flow_conservation[TabulatedRatingCurve #7] : F[(Basin #5, TabulatedRatingCurve #7)] - F[(TabulatedRatingCurve #7, Terminal #8)] = 0
 </code></pre>
 </div>
 </div>

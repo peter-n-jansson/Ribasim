@@ -181,15 +181,11 @@ window.Quarto = {
 <span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tutorial/index.html"> 
-<span class="menu-text">Tutorials</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../guide/index.html"> 
+    <a class="nav-link" href="../guide/examples.html"> 
 <span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../concept/index.html"> 
+    <a class="nav-link" href="../concept/concept.html"> 
 <span class="menu-text">Concepts</span></a>
   </li>  
   <li class="nav-item">
@@ -705,8 +701,10 @@ window.Quarto = {
 <li>Results of the fluxes on each Basin, which are mean values over the <code>saveat</code> intervals. In the time column the start of the period is indicated.</li>
 <li>The initial condition is written to the file, but the final state is not. It will be placed in a separate output state file in the future.</li>
 <li>The <code>inflow_rate</code> and <code>outflow_rate</code> are the sum of the flows from other nodes into and out of the Basin respectively. The actual flows determine in which term they are counted, not the edge direction.</li>
-<li>The <code>storage_rate</code> is flow that adds to the storage in the Basin, increasing the water level. In the equations below this number is split out into two non-negative numbers, <code>storage_increase</code> and <code>storage_decrease</code>.</li>
-<li>The <code>balance_error</code> is the difference of all Basin inflows (<code>total_inflow</code>) and outflows (<code>total_outflow</code>), that is (<code>inflow_rate</code> + <code>precipitation</code> + <code>drainage</code> - <code>storage_increase</code>) - (<code>outflow_rate</code> + <code>evaporation</code> + <code>infiltration</code> - <code>storage_decrease</code>). It can be used to check if the numerical error when solving the water balance is sufficiently small.</li>
+<li>The <code>storage_rate</code> is the net mean flow that is needed to achieve the storage change between timesteps.</li>
+<li>The <code>inflow_rate</code> consists of the sum of all modelled flows into the basin: <code>inflow_rate</code> (horizontal flows into the basin, independent of edge direction) + <code>precipitation</code> + <code>drainage</code>.</li>
+<li>The <code>outflow_rate</code> consists of the sum of all modelled flows out of the basin: <code>outflow_rate</code> (horizontal flows out of the basin, idependent of edge direction) + <code>evaporation</code> + <code>infiltration</code>.</li>
+<li>The <code>balance_error</code> is the difference between the <code>storage_rate</code> on one side and the <code>inflow_rate</code> and <code>outflow_rate</code> on the other side: <code>storage_rate</code> - (<code>inflow_rate</code> - <code>outflow_rate</code>). It can be used to check if the numerical error when solving the water balance is sufficiently small.</li>
 <li>The <code>relative_error</code> is the fraction of the <code>balance_error</code> over the mean of the <code>total_inflow</code> and <code>total_outflow</code>.</li>
 </ul>
 <table class="caption-top">
