@@ -202,7 +202,8 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   </ul></li>
   <li><a href="#running-a-model" id="toc-running-a-model" class="nav-link" data-scroll-target="#running-a-model"><span class="header-section-number">2</span> Running a model</a></li>
-  <li><a href="#sec-results" id="toc-sec-results" class="nav-link" data-scroll-target="#sec-results"><span class="header-section-number">3</span> Inspecting results</a></li>
+  <li><a href="#sec-inspect" id="toc-sec-inspect" class="nav-link" data-scroll-target="#sec-inspect"><span class="header-section-number">3</span> Inspect a (large) model</a></li>
+  <li><a href="#sec-results" id="toc-sec-results" class="nav-link" data-scroll-target="#sec-results"><span class="header-section-number">4</span> Inspecting results</a></li>
   </ul>
 </nav>
     </div>
@@ -271,11 +272,7 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 <p>Add nodes to the map with a left click and select the node type.</p>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939237-67c1150b-15ec-4044-a02a-26a82f81da05.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
-</figure>
-</div>
+<p><img alt="Node form" src="https://github.com/user-attachments/assets/6e811bb9-1817-4505-b8a4-a96ced5b6c26" class="img-fluid"></p>
 <p>Turn the edit mode off and save the edits to the Nodes layer.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
@@ -297,7 +294,7 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="https://user-images.githubusercontent.com/4471859/224939287-a8b9f351-9aea-4e3a-8417-3867cd40cda5.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
-<p>Adjust the content. If you prefer, it also works to copy data with the same columns from Excel. Turn off edit mode and save changes to the layer.</p>
+<p>Adjust the content. Note that the <code>node_id</code> field is connected to the Node layer and thus must be set to an existing <code>node_id</code>. If you prefer, it also works to copy data with the same columns from Excel. Turn off edit mode and save changes to the layer.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><img src="https://user-images.githubusercontent.com/4471859/224939297-4b0ca812-9618-4d25-ab7a-518bf1ca63e1.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
@@ -309,7 +306,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="1.2" class="anchored" data-anchor-id="connect-nodes"><span class="header-section-number">1.2</span> Connect nodes</h2>
 <section id="turn-on-snapping" class="level3" data-number="1.2.1">
 <h3 data-number="1.2.1" class="anchored" data-anchor-id="turn-on-snapping"><span class="header-section-number">1.2.1</span> Turn on snapping</h3>
-<p>Make sure the Snapping Toolbar is visible, by going to the View &gt; Toolbars menu. Turn on snapping mode by clicking the magnet and set the snapping distance to 25 pixels.</p>
+<p>Make sure the Snapping Toolbar is visible, by going to the View &gt; Toolbars menu. Turn on snapping mode by clicking the magnet and set the snapping distance to 25 pixels. The keyboard shortcut for snapping is <code>s</code> (once the toolbar is enabled).</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><img src="https://user-images.githubusercontent.com/4471859/224939328-8359272a-30bb-4eb1-ab6c-968318ac3997.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
@@ -331,11 +328,9 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 <p>Create a connection by left clicking a source node and right clicking the destination node.</p>
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><img src="https://user-images.githubusercontent.com/4471859/224939363-88716d43-0536-499d-adb8-2fb4223c0f87.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
-</figure>
-</div>
+<p><img alt="Create an edge" src="https://github.com/user-attachments/assets/048d342d-dd2b-4e67-b8a0-7bbb8fe3f243" class="img-fluid"></p>
+<p>A form where one can change the edge attributes will pop up. Once done with editing, click ok.</p>
+<p><img alt="Edge form" src="https://github.com/user-attachments/assets/bee6af6f-7623-4d1e-98ed-edc26c524377" class="img-fluid"></p>
 <p>Now leave the edit mode and save the results to the layer. Your model is now ready to run. See</p>
 </section>
 </section>
@@ -349,8 +344,13 @@ ul.task-list li input[type="checkbox"] {
 <li>In your model directory there is now a <code>results/</code> folder with <code>basin.arrow</code> and <code>flow.arrow</code> output files.</li>
 </ul>
 </section>
-<section id="sec-results" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Inspecting results</h1>
+<section id="sec-inspect" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Inspect a (large) model</h1>
+<p>For larger models the node tables can grow quite large. To facilitate inspection, the tables are linked via the <code>node_id</code> field to the Node table, and react to the selection of the Node layer. That is, on selection of certain nodes—either via the map or the attribute table—the selection is also made in all related tables. This is also the case for the Edge layer. It helps to set the attribute table of a table of interest to show selected features only (using the dropdown button on the bottom left).</p>
+<p><img alt="Selection change" src="https://github.com/user-attachments/assets/074c1f58-926b-4d5e-a640-86a5a746a4c2" class="img-fluid"></p>
+</section>
+<section id="sec-results" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Inspecting results</h1>
 <p>Before inspecting the results, verify that the run was successfully and the output files are there.</p>
 <p>Click the “Time Series” button of the iMOD plugin.</p>
 <div class="quarto-figure quarto-figure-left">

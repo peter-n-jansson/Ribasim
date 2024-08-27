@@ -258,6 +258,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#add-points-to-node-layer" id="toc-add-points-to-node-layer" class="nav-link" data-scroll-target="#add-points-to-node-layer"><span class="header-section-number">5.1</span> Add points to Node layer</a></li>
   <li><a href="#add-edges-to-edge-layer" id="toc-add-edges-to-edge-layer" class="nav-link" data-scroll-target="#add-edges-to-edge-layer"><span class="header-section-number">5.2</span> Add edges to Edge layer</a></li>
+  <li><a href="#node-selection-on-map-triggers-table-selection" id="toc-node-selection-on-map-triggers-table-selection" class="nav-link" data-scroll-target="#node-selection-on-map-triggers-table-selection"><span class="header-section-number">5.3</span> Node selection on map triggers table selection</a></li>
   </ul></li>
   <li><a href="#tables-tests" id="toc-tables-tests" class="nav-link" data-scroll-target="#tables-tests"><span class="header-section-number">6</span> Tables tests</a>
   <ul class="collapse">
@@ -327,7 +328,7 @@ ul.task-list li input[type="checkbox"] {
 <li><em>In the Model tab, the “Add to QGIS” and “Remove from Dataset” buttons are disabled</em>.</li>
 <li><em>In the Nodes tab, all buttons are disabled</em>.</li>
 </ul>
-<p><a href="https://github.com/Deltares/Ribasim/issues/1678">Failing</a></p>
+<p>❌ <a href="https://github.com/Deltares/Ribasim/issues/1678">Failing</a></p>
 </section>
 </section>
 <section id="new-model-tests" class="level1" data-number="2">
@@ -368,7 +369,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Press OK: <em>An error is given that the database.gpkg already exists, test2.toml is not written</em>.</li>
 <li>Cleanup: Delete the created files from disk.</li>
 </ul>
-<p><a href="https://github.com/Deltares/Ribasim/issues/1679">Failing</a></p>
+<p>❌ <a href="https://github.com/Deltares/Ribasim/issues/1679">Failing</a></p>
 </section>
 <section id="new-model-with-same-name" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="new-model-with-same-name"><span class="header-section-number">2.4</span> New model with same name</h2>
@@ -386,7 +387,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Cleanup: Delete the created files from disk.</li>
 </ul>
 <p>Unsure if this is wanted behavior, as we said we wanted to overwrite the TOML file, and therefore also the database file. Perhaps we should create folders instead of TOML files only.</p>
-<p><a href="https://github.com/Deltares/Ribasim/issues/1681">Failing</a></p>
+<p>❌ <a href="https://github.com/Deltares/Ribasim/issues/1681">Failing</a></p>
 </section>
 <section id="new-model-and-clean-new-project-cleans-ribasim-plugin" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="new-model-and-clean-new-project-cleans-ribasim-plugin"><span class="header-section-number">2.5</span> New model and clean new project cleans Ribasim plugin</h2>
@@ -399,7 +400,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Press “Project &gt; New”: <em>Popup asks to save the project</em>.</li>
 <li>Press Discard: <em>Layers tab is emptied, Ribasim panel is emptied</em>.</li>
 </ul>
-<p><a href="https://github.com/Deltares/Ribasim/issues/1682">Failing</a></p>
+<p>❌ <a href="https://github.com/Deltares/Ribasim/issues/1682">Failing</a></p>
 </section>
 </section>
 <section id="model-tab-button-interaction-tests" class="level1" data-number="3">
@@ -429,7 +430,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Press “Add to QGIS”: <em>Nothing happens</em>.</li>
 <li>Press the “Edge” layer in the Model tab: <em>“Add to QGIS” button is disabled</em>.</li>
 </ul>
-<p><a href="https://github.com/Deltares/Ribasim/issues/1683">Failing</a></p>
+<p>❌ <a href="https://github.com/Deltares/Ribasim/issues/1683">Failing</a></p>
 </section>
 <section id="remove-from-dataset-button" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="remove-from-dataset-button"><span class="header-section-number">3.3</span> Remove from Dataset button</h2>
@@ -472,7 +473,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Go to the Nodes tab: <em>All buttons are enabled</em>.</li>
 <li>Press the Basin / time button: <em>A layer is added to the layers panel with that name, the button becomes disabled</em>.</li>
 </ul>
-<p><a href="https://github.com/Deltares/Ribasim/issues/1685">Failing</a></p>
+<p>❌ <a href="https://github.com/Deltares/Ribasim/issues/1685">Failing</a></p>
 </section>
 </section>
 <section id="map-interaction-tests" class="level1" data-number="5">
@@ -511,10 +512,23 @@ ul.task-list li input[type="checkbox"] {
 <li>Select the Edge layer in the Layers tab: <em>edit buttons in the toolbar become enabled</em>.</li>
 <li>Enable snapping under View &gt; Toolbars &gt; Snapping Toolbars: <em>Magnet button is enabled and active</em>.</li>
 <li>Press the Add Line Feature button: <em>Mouse becomes a crosshair</em>.</li>
-<li>Snap a line between the two nodes, click the two nodes and then right click to finish: <em>Popup shows with input, all is set to NULL</em>.</li>
+<li>Snap a line between the two nodes, click the two nodes and then right click to finish: <em>Popup shows with input, most fields are set to NULL</em>.</li>
 <li>Press OK: <em>Line appears on screen between the two nodes</em>.</li>
 <li>Save the layer’s edits: <em>The line becomes blue</em>.</li>
 <li>Open the attribute table: <em>The information shows the from_node_id, to_node_id. This information matches the information from the Node table.</em></li>
+</ul>
+</section>
+<section id="node-selection-on-map-triggers-table-selection" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="node-selection-on-map-triggers-table-selection"><span class="header-section-number">5.3</span> Node selection on map triggers table selection</h2>
+<ul>
+<li>Open QGIS and ensure that the Ribasim plugin is installed and enabled.</li>
+<li>Open the application via the Ribasim button on the QGIS toolbar: <em>Ribasim panel opens</em>.</li>
+<li>Press the “Open” button in the Model tab: <em>file navigation window pops up</em>.</li>
+<li>Choose an existing model from the <code>generated_testmodels</code> folder.</li>
+<li>Press OK: <em>The model layers appear in the layer panel and on the map</em>.</li>
+<li>Select the node layer, and make a subselection of nodes on the map: <em>Nodes are highlighted in yellow, including their edges</em>.</li>
+<li>Open the Edge attribute table: <em>The highlighted rows are those with a from/to node_id that was selected</em>.</li>
+<li>Open any non-spatial attribute table: <em>The highlighted rows are those with an node_id that was selected</em>.</li>
 </ul>
 </section>
 </section>
