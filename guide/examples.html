@@ -1294,23 +1294,23 @@ The behavior of array concatenation with empty entries is deprecated. In a futur
 <div class="sourceCode cell-code" id="cb98"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up outlet</span></span>
 <span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>model.outlet.add(</span>
 <span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">2</span>, Point(<span class="fl">0.0</span>, <span class="op">-</span><span class="fl">1.0</span>)),</span>
-<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>    [outlet.Static(flow_rate<span class="op">=</span>[<span class="dv">2</span> <span class="op">*</span> <span class="fl">0.5</span> <span class="op">/</span> <span class="dv">3600</span>], min_crest_level<span class="op">=</span>[<span class="fl">0.0</span>])],</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>    [outlet.Static(flow_rate<span class="op">=</span>[<span class="dv">2</span> <span class="op">*</span> <span class="fl">0.5</span> <span class="op">/</span> <span class="dv">3600</span>], min_upstream_level<span class="op">=</span>[<span class="fl">0.0</span>])],</span>
 <span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>model.outlet.add(</span>
 <span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">5</span>, Point(<span class="fl">0.0</span>, <span class="op">-</span><span class="fl">3.0</span>)),</span>
-<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>    [outlet.Static(flow_rate<span class="op">=</span>[<span class="fl">0.5</span> <span class="op">/</span> <span class="dv">3600</span>], min_crest_level<span class="op">=</span>[<span class="fl">1.95</span>])],</span>
+<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>    [outlet.Static(flow_rate<span class="op">=</span>[<span class="fl">0.5</span> <span class="op">/</span> <span class="dv">3600</span>], min_upstream_level<span class="op">=</span>[<span class="fl">1.95</span>])],</span>
 <span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a>model.outlet.add(</span>
 <span id="cb98-11"><a href="#cb98-11" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">7</span>, Point(<span class="fl">1.0</span>, <span class="op">-</span><span class="fl">4.0</span>)),</span>
-<span id="cb98-12"><a href="#cb98-12" aria-hidden="true" tabindex="-1"></a>    [outlet.Static(flow_rate<span class="op">=</span>[<span class="fl">0.5</span> <span class="op">/</span> <span class="dv">3600</span>], min_crest_level<span class="op">=</span>[<span class="fl">1.45</span>])],</span>
+<span id="cb98-12"><a href="#cb98-12" aria-hidden="true" tabindex="-1"></a>    [outlet.Static(flow_rate<span class="op">=</span>[<span class="fl">0.5</span> <span class="op">/</span> <span class="dv">3600</span>], min_upstream_level<span class="op">=</span>[<span class="fl">1.45</span>])],</span>
 <span id="cb98-13"><a href="#cb98-13" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb98-14"><a href="#cb98-14" aria-hidden="true" tabindex="-1"></a>model.outlet.add(</span>
 <span id="cb98-15"><a href="#cb98-15" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">9</span>, Point(<span class="fl">3.0</span>, <span class="op">-</span><span class="fl">4.0</span>)),</span>
-<span id="cb98-16"><a href="#cb98-16" aria-hidden="true" tabindex="-1"></a>    [outlet.Static(flow_rate<span class="op">=</span>[<span class="fl">0.5</span> <span class="op">/</span> <span class="dv">3600</span>], min_crest_level<span class="op">=</span>[<span class="fl">0.95</span>])],</span>
+<span id="cb98-16"><a href="#cb98-16" aria-hidden="true" tabindex="-1"></a>    [outlet.Static(flow_rate<span class="op">=</span>[<span class="fl">0.5</span> <span class="op">/</span> <span class="dv">3600</span>], min_upstream_level<span class="op">=</span>[<span class="fl">0.95</span>])],</span>
 <span id="cb98-17"><a href="#cb98-17" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb98-18"><a href="#cb98-18" aria-hidden="true" tabindex="-1"></a>model.outlet.add(</span>
 <span id="cb98-19"><a href="#cb98-19" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">11</span>, Point(<span class="fl">4.0</span>, <span class="op">-</span><span class="fl">3.0</span>)),</span>
-<span id="cb98-20"><a href="#cb98-20" aria-hidden="true" tabindex="-1"></a>    [outlet.Static(flow_rate<span class="op">=</span>[<span class="fl">0.5</span> <span class="op">/</span> <span class="dv">3600</span>], min_crest_level<span class="op">=</span>[<span class="fl">0.45</span>])],</span>
+<span id="cb98-20"><a href="#cb98-20" aria-hidden="true" tabindex="-1"></a>    [outlet.Static(flow_rate<span class="op">=</span>[<span class="fl">0.5</span> <span class="op">/</span> <span class="dv">3600</span>], min_upstream_level<span class="op">=</span>[<span class="fl">0.45</span>])],</span>
 <span id="cb98-21"><a href="#cb98-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="71">
 <pre><code>NodeData(node_id=11, node_type='Outlet', geometry=&lt;POINT (4 -3)&gt;)</code></pre>
