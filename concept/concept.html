@@ -120,7 +120,7 @@ div.csl-indent {
 <span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../guide/examples.html"> 
+    <a class="nav-link" href="../guide/quickstart.html"> 
 <span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
@@ -268,7 +268,13 @@ div.csl-indent {
 <section id="sec-introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>Decision makers need to balance the supply and demand of water at the river basin scale, under increasing environmental pressure. Ribasim allows users to model basins under current and changing conditions to evaluate and design and management of the water system. It is available as free and open source software under the MIT license. Besides a model simulation core, Ribasim also includes tooling to assist in building models from basic datasets and visualize results. The model and its results provides insights to decision makers, enabling them to build consensus amongst water users and make informed decisions about how to manage water resources optimally.</p>
-<p>The model concept of Ribasim is composed of multiple layers: - a physical layer representing water bodies and associated infrastructure as well as abstractions, - a rule-based control layer to manage the infrastructure, and - (optionally) a priority-based allocation layer to take centralized decisions on user abstractions. - (optionally) a coupling layer to exchange fluxes and heads with other kernels</p>
+<p>The model concept of Ribasim is composed of multiple layers:</p>
+<ul>
+<li>a physical layer representing water bodies and associated infrastructure as well as abstractions,</li>
+<li>a rule-based control layer to manage the infrastructure, and</li>
+<li>(optionally) a priority-based allocation layer to take centralized decisions on user abstractions.</li>
+<li>(optionally) a coupling layer to exchange fluxes and heads with other kernels</li>
+</ul>
 <p>Typically hydrological processes on land will be represented in detail by other models which can be coupled (online) to Ribasim with the help of iMOD Coupler. Currently, an online coupling with MODFLOW 6 (groundwater) and with Metaswap + MODFLOW 6 (unsaturated zone + groundwater) is available. The corresponding documentation can be found within the <a href="https://deltares.github.io/iMOD-Documentation/coupler.html">iMOD Suite Documentation</a>.</p>
 <p>This version of Ribasim is the follow up of the legacy Fortran kernel of Ribasim (version 7) applied world wide, the Fortran kernel SIMRES applied in the Netherlands, and the surface water models Distribution Model and Mozart of the Dutch National Hydrological Instrument.</p>
 </section>

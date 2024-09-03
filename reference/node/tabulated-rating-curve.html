@@ -161,7 +161,7 @@ window.Quarto = {
 <span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../guide/examples.html"> 
+    <a class="nav-link" href="../../guide/quickstart.html"> 
 <span class="menu-text">How-to guides</span></a>
   </li>  
   <li class="nav-item">
@@ -388,10 +388,10 @@ window.Quarto = {
 <h2 data-number="1.1" class="anchored" data-anchor-id="static"><span class="header-section-number">1.1</span> Static</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 30%">
-<col style="width: 16%">
-<col style="width: 27%">
 <col style="width: 25%">
+<col style="width: 13%">
+<col style="width: 40%">
+<col style="width: 21%">
 </colgroup>
 <thead>
 <tr>
@@ -423,13 +423,13 @@ window.Quarto = {
 <tr>
 <td>level</td>
 <td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
+<td><span class="math inline">\(\text{m}\)</span></td>
 <td>sorted per control_state, unique</td>
 </tr>
 <tr>
 <td>flow_rate</td>
 <td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td><span class="math inline">\(\text{m}^3/\text{s}\)</span></td>
 <td>start at 0, increasing</td>
 </tr>
 </tbody>
@@ -470,7 +470,7 @@ window.Quarto = {
 <section id="interpolation" class="level3" data-number="1.1.1">
 <h3 data-number="1.1.1" class="anchored" data-anchor-id="interpolation"><span class="header-section-number">1.1.1</span> Interpolation</h3>
 <p>The <span class="math inline">\(Q(h)\)</span> relationship of a tabulated rating curve is defined as a linear interpolation.</p>
-<div id="9f4979cc" class="cell" data-execution_count="1">
+<div id="74639e27" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -576,6 +576,12 @@ window.Quarto = {
 <h2 data-number="1.2" class="anchored" data-anchor-id="time"><span class="header-section-number">1.2</span> Time</h2>
 <p>This table is the transient form of the <code>TabulatedRatingCurve</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the rating curves can be updated over time. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
 <table class="caption-top">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 14%">
+<col style="width: 43%">
+<col style="width: 22%">
+</colgroup>
 <thead>
 <tr>
 <th>column</th>
@@ -600,13 +606,13 @@ window.Quarto = {
 <tr>
 <td>level</td>
 <td>Float64</td>
-<td><span class="math inline">\(m\)</span></td>
+<td><span class="math inline">\(\text{m}\)</span></td>
 <td>sorted per node_id per time</td>
 </tr>
 <tr>
 <td>flow_rate</td>
 <td>Float64</td>
-<td><span class="math inline">\(m^3 s^{-1}\)</span></td>
+<td><span class="math inline">\(\text{m}^3/\text{s}\)</span></td>
 <td>non-negative</td>
 </tr>
 </tbody>
