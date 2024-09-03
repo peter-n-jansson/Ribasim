@@ -400,17 +400,39 @@ window.Quarto = {
 <td><span class="math inline">\(\text{m}^3/\text{s}\)</span></td>
 <td>(optional)</td>
 </tr>
+<tr>
+<td>min_upstream_level</td>
+<td>Float64</td>
+<td><span class="math inline">\(\text{m}\)</span></td>
+<td>(optional)</td>
+</tr>
+<tr>
+<td>max_downstream_level</td>
+<td>Float64</td>
+<td><span class="math inline">\(\text{m}\)</span></td>
+<td>(optional)</td>
+</tr>
 </tbody>
 </table>
 </section>
 </section>
 <section id="equations" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Equations</h1>
-<p>The behavior of a Pump is simple if these nodes are not PID controlled. Their flow is given by a fixed flow rate <span class="math inline">\(q\)</span>, multiplied by a reduction factor:</p>
+<p>The behavior of a Pump is simple if these nodes are not PID controlled. Their flow is given by a fixed flow rate <span class="math inline">\(q\)</span>, multiplied by reduction factors:</p>
 <p><span class="math display">\[
-Q = \mathrm{clamp}(\phi(u; 10.0) Q_\text{set}, Q_{\min}, Q_{\max})
+Q = \mathrm{clamp}(\phi Q_\text{set}, Q_{\min}, Q_{\max})
 \]</span></p>
-<p><span class="math inline">\(Q\)</span> is the realized Pump flow rate. <span class="math inline">\(Q_\text{set}\)</span> is the Pump’s target <code>flow_rate</code>. <span class="math inline">\(Q_{\min}\)</span> and <span class="math inline">\(Q_{\max}\)</span> are the Pump <code>min_flow_rate</code> and <code>max_flow_rate</code>. <span class="math inline">\(u\)</span> is the storage of the incoming Basin. The <a href="../../concept/equations.html#sec-reduction_factor">reduction factor</a> <span class="math inline">\(\phi\)</span> makes sure that the flow of the Pump goes smoothly to <span class="math inline">\(0\)</span> as the incoming Basin dries out.</p>
+<ul>
+<li><span class="math inline">\(Q\)</span> is the realized Pump flow rate.</li>
+<li><span class="math inline">\(Q_\text{set}\)</span> is the Pump’s target <code>flow_rate</code>.</li>
+<li><span class="math inline">\(Q_{\min}\)</span> and <span class="math inline">\(Q_{\max}\)</span> are the Pump <code>min_flow_rate</code> and <code>max_flow_rate</code>.</li>
+<li><span class="math inline">\(\phi\)</span> is the reduction factor, which smoothly reduces flow based on all of these criteria:
+<ul>
+<li>The upstream volume is below <span class="math inline">\(10 m^3\)</span>.</li>
+<li>The upstream level is below <code>min_upstream_level</code> + <span class="math inline">\(0.02 m\)</span></li>
+<li>The downstream level is above <code>max_downstream_level</code> - <span class="math inline">\(0.02 m\)</span></li>
+</ul></li>
+</ul>
 
 
 </section>

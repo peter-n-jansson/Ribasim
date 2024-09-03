@@ -421,6 +421,12 @@ window.Quarto = {
 <td>(optional, default true)</td>
 </tr>
 <tr>
+<td>max_downstream_level</td>
+<td>Float64</td>
+<td><span class="math inline">\(\text{m}\)</span></td>
+<td>(optional)</td>
+</tr>
+<tr>
 <td>level</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}\)</span></td>
@@ -470,7 +476,7 @@ window.Quarto = {
 <section id="interpolation" class="level3" data-number="1.1.1">
 <h3 data-number="1.1.1" class="anchored" data-anchor-id="interpolation"><span class="header-section-number">1.1.1</span> Interpolation</h3>
 <p>The <span class="math inline">\(Q(h)\)</span> relationship of a tabulated rating curve is defined as a linear interpolation.</p>
-<div id="89be3db0" class="cell" data-execution_count="1">
+<div id="a0659aed" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -621,15 +627,18 @@ window.Quarto = {
 </section>
 <section id="equations" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Equations</h1>
-<p>The Tabulated Rating Curve is a tabulation of a basin’s discharge behavior. It describes a piecewise linear relationship between the Basin’s level and its discharge. It can be understood as an empirical description of a Basin’s properties. This can include a weir, but also the lumped hydraulic behavior of the upstream channels.</p>
+<p>The TabulatedRatingCurve is a tabulation of a Basin’s discharge behavior. It describes a piecewise linear relationship between the Basin’s level and its discharge. It can be understood as an empirical description of a Basin’s properties. This can include a weir, but also the lumped hydraulic behavior of the upstream channels.</p>
 <p><span class="math display">\[
-Q = \phi(u; 10.0) f(h_a)
+Q = \phi f(h)
 \]</span></p>
 <p>Where:</p>
 <ul>
-<li><span class="math inline">\(h_a\)</span> is the upstream water level</li>
-<li><span class="math inline">\(\phi\)</span> is the reduction factor for the upstream Basin drying out</li>
+<li><span class="math inline">\(h\)</span> is the upstream water level</li>
 <li><span class="math inline">\(f\)</span> is a piecewise linear function describing the given rating curve <span class="math inline">\(Q(h)\)</span></li>
+<li><span class="math inline">\(\phi\)</span> is the reduction factor, which smoothly reduces flow based on all of these criteria:
+<ul>
+<li>The upstream volume is below <span class="math inline">\(10 m^3\)</span>.</li>
+</ul></li>
 </ul>
 
 

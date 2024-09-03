@@ -406,7 +406,13 @@ window.Quarto = {
 <td>(optional)</td>
 </tr>
 <tr>
-<td>min_upstram_level</td>
+<td>min_upstream_level</td>
+<td>Float64</td>
+<td><span class="math inline">\(\text{m}\)</span></td>
+<td>(optional)</td>
+</tr>
+<tr>
+<td>max_downstream_level</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}\)</span></td>
 <td>(optional)</td>
@@ -417,12 +423,22 @@ window.Quarto = {
 </section>
 <section id="equations" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Equations</h1>
-<p>The Outlet is very similar to the Pump, but it has a few extra <a href="../../concept/equations.html#sec-reduction_factor">reduction factors</a> for physical constraints:</p>
+<p>The Outlet is very similar to the Pump, but it has an extra <a href="../../reference/node/basin.html#sec-reduction-factor">reduction factor</a> for physical constraints:</p>
 <p><span class="math display">\[
-Q = \mathrm{clamp}(\phi(u_a; 10.0)\phi(\Delta h; 0.1) \phi(h_a-h_\text{min};0.1) Q_\text{set}, Q_{\min}, Q_{\max})
+Q = \mathrm{clamp}(\phi Q_\text{set}, Q_{\min}, Q_{\max})
 \]</span></p>
-<p><span class="math inline">\(Q\)</span> is the realized Outlet flow rate. <span class="math inline">\(Q_\text{set}\)</span> is the Outlet’s target <code>flow_rate</code>. <span class="math inline">\(Q_{\min}\)</span> and <span class="math inline">\(Q_{\max}\)</span> are the Outlet <code>min_flow_rate</code> and <code>max_flow_rate</code>. The subscript <span class="math inline">\(a\)</span> denotes the upstream node and <span class="math inline">\(b\)</span> the downstream node. The first reduction factor reduces flow from a drying upstream Basin. The second one makes sure that the Outlet flow goes to zero as the head difference <span class="math inline">\(\Delta h = h_a - h_b\)</span> goes to zero. The last one makes sure that the Outlet only produces flow when the upstream level is above the minimum crest level <span class="math inline">\(h_\text{min}\)</span>.</p>
-<p>Not all node types upstream or downstream of the Outlet have a defined level. If this is the case, and therefore the reduction factor cannot be computed, it is defined to be <span class="math inline">\(1.0\)</span>.</p>
+<ul>
+<li><span class="math inline">\(Q\)</span> is the realized Outlet flow rate.</li>
+<li><span class="math inline">\(Q_\text{set}\)</span> is the Outlet’s target <code>flow_rate</code>.</li>
+<li><span class="math inline">\(Q_{\min}\)</span> and <span class="math inline">\(Q_{\max}\)</span> are the Outlet <code>min_flow_rate</code> and <code>max_flow_rate</code>.</li>
+<li><span class="math inline">\(\phi\)</span> is the reduction factor, which smoothly reduces flow based on all of these criteria:
+<ul>
+<li>The upstream volume is below <span class="math inline">\(10 m^3\)</span>.</li>
+<li>The upstream level is less than <span class="math inline">\(0.02 m\)</span> above the downstream level.</li>
+<li>The upstream level is below <code>min_upstream_level</code> + <span class="math inline">\(0.02 m\)</span></li>
+<li>The downstream level is above <code>max_downstream_level</code> - <span class="math inline">\(0.02 m\)</span></li>
+</ul></li>
+</ul>
 
 
 </section>
