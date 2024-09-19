@@ -284,12 +284,13 @@ window.Quarto = {
     \mathbf{u}(t_0) = \mathbf{u}_0
 \end{cases},
 \tag{1}\]</span></span></p>
-<p>where <span class="math inline">\(\mathbf{f}\)</span> denotes <code>water_balance!</code> and <span class="math inline">\(\mathbf{u_0}\)</span> the initial storages (and the PID integrals which start out at <span class="math inline">\(0\)</span>).</p>
-<p>In general <span class="math inline">\(\mathbf{f}\)</span> is a non-linear function in <span class="math inline">\(\mathbf{u}\)</span>. These non-linearities are introduced by:</p>
+<p>where <span class="math inline">\(\mathbf{f}\)</span> denotes <code>water_balance!</code> and <span class="math inline">\(\mathbf{u_0} = \mathbf{0}\)</span> the initial cumulative flows (and the PID integrals which also start out at <span class="math inline">\(0\)</span>).</p>
+<p>In general <span class="math inline">\(\mathbf{f}\)</span> is a non-linear function in <span class="math inline">\(\mathbf{u}\)</span>. These non-linearities are introduced by e.g.:</p>
 <ul>
 <li><code>ManningResistance</code> nodes;</li>
 <li><code>Basin</code> profiles;</li>
-<li><code>TabulatedRatingCurve</code> Q(h) relations.</li>
+<li><code>TabulatedRatingCurve</code> Q(h) relations</li>
+<li><code>ContinuousControl</code> functions.</li>
 </ul>
 <p>The problem <a href="#eq-prob" class="quarto-xref">Equation&nbsp;1</a> can be solved by various numerical time-integration methods. To do this the time interval <span class="math inline">\([t_0,t_\text{end}]\)</span> is discretized into a finite number of time points <span class="math inline">\(t_0 &lt; t_1 &lt; \ldots &lt; t_N = t_\text{end}\)</span> for which approximate solutions <span class="math inline">\(\mathbf{w}_n \approx \mathbf{u}(t_n)\)</span> are computed. In general we do not assume a fixed timestep (the interval between successive points in time). Rather, the solver attempts to make as large a step as possible while keeping error tolerances within requirements. The <a href="../reference/usage.html#sec-solver-settings">solver settings</a> section details the available configuration options.</p>
 <section id="example-numerical-methods" class="level1" data-number="1">
