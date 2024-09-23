@@ -459,8 +459,8 @@ window.Quarto = {
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="dt">force_dtmin</span> <span class="op">=</span> <span class="cn">false</span> <span class="co"># optional, default false</span></span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="dt">abstol</span> <span class="op">=</span> <span class="fl">1e-6</span>       <span class="co"># optional, default 1e-6</span></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="dt">reltol</span> <span class="op">=</span> <span class="fl">1e-5</span>       <span class="co"># optional, default 1e-5</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="dt">water_balance_abstol</span> <span class="op">=</span> <span class="fl">1e-6</span> <span class="co"># optional, default 1e-6</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="dt">water_balance_reltol</span> <span class="op">=</span> <span class="fl">1e-6</span> <span class="co"># optional, default 1e-6</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="dt">water_balance_abstol</span> <span class="op">=</span> <span class="fl">1e-3</span> <span class="co"># optional, default 1e-3</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="dt">water_balance_reltol</span> <span class="op">=</span> <span class="fl">1e-2</span> <span class="co"># optional, default 1e-2</span></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="dt">maxiters</span> <span class="op">=</span> <span class="fl">1e9</span>      <span class="co"># optional, default 1e9</span></span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="dt">sparse</span> <span class="op">=</span> <span class="cn">true</span>       <span class="co"># optional, default true</span></span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="dt">autodiff</span> <span class="op">=</span> <span class="cn">true</span>     <span class="co"># optional, default true</span></span>
@@ -713,6 +713,7 @@ window.Quarto = {
 <li>The <code>balance_error</code> is the difference between the <code>storage_rate</code> on one side and the <code>inflow_rate</code> and <code>outflow_rate</code> on the other side: <code>storage_rate</code> - (<code>inflow_rate</code> - <code>outflow_rate</code>). It can be used to check if the numerical error when solving the water balance is sufficiently small.</li>
 <li>The <code>relative_error</code> is the fraction of the <code>balance_error</code> over the mean of the <code>total_inflow</code> and <code>total_outflow</code>.</li>
 </ul>
+<p>For a more in-depth explanation of the water balance error see <a href="../concept/equations.html#the-water-balance-error">here</a>.</p>
 <table class="caption-top">
 <thead>
 <tr>
