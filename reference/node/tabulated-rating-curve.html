@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -390,7 +390,7 @@ window.Quarto = {
 <h1 data-number="1"><span class="header-section-number">1</span> Tables</h1>
 <section id="static" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="static"><span class="header-section-number">1.1</span> Static</h2>
-<table class="caption-top">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
 <col style="width: 13%">
@@ -398,7 +398,7 @@ window.Quarto = {
 <col style="width: 21%">
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>column</th>
 <th>type</th>
 <th>unit</th>
@@ -406,37 +406,37 @@ window.Quarto = {
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
-<tr>
+<tr class="even">
 <td>control_state</td>
 <td>String</td>
 <td>-</td>
 <td>(optional) sorted per node_id</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>active</td>
 <td>Bool</td>
 <td>-</td>
 <td>(optional, default true)</td>
 </tr>
-<tr>
+<tr class="even">
 <td>max_downstream_level</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}\)</span></td>
 <td>(optional)</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>level</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}\)</span></td>
 <td>sorted per control_state, unique</td>
 </tr>
-<tr>
+<tr class="even">
 <td>flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}^3/\text{s}\)</span></td>
@@ -445,31 +445,31 @@ window.Quarto = {
 </tbody>
 </table>
 <p>Thus a single rating curve can be given by the following table:</p>
-<table class="caption-top">
+<table class="caption-top table">
 <thead>
-<tr>
+<tr class="header">
 <th>node_id</th>
 <th>flow_rate</th>
 <th>level</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>2</td>
 <td>0.0</td>
 <td>-0.10</td>
 </tr>
-<tr>
+<tr class="even">
 <td>2</td>
 <td>0.0001</td>
 <td>0.09</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>2</td>
 <td>0.01</td>
 <td>0.29</td>
 </tr>
-<tr>
+<tr class="even">
 <td>2</td>
 <td>0.9</td>
 <td>20.09</td>
@@ -480,7 +480,7 @@ window.Quarto = {
 <section id="interpolation" class="level3" data-number="1.1.1">
 <h3 data-number="1.1.1" class="anchored" data-anchor-id="interpolation"><span class="header-section-number">1.1.1</span> Interpolation</h3>
 <p>The <span class="math inline">\(Q(h)\)</span> relationship of a tabulated rating curve is defined as a linear interpolation.</p>
-<div id="0f94c70a" class="cell" data-execution_count="1">
+<div id="a0d67bd0" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -520,51 +520,51 @@ window.Quarto = {
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>display(Markdown(markdown_table))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display cell-output-markdown">
-<table class="caption-top">
+<table class="caption-top table table-sm table-striped small">
 <thead>
-<tr>
+<tr class="header">
 <th style="text-align: right;">level</th>
 <th style="text-align: right;">flow</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td style="text-align: right;">0.548814</td>
 <td style="text-align: right;">0</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: right;">1.264</td>
 <td style="text-align: right;">2.1266</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: right;">1.86677</td>
 <td style="text-align: right;">4.05286</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: right;">2.41165</td>
 <td style="text-align: right;">6.74165</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: right;">2.8353</td>
 <td style="text-align: right;">8.10999</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: right;">3.4812</td>
 <td style="text-align: right;">12.2059</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: right;">3.91879</td>
 <td style="text-align: right;">15.3771</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: right;">4.81056</td>
 <td style="text-align: right;">23.9741</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: right;">5.77422</td>
 <td style="text-align: right;">34.1198</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: right;">6.15766</td>
 <td style="text-align: right;">38.7868</td>
 </tr>
@@ -585,7 +585,7 @@ window.Quarto = {
 <section id="time" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="time"><span class="header-section-number">1.2</span> Time</h2>
 <p>This table is the transient form of the <code>TabulatedRatingCurve</code> table. The only difference is that a time column is added. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the rating curves can be updated over time. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
-<table class="caption-top">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
 <col style="width: 11%">
@@ -593,7 +593,7 @@ window.Quarto = {
 <col style="width: 18%">
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>column</th>
 <th>type</th>
 <th>unit</th>
@@ -601,31 +601,31 @@ window.Quarto = {
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
-<tr>
+<tr class="even">
 <td>time</td>
 <td>DateTime</td>
 <td>-</td>
 <td>sorted per node_id</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>level</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}\)</span></td>
 <td>sorted per node_id per time</td>
 </tr>
-<tr>
+<tr class="even">
 <td>flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}^3/\text{s}\)</span></td>
 <td>non-negative</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>max_downstream_level</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}\)</span></td>
