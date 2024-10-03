@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.5.55">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -359,7 +359,7 @@ window.Quarto = {
 </section>
 <section id="static" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Static</h1>
-<table class="caption-top table">
+<table class="caption-top">
 <colgroup>
 <col style="width: 32%">
 <col style="width: 16%">
@@ -367,7 +367,7 @@ window.Quarto = {
 <col style="width: 22%">
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>column</th>
 <th>type</th>
 <th>unit</th>
@@ -375,55 +375,55 @@ window.Quarto = {
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
-<tr class="even">
+<tr>
 <td>control_state</td>
 <td>String</td>
 <td>-</td>
 <td>(optional) sorted per node_id</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>active</td>
 <td>Bool</td>
 <td>-</td>
 <td>(optional, default true)</td>
 </tr>
-<tr class="even">
+<tr>
 <td>listen_node_type</td>
 <td>String</td>
 <td>-</td>
 <td>known node type</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>listen_node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr>
 <td>target</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>proportional</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{s}^{-1}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr>
 <td>integral</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{s}^{-2}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>derivative</td>
 <td>Float64</td>
 <td>-</td>
@@ -434,9 +434,9 @@ window.Quarto = {
 <section id="time" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="time"><span class="header-section-number">2.1</span> Time</h2>
 <p>This table is the transient form of the <code>PidControl</code> table. The differences are that a time column is added and the nodes are assumed to be active so this column is removed. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the target level and PID coefficients can be updated over time. In between the given times the these values interpolated linearly, and outside these values area constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
-<table class="caption-top table">
+<table class="caption-top">
 <thead>
-<tr class="header">
+<tr>
 <th>column</th>
 <th>type</th>
 <th>unit</th>
@@ -444,49 +444,49 @@ window.Quarto = {
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
-<tr class="even">
+<tr>
 <td>time</td>
 <td>DateTime</td>
 <td>-</td>
 <td>sorted per node_id</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>listen_node_type</td>
 <td>Int32</td>
 <td>-</td>
 <td>known node type</td>
 </tr>
-<tr class="even">
+<tr>
 <td>listen_node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>target</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr>
 <td>proportional</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{s}^{-1}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>integral</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{s}^{-2}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr>
 <td>derivative</td>
 <td>Float64</td>
 <td>-</td>

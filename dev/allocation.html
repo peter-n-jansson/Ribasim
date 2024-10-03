@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.5.55">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -371,66 +371,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sec-allocation-struct" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="sec-allocation-struct"><span class="header-section-number">1.1</span> The <code>Allocation</code> struct</h2>
 <p>The <code>Allocation</code> struct stores necessary data and calculation results.</p>
-<table class="caption-top table">
+<table class="caption-top">
 <colgroup>
 <col style="width: 20%">
 <col style="width: 13%">
 <col style="width: 66%">
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>field</th>
 <th>type</th>
 <th>description</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>subnetwork_ids</td>
 <td>Vector{Int32}</td>
 <td>The unique sorted allocation network IDs</td>
 </tr>
-<tr class="even">
+<tr>
 <td>allocation_models</td>
 <td>AllocationModel</td>
 <td>The allocation models for the main network and subnetworks corresponding to subnetwork_ids</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>main_network_connections</td>
 <td>Vector{Vector{Tuple{NodeID, NodeID}}}</td>
 <td>(from_id, to_id) from the main network to the subnetwork per subnetwork</td>
 </tr>
-<tr class="even">
+<tr>
 <td>priorities</td>
 <td>Vector{Int32}</td>
 <td>All used priority values.</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>subnetwork_demands</td>
 <td>Dict{Tuple{NodeID, NodeID}, Vector{Float64}}</td>
 <td>The demand of an edge from the main network to a subnetwork</td>
 </tr>
-<tr class="even">
+<tr>
 <td>subnetwork_allocateds</td>
 <td>Dict{Tuple{NodeID, NodeID}, Vector{Float64}}</td>
 <td>The allocated flow of an edge from the main network to a subnetwork</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>mean_input_flows</td>
 <td>Dict{Tuple{NodeID, NodeID}, Float64}</td>
 <td>Flows averaged over Δt_allocation over edges that are allocation sources</td>
 </tr>
-<tr class="even">
+<tr>
 <td>mean_realized_flows</td>
 <td>Dict{Tuple{NodeID, NodeID}, Float64}</td>
 <td>Flows averaged over Δt_allocation over edges that realize a demand</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>record_demand</td>
 <td></td>
 <td>A record of demands and allocated flows for nodes that have these</td>
 </tr>
-<tr class="even">
+<tr>
 <td>record_flow</td>
 <td></td>
 <td>A record of all flows computed by allocation optimization, eventually saved to output file</td>
@@ -441,36 +441,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sec-allocation-model-struct" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="sec-allocation-model-struct"><span class="header-section-number">1.2</span> The <code>AllocationModel</code> struct</h2>
 <p>The <code>AllocationModel</code> struct has all the data that is needed for the JuMP optimization problem.</p>
-<table class="caption-top table">
+<table class="caption-top">
 <colgroup>
 <col style="width: 20%">
 <col style="width: 13%">
 <col style="width: 66%">
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>field</th>
 <th>type</th>
 <th>description</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>subnetwork_id</td>
 <td>Int32</td>
 <td>The ID of this allocation network</td>
 </tr>
-<tr class="even">
+<tr>
 <td>capacity</td>
 <td>JuMP.Containers.SparseAxisArray</td>
 <td>The capacity per edge of the allocation network, as constrained by nodes that have a max_flow_rate</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>problem</td>
 <td>JuMP.Model</td>
 <td>The JuMP.jl model for solving the allocation problem</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Δt_allocation</td>
 <td>Float64</td>
 <td>The time interval between consecutive allocation solves</td>

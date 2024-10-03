@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.5.55">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -352,9 +352,9 @@ window.Quarto = {
 <h1 data-number="1"><span class="header-section-number">1</span> Tables</h1>
 <section id="static" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="static"><span class="header-section-number">1.1</span> Static</h2>
-<table class="caption-top table">
+<table class="caption-top">
 <thead>
-<tr class="header">
+<tr>
 <th>column</th>
 <th>type</th>
 <th>unit</th>
@@ -362,19 +362,19 @@ window.Quarto = {
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
-<tr class="even">
+<tr>
 <td>priority</td>
 <td>Int32</td>
 <td>-</td>
 <td>positive</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>demand</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}^3/\text{s}\)</span></td>
@@ -386,9 +386,9 @@ window.Quarto = {
 <section id="time" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="time"><span class="header-section-number">1.2</span> Time</h2>
 <p>This table is the transient form of the <code>FlowDemand</code> table, in which a time-dependent demand can be supplied. Similar to the static version, only a single priority per <code>FlowDemand</code> node can be provided.</p>
-<table class="caption-top table">
+<table class="caption-top">
 <thead>
-<tr class="header">
+<tr>
 <th>column</th>
 <th>type</th>
 <th>unit</th>
@@ -396,25 +396,25 @@ window.Quarto = {
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
-<tr class="even">
+<tr>
 <td>time</td>
 <td>DateTime</td>
 <td>-</td>
 <td>sorted per node_id</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>priority</td>
 <td>Int32</td>
 <td>-</td>
 <td>positive</td>
 </tr>
-<tr class="even">
+<tr>
 <td>demand</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}^3/\text{s}\)</span></td>
