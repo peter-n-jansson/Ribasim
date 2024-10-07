@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -386,7 +386,7 @@ window.Quarto = {
 <h1 data-number="1"><span class="header-section-number">1</span> Tables</h1>
 <section id="static" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="static"><span class="header-section-number">1.1</span> Static</h2>
-<table class="caption-top">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
 <col style="width: 10%">
@@ -394,7 +394,7 @@ window.Quarto = {
 <col style="width: 16%">
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>column</th>
 <th>type</th>
 <th>unit</th>
@@ -402,43 +402,43 @@ window.Quarto = {
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
-<tr>
+<tr class="even">
 <td>control_state</td>
 <td>String</td>
 <td>-</td>
 <td>(optional) sorted per node_id</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>active</td>
 <td>Bool</td>
 <td>-</td>
 <td>(optional, default true)</td>
 </tr>
-<tr>
+<tr class="even">
 <td>length</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}\)</span></td>
 <td>positive</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>manning_n</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{s} \text{m}^{-\frac{1}{3}}\)</span></td>
 <td>positive</td>
 </tr>
-<tr>
+<tr class="even">
 <td>profile_width</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}\)</span></td>
 <td>positive</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>profile_slope</td>
 <td>Float64</td>
 <td>-</td>
@@ -539,7 +539,7 @@ s(x; x_0)
   \end{cases}
 \end{align}
 \]</span></p>
-<div id="1958de45" class="cell" data-execution_count="1">
+<div id="ebe8b094" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>

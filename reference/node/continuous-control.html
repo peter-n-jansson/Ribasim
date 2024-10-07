@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -373,7 +373,7 @@ Note
     \text{weight}_1 * \text{variable}_1 + \text{weight}_2 * \text{variable}_2 + \ldots,
 \]</span></p>
 <p>which can be for instance an average or a difference of variables. If a variable comes from a timeseries, a look ahead <span class="math inline">\(\Delta t\)</span> can be supplied. There is only one compound variable per <code>ContinuousControl</code> node.</p>
-<table class="caption-top">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 40%">
 <col style="width: 16%">
@@ -381,7 +381,7 @@ Note
 <col style="width: 22%">
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>column</th>
 <th>type</th>
 <th>unit</th>
@@ -389,37 +389,37 @@ Note
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
-<tr>
+<tr class="even">
 <td>listen_node_type</td>
 <td>String</td>
 <td>-</td>
 <td>known node type</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>listen_node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>sorted per node_id</td>
 </tr>
-<tr>
+<tr class="even">
 <td>variable</td>
 <td>String</td>
 <td>-</td>
 <td>must be “level” or “flow_rate”, sorted per listen_node_id</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>weight</td>
 <td>Float64</td>
 <td>-</td>
 <td>(optional, default 1.0)</td>
 </tr>
-<tr>
+<tr class="even">
 <td>look_ahead</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{s}\)</span></td>
@@ -434,7 +434,7 @@ Note
 <p><span class="math display">\[
     f(\text{weight}_1 * \text{variable}_1 + \text{weight}_2 * \text{variable}_2 + \ldots).
 \]</span></p>
-<table class="caption-top">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 44%">
 <col style="width: 15%">
@@ -442,7 +442,7 @@ Note
 <col style="width: 24%">
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>column</th>
 <th>type</th>
 <th>unit</th>
@@ -450,25 +450,25 @@ Note
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
-<tr>
+<tr class="even">
 <td>input</td>
 <td>Float64</td>
 <td>-</td>
 <td>sorted per node_id</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>output</td>
 <td>Float64</td>
 <td>-</td>
 <td>-</td>
 </tr>
-<tr>
+<tr class="even">
 <td>controlled_variable</td>
 <td>String</td>
 <td>-</td>

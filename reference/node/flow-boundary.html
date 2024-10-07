@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -355,7 +355,7 @@ window.Quarto = {
 <section id="static" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="static"><span class="header-section-number">1.1</span> Static</h2>
 <p>We require that the edge connecting the FlowBoundary to the Basin should point towards the Basin, so that positive flow corresponds to water being added to the model. The set flow rate will be pumped unless the intake storage (for a negative flow rate) is less than <span class="math inline">\(10~\text{ m}^3\)</span>, in which case the flow rate will be linearly reduced to <span class="math inline">\(0~\text{ m}^3/s\)</span>. Note that the connected node must always be a Basin.</p>
-<table class="caption-top">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
 <col style="width: 13%">
@@ -363,7 +363,7 @@ window.Quarto = {
 <col style="width: 21%">
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>column</th>
 <th>type</th>
 <th>unit</th>
@@ -371,19 +371,19 @@ window.Quarto = {
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
-<tr>
+<tr class="even">
 <td>active</td>
 <td>Bool</td>
 <td>-</td>
 <td>(optional, default true)</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}^3/\text{s}\)</span></td>
@@ -395,9 +395,9 @@ window.Quarto = {
 <section id="time" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="time"><span class="header-section-number">1.2</span> Time</h2>
 <p>This table is the transient form of the <code>FlowBoundary</code> table. The only differences are that a time column is added and the nodes are assumed to be active so this column is removed. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the flow rates can be updated over time. In between the given times the flow rate is interpolated linearly, and outside the flow rate is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
-<table class="caption-top">
+<table class="caption-top table">
 <thead>
-<tr>
+<tr class="header">
 <th>column</th>
 <th>type</th>
 <th>unit</th>
@@ -405,19 +405,19 @@ window.Quarto = {
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
-<tr>
+<tr class="even">
 <td>time</td>
 <td>DateTime</td>
 <td>-</td>
 <td>sorted per node_id</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>flow_rate</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}^3/\text{s}\)</span></td>
@@ -429,7 +429,7 @@ window.Quarto = {
 <section id="sec-flow-boundary-conc" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="sec-flow-boundary-conc"><span class="header-section-number">1.3</span> Concentration</h2>
 <p>This table defines the concentration(s) of (a) substance(s) for the flow from the FlowBoundary.</p>
-<table class="caption-top">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
 <col style="width: 14%">
@@ -437,7 +437,7 @@ window.Quarto = {
 <col style="width: 20%">
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>column</th>
 <th>type</th>
 <th>unit</th>
@@ -445,25 +445,25 @@ window.Quarto = {
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>sorted</td>
 </tr>
-<tr>
+<tr class="even">
 <td>time</td>
 <td>DateTime</td>
 <td>-</td>
 <td>sorted per node_id</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>substance</td>
 <td>String</td>
 <td>-</td>
 <td>can correspond to known Delwaq substances</td>
 </tr>
-<tr>
+<tr class="even">
 <td>concentration</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{g}/\text{m}^3\)</span></td>

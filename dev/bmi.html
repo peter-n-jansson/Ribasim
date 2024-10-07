@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -283,55 +283,55 @@ window.Quarto = {
 <section id="functions" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="functions"><span class="header-section-number">1.1</span> Functions</h2>
 <p>The following functions are available to interact with the Ribasim model”</p>
-<table class="caption-top">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 65%">
 <col style="width: 34%">
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>signature</th>
 <th>description</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>initialize(config_path)</code></td>
 <td>Initialize a model from the path to the TOML configuration file</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>finalize()</code></td>
 <td>Write all results to the configured files</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>get_current_time()</code></td>
 <td>Get the current time of the Ribasim simulation</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>get_end_time()</code></td>
 <td>Get the final time of the Ribasim simulation in seconds</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>get_start_time()</code></td>
 <td>Get the start time of the Ribasim simulation (<code>0.0</code>)</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>get_time_step()</code></td>
 <td>Get the proposed next internal Ribasim timestep</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>get_time_units()</code></td>
 <td>Get the time unit (<code>s</code>)</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>get_value_ptr(string)</code></td>
 <td>Get the pointer to a Ribasim internal array (see below)</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>update()</code></td>
 <td>Perform a Ribasim internal time step</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>update_until(time)</code></td>
 <td>Set Ribasim internal timesteps until the specified time</td>
 </tr>
@@ -342,7 +342,7 @@ window.Quarto = {
 <section id="memory-pointers" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="memory-pointers"><span class="header-section-number">1.2</span> Memory pointers</h2>
 <p>The following pointers to memory containing Ribasim internal arrays are given via the BMI using <code>get_value_ptr(string)</code>:</p>
-<table class="caption-top" style="width:100%;">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 24%">
 <col style="width: 29%">
@@ -353,7 +353,7 @@ window.Quarto = {
 <col style="width: 7%">
 </colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>string</th>
 <th>meaning</th>
 <th>type</th>
@@ -364,7 +364,7 @@ window.Quarto = {
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>basin.storage</code></td>
 <td>storage per basin</td>
 <td>Float64</td>
@@ -373,7 +373,7 @@ window.Quarto = {
 <td>no</td>
 <td>basin node ID</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>basin.level</code></td>
 <td>level per basin</td>
 <td>Float64</td>
@@ -382,7 +382,7 @@ window.Quarto = {
 <td>no</td>
 <td>basin node ID</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>basin.infiltration</code></td>
 <td>infiltration flux per basin</td>
 <td>Float64</td>
@@ -391,7 +391,7 @@ window.Quarto = {
 <td>yes</td>
 <td>basin node ID</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>basin.drainage</code></td>
 <td>drainage flux per basin</td>
 <td>Float64</td>
@@ -400,7 +400,7 @@ window.Quarto = {
 <td>yes</td>
 <td>basin node ID</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>basin.infiltration_integrated</code></td>
 <td>cumulative infiltration per basin</td>
 <td>Float64</td>
@@ -409,7 +409,7 @@ window.Quarto = {
 <td>yes</td>
 <td>basin node ID</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>basin.drainage_integrated</code></td>
 <td>cumulative drainage per basin</td>
 <td>Float64</td>
@@ -418,7 +418,7 @@ window.Quarto = {
 <td>yes</td>
 <td>basin node ID</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>basin.subgrid_level</code></td>
 <td>subgrid level</td>
 <td>Float64</td>
@@ -427,7 +427,7 @@ window.Quarto = {
 <td>no</td>
 <td>subgrid ID</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>user_demand.demand</code></td>
 <td>demand per node ID per priority</td>
 <td>Float64</td>
@@ -436,7 +436,7 @@ window.Quarto = {
 <td>yes</td>
 <td>user_demand node ID, priority index</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>user_demand.realized</code></td>
 <td>cumulative intake flow per user</td>
 <td>Float64</td>
