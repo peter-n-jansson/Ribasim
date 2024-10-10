@@ -355,12 +355,12 @@ window.Quarto = {
 <p>The water balance error quantifies how well the water volume in the model is conserved for each Basin over an output save period, i.e.&nbsp;whether no water erroneously appears or disappears. It looks at the storage rate <span class="math display">\[
     \text{storage rate} = \frac{\Delta S_b}{\Delta t}
 \]</span></p>
-<p>in a Basin over a time period <span class="math inline">\(\Delta t = t_1 - t_0\)</span> and compares that to the total inflows and outflows of that Basin over that period. More precisely, we first compute the total inflow and outflow, where:</p>
+<p>in a Basin over a time period <span class="math inline">\(\Delta t\)</span> and compares that to the total inflows and outflows of that Basin over that period. More precisely, we first compute the total inflow and outflow, where:</p>
 <ul>
 <li><span class="math inline">\(\text{total inflow}\)</span>: the precipitation, drainage and horizontal flows into the Basin;</li>
 <li><span class="math inline">\(\text{total outflow}\)</span>: the evaporation, infiltration and horizontal flows out of the Basin.</li>
 </ul>
-<p>Whether a flow is an inflow or an outflow depends on whether the flow contributes to or takes from the Basin storage, and thus this is independent of the edge direction. This is determined for each solver timestep individually.</p>
+<p>Whether a flow is an inflow or an outflow depends on whether the flow contributes to or takes from the Basin storage, which means that this is independent of the edge direction. This is determined for each solver timestep individually.</p>
 <p>Then from this we compute the errors:</p>
 <p><span class="math display">\[
     \begin{align}
@@ -368,8 +368,8 @@ window.Quarto = {
     \text{relative error}=&amp;&amp; \frac{\text{absolute error}}{0.5(\text{total inflow} + \text{total outflow})}
     \end{align}
 \]</span> Hence the reference used for computing the relative error is the average of the total inflow and total outflow of the Basin (which are both non-negative).</p>
-<p>The default tolerances are <span class="math inline">\(0.001 \text{ m}^3\)</span> for the balance error and <span class="math inline">\(0.01\)</span> for the absolute error, which should not be exceeded for realistic models.</p>
-<p>In extreme cases where storage rate is many orders of magnitude smaller than the storage itself, these computations can have floating point truncation errors which can lead to large relative errors. This is however only when the storage is roughly <span class="math inline">\(10^{15}\)</span> or more times bigger than the storage rate.</p>
+<p>The default tolerances are <span class="math inline">\(0.001 \text{ m}^3\)</span> for the balance error and <span class="math inline">\(0.01\)</span> for the relative error, which should not be exceeded for realistic models.</p>
+<p>In extreme cases where the storage rate is many orders of magnitude smaller than the storage itself, these computations can have floating point truncation errors which can lead to large relative errors. This is however only when the storage is roughly $ ^{15}$ times bigger than the storage rate.</p>
 <section id="example-calculation" class="level3" data-number="1.4.1">
 <h3 data-number="1.4.1" class="anchored" data-anchor-id="example-calculation"><span class="header-section-number">1.4.1</span> Example calculation</h3>
 <p>Say we have the following model:</p>
