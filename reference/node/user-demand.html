@@ -321,6 +321,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#static" id="toc-static" class="nav-link" data-scroll-target="#static"><span class="header-section-number">1.1</span> Static</a></li>
   <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="header-section-number">1.2</span> Time</a></li>
+  <li><a href="#concentration" id="toc-concentration" class="nav-link" data-scroll-target="#concentration"><span class="header-section-number">1.3</span> Concentration</a></li>
   </ul></li>
   <li><a href="#equations" id="toc-equations" class="nav-link" data-scroll-target="#equations"><span class="header-section-number">2</span> Equations</a></li>
   </ul>
@@ -466,6 +467,52 @@ window.Quarto = {
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}\)</span></td>
 <td>-</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="concentration" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="concentration"><span class="header-section-number">1.3</span> Concentration</h2>
+<p>This table defines the concentration(s) of (a) substance(s) for the flow from the UserDemand.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 14%">
+<col style="width: 38%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int32</td>
+<td>-</td>
+<td>sorted</td>
+</tr>
+<tr class="even">
+<td>time</td>
+<td>DateTime</td>
+<td>-</td>
+<td>sorted per node_id</td>
+</tr>
+<tr class="odd">
+<td>substance</td>
+<td>String</td>
+<td>-</td>
+<td>can correspond to known Delwaq substances</td>
+</tr>
+<tr class="even">
+<td>concentration</td>
+<td>Float64</td>
+<td><span class="math inline">\(\text{g}/\text{m}^3\)</span></td>
+<td></td>
 </tr>
 </tbody>
 </table>
