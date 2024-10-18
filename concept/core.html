@@ -370,14 +370,14 @@ user_demand-&gt;&gt;basin: abstracted
 </section>
 <section id="substance-tracer-concentration-calculations" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Substance (tracer) concentration calculations</h1>
-<p>Ribasim can calculate concentrations of conservative tracers (i.e.&nbsp;substances that are non-reactive). It does so by calculating the mass transports by flows for each timestep, in the <code>update_cumulative_flows!</code> callback. Specifically, for each basin at each timestep we calculate:</p>
+<p>Ribasim can calculate concentrations of conservative tracers (i.e.&nbsp;substances that are non-reactive). It does so by calculating the mass transports by flows for each timestep, in the <code>update_cumulative_flows!</code> callback. Specifically, for each Basin at each timestep we calculate:</p>
 <ul>
 <li>all mass inflows (flow * source_concentration) given the edge inflows</li>
-<li>update the concentrations in the basin based on the added storage (previous storage + inflows)</li>
+<li>update the concentrations in the Basin based on the added storage (previous storage + inflows)</li>
 <li>all mass outflows (flow * basin_concentration_state) give the edge outflows</li>
-<li>update the concentrations in the basin based on the current storage</li>
+<li>update the concentrations in the Basin based on the current storage</li>
 </ul>
-<p>We thus keep track of both mass and concentration of substances for each basin. Note that we have not added the substance mass to the states, and we assume that concentrations of flows are piecewise constant over a timestep.</p>
+<p>We thus keep track of both mass and concentration of substances for each Basin. Note that we have not added the substance mass to the states, and we assume that concentrations of flows are piecewise constant over a timestep.</p>
 <p>By default we calculate concentrations for the following source tracers. - Continuity (mass balance, fraction of all water sources, sum of all other source tracers) - Initial (fraction of initial storages) - LevelBoundary, FlowBoundary, UserDemand, Drainage, Precipitation (fraction of different boundaries)</p>
 
 
