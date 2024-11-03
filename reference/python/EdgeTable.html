@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -163,7 +197,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="ribasim.EdgeTable" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> EdgeTable</h1>
-<p><code>EdgeTable()</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>EdgeTable()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Defines the connections between nodes.</p>
 <section id="attributes" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="attributes"><span class="header-section-number">1.1</span> Attributes</h2>
@@ -232,13 +266,21 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <section id="ribasim.EdgeTable.add" class="level3" data-number="1.2.1">
 <h3 data-number="1.2.1" class="anchored" data-anchor-id="ribasim.EdgeTable.add"><span class="header-section-number">1.2.1</span> add</h3>
-<p><code>EdgeTable.add(from_node, to_node, geometry=None, name='', subnetwork_id=None, edge_id=None, **kwargs)</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>EdgeTable.add(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    from_node</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    to_node</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    geometry<span class="op">=</span><span class="va">None</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">''</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    subnetwork_id<span class="op">=</span><span class="va">None</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    edge_id<span class="op">=</span><span class="va">None</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span>kwargs</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Add an edge between nodes. The type of the edge (flow or control) is automatically inferred from the type of the <code>from_node</code>.</p>
-<section id="parameters" class="level4" data-number="1.2.1.1">
-<h4 data-number="1.2.1.1" class="anchored" data-anchor-id="parameters"><span class="header-section-number">1.2.1.1</span> Parameters</h4>
+<section id="parameters" class="level4 doc-section doc-section-parameters" data-number="1.2.1.1">
+<h4 class="doc-section doc-section-parameters anchored" data-number="1.2.1.1" data-anchor-id="parameters"><span class="header-section-number">1.2.1.1</span> Parameters</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 7%">
+<col style="width: 6%">
 <col style="width: 17%">
 <col style="width: 70%">
 <col style="width: 5%">
@@ -253,37 +295,37 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>from_node</code></td>
+<td>from_node</td>
 <td>NodeData</td>
 <td>A node indexed by its node ID, e.g.&nbsp;<code>model.basin[1]</code></td>
 <td><em>required</em></td>
 </tr>
 <tr class="even">
-<td><code>to_node</code></td>
+<td>to_node</td>
 <td>NodeData</td>
 <td>A node indexed by its node ID, e.g.&nbsp;<code>model.linear_resistance[1]</code></td>
 <td><em>required</em></td>
 </tr>
 <tr class="odd">
-<td><code>geometry</code></td>
+<td>geometry</td>
 <td>LineString | MultiLineString | None</td>
 <td>The geometry of a line. If not supplied, it creates a straight line between the nodes.</td>
 <td><code>None</code></td>
 </tr>
 <tr class="even">
-<td><code>name</code></td>
+<td>name</td>
 <td>str</td>
 <td>An optional name for the edge.</td>
 <td><code>''</code></td>
 </tr>
 <tr class="odd">
-<td><code>subnetwork_id</code></td>
+<td>subnetwork_id</td>
 <td>int | None</td>
 <td>An optional subnetwork id for the edge. This edge indicates a source for the allocation algorithm, and should thus not be set for every edge in a subnetwork.</td>
 <td><code>None</code></td>
 </tr>
 <tr class="even">
-<td><code>**kwargs</code></td>
+<td>**kwargs</td>
 <td>Dict</td>
 <td></td>
 <td><code>{}</code></td>
@@ -294,21 +336,21 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="ribasim.EdgeTable.columns" class="level3" data-number="1.2.2">
 <h3 data-number="1.2.2" class="anchored" data-anchor-id="ribasim.EdgeTable.columns"><span class="header-section-number">1.2.2</span> columns</h3>
-<p><code>EdgeTable.columns()</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>EdgeTable.columns()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Retrieve column names.</p>
 </section>
 <section id="ribasim.EdgeTable.plot" class="level3" data-number="1.2.3">
 <h3 data-number="1.2.3" class="anchored" data-anchor-id="ribasim.EdgeTable.plot"><span class="header-section-number">1.2.3</span> plot</h3>
-<p><code>EdgeTable.plot(**kwargs)</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>EdgeTable.plot(<span class="op">**</span>kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Plot the edges of the model.</p>
-<section id="parameters-1" class="level4" data-number="1.2.3.1">
-<h4 data-number="1.2.3.1" class="anchored" data-anchor-id="parameters-1"><span class="header-section-number">1.2.3.1</span> Parameters</h4>
+<section id="parameters-1" class="level4 doc-section doc-section-parameters" data-number="1.2.3.1">
+<h4 class="doc-section doc-section-parameters anchored" data-number="1.2.3.1" data-anchor-id="parameters-1"><span class="header-section-number">1.2.3.1</span> Parameters</h4>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 15%">
+<col style="width: 12%">
 <col style="width: 10%">
-<col style="width: 60%">
-<col style="width: 13%">
+<col style="width: 62%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -320,7 +362,7 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>**kwargs</code></td>
+<td>**kwargs</td>
 <td>Dict</td>
 <td>Supported: ‘ax’, ‘color_flow’, ‘color_control’</td>
 <td><code>{}</code></td>
@@ -331,23 +373,23 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="ribasim.EdgeTable.set_filepath" class="level3" data-number="1.2.4">
 <h3 data-number="1.2.4" class="anchored" data-anchor-id="ribasim.EdgeTable.set_filepath"><span class="header-section-number">1.2.4</span> set_filepath</h3>
-<p><code>EdgeTable.set_filepath(filepath)</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>EdgeTable.set_filepath(filepath)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Set the filepath of this instance.</p>
 <p>Args: filepath (Path): The filepath to set.</p>
 </section>
 <section id="ribasim.EdgeTable.sort" class="level3" data-number="1.2.5">
 <h3 data-number="1.2.5" class="anchored" data-anchor-id="ribasim.EdgeTable.sort"><span class="header-section-number">1.2.5</span> sort</h3>
-<p><code>EdgeTable.sort()</code></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>EdgeTable.sort()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="ribasim.EdgeTable.tablename" class="level3" data-number="1.2.6">
 <h3 data-number="1.2.6" class="anchored" data-anchor-id="ribasim.EdgeTable.tablename"><span class="header-section-number">1.2.6</span> tablename</h3>
-<p><code>EdgeTable.tablename()</code></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>EdgeTable.tablename()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Retrieve tablename based on attached Schema.</p>
 <p>NodeSchema -&gt; Schema TabularRatingCurveStaticSchema -&gt; TabularRatingCurve / Static</p>
 </section>
 <section id="ribasim.EdgeTable.tableschema" class="level3" data-number="1.2.7">
 <h3 data-number="1.2.7" class="anchored" data-anchor-id="ribasim.EdgeTable.tableschema"><span class="header-section-number">1.2.7</span> tableschema</h3>
-<p><code>EdgeTable.tableschema()</code></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>EdgeTable.tableschema()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Retrieve Pandera Schema.</p>
 <p>The type of the field <code>df</code> is known to always be an DataFrame[TableT]]] | None</p>
 
