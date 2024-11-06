@@ -75,6 +75,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -274,38 +277,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#parameter-initialization" id="toc-parameter-initialization" class="nav-link active" data-scroll-target="#parameter-initialization"><span class="header-section-number">1</span> Parameter initialization</a></li>
-  <li><a href="#water_balance" id="toc-water_balance" class="nav-link" data-scroll-target="#water_balance"><span class="header-section-number">2</span> <code>water_balance!</code></a></li>
-  <li><a href="#allocation-initialization" id="toc-allocation-initialization" class="nav-link" data-scroll-target="#allocation-initialization"><span class="header-section-number">3</span> Allocation initialization</a></li>
-  <li><a href="#allocation-run" id="toc-allocation-run" class="nav-link" data-scroll-target="#allocation-run"><span class="header-section-number">4</span> Allocation run</a></li>
-  <li><a href="#discrete-control" id="toc-discrete-control" class="nav-link" data-scroll-target="#discrete-control"><span class="header-section-number">5</span> Discrete control</a></li>
-  <li><a href="#writing-output" id="toc-writing-output" class="nav-link" data-scroll-target="#writing-output"><span class="header-section-number">6</span> Writing output</a></li>
+  <li><a href="#call-stacks" id="toc-call-stacks" class="nav-link active" data-scroll-target="#call-stacks"><span class="header-section-number">1</span> Call stacks</a>
+  <ul class="collapse">
+  <li><a href="#parameter-initialization" id="toc-parameter-initialization" class="nav-link" data-scroll-target="#parameter-initialization"><span class="header-section-number">1.1</span> Parameter initialization</a></li>
+  <li><a href="#water_balance" id="toc-water_balance" class="nav-link" data-scroll-target="#water_balance"><span class="header-section-number">1.2</span> <code>water_balance!</code></a></li>
+  <li><a href="#allocation-initialization" id="toc-allocation-initialization" class="nav-link" data-scroll-target="#allocation-initialization"><span class="header-section-number">1.3</span> Allocation initialization</a></li>
+  <li><a href="#allocation-run" id="toc-allocation-run" class="nav-link" data-scroll-target="#allocation-run"><span class="header-section-number">1.4</span> Allocation run</a></li>
+  <li><a href="#discrete-control" id="toc-discrete-control" class="nav-link" data-scroll-target="#discrete-control"><span class="header-section-number">1.5</span> Discrete control</a></li>
+  <li><a href="#writing-output" id="toc-writing-output" class="nav-link" data-scroll-target="#writing-output"><span class="header-section-number">1.6</span> Writing output</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Call stacks</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<div id="4461c355" class="cell" data-execution_count="1">
+<section id="call-stacks" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Call stacks</h1>
+<div id="d2395a32" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CairoMakie</span></span>
@@ -324,10 +316,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The plots below show the call stack within the Julia core for several important entrypoints. The function names are colored by the script in which they are defined, and the lines between the function names have random colors to be able to differentiate between them. Solid lines refer to calls to functions defined in the same script, dashed ones to functions defined in a different script. The plots are of high resolution so zooming in to particular parts is encouraged.</p>
 <p>Note that these graphs are obtained by dynamic analysis, i.e.&nbsp;by running parts of the code with specific inputs. This means that there can be unshown paths through the code that are not reached for these particular inputs.</p>
-<section id="parameter-initialization" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="parameter-initialization"><span class="header-section-number">1</span> Parameter initialization</h2>
+<section id="parameter-initialization" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="parameter-initialization"><span class="header-section-number">1.1</span> Parameter initialization</h2>
 <p>Parameter initialization is the process of reading the parameter values from the input files and storing them in data structures for easy access in the core. Most notable here is the convergence of many paths to <code>load_structvector</code> and <code>parse_static_and_time</code>, as these are needed for parameter initialization for most node types.</p>
-<div id="e08a79ff" class="cell" data-execution_count="2">
+<div id="572dde77" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">SQLite</span></span>
@@ -341,29 +333,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_graph</span>(</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    graph;</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    size <span class="op">=</span> (<span class="fl">2000</span>, <span class="fl">1200</span>),</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    squash_methods <span class="op">=</span> [</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span>n_neighbor_bounds_flow,</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span>n_neighbor_bounds_control,</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span>sort_by_function,</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span>neighbortypes</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    xlims <span class="op">=</span> (<span class="op">-</span><span class="fl">0.4</span>, <span class="fl">5.6</span>)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    squash_methods <span class="op">=</span> [</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span>n_neighbor_bounds_flow,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span>n_neighbor_bounds_control,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span>sort_by_function,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">:</span>neighbortypes,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 <figure class="figure">
-<p><img src="callstacks_files/figure-html/cell-3-output-1.svg" class="img-fluid figure-img"></p>
+<p><a href="callstacks_files/figure-html/cell-3-output-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="callstacks_files/figure-html/cell-3-output-1.svg" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="water_balance" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="water_balance"><span class="header-section-number">2</span> <code>water_balance!</code></h2>
+<section id="water_balance" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="water_balance"><span class="header-section-number">1.2</span> <code>water_balance!</code></h2>
 <p><code>water_balance!</code> is the right hand side function of the system of ODEs that is solved by the Ribasim core (for more details see <a href="../concept/equations.html#formal-model-description">here</a>). The various <code>formulate_flow!</code> methods are for flow rates as determined by different node types.</p>
-<div id="0e8d3793" class="cell" data-execution_count="3">
+<div id="812cade9" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">OrdinaryDiffEqCore</span>: get_du</span>
@@ -371,102 +361,108 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>du <span class="op">=</span> <span class="fu">get_du</span>(model.integrator)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>(; u, p, t) <span class="op">=</span> model.integrator</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>graph, verts <span class="op">=</span> <span class="fu">tracecall</span>((Ribasim,), Ribasim.water_balance!, (du, u, p, t))</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_graph</span>(graph, size <span class="op">=</span> (<span class="fl">1700</span>, <span class="fl">1000</span>), xlims <span class="op">=</span> (<span class="op">-</span><span class="fl">0.4</span>, <span class="fl">4.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_graph</span>(graph; max_depth <span class="op">=</span> <span class="fl">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 <figure class="figure">
-<p><img src="callstacks_files/figure-html/cell-4-output-1.svg" class="img-fluid figure-img"></p>
+<p><a href="callstacks_files/figure-html/cell-4-output-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="callstacks_files/figure-html/cell-4-output-1.svg" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="allocation-initialization" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="allocation-initialization"><span class="header-section-number">3</span> Allocation initialization</h2>
+<section id="allocation-initialization" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="allocation-initialization"><span class="header-section-number">1.3</span> Allocation initialization</h2>
 <p>In this part of the code the data structures for allocation are set up. Most endpoints in <code>allocation_init.jl</code> set up data structures as defined in <a href="https://jump.dev/JuMP.jl/stable/">JuMP.jl</a>.</p>
-<div id="c5b0e552" class="cell" data-execution_count="4">
+<div id="0c069b96" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>toml_path <span class="op">=</span> <span class="fu">normpath</span>(<span class="pp">@__DIR__</span>, <span class="st">"../../generated_testmodels/main_network_with_subnetworks/ribasim.toml"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Ribasim.<span class="fu">Config</span>(toml_path; allocation_use_allocation<span class="op">=</span><span class="cn">false</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>db_path <span class="op">=</span> Ribasim.<span class="fu">database_path</span>(config)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>db <span class="op">=</span> SQLite.<span class="fu">DB</span>(db_path)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Ribasim.<span class="fu">Parameters</span>(db, config)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>graph, verts <span class="op">=</span> <span class="fu">tracecall</span>((Ribasim,), Ribasim.initialize_allocation!, (p, config))</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_graph</span>(graph, size <span class="op">=</span> (<span class="fl">1800</span>, <span class="fl">1000</span>), xlims <span class="op">=</span> (<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">5.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>toml_path <span class="op">=</span> <span class="fu">normpath</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@__DIR__</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"../../generated_testmodels/main_network_with_subnetworks/ribasim.toml"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> Ribasim.<span class="fu">Config</span>(toml_path; allocation_use_allocation <span class="op">=</span> <span class="cn">false</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>db_path <span class="op">=</span> Ribasim.<span class="fu">database_path</span>(config)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>db <span class="op">=</span> SQLite.<span class="fu">DB</span>(db_path)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Ribasim.<span class="fu">Parameters</span>(db, config)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>graph, verts <span class="op">=</span> <span class="fu">tracecall</span>((Ribasim,), Ribasim.initialize_allocation!, (p, config))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_graph</span>(graph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 <figure class="figure">
-<p><img src="callstacks_files/figure-html/cell-5-output-1.svg" class="img-fluid figure-img"></p>
+<p><a href="callstacks_files/figure-html/cell-5-output-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="callstacks_files/figure-html/cell-5-output-1.svg" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="allocation-run" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="allocation-run"><span class="header-section-number">4</span> Allocation run</h2>
+<section id="allocation-run" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="allocation-run"><span class="header-section-number">1.4</span> Allocation run</h2>
 <p>Running the allocation algorithm consists of running the optimization itself (which is handled in <code>JuMP.jl</code>), and all Ribasim functions around it are used for communicating data between the optimization problem and the physical layer, as well as gathering output data. Fore more information on the allocation algorithm see <a href="../concept/allocation.html">here</a>.</p>
-<div id="a518fb8f" class="cell" data-execution_count="5">
+<div id="3f4b8376" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Ribasim.<span class="fu">Model</span>(toml_path)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>graph, verts <span class="op">=</span> <span class="fu">tracecall</span>((Ribasim,), Ribasim.update_allocation!, (model.integrator,))</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_graph</span>(graph, size <span class="op">=</span> (<span class="fl">2000</span>, <span class="fl">1000</span>), xlims <span class="op">=</span> (<span class="op">-</span><span class="fl">0.4</span>, <span class="fl">5.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_graph</span>(graph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 <figure class="figure">
-<p><img src="callstacks_files/figure-html/cell-6-output-1.svg" class="img-fluid figure-img"></p>
+<p><a href="callstacks_files/figure-html/cell-6-output-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="callstacks_files/figure-html/cell-6-output-1.svg" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="discrete-control" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="discrete-control"><span class="header-section-number">5</span> Discrete control</h2>
+<section id="discrete-control" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="discrete-control"><span class="header-section-number">1.5</span> Discrete control</h2>
 <p>Discrete control works by a <a href="https://docs.sciml.ai/DiffEqCallbacks/stable/output_saving/#DiffEqCallbacks.FunctionCallingCallback"><code>FunctionCallingCallback</code></a>, changing parameters when a change in control state is detected (see also <a href="../reference/node/discrete-control.html">here</a>).</p>
-<div id="28eb046c" class="cell" data-execution_count="6">
+<div id="88386066" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>toml_path <span class="op">=</span> <span class="fu">normpath</span>(<span class="pp">@__DIR__</span>, <span class="st">"../../generated_testmodels/pump_discrete_control/ribasim.toml"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Ribasim.<span class="fu">Model</span>(toml_path)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>(; u, t) <span class="op">=</span> model.integrator</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>model.integrator.p.basin.storage0 <span class="op">.=</span> [<span class="fl">0.1</span>, <span class="fl">100.0</span>]</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>graph, verts <span class="op">=</span> <span class="fu">tracecall</span>((Ribasim,), Ribasim.apply_discrete_control!, (u, t, model.integrator))</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_graph</span>(graph; size <span class="op">=</span> (<span class="fl">1300</span>, <span class="fl">500</span>), prune_from <span class="op">=</span> [<span class="op">:</span>water_balance!], xlims <span class="op">=</span> (<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">3.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>toml_path <span class="op">=</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">normpath</span>(<span class="pp">@__DIR__</span>, <span class="st">"../../generated_testmodels/pump_discrete_control/ribasim.toml"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Ribasim.<span class="fu">Model</span>(toml_path)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>(; u, t) <span class="op">=</span> model.integrator</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>model.integrator.p.basin.storage0 <span class="op">.=</span> [<span class="fl">0.1</span>, <span class="fl">100.0</span>]</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>graph, verts <span class="op">=</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tracecall</span>((Ribasim,), Ribasim.apply_discrete_control!, (u, t, model.integrator))</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_graph</span>(graph; prune_from <span class="op">=</span> [<span class="op">:</span>water_balance!], max_depth <span class="op">=</span> <span class="fl">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 <figure class="figure">
-<p><img src="callstacks_files/figure-html/cell-7-output-1.svg" class="img-fluid figure-img"></p>
+<p><a href="callstacks_files/figure-html/cell-7-output-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="callstacks_files/figure-html/cell-7-output-1.svg" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="writing-output" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="writing-output"><span class="header-section-number">6</span> Writing output</h2>
+<section id="writing-output" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="writing-output"><span class="header-section-number">1.6</span> Writing output</h2>
 <p>Writing output (currently) happens only after the full simulation is finished. For more information on the different output tables see <a href="../reference/usage.html#results">here</a>.</p>
-<div id="9b00f42d" class="cell" data-execution_count="7">
+<div id="545be62a" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>toml_path <span class="op">=</span> <span class="fu">normpath</span>(<span class="pp">@__DIR__</span>, <span class="st">"../../generated_testmodels/basic_transient/ribasim.toml"</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Ribasim.<span class="fu">Model</span>(toml_path)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>graph, verts <span class="op">=</span> <span class="fu">tracecall</span>((Ribasim,), Ribasim.write_results, (model,))</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_graph</span>(graph, size <span class="op">=</span> (<span class="fl">1600</span>, <span class="fl">1000</span>), xlims <span class="op">=</span> (<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">4.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_graph</span>(graph; max_depth <span class="op">=</span> <span class="fl">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 <figure class="figure">
-<p><img src="callstacks_files/figure-html/cell-8-output-1.svg" class="img-fluid figure-img"></p>
+<p><a href="callstacks_files/figure-html/cell-8-output-1.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="callstacks_files/figure-html/cell-8-output-1.svg" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -903,6 +899,38 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","descPosition":"bottom","closeEffect":"zoom","selector":".lightbox","loop":false});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
