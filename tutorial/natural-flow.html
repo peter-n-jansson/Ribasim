@@ -310,7 +310,7 @@ window.Quarto = {
 </section>
 <section id="crystal-river-basin" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Crystal River Basin</h1>
-<p>We will examine a straightforward example of the Crystal river basin, which includes a main river and a single tributary flowing into the sea (see <a href="#fig-crystal-basin" class="quarto-xref">Figure&nbsp;1</a>). An average discharge of <span class="math inline">\(44.45 \text{ m}^3/\text{s}\)</span> is measured at the confluence. In this module, the basin is free of any activities, allowing the model to simulate the natural flow. The next step is to include a demand (irrigation) that taps from a canal out of the main river.</p>
+<p>We will examine a straightforward example of the Crystal river basin, which includes a main river and a single tributary flowing into the sea (see <a href="#fig-crystal-basin" class="quarto-xref">Figure&nbsp;1</a>). Between 2014 and 2023 an average discharge of <span class="math inline">\(44.45 \text{ m}^3/\text{s}\)</span> is measured at the confluence. In this module, the basin is free of any activities, allowing the model to simulate the natural flow. The next step is to include a demand (irrigation) that taps from a canal out of the main river.</p>
 <div id="fig-crystal-basin" class="quarto-float quarto-figure quarto-figure-left anchored" data-fig-align="left">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-crystal-basin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -345,7 +345,7 @@ Figure&nbsp;1: Crystal Basin based on natural flow
 </section>
 <section id="setup-paths-and-model-configuration" class="level3" data-number="2.1.2">
 <h3 data-number="2.1.2" class="anchored" data-anchor-id="setup-paths-and-model-configuration"><span class="header-section-number">2.1.2</span> Setup paths and model configuration</h3>
-<p>Reference the paths of the Ribasim installation and model directory and define the time period (2022-01-01 until 2023-01-01) for the model simulation. The coordinate reference system (CRS) is also required, and set to <a href="https://epsg.io/4326">EPSG:4326</a>, which means all coordinates are interpreted as latitude and longitude values. The CRS is important for correctly placing Ribasim models on the map, but since this is a fictional model, it is not important.</p>
+<p>Reference the paths of the Ribasim installation and model directory and define the time period. The used simulation period is defined by the <code>starttime</code> and <code>endtime</code> of the model, not by the input timeseries. For now we will look into the period from 2022-01-01 until 2023-01-01 for the model simulation. The coordinate reference system (CRS) is also required, and set to <a href="https://epsg.io/4326">EPSG:4326</a>, which means all coordinates are interpreted as latitude and longitude values. The CRS is important for correctly placing Ribasim models on the map, but since this is a fictional model, it is not important.</p>
 <div id="cell-5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>base_dir <span class="op">=</span> Path(<span class="st">"crystal-basin"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -370,30 +370,29 @@ Figure&nbsp;1: Crystal Basin based on natural flow
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>data[<span class="st">"total"</span>] <span class="op">=</span> data[<span class="st">"minor"</span>] <span class="op">+</span> data[<span class="st">"main"</span>]</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>display(data)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Average and max inflow of the total inflow data timeseries</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># From 2014 - 2023</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Average inflow [m3/s]:"</span>, data[<span class="st">"total"</span>].mean())</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Maximum inflow [m3/s]:"</span>, data[<span class="st">"total"</span>].<span class="bu">max</span>())</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>main <span class="op">=</span> model.flow_boundary.add(</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">1</span>, Point(<span class="fl">0.0</span>, <span class="fl">0.0</span>), name<span class="op">=</span><span class="st">"main"</span>),</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    [</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        flow_boundary.Time(</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>            time<span class="op">=</span>data.time,</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            flow_rate<span class="op">=</span>data.main,</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>minor <span class="op">=</span> model.flow_boundary.add(</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">2</span>, Point(<span class="op">-</span><span class="fl">3.0</span>, <span class="fl">0.0</span>), name<span class="op">=</span><span class="st">"minor"</span>),</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    [</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        flow_boundary.Time(</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>            time<span class="op">=</span>data.time,</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>            flow_rate<span class="op">=</span>data.minor,</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Average and max inflow of the total inflow data over 2022</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Average inflow [m3/s]:"</span>, data[<span class="st">"total"</span>].mean())</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Maximum inflow [m3/s]:"</span>, data[<span class="st">"total"</span>].<span class="bu">max</span>())</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>main <span class="op">=</span> model.flow_boundary.add(</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">1</span>, Point(<span class="fl">0.0</span>, <span class="fl">0.0</span>), name<span class="op">=</span><span class="st">"main"</span>),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        flow_boundary.Time(</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            time<span class="op">=</span>data.time,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>            flow_rate<span class="op">=</span>data.main,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>minor <span class="op">=</span> model.flow_boundary.add(</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">2</span>, Point(<span class="op">-</span><span class="fl">3.0</span>, <span class="fl">0.0</span>), name<span class="op">=</span><span class="st">"minor"</span>),</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    [</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        flow_boundary.Time(</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>            time<span class="op">=</span>data.time,</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>            flow_rate<span class="op">=</span>data.minor,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 
