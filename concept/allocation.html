@@ -377,8 +377,8 @@ Note
 <section id="source-flows" class="level3" data-number="3.1.2">
 <h3 data-number="3.1.2" class="anchored" data-anchor-id="source-flows"><span class="header-section-number">3.1.2</span> Source flows</h3>
 <p>Sources are indicated by a set of edges in the subnetwork <span class="math display">\[
-E_S^\text{source} \subset E.
-\]</span> That is, if <span class="math inline">\((i,j) \in E_S^\text{source}\)</span>, then the average over the last allocation interval <span class="math inline">\(\Delta t_{\text{alloc}}\)</span> of the of the flow over this edge <span class="math display">\[
+E_S^\text{source} \subset E,
+\]</span> which are automatically inferred as all edges that point out of LevelBoundary or FlowBoundary nodes. That is, if <span class="math inline">\((i,j) \in E_S^\text{source}\)</span>, then the average over the last allocation interval <span class="math inline">\(\Delta t_{\text{alloc}}\)</span> of the of the flow over this edge <span class="math display">\[
     \frac{1}{\Delta t_{\text{alloc}}}\int_{t - \Delta t_{\text{alloc}}}^tQ_{ij}(t') dt'
 \]</span> is treated as a source flow in the allocation problem. These edges are either coming from a boundary/source node (e.g.&nbsp;a level or flow boundary) or connect the main network to a subnetwork. For the definition of <span class="math inline">\(Q_{ij}\)</span> see <a href="../concept/equations.html#formal-model-description">the formal model description</a>.</p>
 </section>
@@ -577,7 +577,7 @@ F_{ij} \le (C^{UD}_S)_i, \quad \forall i \in U_S, \quad V_S^{\text{out}}(i) = \{
 <section id="example" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="example"><span class="header-section-number">4.4</span> Example</h2>
 <p>The following is an example of an optimization problem for the example shown <a href="../guide/examples.html#model-with-allocation-user-demand">here</a>:</p>
-<div id="e225d9cf" class="cell" data-execution_count="1">
+<div id="19f0e029" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -600,25 +600,25 @@ F_{ij} \le (C^{UD}_S)_i, \quad \forall i \in U_S, \quad V_S^{\text{out}}(i) = \{
 <div class="cell-output cell-output-stdout">
 <pre><code>Min F[(Basin #5, UserDemand #6)]² + 0.6666666666666666 F[(Basin #2, UserDemand #3)]² - 2 F[(Basin #2, UserDemand #3)] + 1.5
 Subject to
- source[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 0
+ source_boundary[(FlowBoundary #1, Basin #2)] : F[(FlowBoundary #1, Basin #2)] ≤ 0
  source_user[UserDemand #3] : F[(UserDemand #3, Basin #2)] ≤ 0
  source_user[UserDemand #6] : F[(UserDemand #6, Basin #5)] ≤ 0
- F[(LinearResistance #4, Basin #5)] ≥ 0
- F[(Basin #5, LinearResistance #4)] ≥ 0
+ F[(TabulatedRatingCurve #7, Terminal #8)] ≥ 0
+ F[(FlowBoundary #1, Basin #2)] ≥ 0
  F[(Basin #5, UserDemand #6)] ≥ 0
- F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
  F[(UserDemand #6, Basin #5)] ≥ 0
- F[(Basin #2, UserDemand #3)] ≥ 0
  F[(Basin #2, LinearResistance #4)] ≥ 0
  F[(LinearResistance #4, Basin #2)] ≥ 0
- F[(FlowBoundary #1, Basin #2)] ≥ 0
- F[(TabulatedRatingCurve #7, Terminal #8)] ≥ 0
  F[(UserDemand #3, Basin #2)] ≥ 0
- flow_conservation[LinearResistance #4] : -F[(LinearResistance #4, Basin #5)] + F[(Basin #5, LinearResistance #4)] + F[(Basin #2, LinearResistance #4)] - F[(LinearResistance #4, Basin #2)] = 0
- flow_conservation[Basin #2] : -F[(Basin #2, UserDemand #3)] - F[(Basin #2, LinearResistance #4)] + F[(LinearResistance #4, Basin #2)] + F[(FlowBoundary #1, Basin #2)] + F[(UserDemand #3, Basin #2)] = 0
- flow_conservation[TabulatedRatingCurve #7] : F[(Basin #5, TabulatedRatingCurve #7)] - F[(TabulatedRatingCurve #7, Terminal #8)] = 0
+ F[(LinearResistance #4, Basin #5)] ≥ 0
+ F[(Basin #5, LinearResistance #4)] ≥ 0
+ F[(Basin #5, TabulatedRatingCurve #7)] ≥ 0
+ F[(Basin #2, UserDemand #3)] ≥ 0
+ flow_conservation[Basin #5] : -F[(Basin #5, UserDemand #6)] + F[(UserDemand #6, Basin #5)] + F[(LinearResistance #4, Basin #5)] - F[(Basin #5, LinearResistance #4)] - F[(Basin #5, TabulatedRatingCurve #7)] = 0
+ flow_conservation[LinearResistance #4] : F[(Basin #2, LinearResistance #4)] - F[(LinearResistance #4, Basin #2)] - F[(LinearResistance #4, Basin #5)] + F[(Basin #5, LinearResistance #4)] = 0
+ flow_conservation[TabulatedRatingCurve #7] : -F[(TabulatedRatingCurve #7, Terminal #8)] + F[(Basin #5, TabulatedRatingCurve #7)] = 0
  flow_conservation[Terminal #8] : F[(TabulatedRatingCurve #7, Terminal #8)] = 0
- flow_conservation[Basin #5] : F[(LinearResistance #4, Basin #5)] - F[(Basin #5, LinearResistance #4)] - F[(Basin #5, UserDemand #6)] - F[(Basin #5, TabulatedRatingCurve #7)] + F[(UserDemand #6, Basin #5)] = 0
+ flow_conservation[Basin #2] : F[(FlowBoundary #1, Basin #2)] - F[(Basin #2, LinearResistance #4)] + F[(LinearResistance #4, Basin #2)] + F[(UserDemand #3, Basin #2)] - F[(Basin #2, UserDemand #3)] = 0
 </code></pre>
 </div>
 </div>

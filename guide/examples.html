@@ -941,7 +941,7 @@ window.Quarto = {
 </div>
 <p>Setup the edges:</p>
 <div id="cell-101" class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>], subnetwork_id<span class="op">=</span><span class="dv">1</span>)</span>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>])</span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.user_demand[<span class="dv">3</span>])</span>
 <span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.linear_resistance[<span class="dv">4</span>])</span>
 <span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.linear_resistance[<span class="dv">4</span>], model.basin[<span class="dv">5</span>])</span>
@@ -1118,7 +1118,7 @@ window.Quarto = {
 </div>
 <p>Setup the edges:</p>
 <div id="cell-125" class="cell" data-execution_count="63">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>], subnetwork_id<span class="op">=</span><span class="dv">2</span>)</span>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>])</span>
 <span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.user_demand[<span class="dv">3</span>])</span>
 <span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_demand[<span class="dv">4</span>], model.basin[<span class="dv">2</span>])</span>
 <span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.user_demand[<span class="dv">3</span>], model.basin[<span class="dv">5</span>])</span>
