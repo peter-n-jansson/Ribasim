@@ -368,7 +368,7 @@ window.Quarto = {
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
-<td>sorted</td>
+<td></td>
 </tr>
 <tr class="even">
 <td>active</td>
@@ -387,7 +387,7 @@ window.Quarto = {
 </section>
 <section id="time" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="time"><span class="header-section-number">1.2</span> Time</h2>
-<p>This table is the transient form of the <code>LevelBoundary</code> table. The only difference is that a time column is added and activity is assumed to be true. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the levels can be updated over time. In between the given times the level is interpolated linearly, and outside the flow rate is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
+<p>This table is the transient form of the <code>LevelBoundary</code> table. The only difference is that a time column is added and activity is assumed to be true. With this the levels can be updated over time. In between the given times the level is interpolated linearly, and outside the flow rate is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -402,13 +402,13 @@ window.Quarto = {
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
-<td>sorted</td>
+<td></td>
 </tr>
 <tr class="even">
 <td>time</td>
 <td>DateTime</td>
 <td>-</td>
-<td>sorted per node_id</td>
+<td></td>
 </tr>
 <tr class="odd">
 <td>level</td>
@@ -442,13 +442,13 @@ window.Quarto = {
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
-<td>sorted</td>
+<td></td>
 </tr>
 <tr class="even">
 <td>time</td>
 <td>DateTime</td>
 <td>-</td>
-<td>sorted per node_id</td>
+<td></td>
 </tr>
 <tr class="odd">
 <td>substance</td>

@@ -383,7 +383,7 @@ window.Quarto = {
 
 
 <p>Set parameters of other nodes based on model state conditions (e.g.&nbsp;Basin level). The table below shows which parameters are controllable for a given node type.</p>
-<div id="f478f086" class="cell" data-execution_count="1">
+<div id="9d8ec0d1" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -481,39 +481,33 @@ window.Quarto = {
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
-<td>sorted</td>
+<td></td>
 </tr>
 <tr class="even">
 <td>compound_variable_id</td>
 <td>Int32</td>
 <td>-</td>
-<td>sorted per node_id</td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>listen_node_type</td>
-<td>String</td>
-<td>-</td>
-<td>known node type</td>
-</tr>
-<tr class="even">
 <td>listen_node_id</td>
 <td>Int32</td>
 <td>-</td>
-<td>sorted per node_id</td>
+<td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>variable</td>
 <td>String</td>
 <td>-</td>
-<td>must be “level” or “flow_rate”, sorted per listen_node_id</td>
+<td>must be “level” or “flow_rate”</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>weight</td>
 <td>Float64</td>
 <td>-</td>
 <td>(optional, default 1.0)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>look_ahead</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{s}\)</span></td>
@@ -545,7 +539,7 @@ window.Quarto = {
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
-<td>sorted</td>
+<td></td>
 </tr>
 <tr class="even">
 <td>compound_variable_id</td>
@@ -557,7 +551,7 @@ window.Quarto = {
 <td>greater_than</td>
 <td>Float64</td>
 <td>various</td>
-<td>sorted per variable</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -583,7 +577,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>When creating truth states, it is important to not use the order of the condition table as you provide it, but the order as it is written to the file. Users can provide tables in any order, but when writing the model it gets sorted in the required order as specified in the schema.</p>
+<p>When creating truth states, it is important to not use the order of the condition table as you provide it, but the order as it is written to the file. Users can provide tables in any order, but when writing the model it gets sorted in the required order.</p>
 </div>
 </div>
 <table class="caption-top table">
@@ -606,7 +600,7 @@ Note
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
-<td>sorted</td>
+<td></td>
 </tr>
 <tr class="even">
 <td>control_state</td>
@@ -618,7 +612,7 @@ Note
 <td>truth_state</td>
 <td>String</td>
 <td>-</td>
-<td>Consists of the characters “T” (true), “F” (false), “U” (upcrossing), “D” (downcrossing) and “*” (any), sorted per node_id</td>
+<td>Consists of the characters “T” (true), “F” (false), “U” (upcrossing), “D” (downcrossing) and “*” (any)</td>
 </tr>
 </tbody>
 </table>

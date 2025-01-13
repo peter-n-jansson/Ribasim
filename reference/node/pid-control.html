@@ -379,13 +379,13 @@ window.Quarto = {
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
-<td>sorted</td>
+<td></td>
 </tr>
 <tr class="even">
 <td>control_state</td>
 <td>String</td>
 <td>-</td>
-<td>(optional) sorted per node_id</td>
+<td>(optional)</td>
 </tr>
 <tr class="odd">
 <td>active</td>
@@ -394,36 +394,30 @@ window.Quarto = {
 <td>(optional, default true)</td>
 </tr>
 <tr class="even">
-<td>listen_node_type</td>
-<td>String</td>
-<td>-</td>
-<td>known node type</td>
-</tr>
-<tr class="odd">
 <td>listen_node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>target</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>proportional</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{s}^{-1}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>integral</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{s}^{-2}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>derivative</td>
 <td>Float64</td>
 <td>-</td>
@@ -433,7 +427,7 @@ window.Quarto = {
 </table>
 <section id="time" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="time"><span class="header-section-number">2.1</span> Time</h2>
-<p>This table is the transient form of the <code>PidControl</code> table. The differences are that a time column is added and the nodes are assumed to be active so this column is removed. The table must by sorted by time, and per time it must be sorted by <code>node_id</code>. With this the target level and PID coefficients can be updated over time. In between the given times the these values interpolated linearly, and outside these values area constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
+<p>This table is the transient form of the <code>PidControl</code> table. The differences are that a time column is added and the nodes are assumed to be active so this column is removed. With this the target level and PID coefficients can be updated over time. In between the given times the these values interpolated linearly, and outside these values area constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -448,45 +442,39 @@ window.Quarto = {
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
-<td>sorted</td>
+<td></td>
 </tr>
 <tr class="even">
 <td>time</td>
 <td>DateTime</td>
 <td>-</td>
-<td>sorted per node_id</td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>listen_node_type</td>
-<td>Int32</td>
-<td>-</td>
-<td>known node type</td>
-</tr>
-<tr class="even">
 <td>listen_node_id</td>
 <td>Int32</td>
 <td>-</td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>target</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>proportional</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{s}^{-1}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>integral</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{s}^{-2}\)</span></td>
 <td>-</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>derivative</td>
 <td>Float64</td>
 <td>-</td>
