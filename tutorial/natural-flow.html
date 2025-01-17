@@ -243,7 +243,6 @@ window.Quarto = {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
   <ul class="collapse">
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><span class="header-section-number">1.1</span> Learning objectives</a></li>
-  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">1.2</span> Prerequisites</a></li>
   </ul></li>
   <li><a href="#crystal-river-basin" id="toc-crystal-river-basin" class="nav-link" data-scroll-target="#crystal-river-basin"><span class="header-section-number">2</span> Crystal River Basin</a>
   <ul class="collapse">
@@ -288,6 +287,7 @@ window.Quarto = {
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>Welcome to Ribasim! This tutorial will help you get started with the basics of using Ribasim for river basin simulation. In this tutorial, the schematization of models is done in Python using the Ribasim Python package. The Ribasim Python package (named <code>ribasim</code>) simplifies the process of building, updating, and analyzing Ribasim model programmatically. It also allows for the creation of entire models from base data, ensuring that your model setup is fully reproducible.</p>
+<p>To run this tutorial locally, install the latest release of Ribasim as documented in <a href="../install.html">the installation guide</a>. Some of the tutorials use a Python package that must be installed separately, <a href="https://plotly.com/python/getting-started/#installation">Plotly</a>.</p>
 <section id="learning-objectives" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">1.1</span> Learning objectives</h2>
 <p>In this tutorial, we will focus on a fictional river basin called Crystal, which will serve as our case study. The guide is divided into different modules, each covering various scenarios. These include simulating natural flow, implementing reservoirs, and observing the impact of other structures. While not all node types and possibilities will be demonstrated, the focus will be on the most commonly used and significant situations. By the end of the tutorial, users will be able to:</p>
@@ -296,15 +296,6 @@ window.Quarto = {
 <li><strong>Evaluate the impact of demands</strong>: Introduce water demand (such as irrigation) and assess their effects on the river basin.</li>
 <li><strong>Modify and update models</strong>: Learn how to update existing models with new data and changes.</li>
 <li><strong>Analyze simulation results</strong>: Use built-in tools to analyze and interpret the results of your simulations.</li>
-</ul>
-</section>
-<section id="prerequisites" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">1.2</span> Prerequisites</h2>
-<p>First install the latest release of Ribasim as documented in <a href="../install.html">the installation guide</a>.</p>
-<p>Download the <code>Crystal_Basin.zip</code> file from the website. Extract <code>Crystal_Basin.zip</code> and place it in the same directory as your Ribasim installation. This folder includes:</p>
-<ul>
-<li><code>QuickStartGuide.pdf</code></li>
-<li><code>data</code>: Contains data inputs such as time series needed for running the case. Additionally, your Python model (<code>.py</code>) and the results will also be saved in this folder.</li>
 </ul>
 </section>
 </section>
