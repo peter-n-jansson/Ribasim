@@ -202,7 +202,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#connect-nodes" id="toc-connect-nodes" class="nav-link" data-scroll-target="#connect-nodes"><span class="header-section-number">1.2</span> Connect nodes</a>
   <ul class="collapse">
   <li><a href="#turn-on-snapping" id="toc-turn-on-snapping" class="nav-link" data-scroll-target="#turn-on-snapping"><span class="header-section-number">1.2.1</span> Turn on snapping</a></li>
-  <li><a href="#creating-connecting-edges" id="toc-creating-connecting-edges" class="nav-link" data-scroll-target="#creating-connecting-edges"><span class="header-section-number">1.2.2</span> Creating connecting edges</a></li>
+  <li><a href="#creating-connecting-links" id="toc-creating-connecting-links" class="nav-link" data-scroll-target="#creating-connecting-links"><span class="header-section-number">1.2.2</span> Creating connecting links</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#running-a-model" id="toc-running-a-model" class="nav-link" data-scroll-target="#running-a-model"><span class="header-section-number">2</span> Running a model</a></li>
@@ -317,9 +317,9 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="creating-connecting-edges" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="creating-connecting-edges"><span class="header-section-number">1.2.2</span> Creating connecting edges</h3>
-<p>Select the Edge layer and turn on the edit mode.</p>
+<section id="creating-connecting-links" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="creating-connecting-links"><span class="header-section-number">1.2.2</span> Creating connecting links</h3>
+<p>Select the Link layer and turn on the edit mode.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><img src="https://user-images.githubusercontent.com/4471859/224939342-c6939331-a60d-4526-a350-3cddb122c62d.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
@@ -332,9 +332,9 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 <p>Create a connection by left clicking a source node and right clicking the destination node.</p>
-<p><img alt="Create an edge" src="https://github.com/user-attachments/assets/048d342d-dd2b-4e67-b8a0-7bbb8fe3f243" class="img-fluid"></p>
-<p>A form where one can change the edge attributes will pop up. Once done with editing, click ok.</p>
-<p><img alt="Edge form" src="https://github.com/user-attachments/assets/bee6af6f-7623-4d1e-98ed-edc26c524377" class="img-fluid"></p>
+<p><img alt="Create an link" src="https://github.com/user-attachments/assets/048d342d-dd2b-4e67-b8a0-7bbb8fe3f243" class="img-fluid"></p>
+<p>A form where one can change the link attributes will pop up. Once done with editing, click ok.</p>
+<p><img alt="Link form" src="https://github.com/user-attachments/assets/bee6af6f-7623-4d1e-98ed-edc26c524377" class="img-fluid"></p>
 <p>Now leave the edit mode and save the results to the layer. Your model is now ready to run. See</p>
 </section>
 </section>
@@ -350,7 +350,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="sec-inspect" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Inspect a (large) model</h1>
-<p>For larger models the node tables can grow quite large. To facilitate inspection, the tables are linked via the <code>node_id</code> field to the Node table, and react to the selection of the Node layer. That is, on selection of certain nodes—either via the map or the attribute table—the selection is also made in all related tables. This is also the case for the Edge layer. It helps to set the attribute table of a table of interest to show selected features only (using the dropdown button on the bottom left).</p>
+<p>For larger models the node tables can grow quite large. To facilitate inspection, the tables are linked via the <code>node_id</code> field to the Node table, and react to the selection of the Node layer. That is, on selection of certain nodes—either via the map or the attribute table—the selection is also made in all related tables. This is also the case for the Link layer. It helps to set the attribute table of a table of interest to show selected features only (using the dropdown button on the bottom left).</p>
 <p><img alt="Selection change" src="https://github.com/user-attachments/assets/074c1f58-926b-4d5e-a640-86a5a746a4c2" class="img-fluid"></p>
 </section>
 <section id="sec-results" class="level1" data-number="4">
@@ -362,7 +362,7 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="https://user-images.githubusercontent.com/4471859/224939424-ec4c77ff-3d6b-4635-b407-ef18376587e9.png" class="img-fluid quarto-figure quarto-figure-left figure-img"></p>
 </figure>
 </div>
-<p>Select the layer that you wish to plot. From the “Node” layer you can plot level or storage on Basin nodes. From the “Edge” layer you can plot flow over flow edges. Note that before switching between these, you typically have to click “Clear” to clear the selection. If you run a simulation with the model open in QGIS, you have to close and re-open the “iMOD Time Series Plot” panel for the new results to be loaded.</p>
+<p>Select the layer that you wish to plot. From the “Node” layer you can plot level or storage on Basin nodes. From the “Link” layer you can plot flow over flow links. Note that before switching between these, you typically have to click “Clear” to clear the selection. If you run a simulation with the model open in QGIS, you have to close and re-open the “iMOD Time Series Plot” panel for the new results to be loaded.</p>
 <p>Select the variables that you want to plot.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">

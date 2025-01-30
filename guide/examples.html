@@ -435,36 +435,36 @@ window.Quarto = {
 <div id="cell-21" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>terminal14 <span class="op">=</span> model.terminal.add(Node(<span class="dv">14</span>, Point(<span class="fl">3.0</span>, <span class="op">-</span><span class="fl">2.0</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Setup the edges:</p>
+<p>Setup the links:</p>
 <div id="cell-23" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(basin1, manning_resistance2)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(manning_resistance2, basin3)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(</span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>model.link.add(basin1, manning_resistance2)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>model.link.add(manning_resistance2, basin3)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>model.link.add(</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    basin3,</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    tabulated_rating_curve8,</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>model.edge.add(</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>model.link.add(</span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    basin3,</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    tabulated_rating_curve5,</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>model.edge.add(</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>model.link.add(</span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    basin3,</span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    tabulated_rating_curve4,</span>
 <span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>model.edge.add(tabulated_rating_curve5, basin6)</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>model.edge.add(tabulated_rating_curve8, basin9)</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>model.edge.add(</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>model.link.add(tabulated_rating_curve5, basin6)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>model.link.add(tabulated_rating_curve8, basin9)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>model.link.add(</span>
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    tabulated_rating_curve4,</span>
 <span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    terminal14,</span>
 <span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>model.edge.add(basin6, pump7)</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>model.edge.add(pump7, basin9)</span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>model.edge.add(basin9, linear_resistance10)</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>model.edge.add(level_boundary11, linear_resistance12)</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>model.edge.add(linear_resistance12, basin3)</span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>model.edge.add(flow_boundary15, basin6)</span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>model.edge.add(flow_boundary16, basin1)</span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>model.edge.add(linear_resistance10, level_boundary17)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>model.link.add(basin6, pump7)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>model.link.add(pump7, basin9)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>model.link.add(basin9, linear_resistance10)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>model.link.add(level_boundary11, linear_resistance12)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>model.link.add(linear_resistance12, basin3)</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>model.link.add(flow_boundary15, basin6)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>model.link.add(flow_boundary16, basin1)</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>model.link.add(linear_resistance10, level_boundary17)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s take a look at the model:</p>
 <div id="cell-25" class="cell" data-execution_count="14">
@@ -509,10 +509,10 @@ window.Quarto = {
 </div>
 <div id="cell-31" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df_flow <span class="op">=</span> pd.read_feather(datadir <span class="op">/</span> <span class="st">"basic/results/flow.arrow"</span>, dtype_backend<span class="op">=</span><span class="st">"pyarrow"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"edge"</span>] <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(df_flow.from_node_id, df_flow.to_node_id))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"link"</span>] <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(df_flow.from_node_id, df_flow.to_node_id))</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"flow_m3d"</span>] <span class="op">=</span> df_flow.flow_rate <span class="op">*</span> <span class="dv">86400</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df_flow.pivot_table(index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"edge"</span>, values<span class="op">=</span><span class="st">"flow_m3d"</span>).plot()</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ax.legend(bbox_to_anchor<span class="op">=</span>(<span class="fl">1.3</span>, <span class="dv">1</span>), title<span class="op">=</span><span class="st">"Edge"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> df_flow.pivot_table(index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"link"</span>, values<span class="op">=</span><span class="st">"flow_m3d"</span>).plot()</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ax.legend(bbox_to_anchor<span class="op">=</span>(<span class="fl">1.3</span>, <span class="dv">1</span>), title<span class="op">=</span><span class="st">"Link"</span>)</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"flow [m³day⁻¹]"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -647,16 +647,16 @@ window.Quarto = {
 <pre><code>NodeData(node_id=6, node_type='Terminal', geometry=&lt;POINT (-2 0)&gt;)</code></pre>
 </div>
 </div>
-<p>Setup edges:</p>
+<p>Setup links:</p>
 <div id="cell-49" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">1</span>], model.pump[<span class="dv">3</span>])</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pump[<span class="dv">3</span>], model.level_boundary[<span class="dv">4</span>])</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_boundary[<span class="dv">4</span>], model.pump[<span class="dv">2</span>])</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pump[<span class="dv">2</span>], model.basin[<span class="dv">1</span>])</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">1</span>], model.tabulated_rating_curve[<span class="dv">5</span>])</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.tabulated_rating_curve[<span class="dv">5</span>], model.terminal[<span class="dv">6</span>])</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.discrete_control[<span class="dv">7</span>], model.pump[<span class="dv">2</span>])</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.discrete_control[<span class="dv">7</span>], model.pump[<span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">1</span>], model.pump[<span class="dv">3</span>])</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>model.link.add(model.pump[<span class="dv">3</span>], model.level_boundary[<span class="dv">4</span>])</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>model.link.add(model.level_boundary[<span class="dv">4</span>], model.pump[<span class="dv">2</span>])</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>model.link.add(model.pump[<span class="dv">2</span>], model.basin[<span class="dv">1</span>])</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">1</span>], model.tabulated_rating_curve[<span class="dv">5</span>])</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>model.link.add(model.tabulated_rating_curve[<span class="dv">5</span>], model.terminal[<span class="dv">6</span>])</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>model.link.add(model.discrete_control[<span class="dv">7</span>], model.pump[<span class="dv">2</span>])</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>model.link.add(model.discrete_control[<span class="dv">7</span>], model.pump[<span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s take a look at the model:</p>
 <div id="cell-51" class="cell" data-execution_count="27">
@@ -669,7 +669,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Listen edges are plotted with a dashed line since they are not present in the “Edge / static” schema but only in the “Control / condition” schema.</p>
+<p>Listen links are plotted with a dashed line since they are not present in the “Link / static” schema but only in the “Control / condition” schema.</p>
 <div id="cell-53" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>datadir <span class="op">=</span> Path(<span class="st">"data"</span>)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>model.write(datadir <span class="op">/</span> <span class="st">"level_range/ribasim.toml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -792,15 +792,15 @@ window.Quarto = {
 <span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>    model.pid_control.add(node, pid_control_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that the coefficients for the pump and the outlet are equal in magnitude but opposite in sign. This way the pump and the outlet equally work towards the same goal, while having opposite effects on the controlled basin due to their connectivity to this basin.</p>
-<p>Setup the edges:</p>
+<p>Setup the links:</p>
 <div id="cell-75" class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>])</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.pump[<span class="dv">3</span>])</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pump[<span class="dv">3</span>], model.level_boundary[<span class="dv">4</span>])</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_boundary[<span class="dv">4</span>], model.outlet[<span class="dv">6</span>])</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.outlet[<span class="dv">6</span>], model.basin[<span class="dv">2</span>])</span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pid_control[<span class="dv">5</span>], model.pump[<span class="dv">3</span>])</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pid_control[<span class="dv">7</span>], model.outlet[<span class="dv">6</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>model.link.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>])</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">2</span>], model.pump[<span class="dv">3</span>])</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>model.link.add(model.pump[<span class="dv">3</span>], model.level_boundary[<span class="dv">4</span>])</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>model.link.add(model.level_boundary[<span class="dv">4</span>], model.outlet[<span class="dv">6</span>])</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>model.link.add(model.outlet[<span class="dv">6</span>], model.basin[<span class="dv">2</span>])</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>model.link.add(model.pid_control[<span class="dv">5</span>], model.pump[<span class="dv">3</span>])</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>model.link.add(model.pid_control[<span class="dv">7</span>], model.outlet[<span class="dv">6</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s take a look at the model:</p>
 <div id="cell-77" class="cell" data-execution_count="39">
@@ -939,17 +939,17 @@ window.Quarto = {
 <div id="cell-99" class="cell" data-execution_count="50">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>model.allocation <span class="op">=</span> Allocation(use_allocation<span class="op">=</span><span class="va">True</span>, timestep<span class="op">=</span><span class="dv">86400</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Setup the edges:</p>
+<p>Setup the links:</p>
 <div id="cell-101" class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>])</span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.user_demand[<span class="dv">3</span>])</span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.linear_resistance[<span class="dv">4</span>])</span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.linear_resistance[<span class="dv">4</span>], model.basin[<span class="dv">5</span>])</span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">5</span>], model.user_demand[<span class="dv">6</span>])</span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">5</span>], model.tabulated_rating_curve[<span class="dv">7</span>])</span>
-<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.user_demand[<span class="dv">3</span>], model.basin[<span class="dv">2</span>])</span>
-<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.user_demand[<span class="dv">6</span>], model.basin[<span class="dv">5</span>])</span>
-<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.tabulated_rating_curve[<span class="dv">7</span>], model.terminal[<span class="dv">8</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>model.link.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>])</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">2</span>], model.user_demand[<span class="dv">3</span>])</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">2</span>], model.linear_resistance[<span class="dv">4</span>])</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>model.link.add(model.linear_resistance[<span class="dv">4</span>], model.basin[<span class="dv">5</span>])</span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">5</span>], model.user_demand[<span class="dv">6</span>])</span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">5</span>], model.tabulated_rating_curve[<span class="dv">7</span>])</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>model.link.add(model.user_demand[<span class="dv">3</span>], model.basin[<span class="dv">2</span>])</span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>model.link.add(model.user_demand[<span class="dv">6</span>], model.basin[<span class="dv">5</span>])</span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>model.link.add(model.tabulated_rating_curve[<span class="dv">7</span>], model.terminal[<span class="dv">8</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s take a look at the model:</p>
 <div id="cell-103" class="cell" data-execution_count="52">
@@ -1116,13 +1116,13 @@ window.Quarto = {
 <div id="cell-123" class="cell" data-execution_count="62">
 <div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>model.allocation <span class="op">=</span> Allocation(use_allocation<span class="op">=</span><span class="va">True</span>, timestep<span class="op">=</span><span class="fl">1e5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Setup the edges:</p>
+<p>Setup the links:</p>
 <div id="cell-125" class="cell" data-execution_count="63">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>])</span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">2</span>], model.user_demand[<span class="dv">3</span>])</span>
-<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_demand[<span class="dv">4</span>], model.basin[<span class="dv">2</span>])</span>
-<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.user_demand[<span class="dv">3</span>], model.basin[<span class="dv">5</span>])</span>
-<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_demand[<span class="dv">4</span>], model.basin[<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>model.link.add(model.flow_boundary[<span class="dv">1</span>], model.basin[<span class="dv">2</span>])</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">2</span>], model.user_demand[<span class="dv">3</span>])</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>model.link.add(model.level_demand[<span class="dv">4</span>], model.basin[<span class="dv">2</span>])</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>model.link.add(model.user_demand[<span class="dv">3</span>], model.basin[<span class="dv">5</span>])</span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>model.link.add(model.level_demand[<span class="dv">4</span>], model.basin[<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s take a look at the model:</p>
 <div id="cell-127" class="cell" data-execution_count="64">
@@ -1346,24 +1346,24 @@ window.Quarto = {
 <pre><code>NodeData(node_id=16, node_type='PidControl', geometry=&lt;POINT (3 -3)&gt;)</code></pre>
 </div>
 </div>
-<p>Setup the edges:</p>
+<p>Setup the links:</p>
 <div id="cell-153" class="cell" data-execution_count="73">
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">1</span>], model.outlet[<span class="dv">2</span>])</span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pid_control[<span class="dv">3</span>], model.outlet[<span class="dv">2</span>])</span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.outlet[<span class="dv">2</span>], model.basin[<span class="dv">4</span>])</span>
-<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">4</span>], model.outlet[<span class="dv">5</span>])</span>
-<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.outlet[<span class="dv">5</span>], model.basin[<span class="dv">6</span>])</span>
-<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">6</span>], model.outlet[<span class="dv">7</span>])</span>
-<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.outlet[<span class="dv">7</span>], model.basin[<span class="dv">8</span>])</span>
-<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">8</span>], model.outlet[<span class="dv">9</span>])</span>
-<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.outlet[<span class="dv">9</span>], model.basin[<span class="dv">10</span>])</span>
-<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">10</span>], model.outlet[<span class="dv">11</span>])</span>
-<span id="cb99-11"><a href="#cb99-11" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.outlet[<span class="dv">11</span>], model.basin[<span class="dv">12</span>])</span>
-<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">12</span>], model.pump[<span class="dv">13</span>])</span>
-<span id="cb99-13"><a href="#cb99-13" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pump[<span class="dv">13</span>], model.basin[<span class="dv">1</span>])</span>
-<span id="cb99-14"><a href="#cb99-14" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pid_control[<span class="dv">14</span>], model.outlet[<span class="dv">5</span>])</span>
-<span id="cb99-15"><a href="#cb99-15" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pid_control[<span class="dv">15</span>], model.outlet[<span class="dv">7</span>])</span>
-<span id="cb99-16"><a href="#cb99-16" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.pid_control[<span class="dv">16</span>], model.outlet[<span class="dv">9</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">1</span>], model.outlet[<span class="dv">2</span>])</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>model.link.add(model.pid_control[<span class="dv">3</span>], model.outlet[<span class="dv">2</span>])</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>model.link.add(model.outlet[<span class="dv">2</span>], model.basin[<span class="dv">4</span>])</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">4</span>], model.outlet[<span class="dv">5</span>])</span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>model.link.add(model.outlet[<span class="dv">5</span>], model.basin[<span class="dv">6</span>])</span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">6</span>], model.outlet[<span class="dv">7</span>])</span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>model.link.add(model.outlet[<span class="dv">7</span>], model.basin[<span class="dv">8</span>])</span>
+<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">8</span>], model.outlet[<span class="dv">9</span>])</span>
+<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>model.link.add(model.outlet[<span class="dv">9</span>], model.basin[<span class="dv">10</span>])</span>
+<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">10</span>], model.outlet[<span class="dv">11</span>])</span>
+<span id="cb99-11"><a href="#cb99-11" aria-hidden="true" tabindex="-1"></a>model.link.add(model.outlet[<span class="dv">11</span>], model.basin[<span class="dv">12</span>])</span>
+<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">12</span>], model.pump[<span class="dv">13</span>])</span>
+<span id="cb99-13"><a href="#cb99-13" aria-hidden="true" tabindex="-1"></a>model.link.add(model.pump[<span class="dv">13</span>], model.basin[<span class="dv">1</span>])</span>
+<span id="cb99-14"><a href="#cb99-14" aria-hidden="true" tabindex="-1"></a>model.link.add(model.pid_control[<span class="dv">14</span>], model.outlet[<span class="dv">5</span>])</span>
+<span id="cb99-15"><a href="#cb99-15" aria-hidden="true" tabindex="-1"></a>model.link.add(model.pid_control[<span class="dv">15</span>], model.outlet[<span class="dv">7</span>])</span>
+<span id="cb99-16"><a href="#cb99-16" aria-hidden="true" tabindex="-1"></a>model.link.add(model.pid_control[<span class="dv">16</span>], model.outlet[<span class="dv">9</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To plot the model</p>
 <div id="cell-155" class="cell" data-execution_count="74">
@@ -1371,7 +1371,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="examples_files/figure-html/cell-75-output-1.png" width="622" height="389" class="figure-img"></p>
+<p><img src="examples_files/figure-html/cell-75-output-1.png" width="612" height="389" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1388,10 +1388,10 @@ window.Quarto = {
 <div id="cell-160" class="cell" data-execution_count="77">
 <div class="sourceCode cell-code" id="cb103"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>datadir_flow <span class="op">=</span> datadir <span class="op">/</span> <span class="st">"local_pidcontrolled_cascade/results/flow.arrow"</span></span>
 <span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>df_flow <span class="op">=</span> pd.read_feather(datadir_flow, dtype_backend<span class="op">=</span><span class="st">"pyarrow"</span>)</span>
-<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"edge"</span>] <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(df_flow.from_node_id, df_flow.to_node_id))</span>
+<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"link"</span>] <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(df_flow.from_node_id, df_flow.to_node_id))</span>
 <span id="cb103-4"><a href="#cb103-4" aria-hidden="true" tabindex="-1"></a>df_flow[<span class="st">"flow_m3d"</span>] <span class="op">=</span> df_flow.flow_rate <span class="op">*</span> <span class="dv">86400</span></span>
 <span id="cb103-5"><a href="#cb103-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a>df_pivot <span class="op">=</span> df_flow.pivot_table(index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"edge"</span>, values<span class="op">=</span><span class="st">"flow_m3d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb103-6"><a href="#cb103-6" aria-hidden="true" tabindex="-1"></a>df_pivot <span class="op">=</span> df_flow.pivot_table(index<span class="op">=</span><span class="st">"time"</span>, columns<span class="op">=</span><span class="st">"link"</span>, values<span class="op">=</span><span class="st">"flow_m3d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Below graphs show the flow exchanged with the mainsystem (i.e.&nbsp;the inlet and the pump), and the flow of weirs inbetween the polder basins.</p>
 <div id="cell-162" class="cell" data-execution_count="78">
@@ -1549,20 +1549,20 @@ window.Quarto = {
 </div>
 <p>This defines:</p>
 <ul>
-<li>A <code>ContinuousControl</code> node with ID 1, which listens to the flow rate of the <code>LinearResistance</code> node with ID 1, puts that trough the function <span class="math inline">\(f(x) = \max(0, 0.6x)\)</span>, and assigns the result to the flow rate of the node this <code>ContinuousControl</code> node is controlling, which is defined by a (control) edge;</li>
-<li>A <code>ContinuousControl</code> node with ID 2, which listens to the flow rate of the <code>LinearResistance</code> node with ID 1, puts that through the function <span class="math inline">\(f(x) = \max(0, 0.4x)\)</span>, and assigns the result to the flow rate of the node this <code>ContinuousControl</code> node is controlling, which is defined by a (control) edge.</li>
+<li>A <code>ContinuousControl</code> node with ID 1, which listens to the flow rate of the <code>LinearResistance</code> node with ID 1, puts that trough the function <span class="math inline">\(f(x) = \max(0, 0.6x)\)</span>, and assigns the result to the flow rate of the node this <code>ContinuousControl</code> node is controlling, which is defined by a (control) link;</li>
+<li>A <code>ContinuousControl</code> node with ID 2, which listens to the flow rate of the <code>LinearResistance</code> node with ID 1, puts that through the function <span class="math inline">\(f(x) = \max(0, 0.4x)\)</span>, and assigns the result to the flow rate of the node this <code>ContinuousControl</code> node is controlling, which is defined by a (control) link.</li>
 </ul>
 <div id="cell-182" class="cell" data-execution_count="88">
-<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.level_boundary[<span class="dv">1</span>], model.linear_resistance[<span class="dv">2</span>])</span>
-<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.linear_resistance[<span class="dv">2</span>], model.basin[<span class="dv">3</span>])</span>
-<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">3</span>], model.outlet[<span class="dv">4</span>])</span>
-<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.basin[<span class="dv">3</span>], model.outlet[<span class="dv">5</span>])</span>
-<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.outlet[<span class="dv">4</span>], model.terminal[<span class="dv">6</span>])</span>
-<span id="cb120-6"><a href="#cb120-6" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.outlet[<span class="dv">5</span>], model.terminal[<span class="dv">7</span>])</span>
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>model.link.add(model.level_boundary[<span class="dv">1</span>], model.linear_resistance[<span class="dv">2</span>])</span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a>model.link.add(model.linear_resistance[<span class="dv">2</span>], model.basin[<span class="dv">3</span>])</span>
+<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">3</span>], model.outlet[<span class="dv">4</span>])</span>
+<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a>model.link.add(model.basin[<span class="dv">3</span>], model.outlet[<span class="dv">5</span>])</span>
+<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a>model.link.add(model.outlet[<span class="dv">4</span>], model.terminal[<span class="dv">6</span>])</span>
+<span id="cb120-6"><a href="#cb120-6" aria-hidden="true" tabindex="-1"></a>model.link.add(model.outlet[<span class="dv">5</span>], model.terminal[<span class="dv">7</span>])</span>
 <span id="cb120-7"><a href="#cb120-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb120-8"><a href="#cb120-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Define which node is controlled by each continuous control node</span></span>
-<span id="cb120-9"><a href="#cb120-9" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.continuous_control[<span class="dv">8</span>], model.outlet[<span class="dv">4</span>])</span>
-<span id="cb120-10"><a href="#cb120-10" aria-hidden="true" tabindex="-1"></a>model.edge.add(model.continuous_control[<span class="dv">9</span>], model.outlet[<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb120-9"><a href="#cb120-9" aria-hidden="true" tabindex="-1"></a>model.link.add(model.continuous_control[<span class="dv">8</span>], model.outlet[<span class="dv">4</span>])</span>
+<span id="cb120-10"><a href="#cb120-10" aria-hidden="true" tabindex="-1"></a>model.link.add(model.continuous_control[<span class="dv">9</span>], model.outlet[<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s take a look at the model:</p>
 <div id="cell-184" class="cell" data-execution_count="89">
@@ -1592,7 +1592,7 @@ window.Quarto = {
 <span id="cb124-4"><a href="#cb124-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb124-5"><a href="#cb124-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb124-6"><a href="#cb124-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb124-7"><a href="#cb124-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_edge_flow(from_node_type, from_node_id, to_node_type, to_node_id):</span>
+<span id="cb124-7"><a href="#cb124-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_link_flow(from_node_type, from_node_id, to_node_type, to_node_id):</span>
 <span id="cb124-8"><a href="#cb124-8" aria-hidden="true" tabindex="-1"></a>    df_flow_filtered <span class="op">=</span> df_flow[</span>
 <span id="cb124-9"><a href="#cb124-9" aria-hidden="true" tabindex="-1"></a>        (df_flow[<span class="st">"from_node_id"</span>] <span class="op">==</span> from_node_id)</span>
 <span id="cb124-10"><a href="#cb124-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">&amp;</span> (df_flow[<span class="st">"to_node_id"</span>] <span class="op">==</span> to_node_id)</span>
@@ -1605,9 +1605,9 @@ window.Quarto = {
 <span id="cb124-17"><a href="#cb124-17" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb124-18"><a href="#cb124-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb124-19"><a href="#cb124-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb124-20"><a href="#cb124-20" aria-hidden="true" tabindex="-1"></a>plot_edge_flow(<span class="st">"LinearResistance"</span>, <span class="dv">1</span>, <span class="st">"Basin"</span>, <span class="dv">1</span>)</span>
-<span id="cb124-21"><a href="#cb124-21" aria-hidden="true" tabindex="-1"></a>plot_edge_flow(<span class="st">"Basin"</span>, <span class="dv">1</span>, <span class="st">"Outlet"</span>, <span class="dv">1</span>)</span>
-<span id="cb124-22"><a href="#cb124-22" aria-hidden="true" tabindex="-1"></a>plot_edge_flow(<span class="st">"Basin"</span>, <span class="dv">1</span>, <span class="st">"Outlet"</span>, <span class="dv">2</span>)</span>
+<span id="cb124-20"><a href="#cb124-20" aria-hidden="true" tabindex="-1"></a>plot_link_flow(<span class="st">"LinearResistance"</span>, <span class="dv">1</span>, <span class="st">"Basin"</span>, <span class="dv">1</span>)</span>
+<span id="cb124-21"><a href="#cb124-21" aria-hidden="true" tabindex="-1"></a>plot_link_flow(<span class="st">"Basin"</span>, <span class="dv">1</span>, <span class="st">"Outlet"</span>, <span class="dv">1</span>)</span>
+<span id="cb124-22"><a href="#cb124-22" aria-hidden="true" tabindex="-1"></a>plot_link_flow(<span class="st">"Basin"</span>, <span class="dv">1</span>, <span class="st">"Outlet"</span>, <span class="dv">2</span>)</span>
 <span id="cb124-23"><a href="#cb124-23" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"flow [m³s⁻¹]"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>

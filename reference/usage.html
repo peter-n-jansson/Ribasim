@@ -385,7 +385,7 @@ window.Quarto = {
   <li><a href="#custom-metadata" id="toc-custom-metadata" class="nav-link" data-scroll-target="#custom-metadata"><span class="header-section-number">2.2</span> Custom metadata</a></li>
   </ul></li>
   <li><a href="#sec-node" id="toc-sec-node" class="nav-link" data-scroll-target="#sec-node"><span class="header-section-number">3</span> Node</a></li>
-  <li><a href="#sec-edge" id="toc-sec-edge" class="nav-link" data-scroll-target="#sec-edge"><span class="header-section-number">4</span> Edge</a></li>
+  <li><a href="#sec-link" id="toc-sec-link" class="nav-link" data-scroll-target="#sec-link"><span class="header-section-number">4</span> Link</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results"><span class="header-section-number">5</span> Results</a>
   <ul class="collapse">
   <li><a href="#basin---basin.arrow" id="toc-basin---basin.arrow" class="nav-link" data-scroll-target="#basin---basin.arrow"><span class="header-section-number">5.1</span> Basin - <code>basin.arrow</code></a></li>
@@ -597,8 +597,8 @@ Important
 </section>
 <section id="sec-geopackage" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> GeoPackage database and Arrow tables</h1>
-<p>The input and output tables described below all share that they are tabular files. The Node and Edge tables always have to be in the <a href="https://www.geopackage.org/">GeoPackage</a> database file, and results are always written to <a href="https://arrow.apache.org/">Apache Arrow</a> files, sometimes also known as Feather files. All other tables can either be in the database or in separate Arrow files that are listed in the TOML as described above.</p>
-<p>For visualization, the Node and Edge tables typically have associated geometries. GeoPackage was used since it provides a standardized way to store tables with (and without) geometry columns in a SQLite database. If, like Ribasim, you can ignore the geometries, a GeoPackage is easy to read using SQLite libraries, which are commonly available. Furthermore GeoPackage can be updated in place when working on a model.</p>
+<p>The input and output tables described below all share that they are tabular files. The Node and Link tables always have to be in the <a href="https://www.geopackage.org/">GeoPackage</a> database file, and results are always written to <a href="https://arrow.apache.org/">Apache Arrow</a> files, sometimes also known as Feather files. All other tables can either be in the database or in separate Arrow files that are listed in the TOML as described above.</p>
+<p>For visualization, the Node and Link tables typically have associated geometries. GeoPackage was used since it provides a standardized way to store tables with (and without) geometry columns in a SQLite database. If, like Ribasim, you can ignore the geometries, a GeoPackage is easy to read using SQLite libraries, which are commonly available. Furthermore GeoPackage can be updated in place when working on a model.</p>
 <p>Arrow was chosen since it is standardized, fast, simple and flexible. It can be read and written by many different software packages. In Ribasim we use <a href="https://arrow.apache.org/julia/dev/">Arrow.jl</a>. Results are written to Arrow, since for long runs Ribasim can produce tables with many rows. Arrow is well suited for large tabular datasets, and file size is kept small by using compression. The Arrow input files can be compressed with LZ4 or Zstd compression. Furthermore, in some of the columns, a small amount of different values are repeated many times. To reduce file sizes it may be a good idea to apply <a href="https://arrow.apache.org/docs/format/Columnar.html#dictionary-encoded-layout">dictionary encoding</a> to those columns. The Ribasim version that was used to create the results is written to each file in the <code>ribasim_version</code> schema metadata.</p>
 <section id="table-requirements" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="table-requirements"><span class="header-section-number">2.1</span> Table requirements</h2>
@@ -639,7 +639,7 @@ Important
 <section id="sec-node" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Node</h1>
 <p>Node is a table that specifies the ID and type of each node of a model. The ID must be unique among all nodes, and the type must be one of the available node types listed below.</p>
-<p>Nodes are components that are connected together to form a larger system. The Basin is a central node type that stores water. The other node types influence the flow between Basins in some way. Counter intuitively, even systems you may think of as edges, such as a canal, are nodes in Ribasim. This is because edges only define direct instantaneous couplings between nodes, and never have storage of their own.</p>
+<p>Nodes are components that are connected together to form a larger system. The Basin is a central node type that stores water. The other node types influence the flow between Basins in some way. Counter intuitively, even systems you may think of as links, such as a canal, are nodes in Ribasim. This is because links only define direct instantaneous couplings between nodes, and never have storage of their own.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -678,12 +678,12 @@ Important
 </table>
 <p>Adding a point geometry to the node table can be helpful to examine models in <a href="https://qgis.org/en/site/">QGIS</a>, as it will show the location of the nodes on the map. The geometry is not used by Ribasim.</p>
 </section>
-<section id="sec-edge" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Edge</h1>
-<p>Edges define connections between nodes. The only thing that defines an edge is the nodes it connects, and in what direction. There are currently 2 possible edge types:</p>
+<section id="sec-link" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Link</h1>
+<p>Links define connections between nodes. The only thing that defines an link is the nodes it connects, and in what direction. There are currently 2 possible link types:</p>
 <ol type="1">
-<li>“flow”: Flows between nodes are stored on edges. The effect of the edge direction depends on the node type, Node types that have a notion of an upstream and downstream side use the incoming edge as the upstream side, and the outgoing edge as the downstream side. This means that edges should generally be drawn in the main flow direction. But for instance between two <code>LinearResistances</code> the edge direction does not affect anything, other than the sign of the flow on the edge. The sign of the flow follows the edge direction; a positive flow flows along the edge direction, a negative flow in the opposite way.</li>
-<li>“control”: The control edges define which nodes are controlled by a particular control node. Control edges should always point away from the control node. The edges between the control node and the nodes it <em>listens</em> to are <em>not</em> present in <code>Edge</code>, these are defined in <a href="../reference/node/discrete-control.html"><code>DiscreteControl / condition</code></a></li>
+<li>“flow”: Flows between nodes are stored on links. The effect of the link direction depends on the node type, Node types that have a notion of an upstream and downstream side use the incoming link as the upstream side, and the outgoing link as the downstream side. This means that links should generally be drawn in the main flow direction. But for instance between two <code>LinearResistances</code> the link direction does not affect anything, other than the sign of the flow on the link. The sign of the flow follows the link direction; a positive flow flows along the link direction, a negative flow in the opposite way.</li>
+<li>“control”: The control links define which nodes are controlled by a particular control node. Control links should always point away from the control node. The links between the control node and the nodes it <em>listens</em> to are <em>not</em> present in <code>Link</code>, these are defined in <a href="../reference/node/discrete-control.html"><code>DiscreteControl / condition</code></a></li>
 </ol>
 <table class="caption-top table">
 <colgroup>
@@ -720,7 +720,7 @@ Important
 <td>-</td>
 </tr>
 <tr class="odd">
-<td>edge_type</td>
+<td>link_type</td>
 <td>String</td>
 <td>must be “flow” or “control”</td>
 </tr>
@@ -747,10 +747,10 @@ Important
 <li>Results of the storage and level of each Basin, which are instantaneous values;</li>
 <li>Results of the fluxes on each Basin, which are mean values over the <code>saveat</code> intervals. In the time column the start of the period is indicated.</li>
 <li>The initial condition is written to the file, but the final state is not. It will be placed in a separate output state file in the future.</li>
-<li>The <code>inflow_rate</code> and <code>outflow_rate</code> are the sum of the flows from other nodes into and out of the Basin respectively. The actual flows determine in which term they are counted, not the edge direction.</li>
+<li>The <code>inflow_rate</code> and <code>outflow_rate</code> are the sum of the flows from other nodes into and out of the Basin respectively. The actual flows determine in which term they are counted, not the link direction.</li>
 <li>The <code>storage_rate</code> is the net mean flow that is needed to achieve the storage change between timesteps.</li>
-<li>The <code>inflow_rate</code> consists of the sum of all modelled flows into the basin: <code>inflow_rate</code> (horizontal flows into the basin, independent of edge direction) + <code>precipitation</code> + <code>drainage</code>.</li>
-<li>The <code>outflow_rate</code> consists of the sum of all modelled flows out of the basin: <code>outflow_rate</code> (horizontal flows out of the basin, independent of edge direction) + <code>evaporation</code> + <code>infiltration</code>.</li>
+<li>The <code>inflow_rate</code> consists of the sum of all modelled flows into the basin: <code>inflow_rate</code> (horizontal flows into the basin, independent of link direction) + <code>precipitation</code> + <code>drainage</code>.</li>
+<li>The <code>outflow_rate</code> consists of the sum of all modelled flows out of the basin: <code>outflow_rate</code> (horizontal flows out of the basin, independent of link direction) + <code>evaporation</code> + <code>infiltration</code>.</li>
 <li>The <code>balance_error</code> is the difference between the <code>storage_rate</code> on one side and the <code>inflow_rate</code> and <code>outflow_rate</code> on the other side: <code>storage_rate</code> - (<code>inflow_rate</code> - <code>outflow_rate</code>). It can be used to check if the numerical error when solving the water balance is sufficiently small.</li>
 <li>The <code>relative_error</code> is the fraction of the <code>balance_error</code> over the mean of the <code>total_inflow</code> and <code>total_outflow</code>.</li>
 </ul>
@@ -835,7 +835,7 @@ Important
 </section>
 <section id="flow---flow.arrow" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="flow---flow.arrow"><span class="header-section-number">5.2</span> Flow - <code>flow.arrow</code></h2>
-<p>The flow table contains calculated mean flows over the <code>saveat</code> intervals for every flow edge in the model. In the time column the start of the period is indicated.</p>
+<p>The flow table contains calculated mean flows over the <code>saveat</code> intervals for every flow link in the model. In the time column the start of the period is indicated.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -851,7 +851,7 @@ Important
 <td>-</td>
 </tr>
 <tr class="even">
-<td>edge_id</td>
+<td>link_id</td>
 <td>Int32</td>
 <td>-</td>
 </tr>
@@ -882,7 +882,7 @@ Important
 </tr>
 </tbody>
 </table>
-<p>The table is sorted by time, and per time the same <code>edge_id</code> order is used, though not sorted. The <code>edge_id</code> value is the same as the <code>fid</code> written to the Edge table, and can be used to directly look up the Edge geometry. Flows from the “from” to the “to” node have a positive sign, and if the flow is reversed it will be negative.</p>
+<p>The table is sorted by time, and per time the same <code>link_id</code> order is used, though not sorted. The <code>link_id</code> value is the same as the <code>fid</code> written to the Link table, and can be used to directly look up the Link geometry. Flows from the “from” to the “to” node have a positive sign, and if the flow is reversed it will be negative.</p>
 </section>
 <section id="sec-state" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="sec-state"><span class="header-section-number">5.3</span> State - <code>basin_state.arrow</code></h2>
@@ -1015,7 +1015,7 @@ Note
 </section>
 <section id="allocation-flow---allocation_flow.arrow" class="level2" data-number="5.6">
 <h2 data-number="5.6" class="anchored" data-anchor-id="allocation-flow---allocation_flow.arrow"><span class="header-section-number">5.6</span> Allocation flow - <code>allocation_flow.arrow</code></h2>
-<p>The allocation flow table contains results of the optimized allocation flow on every edge in the model that is part of a subnetwork, for each time an optimization problem is solved (see also <a href="../concept/allocation.html#the-high-level-algorithm">here</a>). If in the model a main network and subnetwork(s) are specified, there are 2 different types of optimization for the subnetwork: collecting its total demand per priority (for allocating flow from the main network to the subnetwork), and allocating flow within the subnetwork. The column <code>collect_demands</code> provides the distinction between these two optimization types.</p>
+<p>The allocation flow table contains results of the optimized allocation flow on every link in the model that is part of a subnetwork, for each time an optimization problem is solved (see also <a href="../concept/allocation.html#the-high-level-algorithm">here</a>). If in the model a main network and subnetwork(s) are specified, there are 2 different types of optimization for the subnetwork: collecting its total demand per priority (for allocating flow from the main network to the subnetwork), and allocating flow within the subnetwork. The column <code>collect_demands</code> provides the distinction between these two optimization types.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1029,7 +1029,7 @@ Note
 <td>DateTime</td>
 </tr>
 <tr class="even">
-<td>edge_id</td>
+<td>link_id</td>
 <td>Int32</td>
 </tr>
 <tr class="odd">

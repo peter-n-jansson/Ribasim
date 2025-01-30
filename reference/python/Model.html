@@ -233,43 +233,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td></td>
 </tr>
 <tr class="even">
-<td><a href="#ribasim.Model.edge">edge</a></td>
-<td></td>
-</tr>
-<tr class="odd">
 <td><a href="#ribasim.Model.endtime">endtime</a></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#ribasim.Model.experimental">experimental</a></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#ribasim.Model.filepath">filepath</a></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#ribasim.Model.flow_boundary">flow_boundary</a></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#ribasim.Model.flow_demand">flow_demand</a></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#ribasim.Model.input_dir">input_dir</a></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#ribasim.Model.level_boundary">level_boundary</a></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#ribasim.Model.level_demand">level_demand</a></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#ribasim.Model.linear_resistance">linear_resistance</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="#ribasim.Model.link">link</a></td>
 <td></td>
 </tr>
 <tr class="even">
@@ -351,11 +351,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td><a href="#ribasim.Model.plot">plot</a></td>
-<td>Plot the nodes, edges and allocation networks of the model.</td>
+<td>Plot the nodes, links and allocation networks of the model.</td>
 </tr>
 <tr class="even">
 <td><a href="#ribasim.Model.plot_control_listen">plot_control_listen</a></td>
-<td>Plot the implicit listen edges of the model.</td>
+<td>Plot the implicit listen links of the model.</td>
 </tr>
 <tr class="odd">
 <td><a href="#ribasim.Model.read">read</a></td>
@@ -395,7 +395,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="ribasim.Model.plot" class="level3" data-number="1.2.3">
 <h3 data-number="1.2.3" class="anchored" data-anchor-id="ribasim.Model.plot"><span class="header-section-number">1.2.3</span> plot</h3>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Model.plot(ax<span class="op">=</span><span class="va">None</span>, indicate_subnetworks<span class="op">=</span><span class="va">True</span>, aspect_ratio_bound<span class="op">=</span><span class="fl">0.33</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Plot the nodes, edges and allocation networks of the model.</p>
+<p>Plot the nodes, links and allocation networks of the model.</p>
 <section id="parameters" class="level4 doc-section doc-section-parameters" data-number="1.2.3.1">
 <h4 class="doc-section doc-section-parameters anchored" data-number="1.2.3.1" data-anchor-id="parameters"><span class="header-section-number">1.2.3.1</span> Parameters</h4>
 <table class="caption-top table">
@@ -458,7 +458,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="ribasim.Model.plot_control_listen" class="level3" data-number="1.2.4">
 <h3 data-number="1.2.4" class="anchored" data-anchor-id="ribasim.Model.plot_control_listen"><span class="header-section-number">1.2.4</span> plot_control_listen</h3>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>Model.plot_control_listen(ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Plot the implicit listen edges of the model.</p>
+<p>Plot the implicit listen links of the model.</p>
 </section>
 <section id="ribasim.Model.read" class="level3" data-number="1.2.5">
 <h3 data-number="1.2.5" class="anchored" data-anchor-id="ribasim.Model.read"><span class="header-section-number">1.2.5</span> read</h3>

@@ -308,7 +308,7 @@ window.Quarto = {
     \frac{\text{d}\mathbf{u}}{\text{d}t} = f(\mathbf{u},p(t),t), \quad t \in [t_0, t_\text{end}],
 \]</span></p>
 <p>which is a system of coupled first order differential equations.</p>
-<p>The model is given by a directed graph, consisting of a set of node IDs (vertices) <span class="math inline">\(V\)</span> and edges <span class="math inline">\(E\)</span>, consisting of ordered pairs of node IDs. We denote the subset of the nodes given by the Basins <span class="math inline">\(B \subset V\)</span>, and the subset of nodes that prescribe flow <span class="math inline">\(N \subset V\)</span>.</p>
+<p>The model is given by a directed graph, consisting of a set of node IDs (vertices) <span class="math inline">\(V\)</span> and links <span class="math inline">\(E\)</span>, consisting of ordered pairs of node IDs. We denote the subset of the nodes given by the Basins <span class="math inline">\(B \subset V\)</span>, and the subset of nodes that prescribe flow <span class="math inline">\(N \subset V\)</span>.</p>
 <p>The states <span class="math inline">\(\mathbf{u}\)</span> of the model are given by cumulative flows since the start of the simulation as prescribed by the nodes <span class="math inline">\(N\)</span>: <span class="math display">\[
     u_n(t) = \int_{t_0}^t q_n\text{d}t' \quad \forall n \in N,
 \]</span> as well as by the Basin forcings: <span class="math display">\[
@@ -360,7 +360,7 @@ window.Quarto = {
 <li><span class="math inline">\(\text{total inflow}\)</span>: the precipitation, drainage and horizontal flows into the Basin;</li>
 <li><span class="math inline">\(\text{total outflow}\)</span>: the evaporation, infiltration and horizontal flows out of the Basin.</li>
 </ul>
-<p>Whether a flow is an inflow or an outflow depends on whether the flow contributes to or takes from the Basin storage, which means that this is independent of the edge direction. This is determined for each solver timestep individually.</p>
+<p>Whether a flow is an inflow or an outflow depends on whether the flow contributes to or takes from the Basin storage, which means that this is independent of the link direction. This is determined for each solver timestep individually.</p>
 <p>Then from this we compute the errors:</p>
 <p><span class="math display">\[
     \begin{align}

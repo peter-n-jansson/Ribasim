@@ -383,7 +383,7 @@ window.Quarto = {
 
 
 <p>Set parameters of other nodes based on model state conditions (e.g.&nbsp;Basin level). The table below shows which parameters are controllable for a given node type.</p>
-<div id="c604e57b" class="cell" data-execution_count="1">
+<div id="0728dac6" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -564,7 +564,7 @@ window.Quarto = {
 <li>When a condition changes, the corresponding DiscreteControl node ID is retrieved (node_id in the condition schema above).</li>
 <li>The truth value of all the conditions this DiscreteControl node listens to are retrieved, <strong>in the sorted order as specified in the condition schema</strong>. This is then converted into a string of “T” for true and “F” for false. This string we call the truth state.*</li>
 <li>The table below determines for the given DiscreteControl node ID and truth state what the corresponding control state is.</li>
-<li>For all the nodes this DiscreteControl node affects (as given by the “control” edges in <a href="../../reference/usage.html#edge">Edges / static</a>), their parameters are set to those parameters in <code>NodeType / static</code> corresponding to the determined control state.</li>
+<li>For all the nodes this DiscreteControl node affects (as given by the “control” links in <a href="../../reference/usage.html#link">Links / static</a>), their parameters are set to those parameters in <code>NodeType / static</code> corresponding to the determined control state.</li>
 </ul>
 <p>*. There is also a second truth state created in which for the last condition that changed it is specified whether it was an upcrossing (“U”) or downcrossing (“D”) of the threshold (greater than) value. If a control state is specified for a truth state that is crossing-specific, this takes precedence over the control state for the truth state that contains only “T” and “F”.</p>
 <div class="callout callout-style-default callout-note callout-titled">

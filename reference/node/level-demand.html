@@ -348,7 +348,7 @@ window.Quarto = {
 
 
 <p>A <code>LevelDemand</code> node associates a minimum and a maximum level with connected Basins to be used by the allocation algorithm.</p>
-<p>Since this connection conveys information rather than flow, an outgoing control edge must be used. Below the minimum level the Basin has a demand, above the maximum level the Basin has a surplus and acts as a source. The source can be used by all nodes with demands in order of priority.</p>
+<p>Since this connection conveys information rather than flow, an outgoing control link must be used. Below the minimum level the Basin has a demand, above the maximum level the Basin has a surplus and acts as a source. The source can be used by all nodes with demands in order of priority.</p>
 <p>The same <code>LevelDemand</code> node can be used for Basins in different subnetworks.</p>
 <p>Both <code>min_level</code> and <code>max_level</code> are optional, to be able to handle only the demand or surplus side. If both are missing, <code>LevelDemand</code> won’t have any effects on allocation.</p>
 <section id="tables" class="level1" data-number="1">

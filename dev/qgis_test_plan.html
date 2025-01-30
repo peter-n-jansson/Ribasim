@@ -267,7 +267,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#map-interaction-tests" id="toc-map-interaction-tests" class="nav-link" data-scroll-target="#map-interaction-tests"><span class="header-section-number">5</span> Map interaction tests</a>
   <ul class="collapse">
   <li><a href="#add-points-to-node-layer" id="toc-add-points-to-node-layer" class="nav-link" data-scroll-target="#add-points-to-node-layer"><span class="header-section-number">5.1</span> Add points to Node layer</a></li>
-  <li><a href="#add-edges-to-edge-layer" id="toc-add-edges-to-edge-layer" class="nav-link" data-scroll-target="#add-edges-to-edge-layer"><span class="header-section-number">5.2</span> Add edges to Edge layer</a></li>
+  <li><a href="#add-links-to-link-layer" id="toc-add-links-to-link-layer" class="nav-link" data-scroll-target="#add-links-to-link-layer"><span class="header-section-number">5.2</span> Add links to Link layer</a></li>
   <li><a href="#node-selection-on-map-triggers-table-selection" id="toc-node-selection-on-map-triggers-table-selection" class="nav-link" data-scroll-target="#node-selection-on-map-triggers-table-selection"><span class="header-section-number">5.3</span> Node selection on map triggers table selection</a></li>
   </ul></li>
   <li><a href="#tables-tests" id="toc-tables-tests" class="nav-link" data-scroll-target="#tables-tests"><span class="header-section-number">6</span> Tables tests</a>
@@ -361,8 +361,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Press the “New” button in the Model tab: <em>file navigation window pops up</em>.</li>
 <li>Fill in a name (“test1”).</li>
 <li>Press OK: <em>A TOML and database file are created on the given location</em>.</li>
-<li><em>The layers tab shows a group with a “Node” and “Edge” layer, the canvas is empty.</em></li>
-<li><em>The Ribasim panel shows a Node and Edge layer, the file path is set in the text field, all nodes buttons are enabled</em>.</li>
+<li><em>The layers tab shows a group with a “Node” and “Link” layer, the canvas is empty.</em></li>
+<li><em>The Ribasim panel shows a Node and Link layer, the file path is set in the text field, all nodes buttons are enabled</em>.</li>
 <li>Cleanup: Delete the created files from disk.</li>
 </ul>
 </section>
@@ -438,7 +438,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Fill in a name (“test1”).</li>
 <li>Press OK: <em>A TOML and database file are created on the given location</em>.</li>
 <li>Press “Add to QGIS”: <em>Nothing happens</em>.</li>
-<li>Press the “Edge” layer in the Model tab: <em>“Add to QGIS” button is disabled</em>.</li>
+<li>Press the “Link” layer in the Model tab: <em>“Add to QGIS” button is disabled</em>.</li>
 </ul>
 <p>❌ <a href="https://github.com/Deltares/Ribasim/issues/1683">Failing</a></p>
 </section>
@@ -450,10 +450,10 @@ ul.task-list li input[type="checkbox"] {
 <li>Press the “New” button in the Model tab: <em>file navigation window pops up</em>.</li>
 <li>Fill in a name (“test1”).</li>
 <li>Press OK: <em>A TOML and database file are created on the given location</em>.</li>
-<li>Press the “Edge” layer in the Model tab, press “Remove from Dataset”: <em>Popup shows “Deleting: Edge”</em>.</li>
-<li>Press “Yes”: “Edge” layer is removed from Layers panel and from Model tab.</li>
+<li>Press the “Link” layer in the Model tab, press “Remove from Dataset”: <em>Popup shows “Deleting: Link”</em>.</li>
+<li>Press “Yes”: “Link” layer is removed from Layers panel and from Model tab.</li>
 </ul>
-<p>Unsure if this is wanted behavior, it is now impossible to load the model afterwards because it no longer contains an Edge layer. Perhaps better if we only allow removal of the optional tables. See this <a href="https://github.com/Deltares/Ribasim/issues/1684">bug report</a>.</p>
+<p>Unsure if this is wanted behavior, it is now impossible to load the model afterwards because it no longer contains an Link layer. Perhaps better if we only allow removal of the optional tables. See this <a href="https://github.com/Deltares/Ribasim/issues/1684">bug report</a>.</p>
 </section>
 </section>
 <section id="nodes-tab-button-interaction-tests" class="level1" data-number="4">
@@ -505,8 +505,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>Unexpected behavior: The default type of the nodes is NULL, and therefore undefined. Should be enforced and validated. See <a href="https://github.com/Deltares/Ribasim/issues/1688#issuecomment-2265315907">issue</a>.</p>
 </section>
-<section id="add-edges-to-edge-layer" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="add-edges-to-edge-layer"><span class="header-section-number">5.2</span> Add edges to Edge layer</h2>
+<section id="add-links-to-link-layer" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="add-links-to-link-layer"><span class="header-section-number">5.2</span> Add links to Link layer</h2>
 <ul>
 <li>Open QGIS and ensure that the Ribasim plugin is installed and enabled.</li>
 <li>Open the application via the Ribasim button on the QGIS toolbar: <em>Ribasim panel opens</em>.</li>
@@ -519,7 +519,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Add a node id of 1, press OK: <em>The first Node appears on the map</em>.</li>
 <li>Click in the canvas again: <em>Popup appears with Feature Attributes to fill in</em>.</li>
 <li>Add a node id of 2, press OK: <em>The second Node appears on the map</em>.</li>
-<li>Select the Edge layer in the Layers tab: <em>edit buttons in the toolbar become enabled</em>.</li>
+<li>Select the Link layer in the Layers tab: <em>edit buttons in the toolbar become enabled</em>.</li>
 <li>Enable snapping under View &gt; Toolbars &gt; Snapping Toolbars: <em>Magnet button is enabled and active</em>.</li>
 <li>Press the Add Line Feature button: <em>Mouse becomes a crosshair</em>.</li>
 <li>Snap a line between the two nodes, click the two nodes and then right click to finish: <em>Popup shows with input, most fields are set to NULL</em>.</li>
@@ -536,8 +536,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Press the “Open” button in the Model tab: <em>file navigation window pops up</em>.</li>
 <li>Choose an existing model from the <code>generated_testmodels</code> folder.</li>
 <li>Press OK: <em>The model layers appear in the layer panel and on the map</em>.</li>
-<li>Select the node layer, and make a subselection of nodes on the map: <em>Nodes are highlighted in yellow, including their edges</em>.</li>
-<li>Open the Edge attribute table: <em>The highlighted rows are those with a from/to node_id that was selected</em>.</li>
+<li>Select the node layer, and make a subselection of nodes on the map: <em>Nodes are highlighted in yellow, including their links</em>.</li>
+<li>Open the Link attribute table: <em>The highlighted rows are those with a from/to node_id that was selected</em>.</li>
 <li>Open any non-spatial attribute table: <em>The highlighted rows are those with an node_id that was selected</em>.</li>
 </ul>
 </section>

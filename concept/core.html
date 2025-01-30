@@ -291,7 +291,7 @@ window.Quarto = {
 <ul>
 <li>Allocation optimization; activated when the allocation timestep has been passed;</li>
 <li>Control actions; activated when some discrete control callback is triggered;</li>
-<li>Water balance; computing the flows over flow edges happens each timestep;</li>
+<li>Water balance; computing the flows over flow links happens each timestep;</li>
 <li>Time integration step; done by the integrator from <code>OrdinaryDiffEq.jl</code>.</li>
 </ul>
 <div class="cell" data-layout-align="default">
@@ -333,7 +333,7 @@ window.Quarto = {
             activate Sim
             State--&gt;&gt;Sim: Input
             Param--&gt;&gt;Sim: Input
-            Sim-&gt;&gt;Sim: Compute flows over edges per node type
+            Sim-&gt;&gt;Sim: Compute flows over links per node type
             Sim--&gt;&gt;Param: Set flows
             deactivate Sim
         end
@@ -414,9 +414,9 @@ Caution
 </div>
 <p>Ribasim can calculate concentrations of conservative tracers (i.e.&nbsp;substances that are non-reactive). It does so by calculating the mass transports by flows for each timestep, in the <code>update_cumulative_flows!</code> callback. Specifically, for each Basin at each timestep it calculates:</p>
 <ul>
-<li>all mass inflows (<span class="math inline">\(flow * source\_concentration\)</span>) given the edge inflows</li>
+<li>all mass inflows (<span class="math inline">\(flow * source\_concentration\)</span>) given the link inflows</li>
 <li>update the concentrations in the Basin based on the added storage (<span class="math inline">\(previous storage + inflows\)</span>)</li>
-<li>all mass outflows (<span class="math inline">\(flow * basin\_concentration\_state\)</span>) give the edge outflows</li>
+<li>all mass outflows (<span class="math inline">\(flow * basin\_concentration\_state\)</span>) give the link outflows</li>
 <li>update the concentrations in the Basin based on the current storage</li>
 </ul>
 <p>We thus keep track of both mass and concentration of substances for each Basin. Note that we have not added the substance mass to the states, and we assume that concentrations of flows are piecewise constant over a timestep. This excludes the use of tracer injections.</p>
