@@ -383,7 +383,7 @@ window.Quarto = {
 
 
 <p>Set parameters of other nodes based on model state conditions (e.g.&nbsp;Basin level). The table below shows which parameters are controllable for a given node type.</p>
-<div id="310d8412" class="cell" data-execution_count="1">
+<div id="2123b0d2" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">Ribasim</span></span>
@@ -399,18 +399,21 @@ window.Quarto = {
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        controllable_fields <span class="op">=</span> Ribasim.<span class="fu">controllablefields</span>(node_name)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        controllable_fields <span class="op">=</span> <span class="fu">sort!</span>(<span class="fu">string</span>.(controllable_fields))</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> node_name <span class="op">==</span> <span class="op">:</span>TabulatedRatingCurve</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>            controllable_fields <span class="op">=</span> <span class="fu">map</span>(s <span class="op">-&gt;</span> <span class="fu">replace</span>(s, <span class="st">"table"</span> <span class="op">=&gt;</span> <span class="st">"q(h) relationship (given by level, flow_rate)"</span>), controllable_fields)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> !<span class="fu">isempty</span>(controllable_fields)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(node_names, Ribasim.<span class="fu">snake_case</span>(node_name))</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(controllable_parameters, <span class="fu">join</span>(controllable_fields, <span class="st">", "</span>))</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="fu">DataFrame</span>(<span class="op">:</span>node <span class="op">=&gt;</span> node_names, <span class="op">:</span>controllable_parameters <span class="op">=&gt;</span> controllable_parameters)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">markdown_table</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>            controllable_fields <span class="op">=</span> <span class="fu">map</span>(</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                s <span class="op">-&gt;</span> <span class="fu">replace</span>(s, <span class="st">"table"</span> <span class="op">=&gt;</span> <span class="st">"q(h) relationship (given by level, flow_rate)"</span>),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                controllable_fields,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> !<span class="fu">isempty</span>(controllable_fields)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(node_names, Ribasim.<span class="fu">snake_case</span>(node_name))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">push!</span>(controllable_parameters, <span class="fu">join</span>(controllable_fields, <span class="st">", "</span>))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">end</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="fu">DataFrame</span>(<span class="op">:</span>node <span class="op">=&gt;</span> node_names, <span class="op">:</span>controllable_parameters <span class="op">=&gt;</span> controllable_parameters)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">markdown_table</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display cell-output-markdown" data-execution_count="2">
 <table class="caption-top table table-sm table-striped small">
@@ -519,11 +522,11 @@ window.Quarto = {
 </section>
 <section id="condition" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="condition"><span class="header-section-number">1.2</span> Condition</h2>
-<p>The condition schema defines conditions of the form ‘the <code>discrete_control</code> node with this <code>node_id</code> listens to whether the variable given by the <code>node_id</code> and <code>compound_variable_id</code> is greater than <code>greater_than</code>’. In equation form:</p>
+<p>The condition schema defines conditions of the form ‘the <code>discrete_control</code> node with this <code>node_id</code> listens to whether the variable given by the <code>node_id</code> and <code>compound_variable_id</code> is greater than <code>greater_than</code>’ (at time <span class="math inline">\(t\)</span>). In equation form:</p>
 <p><span class="math display">\[
-    \text{weight}_1 * \text{variable}_1 + \text{weight}_2 * \text{variable}_2 + \ldots &gt; \text{greater\_than}.
+    \text{weight}_1 * \text{variable}_1 + \text{weight}_2 * \text{variable}_2 + \ldots &gt; \text{greater\_than}(t).
 \]</span></p>
-<p>Multiple conditions with different <code>greater_than</code> values can be defined on the same compound_variable.</p>
+<p>Multiple conditions with different <code>greater_than</code> values can be defined on the same compound_variable, each with their own unique <code>condition_id</code>.</p>
 <p>Note the strict inequality ‘<span class="math inline">\(&gt;\)</span>’ in the equation above. This means for instance that if a simulation starts with a compound variable exactly at the <code>greater_than</code> value, the condition is false.</p>
 <table class="caption-top table">
 <thead>
@@ -539,7 +542,7 @@ window.Quarto = {
 <td>node_id</td>
 <td>Int32</td>
 <td>-</td>
-<td></td>
+<td>-</td>
 </tr>
 <tr class="even">
 <td>compound_variable_id</td>
@@ -548,13 +551,26 @@ window.Quarto = {
 <td>-</td>
 </tr>
 <tr class="odd">
+<td>condition_id</td>
+<td>Int32</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
 <td>greater_than</td>
 <td>Float64</td>
 <td>various</td>
-<td></td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>time</td>
+<td>DateTime</td>
+<td>-</td>
+<td>(optional)</td>
 </tr>
 </tbody>
 </table>
+<p>When no (or only a single) <code>time</code> is supplied for a given <code>condition_id</code>, the <code>greater_than</code> value of this condition is unchanging over time.</p>
 </section>
 <section id="logic" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="logic"><span class="header-section-number">1.3</span> Logic</h2>
@@ -562,24 +578,10 @@ window.Quarto = {
 <ul>
 <li>During the simulation it is checked whether the truth of any of the conditions changes.</li>
 <li>When a condition changes, the corresponding DiscreteControl node ID is retrieved (node_id in the condition schema above).</li>
-<li>The truth value of all the conditions this DiscreteControl node listens to are retrieved, <strong>in the sorted order as specified in the condition schema</strong>. This is then converted into a string of “T” for true and “F” for false. This string we call the truth state.*</li>
+<li>The truth value of all the conditions this DiscreteControl node listens to are retrieved, in the order of the condition IDs. This is then converted into a string of “T” for true and “F” for false. This string we call the truth state.*</li>
 <li>The table below determines for the given DiscreteControl node ID and truth state what the corresponding control state is.</li>
 <li>For all the nodes this DiscreteControl node affects (as given by the “control” links in <a href="../../reference/usage.html#link">Links / static</a>), their parameters are set to those parameters in <code>NodeType / static</code> corresponding to the determined control state.</li>
 </ul>
-<p>*. There is also a second truth state created in which for the last condition that changed it is specified whether it was an upcrossing (“U”) or downcrossing (“D”) of the threshold (greater than) value. If a control state is specified for a truth state that is crossing-specific, this takes precedence over the control state for the truth state that contains only “T” and “F”.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>When creating truth states, it is important to not use the order of the condition table as you provide it, but the order as it is written to the file. Users can provide tables in any order, but when writing the model it gets sorted in the required order.</p>
-</div>
-</div>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 37%">
@@ -612,7 +614,7 @@ Note
 <td>truth_state</td>
 <td>String</td>
 <td>-</td>
-<td>Consists of the characters “T” (true), “F” (false), “U” (upcrossing), “D” (downcrossing) and “*” (any)</td>
+<td>Consists of the characters “T” (true), “F” (false) and “*” (any)</td>
 </tr>
 </tbody>
 </table>
