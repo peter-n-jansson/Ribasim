@@ -546,7 +546,7 @@ window.Quarto = {
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
-<pre><code>NodeData(node_id=1, node_type='Basin', geometry=&lt;POINT (0 0)&gt;)</code></pre>
+<pre><code>Basin #1</code></pre>
 </div>
 </div>
 <p>Setup the discrete control:</p>
@@ -572,7 +572,7 @@ window.Quarto = {
 <span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>NodeData(node_id=7, node_type='DiscreteControl', geometry=&lt;POINT (1 0)&gt;)</code></pre>
+<pre><code>DiscreteControl #7</code></pre>
 </div>
 </div>
 <p>The above control logic can be summarized as follows:</p>
@@ -592,7 +592,7 @@ window.Quarto = {
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    [pump.Static(control_state<span class="op">=</span>[<span class="st">"none"</span>, <span class="st">"in"</span>, <span class="st">"out"</span>], flow_rate<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">2e-3</span>])],</span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
-<pre><code>NodeData(node_id=3, node_type='Pump', geometry=&lt;POINT (1 -1)&gt;)</code></pre>
+<pre><code>Pump #3</code></pre>
 </div>
 </div>
 <p>The pump data defines the following:</p>
@@ -628,7 +628,7 @@ window.Quarto = {
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">4</span>, Point(<span class="fl">2.0</span>, <span class="fl">0.0</span>)), [level_boundary.Static(level<span class="op">=</span>[<span class="fl">10.0</span>])]</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
-<pre><code>NodeData(node_id=4, node_type='LevelBoundary', geometry=&lt;POINT (2 0)&gt;)</code></pre>
+<pre><code>LevelBoundary #4</code></pre>
 </div>
 </div>
 <p>Setup the rating curve:</p>
@@ -638,14 +638,14 @@ window.Quarto = {
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    [tabulated_rating_curve.Static(level<span class="op">=</span>[<span class="fl">2.0</span>, <span class="fl">15.0</span>], flow_rate<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">2e-3</span>])],</span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
-<pre><code>NodeData(node_id=5, node_type='TabulatedRatingCurve', geometry=&lt;POINT (-1 0)&gt;)</code></pre>
+<pre><code>TabulatedRatingCurve #5</code></pre>
 </div>
 </div>
 <p>Setup the terminal:</p>
 <div id="cell-47" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>model.terminal.add(Node(<span class="dv">6</span>, Point(<span class="op">-</span><span class="fl">2.0</span>, <span class="fl">0.0</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
-<pre><code>NodeData(node_id=6, node_type='Terminal', geometry=&lt;POINT (-2 0)&gt;)</code></pre>
+<pre><code>Terminal #6</code></pre>
 </div>
 </div>
 <p>Setup links:</p>
@@ -726,7 +726,7 @@ window.Quarto = {
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    [basin.Profile(area<span class="op">=</span>[<span class="fl">1000.0</span>, <span class="fl">1000.0</span>], level<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">1.0</span>]), basin.State(level<span class="op">=</span>[<span class="fl">6.0</span>])],</span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
-<pre><code>NodeData(node_id=2, node_type='Basin', geometry=&lt;POINT (1 0)&gt;)</code></pre>
+<pre><code>Basin #2</code></pre>
 </div>
 </div>
 <p>Setup the pump:</p>
@@ -736,7 +736,7 @@ window.Quarto = {
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    [pump.Static(flow_rate<span class="op">=</span>[<span class="fl">0.0</span>])],  <span class="co"># Will be overwritten by PID controller</span></span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="33">
-<pre><code>NodeData(node_id=3, node_type='Pump', geometry=&lt;POINT (2 0.5)&gt;)</code></pre>
+<pre><code>Pump #3</code></pre>
 </div>
 </div>
 <p>Setup the outlet:</p>
@@ -746,7 +746,7 @@ window.Quarto = {
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    [outlet.Static(flow_rate<span class="op">=</span>[<span class="fl">0.0</span>])],  <span class="co"># Will be overwritten by PID controller</span></span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="34">
-<pre><code>NodeData(node_id=6, node_type='Outlet', geometry=&lt;POINT (2 -0.5)&gt;)</code></pre>
+<pre><code>Outlet #6</code></pre>
 </div>
 </div>
 <p>Setup flow boundary:</p>
@@ -756,7 +756,7 @@ window.Quarto = {
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    [flow_boundary.Static(flow_rate<span class="op">=</span>[<span class="fl">1e-3</span>])],</span>
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="35">
-<pre><code>NodeData(node_id=1, node_type='FlowBoundary', geometry=&lt;POINT (0 0)&gt;)</code></pre>
+<pre><code>FlowBoundary #1</code></pre>
 </div>
 </div>
 <p>Setup level boundary:</p>
@@ -766,7 +766,7 @@ window.Quarto = {
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    [level_boundary.Static(level<span class="op">=</span>[<span class="fl">5.0</span>])],</span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="36">
-<pre><code>NodeData(node_id=4, node_type='LevelBoundary', geometry=&lt;POINT (3 0)&gt;)</code></pre>
+<pre><code>LevelBoundary #4</code></pre>
 </div>
 </div>
 <p>Setup PID control:</p>
@@ -871,7 +871,7 @@ window.Quarto = {
 <span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>    basin_data,</span>
 <span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="44">
-<pre><code>NodeData(node_id=5, node_type='Basin', geometry=&lt;POINT (3 0)&gt;)</code></pre>
+<pre><code>Basin #5</code></pre>
 </div>
 </div>
 <p>Setup the flow boundary:</p>
@@ -880,7 +880,7 @@ window.Quarto = {
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">1</span>, Point(<span class="fl">0.0</span>, <span class="fl">0.0</span>), subnetwork_id<span class="op">=</span><span class="dv">1</span>), [flow_boundary.Static(flow_rate<span class="op">=</span>[<span class="fl">2.0</span>])]</span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="45">
-<pre><code>NodeData(node_id=1, node_type='FlowBoundary', geometry=&lt;POINT (0 0)&gt;)</code></pre>
+<pre><code>FlowBoundary #1</code></pre>
 </div>
 </div>
 <p>Setup the linear resistance:</p>
@@ -890,7 +890,7 @@ window.Quarto = {
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>    [linear_resistance.Static(resistance<span class="op">=</span>[<span class="fl">0.06</span>])],</span>
 <span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="46">
-<pre><code>NodeData(node_id=4, node_type='LinearResistance', geometry=&lt;POINT (2 0)&gt;)</code></pre>
+<pre><code>LinearResistance #4</code></pre>
 </div>
 </div>
 <p>Setup the tabulated rating curve:</p>
@@ -900,14 +900,14 @@ window.Quarto = {
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>    [tabulated_rating_curve.Static(level<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>], flow_rate<span class="op">=</span>[<span class="fl">0.0</span>, <span class="fl">0.0</span>, <span class="fl">2.0</span>])],</span>
 <span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="47">
-<pre><code>NodeData(node_id=7, node_type='TabulatedRatingCurve', geometry=&lt;POINT (4 0)&gt;)</code></pre>
+<pre><code>TabulatedRatingCurve #7</code></pre>
 </div>
 </div>
 <p>Setup the terminal:</p>
 <div id="cell-95" class="cell" data-execution_count="48">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>model.terminal.add(Node(<span class="dv">8</span>, Point(<span class="fl">5.0</span>, <span class="fl">0.0</span>), subnetwork_id<span class="op">=</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="48">
-<pre><code>NodeData(node_id=8, node_type='Terminal', geometry=&lt;POINT (5 0)&gt;)</code></pre>
+<pre><code>Terminal #8</code></pre>
 </div>
 </div>
 <p>Setup the users:</p>
@@ -933,7 +933,7 @@ window.Quarto = {
 <span id="cb65-19"><a href="#cb65-19" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb65-20"><a href="#cb65-20" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="49">
-<pre><code>NodeData(node_id=3, node_type='UserDemand', geometry=&lt;POINT (1 1)&gt;)</code></pre>
+<pre><code>UserDemand #3</code></pre>
 </div>
 </div>
 <p>Setup the allocation:</p>
@@ -1077,7 +1077,7 @@ window.Quarto = {
 <span id="cb76-28"><a href="#cb76-28" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb76-29"><a href="#cb76-29" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="58">
-<pre><code>NodeData(node_id=5, node_type='Basin', geometry=&lt;POINT (2 -1)&gt;)</code></pre>
+<pre><code>Basin #5</code></pre>
 </div>
 </div>
 <p>Setup the flow boundary:</p>
@@ -1086,7 +1086,7 @@ window.Quarto = {
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">1</span>, Point(<span class="fl">0.0</span>, <span class="fl">0.0</span>), subnetwork_id<span class="op">=</span><span class="dv">2</span>), [flow_boundary.Static(flow_rate<span class="op">=</span>[<span class="fl">1e-3</span>])]</span>
 <span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="59">
-<pre><code>NodeData(node_id=1, node_type='FlowBoundary', geometry=&lt;POINT (0 0)&gt;)</code></pre>
+<pre><code>FlowBoundary #1</code></pre>
 </div>
 </div>
 <p>Setup level demand:</p>
@@ -1096,7 +1096,7 @@ window.Quarto = {
 <span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>    [level_demand.Static(demand_priority<span class="op">=</span>[<span class="dv">1</span>], min_level<span class="op">=</span>[<span class="fl">1.0</span>], max_level<span class="op">=</span>[<span class="fl">1.5</span>])],</span>
 <span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="60">
-<pre><code>NodeData(node_id=4, node_type='LevelDemand', geometry=&lt;POINT (1 -1)&gt;)</code></pre>
+<pre><code>LevelDemand #4</code></pre>
 </div>
 </div>
 <p>Setup the users:</p>
@@ -1110,7 +1110,7 @@ window.Quarto = {
 <span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="61">
-<pre><code>NodeData(node_id=3, node_type='UserDemand', geometry=&lt;POINT (2 0)&gt;)</code></pre>
+<pre><code>UserDemand #3</code></pre>
 </div>
 </div>
 <p>Setup the allocation:</p>
@@ -1276,7 +1276,7 @@ window.Quarto = {
 <span id="cb91-84"><a href="#cb91-84" aria-hidden="true" tabindex="-1"></a>    [basin.State(level<span class="op">=</span>[<span class="fl">0.1</span>]), polder_profile, <span class="op">*</span>basin_time],</span>
 <span id="cb91-85"><a href="#cb91-85" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="69">
-<pre><code>NodeData(node_id=12, node_type='Basin', geometry=&lt;POINT (4 -2)&gt;)</code></pre>
+<pre><code>Basin #12</code></pre>
 </div>
 </div>
 <p>After all the basins are defined the connecting component inbetween the basins needs to be determined. For polder basin 5 (node 12), the water level needs to be maintain at 0.0 meter. This means that either there should be no water in this basin, or the basin bottom is lower than the reference level, and the water level should be maintained at the reference level.</p>
@@ -1288,7 +1288,7 @@ window.Quarto = {
 <span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>    [pump.Static(flow_rate<span class="op">=</span>[<span class="fl">0.5</span> <span class="op">/</span> <span class="dv">3600</span>])],</span>
 <span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="70">
-<pre><code>NodeData(node_id=13, node_type='Pump', geometry=&lt;POINT (4 -1)&gt;)</code></pre>
+<pre><code>Pump #13</code></pre>
 </div>
 </div>
 <p>According to the description of situation 1 and 2, the water in one polder basin needs to be able to flow to the downstream basin if the current basin has too much water (i.e.&nbsp;the water level is above the setpoint) or if the downstream basin is below setpoint and needs more water. This could be modelled with an uncontrolled TabulatedRatingCurve node with Q=0 at the setpoint level (and Q rising when the level rises above setpoint) , or with an Outlet node where the <code>min_upstream_level</code> is specified at or just below the setpoint. In this example, we’ve chosen for the Outlet where we specify the minimum upstream level 5 cm below the setpoint. For example: the Outlet of polder basin 1 (node 4) is specified with a minimum upstream level of 1.95 meter.</p>
@@ -1316,7 +1316,7 @@ window.Quarto = {
 <span id="cb95-20"><a href="#cb95-20" aria-hidden="true" tabindex="-1"></a>    [outlet.Static(flow_rate<span class="op">=</span>[<span class="fl">0.5</span> <span class="op">/</span> <span class="dv">3600</span>], min_upstream_level<span class="op">=</span>[<span class="fl">0.45</span>])],</span>
 <span id="cb95-21"><a href="#cb95-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="71">
-<pre><code>NodeData(node_id=11, node_type='Outlet', geometry=&lt;POINT (4 -3)&gt;)</code></pre>
+<pre><code>Outlet #11</code></pre>
 </div>
 </div>
 <p>When using Outlets as connecting nodes, the flow over the Outlet needs to be controlled to maintain the water level at the setpoint. For this purpose we introduce local PidControllers, where the targets of the PidControllers are set to the setpoints. Disadvantage of this local control approach is the delay that is introduced to transport the ‘basin X has a shortage’ message upstream through the cascade to the inlet. Current functionality does not offer the capability for PidControl to take multiple observations into account when controlling the inlet. Combining multiple observations in one control is feasible with DiscreteControl. This could be an alternative approach to controlling the inlet for the cascading water system.</p>
@@ -1344,7 +1344,7 @@ window.Quarto = {
 <span id="cb97-20"><a href="#cb97-20" aria-hidden="true" tabindex="-1"></a>    [pid_control.Static(listen_node_id<span class="op">=</span>[<span class="dv">10</span>], target<span class="op">=</span>[<span class="fl">0.5</span>], <span class="op">**</span>pid_control_data)],</span>
 <span id="cb97-21"><a href="#cb97-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="72">
-<pre><code>NodeData(node_id=16, node_type='PidControl', geometry=&lt;POINT (3 -3)&gt;)</code></pre>
+<pre><code>PidControl #16</code></pre>
 </div>
 </div>
 <p>Setup the links:</p>
@@ -1473,7 +1473,7 @@ window.Quarto = {
 <span id="cb108-10"><a href="#cb108-10" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb108-11"><a href="#cb108-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="82">
-<pre><code>NodeData(node_id=1, node_type='LevelBoundary', geometry=&lt;POINT (0 0)&gt;)</code></pre>
+<pre><code>LevelBoundary #1</code></pre>
 </div>
 </div>
 <p>Set up the linear resistance:</p>
@@ -1482,7 +1482,7 @@ window.Quarto = {
 <span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>    Node(<span class="dv">2</span>, Point(<span class="dv">1</span>, <span class="dv">0</span>)), [linear_resistance.Static(resistance<span class="op">=</span>[<span class="fl">10.0</span>])]</span>
 <span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="83">
-<pre><code>NodeData(node_id=2, node_type='LinearResistance', geometry=&lt;POINT (1 0)&gt;)</code></pre>
+<pre><code>LinearResistance #2</code></pre>
 </div>
 </div>
 <p>Set up the basin:</p>
@@ -1495,7 +1495,7 @@ window.Quarto = {
 <span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb112-7"><a href="#cb112-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="84">
-<pre><code>NodeData(node_id=3, node_type='Basin', geometry=&lt;POINT (2 0)&gt;)</code></pre>
+<pre><code>Basin #3</code></pre>
 </div>
 </div>
 <p>Set up the outlets:</p>
@@ -1503,7 +1503,7 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb114"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>model.outlet.add(Node(<span class="dv">4</span>, Point(<span class="dv">3</span>, <span class="dv">1</span>)), [outlet.Static(flow_rate<span class="op">=</span>[<span class="fl">1.0</span>])])</span>
 <span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>model.outlet.add(Node(<span class="dv">5</span>, Point(<span class="dv">3</span>, <span class="op">-</span><span class="dv">1</span>)), [outlet.Static(flow_rate<span class="op">=</span>[<span class="fl">1.0</span>])])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="85">
-<pre><code>NodeData(node_id=5, node_type='Outlet', geometry=&lt;POINT (3 -1)&gt;)</code></pre>
+<pre><code>Outlet #5</code></pre>
 </div>
 </div>
 <p>Set up the terminals:</p>
@@ -1511,7 +1511,7 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb116"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>model.terminal.add(Node(<span class="dv">6</span>, Point(<span class="dv">4</span>, <span class="dv">1</span>)))</span>
 <span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>model.terminal.add(Node(<span class="dv">7</span>, Point(<span class="dv">4</span>, <span class="op">-</span><span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="86">
-<pre><code>NodeData(node_id=7, node_type='Terminal', geometry=&lt;POINT (4 -1)&gt;)</code></pre>
+<pre><code>Terminal #7</code></pre>
 </div>
 </div>
 <p>Set up the continuous control:</p>
@@ -1545,7 +1545,7 @@ window.Quarto = {
 <span id="cb118-27"><a href="#cb118-27" aria-hidden="true" tabindex="-1"></a>    ],</span>
 <span id="cb118-28"><a href="#cb118-28" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="87">
-<pre><code>NodeData(node_id=9, node_type='ContinuousControl', geometry=&lt;POINT (2 -1)&gt;)</code></pre>
+<pre><code>ContinuousControl #9</code></pre>
 </div>
 </div>
 <p>This defines:</p>
