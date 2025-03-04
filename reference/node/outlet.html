@@ -320,6 +320,7 @@ window.Quarto = {
   <li><a href="#tables" id="toc-tables" class="nav-link active" data-scroll-target="#tables"><span class="header-section-number">1</span> Tables</a>
   <ul class="collapse">
   <li><a href="#static" id="toc-static" class="nav-link" data-scroll-target="#static"><span class="header-section-number">1.1</span> Static</a></li>
+  <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time"><span class="header-section-number">1.2</span> Time</a></li>
   </ul></li>
   <li><a href="#equations" id="toc-equations" class="nav-link" data-scroll-target="#equations"><span class="header-section-number">2</span> Equations</a></li>
   </ul>
@@ -412,6 +413,70 @@ window.Quarto = {
 <td>(optional)</td>
 </tr>
 <tr class="even">
+<td>max_downstream_level</td>
+<td>Float64</td>
+<td><span class="math inline">\(\text{m}\)</span></td>
+<td>(optional)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="time" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="time"><span class="header-section-number">1.2</span> Time</h2>
+<p>This table is the transient form of the <code>Outlet</code> table. With this all parameters can be updated over time. In between the given times the flow_rate is interpolated linearly, and outside the flow rate is constant given by the nearest time value. Note that a <code>node_id</code> can be either in this table or in the static one, but not both.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 14%">
+<col style="width: 44%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int32</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>time</td>
+<td>DateTime</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>flow_rate</td>
+<td>Float64</td>
+<td>$^3/$</td>
+<td>non-negative</td>
+</tr>
+<tr class="even">
+<td>min_flow_rate</td>
+<td>Float64</td>
+<td>$^3/$</td>
+<td>(optional, default 0.0)</td>
+</tr>
+<tr class="odd">
+<td>max_flow_rate</td>
+<td>Float64</td>
+<td>$^3/$</td>
+<td>(optional)</td>
+</tr>
+<tr class="even">
+<td>min_upstream_level</td>
+<td>Float64</td>
+<td><span class="math inline">\(\text{m}\)</span></td>
+<td>(optional)</td>
+</tr>
+<tr class="odd">
 <td>max_downstream_level</td>
 <td>Float64</td>
 <td><span class="math inline">\(\text{m}\)</span></td>
