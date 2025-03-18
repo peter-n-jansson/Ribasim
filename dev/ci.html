@@ -303,6 +303,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Ribasim Python tests: Runs Ribasim Python tests on multiple platforms and multiple Python versions</li>
 <li>QGIS Tests: Runs QGIS unit tests</li>
 </ul>
+<p>The Github CI configuration is stored in version control, and can be found in the <code>.github</code> folder.</p>
+<p>One can <a href="https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/skipping-workflow-runs">skip running the CI</a> using <code>[skip ci]</code> in the git commit message.</p>
 </section>
 <section id="teamcity" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> TeamCity</h1>
@@ -321,6 +323,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
+<p>The Teamcity CI configuration itself is also stored in version control, and can be found in the <code>.teamcity</code> folder. Note that changes are only applied once merged to the <code>main</code> branch. One can test the validity of their local configuration with <code>mvn teamcity-configs:generate</code> (requiring a local installation of <a href="https://maven.apache.org/">maven</a>).</p>
+<p>Like Github, one can skip running the Teamcity CI by starting the git commit message with <code>[skip ci]</code>.</p>
 <section id="conditions-of-using-teamcity" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="conditions-of-using-teamcity"><span class="header-section-number">2.1</span> Conditions of using TeamCity</h2>
 <p>TeamCity only runs workflows with the following conditions:</p>
