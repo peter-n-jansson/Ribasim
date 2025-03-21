@@ -397,8 +397,9 @@ window.Quarto = {
   <li><a href="#discretecontrol---control.arrow" id="toc-discretecontrol---control.arrow" class="nav-link" data-scroll-target="#discretecontrol---control.arrow"><span class="header-section-number">5.4</span> DiscreteControl - <code>control.arrow</code></a></li>
   <li><a href="#allocation---allocation.arrow" id="toc-allocation---allocation.arrow" class="nav-link" data-scroll-target="#allocation---allocation.arrow"><span class="header-section-number">5.5</span> Allocation - <code>allocation.arrow</code></a></li>
   <li><a href="#allocation-flow---allocation_flow.arrow" id="toc-allocation-flow---allocation_flow.arrow" class="nav-link" data-scroll-target="#allocation-flow---allocation_flow.arrow"><span class="header-section-number">5.6</span> Allocation flow - <code>allocation_flow.arrow</code></a></li>
-  <li><a href="#subgrid-level---subgrid_level.arrow" id="toc-subgrid-level---subgrid_level.arrow" class="nav-link" data-scroll-target="#subgrid-level---subgrid_level.arrow"><span class="header-section-number">5.7</span> Subgrid level - <code>subgrid_level.arrow</code></a></li>
-  <li><a href="#solver-statistics---solver_stats.arrow" id="toc-solver-statistics---solver_stats.arrow" class="nav-link" data-scroll-target="#solver-statistics---solver_stats.arrow"><span class="header-section-number">5.8</span> Solver statistics - <code>solver_stats.arrow</code></a></li>
+  <li><a href="#concentration---concentration.arrow" id="toc-concentration---concentration.arrow" class="nav-link" data-scroll-target="#concentration---concentration.arrow"><span class="header-section-number">5.7</span> Concentration - <code>concentration.arrow</code></a></li>
+  <li><a href="#subgrid-level---subgrid_level.arrow" id="toc-subgrid-level---subgrid_level.arrow" class="nav-link" data-scroll-target="#subgrid-level---subgrid_level.arrow"><span class="header-section-number">5.8</span> Subgrid level - <code>subgrid_level.arrow</code></a></li>
+  <li><a href="#solver-statistics---solver_stats.arrow" id="toc-solver-statistics---solver_stats.arrow" class="nav-link" data-scroll-target="#solver-statistics---solver_stats.arrow"><span class="header-section-number">5.9</span> Solver statistics - <code>solver_stats.arrow</code></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -1081,8 +1082,54 @@ Note
 </tbody>
 </table>
 </section>
-<section id="subgrid-level---subgrid_level.arrow" class="level2" data-number="5.7">
-<h2 data-number="5.7" class="anchored" data-anchor-id="subgrid-level---subgrid_level.arrow"><span class="header-section-number">5.7</span> Subgrid level - <code>subgrid_level.arrow</code></h2>
+<section id="concentration---concentration.arrow" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="concentration---concentration.arrow"><span class="header-section-number">5.7</span> Concentration - <code>concentration.arrow</code></h2>
+<p>If the <a href="../reference/usage.html#experimental-features">experimental concentration feature</a> is enabled, the results are written to <code>concentration.arrow</code>. This file records the Basin concentrations for each substance over time. The schema below is identical to the <a href="../reference/node/basin.html#concentration-external">external Basin concentration input</a>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 14%">
+<col style="width: 42%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>column</th>
+<th>type</th>
+<th>unit</th>
+<th>restriction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>node_id</td>
+<td>Int32</td>
+<td>-</td>
+<td>Basin nodes only</td>
+</tr>
+<tr class="even">
+<td>time</td>
+<td>DateTime</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>substance</td>
+<td>String</td>
+<td>-</td>
+<td>can correspond to known Delwaq substances</td>
+</tr>
+<tr class="even">
+<td>concentration</td>
+<td>Float64</td>
+<td><span class="math inline">\(\text{g}/\text{m}^3\)</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="subgrid-level---subgrid_level.arrow" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="subgrid-level---subgrid_level.arrow"><span class="header-section-number">5.8</span> Subgrid level - <code>subgrid_level.arrow</code></h2>
 <p>This result file is only written if the model contains a <a href="../reference/node/basin.html#subgrid">Basin / subgrid</a> table. See there for more information on the meaning of this output.</p>
 <table class="caption-top table">
 <thead>
@@ -1107,8 +1154,8 @@ Note
 </tbody>
 </table>
 </section>
-<section id="solver-statistics---solver_stats.arrow" class="level2" data-number="5.8">
-<h2 data-number="5.8" class="anchored" data-anchor-id="solver-statistics---solver_stats.arrow"><span class="header-section-number">5.8</span> Solver statistics - <code>solver_stats.arrow</code></h2>
+<section id="solver-statistics---solver_stats.arrow" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="solver-statistics---solver_stats.arrow"><span class="header-section-number">5.9</span> Solver statistics - <code>solver_stats.arrow</code></h2>
 <p>This result file contains statistics about the solver, which can give an insight into how well the solver is performing over time. The data is solved by <code>saveat</code> (see <a href="#configuration-file">configuration file</a>). <code>water_balance</code> refers to the right-hand-side function of the system of differential equations solved by the Ribasim core.</p>
 <table class="caption-top table">
 <thead>
