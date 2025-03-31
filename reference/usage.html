@@ -1030,7 +1030,12 @@ Note
 </section>
 <section id="allocation-flow---allocation_flow.arrow" class="level2" data-number="5.6">
 <h2 data-number="5.6" class="anchored" data-anchor-id="allocation-flow---allocation_flow.arrow"><span class="header-section-number">5.6</span> Allocation flow - <code>allocation_flow.arrow</code></h2>
-<p>The allocation flow table contains results of the optimized allocation flow on every link in the model that is part of a subnetwork, for each time an optimization problem is solved (see also <a href="../concept/allocation.html#the-high-level-algorithm">here</a>). If in the model a main network and subnetwork(s) are specified, there are 2 different types of optimization for the subnetwork: collecting its total demand per priority (for allocating flow from the main network to the subnetwork), and allocating flow within the subnetwork. The column <code>collect_demands</code> provides the distinction between these two optimization types.</p>
+<p>The allocation flow table contains results of the optimized allocation flow on every link in the model that is part of a subnetwork, for each time an optimization problem is solved (see also <a href="../concept/allocation.html#the-high-level-algorithm">here</a>). If in the model a main network and subnetwork(s) are specified, there are 3 different types of optimization for the subnetwork: The column <code>optimization_type</code> provides the distinction between these optimization types.</p>
+<ul>
+<li><code>internal_sources</code>: first it will try using local sources internal to the subnetwork</li>
+<li><code>collect_demands</code>: collecting its total demand per priority (for allocating flow from the main network to the subnetwork)</li>
+<li><code>allocate</code>: allocating flow within the subnetwork</li>
+</ul>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1076,8 +1081,8 @@ Note
 <td>Float64</td>
 </tr>
 <tr class="even">
-<td>collect_demands</td>
-<td>Bool</td>
+<td>optimization_type</td>
+<td>String</td>
 </tr>
 </tbody>
 </table>
