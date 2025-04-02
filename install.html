@@ -269,25 +269,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre class="mermaid mermaid-js">flowchart TB
 modeler([Modeler]):::user
 
-api["Ribasim Python\n[python]"]
+api["Ribasim Python
+    [python]"]
 modeler--&gt;|prepare model|api
 
-ribasim["Ribasim\n[julia]"]
+ribasim["Ribasim
+        [julia]"]
 modeler--&gt;|start|ribasim
 
 subgraph qgisBoundary[QGIS]
     QGIS[QGIS Application]:::system_ext
-    qgisPlugin["Ribasim QGIS plugin\n[python]"]
+    qgisPlugin["Ribasim QGIS plugin
+               [python]"]
     QGIS--&gt;qgisPlugin
 end
 modeler--&gt;|prepare model|qgisBoundary
 
-model[("input model data\n[toml + geopackage + arrow]")]
+model[("input model data
+        [toml + geopackage + arrow]")]
 qgisPlugin--&gt;|read/write|model
 api--&gt;|read/write|model
 ribasim--&gt;|simulate|model
 
-output[("simulation results\n[arrow]")]
+output[("simulation results
+         [arrow]")]
 ribasim--&gt;|write|output
 
 class qgisBoundary boundary
