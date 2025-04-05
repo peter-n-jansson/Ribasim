@@ -1168,33 +1168,45 @@ Note
 <section id="solver-statistics---solver_stats.arrow" class="level2" data-number="5.9">
 <h2 data-number="5.9" class="anchored" data-anchor-id="solver-statistics---solver_stats.arrow"><span class="header-section-number">5.9</span> Solver statistics - <code>solver_stats.arrow</code></h2>
 <p>This result file contains statistics about the solver, which can give an insight into how well the solver is performing over time. The data is solved by <code>saveat</code> (see <a href="#configuration-file">configuration file</a>). <code>water_balance</code> refers to the right-hand-side function of the system of differential equations solved by the Ribasim core.</p>
+<p>The <code>computation_time</code> is the wall time in milliseconds spent on the given period. The first row tends to include compilation time as well.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th>column</th>
 <th>type</th>
+<th>unit</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>time</td>
 <td>DateTime</td>
+<td>-</td>
 </tr>
 <tr class="even">
+<td>computation_time</td>
+<td>Float64</td>
+<td><span class="math inline">\(\text{ms}\)</span></td>
+</tr>
+<tr class="odd">
 <td>water_balance_calls</td>
 <td>Int</td>
-</tr>
-<tr class="odd">
-<td>linear_solves</td>
-<td>Int</td>
+<td>-</td>
 </tr>
 <tr class="even">
-<td>accepted_timesteps</td>
+<td>linear_solves</td>
 <td>Int</td>
+<td>-</td>
 </tr>
 <tr class="odd">
+<td>accepted_timesteps</td>
+<td>Int</td>
+<td>-</td>
+</tr>
+<tr class="even">
 <td>rejected_timesteps</td>
 <td>Int</td>
+<td>-</td>
 </tr>
 </tbody>
 </table>
