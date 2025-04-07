@@ -297,7 +297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="call-stacks" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Call stacks</h1>
-<div id="74edeb1a" class="cell" data-execution_count="1">
+<div id="d9b83833" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CairoMakie</span></span>
@@ -319,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="parameter-initialization" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="parameter-initialization"><span class="header-section-number">1.1</span> Parameter initialization</h2>
 <p>Parameter initialization is the process of reading the parameter values from the input files and storing them in data structures for easy access in the core. Most notable here is the convergence of many paths to <code>load_structvector</code> and <code>parse_static_and_time</code>, as these are needed for parameter initialization for most node types.</p>
-<div id="4dfd18a4" class="cell" data-execution_count="2">
+<div id="253ba10f" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">SQLite</span></span>
@@ -353,7 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="water_balance" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="water_balance"><span class="header-section-number">1.2</span> <code>water_balance!</code></h2>
 <p><code>water_balance!</code> is the right hand side function of the system of ODEs that is solved by the Ribasim core (for more details see <a href="../concept/equations.html#formal-model-description">here</a>). The various <code>formulate_flow!</code> methods are for flow rates as determined by different node types.</p>
-<div id="e5169a7e" class="cell" data-execution_count="3">
+<div id="c6df0e7b" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">OrdinaryDiffEqCore</span>: get_du</span>
@@ -375,7 +375,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="allocation-initialization" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="allocation-initialization"><span class="header-section-number">1.3</span> Allocation initialization</h2>
 <p>In this part of the code the data structures for allocation are set up. Most endpoints in <code>allocation_init.jl</code> set up data structures as defined in <a href="https://jump.dev/JuMP.jl/stable/">JuMP.jl</a>.</p>
-<div id="8d0e31d0" class="cell" data-execution_count="4">
+<div id="6a5acd04" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>toml_path <span class="op">=</span> <span class="fu">normpath</span>(</span>
@@ -405,7 +405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="allocation-run" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="allocation-run"><span class="header-section-number">1.4</span> Allocation run</h2>
 <p>Running the allocation algorithm consists of running the optimization itself (which is handled in <code>JuMP.jl</code>), and all Ribasim functions around it are used for communicating data between the optimization problem and the physical layer, as well as gathering output data. Fore more information on the allocation algorithm see <a href="../concept/allocation.html">here</a>.</p>
-<div id="53bff499" class="cell" data-execution_count="5">
+<div id="5e946d57" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Ribasim.<span class="fu">Model</span>(toml_path)</span>
@@ -424,7 +424,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="discrete-control" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="discrete-control"><span class="header-section-number">1.5</span> Discrete control</h2>
 <p>Discrete control works by a <a href="https://docs.sciml.ai/DiffEqCallbacks/stable/output_saving/#DiffEqCallbacks.FunctionCallingCallback"><code>FunctionCallingCallback</code></a>, changing parameters when a change in control state is detected (see also <a href="../reference/node/discrete-control.html">here</a>).</p>
-<div id="b3cd25df" class="cell" data-execution_count="6">
+<div id="34b4782d" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>toml_path <span class="op">=</span></span>
@@ -448,7 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="writing-output" class="level2" data-number="1.6">
 <h2 data-number="1.6" class="anchored" data-anchor-id="writing-output"><span class="header-section-number">1.6</span> Writing output</h2>
 <p>Writing output (currently) happens only after the full simulation is finished. For more information on the different output tables see <a href="../reference/usage.html#results">here</a>.</p>
-<div id="47f88cb4" class="cell" data-execution_count="7">
+<div id="c9fdc21f" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>toml_path <span class="op">=</span> <span class="fu">normpath</span>(<span class="pp">@__DIR__</span>, <span class="st">"../../generated_testmodels/basic_transient/ribasim.toml"</span>)</span>
