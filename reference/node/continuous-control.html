@@ -375,7 +375,7 @@ Note
 <h1 data-number="1"><span class="header-section-number">1</span> Tables</h1>
 <section id="variable" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="variable"><span class="header-section-number">1.1</span> Variable</h2>
-<p>The compound variable schema defines linear combinations of variables which can be used in conditions. This means that this schema defines new variables with the given <code>compound_variable_id</code> that look like <span class="math display">\[
+<p>The compound variable schema defines linear combinations of variables which can be used as an input for continuous functions described below. This means that this schema defines new variables that look like <span class="math display">\[
     \text{weight}_1 * \text{variable}_1 + \text{weight}_2 * \text{variable}_2 + \ldots,
 \]</span></p>
 <p>which can be for instance an average or a difference of variables. If a variable comes from a timeseries, a look ahead <span class="math inline">\(\Delta t\)</span> can be supplied. There is only one compound variable per <code>ContinuousControl</code> node.</p>
