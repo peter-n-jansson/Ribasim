@@ -414,7 +414,7 @@ window.Quarto = {
 <h1 data-number="2"><span class="header-section-number">2</span> Performance</h1>
 <p>There are many things that can influence the calculations times, for instance:</p>
 <ul>
-<li><a href="https://docs.sciml.ai/DiffEqDocs/stable/basics/faq/#What-does-tolerance-mean-and-how-much-error-should-I-expect">Solver tolerance</a>: By default both the absolute and relative tolerance is <code>1e-7</code>.</li>
+<li><a href="https://docs.sciml.ai/DiffEqDocs/stable/basics/faq/#What-does-tolerance-mean-and-how-much-error-should-I-expect">Solver tolerance</a>: By default both the absolute and relative tolerance is <code>1e-5</code>.</li>
 <li><a href="https://diffeq.sciml.ai/stable/solvers/ode_solve/">ODE solvers</a>: The <code>QNDF</code> method we use is robust to oscillations and massive stiffness, however other solvers should be tried as well.</li>
 <li>Forcing: Every time new forcing data is injected into the model, it needs to pause. Moreover, the larger the forcing fluxes are, the bigger the shock to the system, leading to smaller timesteps and thus longer simulation times.</li>
 </ul>
