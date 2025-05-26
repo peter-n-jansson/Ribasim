@@ -30,7 +30,17 @@ node_id | flow_rate  | level
 
 Below the lowest given level of -0.10, the flow rate is kept at 0.
 Between given levels the flow rate is interpolated linearly.
-Above the maximum given level of 20.09, the flow rate keeps increases linearly according to the slope of the last segment.
+Above the maximum given level of 20.09, the flow rate keeps increases linearly according to the slope of the last segment. 
+In this case, a water level of 40 would lead to a flow rate of around 2. 
+To set a maximum flowrate regardless of level, add an extra row with the identical (maximum) flow rate:
+
+node_id | flow_rate  | level
+------- |----------- |-------
+      2 | 0.0        | -0.10
+      2 | 0.0001     |  0.09
+      2 | 0.01       |  0.29
+      2 | 0.9        | 20.09
+      2 | 0.9        | 20.10
 
 ### Interpolation
 
